@@ -1,0 +1,163 @@
+[
+  {
+    "function": "start_cad_session",
+    "status": "pass",
+    "detail": "已调用启动流程",
+    "output": "",
+    "timestamp": "2025-11-16T21:38:33"
+  },
+  {
+    "function": "new_file",
+    "status": "pass",
+    "detail": "",
+    "output": "D:\\codex-tasks\\tests\\CAD_file_operations\\dwg_outputs\\new_file.dwg",
+    "timestamp": "2025-11-16T21:38:37"
+  },
+  {
+    "function": "open_file",
+    "status": "pass",
+    "detail": "",
+    "output": "D:\\codex-tasks\\tests\\CAD_file_operations\\dwg_inputs\\test_all_func.dwg",
+    "timestamp": "2025-11-16T21:38:37"
+  },
+  {
+    "function": "copy_file_with_increment",
+    "status": "pass",
+    "detail": "",
+    "output": "D:\\codex-tasks\\tests\\CAD_file_operations\\dwg_inputs\\test_all_func-16.dwg",
+    "timestamp": "2025-11-16T21:38:37"
+  },
+  {
+    "function": "save_file",
+    "status": "pass",
+    "detail": "",
+    "output": "",
+    "timestamp": "2025-11-16T21:38:39"
+  },
+  {
+    "function": "save_file_as",
+    "status": "pass",
+    "detail": "",
+    "output": "D:\\codex-tasks\\tests\\CAD_file_operations\\dwg_outputs\\save_as.dwg",
+    "timestamp": "2025-11-16T21:38:40"
+  },
+  {
+    "function": "close_file",
+    "status": "pass",
+    "detail": "",
+    "output": "",
+    "timestamp": "2025-11-16T21:38:43"
+  },
+  {
+    "function": "close_all_files",
+    "status": "pass",
+    "detail": "",
+    "output": "",
+    "timestamp": "2025-11-16T21:38:54"
+  },
+  {
+    "function": "insert_file_as_block",
+    "status": "pass",
+    "detail": "",
+    "output": "D:\\codex-tasks\\tests\\CAD_file_operations\\dwg_outputs\\insert_block_target.dwg",
+    "timestamp": "2025-11-16T21:39:02"
+  },
+  {
+    "function": "insert_file_exploded",
+    "status": "pass",
+    "detail": "",
+    "output": "D:\\codex-tasks\\tests\\CAD_file_operations\\dwg_outputs\\insert_block_target.dwg",
+    "timestamp": "2025-11-16T21:39:09"
+  },
+  {
+    "function": "copy_file_content_pywin32",
+    "status": "pass",
+    "detail": "",
+    "output": "D:\\codex-tasks\\tests\\CAD_file_operations\\dwg_outputs\\copy_pywin32.dwg",
+    "timestamp": "2025-11-16T21:39:19"
+  },
+  {
+    "function": "insert_region_from_file",
+    "status": "blocked",
+    "detail": "依赖CAD区域插入: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:51:47"
+  },
+  {
+    "function": "dim_by_points",
+    "status": "blocked",
+    "detail": "依赖CAD标注: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:51:48"
+  },
+  {
+    "function": "draw_tarch_wall",
+    "status": "blocked",
+    "detail": "依赖天正墙: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:51:49"
+  },
+  {
+    "function": "insert_tarch_door",
+    "status": "blocked",
+    "detail": "依赖天正门: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:51:50"
+  },
+  {
+    "function": "insert_tarch_window",
+    "status": "blocked",
+    "detail": "依赖天正窗: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:51:50"
+  },
+  {
+    "function": "restore_to_uncertain_state",
+    "status": "blocked",
+    "detail": "依赖CAD: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:51:50"
+  },
+  {
+    "function": "activate_document_by_name",
+    "status": "blocked",
+    "detail": "依赖已打开文件: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:52:05"
+  },
+  {
+    "function": "cad_zt_zero",
+    "status": "blocked",
+    "detail": "依赖CAD: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:52:05"
+  },
+  {
+    "function": "cad_zt_oneb",
+    "status": "blocked",
+    "detail": "依赖CAD: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:52:05"
+  },
+  {
+    "function": "cad_zt_oned",
+    "status": "blocked",
+    "detail": "依赖CAD: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:52:05"
+  },
+  {
+    "function": "cad_zt_two",
+    "status": "blocked",
+    "detail": "依赖CAD: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:52:05"
+  },
+  {
+    "function": "cad_zt_much",
+    "status": "blocked",
+    "detail": "依赖CAD: [Errno 22] Invalid argument",
+    "output": "",
+    "timestamp": "2025-11-16T21:52:05"
+  }
+]
