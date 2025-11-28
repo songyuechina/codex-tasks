@@ -1,0 +1,3 @@
+﻿python copy_block_contents_at_same_location_demo.py
+
+脚本生成示例块后调用 copy_block_contents_at_same_location 在原位置拷贝块内容，遵循标准流程并记录 test_log.txt。

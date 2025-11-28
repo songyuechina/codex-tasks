@@ -1,0 +1,97 @@
+def insert_tarch_door(p, width=None, height=None):
+    """
+    在墙体上插入天正门
+
+    Args:
+        p: 插入点坐标 (x, y, z)
+        width: 门宽（可选，不指定则使用默认值）
+        height: 门高（可选，不指定则使用默认值）
+
+    Returns:
+        dict: {'success': bool, 'door': 门对象, 'width': 实际宽度, 'height': 实际高度}
+    """
+    import sys
+    import time
+    sys.path.append(str(Path(__file__).parent))
+    from CAD_basic import get_acad_doc, get_object_property, set_object_property
+    from CAD_coordination import send_cmd_with_sync, wait_quiescent
+
+    li()
+    try:
+        _, doc = get_acad_doc()
+        ms = doc.ModelSpace
+        count_before = ms.Count
+
+        # 发送TOpening命令插入门
+        cmd = f"TOpening\n{p[0]},{p[1]}\n\n\n"
+        send_cmd_with_sync(cmd, wait_after=1.0)
+        wait_quiescent(min_quiet=0.5, timeout=15.0)
+
+        door = None
+        deadline = time.time() + 8.0
+        while time.time() < deadline and door is None:
+            time.sleep(0.5)
+            count_after = ms.Count
+            if count_after <= count_before:
+                continue
+            for idx in range(count_before, count_after):
+                try:
+                    obj = ms.Item(idx)
+                    if getattr(obj, "ObjectName", "").lower() == "tdbopening":
+                        door = obj
+                        break
+                except Exception:
+                    continue
+        if door is None:
+            # 最后再全局搜索一次
+            for idx in range(ms.Count - 1, -1, -1):
+                try:
+                    obj = ms.Item(idx)
+                    if getattr(obj, "ObjectName", "").lower() == "tdbopening":
+                        door = obj
+                        break
+                except Exception:
+                    continue
+        if door is None:
+            from CAD_basic import last_obj
+            for _ in range(3):
+                try:
+                    candidate = last_obj()
+                    if getattr(candidate, "ObjectName", "").lower() == "tdbopening":
+                        door = candidate
+                        break
+                except Exception:
+                    pass
+                time.sleep(0.4)
+
+        if door is None:
+            print("[错误] 未在模型空间中找到天正门对象")
+            return {'success': False, 'door': None, 'width': None, 'height': None}
+
+        # 读取当前尺寸
+        current_width = get_object_property(door, 'Width')
+        current_height = get_object_property(door, 'Height')
+
+        # 设置尺寸（如果指定）
+        if width is not None:
+            set_object_property(door, 'Width', width)
+            current_width = width
+
+        if height is not None:
+            set_object_property(door, 'Height', height)
+            current_height = height
+
+        print(f"[成功] 已插入天正门 - 宽度:{current_width}, 高度:{current_height}")
+
+        return {
+            'success': True,
+            'door': door,
+            'width': current_width,
+            'height': current_height
+        }
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"[错误] 插入门失败: {e}")
+        return {'success': False, 'door': None, 'width': None, 'height': None}

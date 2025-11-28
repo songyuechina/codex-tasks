@@ -1,42 +1,13 @@
-<任务1>
+﻿先导入 from  CAD_file_operations.py import * ,然后执行D:/codex-tasks/cad/scripts/CAD_file_operations.py的cad_zt_oneb()，它将当前桌面状态自动调整为天正
+打开了一个未保存的dwg的状态。然后执行litz()，它确保当前cad界面是天正cad界面。在这个状态下，
 
-处理好activate_document_by_name，并测试通过。
+使用open_file(file_path)打开D:/codex-tasks/cad/ziliao/图签测试0.dwg，li()后，执行lb=stc("dy")就能选择到包含两根图框线的列表lb。执行函数insert_and_scale_labels_area(
+        lb,
+        filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+        layername = "dy_quyu",
 
-activate_document_by_name函数的功能是对多个打开的文件，通过选择文件名使得该文件成为pywin32连接的文档。该函数的问题在于假定cad当前激活文件由D:/codex-tasks/cad/scripts/CAD_basic.py的 函数li()
+        timestamp=None,
+        delpan = 0
 
-连接，然后函数中输入当前文档存在的多个文件名之一，则转为改文件是cad当前界面的激活文件并被pywin32所连接控制。
-
-测试的时候，需要打开3个以上dwg文件，使用li()命令任意连接一个，就可以使用该函数在当前存在的文件中转换当前激活状态和被pywin32控制，用于多文件操作。我已经测试，函数运行正常。
-
-鉴于CAD_file_operations.py可能要引用D:/codex-tasks/cad/scripts/CAD_basic.py的所有函数，应该通过from命令将所有函数都插入进来。
-
-<任务2>
-
-copy_file_content的功能与copy_file_content_pywin32重复，既然不可靠，就将此函数删除。
-
-<任务3>
-
-我新建了文件
-D:/codex-tasks/tests/CAD_file_operations/dwg_outputs/insert_region_from_file_2.dwg
-D:/codex-tasks/tests/CAD_file_operations/dwg_outputs/insert_region_from_file_1.dwg
-
-你可以打开D:/codex-tasks/tests/CAD_file_operations/dwg_outputs/insert_region_from_file_1.dwg并通过CAD_basic.py的li()连接它成为当前激活文件，然后运行
-
-insert_region_from_file("D:/codex-tasks/tests/CAD_file_operations/dwg_outputs/insert_region_from_file_2.dwg", 2967.3644, 484.092, 6932.79, -1821.9816, 0, 0, explode=True)
-
-则函数将把文件中2967.3644, 484.092, 6932.79, -1821.9816区域内的图形对象以非块形式插入到D:/codex-tasks/tests/CAD_file_operations/dwg_outputs/insert_region_from_file_1.dwg。
-我的测试仍然没有成功，问题出在发送的命令要求用户选择对象，造成函数卡死。必须使用正确的语法规避函数运行过程中要去要求用户选择对象，虽然可能需要sendcommand命令，也必须将选择输入回车等操作在sendcommand命令中
-一次性传递。
-请使用我给出的dwg文件进行测试，并在函数关键节点发消息到日志，根据日志调整函数。
-
-<任务4>
-
-鉴于函数的重要和整个文档目录的重要，应该在根目录下建一个展示当前全部文档结构树形关系。对所有测试的函数，其测试dwg文件用测试的函数命名，应将函数、测试文件、测试情况汇总在一起作为汇报存档。
-
-<要求>
-
-任务开始后每60秒在D:/codex-tasks/cad/任务进度汇报.txt发一个时间戳。如果接到消息“状态检查：是否遇到问题”，正常情况就回应“正常”，非正常情况说名情况后继续工作。
-
-<检查和汇报>
-
-检查任务完成情况并汇报。
+    )
+则函数应该能将图签插入到两根图框线区域。如果不能，那就是因为这次脚本迁移和 CastTo重写产生的错漏造成的，请修改相关函数。该函数之前是完全可实现的。

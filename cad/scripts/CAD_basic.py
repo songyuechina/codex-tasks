@@ -27,6 +27,28 @@ from pywinauto.application import Application
 import builtins
 
 
+def _cad_safe_print(*args, **kwargs):
+    """Wrap built-in print to drop unsupported characters (emoji) on GBK consoles."""
+    try:
+        return builtins._orig_print(*args, **kwargs)
+    except UnicodeEncodeError:
+        def _sanitize(text):
+            if isinstance(text, str):
+                try:
+                    return text.encode("gbk", "ignore").decode("gbk", "ignore")
+                except Exception:
+                    return text.encode("ascii", "ignore").decode("ascii", "ignore")
+            return text
+
+        safe_args = [_sanitize(arg) for arg in args]
+        return builtins._orig_print(*safe_args, **kwargs)
+
+
+if not hasattr(builtins, "_orig_print"):
+    builtins._orig_print = builtins.print
+    builtins.print = _cad_safe_print
+
+
 
 #C______________________________________________________________
 
@@ -352,13 +374,27 @@ def alias(*names):
         return func
     return decorator
 
+#&&% 调试机制
+
+"""
+正常运行：DEBUG = False，print 正常输出，node() 什么都不打。
+
+调试模式：enable_debug() → print 全被静音，只有带 @debuggable 的函数里调用的 node() 会输出。
+
+"""
+
 # —— 保存原始 print ——
 _orig_print = builtins.print
 
 # ---------------- 全局劫持 ----------------
 _orig_print = builtins.print            # 先保存原 print
+
+
+@alias("np")
 def suppress_all_prints():
     builtins.print = lambda *a, **k: None
+
+@alias("ep")
 def restore_all_prints():
     builtins.print = _orig_print
 
@@ -572,6 +608,52 @@ def timeit(func):
         return result
 
     return wrapper
+
+
+def wait_command_done( timeout=120.0, poll_interval=0.2, quiet_time=0.5):
+    """
+    在 SendCommand 之后调用，等待 CAD 命令执行完成。
+    - timeout: 最长等待时间
+    - poll_interval: 轮询间隔
+    - quiet_time: 连续“空闲”多长时间才认为稳定
+    """
+    start = time.time()
+    last_busy = time.time()
+
+    while True:
+        pythoncom.PumpWaitingMessages()
+
+        try:
+            cmdactive = doc.GetVariable("CMDACTIVE")
+            cmdnames = doc.GetVariable("CMDNAMES")
+        except Exception:
+            # 有时文档切换/关闭会抛异常，直接认为结束
+            return False
+
+        # 没有活动命令
+        if int(cmdactive) == 0 and (not cmdnames):
+            if time.time() - last_busy >= quiet_time:
+                return True  # 连续空闲了一段时间，认为结束
+        else:
+            last_busy = time.time()
+
+        if time.time() - start > timeout:
+            print("[wait_command_done] 超时，仍有命令活动: CMDACTIVE={}, CMDNAMES={}"
+                  .format(cmdactive, cmdnames))
+            return False
+
+        time.sleep(poll_interval)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -886,19 +968,114 @@ def close_oldest_cad_process(process_name="acad.exe"):#关闭上一个进程
         pass
 
 
-#&&%  cad连接、关闭
+#&&%  cad连接、关闭20251123
+def li():
+    """
+    智能连接 / 复用当前激活的 DWG 文件（带防断线测试）
 
-def li():#这里的li()不需要写成多次尝试
+    新逻辑（更清晰版）：
+
+    1. 如果全局 acad 已存在：
+       - 尝试直接复用 acad.ActiveDocument；
+       - 在当前文档画一条测试直线，验证连接；
+       - 若成功，返回 True，不再尝试 get_acad_doc()。
+
+    2. 如果 acad 不存在，或者复用失败多次：
+       - 调用 get_acad_doc() 做“重连”（内部可能会启动天正 CAD）；
+       - 对重连得到的 doc 也画测试直线验证；
+       - 若成功，返回 True。
+
+    3. 两轮都失败则返回 False。
+    """
+    import time
     global acad, doc, mp, sp
-    acad, doc = get_acad_doc()
-    mp = doc.ModelSpace
-    sp = doc.PaperSpace
-    print("当前桌面文件：", doc.Name)
-    print("win32已经连接正常—CAD基本操作")
-    return True
 
+    # ========= 第一段：尝试“复用已有 acad” =========
+    try:
+        app = acad  # 如果 acad 尚未定义，这里会 NameError
+    except NameError:
+        app = None
 
+    if app is not None:
+        for attempt in range(1, 4):
+            try:
+                # 1) 获取当前激活文档
+                active_doc = app.ActiveDocument
+                if active_doc is None:
+                    raise RuntimeError("acad.ActiveDocument 返回 None。")
 
+                doc = active_doc
+                mp = doc.ModelSpace
+                sp = doc.PaperSpace
+
+                # 2) 在当前激活 DWG 里画一条测试直线
+                test_line = draw_line((0, 0, 0), (1000, 0, 0))
+                if test_line is None:
+                    raise RuntimeError("测试直线创建失败，draw_line 返回 None。")
+
+                handle = get_object_property(test_line, "Handle")
+                if not handle:
+                    raise RuntimeError("测试直线未获得有效 Handle。")
+
+                # 3) 删除测试线，说明一切正常
+                try:
+                    safe_delete(test_line)
+                except Exception as e_del:
+                    print(f"[li] 删除测试直线时出错（忽略）：{e_del}")
+
+                print("当前桌面文件：", doc.Name)
+                print(f"win32 已连接（复用现有 acad，第 {attempt} 次成功，Handle={handle}）")
+                return True
+
+            except Exception as e:
+                print(f"[li] 复用现有 acad 第 {attempt} 次失败：{repr(e)}")
+                if attempt < 3:
+                    time.sleep(0.5)
+
+        # 走到这里说明“有 acad 但复用失败”，将进入重连逻辑
+        print("[li] 提示：存在 acad，但多次复用失败，准备执行重连逻辑 get_acad_doc()。")
+
+    else:
+        print("[li] 全局 acad 不存在，将直接执行重连逻辑 get_acad_doc()。")
+
+    # ========= 第二段：调用原来的 get_acad_doc() 做“重连” =========
+    for attempt in range(1, 4):
+        try:
+            acad, doc = get_acad_doc()  # 原来的连接逻辑（内部可能会启动 CAD）
+            mp = doc.ModelSpace
+            sp = doc.PaperSpace
+
+            # 重连后再做一次测试线，验证连接可用
+            try:
+                test_line = draw_line((0, 0, 0), (1000, 0, 0))
+            except Exception as e_line:
+                raise RuntimeError(f"重连后画测试直线时异常：{e_line}")
+
+            if test_line is None:
+                raise RuntimeError("重连后测试直线创建失败，draw_line 返回 None。")
+
+            try:
+                handle = get_object_property(test_line, "Handle")
+            except Exception as e_handle:
+                raise RuntimeError(f"重连后读取 Handle 异常：{e_handle}")
+
+            try:
+                safe_delete(test_line)
+            except Exception as e_del:
+                print(f"[li] 重连后删除测试线时出错（忽略）：{e_del}")
+
+            print(f"[li] 重连后测试线 Handle={handle}")
+            print("当前桌面文件：", doc.Name)
+            print("win32 已重新连接 — CAD基本操作")
+            return True
+
+        except Exception as e:
+            print(f"[li] 第 {attempt} 次重连失败：{repr(e)}")
+            if attempt < 3:
+                time.sleep(0.5)
+
+    print("[li] 警告：多次尝试后仍无法连接 AutoCAD / 当前 DWG。")
+    return False
 
 
 _RPC_BUSY = (-2147417846, -2147418111)  # 应用程序忙/Call rejected
@@ -2112,7 +2289,215 @@ def stc(layer_names, **kwargs):
 
 
 # 3) 选择所有块（INSERT）
+
 def select_kuai(max_retries: int = 5, autocast=True):
+    """
+    选取当前 DWG 中的“所有【有效】块实例”（BlockReference）：
+
+    1) 优先使用 ss_select(mode="all", filter_types=[0], filter_data=["INSERT"])；
+       - 对返回结果做统一规整 → 实体列表；
+       - 再按 ObjectName 过滤出 BlockReference；
+       - 再试探访问 Handle + GetBoundingBox()，能正常返回的才视为“有效块实例”；
+       - 若过滤后数量 > 0，则返回这些块实体；
+
+    2) 若 1) 阶段报错或过滤后数量 == 0，则退回到遍历 ModelSpace / PaperSpace：
+       - 通过 ObjectName 包含 "BlockReference" 或等于 "AcDbBlockReference" 来识别块实例；
+       - 同样要求 Handle + GetBoundingBox() 正常；
+       - 按 Handle 去重，返回所有“有效块引用”。
+
+    返回：
+        list[IAcadBlockReference]，可以直接调用 GetBoundingBox() 等方法。
+    """
+    import time
+    import pythoncom
+    from win32com.client import Dispatch
+    global mp, sp
+
+    # —— 日志 —— #
+    def log(msg, *args):
+        try:
+            text = msg.format(*args) if args else msg
+        except Exception:
+            text = msg
+        print(text)
+
+    # —— 判断是否“有效块引用” —— #
+    def is_valid_block_ref(ent):
+        """
+        同时满足：
+          - ObjectName 显示是 BlockReference；
+          - Handle 可访问；
+          - GetBoundingBox() 不抛 com_error（空对象 ID 之类）。
+        """
+        try:
+            name = str(ent.ObjectName)
+        except Exception:
+            return False
+        if ("BlockReference" not in name) and (name != "AcDbBlockReference"):
+            return False
+
+        # 测一把 Handle
+        try:
+            _ = ent.Handle
+        except Exception:
+            return False
+
+        # 再试探一次 GetBoundingBox（少量对象，性能可以接受）
+        try:
+            ll, ur = ent.GetBoundingBox()
+            # 简单再验一下返回值长度
+            if ll is None or ur is None:
+                return False
+        except Exception:
+            return False
+
+        return True
+
+    # —— 小工具：把 ss_select 的返回值规整成“实体列表” —— #
+    def normalize_ss_result(res):
+        """
+        兼容几种可能：
+          - 直接返回 list[COM]
+          - 返回 (selectionSet, list[COM])
+          - 返回 selectionSet 对象
+          - 返回单个 COM 实体
+        """
+        # 情况1：(selset, list)
+        if isinstance(res, (list, tuple)):
+            if len(res) == 2 and not hasattr(res[0], "GetBoundingBox"):
+                # 典型结构：(selectionSet, [ent1, ent2, ...])
+                res = res[1]
+
+        # 情况2：已经是 list/tuple 了
+        if isinstance(res, (list, tuple)):
+            return list(res)
+
+        # 情况3：是 selectionSet 或其它可迭代 COM 集合
+        try:
+            return [ent for ent in res]
+        except TypeError:
+            # 情况4：单个实体
+            return [res]
+
+    # —— 确保 CAD 连接正常 —— #
+    try:
+        li()
+    except Exception:
+        pass
+
+    # ==================== 第一阶段：使用 ss_select 过滤 INSERT ====================
+
+    last_err = None
+    t0 = time.time()
+
+    for k in range(1, max_retries + 1):
+        try:
+            raw = ss_select(
+                mode="all",
+                filter_types=[0],     # 0 = 实体类型
+                filter_data=["INSERT"],
+                autocast=autocast
+            )
+            ents_all = normalize_ss_result(raw)
+
+            # 先看看 ss_select 实际返回了多少实体
+            log("    [调试] ss_select 第 {} 次返回实体数: {}", k, len(ents_all))
+
+            # 通过 is_valid_block_ref 过滤，去掉幽灵块 / 非块
+            blocks = []
+            for ent in ents_all:
+                if not is_valid_block_ref(ent):
+                    continue
+                blocks.append(ent)
+
+            cnt = len(blocks)
+            if cnt > 0:
+                log("[OK] select_kuai(ss_select) 成功（第 {} 次），耗时 {:.3f}s，"
+                    "ss_select共返回 {} 个实体，经有效性过滤得到 {} 个块实例",
+                    k, time.time() - t0, len(ents_all), cnt)
+                return blocks
+
+            log("[警告] select_kuai 第 {} 次：ss_select 返回 {} 个实体，经有效性过滤后无有效块实例，重试…",
+                k, len(ents_all))
+            last_err = RuntimeError("ss_select 无有效块实例")
+
+        except Exception as e:
+            last_err = e
+            log("[警告] select_kuai 第 {} 次失败：{!r}", k, e)
+            try:
+                _, doc = get_acad_doc()
+                doc.SendCommand("RE\nZ\nE\n")
+            except Exception:
+                pass
+        time.sleep(0.3)
+
+    log("[警告] select_kuai：ss_select 在 {} 次尝试后仍未能正确选出块实例，将改用遍历空间方式。", max_retries)
+    if last_err is not None:
+        log("  最后一次错误信息：{!r}", last_err)
+
+    # ==================== 第二阶段：遍历 ModelSpace / PaperSpace 搜索块实例 ====================
+
+    # 再保险调用一次 li()，确保 mp/sp 有值
+    try:
+        li()
+    except Exception:
+        pass
+
+    spaces = []
+    try:
+        spaces.append(mp)
+    except Exception:
+        pass
+    try:
+        if sp is not None:
+            spaces.append(sp)
+    except Exception:
+        pass
+
+    if not spaces:
+        try:
+            _, doc = get_acad_doc()
+            spaces.append(doc.ModelSpace)
+            try:
+                spaces.append(doc.PaperSpace)
+            except Exception:
+                pass
+        except Exception as e:
+            log("[错误] 遍历空间方式失败：无法获取 ModelSpace/PaperSpace：{!r}", e)
+            return []
+
+    blocks = []
+    seen_handles = set()
+
+    for space in spaces:
+        if space is None:
+            continue
+        try:
+            for ent in space:
+                try:
+                    if not is_valid_block_ref(ent):
+                        continue
+                    try:
+                        h = ent.Handle
+                    except Exception:
+                        h = None
+                    if h and h in seen_handles:
+                        continue
+                    if h:
+                        seen_handles.add(h)
+                    blocks.append(ent)
+                except Exception:
+                    continue
+        except Exception as e:
+            log("[警告] 遍历某个空间时出现异常：{!r}", e)
+
+    log("[OK] select_kuai(遍历空间) 完成，共找到 {} 个【有效】块实例", len(blocks))
+    return blocks
+
+
+
+
+def select_kuai_1(max_retries: int = 5, autocast=True):#新编插图签函数引用了与它相关的函数，可能不起作用，总之也不删除
     last = None; t0 = time.time()
     for k in range(1, max_retries+1):
         try:
@@ -2133,6 +2518,8 @@ def select_kuai(max_retries: int = 5, autocast=True):
             time.sleep(0.5)
     print(f"[错误] select_kuai 在 {max_retries} 次尝试后仍失败：{last!r}")
     return []
+
+
 
 
 # 4) 选择所有 TEXT
@@ -2289,7 +2676,7 @@ def yin_to_xian_xuanze(LB, wait_s=0.6):
                 deleted += 1
             except Exception:
                 pass
-        print(f"🧹 尝试删除 {len(LB)} 个对象，成功删除 {deleted} 个。")
+        print(f"[CLEAN] 尝试删除 {len(LB)} 个对象，成功删除 {deleted} 个。")
 
         # 撤销删除（恢复并建立 _P）
         doc.SendCommand("_U\n\n")
@@ -2396,29 +2783,8 @@ def select_objects_in_window_area(x1, y1, x2, y2, max_retry=5):
 
 # 11) 隐显结合的区域选择（高亮选择并返回 PickfirstSelectionSet）
 def select_entities_in_window(x1, y1, x2, y2, ty: float = 1.0, select_mode: str = "_W"):
-    _, doc = get_acad_doc()
-    (x_lo,y_lo),(x_hi,y_hi) = normalize_rect(x1,y1,x2,y2)
-
-    # 清空 Pickfirst
-    try: doc.Pickenabled = False
-    except Exception: pass
-    try: doc.PickfirstSelectionSet.Clear()
-    except Exception: pass
-
-    # Zoom（加 20% 缓冲）
-    buf = 0.20 * ((x_hi-x_lo) + (y_hi-y_lo)) / 2.0
-    doc.SendCommand(f"_.ZOOM\n_W\n{x_lo-buf},{y_lo-buf}\n{x_hi+buf},{y_hi+buf}\n")
-    time.sleep(ty)
-
-    # Select（显性，蓝色高亮）
-    doc.SendCommand(f"_.SELECT\n{select_mode}\n{x_lo},{y_lo}\n{x_hi},{y_hi}\n\n")
-    time.sleep(ty/2)
-
-    selset = doc.PickfirstSelectionSet
-    com_list = [ent for ent in selset]
-    try: selset.Clear()
-    except Exception: pass
-    return com_list
+    """兼容旧接口，内部直接复用隐藏窗口选择逻辑。"""
+    return select_objects_in_window_area(x1, y1, x2, y2, max_retry=5)
 
 
 # 12) 显性区域选择（蓝色高亮）
@@ -5385,6 +5751,11 @@ def process_final(lines, tol=0.5, max_steps=50, layer_name="测试辅助"):
 
 (8)找到全部“两根多段线耦合成一个矩形”的多段线 two_plines_making_rectangle(pl1, pl2, tol=0.5)
 
+
+
+
+
+
 """
 #  主函数
 #  (1)
@@ -6277,7 +6648,7 @@ def generate_name_and_ratio_from_com(
         return 0
 
 
-##20250711修改
+##20251126修改
 def generate_name_and_ratio_from_com(
     comobj,
     A3dy=0,
@@ -6291,7 +6662,32 @@ def generate_name_and_ratio_from_com(
     ② 命中 “×1.2”  → 返回原标准数据，并把对象改成蓝色  
     ③ 近似命中     → 返回原标准数据，并把对象改成红色 + 宽度 (200 / 2)
 
-    对拟合标准框线，加了红色警告和加粗提示，对放大1.2倍的打印框线加了蓝色提示
+    额外规则（本次修改）：
+    - A3dy == 0 且原逻辑“未命中”时：
+        * 若 min(长,宽) <= 7000：直接返回 0（不再调用任何模板函数）
+        * 若 min(长,宽) > 7000：
+            - 优先用 tol=10 判断：标准图框 / 标准图框×1.1 / 标准图框×1.2
+            - 若仍无法判定，退化为“最近的标准图框”并返回对应标准值
+    - A3dy == 1：
+        * 不再看长宽比例，只要 min(长,宽) > 7000，一律返回 Fandy（竖向标志按当前外包盒判断）
+        * 否则返回 0
+    设置和获取用户自定义尺寸如UserDefinedMetric (1337.63 x 841.00毫米)的方法
+
+    li()#连接
+    oplot = acad.ActiveDocument.PlotConfigurations.Add("PDF", acad.ActiveDocument.ActiveLayout.ModelType)
+    dir(oplot)
+    ['Application', 'CLSID', 'CanonicalMediaName', 'CenterPlot', 'ConfigName', 'CopyFrom', 'Database', 'Delete', 'Document', 'Erase', 'GetCanonicalMediaNames', 'GetCustomScale', 'GetExtensionDictionary', 'GetLocaleMediaName', 'GetPaperMargins', 'GetPaperSize', 'GetPlotDeviceNames', 'GetPlotStyleTableNames', 'GetWindowToPlot', 'GetXData', 'Handle', 'HasExtensionDictionary', 'ModelType', 'Name', 'ObjectID', 'ObjectName', 'OwnerID', 'PaperUnits', 'PlotHidden', 'PlotOrigin', 'PlotRotation', 'PlotType', 'PlotViewportBorders', 'PlotViewportsFirst', 'PlotWithLineweights', 'PlotWithPlotStyles', 'RefreshPlotDeviceInfo', 'ScaleLineweights', 'SetCustomScale', 'SetWindowToPlot', 'SetXData', 'ShowPlotStyles', 'StandardScale', 'StyleSheet', 'UseStandardScale', 'ViewToPlot', '_ApplyTypes_', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattr__', '__getattribute__', '__getstate__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', '_get_good_object_', '_get_good_single_object_', '_oleobj_', '_prop_map_get_', '_prop_map_put_', 'coclass_clsid']
+    oplot.ConfigName
+    'Microsoft Print to PDF'
+    oplot.CanonicalMediaName
+    'A4'
+    lay = doc.ActiveLayout
+    lay.ConfigName         = "DWG To PDF.pc3"
+    lay.CanonicalMediaName
+    'ISO_full_bleed_A0_(841.00_x_1189.00_MM)'
+    #ctr+P调出打印窗口→ 用户定义图纸尺寸和校准→自定义图纸尺寸→添加→下一页……
+    lay.CanonicalMediaName
+    'UserDefinedMetric (841.00 x 1200.00毫米)'
 
     """
 
@@ -6359,12 +6755,14 @@ def generate_name_and_ratio_from_com(
     _, length, width = define_rectangle_by_diagonal(PL_min, PL_max)
     dx, dy = abs(PL_max[0] - PL_min[0]), abs(PL_max[1] - PL_min[1])
     orientation_flag = 1 if dy > dx else 0
+    min_side = min(length, width)
 
-    # —————————— 3. 匹配类型判定 ——————————
-    best_i, best_type = None, None      # 'exact' | 'scale12' | 'approx'
-    best_score = float('inf')           # 仅用于 approx
-
+    # ============ A3dy == 0：保持原标准逻辑 + 非标准扩展 ============ #
     if A3dy == 0:
+        best_i, best_type = None, None      # 'exact' | 'scale12' | 'approx'
+        best_score = float('inf')           # 仅用于 approx
+
+        # —— 2.1 原有“标准逻辑”：完全不动 —— #
         for i, (std_len, std_wid, _) in enumerate(LB_dayingkuang):
             # 精确
             if abs(length - std_len) < tol and abs(width - std_wid) < tol:
@@ -6372,7 +6770,7 @@ def generate_name_and_ratio_from_com(
                 break
 
             # ×1.2
-            if abs(length - 1.2*std_len) < tol and abs(width - 1.2*std_wid) < tol:
+            if abs(length - 1.2 * std_len) < tol and abs(width - 1.2 * std_wid) < tol:
                 best_i, best_type = i, 'scale12'
                 break
 
@@ -6382,7 +6780,7 @@ def generate_name_and_ratio_from_com(
                 best_i, best_type = i, 'approx'
                 best_score = diff
 
-        # —————————— 4. 命中后的处理 ——————————
+        # —— 2.2 命中三种“标准情况”：完全沿用原逻辑 —— #
         if best_i is not None:
             zhi = (
                 drawing_map[best_i],
@@ -6393,13 +6791,13 @@ def generate_name_and_ratio_from_com(
 
             if best_type == 'scale12':          # 蓝
                 try:
-                    comobj.color = 5
+                    comobj.Color = 5
                 except Exception:
                     pass
 
             elif best_type == 'approx':         # 红 + 加粗
                 try:
-                    comobj.color = 1
+                    comobj.Color = 1
                 except Exception:
                     pass
                 try:
@@ -6417,22 +6815,80 @@ def generate_name_and_ratio_from_com(
 
             return zhi
 
-        # —— 未命中：调用外部模板判定 —— 
-        fanhui = get_print_template_info(comobj, tol=tol)
-        return (*fanhui, orientation_flag) if isinstance(fanhui, tuple) else 0
+        # —— 2.3 原逻辑“未命中”的情况：按新规则扩展 —— #
 
-    # —————————— 5. A3dy == 1 直接用长宽比判定 ——————————
+        # 2.3.1 若打印框尺寸太小：直接视为无效，返回 0
+        if min_side <= 7000:
+            return 0
+
+        # 2.3.2 min_side > 7000：强制认为是“接近某个标准框”的情况
+
+        # （a）先尝试用 tol=10 区分：标准 / 标准×1.1 / 标准×1.2
+        scaled_match = None  # {'i': idx, 'scale': 1.0/1.1/1.2, 'diff': ...}
+
+        for i, (std_len, std_wid, _) in enumerate(LB_dayingkuang):
+            for scale in (1.0, 1.1, 1.2):
+                if (abs(length - scale * std_len) <= tol and
+                        abs(width - scale * std_wid) <= tol):
+                    diff = abs(length - scale * std_len) + abs(width - scale * std_wid)
+                    if scaled_match is None or diff < scaled_match["diff"]:
+                        scaled_match = {"i": i, "scale": scale, "diff": diff}
+
+        if scaled_match is not None:
+            idx = scaled_match["i"]
+            zhi = (
+                drawing_map[idx],
+                drawing_map_ml[idx][1],
+                drawing_map_ml[idx][0],
+                orientation_flag
+            )
+
+            # 可选：对 1.1 / 1.2 做一点颜色提示（不影响原标准逻辑）
+            try:
+                if abs(scaled_match["scale"] - 1.1) < 1e-6:
+                    # 放大 10%：例如用绿色 3 提示
+                    comobj.Color = 3
+                elif abs(scaled_match["scale"] - 1.2) < 1e-6:
+                    # 放大 20%：保持和原逻辑一致，用蓝色
+                    comobj.Color = 5
+                # scale==1.0 时不特别处理，保持原色
+            except Exception:
+                pass
+
+            return zhi
+
+        # （b）若连 1.0 / 1.1 / 1.2 都判不出来，就直接给一个“最近标准值”
+        nearest_i = None
+        nearest_score = float("inf")
+        for i, (std_len, std_wid, _) in enumerate(LB_dayingkuang):
+            diff = abs(length - std_len) + abs(width - std_wid)
+            if diff < nearest_score:
+                nearest_score = diff
+                nearest_i = i
+
+        if nearest_i is not None:
+            return (
+                drawing_map[nearest_i],
+                drawing_map_ml[nearest_i][1],
+                drawing_map_ml[nearest_i][0],
+                orientation_flag
+            )
+
+        # 理论上不会到这里，兜个底
+        return 0
+
+    # ============ A3dy == 1：只看尺寸下限，不再看比例 ============ #
     elif A3dy == 1:
-        if abs(width / length - 0.707) <= 0.01:
-            return (*Fandy, orientation_flag)
+        # 只要 min(长,宽) > 100，就认为这是一个“有效打印区域”，
+        # 返回 Fandy，但用当前的 orientation_flag 覆盖其竖向标志。
+        if min_side > 100:
+            return (Fandy[0], Fandy[1], Fandy[2], orientation_flag)
         return 0
 
     # —————————— 6. 参数错误 ——————————
     else:
         print("参数输入错误")
         return 0
-
-
 
 
 
@@ -11927,6 +12383,53 @@ def bbox_center_3(ent):
     return ((mn[0] + mx[0]) / 2.0,
             (mn[1] + mx[1]) / 2.0,
             (mn[2] + mx[2]) / 2.0)
+#&&% 安全获取外包盒
+
+
+def safe_get_bbox(ent, max_retry: int = 5, delay: float = 0.1):
+    """
+    针对 AutoCAD 偶发的 -2147417846（应用程序正在使用中）
+    对 GetBoundingBox 做重试封装。
+
+    成功返回 (p1, p2)，失败抛出最后一次异常。
+
+    # 旧代码（出错点附近）
+    p1, p2 = blk.GetBoundingBox()
+    minx, miny, minz = p1
+    maxx, maxy, maxz = p2
+    改成：
+    
+    python
+    复制代码
+    # 新代码（使用安全封装）
+    p1, p2 = safe_get_bbox(blk)
+    minx, miny, minz = p1
+    maxx, maxy, maxz = p2
+
+    """
+    import time
+    from pywintypes import com_error
+
+    last_err = None
+    for i in range(1, max_retry + 1):
+        try:
+            p1, p2 = ent.GetBoundingBox()
+            return p1, p2
+        except com_error as e:
+            last_err = e
+            hresult = e.args[0] if e.args else None
+            # RPC_E_CALL_REJECTED: 应用程序正在使用中
+            if hresult == -2147417846 and i < max_retry:
+                # CAD 正忙，稍等再试
+                time.sleep(delay)
+                continue
+            # 其他错误 / 最后一轮仍失败：直接抛出
+            raise
+    # 理论上不会到这里
+    raise last_err if last_err is not None else RuntimeError("safe_get_bbox failed")
+
+
+
 
 
 #&&&&%% 第八部分   CAD文件操作
@@ -13015,6 +13518,22 @@ def get_open_document_names():#返回所有打开的文件名
     acad = win32com.client.GetActiveObject("AutoCAD.Application")
     return [doc.Name for doc in acad.Documents]
 
+def get_all_open_dwg_paths():
+    """返回当前会话中所有已打开 DWG 的完整路径列表。"""
+    paths = []
+    try:
+        app, _ = get_acad_doc()
+    except Exception:
+        return paths
+
+    for doc in app.Documents:
+        try:
+            full_name = doc.FullName
+            if full_name:
+                paths.append(full_name)
+        except Exception:
+            continue
+    return paths
 
 
 #&&% 当前CAD文件数
@@ -13387,124 +13906,783 @@ def huoqukuai_shuxing_zhi(XX):#XX为属性块实体
     return tags,values
 
 
-def set_attributes_values(block, tags_order, new_values):
+
+
+def set_attribute_mtext_1(block, tags, new_texts, keep_prefix=True):
     """
-    为属性块的标签设置新的值。
+    为属性块按标签设置多行/单行文字（支持单个或批量标签）。
 
     参数:
-    - block: 要修改的属性块（COM BlockReference 对象）。
-    - tags_order: 一个列表，包含你希望按照哪种顺序为属性块的标签设置新的值。
-    - new_values: 一个列表，包含按标签顺序排列的新值。
+        block       : BlockReference 实例
+        tags        : 
+            - str：单个标签名，例如 "图纸名称"
+            - list[str]：多个标签名，例如 ["项目名称", "图纸名称"]
+        new_texts   :
+            - 对于“单标签”：
+                * str：单行内容
+                * list[str]：多行内容，会用 \\P 连接
+            - 对于“多标签”：
+                * str：所有标签共用这一内容
+                * list[任意]：与 tags 一一对应；每个元素可以是 str 或 list[str]
+        keep_prefix : 是否保留旧 TextString 的格式控制前缀（如 "\\W0.7971;"）
 
     返回:
-    None
+        dict[tag] = True/False  表示每个标签是否设置成功
     """
-    # 先尝试获取属性列表
+    # --- 1. 判断是否单标签 ---
+    single_tag = isinstance(tags, str)
+
+    # 统一 tags 为列表
+    if single_tag:
+        tag_list = [tags]
+    else:
+        tag_list = list(tags)
+
+    # --- 2. 规范化 new_texts 为 text_list，与 tag_list 对齐 ---
+    if single_tag:
+        # 单标签模式：
+        #   - 如果 new_texts 是 list/tuple 且内部不是嵌套 list，
+        #     视为“多行内容”（整体给这一个标签）
+        if isinstance(new_texts, (list, tuple)) and not any(
+            isinstance(t, (list, tuple)) for t in new_texts
+        ):
+            text_list = [list(new_texts)]  # 交给 normalize_body_text 作为多行处理
+        else:
+            text_list = [new_texts]
+    else:
+        # 多标签模式
+        if not isinstance(new_texts, (list, tuple)):
+            # 标量 → 所有标签共用
+            text_list = [new_texts] * len(tag_list)
+        else:
+            text_list = list(new_texts)
+            if len(text_list) < len(tag_list):
+                # 不够就用最后一个填充
+                if text_list:
+                    text_list.extend([text_list[-1]] * (len(tag_list) - len(text_list)))
+            elif len(text_list) > len(tag_list):
+                # 多余的截掉
+                text_list = text_list[:len(tag_list)]
+
+    # --- 3. 获取属性列表 ---
     try:
         attributes = block.GetAttributes()
     except Exception as e:
-        print(f"[警告] 实体 {block.ObjectName}({getattr(block, 'Handle', '?')}) 无法获取属性，跳过: {e}")
-        return
+        print(f"[警告] 块({getattr(block, 'Handle', '?')}) 无法获取属性: {e}")
+        return {tag: False for tag in tag_list}
 
-    index = 0
-    for tag in tags_order:
-        # 找到对应标签的属性
-        found = False
-        for attr in attributes:
-            if attr.TagString == tag:
-                found = True
-                try:
-                    attr.TextString = new_values[index]
-                    print(f"标签: {tag}  新值: {new_values[index]}")
-                except Exception as e:
-                    print(f"[警告] 设置标签 '{tag}' 时出错: {e}")
-                index += 1
-                break
-        if not found:
-            print(f"[警告] 未找到属性标签 '{tag}'，已跳过")
+    attr_map = {}
+    for attr in attributes:
+        try:
+            attr_map[attr.TagString] = attr
+        except Exception:
+            pass
 
-    # 更新块
+    result = {}
+
+    # --- 4. 把“内容对象”转成 TextString body（多行用 \\P 连接） ---
+    def normalize_body_text(text):
+        # text 可能是 "字符串" 或 ["多行1", "多行2", ...]
+        if isinstance(text, (list, tuple)):
+            return "\\P".join(str(line) for line in text)
+        else:
+            return str(text)
+
+    # --- 5. 逐标签设置 ---
+    for tag, raw_text in zip(tag_list, text_list):
+        attr = attr_map.get(tag)
+        if attr is None:
+            print(f"[警告] 未找到属性标签 '{tag}'")
+            result[tag] = False
+            continue
+
+        # 获取旧内容，提取前缀
+        try:
+            old = attr.TextString or ""
+        except Exception:
+            old = ""
+
+        prefix = ""
+        if keep_prefix and old:
+            pos = old.find(";")
+            if pos != -1:
+                prefix = old[:pos + 1]
+
+        body = normalize_body_text(raw_text)
+        new_full = prefix + body
+
+        ok = True
+        try:
+            attr.TextString = new_full
+            attr.Update()
+        except Exception as e:
+            print(f"[警告] 设置属性 '{tag}' 内容时出错: {e}")
+            ok = False
+
+        result[tag] = ok
+        if ok:
+            print(f"[OK] 属性 '{tag}' 已更新为: {new_full}")
+
+    # --- 6. 刷新块 ---
     try:
         block.Update()
     except Exception as e:
-        print(f"[警告] 更新块时出错: {e}")              
+        print(f"[警告] 更新块时出错: {e}")
 
-##>>> tags_order=["1.0","施工图","2023.10","1:100","1.0","专业名称"]
-##>>> new_values=["1.2版","初步设计","2021.07","1:25","JS-09","建施"]
+    return result
 
+#&&% 设置属性图块标签内容
 
-
-def resize_block_attribute(block_ref, tag: str, *, height: float = 200.0, width: float = 4500.0):
+def set_attribute_mtext(block, tags, new_texts, keep_prefix=True, verbose=True):
     """
-    将块参照 block_ref 中指定 Tag 的属性文字改成给定字高并设置边界宽度。
+    为属性块按标签设置多行/单行文字（支持单个或批量标签），
+    兼容当前需要 CastTo/天正 DISPID 的环境。
 
-    适用对象
-    --------
-    block_ref : AcadBlockReference
-        必须是包含属性 (HasAttributes=True) 的块参照
-    tag       : str
-        目标属性 TagString（不区分大小写）
-    height    : float
-        目标字高（Drawing Units）
-    width     : float
-        多行属性 (MText attribute) 的边界宽度；若属性不是多行，
-        尝试设置 WidthFactor 以近似效果。
-
-    返回
-    ----
-    bool
-        True  : 至少找到并修改了一个属性
-        False : 没有找到指定 tag 或调整失败
+    - 单标签:
+        tags: "图纸名称"
+        new_texts: "单行" 或 ["多行1", "多行2"]
+    - 多标签:
+        tags: ["项目名称", "图纸名称"]
+        new_texts:
+            * "同一内容"           → 所有标签共用
+            * ["A", "B"]          → 对应两标签
+            * [["A1","A2"], ["B1","B2"]] → 每个标签多行
     """
-    if (getattr(block_ref, "ObjectName", "") != "AcDbBlockReference"
-            or not getattr(block_ref, "HasAttributes", False)):
-        print("[警告] 传入对象不是带属性的块参照")
+    # ---- 1. 统一 tags 是否单标签 ----
+    single_tag = isinstance(tags, str)
+    if single_tag:
+        tag_list = [tags]
+    else:
+        tag_list = list(tags)
+
+    # ---- 2. 规范 new_texts 与 tag_list 对齐 ----
+    if single_tag:
+        # 单标签 + 列表 -> 多行
+        if isinstance(new_texts, (list, tuple)) and not any(
+            isinstance(t, (list, tuple)) for t in new_texts
+        ):
+            text_list = [list(new_texts)]
+        else:
+            text_list = [new_texts]
+    else:
+        if not isinstance(new_texts, (list, tuple)):
+            text_list = [new_texts] * len(tag_list)
+        else:
+            text_list = list(new_texts)
+            if len(text_list) < len(tag_list):
+                if text_list:
+                    text_list.extend([text_list[-1]] * (len(tag_list) - len(text_list)))
+            elif len(text_list) > len(tag_list):
+                text_list = text_list[:len(tag_list)]
+
+    # ---- 3. 获取属性列表 ----
+    block = cast_object(block)
+    try:
+        raw_attrs = block.GetAttributes()
+    except Exception as e:
+        if verbose:
+            print(f"[警告] 块({get_attr(block, 'Handle')}) 无法获取属性: {e}")
+        return {tag: False for tag in tag_list}
+
+    # 建 map：TagString -> attr
+    attr_map = {}
+    for ra in raw_attrs:
+        attr = cast_object(ra)
+        tag_str = get_attr(attr, "TagString")
+        if tag_str:
+            attr_map[tag_str] = attr
+
+    result = {}
+
+    def normalize_body_text(text):
+        # text 可以是 "字符串" 或 ["多行1","多行2"]
+        if isinstance(text, (list, tuple)):
+            return "\\P".join(str(line) for line in text)
+        return str(text)
+
+    for tag, raw_text in zip(tag_list, text_list):
+        attr = attr_map.get(tag)
+        if attr is None:
+            if verbose:
+                print(f"[警告] 未找到属性标签 '{tag}'")
+            result[tag] = False
+            continue
+
+        # 旧内容，用于提取前缀（比如 \\W0.7971;）
+        old = get_attr(attr, "TextString") or ""
+        prefix = ""
+        if keep_prefix and old:
+            pos = old.find(";")
+            if pos != -1:
+                prefix = old[:pos + 1]
+
+        body = normalize_body_text(raw_text)
+        new_full = prefix + body
+
+        ok = True
+        if not set_attr(attr, "TextString", new_full):
+            ok = False
+            if verbose:
+                print(f"[警告] 设置属性 '{tag}' TextString 失败")
+
+        # 尽量调用 Update（用原始 COM 对象）
+        try:
+            attr.Update()
+        except Exception as e:
+            if verbose:
+                print(f"[警告] 更新属性 '{tag}' 时出错: {e}")
+
+        if verbose and ok:
+            print(f"[OK] 属性 '{tag}' 已更新为: {new_full}")
+
+        result[tag] = ok
+
+    # 刷新块
+    try:
+        block.Update()
+    except Exception as e:
+        if verbose:
+            print(f"[警告] 更新块时出错: {e}")
+
+    return result
+
+#&&% 设置属性图块标签内容的格式
+def set_attribute_format(
+    block,
+    tags,
+    *,
+    style=None,            # 文字样式名
+    height=None,           # 高度
+    width_factor=None,     # 宽度因子（单行属性通常是 ScaleFactor）
+    boundary_width=None,   # 边界宽度（多行属性换行宽度；如需 ATSYNC 才可见）
+    justify=None,          # 对正：0/1/2 或 "Left"/"Center"/"Right"/"Middle"/"Aligned"/"Fit"
+    align_point=None,      # 对齐点 (x,y) 或 (x,y,z) —— 很多属性用不到，可不传
+    rotation_deg=None,     # 旋转角（度）
+    verbose=True,
+):
+    """
+    设置块属性文字(IAcadAttributeReference)的格式参数。
+
+    参数:
+        block  : BlockReference（含属性）
+        tags   : 单个标签字符串，或标签列表 ["图纸名称", "项目名称", ...]
+        style  : 文字样式名
+        height : 文字高度
+        width_factor : 宽度因子（ScaleFactor）
+        boundary_width : 边界宽度（多行属性的“定义的宽度”）
+        justify : 对正（0/1/2 或字符串）
+        align_point : 对齐坐标
+        rotation_deg : 旋转角（度）
+
+    返回:
+        {tag: True/False}
+    """
+
+    # --- 1. 统一标签列表 ---
+    if isinstance(tags, str):
+        tag_list = [tags]
+    else:
+        tag_list = list(tags)
+
+    # --- 2. 对正方式 解析成 Alignment 枚举 ---
+    def resolve_alignment(val):
+        if val is None:
+            return None
+        if isinstance(val, (int, float)):
+            return int(val)
+        if isinstance(val, str):
+            v = val.strip().lower()
+            mapping = {
+                "left": 0,
+                "center": 1,
+                "middle": 1,   # 居中
+                "right": 2,
+                "aligned": 3,
+                "fit": 5,
+            }
+            return mapping.get(v)
+        return None
+
+    align_code = resolve_alignment(justify)
+
+    # --- 3. 对齐点 ---
+    align_pt = None
+    if align_point is not None:
+        if len(align_point) == 2:
+            align_pt = (float(align_point[0]), float(align_point[1]), 0.0)
+        elif len(align_point) >= 3:
+            align_pt = (
+                float(align_point[0]),
+                float(align_point[1]),
+                float(align_point[2]),
+            )
+
+    # --- 4. 角度：度 -> 弧度 ---
+    rot_rad = None
+    if rotation_deg is not None:
+        rot_rad = float(rotation_deg) * math.pi / 180.0
+
+    # --- 5. 获取属性引用 ---
+    block = cast_object(block)
+    try:
+        raw_attrs = block.GetAttributes()
+    except Exception as e:
+        if verbose:
+            print(f"[警告] 块({get_attr(block, 'Handle')}) 无法获取属性: {e}")
+        return {tag: False for tag in tag_list}
+
+    attr_map = {}
+    for ra in raw_attrs:
+        attr = cast_object(ra)
+        tag_str = get_attr(attr, "TagString")
+        if tag_str:
+            attr_map[tag_str] = attr
+
+    result = {}
+
+    for tag in tag_list:
+        attr = attr_map.get(tag)
+        if attr is None:
+            if verbose:
+                print(f"[警告] 未找到属性标签 '{tag}'")
+            result[tag] = False
+            continue
+
+        h = get_attr(attr, "Handle")
+        any_success = False   # 至少有一项设置成功
+        hard_fail = False     # 样式 / 高度 / 宽度因子 / 对正 / 旋转等关键字段失败
+
+        # --- 样式 ---
+        if style is not None:
+            # 有的接口叫 StyleName，有的叫 TextStyle
+            if set_attr(attr, "StyleName", style) or set_attr(attr, "TextStyle", style):
+                any_success = True
+            else:
+                hard_fail = True
+                if verbose:
+                    print(f"[警告] 属性({h}) 设置样式失败")
+
+        # --- 高度 ---
+        if height is not None:
+            if set_attr(attr, "Height", float(height)):
+                any_success = True
+            else:
+                hard_fail = True
+                if verbose:
+                    print(f"[警告] 属性({h}) 设置高度失败")
+
+        # --- 宽度因子（WidthFactor / ScaleFactor）---
+        if width_factor is not None:
+            wf = float(width_factor)
+            wf_ok = False
+            # 对天正 TDbText 可能是 WidthFactor
+            if set_attr(attr, "WidthFactor", wf):
+                wf_ok = True
+            # 对标准 AttributeReference 是 ScaleFactor
+            elif set_attr(attr, "ScaleFactor", wf):
+                wf_ok = True
+
+            if wf_ok:
+                any_success = True
+            else:
+                hard_fail = True
+                if verbose:
+                    print(f"[警告] 属性({h}) 设置宽度因子失败")
+
+        # --- 边界宽度（多行属性，软要求）---
+        if boundary_width is not None:
+            bw = float(boundary_width)
+            bw_ok = False
+            # 不同对象可能名字不一样，依次尝试
+            for prop in ("FieldWidth", "Width", "BoundaryWidth", "FieldLength"):
+                if set_attr(attr, prop, bw):
+                    bw_ok = True
+                    any_success = True
+                    break
+            if not bw_ok and verbose:
+                # 只是提示，不算硬失败；真正视觉生效要配合 ATSYNC
+                print(f"[警告] 属性({h}) 无法设置边界宽度（可能需要 ATSYNC）")
+
+        # --- 对正方式（Alignment）---
+        if align_code is not None:
+            j_ok = False
+            for prop in ("Alignment", "HorizontalAlignment", "Justification"):
+                if set_attr(attr, prop, align_code):
+                    j_ok = True
+                    any_success = True
+                    break
+            if not j_ok:
+                hard_fail = True
+                if verbose:
+                    print(
+                        f"[警告] 属性({h}) 设置对正方式失败 (code={align_code})"
+                    )
+
+        # --- 对齐点（软要求）---
+        if align_pt is not None:
+            ap_ok = False
+            for prop in ("TextAlignmentPoint", "AlignmentPoint"):
+                if set_attr(attr, prop, align_pt):
+                    ap_ok = True
+                    any_success = True
+                    break
+            if not ap_ok and verbose:
+                print(f"[警告] 属性({h}) 无法设置对齐坐标（多数属性用不到）")
+
+        # --- 旋转 ---
+        if rot_rad is not None:
+            if set_attr(attr, "Rotation", rot_rad):
+                any_success = True
+            else:
+                hard_fail = True
+                if verbose:
+                    print(f"[警告] 属性({h}) 设置旋转角失败")
+
+        # 更新属性引用
+        try:
+            attr.Update()
+        except Exception as e:
+            if verbose:
+                print(f"[警告] 属性({h}) Update 时出错: {e}")
+
+        ok = any_success and not hard_fail
+        if verbose and ok:
+            print(f"[OK] 属性 '{tag}' 格式参数已更新")
+
+        result[tag] = ok
+
+    # 刷新块
+    try:
+        block.Update()
+    except Exception as e:
+        if verbose:
+            print(f"[警告] 更新块时出错: {e}")
+
+    return result
+
+#尝试含ATSYNC
+
+def atsync_block_by_name(block, option_letter="N", delay=0.2, verbose=True):
+    """
+    使用 ATSYNC 命令、通过“按名称”方式同步块属性。
+
+    参数:
+        block         : BlockReference
+        option_letter : 英文版一般是 'N' (Name)，中文界面可能是 'M'(名称) —— 自己调整
+        delay         : SendCommand 之间的等待秒数（防止 AutoCAD 还没反应过来）
+    """
+    try:
+        li()
+    except Exception:
+        pass
+
+    global doc
+    try:
+        blk_name = get_attr(block, "Name")
+    except Exception:
+        blk_name = None
+
+    if not blk_name:
+        if verbose:
+            print("[警告] ATSYNC 失败：块没有 Name")
         return False
 
-    modified = False
-    target_tag = tag.strip().upper()
+    if verbose:
+        print(f"[INFO] ATSYNC 同步块：{blk_name}")
 
     try:
-        for attr in block_ref.GetAttributes():
-            if attr.TagString.strip().upper() != target_tag:
-                continue
-
-            # ——— 字高 ———
-            try:
-                attr.Height = height
-            except Exception as e:
-                print(f"[警告] 设置 Height 失败: {e}")
-
-            # ——— 边界宽度 / 宽度因子 ———
-            # 多行属性是 AcDbAttributeReference，但内核中仍带 MText，
-            # COM 暴露 'Width'；若没有就退而求其次改 WidthFactor
-            if hasattr(attr, "Width"):
-                try:
-                    attr.Width = width
-                except Exception as e:
-                    print(f"[警告] 设置 Width 失败: {e}")
-            else:
-                try:
-                    # 估算一个宽度因子使单行文本占据近似宽度
-                    # 【经验】WidthFactor * 字符数 * 字高 ≈ 宽度
-                    char_count = max(len(attr.TextString.replace("\\P", "")), 1)
-                    wf = width / (char_count * height)
-                    attr.WidthFactor = wf
-                except Exception as e:
-                    print(f"[警告] 设置 WidthFactor 失败: {e}")
-
-            modified = True
+        # 一次性发完整命令字符串：
+        # ATSYNC ↵ 选项字母 ↵ 块名 ↵
+        cmd = f"_ATSYNC\n{option_letter}\n{blk_name}\n"
+        doc.SendCommand(cmd)
+        time.sleep(delay)
+        return True
     except Exception as e:
-        print(f"[警告] GetAttributes() 失败: {e}")
-
-    return modified
-
-
+        if verbose:
+            print(f"[警告] ATSYNC SendCommand 失败: {e}")
+        return False
 
 
+def set_attribute_format_with_atsync(
+    block,
+    tags,
+    *,
+    atsync=True,
+    atsync_option="N",   # 中文环境可能要改成 "M"
+    atsync_delay=0.2,
+    verbose=True,
+    **fmt_kwargs,
+):
+    """
+    在 set_attribute_format 的基础上，自动调用 ATSYNC 让修改立即生效。
+
+    其它参数同 set_attribute_format（通过 **fmt_kwargs 透传）。
+    """
+    res = set_attribute_format(
+        block,
+        tags,
+        verbose=verbose,
+        **fmt_kwargs,
+    )
+
+    # 只要有一个标签成功设置，就尝试 ATSYNC
+    if atsync and any(res.values()):
+        atsync_block_by_name(
+            block,
+            option_letter=atsync_option,
+            delay=atsync_delay,
+            verbose=verbose,
+        )
+
+    return res
 
 
 
+
+
+def mtext_attachment_code(h_align=0, v_align=0):
+    """
+    h_align: 0=左, 1=中, 2=右
+    v_align: 0=上, 1=中, 2=下
+    返回 AttachmentPoint (1~9)
+    """
+    h = int(h_align)
+    v = int(v_align)
+    return v * 3 + h + 1   # 刚好 0..2,0..2 → 1..9
+
+def set_mtext_format(
+    mtext,
+    *,
+    text=None,          # 内容
+    style=None,         # 文字样式名
+    height=None,        # 高度
+    width=None,         # 定义的宽度（换行宽度）
+    h_align=None,       # 水平对正: 0=左 1=中 2=右
+    v_align=None,       # 垂直对正: 0=上 1=中 2=下
+    rotation_deg=None,  # 旋转角度（度）
+    line_spacing=None,  # 行距数值（对应“行间距”）
+    line_factor=None,   # 行间比例
+    verbose=True,
+):
+    """
+    直接针对 AcDbMText (IAcadMText) 的格式设置。
+    使用你现有的 cast_object / get_attr / set_attr。
+    """
+    m = cast_object(mtext)
+
+    # 内容
+    if text is not None:
+        if not set_attr(m, "TextString", str(text)):
+            if verbose:
+                print("[警告] 无法设置 MText 内容")
+
+    # 样式
+    if style is not None:
+        if not set_attr(m, "StyleName", style):
+            if verbose:
+                print("[警告] 无法设置 MText 样式")
+
+    # 高度
+    if height is not None:
+        if not set_attr(m, "Height", float(height)):
+            if verbose:
+                print("[警告] 无法设置 MText 高度")
+
+    # 宽度（换行宽度）
+    if width is not None:
+        if not set_attr(m, "Width", float(width)):
+            if verbose:
+                print("[警告] 无法设置 MText 定义宽度")
+
+    # 对正（AttachmentPoint）
+    if h_align is not None or v_align is not None:
+        # 默认用当前 AttachmentPoint 的垂直/水平作基准
+        try:
+            old_code = int(get_attr(m, "AttachmentPoint") or 1)
+        except Exception:
+            old_code = 1
+
+        # 反推出当前的 (v, h)
+        old_code = max(1, min(9, old_code))
+        v0 = (old_code - 1) // 3   # 0,1,2
+        h0 = (old_code - 1) % 3
+
+        h = h0 if h_align is None else int(h_align)
+        v = v0 if v_align is None else int(v_align)
+
+        new_code = v * 3 + h + 1
+        if not set_attr(m, "AttachmentPoint", new_code):
+            if verbose:
+                print(f"[警告] 无法设置 MText 对正 (code={new_code})")
+
+    # 旋转
+    if rotation_deg is not None:
+        rad = float(rotation_deg) * math.pi / 180.0
+        if not set_attr(m, "Rotation", rad):
+            if verbose:
+                print("[警告] 无法设置 MText 旋转角度")
+
+    # 行距（数值）
+    if line_spacing is not None:
+        if not set_attr(m, "LineSpacingDistance", float(line_spacing)):
+            if verbose:
+                print("[警告] 无法设置 MText 行距值")
+
+    # 行间比例
+    if line_factor is not None:
+        if not set_attr(m, "LineSpacingFactor", float(line_factor)):
+            if verbose:
+                print("[警告] 无法设置 MText 行距比例")
+
+    try:
+        m.Update()
+    except Exception as e:
+        if verbose:
+            print(f"[警告] 更新 MText 时出错: {e}")
+
+def set_text_format(
+    texts,
+    *,
+    content=None,        # 文本内容（字符串）
+    style=None,         # 文字样式名
+    height=None,        # 高度
+    width_factor=None,  # 宽度因子
+    oblique_deg=None,   # 倾斜角（度）
+    justify=None,       # 对正方式：0/1/2 或 "Left"/"Center"/"Right"
+    align_point=None,   # 对齐点 (x,y) 或 (x,y,z)
+    rotation_deg=None,  # 旋转角（度）
+    verbose=True,
+):
+    """
+    统一设置 AcDbText（单行文字）的格式参数。
+
+    参数 texts 可以是：
+        - 单个 AcDbText 对象
+        - 或 由多个 AcDbText 组成的列表/元组等
+    """
+
+    # ---- 1. 统一成列表 ----
+    if not isinstance(texts, (list, tuple, set)):
+        text_list = [texts]
+    else:
+        text_list = list(texts)
+
+    # ---- 2. 解析对正方式（统一用 0=左 1=中 2=右） ----
+    def resolve_alignment(val):
+        if val is None:
+            return None
+        if isinstance(val, (int, float)):
+            return int(val)
+        if isinstance(val, str):
+            m = val.strip().lower()
+            mapping = {
+                "left": 0,
+                "center": 1,
+                "middle": 1,
+                "right": 2,
+            }
+            return mapping.get(m)
+        return None
+
+    align_code = resolve_alignment(justify)
+
+    # ---- 3. 解析对齐点 ----
+    align_pt = None
+    if align_point is not None:
+        if len(align_point) == 2:
+            align_pt = (float(align_point[0]), float(align_point[1]), 0.0)
+        elif len(align_point) >= 3:
+            align_pt = (
+                float(align_point[0]),
+                float(align_point[1]),
+                float(align_point[2]),
+            )
+
+    # ---- 4. 角度：度 → 弧度 ----
+    rot_rad = None
+    if rotation_deg is not None:
+        rot_rad = float(rotation_deg) * math.pi / 180.0
+
+    obl_rad = None
+    if oblique_deg is not None:
+        obl_rad = float(oblique_deg) * math.pi / 180.0
+
+    result = []
+
+    for tx in text_list:
+        t = cast_object(tx)
+        h = get_attr(t, "Handle")
+        ok_any = False
+
+        # 内容
+        if content is not None:
+            if set_attr(t, "TextString", str(content)):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置内容失败")
+
+        # 样式
+        if style is not None:
+            if set_attr(t, "StyleName", style):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置样式失败")
+
+        # 高度
+        if height is not None:
+            if set_attr(t, "Height", float(height)):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置高度失败")
+
+        # 宽度因子
+        if width_factor is not None:
+            if set_attr(t, "WidthFactor", float(width_factor)):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置宽度因子失败")
+
+        # 倾斜角（ObliqueAngle）
+        if obl_rad is not None:
+            if set_attr(t, "ObliqueAngle", obl_rad):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置倾斜角失败")
+
+        # 对正方式（Alignment：0=左对齐 1=中 2=右）
+        if align_code is not None:
+            if set_attr(t, "Alignment", align_code):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置对正方式失败 (code={align_code})")
+
+        # 对齐坐标（TextAlignmentPoint）
+        if align_pt is not None:
+            if set_attr(t, "TextAlignmentPoint", align_pt):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置对齐坐标失败")
+
+        # 旋转角（Rotation，单位弧度）
+        if rot_rad is not None:
+            if set_attr(t, "Rotation", rot_rad):
+                ok_any = True
+            elif verbose:
+                print(f"[警告] Text({h}) 设置旋转角失败")
+
+        # 更新对象
+        try:
+            t.Update()
+        except Exception as e:
+            if verbose:
+                print(f"[警告] Text({h}) Update 时出错: {e}")
+
+        if verbose and ok_any:
+            print(f"[OK] Text({h}) 格式已更新")
+
+        result.append(ok_any)
+
+    return result
 
 
 
@@ -13914,6 +15092,8 @@ def insert_standard_block(block_dwg,
 
 
 #炸开
+
+
 def insert_and_explode_dwg(block_dwg,
                            insertion_point=(0, 0, 0),
                            scale=(1, 1, 1),
@@ -13933,7 +15113,6 @@ def insert_and_explode_dwg(block_dwg,
 
     before = select_kuai()
     before_handles = {b.Handle for b in before}
-
 
     if not os.path.isfile(block_dwg):
         raise FileNotFoundError(block_dwg)
@@ -13971,7 +15150,6 @@ def insert_and_explode_dwg(block_dwg,
 
     print(f"[OK] 已插入并炸开：{os.path.basename(path)} @ ({x},{y},{z})")
 
-
     after = select_kuai()
     new_refs = [b for b in after if b.Handle not in before_handles]
     if not new_refs:
@@ -13980,14 +15158,19 @@ def insert_and_explode_dwg(block_dwg,
 
     results = []
     for blk in new_refs:
-        # 5. 先将它旋转归零
+        # 5. 先将它旋转归零（容错，不成功就算了）
         try:
             blk.Rotation = 0
         except Exception:
             pass
 
-        # 7. 取它的包围盒四角
-        p1, p2 = blk.GetBoundingBox()
+        # 7. 取它的包围盒四角（加上 safe_get_bbox 防 CAD 忙）
+        try:
+            p1, p2 = safe_get_bbox(blk)
+        except Exception as e:
+            print(f"[警告] 获取块 {getattr(blk, 'Name', '?')} 外包盒失败：{e}")
+            continue
+
         minx, miny, minz = p1
         maxx, maxy, maxz = p2
         corners = [
@@ -13999,7 +15182,8 @@ def insert_and_explode_dwg(block_dwg,
 
         results.append((blk, corners))
 
-    return results,blk
+    # 兼容你当前调用方式：返回 (列表, 最后一个块)
+    return results, blk if results else ([], None)
 
 
 #&&% 双线程插入块
@@ -14234,33 +15418,84 @@ def select_block_by_name(block_name: str, max_retries: int = 5):
     print(f"[错误] {max_retries} 次仍失败：{last_exc!r}")
     return []
 
-def get_all_block_definitions(doc=None):
+def get_all_block_definitions(max_retry: int = 3, quiet: bool = False):
     """
-    返回当前 DWG 文档中所有块定义（BlockTableRecord）列表。
+    返回当前 DWG 中所有块定义（BlockTableRecord）对象列表。
 
-    :param doc: AutoCAD Document 对象，若为 None 则从当前激活文档获取
-    :return: list of BlockTableRecord COM 对象
-    blk.Name获取块名
+    实现策略：
+    - 使用全局 li() / doc，不再重复 Dispatch
+    - 使用 doc.Blocks.Item(i) 按索引获取，避免枚举器在 CAD 忙时抛 “应用程序正在使用中”
+    - 对整个获取过程做最多 max_retry 次重试，若仍失败则返回当时已经获取到的部分列表
 
+    参数:
+        max_retry : 失败时最多重试次数（默认 3）
+        quiet     : 是否静默，不打印警告信息
+
+    返回:
+        list[COM block object]
     """
-    # 如果外部没传入 doc，就从当前激活文档拿
-    if doc is None:
-        acad = win32com.client.Dispatch("AutoCAD.Application")
-        doc  = acad.ActiveDocument
+    import time
+    import pythoncom
+    from contextlib import suppress
+
+    global acad, doc, mp, sp
+
+    def log(msg):
+        if not quiet:
+            print(msg)
+
+    if not li():
+        raise RuntimeError("get_all_block_definitions: li() 连接失败，无法获取当前 DWG。")
 
     blocks = []
-    count = doc.Blocks.Count  # 块定义总数
-    # Blocks 集合在 COM 中是 0…Count−1 编号
-    for i in range(count):
+
+    for attempt in range(1, max_retry + 1):
+        blocks.clear()
         try:
-            blk = doc.Blocks.Item(i)
-            blocks.append(blk)
-        except Exception:
-            # 跳过任何访问不成功的索引
+            count = doc.Blocks.Count
+        except pythoncom.com_error as e:
+            # 可能是应用程序忙
+            log(f"[警告] 获取 Blocks.Count 失败（第 {attempt} 次）：{e}")
+            pythoncom.PumpWaitingMessages()
+            time.sleep(0.2)
             continue
 
+        try:
+            for i in range(count):
+                with suppress(Exception):
+                    blk = doc.Blocks.Item(i)
+                    blocks.append(blk)
+            # 成功跑完一轮，直接返回
+            return blocks
+        except pythoncom.com_error as e:
+            log(f"[警告] 遍历 Blocks 时出错（第 {attempt} 次）：{e}")
+            pythoncom.PumpWaitingMessages()
+            time.sleep(0.2)
+            continue
+
+    # 多次重试仍不完全成功，返回当前已经拿到的部分
+    log(f"[警告] get_all_block_definitions 多次重试后仍存在问题，返回部分块定义，数量={len(blocks)}")
     return blocks
 
+
+def get_all_block_names():
+    """
+    使用全局 li()/doc 获取当前 DWG 中所有块定义的名字列表。
+    """
+    import pythoncom
+
+    blocks = get_all_block_definitions(quiet=True)
+    names = []
+    for blk in blocks:
+        try:
+            names.append(str(blk.Name))
+        except pythoncom.com_error:
+            continue
+        except Exception:
+            continue
+    return names
+
+#&&% 块清理
 def purge_block(block_name: str, quiet: bool = False):
     """
     删除指定块的所有实例，并彻底清除该块定义。
@@ -14356,6 +15591,397 @@ def purge_unused_blocks(quiet: bool = False):
             print("   ·", nm)
 
     return removed
+
+
+
+@debuggable
+def purge_block_1(block_name: str, quiet: bool = False, max_delete_attempts: int = 2):
+    """
+    删除指定块的所有实例，并尽可能彻底清除该块定义。
+    
+    步骤：
+      1. 在 *Model_Space / *Paper_Space 和其它块定义中删除所有同名 INSERT 实例
+      2. 调用 PurgeAll() 清理未用定义
+      3. 多次尝试删除块定义
+      4. 如果仍然失败，将块名改为 lajikuai_时间戳_N，避免后续块名污染
+
+    :param block_name: 要清理的块名称（区分大小写）
+    :param quiet: True 则不打印过程信息
+    :param max_delete_attempts: Delete 块定义的最大尝试次数
+    """
+    import time
+    import pythoncom
+    from contextlib import suppress
+    from datetime import datetime
+
+    global acad, doc, mp, sp
+
+    def log(msg):
+        if not quiet:
+            print(msg)
+
+    # 小工具：判断是否块参照
+    def is_block_ref(ent) -> bool:
+        try:
+            on = getattr(ent, "ObjectName", "")
+        except Exception:
+            return False
+        return on in ("AcDbBlockReference", "AcDbMInsertBlock")
+
+    # 小工具：生成垃圾块名
+    def make_trash_name(base_prefix: str = "lajikuai", idx: int = 1) -> str:
+        ts = datetime.now().strftime("%Y%m%d%H%M%S")
+        return f"{base_prefix}_{ts}_{idx}"
+
+    node("▶ PB0  purge_block：开始清理块 '{}'", block_name)
+
+    # 0) 确保连接的是当前激活 DWG
+    if not li():
+        log(f"[错误] li() 连接失败，无法清理块 {block_name}")
+        return
+
+    # 1) 在所有块空间中删除该块的 INSERT 实例
+    removed = 0
+
+    # 1.1 模型空间
+    with suppress(Exception):
+        for ent in list(doc.ModelSpace):
+            if is_block_ref(ent) and getattr(ent, "Name", "") == block_name:
+                with suppress(Exception):
+                    ent.Delete()
+                    removed += 1
+
+    # 1.2 所有布局的 Block（包括 PaperSpace）
+    for layout in doc.Layouts:
+        with suppress(Exception):
+            block_space = layout.Block
+            for ent in list(block_space):
+                if is_block_ref(ent) and getattr(ent, "Name", "") == block_name:
+                    with suppress(Exception):
+                        ent.Delete()
+                        removed += 1
+
+    # 1.3 其它块定义内部的嵌套引用（避免“块中块”暗搓搓引用）
+    for blk_def in doc.Blocks:
+        with suppress(Exception):
+            for ent in list(blk_def):
+                if is_block_ref(ent) and getattr(ent, "Name", "") == block_name:
+                    with suppress(Exception):
+                        ent.Delete()
+                        removed += 1
+
+    if not quiet:
+        log(f"ℹ 共删除 {removed} 个 “{block_name}” 实例（含模型/图纸/块内部）")
+
+    time.sleep(0.1)
+
+    # 2) PurgeAll 清理未用定义
+    with suppress(Exception):
+        doc.PurgeAll()
+        if not quiet:
+            log("[OK] PurgeAll 清理未用定义")
+
+    # 3) 多次尝试删除块定义
+    deleted = False
+    for attempt in range(1, max_delete_attempts + 1):
+        try:
+            blk = doc.Blocks.Item(block_name)
+        except pythoncom.com_error:
+            # 已经不存在，视为删除成功
+            deleted = True
+            if not quiet:
+                log(f"[OK] 块定义 '{block_name}' 已不存在，视为已清理。")
+            break
+
+        try:
+            blk.Delete()
+            deleted = True
+            if not quiet:
+                log(f"[OK] 已删除块定义：{block_name}（第 {attempt} 次尝试）")
+            break
+        except Exception as e:
+            if not quiet:
+                log(f"[警告] 第 {attempt} 次删除块定义 '{block_name}' 失败：{e}")
+            time.sleep(0.1)
+
+    # 4) 多次 Delete 仍失败 → 改名为 lajikuai_时间戳_N
+    if not deleted:
+        try:
+            blk = doc.Blocks.Item(block_name)
+        except pythoncom.com_error:
+            # 刚刚已经被清掉了
+            if not quiet:
+                log(f"[OK] 块定义 '{block_name}' 在改名前就已不存在。")
+            return
+
+        idx = 1
+        while True:
+            new_name = make_trash_name("lajikuai", idx)
+            try:
+                _ = doc.Blocks.Item(new_name)
+                idx += 1
+            except pythoncom.com_error:
+                break  # 找到未被占用的新名
+
+        try:
+            blk.Name = new_name
+            if not quiet:
+                log(f"[警告] 块定义 '{block_name}' 无法彻底删除，已改名为垃圾块 '{new_name}'")
+        except Exception as e:
+            if not quiet:
+                log(f"[错误] 块 '{block_name}' Delete/改名均失败，可能仍有系统引用：{e}")
+
+    if not quiet:
+        log(f"ℹ 完成对 '{block_name}' 的清理。")
+
+@debuggable
+def purge_unused_blocks_1(
+    quiet: bool = False,
+    protect_names=None,
+    max_delete_attempts: int = 2,
+    rename_prefix: str = "lajikuai",
+):
+    """
+    一次性清除“当前文件中没有任何实例引用”的块定义。
+    - 对每个无实例块，多次 Delete 不掉则改名为 lajikuai_时间戳_N。
+
+    :param quiet: True 则不打印详细信息
+    :param protect_names: 不参与清理的块名白名单（列表）
+    :param max_delete_attempts: 每个块 Delete 最大尝试次数
+    :param rename_prefix: 删除失败时垃圾块名前缀
+    :return: List[str] - 所有被“处理”的块原名（包含已删除+已改名）
+    """
+    import time
+    import pythoncom
+    from contextlib import suppress
+    from datetime import datetime
+    from collections import Counter
+
+    global acad, doc, mp, sp
+
+    if protect_names is None:
+        protect_names = []
+
+    def log(msg):
+        if not quiet:
+            print(msg)
+
+    # 小工具：判断是否块参照
+    def is_block_ref(ent) -> bool:
+        try:
+            on = getattr(ent, "ObjectName", "")
+        except Exception:
+            return False
+        return on in ("AcDbBlockReference", "AcDbMInsertBlock")
+
+    # 小工具：判断是否系统/匿名块（不要动）
+    def is_system_block_name(name: str) -> bool:
+        if name.startswith("*"):
+            return True
+        if "|" in name:
+            return True
+        return False
+
+    # 小工具：生成垃圾块名
+    def make_trash_name(base_prefix: str = "lajikuai", idx: int = 1) -> str:
+        ts = datetime.now().strftime("%Y%m%d%H%M%S")
+        return f"{base_prefix}_{ts}_{idx}"
+
+    node("▶ PUB0 purge_unused_blocks：开始清理无实例块")
+
+    if not li():
+        log("[错误] li() 连接失败，无法清理无实例块。")
+        return []
+
+    # 1) 统计每个块名的引用次数（遍历所有块定义内部）
+    usage_counter = Counter()
+    block_names = []
+
+    t0 = time.time()
+    for blk_def in doc.Blocks:
+        with suppress(Exception):
+            name = str(blk_def.Name)
+            block_names.append(name)
+
+        with suppress(Exception):
+            for ent in blk_def:
+                if not is_block_ref(ent):
+                    continue
+                with suppress(Exception):
+                    ref_name = str(ent.Name)
+                    usage_counter[ref_name] += 1
+    t1 = time.time()
+
+    log(f"[INFO] 扫描 Blocks 完成，耗时 {t1 - t0:.3f}s，共 {len(block_names)} 个块定义。")
+
+    # 2) 调用 PurgeAll 一次：先让 CAD 自己清一轮
+    with suppress(Exception):
+        doc.PurgeAll()
+        log("[OK] PurgeAll 初步清理未用定义")
+
+    # 3) 重建 block_names（因为部分已被 Purge）
+    block_names = []
+    for blk_def in doc.Blocks:
+        with suppress(Exception):
+            block_names.append(str(blk_def.Name))
+
+    # 4) 过滤“无实例块候选”（usage == 0）
+    unused_candidates = []
+    for name in block_names:
+        if is_system_block_name(name) or name in protect_names:
+            continue
+        if usage_counter.get(name, 0) == 0:
+            unused_candidates.append(name)
+
+    log(f"[INFO] 候选“无实例块”数量：{len(unused_candidates)}")
+
+    if not unused_candidates:
+        log("[OK] 未发现无实例块，清理结束。")
+        return []
+
+    processed = []  # 记录被删除或改名的“原始块名”
+
+    # 5) 对每个无实例块尝试 Delete；失败则改名为 lajikuai_xxx
+    for blk_name in unused_candidates:
+        deleted = False
+
+        for attempt in range(1, max_delete_attempts + 1):
+            try:
+                blk = doc.Blocks.Item(blk_name)
+            except pythoncom.com_error:
+                # 已不存在，当作成功
+                deleted = True
+                log(f"[OK] 块 '{blk_name}' 已不存在（可能刚刚被 PurgeAll 删除），视为已清理。")
+                break
+
+            try:
+                blk.Delete()
+                deleted = True
+                processed.append(blk_name)
+                log(f"[OK] 块 '{blk_name}' Delete 成功（第 {attempt} 次尝试）")
+                break
+            except Exception as e:
+                log(f"[警告] 块 '{blk_name}' 第 {attempt} 次 Delete 失败：{e}")
+                time.sleep(0.05)
+
+        if deleted:
+            continue
+
+        # —— Delete 仍失败，改名为垃圾块 —— 
+        try:
+            blk = doc.Blocks.Item(blk_name)
+        except pythoncom.com_error:
+            # 又消失了
+            log(f"[OK] 准备改名时，块 '{blk_name}' 已不存在。")
+            continue
+
+        idx = 1
+        while True:
+            new_name = make_trash_name(rename_prefix, idx)
+            try:
+                _ = doc.Blocks.Item(new_name)
+                idx += 1
+            except pythoncom.com_error:
+                break
+
+        try:
+            blk.Name = new_name
+            processed.append(blk_name)
+            log(f"[警告] 块 '{blk_name}' 无实例但 Delete 失败，已改名为垃圾块 '{new_name}'")
+        except Exception as e:
+            log(f"[错误] 块 '{blk_name}' 无法 Delete 也无法改名：{e}")
+
+    log(f"[OK] 无实例块清理完成，共处理 {len(processed)} 个块定义。")
+    return processed
+
+@debuggable
+def reserve_block_names_for_new_insert(
+    block_names,
+    rename_prefix: str = "oldblk",
+    verbose: bool = True,
+):
+    """
+    【核心目标】在插入新块之前，为一组块名“预留新定义空间”。
+
+    逻辑：
+    - 对于当前 DWG 中已经存在的同名块定义（包括已有实例）：
+      → 不删除、不爆炸，只是把块定义统一改名为 rename_prefix_时间戳_N，
+        让原有实例跟着一起使用这个“旧名”。
+    - 这样，原来的块名（如 A3-H）在 Blocks 表中就“空出来”了，
+      之后从标准模板插入同名块，就一定是全新的定义，不会被老文件干扰。
+
+    参数:
+        block_names  : 要预留的新块名列表，例如 ["A3-H", "A2-H", "A1-H", "A0-H"]
+        rename_prefix: 旧定义改名使用的前缀（默认 "oldblk"）
+        verbose      : 是否打印说明信息（node 日志不受此影响）
+
+    返回:
+        dict: { 原名 -> 新名 }，没有被占用的块名不会出现在返回字典中。
+    """
+    import pythoncom
+    from datetime import datetime
+
+    global acad, doc, mp, sp
+
+    if isinstance(block_names, str):
+        block_names = [block_names]
+
+    def log(msg):
+        if verbose:
+            print(msg)
+
+    # 生成唯一旧名
+    def make_legacy_name(base_prefix: str, base_name: str, idx: int = 1) -> str:
+        ts = datetime.now().strftime("%Y%m%d%H%M%S")
+        # 带上原名，方便将来看出来是哪个演化而来
+        return f"{base_prefix}_{base_name}_{ts}_{idx}"
+
+    node("▶ RB0 reserve_block_names_for_new_insert：为块名 {} 预留新定义空间", block_names)
+
+    if not li():
+        log("[错误] li() 连接失败，无法预留块名。")
+        return {}
+
+    renamed_map = {}
+
+    for name in block_names:
+        try:
+            blk_def = doc.Blocks.Item(name)
+        except pythoncom.com_error:
+            # 说明当前 DWG 里没有这个块定义，块名是“干净”的
+            node("▶ RB1 块名 '{}' 在当前文件中不存在，可直接用于新定义。", name)
+            continue
+
+        # 已存在同名块定义 → 给它改个“旧块”名字，让位给后续新定义
+        idx = 1
+        while True:
+            new_name = make_legacy_name(rename_prefix, name, idx)
+            try:
+                _ = doc.Blocks.Item(new_name)
+                idx += 1
+            except pythoncom.com_error:
+                break  # 找到未占用的新名
+
+        try:
+            blk_def.Name = new_name
+            renamed_map[name] = new_name
+            node("▶ RB2 块定义 '{}' 已改名为旧块 '{}'", name, new_name)
+            log(f"[INFO] 块定义 '{name}' 已让位给新定义，旧定义改名为 '{new_name}'。")
+        except Exception as e:
+            log(f"[警告] 块 '{name}' 改名为旧块失败：{e}")
+
+    if verbose:
+        if renamed_map:
+            log("[OK] 已为以下块名预留新定义空间：")
+            for old, new in renamed_map.items():
+                log(f"   · {old} → {new}")
+        else:
+            log("[OK] 所有块名在当前 DWG 中本来就是干净的，无需让位。")
+
+    return renamed_map
+
+
+
 
 
 def get_selected_blockreference_names():
@@ -14628,7 +16254,7 @@ def ensure_layer(layer_name="jizhunwall"):
             ents = select_tuceng(layer_name)
             if not ents:
                 # 已经没有对象，提前退出
-                print(f"🧹 图层 '{layer_name}' 已清空（共尝试 {attempt - 1} 次）")
+                print(f"[CLEAN] 图层 '{layer_name}' 已清空（共尝试 {attempt - 1} 次）")
                 break
 
             deleted = 0
@@ -14783,103 +16409,19 @@ print("__________________  CAD基本操作开始运行 _________________________
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #&&&&%% 第十一部分  对象属性访问
 
 """
 统一的CAD对象和天正对象属性访问
 支持CAD标准对象（通过CastTo）和天正对象（通过IDispatch.Invoke）
+多行属性文字的预设宽度可以大一点，它是一个自动分行数据。不一定要
+通过脚本变更数据，可以将核心属性块的分行宽度数据通过BE修改，然后
+ATTSYNC就可以全部变更。这样，如果分行宽度不合理，修正一下就可以了‘
+它不是一个需要高频变化的数据，与公司图签有点关联。而程序可以控制它
+左上或者居中，这样就解决了属性块多行文字的书写。对于项目名称这种
+相对固定的内容，直接使用函数控制它的分行。对于图纸名称，也可以考虑
+用字数来控制分行。因此，插图签、编目录的根本问题就解决了
+
 """
 
 import pythoncom
@@ -14908,12 +16450,157 @@ _CAST_MAP = {
     "AcDbHatch":"IAcadHatch", "AcDbTable":"IAcadTable",
 }
 
-# 天正对象属性DISPID映射
+### 天正对象属性DISPID映射
+##_TARCH_PROPERTY_MAP = {
+##    'TDbOpening': {'Offset': 1, 'Width': 2, 'Type': 3, 'Direction': 7,
+##                   'Angle': 8, 'Height': 10, 'Name': 11},
+##    'TDbWall': {'Offset1': 1, 'Thickness': 2, 'Thickness2': 3, 'Length': 4,
+##                'WallType': 11, 'Material': 13, 'Hatch': 21, 'Surface': 22},
+##
+##    'TDbText': {'Text': 1, 'TextStyle': 2, 'Layer': 3, 'Height': 4,
+##                'XScale': 11 },
+##
+##
+##}
+
+
 _TARCH_PROPERTY_MAP = {
-    'TDbOpening': {'Offset': 1, 'Width': 2, 'Type': 3, 'Direction': 7,
-                   'Angle': 8, 'Height': 10, 'Name': 11},
-    'TDbWall': {'Offset1': 1, 'Thickness': 2, 'Thickness2': 3, 'Length': 4,
-                'WallType': 11, 'Material': 13, 'Hatch': 21, 'Surface': 22},
+    # ……原来的……
+    'TDbOpening': {
+        'Offset': 1, 'Width': 2, 'Type': 3, 'Direction': 7,
+        'Angle': 8, 'Height': 10, 'Name': 11
+    },
+    'TDbWall': {
+        'Offset1': 1, 'Thickness': 2, 'Thickness2': 3, 'Length': 4,
+        'WallType': 11, 'Material': 13, 'Hatch': 21, 'Surface': 22
+    },
+
+    # 单行天正文字
+    'TDbText': {
+        'Height':      1,   # '3.5' → 高度
+        'Justify':     2,   # '左下(BL)'
+        'Rotation':    3,   # 0.0 度
+        'TextStyle':   4,   # 'Standard'
+        'Text':        5,   # '天正单行文字...'
+        'Oblique':     6,   # 0.0 度（斜体角）
+        # 'BigFont':   29,  # '无'，暂时不用
+        'SomeSize':    30,  # 100.0，暂时占位
+        'Flag40':      40,  # '是'/'否' 之类的开关
+        'WidthFactor': 41,  # '1' → 宽度因子
+        'Flag42':      42,  # 另一开关
+    },
+
+    # 多行天正文字（TDbMText）
+    'TDbMText': {
+        'Height':          1,   # '3.5'
+        'Justify':         2,   # '左对齐'
+        'Rotation':        3,   # 0.0 度
+        'TextStyle':       4,   # 'Standard'
+        'Width':           5,   # '200.0' — MText 框宽
+        'LineSpacing':     6,   # '0.40' — 行距系数（猜测）
+        'Oblique':         7,   # 0.0 度（可能是倾斜/其他角度）
+        # 'BigFont':       29,  # '无'
+        'SomeSize':        30,  # 100.0
+        # 内容 Text / TextString 暂时没看到对应 DISPID，先不写
+    },
+
+
+    'TDbSpace': {
+            # --- 基本信息 ---
+            'Name':          1,   # 房间名称，如 '房间'
+            'Number':        2,   # 房间编号，如 '1002'
+            'Area':          3,   # 房间面积，字符串形式的数值 '53.212'
+
+            # 4–9 这几个是面积/周长/投影等各类几何参数，语义不够确定，先挂上通用名字
+            'Param4':        4,
+            'Param5':        5,
+            'Param6':        6,
+            'Param7':        7,
+            'Param8':        8,
+            'Param9':        9,
+
+            # --- 高度/几何 ---
+            'RoomHeight':   10,   # 3000.0  房间高度/楼层高度（需你实测确认）
+            'Perimeter1':   11,   # 与 12 数值相同，很可能是周长类参数
+            'Perimeter2':   12,
+
+            # --- 标注/显示控制 ---
+            'ShowName':     13,   # '是'/'否'  是否显示名称
+            'NameTextMode': 14,   # '单行名称' 等
+            'RoomCode':     15,   # 'ROOM'（房间类型代码）
+            'Flag16':       16,   # '否'
+            'UserText':     17,   # 预留的说明文字（目前为空）
+            'BoundaryRef':  18,   # IDispatch：房间外轮廓对象引用
+            'ScaleText':    19,   # '100'  标注比例/比例因子
+            'AngleBase':    20,   # '0' 基准角度
+
+            'HasSomething': 21,   # '有'  某类附加信息存在与否
+            'StyleName':    22,   # '_TCH_SPACE' 空间样式名
+            'TextOffset':   23,   # 5.0  文字相对房间几何的偏移
+            'Angle24':      24,
+            'TextRotation': 25,   # 120.0  文字方向
+            'Angle26':      26,
+            'Angle27':      27,
+            'Flag28':       28,   # '否'
+            'BigFont':      29,   # '无'
+            'SizeParam':    30,   # 100.0
+
+            'AreaLabelText':31,   # '房间面积'  标注文字内容
+            'RoomHeight2':  32,   # 3000.0  与 10 一致，多半是同义字段
+            'ShowAreaText': 33,   # '是'
+
+            'StyleName2':   42,   # '_TCH_SPACE'
+            'TextHeight':   43,   # 3.5  房间文字高度
+
+            # --- 其它设置（100+） ---
+            'Default100':   100,  # ' (缺省)'
+            'Default101':   101,  # ' (缺省)'
+            'FloorType':    102,  # '接地楼板'
+            'Param103':     103,
+            'Note':         104,
+            'Param105':     105,
+            'Param106':     106,
+            'Scope':        107,  # '全部'  作用范围
+            'HatchName':    108,  # 'SPACE_HATCH' 填充样式名
+            'HatchOn':      109,  # '是' 是否填充
+            'ControlMode':  110,  # '全局控制'
+            'OverrideLocal':111,  # '否' 是否局部覆盖
+            'HasHatch':     112,  # '有'
+            'Param113':     113,
+        
+   
+
+    },
+
+   "TDbDrawingName": {
+        # 基本图名
+        "图名文字": 1,          # 例如 "一层平面图"^C42^C~^C1^C轴立面图文字加圆圈
+        "图名样式": 2,          # 文字样式名，如 "Standard"
+        "图名高度": 3,          # 文字高度
+
+        # 比例相关
+        "比例文字": 4,          # 例如 "1:100"
+        "比例样式": 5,          # 比例文字样式
+        "比例高度": 6,          # 比例文字高度
+
+        # 版式 / 标注样式
+        "间距系数": 8,          # 0.60
+        "标注样式": 9,          # "传统" / "国标" 等
+
+        # 显示控制
+        "显示比例": 10,         # "是"/"否"（有的版本会是真布尔）
+
+        # 其它参数（按需使用）
+        "偏移量": 11,           # 几何偏移/基线距离，当前看到是 0.0
+        "文字颜色索引": 12,     # 颜色索引/枚举值
+        "前缀文字": 29,         # "无" 等附加字段
+        "比例数值": 30,         # 100.0 等数值形式
+    },
+
+
+
+
+    
 }
 
 def _maybe_cast(ent):
@@ -14965,6 +16652,3418 @@ def set_object_property(obj, property_name, value):
         return True
     except Exception as e:
         return False
+
+def get_attr(obj, name):
+    """
+    安全获取对象属性：
+    1）优先走天正 DISPID 映射（get_object_property）
+    2）失败再退回 getattr
+    """
+    val = get_object_property(obj, name)
+    if val is None:
+        try:
+            val = getattr(obj, name)
+        except Exception:
+            val = None
+    return val
+
+
+def set_attr(obj, name, value):
+    """
+    安全设置对象属性：
+    1）优先走天正 DISPID 映射（set_object_property）
+    2）失败再退回 setattr
+    """
+    if not set_object_property(obj, name, value):
+        try:
+            setattr(obj, name, value)
+        except Exception:
+            return False
+    return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##属性探测器
+
+def brute_dump_tarch_props(ent, max_dispid=64):
+    """
+    暴力枚举天正对象的属性 DISPID，打印所有“能读出来”的属性值。
+    用于分析像 TDbText 这类没有 TypeLib 描述的自定义对象。
+    """
+    ole = ent._oleobj_
+    obj_name = getattr(ent, "ObjectName", "<no ObjectName>")
+    print(f"=== brute_dump_tarch_props: ObjectName = {obj_name}, max_dispid = {max_dispid} ===")
+
+    for dispid in range(1, max_dispid + 1):
+        try:
+            # 直接按 "返回一个 VARIANT" 来读
+            val = ole.InvokeTypes(
+                dispid,
+                0,
+                pythoncom.DISPATCH_PROPERTYGET,
+                (pythoncom.VT_VARIANT, 0),
+                ()
+            )
+            print(f"DISPID {dispid:2d} -> {repr(val)}")
+        except pythoncom.com_error:
+            # 这个 dispid 不对应属性（可能是方法、或根本不存在），忽略
+            continue
+        except Exception as e:
+            print(f"DISPID {dispid:2d} 异常: {e}")
+
+
+
+# ==================== 新增辅助测试函数 ====================
+
+
+
+
+#&&% 获取区域坐标
+
+def get_pmxz_group_bbox():
+    """
+    使用 pmxz() 选择一组对象，计算它们的整体外包盒。
+
+    返回:
+        (bbox_corners, rect_xy)
+
+        bbox_corners: 四元组
+            (
+              (minX, minY, z),  # 左下角 bottom_left
+              (maxX, maxY, z),  # 右上角 top_right
+              (minX, maxY, z),  # 左上角 top_left
+              (maxX, minY, z),  # 右下角 bottom_right
+            )
+
+        rect_xy: 四元组
+            (x1, y1, x2, y2)
+            其中 (x1, y1) = 左下角平面坐标，
+                 (x2, y2) = 右上角平面坐标。
+
+    若 pmxz() 未选到对象或全部对象不支持 GetBoundingBox()，返回 (None, None)。
+    """
+    print("========== [PMXZ_BBOX] get_pmxz_group_bbox BEGIN ==========")
+
+    # 1. 让用户用 pmxz() 选择对象
+    try:
+        com_list = pmxz()
+    except Exception as e:
+        print("[PMXZ_BBOX] 调用 pmxz() 出错：", repr(e))
+        print("========== [PMXZ_BBOX] END(ERROR_PMXZ) ==========")
+        return None, None
+
+    if not com_list:
+        print("[PMXZ_BBOX] pmxz() 未返回任何对象。")
+        print("========== [PMXZ_BBOX] END(NO_OBJECTS) ==========")
+        return None, None
+
+    print(f"[PMXZ_BBOX] pmxz() 返回对象数量 = {len(com_list)}")
+
+    # 2. 计算整体外包盒四个角点
+    bbox_corners = group_bbox_corners(com_list)
+    if bbox_corners is None:
+        print("[PMXZ_BBOX] group_bbox_corners 返回 None（可能所有对象都不支持 GetBoundingBox）。")
+        print("========== [PMXZ_BBOX] END(NO_BBOX) ==========")
+        return None, None
+
+    bottom_left, top_right, top_left, bottom_right = bbox_corners
+    x1, y1, _ = bottom_left
+    x2, y2, _ = top_right
+
+    rect_xy = (x1, y1, x2, y2)
+
+    print(f"[PMXZ_BBOX] 外包盒四角点: {bbox_corners}")
+    print(f"[PMXZ_BBOX] 矩形坐标 (x1,y1,x2,y2) = ({x1}, {y1}, {x2}, {y2})")
+    print("========== [PMXZ_BBOX] get_pmxz_group_bbox END ==========")
+
+    return bbox_corners, rect_xy
+
+
+
+def g():
+
+    get_pmxz_group_bbox()
+
+
+def align_last_ms_obj_lb_to_origin():
+    """
+    选择当前激活图中“模型空间最后一个对象”，
+    以其外包盒左下角对齐到世界坐标 (0, 0, 0)。
+
+    要求：
+        - CAD_basic.py 中已有 li() 和 last_obj()
+        - last_obj() 返回模型空间中最后生成的对象（或对象列表）
+    """
+    import sys
+    from pathlib import Path
+    import pythoncom
+    from win32com.client import VARIANT
+
+    # 引入 CAD_basic 里的 li 和 last_obj
+    sys.path.append(str(Path(__file__).parent))
+    from CAD_basic import li, last_obj  # noqa
+
+    # 1. 连接当前 DWG
+    li()
+
+    # 2. 获取“最后一个对象”
+    try:
+        ent = last_obj()
+    except Exception as e:
+        print(f"[错误] 调用 last_obj() 失败: {e}")
+        return None
+
+    # last_obj() 可能返回单个对象，也可能返回列表，这里做个保护
+    try:
+        _ = ent.ObjectName  # 若能访问说明是单个 COM 对象
+    except Exception:
+        try:
+            ent = ent[-1]
+        except Exception as e:
+            print(f"[错误] last_obj() 返回值类型不支持: {e}")
+            return None
+
+    objname = getattr(ent, "ObjectName", "<无>")
+    handle  = getattr(ent, "Handle", "<无>")
+    print(f"[信息] 选中的最后一个对象: ObjectName={objname}, Handle={handle}")
+
+    # 3. 使用“控制台同款”调用方式获取外包盒
+    try:
+        # ★ 关键：和你在控制台一样，不带参数调用 ★
+        min_pt, max_pt = ent.GetBoundingBox()
+        xmin, ymin, zmin = min_pt
+        xmax, ymax, zmax = max_pt
+        print(f"[外包盒-对齐前] min={min_pt}, max={max_pt}")
+    except Exception as e:
+        print(f"[错误] 获取外包盒失败: {e}")
+        return None
+
+    # 4. 以外包盒左下角为锚点，移动到 (0,0,0)
+    try:
+        anchor_pt = (float(xmin), float(ymin), float(zmin))  # 左下角
+        target_pt = (0.0, 0.0, 0.0)                         # 原点
+
+        from_pt = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, anchor_pt)
+        to_pt   = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, target_pt)
+
+        print(f"[对齐] 锚点(左下)={anchor_pt} → 目标点={target_pt}")
+        ent.Move(from_pt, to_pt)
+    except Exception as e:
+        print(f"[错误] Move 对齐失败: {e}")
+        return None
+
+    # 5. 再次获取外包盒，验证对齐结果（同样用无参数版本）
+    try:
+        min_pt2, max_pt2 = ent.GetBoundingBox()
+        print(f"[外包盒-对齐后] min={min_pt2}, max={max_pt2}")
+    except Exception as e:
+        print(f"[警告] 对齐后再次获取外包盒失败: {e}")
+
+    print("[完成] 模型空间最后一个对象已按外包盒左下角对齐到 (0,0,0)。")
+    return ent
+
+
+#&&&&%% 第十二部分  打印插图签编目录
+
+#&&% 选择打印区域
+
+def select_print_areas_smart(
+    lm: float = 7000,
+    tol_single: float = 0.01,
+    mode: str = "block",              # "block" / "layer" / "screen"
+    layer_name: str | None = None,    # mode="layer" 时使用
+    cha_Y: float = 2000,
+    block_layers: tuple = ("dy_quyu", "tuqian_neibu_pl"),
+    aux_layer: str = "kuai_pl",       # 块外包盒辅助矩形图层
+    rect_layer: str = "dy_zhuanyong", # select_print_areas_rect_from_polylines 最终打印框所在图层
+    width: float = 0.0,
+    color: int = 256,
+    z: float = 0.0,
+):
+    """
+    综合选择打印区域函数：支持 3 种模式（三选一）并返回【排序后的打印多段线列表】。
+
+    参数：
+        lm          : select_print_areas_rect_from_polylines 的最小边长阈值。
+        tol_single  : 判定“单向多段线”的首尾距离阈值。
+        mode        : "block" / "layer" / "screen"
+                      - "block"  : 基于块外包盒 + 多段线分析（默认）；
+                      - "layer"  : 直接使用图层上的多段线矩形（stc(layer_name)）；
+                      - "screen" : 让用户从屏幕选择多段线矩形（pmxz()）。
+        layer_name  : mode="layer" 时指定打印区域所在图层名。
+        cha_Y       : sort_coms_by_llcorner 的“同一行”纵向容差。
+        block_layers: 块模式下，认为“候选打印块”的图层集合。
+        aux_layer   : 块模式下，用于绘制块外包盒矩形的辅助图层（用完会清空）。
+        rect_layer  : 块模式下，select_print_areas_rect_from_polylines 绘制最终打印框的图层。
+        width       : 新绘制多段线的宽度（一般 0）。
+        color       : 新绘制多段线的颜色（256 = BYLAYER）。
+        z           : 新绘制多段线的 Z 值。
+
+    返回：
+        List[IAcadLWPolyline] 或 List[IAcadPolyline]：
+        已按左下角排序（自上而下、自左向右）的打印区域矩形多段线列表。
+
+    块和多段线模式
+    LB_dy = select_print_areas_smart(
+        lm=7000,
+        tol_single=0.01,
+        mode="block",                 # 或省略
+        block_layers=("dy_quyu", "tuqian_neibu_pl"),
+        aux_layer="kuai_pl",
+        rect_layer="dy_zhuanyong",
+        cha_Y=2000,
+    )
+    
+    图层模式
+    LB_dy = select_print_areas_smart(
+        mode="layer",
+        layer_name="dy_quyu",         # 假设这个图层上已经是打印矩形
+        cha_Y=2000,
+    )
+    
+    屏幕选择模式
+    LB_dy = select_print_areas_smart(
+        mode="screen",
+        cha_Y=2000,
+    )
+    此时会弹出 pmxz() 的选择过程，让你框选多段线矩形
+
+
+    """
+    global mp, sp
+
+    # —— 日志小工具 —— #
+    def log(msg, *args):
+        try:
+            txt = msg.format(*args) if args else msg
+        except Exception:
+            txt = msg
+        # node() + print 双输出
+        n = globals.get("node") if isinstance(globals, dict) else globals().get("node", None)
+        if n is not None:
+            try:
+                if args:
+                    n(msg, *args)
+                else:
+                    n(msg)
+            except Exception:
+                pass
+        try:
+            print(txt)
+        except Exception:
+            pass
+
+    # 为了避免 globals() 的问题，直接简化一下：
+    def log(msg, *args):
+        try:
+            txt = msg.format(*args) if args else msg
+        except Exception:
+            txt = msg
+        try:
+            n = globals().get("node", None)
+            if n is not None:
+                if args:
+                    n(msg, *args)
+                else:
+                    n(msg)
+        except Exception:
+            pass
+        try:
+            print(txt)
+        except Exception:
+            pass
+
+    # —— 通用选择结果扁平化工具：stc / pmxz 可能返回多种结构 —— #
+    def normalize_selection(res):
+        """
+        将 stc(...) / pmxz(...) 等返回值规整为实体列表：
+          - list/tuple -> 展开；
+          - (selectionSet, list[COM]) -> 取第二个；
+          - selectionSet -> 遍历；
+          - 单个实体 -> [ent]
+        """
+        if res is None:
+            return []
+        # (selset, list)
+        if isinstance(res, (list, tuple)):
+            if len(res) == 2 and not hasattr(res[0], "GetBoundingBox"):
+                res = res[1]
+
+        if isinstance(res, (list, tuple)):
+            return list(res)
+
+        # selectionSet 或其它可迭代 COM 集合
+        try:
+            return [ent for ent in res]
+        except TypeError:
+            # 单个实体
+            return [res]
+
+    # —— 清空指定图层上的对象（辅助图层专用） —— #
+    def clear_layer(layer: str):
+        removed = 0
+        for space in (mp, sp):
+            if space is None:
+                continue
+            try:
+                ents = list(space)
+            except Exception:
+                continue
+            for ent in ents:
+                try:
+                    if getattr(ent, "Layer", None) == layer:
+                        ent.Erase()
+                        removed += 1
+                except Exception:
+                    continue
+        if removed > 0:
+            log("[CLEAN] 图层 '{}' 已清空，共删除 {} 个对象", layer, removed)
+        else:
+            log("[CLEAN] 图层 '{}' 无对象或无需清理", layer)
+
+    # —— 确保 CAD 连接正常 —— #
+    li()
+
+    # —— 模式互斥检查 —— #
+    mode = (mode or "block").lower()
+    if mode not in ("block", "layer", "screen"):
+        log("⚠ mode 参数无效: {}，将退回为 'block' 模式", mode)
+        mode = "block"
+
+    # ==================== 模式一：图层模式 ====================
+
+    if mode == "layer":
+        if not layer_name:
+            log("⚠ mode='layer' 但未指定 layer_name，返回空列表。")
+            return []
+        try:
+            res = stc(layer_name)
+        except Exception as e:
+            log("⚠ stc({}) 选择失败：{}", layer_name, e)
+            return []
+        ents = normalize_selection(res)
+        log("▶ 图层模式：图层 '{}' 上选到 {} 个对象", layer_name, len(ents))
+        if not ents:
+            return []
+        lb_sorted = sort_coms_by_llcorner(ents, cha_Y=cha_Y)
+        log("📌 图层模式：排序后打印区域数量={}", len(lb_sorted))
+        return lb_sorted
+
+    # ==================== 模式二：屏幕选择模式 ====================
+
+    if mode == "screen":
+        try:
+            res = pmxz()
+        except Exception as e:
+            log("⚠ pmxz() 屏幕选择失败：{}", e)
+            return []
+        ents = normalize_selection(res)
+        log("▶ 屏幕模式：用户从屏幕选择 {} 个对象", len(ents))
+        if not ents:
+            return []
+        lb_sorted = sort_coms_by_llcorner(ents, cha_Y=cha_Y)
+        log("📌 屏幕模式：排序后打印区域数量={}", len(lb_sorted))
+        return lb_sorted
+
+    # ==================== 模式三：块模式（默认） ====================
+
+    # 0. 确保辅助图层存在，并清空
+    try:
+        ensure_layer(aux_layer)
+    except Exception as e:
+        log("⚠ ensure_layer({}) 调用失败：{}", aux_layer, e)
+    clear_layer(aux_layer)
+
+    # 1. 选出所有有效块实例
+    try:
+        kuai_list = select_kuai()
+    except Exception as e:
+        log("⚠ select_kuai() 调用失败：{}", e)
+        kuai_list = []
+
+    log("▶ 块模式：select_kuai 返回 {} 个块实例（含其他图层）", len(kuai_list))
+
+    # 2. 过滤指定图层上的块（dy_quyu / tuqian_neibu_pl）
+    block_layers_set = set(block_layers or ())
+    kuai_filtered = []
+    for ent in kuai_list:
+        try:
+            lay = getattr(ent, "Layer", "")
+        except Exception:
+            lay = ""
+        if lay in block_layers_set:
+            kuai_filtered.append(ent)
+
+    log("📌 块模式：位于图层 {} 上的块实例数量={}",
+        list(block_layers_set), len(kuai_filtered))
+
+    # 3. 根据块外包盒绘制矩形多段线到 aux_layer
+    created_pls = []
+    for blk in kuai_filtered:
+        try:
+            ll, ur = blk.GetBoundingBox()
+            x1, y1 = float(ll[0]), float(ll[1])
+            x2, y2 = float(ur[0]), float(ur[1])
+        except Exception as e:
+            log("  ⚠ 获取块外包盒失败，跳过一个块：{}", e)
+            continue
+
+        minx, maxx = (x1, x2) if x1 <= x2 else (x2, x1)
+        miny, maxy = (y1, y2) if y1 <= y2 else (y2, y1)
+
+        dx = maxx - minx
+        dy = maxy - miny
+        if dx <= 0 or dy <= 0:
+            continue
+
+        coords3d = [
+            (minx, miny, z),
+            (minx, maxy, z),
+            (maxx, maxy, z),
+            (maxx, miny, z),
+            (minx, miny, z),
+        ]
+
+        try:
+            pl_new = draw_lwpolyline(
+                coords3d,
+                layer_name=aux_layer,
+                width=width,
+                color=color,
+                closed=True,
+            )
+            created_pls.append(pl_new)
+        except Exception as e:
+            log("  ⚠ 在图层 '{}' 绘制块外包盒矩形失败：{}", aux_layer, e)
+            continue
+
+    log("📌 块模式：已在图层 '{}' 上绘制 {} 根辅助矩形多段线（块外包盒）",
+        aux_layer, len(created_pls))
+
+    # 4. 等待 CAD 命令执行完成
+    try:
+        wait_command_done()
+    except Exception:
+        # 没有的话也不强制
+        pass
+
+    # 5. 调用多段线分析函数，选出最终打印区域多段线
+    LB_dy = select_print_areas_rect_from_polylines(
+        lm=lm,
+        tol_single=tol_single,
+        layer_name=rect_layer,
+        width=width,
+        color=color,
+        z=z,
+    )
+
+    log("📌 块模式：select_print_areas_rect_from_polylines 得到 {} 根打印区域多段线",
+        len(LB_dy) if LB_dy else 0)
+
+    if not LB_dy:
+        # 清掉辅助矩形后直接返回
+        clear_layer(aux_layer)
+        return []
+
+    # 6. 排序
+    lb_sorted = sort_coms_by_llcorner(LB_dy, cha_Y=cha_Y)
+    log("📌 块模式：排序后打印区域数量={}", len(lb_sorted))
+
+    # 7. 清空辅助图层 aux_layer
+    clear_layer(aux_layer)
+
+    return lb_sorted
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def select_print_areas_rect_from_polylines(
+    lm=7000,
+    tol_single=0.01,
+    layer_name="dy_zhuanyong",
+    width=0.0,
+    color=256,
+    z=0.0,
+):
+    """
+    从当前 DWG 中【仅基于多段线】自动识别打印区域，并在指定图层上绘制
+    “规范矩形多段线”作为打印框。
+
+    完整规则：
+        1) 只选 polyline；
+        2) 过滤“单向多段线”（非闭合 + 首尾距离 > tol_single）；
+        3) 从剩余 polyline 中识别“矩形多段线”（轮廓为矩形即可，允许多点重叠）；
+        4) 同一 bbox 的矩形多段线只保留一根（重复矩形过滤）；
+        5) 过滤 min_side < lm 的矩形；
+        6) 对通过 lm 的矩形集合 cand：
+           6.1 先做“伪矩形”判定（规则 1 & 2），把伪矩形剔除；
+           6.2 再在剩余矩形上做“极大矩形”筛选（严格包含，完全相同 bbox 不互相干掉）；
+        7) 对极大矩形，用外包盒调用 draw_lwpolyline 在 layer_name 上画规范矩形；
+        8) 对刚才判定出的伪矩形：
+           - 删除原对象；
+           - 用外包盒在 0 图层重画一圈矩形边框；
+        9) 返回：新绘制的真正打印框 LWPOLYLINE 列表（不包括伪矩形）。
+    """
+
+    import math
+    global mp  # li() 会初始化 mp
+
+    # —— 日志包装：优先 node，同时 print 一份 —— #
+    def log(msg, *args):
+        text = msg.format(*args) if args else msg
+        # node
+        n = globals().get("node", None)
+        if n is not None:
+            try:
+                if args:
+                    n(msg, *args)
+                else:
+                    n(msg)
+            except Exception:
+                pass
+        # print
+        try:
+            print(text)
+        except Exception:
+            pass
+
+    # —— 0. 确保 CAD 连接正常 —— #
+    li()
+
+    # —— 0.5 确保并清理专用图层 —— #
+    try:
+        ensure_layer(layer_name)
+    except Exception as e:
+        log("⚠ ensure_layer({}) 调用失败: {}", layer_name, e)
+
+    # ========= 工具函数 =========
+
+    def is_polyline_entity(ent):
+        try:
+            name = str(get_attr(ent, "ObjectName"))
+        except Exception:
+            name = ""
+        return "Polyline" in name
+
+    def is_closed_polyline(ent):
+        for attr_name in ("Closed", "Closed2"):
+            try:
+                val = get_attr(ent, attr_name)
+                if bool(val):
+                    return True
+            except Exception:
+                continue
+        return False
+
+    def get_polyline_coords_xy(ent):
+        """返回 [(x,y), ...]，忽略 z；失败返回 []"""
+        try:
+            coords = list(get_attr(ent, "Coordinates"))
+        except Exception:
+            return []
+        if not coords:
+            return []
+        n = len(coords)
+        # 有的坐标是 x,y，有的是 x,y,z；这里做个兼容判断
+        if n % 3 == 0 and n % 2 != 0:
+            step = 3
+        else:
+            step = 2
+        pts = []
+        for i in range(0, n, step):
+            try:
+                x = coords[i]
+                y = coords[i+1]
+            except Exception:
+                break
+            pts.append((float(x), float(y)))
+        return pts
+
+    def is_single_direction_polyline(ent, tol):
+        """
+        仅对【非闭合】多段线做首尾距离判断。
+        坐标为空/异常时返回 False（不当成单向线）。
+        """
+        if not is_polyline_entity(ent):
+            return False
+        if is_closed_polyline(ent):
+            return False
+
+        pts = get_polyline_coords_xy(ent)
+        if len(pts) < 2:
+            return False
+        (x0, y0) = pts[0]
+        (x1, y1) = pts[-1]
+        dx = x1 - x0
+        dy = y1 - y0
+        return (dx*dx + dy*dy) > (tol*tol)
+
+    def get_bbox(ent):
+        """返回 (minx, miny, maxx, maxy)，失败返回 None"""
+        try:
+            ll, ur = ent.GetBoundingBox()
+            x1, y1 = float(ll[0]), float(ll[1])
+            x2, y2 = float(ur[0]), float(ur[1])
+        except Exception:
+            return None
+        minx, maxx = (x1, x2) if x1 <= x2 else (x2, x1)
+        miny, maxy = (y1, y2) if y1 <= y2 else (y2, y1)
+        return (minx, miny, maxx, maxy)
+
+    def is_rectangle_like(ent, eps=1e-6):
+        """
+        判定多段线是否为“矩形”：轴对齐 + 4 顶点（允许多点、多处重叠，只看轮廓）。
+        """
+        if not is_polyline_entity(ent):
+            return False
+
+        pts = get_polyline_coords_xy(ent)
+        if len(pts) < 4:
+            return False
+
+        # 去掉连续重复点
+        uniq = []
+        for p in pts:
+            if not uniq:
+                uniq.append(p)
+            else:
+                if abs(p[0]-uniq[-1][0]) > eps or abs(p[1]-uniq[-1][1]) > eps:
+                    uniq.append(p)
+
+        # 去掉首尾完全重合
+        if len(uniq) >= 2:
+            if abs(uniq[0][0]-uniq[-1][0]) < eps and abs(uniq[0][1]-uniq[-1][1]) < eps:
+                uniq = uniq[:-1]
+
+        if len(uniq) != 4:
+            return False
+
+        xs = sorted(set([p[0] for p in uniq]))
+        ys = sorted(set([p[1] for p in uniq]))
+        if len(xs) != 2 or len(ys) != 2:
+            return False
+
+        # 检查相邻边是否轴对齐
+        for i in range(4):
+            x0, y0 = uniq[i]
+            x1, y1 = uniq[(i+1) % 4]
+            if not (abs(x0 - x1) < eps or abs(y0 - y1) < eps):
+                return False
+
+        return True
+
+    # ==================== Step 1：选多段线 & 过滤单向多段线 ====================
+
+    all_pls = []
+
+    for func in (select_polyline_chuantong, select_polyline):
+        try:
+            res = func(max_retries=5, autocast=True)
+        except Exception as e:
+            log("⚠ {} 选择失败: {}", func.__name__, e)
+            res = []
+
+        if not res:
+            continue
+
+        if isinstance(res, (list, tuple)):
+            if len(res) == 2 and not hasattr(res[0], "GetBoundingBox"):
+                res = res[1]
+
+        try:
+            ents_this = list(res)
+        except TypeError:
+            ents_this = [res]
+
+        log("▶ {} 返回对象数={}", func.__name__, len(ents_this))
+        for ent in ents_this:
+            if is_polyline_entity(ent):
+                all_pls.append(ent)
+
+    log("▶ Step1: 多段线总数={}", len(all_pls))
+
+    kept_pls = []
+    single_count = 0
+
+    for ent in all_pls:
+        try:
+            if is_single_direction_polyline(ent, tol_single):
+                single_count += 1
+                try:
+                    h = get_attr(ent, "Handle")
+                except Exception:
+                    h = "<?>"
+                log("  ⤷ 过滤单向多段线 Handle={}", h)
+                continue
+        except Exception as e:
+            log("  ⚠ 单向多段线判定异常，暂不剔除: {}", e)
+        kept_pls.append(ent)
+
+    log("📌 单向多段线过滤掉 {} 条；剩余多段线 {} 条", single_count, len(kept_pls))
+
+    if not kept_pls:
+        log("‼ Step1 结束：所有多段线都被判为单向或无效，返回空列表。")
+        return []
+
+    # ==================== Step 2：识别矩形多段线 & 去重 ====================
+
+    rect_recs = []
+    for ent in kept_pls:
+        if not is_rectangle_like(ent):
+            continue
+        bbox = get_bbox(ent)
+        if not bbox:
+            continue
+        minx, miny, maxx, maxy = bbox
+        dx = maxx - minx
+        dy = maxy - miny
+        min_side = min(dx, dy)
+        rect_recs.append({
+            "poly": ent,
+            "minx": minx,
+            "miny": miny,
+            "maxx": maxx,
+            "maxy": maxy,
+            "min_side": min_side,
+        })
+
+    log("▶ Step2: 识别为“矩形多段线”的数量={}", len(rect_recs))
+    if not rect_recs:
+        log("‼ Step2 结束：未发现任何矩形多段线。")
+        return []
+
+    # —— 按外包盒去重：同一 bbox 只保留第一根 —— #
+    uniq_by_bbox = {}
+    dup_count = 0
+    for r in rect_recs:
+        key = (
+            round(r["minx"], 6),
+            round(r["miny"], 6),
+            round(r["maxx"], 6),
+            round(r["maxy"], 6),
+        )
+        if key in uniq_by_bbox:
+            dup_count += 1
+            try:
+                h = get_attr(r["poly"], "Handle")
+            except Exception:
+                h = "<?>"
+            log("  ⤷ 过滤重复矩形多段线 Handle={}", h)
+            continue
+        uniq_by_bbox[key] = r
+
+    rect_uniq = list(uniq_by_bbox.values())
+    log("📌 重复矩形多段线过滤掉 {} 条；唯一矩形 {} 条",
+        dup_count, len(rect_uniq))
+
+    # ==================== Step 3：按 lm 过滤 ====================
+
+    cand = [r for r in rect_uniq if r["min_side"] >= lm]
+    log("▶ Step3: 过滤 min_side < {} 后矩形数={}", lm, len(cand))
+
+    if not cand:
+        log("‼ Step3 结束：所有矩形 min_side 都 < lm，返回空列表。")
+        return []
+
+    # ==================== Step 4：伪矩形筛选 + 再做极大矩形 ====================
+
+    eps = 1e-6
+
+    def rect_strict_contains(a, b):
+        """
+        a 是否【严格】包含 b（完全相同 bbox 不算包含）
+        """
+        if not (
+            a["minx"] <= b["minx"] + eps and
+            a["miny"] <= b["miny"] + eps and
+            a["maxx"] >= b["maxx"] - eps and
+            a["maxy"] >= b["maxy"] - eps
+        ):
+            return False
+
+        same_minx = abs(a["minx"] - b["minx"]) < eps
+        same_miny = abs(a["miny"] - b["miny"]) < eps
+        same_maxx = abs(a["maxx"] - b["maxx"]) < eps
+        same_maxy = abs(a["maxy"] - b["maxy"]) < eps
+
+        if same_minx and same_miny and same_maxx and same_maxy:
+            return False
+
+        return True
+
+    def rect_inclusive_contains(a, b):
+        """
+        a 是否（非严格）包含 b，用于“内部是否有多个子矩形”的判断；
+        同样忽略完全相同 bbox 的情况（不算子）。
+        """
+        if not (
+            a["minx"] <= b["minx"] + eps and
+            a["miny"] <= b["miny"] + eps and
+            a["maxx"] >= b["maxx"] - eps and
+            a["maxy"] >= b["maxy"] - eps
+        ):
+            return False
+
+        same_minx = abs(a["minx"] - b["minx"]) < eps
+        same_miny = abs(a["miny"] - b["miny"]) < eps
+        same_maxx = abs(a["maxx"] - b["maxx"]) < eps
+        same_maxy = abs(a["maxy"] - b["maxy"]) < eps
+
+        if same_minx and same_miny and same_maxx and same_maxy:
+            return False
+
+        return True
+
+    # 4.1 伪矩形判定（基于 cand）
+    pseudo_recs = []
+    pseudo_count = 0
+
+    # 用于规则 2：内部子矩形统计（短边>29000）
+    child_candidates = [r for r in rect_uniq if r["min_side"] > 29000.0]
+
+    for ri in cand:
+        dx = ri["maxx"] - ri["minx"]
+        dy = ri["maxy"] - ri["miny"]
+        min_side = min(dx, dy)
+        max_side = max(dx, dy)
+
+        pseudo = False
+        reason = ""
+
+        # 规则 1：尺寸型伪矩形（阈值你改成 28000 了，这里沿用）
+        if max_side > 230000.0 or min_side < 28000.0:
+            pseudo = True
+            reason = "尺寸超限(最长边>{} 或 最短边<{})".format(230000, 28000)
+        else:
+            # 规则 2：包含型伪矩形
+            # 28000 <= min_side <= max_side <= 230000 时，
+            # 内部如果有多于 1 个 (min_side>29000) 的矩形多段线，则视为伪矩形
+            big_child_count = 0
+            for rj in child_candidates:
+                if rj is ri:
+                    continue
+                if rect_inclusive_contains(ri, rj):
+                    big_child_count += 1
+                    if big_child_count > 1:
+                        break
+            if big_child_count > 1:
+                pseudo = True
+                reason = "内部包含 >1 个短边>29000 的矩形({})".format(big_child_count)
+
+        if pseudo:
+            pseudo_recs.append(ri)
+            pseudo_count += 1
+            log("  ⤷ 伪矩形打印框过滤: min_side={:.3f}, max_side={:.3f}, 原因={}",
+                min_side, max_side, reason)
+
+    log("📌 伪矩形打印框过滤掉 {} 个", pseudo_count)
+
+    # 4.2 剔除伪矩形后，再做极大矩形筛选
+    pseudo_ids = {id(r) for r in pseudo_recs}
+    base_list = [r for r in cand if id(r) not in pseudo_ids]
+
+    if not base_list:
+        log("‼ Step4: 剔除伪矩形后无候选矩形，将仅重绘伪矩形边框。")
+
+    maxima = []
+    for i, ri in enumerate(base_list):
+        is_contained = False
+        for j, rj in enumerate(base_list):
+            if i == j:
+                continue
+            if rect_strict_contains(rj, ri):
+                is_contained = True
+                break
+        if not is_contained:
+            maxima.append(ri)
+
+    log("📌 伪矩形剔除后极大矩形数量={}", len(maxima))
+    for idx, r in enumerate(maxima, 1):
+        dx = r["maxx"] - r["minx"]
+        dy = r["maxy"] - r["miny"]
+        log("    极大矩形#{:02d}: minx={:.3f}, miny={:.3f}, maxx={:.3f}, maxy={:.3f}, min_side={:.3f}, max_side={:.3f}",
+            idx, r["minx"], r["miny"], r["maxx"], r["maxy"], min(dx, dy), max(dx, dy))
+
+    # 4.3 删除伪矩形实体，并记录外包盒以便重画
+    pseudo_bbox_list = []
+    for r in pseudo_recs:
+        pseudo_bbox_list.append((r["minx"], r["miny"], r["maxx"], r["maxy"]))
+        ent = r["poly"]
+        try:
+            h = get_attr(ent, "Handle")
+        except Exception:
+            h = "<?>"
+        try:
+            ent.Erase()
+            log("  ⤷ 已删除伪矩形实体 Handle={}", h)
+        except Exception as e:
+            log("  ⚠ 删除伪矩形实体失败 Handle={} : {}", h, e)
+
+    # ==================== Step 5：按外包盒绘制真正打印框 ====================
+
+    rect_pls = []
+    for r in maxima:
+        minx, miny, maxx, maxy = r["minx"], r["miny"], r["maxx"], r["maxy"]
+        coords3d = [
+            (minx, miny, z),
+            (minx, maxy, z),
+            (maxx, maxy, z),
+            (maxx, miny, z),
+            (minx, miny, z),
+        ]
+
+        try:
+            pl_new = draw_lwpolyline(
+                coords3d,
+                layer_name=layer_name,
+                width=width,
+                color=color,
+                closed=True,
+            )
+            rect_pls.append(pl_new)
+        except Exception as e:
+            log("  ⚠ draw_lwpolyline 失败，跳过一个打印多段线: {}", e)
+            continue
+
+    log("📌 最终绘制打印矩形数量={}", len(rect_pls))
+
+    # ==================== Step 6：在 0 图层重绘伪矩形边框（外包盒） ====================
+
+    pseudo_pls = []
+    for (minx, miny, maxx, maxy) in pseudo_bbox_list:
+        coords3d = [
+            (minx, miny, z),
+            (minx, maxy, z),
+            (maxx, maxy, z),
+            (maxx, miny, z),
+            (minx, miny, z),
+        ]
+        try:
+            pl_pseudo = draw_lwpolyline(
+                coords3d,
+                layer_name="0",
+                width=0.0,
+                color=256,
+                closed=True,
+            )
+            pseudo_pls.append(pl_pseudo)
+        except Exception as e:
+            log("  ⚠ 重绘伪矩形边框失败: {}", e)
+            continue
+
+    if pseudo_pls:
+        log("📌 已在图层 0 重绘 {} 个伪矩形边框", len(pseudo_pls))
+
+    return rect_pls
+
+
+
+#&&&% 一 打印
+
+#&&&% 二 插图签
+"""
+标准图签模板在D:/Myprogramsystem/XT/标准图签模板.dwg
+属性图签的同名图块，在进行内部的属性文字移动位置后，命令行窗口执行ATTSYNC，按提示操作完，所有同名属性块文字都会移动到新的位置
+这就解决了图签内容随不同公司图签变换位置的问题。
+每个公司的自定义内容属于固定块，我们不需要管。
+我们给出的是通用语义的值，例如项目名称的值，你叫项目大名称也无所谓。
+通过统一的属性文字操作，能够快速将某个标签值设为空，这就适应了不同公司的需要，实现了万能图签的目标。
+重复操作插入之前会先清空默认的"dy_quyu"，以不影响函数的运行
+属性块制作
+1 ATT 输入命令行
+2 选择多行文字，字体，字体大小，文字边界，正中
+3 ATT 输入命令行
+4 选择单行文字，字体，字体大小，文字边界，正中
+5 检查好字体，图层，每个公司内容有点差别，文字图层统一为“图签目录”，注意每个图签的多行文字边界
+6 ATTMODE 2 ATTDISP ON，确保设置好这两个值再做块
+
+根据20251126的最新函数，文字边界宽度可以设到12000,不需要通过文字边界换行，而是可以自由换行
+
+"""
+
+def get_attr(obj, name):
+    val = get_object_property(obj, name)
+    if val is None:
+        try:
+            val = getattr(obj, name)
+        except Exception:
+            val = None
+    return val
+
+
+def set_attr(obj, name, value):
+    if not set_object_property(obj, name, value):
+        try:
+            setattr(obj, name, value)
+        except Exception:
+            return False
+    return True
+
+
+
+
+def plcoor_to_com(coord_info, layer_name="测试辅助", width=0, color=256):
+    """
+    根据坐标数据批量创建轻量多段线并返回 COM 对象列表。
+
+    coord_info 结构：[(coords, flag), ...]
+        coords: [(x, y), (x, y), ...]
+        flag:   预留标志位（当前没用也无所谓）
+    """
+    import win32com.client
+    import pythoncom
+
+    global doc, mp
+
+    # 让 CAD_basic 自己的 li() 保证 doc/mp 正常
+    li()
+    if doc is None or mp is None:
+        raise RuntimeError(
+            "[plcoor_to_com] doc/mp 为 None，无法访问 Layers/ModelSpace，请检查 li() 逻辑"
+        )
+
+    # 图层准备
+    try:
+        layer = doc.Layers.Item(layer_name)
+    except Exception:
+        layer = doc.Layers.Add(layer_name)
+    set_attr(layer, "LayerOn", True)
+
+    polys = []
+    for coords, flag in coord_info:
+        data = []
+        for x, y in coords:
+            data.extend((x, y))
+        arr = win32com.client.VARIANT(
+            pythoncom.VT_ARRAY | pythoncom.VT_R8, data
+        )
+        poly = mp.AddLightWeightPolyline(arr)
+        set_attr(poly, "Layer", layer_name)
+        set_attr(poly, "ConstantWidth", width)
+        set_attr(poly, "Color", color)
+        set_attr(poly, "Closed", True)
+        polys.append(poly)
+
+    node("[plcoor_to_com] 已在图层 '{}' 上生成 {} 条多段线", layer_name, len(polys))
+    return polys
+
+
+
+# =============================
+#  外包盒 → 多段线 → 图幅/比例/规格
+# =============================
+
+def draw_pl_and_extract_info(resu, layer_name="测试辅助", width=0, color=256):
+    """
+    resu: List[(blk_entity, corners)]
+        corners = [(x_ll, y_ll, z), (x_lu, y_lu, z), (x_ru, y_ru, z), (x_rl, y_rl, z)]
+    在指定图层绘制外包盒多段线，并调用 generate_name_and_ratio_from_polyline
+    提取图幅 / 比例 / 规格。
+    """
+    import time
+    import win32com.client
+    import pythoncom
+
+    li()
+    global doc, mp
+    if doc is None or mp is None:
+        raise RuntimeError("[draw_pl_and_extract_info] doc/mp 为 None，无法绘制多段线")
+
+    # 确保图层存在
+    try:
+        layer = doc.Layers.Item(layer_name)
+    except Exception:
+        layer = doc.Layers.Add(layer_name)
+    try:
+        set_attr(layer, "LayerOn", True)
+    except Exception:
+        pass
+
+    results = {}
+
+    for idx, (blk, corners) in enumerate(resu):
+        # corners 是四个三元组，但 LWPOLYLINE 只要 2D XY
+        raw = []
+        for x, y, _ in corners:
+            raw.extend((x, y))
+        arr = win32com.client.VARIANT(
+            pythoncom.VT_ARRAY | pythoncom.VT_R8,
+            raw
+        )
+
+        lw = mp.AddLightWeightPolyline(arr)
+        set_attr(lw, "Layer", layer_name)
+        set_attr(lw, "ConstantWidth", width)
+        set_attr(lw, "Color", color)
+        set_attr(lw, "Closed", True)
+
+        # 图幅/比例/规格分析
+        try:
+            info = generate_name_and_ratio_from_polyline(lw)
+        except Exception:
+            info = None
+
+        if info and len(info) >= 3:
+            frame, ratio, spec = info[:3]
+        else:
+            frame = ratio = spec = None
+
+        blk_name = None
+        try:
+            blk_name = get_attr(blk, "Name")
+        except Exception:
+            pass
+
+        results[idx] = {
+            "block_name":    blk_name,
+            "corners":       corners,
+            "drawing_frame": frame,
+            "ratio":         ratio,
+            "spec":          spec,
+            "polyline":      lw,
+        }
+
+    try:
+        print_com_info(results)
+    except Exception:
+        pass
+
+    try:
+        doc.SendCommand("RE\n")
+        doc.SendCommand("Z\nE\n")
+    except Exception:
+        pass
+    time.sleep(0.3)
+    return results
+
+
+def draw_pl_and_extract_from_entities(
+    entities,
+    layer_name: str = "测试辅助",
+    width: int = 0,
+    color: int = 256,
+    A3dy: int = 0,
+    Fandy: Tuple[str, str, str, int] = ("ISO_A3_(420.00_x_297.00_MM)", "0:0", "A3", 0),
+):
+    """
+    把 entities 统一转换为闭合多段线，并提取图幅 / 比例 / 规格信息。
+    返回 results 字典，下游以 info["entity"] 作为区域多段线引用。
+    """
+    import time
+
+    li()
+    global doc, mp
+    if doc is None or mp is None:
+        raise RuntimeError("[draw_pl_and_extract_from_entities] doc/mp 为 None")
+
+    coord_info, corners_list = [], []
+    for ent in entities:
+        if not hasattr(ent, "GetBoundingBox"):
+            continue
+        try:
+            p1, p2 = ent.GetBoundingBox()
+        except Exception:
+            continue
+
+        minx, miny, _ = p1
+        maxx, maxy, _ = p2
+        corners = [
+            (minx, miny, 0),
+            (minx, maxy, 0),
+            (maxx, maxy, 0),
+            (maxx, miny, 0),
+        ]
+        corners_list.append(corners)
+        coord_info.append(([(x, y) for x, y, _ in corners], 1))
+
+    # 用 CAD_basic 里的 plcoor_to_com 在指定图层画多段线
+    plines = plcoor_to_com(
+        coord_info, layer_name=layer_name, width=width, color=color
+    )
+
+    results = {}
+    for idx, (corners, pline) in enumerate(zip(corners_list, plines)):
+        # 所属块名（如果在块内）
+        block_name = None
+        try:
+            owner = get_attr(pline, "Owner")
+            owner_block = get_attr(owner, "Block") if owner is not None else None
+            target = owner_block or owner
+            if target is not None:
+                block_name = get_attr(target, "Name")
+        except Exception:
+            block_name = None
+
+        # 使用 COM 版本的图幅分析函数
+        try:
+            info = generate_name_and_ratio_from_com(
+                pline, A3dy=A3dy, Fandy=Fandy
+            )
+        except Exception:
+            info = 0
+
+        if info and len(info) >= 3:
+            drawing_frame, ratio, spec = info[:3]
+            orient = info[3] if len(info) > 3 else None
+        else:
+            drawing_frame = ratio = spec = orient = None
+
+        results[idx] = {
+            "entity":        pline,
+            "block_name":    block_name,
+            "corners":       corners,
+            "drawing_frame": drawing_frame,
+            "ratio":         ratio,
+            "spec":          spec,
+            "orient":        orient,
+        }
+
+    try:
+        print_com_info(results)
+    except Exception:
+        pass
+
+    try:
+        doc.SendCommand("RE\n")
+        doc.SendCommand("Z\nE\n")
+    except Exception:
+        pass
+    time.sleep(0.3)
+    return results
+
+
+# =============================
+#  打印区域内插入块（按方向）
+# =============================
+
+def insert_block_into_poly_area(block_name, poly_ent, k=1.0, max_retries=3):
+    """
+    在多段线/多边形 poly_ent 所定义区域内插入已定义块，
+    横向区域（宽 >= 高）在左下插入；竖向区域在左上插入并顺时针旋转 90°。
+    """
+    import time
+    import math
+    import win32com.client
+    import pythoncom
+
+    if not hasattr(poly_ent, "GetBoundingBox"):
+        raise TypeError("poly_ent 必须具备 GetBoundingBox 方法")
+
+    li()
+    global doc, mp
+    if doc is None or mp is None:
+        raise RuntimeError("[insert_block_into_poly_area] doc/mp 为 None")
+
+    p1, p2 = poly_ent.GetBoundingBox()
+    minx, miny, minz = p1
+    maxx, maxy, _ = p2
+    width = maxx - minx
+    height = maxy - miny
+
+    orientation = 0 if width >= height else 1
+    ins_pt = (minx, miny, minz) if orientation == 0 else (minx, maxy, minz)
+
+    ins_var = win32com.client.VARIANT(
+        pythoncom.VT_ARRAY | pythoncom.VT_R8,
+        ins_pt,
+    )
+
+    block_ref = None
+    last_err = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            block_ref = mp.InsertBlock(ins_var, block_name, k, k, k, 0.0)
+            break
+        except Exception as exc:
+            last_err = exc
+            print(f"⚠ 第 {attempt} 次插入块失败: {exc}")
+            time.sleep(0.5)
+    else:
+        raise RuntimeError(f"❌ 多次尝试仍无法插入块 {block_name}: {last_err}")
+
+    # 竖向时顺时针 90°
+    if orientation == 1 and block_ref is not None:
+        try:
+            set_attr(block_ref, "Rotation", -math.pi / 2)
+        except Exception as exc:
+            print("⚠ 设置 Rotation 失败：", exc)
+
+    return orientation, ins_pt, block_ref
+
+
+def compute_insert_factors(entities, res, result_dict):
+    """
+    根据 res 的 ratio/spec 与 result_dict（图签模板信息）的块定义，计算缩放系数 k。
+    回传 [(entity, block_name, spec, k), ...]
+    """
+    import re
+
+    def _denom(s: str) -> int:
+        m = re.match(r".*:(\d+)$", s or "")
+        return int(m.group(1)) if m else 1
+
+    mapping = {
+        info.get("spec"): (info.get("block_name"), info.get("ratio"))
+        for info in result_dict.values()
+        if info.get("spec")
+    }
+
+    outputs = []
+    for ent in entities:
+        matched = next(
+            (info for info in res.values() if info.get("entity") is ent),
+            None
+        )
+        if not matched:
+            outputs.append((ent, None, None, None))
+            continue
+
+        spec = matched.get("spec")
+        ratio1 = matched.get("ratio") or "1:1"
+        block_name, ratio2 = mapping.get(spec, (None, "1:1"))
+
+        d1, d2 = _denom(ratio1), _denom(ratio2)
+        k = d1 / d2 if d2 else None
+        outputs.append((ent, block_name, spec, k))
+
+    return outputs
+
+
+def get_factor_for_entity(entity, factors):
+    """在 factors 中找到第一项为 entity 的元组。"""
+    for tup in factors:
+        if tup[0] is entity:
+            return tup
+    return None
+
+
+# =============================
+#  插入公司通用图签块（单线程）
+# =============================
+
+def insert_company_label_common_block(
+    insertion_point=(0, 0, 0),
+    filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+    scale=(1, 1, 1),
+    rotation=0,
+    wait=0.3,
+):
+    """
+    直接插入“公司通用图签块”DWG，并炸开，生成外包盒多段线信息。
+
+    返回:
+        (coms_tuqian, names_tuqian, info_dict)
+    """
+    import time
+
+    li()
+    # 1) 插入并炸开 DWG
+    resu_all = insert_and_explode_dwg(
+        filepath,
+        insertion_point=insertion_point,
+        scale=scale,
+        rotation=rotation,
+        wait=wait,
+    )
+    # insert_and_explode_dwg 通常返回 [resu]
+    resu = resu_all[0]
+
+    # 2) 外包盒 → 多段线 → 图幅信息
+    info_dict = draw_pl_and_extract_info(
+        resu, layer_name="测试辅助", width=0, color=256
+    )
+
+    # 3) 整理块引用与块名
+    coms_tuqian = []
+    names_tuqian = []
+    for ob in resu:
+        blk = ob[0]
+        coms_tuqian.append(blk)
+        names_tuqian.append(get_attr(blk, "Name"))
+
+    try:
+        time.sleep(1.0)
+        savefile()
+    except Exception:
+        pass
+
+    return coms_tuqian, names_tuqian, info_dict
+
+
+# =============================
+#  双线程：忽略 SHX 字体对话框
+# =============================
+
+def f1_insert_company_getwindow(
+    timeout_event,
+    done_event,
+    *,
+    result_box: dict,
+    insertion_point=(0, 0, 0),
+    filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+    scale=(1, 1, 1),
+    rotation=0,
+    wait=0.3,
+):
+    """线程1：插入公司图签块，并将结果写入 result_box['data']。"""
+    import pythoncom
+    import traceback
+
+    pythoncom.CoInitialize()
+    try:
+        node("线程1启动（Insert_Company_Label_Common_Block）")
+        li()
+        result = insert_company_label_common_block(
+            insertion_point=insertion_point,
+            filepath=filepath,
+            scale=scale,
+            rotation=rotation,
+            wait=wait,
+        )
+        node("线程1完成插入, 写入 result_box")
+        result_box["data"] = result
+        timeout_event.wait()
+    except Exception as exc:
+        print("f1_insert_company_getwindow:", exc, traceback.format_exc())
+    finally:
+        pythoncom.CoUninitialize()
+        done_event.set()
+
+
+def _find_shx_dialog(shx_titles=("缺少 SHX", "Missing SHX")) -> int:
+    """查找“缺少 SHX 字体”对话框窗口句柄。"""
+    import win32gui
+
+    result = []
+
+    def _enum(hwnd, _):
+        title = win32gui.GetWindowText(hwnd)
+        if any(k in title for k in shx_titles):
+            result.append(hwnd)
+
+    win32gui.EnumWindows(_enum, None)
+    return result[0] if result else 0
+
+
+def _ignore_shx_dialog(hwnd: int):
+    """向“缺少 SHX 字体”对话框发送 ESC 键关闭。"""
+    import win32gui
+    import win32con
+
+    win32gui.PostMessage(hwnd, win32con.WM_KEYDOWN, win32con.VK_ESCAPE, 0)
+    win32gui.PostMessage(hwnd, win32con.WM_KEYUP,   win32con.VK_ESCAPE, 0xC0000000)
+
+
+def f2_delwindow(
+    timeout_event,
+    done_event,
+    *,
+    poll_sec: float = 0.5,
+    limit_sec: int = 3,
+    shx_titles=("缺少 SHX", "Missing SHX"),
+):
+    """线程2：轮询“缺少 SHX”对话框并自动 ESC 关闭。"""
+    import pythoncom
+    import time
+    import traceback
+
+    pythoncom.CoInitialize()
+    try:
+        node("线程2启动（监控 SHX 对话框）")
+        t0 = time.time()
+        while time.time() - t0 < limit_sec:
+            if timeout_event.is_set():
+                break
+            hwnd = _find_shx_dialog(shx_titles)
+            if hwnd:
+                node("🖱 检测到 SHX 对话框，发送 ESC")
+                _ignore_shx_dialog(hwnd)
+                timeout_event.set()
+                break
+            time.sleep(poll_sec)
+        else:
+            # 在 limit_sec 内未见对话框，也放行
+            timeout_event.set()
+    except Exception as exc:
+        print("f2_delwindow 异常:", exc, traceback.format_exc())
+        timeout_event.set()
+    finally:
+        pythoncom.CoUninitialize()
+        done_event.set()
+
+
+def run_dual_threads(
+    f1,
+    f2,
+    f1_args=(),
+    f1_kwargs=None,
+    f2_args=(),
+    f2_kwargs=None,
+    *,
+    timeout_sec: int = 300,
+    spawn_f1: bool = True,
+):
+    """
+    启动 f1 / f2 协作：
+      - f1(timeout_event, done_event, ...)
+      - f2(timeout_event, done_event, ...)
+
+    spawn_f1 = False 表示在当前线程执行 f1（适合 COM 主线程场景）。
+    """
+    import threading
+    import time
+
+    if f1_kwargs is None:
+        f1_kwargs = {}
+    if f2_kwargs is None:
+        f2_kwargs = {}
+
+    timeout_event = threading.Event()
+    done_event = threading.Event()
+
+    def _run_f1():
+        try:
+            f1(timeout_event, done_event, *f1_args, **f1_kwargs)
+        finally:
+            # 确保无论如何 timeout_event 会被 set
+            timeout_event.set()
+
+    def _run_f2():
+        f2(timeout_event, done_event, *f2_args, **f2_kwargs)
+
+    # 启动线程2（永远子线程）
+    t2 = threading.Thread(target=_run_f2, daemon=True)
+    t2.start()
+
+    # f1 可以选择在当前线程，或子线程
+    if spawn_f1:
+        t1 = threading.Thread(target=_run_f1, daemon=True)
+        t1.start()
+        t1.join(timeout=timeout_sec)
+    else:
+        _run_f1()
+        t1 = None
+
+    t2.join(timeout=timeout_sec)
+
+    if not done_event.is_set():
+        timeout_event.set()
+        node("[WARN] 双线程执行超时 {}s", timeout_sec)
+        return False
+
+    node("[OK] 双线程任务完成")
+    return True
+
+
+def Insert_Company_Label_Common_Block(
+    insertion_point=(0, 0, 0),
+    filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+    scale=(1, 1, 1),
+    rotation=0,
+    wait=0.3,
+    *,
+    timeout_sec: int = 300,
+):
+    """
+    高层：在忽略 SHX 对话框的前提下插入公司图签块。
+    返回: (coms_tuqian, names_tuqian, info_dict) 或 (None, None, None)
+    """
+    result_box = {}
+    ok = run_dual_threads(
+        f1=f1_insert_company_getwindow,
+        f2=f2_delwindow,
+        f1_kwargs={
+            "result_box":     result_box,
+            "insertion_point": insertion_point,
+            "filepath":        filepath,
+            "scale":           scale,
+            "rotation":        rotation,
+            "wait":            wait,
+        },
+        timeout_sec=timeout_sec,
+        # 对 COM 更安全：f1 在当前主线程执行
+        spawn_f1=False,
+    )
+    if ok and "data" in result_box:
+        return result_box["data"]
+    return None, None, None
+
+
+# =============================
+#  图签块的清理/重命名/调试填属性
+# =============================
+
+def clean_internal_polylines(block_refs):
+    """删除块定义内图层为 'tuqian_neibu_pl' 的多段线。"""
+    import time
+
+    li()
+    global doc
+
+    deleted = []
+    for blk_ref in block_refs:
+        try:
+            blk_name = get_attr(blk_ref, "Name")
+            if not blk_name:
+                continue
+            blk_def = doc.Blocks.Item(blk_name)
+        except Exception:
+            continue
+
+        count = getattr(blk_def, "Count", 0)
+        entities = [blk_def.Item(i) for i in range(count)]
+        for ent in entities:
+            layer_name = get_object_property(ent, "Layer")
+            obj_name = get_object_property(ent, "ObjectName")
+            if layer_name == "tuqian_neibu_pl" and obj_name in (
+                "AcDb2dPolyline",
+                "AcDbPolyline",
+            ):
+                handle = get_object_property(ent, "Handle")
+                if handle:
+                    deleted.append(handle)
+                safe_delete(ent)
+
+    try:
+        time.sleep(1)
+        doc.SendCommand("RE\n")
+    except Exception:
+        pass
+    return deleted
+
+
+def rename_and_delete_poly(layername="dy_quyu", timestamp=None, delpan=False):
+    """
+    重命名指定图层上的块定义为 "旧名_时间戳"，
+    可选：删除块定义内部图层为 'tuqian_neibu_pl' 的多段线。
+    """
+    import datetime
+
+    li()
+    global doc
+
+    if timestamp is None:
+        timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M")
+
+    LBdy = stc(layername)
+    block_refs = [
+        ent for ent in LBdy
+        if get_object_property(ent, "ObjectName") == "AcDbBlockReference"
+    ]
+
+    old_names = set()
+    for blk in block_refs:
+        name = get_attr(blk, "Name")
+        if name:
+            old_names.add(name)
+
+    for old in old_names:
+        new_name = f"{old}_{timestamp}"
+        try:
+            blk_def = doc.Blocks.Item(old)
+            set_attr(blk_def, "Name", new_name)
+        except Exception as exc:
+            print(f"⚠️ 无法重命名块 {old}: {exc}")
+
+    if delpan:
+        clean_internal_polylines(block_refs)
+    return block_refs
+
+
+def fill_block_attributes_with_tag_name(blocks):
+    """
+    将块属性文字设置为对应的标签名（用于调试，直接在图签上显示 Tag）。
+    """
+    for blk in blocks:
+        if get_object_property(blk, "ObjectName") != "AcDbBlockReference":
+            continue
+
+        try:
+            if not get_attr(blk, "HasAttributes"):
+                continue
+            attrs = blk.GetAttributes()
+        except Exception:
+            continue
+
+        for att in attrs:
+            tag = get_attr(att, "TagString")
+            if tag is None:
+                continue
+            set_attr(att, "TextString", tag)
+
+
+def _make_bind_dict_serializable(bind_dict):
+    """
+    将 insert_and_scale_labels_area 生成的 bind_dict 压缩成
+    只包含 JSON 可序列化的简单结构（数字、字符串、dict、list）。
+
+    原始结构示意：
+        {
+            <blk_handle>: {
+                "frame_info": {..., "entity": <COM Polyline>, ...},
+                "title_block": <COM BlockReference>,
+            },
+            "dyx_list": [<COM Polyline>, ...],
+            "tq_list": [<COM BlockReference>, ...],
+        }
+
+    转换后示意：
+        {
+            <blk_handle>: {
+                "frame_info": {
+                    ... 原 frame_info 去掉 COM ...
+                    "entity_handle": "...",
+                },
+                "title_block_handle": "...",
+            },
+            "dyx_handles": ["...", "..."],
+            "tq_handles": ["...", "..."],
+        }
+    """
+    ser = {}
+
+    # 1) 先处理每个图签块条目（键是 Handle 的那部分）
+    for key, val in bind_dict.items():
+        # 跳过后面会单独处理的几个特殊键
+        if key in ("dyx_list", "tq_list"):
+            continue
+
+        # 大部分 key 是字符串 Handle
+        if not isinstance(key, str):
+            try:
+                k_str = str(key)
+            except Exception:
+                k_str = repr(key)
+        else:
+            k_str = key
+
+        if not isinstance(val, dict):
+            ser[k_str] = val
+            continue
+
+        frame_info = val.get("frame_info", {}) or {}
+        title_block = val.get("title_block")
+
+        # ---- 压缩 frame_info ----
+        fi_new = {}
+        for k2, v2 in frame_info.items():
+            # entity/polyline 是 COM，需要改成 Handle
+            if k2 in ("entity", "polyline"):
+                try:
+                    h = get_attr(v2, "Handle")
+                except Exception:
+                    h = None
+                fi_new[k2 + "_handle"] = h
+            else:
+                # 其他字段一般是字符串/数字，可以直接放
+                fi_new[k2] = v2
+
+        # ---- 压缩 title_block COM ----
+        try:
+            h_title = get_attr(title_block, "Handle")
+        except Exception:
+            h_title = None
+
+        ser[k_str] = {
+            "frame_info": fi_new,
+            "title_block_handle": h_title,
+        }
+
+    # 2) 打印区域多段线列表 / 图签块列表：只保留 Handle 数组
+    dyx_list = bind_dict.get("dyx_list", [])
+    tq_list = bind_dict.get("tq_list", [])
+
+    def _handles_from_list(objs):
+        hs = []
+        for o in objs:
+            try:
+                h = get_attr(o, "Handle")
+            except Exception:
+                h = None
+            hs.append(h)
+        return hs
+
+    ser["dyx_handles"] = _handles_from_list(dyx_list)
+    ser["tq_handles"] = _handles_from_list(tq_list)
+
+    return ser
+
+
+
+@debuggable 
+def insert_and_scale_labels_area_1(
+        coms_dayin,
+        filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+        layername="dy_quyu",
+        timestamp=None,
+        delpan=0
+    ):
+    """
+    未考虑非标准图框的插入
+
+    把公司公共图签块批量插入到 coms_dayin 定义的打印框区域，
+    自动按比例缩放并建立绑定字典；全过程带 node() 调试输出。
+    返回 bind_dict：
+        {
+            新块Handle: {
+                "frame_info": {...},
+                "title_block": <COM BlockReference>
+            },
+            "dyx_list": [...区域多段线...],
+            "tq_list": [...图签块...]
+        }
+    """
+    import time
+    import math
+    import re as _re
+
+    # 先用 CAD_basic 自己的 li() 保证 acad/doc/mp 正常
+    li()
+
+    ensure_layer("dy_quyu")
+
+    # ---------- 小工具：筛选有效打印框 ----------
+    def filter_coms_with_frame(coms_dayin_local):
+        """
+        过滤出 generate_name_and_ratio_from_com 能正确处理的框，
+        返回：LBx = 有效框对象列表，LBy = 无效框 handle 列表（用于调试）
+        """
+        LBx = []
+        LBy = []
+        for ent in coms_dayin_local:
+            handle = get_attr(ent, "Handle")
+            try:
+                info = generate_name_and_ratio_from_com(ent)
+            except Exception:
+                # 调用失败则跳过
+                continue
+
+            if info != 0:
+                LBx.append(ent)
+            else:
+                if handle is not None:
+                    LBy.append(handle)
+
+        return LBx, LBy
+
+    # ---------- 小工具：根据 frame_info 计算几何修正系数 k_geom ----------
+    def compute_k_from_info(info: dict) -> float:
+        """
+        以“模板图签块为 1:100 基准”，根据实际图框的尺寸求出几何修正系数 k_geom。
+
+        - drawing_frame 形如 "ISO_A2_(594.00_x_420.00_MM)"
+        - ratio 形如 "1:100"
+        - corners 是图框的四个角点坐标（模型空间）
+
+        算法：
+            实际宽高 = corners 边长
+            理论宽高 = drawing_frame_mm * 比例值
+            k_geom = 实际宽 / 理论宽 ≈ 实际高 / 理论高
+        """
+        try:
+            corners = info.get("corners") or []
+            entity = info.get("entity")
+            drawing_frame = info.get("drawing_frame") or ""
+            ratio_str = info.get("ratio") or "1:100"
+
+            # —— 1. 计算实际宽高（模型单位）——
+            w_act = h_act = None
+
+            if len(corners) >= 4:
+                p0, p1, p2, p3 = corners[:4]
+
+                def dist(a, b):
+                    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+                # 默认 corners 顺序：左下、左上、右上、右下
+                w_act = dist(p0, p3)  # 水平边
+                h_act = dist(p0, p1)  # 垂直边
+            elif entity is not None:
+                # 退路：用外包盒估一个
+                try:
+                    ll, ur = entity.GetBoundingBox()
+                    w_act = abs(ur[0] - ll[0])
+                    h_act = abs(ur[1] - ll[1])
+                except Exception:
+                    pass
+
+            if not w_act or not h_act:
+                return 1.0
+
+            # —— 2. 解析理论纸张尺寸（mm）——
+            # 例："ISO_A2_(594.00_x_420.00_MM)"
+            m = _re.search(r"\(([\d\.]+)\s*x\s*([\d\.]+)", drawing_frame)
+            if not m:
+                return 1.0
+
+            w_mm = float(m.group(1))
+            h_mm = float(m.group(2))
+
+            # —— 3. 解析比例 "1:100" ——>
+            m2 = _re.search(r"1\s*:\s*(\d+)", ratio_str)
+            base_scale = float(m2.group(1)) if m2 else 100.0  # 默认 1:100
+
+            # 模型中的“理论宽高”
+            w_nom = w_mm * base_scale
+            h_nom = h_mm * base_scale
+
+            if not w_nom or not h_nom:
+                return 1.0
+
+            kw = w_act / w_nom
+            kh = h_act / h_nom
+
+            k_list = [v for v in (kw, kh) if v > 0]
+            if not k_list:
+                return 1.0
+
+            k = sum(k_list) / len(k_list)
+
+            if k <= 0:
+                return 1.0
+
+            return k
+
+        except Exception as e:
+            node("⚠ compute_k_from_info 异常: {}", e)
+            return 1.0
+
+    # 目标图层先保证存在并清空（你原始逻辑是清空 dy_quyu）
+    ensure_layer(layername)
+
+    # ▶ 1 打印框排序
+    node("▶ 1  打印框排序, 原数量={}", len(coms_dayin))
+    coms_dayin = sort_coms_by_llcorner(coms_dayin, cha_Y=2000)
+
+    # 筛选真正的“标准打印区域”
+    coms_dayin, LBy = filter_coms_with_frame(coms_dayin)
+    node("▶ 1.1  非标准打印区域handle{}", LBy)
+
+    # ▶ 2 重绘打印框并提取信息（画在 layername 上）
+    node("▶ 2  绘制打印框并提取信息")
+    ensure_layer(layername)
+    res = draw_pl_and_extract_from_entities(
+        coms_dayin,
+        layer_name=layername,
+        width=0,
+        color=256,
+        A3dy=0,
+        Fandy=("ISO_A3_(420.00_x_297.00_MM)", "0:0", "A3", 0),
+    )
+    node("    提取完毕, 共 {} 条", len(res))
+
+    # ▶ 3 原对象移层
+    for ent in coms_dayin:
+        try:
+            set_attr(ent, "Layer", "测试辅助")
+        except Exception:
+            pass
+    node("▶ 3  原打印框移至 '测试辅助'")
+
+    # ▶ 4 调用公共块插入（插入并炸开模板图签）
+    node("▶ 4  调用 Insert_Company_Label_Common_Block()")
+    ret = Insert_Company_Label_Common_Block(filepath=filepath)
+    if not ret or len(ret) < 3:
+        raise RuntimeError("Insert_Company_Label_Common_Block 返回格式异常")
+    ji_yuan, _, result_dict = ret
+    node("    插入公共块成功, 新块数={}", len(ji_yuan))
+
+    # ▶ 5 Handle → idx 映射（用 get_attr 更稳）
+    ent2idx = {}
+    for idx, info in res.items():
+        ent = info.get("entity") if isinstance(info, dict) else None
+        if ent is None:
+            continue
+        h = get_attr(ent, "Handle")
+        if h:
+            ent2idx[h] = idx
+    node("▶ 5  生成映射 ent2idx, 共 {} 条", len(ent2idx))
+
+    # ▶ 6 先从模板信息里算一轮“比例缩放系数 k_ratio”
+    # 1) 排序后的区域实体（用 res 中的 entity）
+    entities = [info["entity"] for info in res.values()]
+    entities = sort_coms_by_llcorner(entities, cha_Y=2000)
+
+    # 用你前面定义好的 compute_insert_factors（基于 ratio1/ratio2）
+    factors = compute_insert_factors(entities, res, result_dict)
+    # 建一个便于查找的字典：id(entity) -> (ent, blk_name_from_tpl, spec, k_ratio)
+    ent2factor = {id(t[0]): t for t in factors if t and t[0] is not None}
+
+    # 2) spec → 默认块名映射：A0+1/4 → A0_1_4
+    def block_name_from_spec(spec_str: str):
+        if not spec_str:
+            return None
+        s = str(spec_str).strip()
+        # 纯 A0/A1/A2/A3 直接返回
+        if s in ("A0", "A1", "A2", "A3"):
+            return s
+        # A0+1/4 → A0_1_4
+        s = s.replace("+", "_").replace("/", "_")
+        return s
+
+    bind_dict = {}
+
+    for seq, ob in enumerate(entities, 1):
+        h_ob = get_attr(ob, "Handle")
+        if not h_ob:
+            node("⚠  区域 {} 无法获取 Handle，跳过", seq)
+            continue
+
+        idx = ent2idx.get(h_ob)
+        if idx is None:
+            node("⚠  区域 {} 未找到索引, 跳过", seq)
+            continue
+
+        info = res.get(idx, {}) or {}
+        spec_val = info.get("spec") if isinstance(info, dict) else None
+
+        # 默认块名：从 spec 推一个
+        blk_name = block_name_from_spec(spec_val)
+
+        # 1）先从模板匹配结果里拿到比例缩放系数 k_ratio
+        k_ratio = 1.0
+        factor = ent2factor.get(id(ob))
+        if factor is not None:
+            _, blk_from_tpl, _, k_tmp = factor
+            # 如果模板里为这个 spec 指定了块名，则优先使用模板块名
+            if blk_from_tpl:
+                blk_name = blk_from_tpl
+            if k_tmp:
+                try:
+                    k_ratio = float(k_tmp)
+                except Exception:
+                    k_ratio = 1.0
+
+        if not blk_name:
+            node("⚠  区域{}  无法根据 spec={} 确定块名，跳过", seq, spec_val)
+            continue
+
+        # 2）计算几何修正系数 k_geom（图框尺寸可能有 10–200 的偏差）
+        k_geom = compute_k_from_info(info)
+        k_val = (k_ratio or 1.0) * (k_geom or 1.0)
+
+        node("▶  区域{}  spec={}  选用块名={}  k_ratio={:.4f}  k_geom={:.4f}  k_total={:.4f}",
+             seq, spec_val, blk_name, k_ratio, k_geom, k_val)
+
+        success = False
+        for attempt in range(1, 6):
+            try:
+                _, _, blk_com = insert_block_into_poly_area(
+                    blk_name, ob, k=k_val, max_retries=3
+                )
+                handle_blk = get_attr(blk_com, "Handle")
+                bind_dict[handle_blk] = {
+                    "frame_info": res[idx],
+                    "title_block": blk_com,
+                }
+                node("    ✅ 插入成功, handle={}  (k_total≈{:.4f})", handle_blk, k_val)
+                success = True
+                break
+            except Exception as e:
+                node("    ⚠ 第{}次失败: {}", attempt, e)
+                time.sleep(0.2)
+        if not success:
+            node("    ❌ 区域{} 放弃", seq)
+
+    # ▶ 7 公共块移层到“测试辅助”，然后清理
+    for br in ji_yuan:
+        try:
+            set_attr(br, "Layer", "测试辅助")
+        except Exception:
+            pass
+    ensure_layer("测试辅助")
+    node("▶ 7  清理 '测试辅助'")
+
+    # 插入基本图签，应该放在 "标准图签" 图层（原逻辑保留）
+    time.sleep(2)
+    ensure_layer("标准图签")
+    time.sleep(2)
+
+    node("▶ 8  delpan的值{}", delpan)
+    rename_and_delete_poly(layername=layername, timestamp=timestamp, delpan=delpan)
+
+    # ▶ 9 显示所有的图签属性，属性值就是标签名
+    LK = stc(layername)
+
+    LP = [ent for ent in LK if get_attr(ent, "ObjectName") in ("AcDbPolyline", "AcDb2dPolyline")]
+    LB = [ent for ent in LK if get_attr(ent, "ObjectName") in ("AcDbBlockReference",)]
+
+    LP = sort_coms_by_llcorner(LP, cha_Y=2000)
+    LB = sort_coms_by_llcorner(LB, cha_Y=2000)
+
+    fill_block_attributes_with_tag_name(LB)
+
+    bind_dict["dyx_list"] = LP
+    bind_dict["tq_list"] = LB
+
+    # ▶ 10 清理未使用的标准图签块
+    lk = get_all_block_definitions()
+    LBname = [blk.Name for blk in lk]
+
+    LBname_wushili = [
+        name for name in LBname
+        if len(select_block_by_name(name)) == 0
+    ]
+
+    pattern = _re.compile(r'^A\d')  # ^A\d 匹配以 A 开头、第二位是数字
+    LBname_to_purge = [
+        name for name in LBname_wushili
+        if pattern.match(name)
+    ]
+
+    for name in LBname_to_purge:
+        purge_block(name)
+
+    # ▶ 11 保存
+    try:
+        savefile()
+    except Exception:
+        pass
+
+    name_zd = current_dwg_basename() + "_tuqian"
+    save_print_dict_generic(name_zd, bind_dict)
+    node("▶ 11  结果已保存至 '{}'", name_zd)
+
+    return bind_dict
+
+#&&% 插图签主函数
+@debuggable 
+def insert_and_scale_labels_area(
+        coms_dayin,
+        filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+        layername="dy_quyu",
+        timestamp=None,
+        delpan=0
+    ):
+    """
+    把公司公共图签块批量插入到 coms_dayin 定义的打印框区域，
+    自动按比例缩放并建立绑定字典；全过程带 node() 调试输出。
+    对于非标准图框，会在统一比例缩放 k 基础上，再用 BoundingBox
+    做双向缩放，使图签外包盒尽量完全匹配打印框外包盒。
+
+    返回 bind_dict：
+        {
+            新块Handle: {
+                "frame_info": {...},
+                "title_block": <COM BlockReference>
+            },
+            "dyx_list": [...区域多段线...],
+            "tq_list": [...图签块...]
+        }
+    """
+    import time
+    import math
+    import re as _re
+
+    # 先用 CAD_basic 自己的 li() 保证 acad/doc/mp 正常
+    li()
+
+    ensure_layer("dy_quyu")
+
+    # ---------- 小工具：筛选有效打印框 ----------
+    def filter_coms_with_frame(coms_dayin_local):
+        """
+        过滤出 generate_name_and_ratio_from_com 能正确处理的框，
+        返回：LBx = 有效框对象列表，LBy = 无效框 handle 列表（用于调试）
+        """
+        LBx = []
+        LBy = []
+        for ent in coms_dayin_local:
+            handle = get_attr(ent, "Handle")
+            try:
+                info = generate_name_and_ratio_from_com(ent)
+            except Exception:
+                # 调用失败则跳过
+                continue
+
+            if info != 0:
+                LBx.append(ent)
+            else:
+                if handle is not None:
+                    LBy.append(handle)
+
+        return LBx, LBy
+
+    # ---------- 小工具：根据 frame_info 计算几何修正系数 k_geom ----------
+    def compute_k_from_info(info: dict) -> float:
+        """
+        以“模板图签块为 1:100 基准”，根据实际图框的尺寸求出几何修正系数 k_geom。
+
+        - drawing_frame 形如 "ISO_A2_(594.00_x_420.00_MM)"
+        - ratio 形如 "1:100"
+        - corners 是图框的四个角点坐标（模型空间）
+
+        算法：
+            实际宽高 = corners 边长
+            理论宽高 = drawing_frame_mm * 比例值
+            k_geom = 实际宽 / 理论宽 ≈ 实际高 / 理论高
+        """
+        try:
+            corners = info.get("corners") or []
+            entity = info.get("entity")
+            drawing_frame = info.get("drawing_frame") or ""
+            ratio_str = info.get("ratio") or "1:100"
+
+            # —— 1. 计算实际宽高（模型单位）——
+            w_act = h_act = None
+
+            if len(corners) >= 4:
+                p0, p1, p2, p3 = corners[:4]
+
+                def dist(a, b):
+                    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+                # 默认 corners 顺序：左下、左上、右上、右下
+                w_act = dist(p0, p3)  # 水平边
+                h_act = dist(p0, p1)  # 垂直边
+            elif entity is not None:
+                # 退路：用外包盒估一个
+                try:
+                    ll, ur = entity.GetBoundingBox()
+                    w_act = abs(ur[0] - ll[0])
+                    h_act = abs(ur[1] - ll[1])
+                except Exception:
+                    pass
+
+            if not w_act or not h_act:
+                return 1.0
+
+            # —— 2. 解析理论纸张尺寸（mm）——
+            # 例："ISO_A2_(594.00_x_420.00_MM)"
+            m = _re.search(r"\(([\d\.]+)\s*x\s*([\d\.]+)", drawing_frame)
+            if not m:
+                return 1.0
+
+            w_mm = float(m.group(1))
+            h_mm = float(m.group(2))
+
+            # —— 3. 解析比例 "1:100" ——>
+            m2 = _re.search(r"1\s*:\s*(\d+)", ratio_str)
+            base_scale = float(m2.group(1)) if m2 else 100.0  # 默认 1:100
+
+            # 模型中的“理论宽高”
+            w_nom = w_mm * base_scale
+            h_nom = h_mm * base_scale
+
+            if not w_nom or not h_nom:
+                return 1.0
+
+            kw = w_act / w_nom
+            kh = h_act / h_nom
+
+            k_list = [v for v in (kw, kh) if v > 0]
+            if not k_list:
+                return 1.0
+
+            k = sum(k_list) / len(k_list)
+
+            if k <= 0:
+                return 1.0
+
+            return k
+
+        except Exception as e:
+            node("⚠ compute_k_from_info 异常: {}", e)
+            return 1.0
+
+    def adjust_block_to_frame(frame_ent, blk_com, tol_len=10.0):
+        """
+        在统一缩放 k_val 插入块之后，进一步检查打印框与块的外包盒尺寸。
+
+        - 若 |W_frame - W_block| 和 |H_frame - H_block| 都 ≤ tol_len：
+              认为是“标准图框或接近标准”，不再处理。
+        - 若差值较大：
+              只依赖 BoundingBox 和 Rotation，按 0°/90° 两种情况精确反推
+              额外的 X/Y 缩放，使最终宽高尽量等于打印框宽高。
+        """
+        import math
+
+        # 1) 打印框外包盒
+        try:
+            ll_f, ur_f = frame_ent.GetBoundingBox()
+            Wf = abs(ur_f[0] - ll_f[0])
+            Hf = abs(ur_f[1] - ll_f[1])
+        except Exception as e:
+            node("  ⚠ adjust_block_to_frame: 获取打印框 BoundingBox 失败: {}", e)
+            return
+
+        # 2) 当前块外包盒
+        try:
+            ll_b, ur_b = blk_com.GetBoundingBox()
+            Wb = abs(ur_b[0] - ll_b[0])
+            Hb = abs(ur_b[1] - ll_b[1])
+        except Exception as e:
+            node("  ⚠ adjust_block_to_frame: 获取图签块 BoundingBox 失败: {}", e)
+            return
+
+        if Wf <= 0 or Hf <= 0 or Wb <= 0 or Hb <= 0:
+            node("  ⚠ adjust_block_to_frame: 宽高异常 Wf={}, Hf={}, Wb={}, Hb={}",
+                 Wf, Hf, Wb, Hb)
+            return
+
+        # 若本身就已经在容差内，认为是“标准图框或接近标准”，不再强行拉伸
+        if abs(Wf - Wb) <= tol_len and abs(Hf - Hb) <= tol_len:
+            node("  ▶ adjust_block_to_frame: 框与图签块尺寸已在容差内，无需校正")
+            return
+
+        # 3) 读取当前缩放与旋转
+        try:
+            sx0 = getattr(blk_com, "XScaleFactor", 1.0)
+            sy0 = getattr(blk_com, "YScaleFactor", 1.0)
+        except Exception:
+            sx0 = sy0 = 1.0
+
+        try:
+            rot = getattr(blk_com, "Rotation", 0.0)  # 弧度
+        except Exception:
+            rot = 0.0
+
+        rot_deg = abs(rot * 180.0 / math.pi) % 180.0
+
+        # 4) 根据 rotation 决定“宽高和 X/Y 缩放因子的对应关系”
+        # 横向：Rotation ≈ 0° / 180° → 宽由 XScale 决定，高由 YScale 决定
+        # 竖向：Rotation ≈ 90°      → 宽由 YScale 决定，高由 XScale 决定
+        if rot_deg < 1.0 or abs(rot_deg - 180.0) < 1.0:
+            # 横向：世界宽 = XScale * 宽，世界高 = YScale * 高
+            factor_x = Wf / Wb
+            factor_y = Hf / Hb
+            mode = "anisotropic_horizontal"
+        elif abs(rot_deg - 90.0) < 1.0:
+            # 竖向：世界宽 ≈ YScale 方向的长度，世界高 ≈ XScale 方向的长度
+            factor_x = Hf / Hb   # XScale 作用于“高度”那一边
+            factor_y = Wf / Wb   # YScale 作用于“宽度”那一边
+            mode = "anisotropic_vertical"
+        else:
+            # 其它奇怪角度（一般不会出现），退回统一比例近似
+            rw = Wf / Wb
+            rh = Hf / Hb
+            s = (rw + rh) / 2.0
+            factor_x = factor_y = s
+            mode = "uniform_fallback"
+
+        sx = sx0 * factor_x
+        sy = sy0 * factor_y
+
+        try:
+            blk_com.XScaleFactor = sx
+            blk_com.YScaleFactor = sy
+            node(
+                "  ▶ adjust_block_to_frame 模式={}，rot≈{:.1f}°: "
+                "XScaleFactor {:.4f}→{:.4f}, YScaleFactor {:.4f}→{:.4f}",
+                mode, rot_deg, sx0, sx, sy0, sy
+            )
+        except Exception as e:
+            node("  ⚠ adjust_block_to_frame: 设置 X/YScaleFactor 失败: {}", e)
+
+
+    # 目标图层先保证存在并清空（你原始逻辑是清空 dy_quyu）
+    ensure_layer(layername)
+
+    # ▶ 1 打印框排序
+    node("▶ 1  打印框排序, 原数量={}", len(coms_dayin))
+    coms_dayin = sort_coms_by_llcorner(coms_dayin, cha_Y=2000)
+
+    # 筛选真正的“标准打印区域”（现在 generate_name_and_ratio_from_com 已能处理非标准）
+    coms_dayin, LBy = filter_coms_with_frame(coms_dayin)
+    node("▶ 1.1  非标准打印区域handle{}", LBy)
+
+    # ▶ 2 重绘打印框并提取信息（画在 layername 上）
+    node("▶ 2  绘制打印框并提取信息")
+    ensure_layer(layername)
+    res = draw_pl_and_extract_from_entities(
+        coms_dayin,
+        layer_name=layername,
+        width=0,
+        color=256,
+        A3dy=0,
+        Fandy=("ISO_A3_(420.00_x_297.00_MM)", "0:0", "A3", 0),
+    )
+    node("    提取完毕, 共 {} 条", len(res))
+
+    # ▶ 3 原对象移层
+    for ent in coms_dayin:
+        try:
+            set_attr(ent, "Layer", "测试辅助")
+        except Exception:
+            pass
+    node("▶ 3  原打印框移至 '测试辅助'")
+
+    # ▶ 4 调用公共块插入（插入并炸开模板图签）
+    node("▶ 4  调用 Insert_Company_Label_Common_Block()")
+    ret = Insert_Company_Label_Common_Block(filepath=filepath)
+    if not ret or len(ret) < 3:
+        raise RuntimeError("Insert_Company_Label_Common_Block 返回格式异常")
+    ji_yuan, _, result_dict = ret
+    node("    插入公共块成功, 新块数={}", len(ji_yuan))
+
+    # ▶ 5 Handle → idx 映射（用 get_attr 更稳）
+    ent2idx = {}
+    for idx, info in res.items():
+        ent = info.get("entity") if isinstance(info, dict) else None
+        if ent is None:
+            continue
+        h = get_attr(ent, "Handle")
+        if h:
+            ent2idx[h] = idx
+    node("▶ 5  生成映射 ent2idx, 共 {} 条", len(ent2idx))
+
+    # ▶ 6 先从模板信息里算一轮“比例缩放系数 k_ratio”
+    # 1) 排序后的区域实体（用 res 中的 entity）
+    entities = [info["entity"] for info in res.values()]
+    entities = sort_coms_by_llcorner(entities, cha_Y=2000)
+
+    # 用你前面定义好的 compute_insert_factors（基于 ratio1/ratio2）
+    factors = compute_insert_factors(entities, res, result_dict)
+    # 建一个便于查找的字典：id(entity) -> (ent, blk_name_from_tpl, spec, k_ratio)
+    ent2factor = {id(t[0]): t for t in factors if t and t[0] is not None}
+
+    # 2) spec → 默认块名映射：A0+1/4 → A0_1_4
+    def block_name_from_spec(spec_str: str):
+        if not spec_str:
+            return None
+        s = str(spec_str).strip()
+        # 纯 A0/A1/A2/A3 直接返回
+        if s in ("A0", "A1", "A2", "A3"):
+            return s
+        # A0+1/4 → A0_1_4
+        s = s.replace("+", "_").replace("/", "_")
+        return s
+
+    bind_dict = {}
+
+    for seq, ob in enumerate(entities, 1):
+        h_ob = get_attr(ob, "Handle")
+        if not h_ob:
+            node("⚠  区域 {} 无法获取 Handle，跳过", seq)
+            continue
+
+        idx = ent2idx.get(h_ob)
+        if idx is None:
+            node("⚠  区域 {} 未找到索引, 跳过", seq)
+            continue
+
+        info = res.get(idx, {}) or {}
+        spec_val = info.get("spec") if isinstance(info, dict) else None
+
+        # 默认块名：从 spec 推一个
+        blk_name = block_name_from_spec(spec_val)
+
+        # 1）先从模板匹配结果里拿到比例缩放系数 k_ratio
+        k_ratio = 1.0
+        factor = ent2factor.get(id(ob))
+        if factor is not None:
+            _, blk_from_tpl, _, k_tmp = factor
+            # 如果模板里为这个 spec 指定了块名，则优先使用模板块名
+            if blk_from_tpl:
+                blk_name = blk_from_tpl
+            if k_tmp:
+                try:
+                    k_ratio = float(k_tmp)
+                except Exception:
+                    k_ratio = 1.0
+
+        if not blk_name:
+            node("⚠  区域{}  无法根据 spec={} 确定块名，跳过", seq, spec_val)
+            continue
+
+        # 2）计算几何修正系数 k_geom（图框尺寸可能有 10–200 的偏差）
+        k_geom = compute_k_from_info(info)
+        k_val = (k_ratio or 1.0) * (k_geom or 1.0)
+
+        node("▶  区域{}  spec={}  选用块名={}  k_ratio={:.4f}  k_geom={:.4f}  k_total={:.4f}",
+             seq, spec_val, blk_name, k_ratio, k_geom, k_val)
+
+        success = False
+        for attempt in range(1, 6):
+            try:
+                _, _, blk_com = insert_block_into_poly_area(
+                    blk_name, ob, k=k_val, max_retries=3
+                )
+
+                # —— 新增：对非标准图框进行 BoundingBox 双向缩放校正 —— #
+                adjust_block_to_frame(ob, blk_com, tol_len=10.0)
+
+                handle_blk = get_attr(blk_com, "Handle")
+                bind_dict[handle_blk] = {
+                    "frame_info": res[idx],
+                    "title_block": blk_com,
+                }
+                node("    ✅ 插入成功, handle={}  (k_total≈{:.4f})", handle_blk, k_val)
+                success = True
+                break
+            except Exception as e:
+                node("    ⚠ 第{}次失败: {}", attempt, e)
+                time.sleep(0.2)
+        if not success:
+            node("    ❌ 区域{} 放弃", seq)
+
+    # ▶ 7 公共块移层到“测试辅助”，然后清理
+    for br in ji_yuan:
+        try:
+            set_attr(br, "Layer", "测试辅助")
+        except Exception:
+            pass
+    ensure_layer("测试辅助")
+    node("▶ 7  清理 '测试辅助'")
+
+    # 插入基本图签，应该放在 "标准图签" 图层（原逻辑保留）
+    time.sleep(2)
+    ensure_layer("标准图签")
+    time.sleep(2)
+
+    node("▶ 8  delpan的值{}", delpan)
+    rename_and_delete_poly(layername=layername, timestamp=timestamp, delpan=delpan)
+
+    # ▶ 9 显示所有的图签属性，属性值就是标签名
+    LK = stc(layername)
+
+    LP = [ent for ent in LK if get_attr(ent, "ObjectName") in ("AcDbPolyline", "AcDb2dPolyline")]
+    LB = [ent for ent in LK if get_attr(ent, "ObjectName") in ("AcDbBlockReference",)]
+
+    LP = sort_coms_by_llcorner(LP, cha_Y=2000)
+    LB = sort_coms_by_llcorner(LB, cha_Y=2000)
+
+    fill_block_attributes_with_tag_name(LB)
+
+    bind_dict["dyx_list"] = LP
+    bind_dict["tq_list"] = LB
+
+    # ▶ 10 清理未使用的标准图签块
+    lk = get_all_block_definitions()
+    LBname = [blk.Name for blk in lk]
+
+    LBname_wushili = [
+        name for name in LBname
+        if len(select_block_by_name(name)) == 0
+    ]
+
+    pattern = _re.compile(r'^A\d')  # ^A\d 匹配以 A 开头、第二位是数字
+    LBname_to_purge = [
+        name for name in LBname_wushili
+        if pattern.match(name)
+    ]
+
+    for name in LBname_to_purge:
+        purge_block(name)
+
+    # ▶ 11 保存
+    try:
+        savefile()
+    except Exception:
+        pass
+
+    name_zd = current_dwg_basename() + "_tuqian"
+    save_print_dict_generic(name_zd, bind_dict)
+    node("▶ 11  结果已保存至 '{}'", name_zd)
+
+    return bind_dict
+
+#&&% 剥出核心块
+
+
+
+
+@debuggable
+def normalize_core_title_blocks_by_layer(
+    core_layer: str = "dy_quyu_H",
+    core_base_names=None,
+    verbose: bool = True,
+):
+    """
+    【步骤 2】在核心层上，对 A3-H/A2-H/A1-H/A0-H 这些核心块统一加时间戳重命名。
+
+    逻辑：
+    1. 从 core_layer 选出所有块 → cores
+       - 如果 cores 为空，先调用 explode_title_wrappers_to_core_layer() 炸开 dy_quyu 上的壳块，再选一次。
+    2. 识别涉及到的基础名（A?-H）
+    3. 对 Blocks 表中的核心块定义统一重命名为 “基础名_时间戳”
+    4. 检查核心层上的块名变化
+
+    返回：
+        bool: True = 至少有一个核心块定义被成功重命名；False = 未找到或失败
+    """
+    import pythoncom
+    from datetime import datetime
+
+    global acad, doc, mp, sp
+
+    if core_base_names is None:
+        core_base_names = ["A3-H", "A2-H", "A1-H", "A0-H"]
+
+    def log_err(msg):
+        if verbose:
+            print("[错误]", msg)
+
+    # 小工具：判断是否块参照
+    def is_block_ref(ent) -> bool:
+        try:
+            on = getattr(ent, "ObjectName", "")
+        except Exception:
+            return False
+        return "BlockReference" in str(on)
+
+    # 小工具：取基础名（去掉后缀）
+    def get_base_name(name: str) -> str:
+        return str(name).split("_")[0]
+
+    if not li():
+        log_err("li() 连接失败，无法进行核心块统一命名。")
+        return False
+
+    node("▶ 1  从图层 '{}' 选择核心块实例（第一次）…", core_layer)
+    objs = stc(core_layer)
+    cores = [e for e in objs if is_block_ref(e)]
+    node("▶ 1.1 核心层 '{}' 共 {} 个对象，其中块 {} 个",
+         core_layer, len(objs), len(cores))
+
+    # 如果核心层目前为空，尝试先炸开 dy_quyu 上的壳块
+    if not cores:
+        node("▶ 1.2 核心层为空，尝试先炸开 'dy_quyu' 上的壳块…")
+        exploded = explode_title_wrappers_to_core_layer(
+            wrapper_layer="dy_quyu",
+            core_layer=core_layer,
+            core_base_names=core_base_names,
+            verbose=verbose,
+        )
+        node("▶ 1.3 炸壳结果：炸开 {} 个壳块，重新从核心层选择…", exploded)
+
+        objs = stc(core_layer)
+        cores = [e for e in objs if is_block_ref(e)]
+        node("▶ 1.4 核心层 '{}' 重新选择结果：对象 {} 个，其中块 {} 个",
+             core_layer, len(objs), len(cores))
+
+        if not cores:
+            log_err(f"炸开壳块后，核心层 '{core_layer}' 上仍未找到任何块。")
+            return False
+
+    # 2. 分析核心层上的块名集合
+    names = []
+    for e in cores:
+        try:
+            names.append(str(e.Name))
+        except Exception:
+            continue
+    uniq_names = sorted(set(names))
+    node("▶ 2  核心层上的块名集合：{}", uniq_names)
+
+    # 参与本次处理的基础名
+    used_bases = sorted({
+        get_base_name(n) for n in uniq_names
+        if get_base_name(n) in core_base_names
+    })
+    node("▶ 2.1 参与本次处理的核心块基础名：{}", used_bases)
+
+    if not used_bases:
+        log_err(f"核心层上的块名中不包含 {core_base_names} 这些基础名。")
+        return False
+
+    ts = datetime.now().strftime("%d%H%M")  # 日-时分
+    node("▶ 3  本次统一时间戳：{}", ts)
+
+    renamed_map = {}
+
+    # 3. 依次重命名块定义
+    for base in used_bases:
+        old_name = base
+        new_name = f"{base}_{ts}"
+
+        # 防止新名已经存在（同一时间多次运行的情况）
+        try:
+            _ = doc.Blocks.Item(new_name)
+            suffix_idx = 1
+            while True:
+                alt_name = f"{base}_{ts}_{suffix_idx}"
+                try:
+                    _ = doc.Blocks.Item(alt_name)
+                    suffix_idx += 1
+                except pythoncom.com_error:
+                    new_name = alt_name
+                    break
+        except pythoncom.com_error:
+            pass
+
+        try:
+            blk_def = doc.Blocks.Item(old_name)
+        except pythoncom.com_error:
+            # 也可能 core 层上的名字已经是带时间戳的，这种就跳过
+            node("▶ 3.1 未找到块定义 '{}'（可能已经是时间戳版本），跳过。", old_name)
+            continue
+
+        try:
+            blk_def.Name = new_name
+            renamed_map[old_name] = new_name
+            node("▶ 3.2 块定义重命名：'{}' → '{}'", old_name, new_name)
+        except pythoncom.com_error as exc:
+            log_err(f"重命名块定义 '{old_name}' 失败：{exc}")
+            return False
+
+    if not renamed_map:
+        log_err("未能成功重命名任何核心块定义。")
+        return False
+
+    # 4. 再看一眼核心层上的块名变化
+    names_after = []
+    objs_after = stc(core_layer)
+    for e in objs_after:
+        if not is_block_ref(e):
+            continue
+        try:
+            names_after.append(str(e.Name))
+        except Exception:
+            continue
+
+    uniq_names_after = sorted(set(names_after))
+    node("▶ 4  重命名后核心层上的块名集合：{}", uniq_names_after)
+
+    return True
+
+
+@debuggable
+def explode_title_wrappers_to_core_layer(
+    wrapper_layer: str = "dy_quyu",
+    core_layer: str = "dy_quyu_H",
+    core_base_names=None,
+    verbose: bool = True,
+):
+    """
+    【步骤 1】炸开 "dy_quyu" 上的图签壳块，把内部的核心块 A?-H 释放到 "dy_quyu_H" 层。
+
+    约定：
+    - 外壳块实例所在图层：wrapper_layer（默认 dy_quyu）
+    - 核心块基础名：A3-H, A2-H, A1-H, A0-H（可以通过 core_base_names 自定义）
+    - 核心块实例在壳块块定义中必须放在 core_layer（默认 dy_quyu_H）上
+
+    返回：
+        int: 实际炸开的壳块数量
+    """
+    import pythoncom
+
+    global acad, doc, mp, sp
+
+    if core_base_names is None:
+        core_base_names = ["A3-H", "A2-H", "A1-H", "A0-H"]
+
+    def log_err(msg):
+        if verbose:
+            print("[错误]", msg)
+
+    def log_warn(msg):
+        if verbose:
+            print("[警告]", msg)
+
+    # 小工具：判断是否块参照
+    def is_block_ref(ent) -> bool:
+        try:
+            on = getattr(ent, "ObjectName", "")
+        except Exception:
+            return False
+        return "BlockReference" in str(on)
+
+    # 小工具：取基础名（去掉后缀）
+    def get_base_name(name: str) -> str:
+        return str(name).split("_")[0]
+
+    if not li():
+        log_err("li() 连接失败，无法爆炸图签壳块。")
+        return 0
+
+    node("▶ 0  explode_title_wrappers_to_core_layer：开始炸开壳块")
+    node("▶ 0.1 wrapper_layer='{}', core_layer='{}'", wrapper_layer, core_layer)
+
+    # 1. 从壳层选对象
+    node("▶ 1  从图层 '{}' 选择壳块候选（stc）…", wrapper_layer)
+    objs = stc(wrapper_layer)
+    wrappers = []
+    for e in objs:
+        if not is_block_ref(e):
+            continue
+        try:
+            name = str(e.Name)
+        except Exception:
+            continue
+        base = get_base_name(name)
+        # 壳块：基础名不在核心名列表
+        if base not in core_base_names:
+            wrappers.append(e)
+
+    node("▶ 1.1 图层 '{}' 共 {} 个对象，其中壳块 {} 个",
+         wrapper_layer, len(objs), len(wrappers))
+
+    if not wrappers:
+        log_warn(f"图层 '{wrapper_layer}' 上未发现壳块（基础名不在 {core_base_names}）。")
+        return 0
+
+    exploded_ok = 0
+    exploded_fail = 0
+
+    # 2. 逐个 Explode + Erase 壳块
+    node("▶ 2  开始逐个 Explode + Erase 壳块，共 {} 个…", len(wrappers))
+    for e in wrappers:
+        try:
+            w_name = str(e.Name)
+        except Exception:
+            w_name = "<?>"
+
+        try:
+            _ = e.Explode()   # 内部对象（含核心块参照）弹出到模型空间
+            e.Erase()         # 删除壳块
+            exploded_ok += 1
+            node("▶ 2.1 已炸开壳块：'{}'", w_name)
+        except pythoncom.com_error as exc:
+            exploded_fail += 1
+            log_warn(f"炸开壳块失败：{w_name}，错误：{exc}")
+
+    node(
+        "▶ 2.2 壳块处理完成：成功 {} 个，失败 {} 个",
+        exploded_ok, exploded_fail
+    )
+
+    # 3. 简单 RE 刷新视图（可选）
+    try:
+        doc.SendCommand("RE\n")
+    except Exception:
+        pass
+
+    return exploded_ok
+
+
+#&&% 插图签执行函数
+
+@debuggable
+def stable_insert_and_scale_labels_area(
+    coms_dayin,
+    filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+    layername="dy_quyu",
+    timestamp=None,
+    delpan=0,
+    core_layer="dy_quyu_H",
+    max_try=3,
+    verbose=True,
+):
+    """
+    稳定插图签总包装（带失败战场清理 + 强悍无实例块清理）
+
+    每一轮流程：
+      1. reserve_block_names_for_new_insert(...) 预留块名，防止旧定义污染新模板
+      2. insert_and_scale_labels_area(...) 插入图签到 layername（通常 'dy_quyu'）
+      3. normalize_core_title_blocks_by_layer(...) 剥离/规范核心块到 core_layer
+      4. 检测：core_layer 上核心块数量 == len(coms_dayin) ?
+
+    若 4 不通过：
+      - ensure_layer("dy_quyu"), ensure_layer("tuqian_neibu_pl"), ensure_layer(core_layer)
+      - 清空上述三个图层上的所有实体
+      - purge_unused_blocks_1(...) 清理当前 DWG 中所有“无实例块”
+      - 再进入下一轮尝试（最多 max_try 次）
+
+    返回：
+        (success, bind_dict, info)
+    """
+    import time
+    from contextlib import suppress
+
+    global acad, doc, mp, sp
+
+    def log(msg):
+        if verbose:
+            print(msg)
+
+    # —— 图签相关的所有块名，用于“预留块名” —— #
+    core_base_names = [
+        'A3', 'A2', 'A1',
+        'A2_1_4', 'A2_1_2', 'A2_3_4',
+        'A1_1_4', 'A1_1_2', 'A1_3_4',
+        'A0', 'A0_1_8', 'A0_1_4',
+        '内部A1普通块', 'A3普通块', 'A2普通块', 'A1普通块', 'A0普通块',
+        'A3-H', 'A2-H', 'A1-H', 'A0-H',
+    ]
+
+    target_count = len(coms_dayin)
+    last_core_count = 0
+    last_msg = ""
+
+    # 清理时要动的图层集合（去重）
+    cleanup_layers = {layername, core_layer, "tuqian_neibu_pl"}
+
+    # 小工具：清空单个图层上的实体
+    def _clear_layer_entities(layer_name: str):
+        removed = 0
+        try:
+            ents = stc(layer_name)
+        except Exception as e:
+            log(f"[警告] stc('{layer_name}') 失败，无法清理该图层实体：{e}")
+            return 0
+
+        for ent in list(ents):
+            with suppress(Exception):
+                ent.Delete()
+                removed += 1
+
+        log(f"[CLEAN] 图层 '{layer_name}' 已删除 {removed} 个实体。")
+        return removed
+
+    # 先确认当前 DWG 环境可用
+    if not li():
+        msg = "[错误] stable_insert_and_scale_labels_area: li() 连接失败，未能锁定当前 DWG。"
+        node(msg)
+        info = {
+            "success": False,
+            "attempt": 0,
+            "core_count": 0,
+            "target_count": target_count,
+            "message": msg,
+        }
+        return False, None, info
+
+    for attempt in range(1, max_try + 1):
+        node("★★ 稳定插块：第 {}/{} 次尝试", attempt, max_try)
+        log(f"\n==== 稳定插块 第 {attempt}/{max_try} 次 ====")
+
+        bind_dict = None
+
+        # -------- 1) 预留块名：防止标准图签被旧定义污染 -------- #
+        try:
+            node("▶ 1  预留图签块名，防止旧定义干扰…")
+            reserve_block_names_for_new_insert(
+                core_base_names,
+                rename_prefix="legacy",
+                verbose=verbose,
+            )
+        except Exception as e:
+            last_msg = f"reserve_block_names_for_new_insert 异常（允许继续）：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+
+        # -------- 2) 插入图签到 layername -------- #
+        try:
+            node("▶ 2  调用 insert_and_scale_labels_area 插入图签…")
+            bind_dict = insert_and_scale_labels_area(
+                coms_dayin=coms_dayin,
+                filepath=filepath,
+                layername=layername,
+                timestamp=timestamp,
+                delpan=delpan,
+            )
+        except Exception as e:
+            last_msg = f"insert_and_scale_labels_area 调用异常（允许继续）：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+            bind_dict = None
+
+        with suppress(Exception):
+            wait_command_done()
+
+        # -------- 3) 剥离/规范核心块 -------- #
+        try:
+            node("▶ 3  剥离/规范核心块 normalize_core_title_blocks_by_layer…")
+            _ = normalize_core_title_blocks_by_layer(
+                core_layer=core_layer,
+                core_base_names=None,
+                verbose=verbose,
+            )
+        except Exception as e:
+            last_msg = f"normalize_core_title_blocks_by_layer 异常（允许继续）：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+
+        with suppress(Exception):
+            wait_command_done()
+
+        # -------- 4) 总检测：只看核心层上的核心块数量 -------- #
+        try:
+            node("▶ 4  统计核心层 '{}' 上的块实例…", core_layer)
+            try:
+                LK_core = stc(core_layer)
+            except Exception as e:
+                node("  ⚠ stc({}) 失败：{}", core_layer, e)
+                log(f"[警告] stc({core_layer}) 失败：{e}")
+                LK_core = []
+
+            core_blocks = [
+                ent for ent in LK_core
+                if getattr(ent, "ObjectName", "") in ("AcDbBlockReference", "AcDbMInsertBlock")
+            ]
+            core_count = len(core_blocks)
+            last_core_count = core_count
+
+            node("  ▶ 核心层 '{}' 上块数量 = {}，目标核心块数 = {}",
+                 core_layer, core_count, target_count)
+            log(f"[INFO] 核心层 '{core_layer}' 上块数量 = {core_count}，目标 = {target_count}")
+        except Exception as e:
+            last_msg = f"总检测过程中异常：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+            core_count = -1
+
+        # ✅ 成功条件：核心层上的核心块数量 == 打印框数量
+        if core_count == target_count:
+            msg = (
+                f"稳定插块成功：第 {attempt} 次尝试，"
+                f"核心层 '{core_layer}' 上核心块数 = 目标数量 = {core_count}。"
+            )
+            node("  ✅ {}", msg)
+            log(msg)
+            info = {
+                "success": True,
+                "attempt": attempt,
+                "core_count": core_count,
+                "target_count": target_count,
+                "message": msg,
+            }
+            return True, bind_dict, info
+
+        # ❌ 本次尝试未达预期 → 战场清理 + 强悍无实例块清理，然后再试
+        last_msg = (
+            f"第 {attempt} 次尝试未满足条件：核心层 '{core_layer}' 上核心块数 = {core_count}，"
+            f"目标 = {target_count}"
+        )
+        node("  ❌ {}", last_msg)
+        log(last_msg)
+
+        node("▶ F  本轮失败，开始战场清理（图层实体 + 无实例块）…")
+        log("[CLEAN] 本轮失败，开始战场清理…")
+
+        # 4.F.1 确保相关图层存在
+        for ly in cleanup_layers:
+            with suppress(Exception):
+                ensure_layer(ly)
+
+        # 4.F.2 清理相关图层上的实体
+        for ly in cleanup_layers:
+            _clear_layer_entities(ly)
+
+        with suppress(Exception):
+            wait_command_done()
+
+        # 4.F.3 强悍无实例块清理（允许改名为垃圾块）
+        try:
+            node("▶ F.3 调用 purge_unused_blocks_1 强力清除无实例块…")
+            processed = purge_unused_blocks_1(
+                quiet=not verbose,
+                protect_names=None,     # 如需白名单可在此传入列表
+                max_delete_attempts=2,
+                rename_prefix="lajikuai",
+            )
+            log(f"[CLEAN] purge_unused_blocks_1 处理块定义数量 = {len(processed)}")
+        except Exception as e:
+            log(f"[警告] purge_unused_blocks_1 执行异常（忽略继续）：{e}")
+            node("  ⚠ purge_unused_blocks_1 异常：{}", e)
+
+        with suppress(Exception):
+            wait_command_done()
+
+        # 给 CAD 一点缓冲时间，再进行下一轮
+        time.sleep(0.5)
+
+    # —— 多次尝试后仍未成功 —— #
+    fail_msg = (
+        f"稳定插块失败：连续 {max_try} 次尝试后，"
+        f"核心层 '{core_layer}' 上核心块数 = {last_core_count}，目标 = {target_count}。"
+        f"最后一条提示：{last_msg}"
+    )
+    node("✖ {}", fail_msg)
+    log(fail_msg)
+
+    info = {
+        "success": False,
+        "attempt": max_try,
+        "core_count": last_core_count,
+        "target_count": target_count,
+        "message": fail_msg,
+    }
+    return False, None, info
+
+
+
+
+
+
+
+
+
+@debuggable
+def stable_insert_and_scale_labels_area_1(
+    coms_dayin,
+    filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+    layername="dy_quyu",
+    timestamp=None,
+    delpan=0,
+    core_layer="dy_quyu_H",
+    max_try=3,
+    verbose=True,
+):
+    """
+    【弱但稳定版插图签总包装】
+
+    流程（每一轮尝试）：
+      1. 预留图签相关块名，避免标准模板被旧定义污染（只改块定义名，不删、不乱改垃圾块）
+      2. 调用 insert_and_scale_labels_area(...) 把图签插到 layername（通常 'dy_quyu'）
+      3. 调用 normalize_core_title_blocks_by_layer(...) 剥离/规范核心块（落到 core_layer）
+      4. 总检测：检查 core_layer 上的核心块实例数量 == len(coms_dayin)
+
+    特点：
+      - 不再调用 purge_block / purge_unused_blocks，只做“结构检测 + 少量重试”
+      - 若 insert / normalize 过程里生成字典出错、或有轻微异常，只要最终检测通过仍视为成功
+
+    参数：
+        coms_dayin : 打印框组合列表，用来确定目标核心块数量
+        filepath   : 标准图签模板 DWG 路径
+        layername  : 插入图签的外壳块图层（默认 'dy_quyu'）
+        timestamp  : 传给 insert_and_scale_labels_area 的时间戳参数
+        delpan     : 同上
+        core_layer : 核心块图层（默认 'dy_quyu_H'）
+        max_try    : 最大尝试次数（默认 3）
+        verbose    : 是否输出普通 print 日志（node 日志由 DEBUG 控制）
+
+    返回：
+        (success, bind_dict, info)
+
+        success   : True / False
+        bind_dict : insert_and_scale_labels_area 的返回字典（成功时可能为 None）
+        info      : {
+                       "success": bool,
+                       "attempt": 使用到的尝试次数,
+                       "core_count": 最终核心块数,
+                       "target_count": len(coms_dayin),
+                       "message": 描述信息
+                    }
+    """
+    import time
+    from contextlib import suppress
+
+    global acad, doc, mp, sp
+
+    def log(msg):
+        if verbose:
+            print(msg)
+
+    # —— 图签相关的所有块名（用来做“块名预留”） —— #
+    core_base_names = [
+        'A3', 'A2', 'A1',
+        'A2_1_4', 'A2_1_2', 'A2_3_4',
+        'A1_1_4', 'A1_1_2', 'A1_3_4',
+        'A0', 'A0_1_8', 'A0_1_4',
+        '内部A1普通块', 'A3普通块', 'A2普通块', 'A1普通块', 'A0普通块',
+        'A3-H', 'A2-H', 'A1-H', 'A0-H',
+    ]
+
+    target_count = len(coms_dayin)
+    last_core_count = 0
+    last_msg = ""
+
+    # 先确认当前 DWG 环境可用
+    if not li():
+        msg = "[错误] stable_insert_and_scale_labels_area: li() 连接失败，未能锁定当前 DWG。"
+        node(msg)
+        info = {
+            "success": False,
+            "attempt": 0,
+            "core_count": 0,
+            "target_count": target_count,
+            "message": msg,
+        }
+        return False, None, info
+
+    for attempt in range(1, max_try + 1):
+        node("★★ 稳定插块：第 {}/{} 次尝试", attempt, max_try)
+        log(f"\n==== 稳定插块 第 {attempt}/{max_try} 次 ====")
+
+        bind_dict = None
+
+        # -------- 1) 预留块名：防止标准图签被旧定义污染 -------- #
+        try:
+            node("▶ 1  预留图签块名，防止旧定义干扰…")
+            reserve_block_names_for_new_insert(
+                core_base_names,
+                rename_prefix="legacy",
+                verbose=verbose,
+            )
+        except Exception as e:
+            last_msg = f"reserve_block_names_for_new_insert 异常（允许继续）：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+
+        # -------- 2) 插入图签到 dy_quyu -------- #
+        try:
+            node("▶ 2  调用 insert_and_scale_labels_area 插入图签…")
+            bind_dict = insert_and_scale_labels_area(
+                coms_dayin=coms_dayin,
+                filepath=filepath,
+                layername=layername,
+                timestamp=timestamp,
+                delpan=delpan,
+            )
+        except Exception as e:
+            last_msg = f"insert_and_scale_labels_area 调用异常（允许继续）：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+            bind_dict = None
+
+        # 等待 CAD 命令完成
+        with suppress(Exception):
+            wait_command_done()
+
+        # -------- 3) 剥离/规范核心块 -------- #
+        try:
+            node("▶ 3  剥离/规范核心块 normalize_core_title_blocks_by_layer…")
+            _ = normalize_core_title_blocks_by_layer(
+                core_layer=core_layer,
+                core_base_names=None,   # 内部自己用 A3-H/A2-H/A1-H/A0-H
+                verbose=verbose,
+            )
+        except Exception as e:
+            last_msg = f"normalize_core_title_blocks_by_layer 异常（允许继续）：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+
+        with suppress(Exception):
+            wait_command_done()
+
+        # -------- 4) 总检测：只看核心层上的核心块数量 -------- #
+        try:
+            node("▶ 4  统计核心层 '{}' 上的块实例…", core_layer)
+            try:
+                LK_core = stc(core_layer)
+            except Exception as e:
+                node("  ⚠ stc({}) 失败：{}", core_layer, e)
+                log(f"[警告] stc({core_layer}) 失败：{e}")
+                LK_core = []
+
+            core_blocks = [
+                ent for ent in LK_core
+                if getattr(ent, "ObjectName", "") in ("AcDbBlockReference", "AcDbMInsertBlock")
+            ]
+            core_count = len(core_blocks)
+            last_core_count = core_count
+
+            node("  ▶ 核心层 '{}' 上块数量 = {}，目标核心块数 = {}",
+                 core_layer, core_count, target_count)
+            log(f"[INFO] 核心层 '{core_layer}' 上块数量 = {core_count}，目标 = {target_count}")
+        except Exception as e:
+            last_msg = f"总检测过程中异常：{e}"
+            node("  ⚠ {}", last_msg)
+            log(last_msg)
+            core_count = -1
+
+        # ✅ 成功条件：核心层上的核心块数量 == 打印框数量
+        if core_count == target_count:
+            msg = (
+                f"稳定插块成功：第 {attempt} 次尝试，"
+                f"核心层 '{core_layer}' 上核心块数 = 目标数量 = {core_count}。"
+            )
+            node("  ✅ {}", msg)
+            log(msg)
+            info = {
+                "success": True,
+                "attempt": attempt,
+                "core_count": core_count,
+                "target_count": target_count,
+                "message": msg,
+            }
+            return True, bind_dict, info
+
+        # ❌ 本次尝试未达预期 → 简单失败信息 + 进入下一轮（不做激进清理）
+        last_msg = (
+            f"第 {attempt} 次尝试未满足条件：核心层 '{core_layer}' 上核心块数 = {core_count}，"
+            f"目标 = {target_count}"
+        )
+        node("  ❌ {}", last_msg)
+        log(last_msg)
+
+        # 给 CAD 一点缓冲时间，再进行下一轮
+        time.sleep(0.5)
+
+    # —— 多次尝试后仍未成功 —— #
+    fail_msg = (
+        f"稳定插块失败：连续 {max_try} 次尝试后，"
+        f"核心层 '{core_layer}' 上核心块数 = {last_core_count}，目标 = {target_count}。"
+        f"最后一条提示：{last_msg}"
+    )
+    node("✖ {}", fail_msg)
+    log(fail_msg)
+
+    info = {
+        "success": False,
+        "attempt": max_try,
+        "core_count": last_core_count,
+        "target_count": target_count,
+        "message": fail_msg,
+    }
+    return False, None, info
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

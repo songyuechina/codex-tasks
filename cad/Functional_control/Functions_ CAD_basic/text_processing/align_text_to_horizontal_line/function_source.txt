@@ -1,0 +1,101 @@
+def align_text_to_horizontal_line(
+    text_obj,
+    y_position,
+    align_side="下边界"
+):
+    """
+    将文字按 BoundingBox 边界对齐到指定水平线的 Y 坐标。
+
+    参数:
+        text_obj:
+            - 单个文字对象 (AcDbText / TDbText / 其它有 GetBoundingBox 的实体)
+            - 或者多个文字对象组成的列表 / 元组 / 其它可迭代
+
+        y_position:
+            - 一个数字 y
+            - 或一个点 (x, y)
+            - 或一个点 (x, y, z)
+            最终只使用 y 作为水平线的 Y 坐标。
+
+        align_side:
+            - "下边界": 使用外包盒下边界对齐到 y
+            - "上边界": 使用外包盒上边界对齐到 y
+    """
+    import numbers
+    import pythoncom
+    from win32com.client import VARIANT
+    li()
+    # —— 1. 归一化 text_obj 为列表 —— #
+    if text_obj is None:
+        print("[错误] text_obj 为空，无法对齐。")
+        return False
+
+    if isinstance(text_obj, (list, tuple, set)):
+        objs = list(text_obj)
+    else:
+        # 直接包装成列表（和垂直对齐那边保持一致）
+        objs = [text_obj]
+
+    if not objs:
+        print("[错误] text_obj 列表为空，无法对齐。")
+        return False
+
+    # —— 2. 解析 y_position —— #
+    if isinstance(y_position, numbers.Real):
+        y_target = float(y_position)
+    elif isinstance(y_position, (list, tuple)):
+        if len(y_position) < 2:
+            print("[错误] y_position 序列长度不足 2，无法获取 Y 坐标。")
+            return False
+        y_target = float(y_position[1])
+    else:
+        # 尝试从其它类型（例如 VARIANT）解析为 float
+        try:
+            y_target = float(y_position)
+        except Exception:
+            print(f"[错误] 无法从 y_position={y_position!r} 解析出 Y 坐标。")
+            return False
+
+    print(f"[信息] 水平对齐目标 Y = {y_target}，处理对象数量 = {len(objs)}")
+
+    # —— 3. 遍历对齐每一个对象 —— #
+    success_count = 0
+
+    for idx, obj in enumerate(objs, start=1):
+        try:
+            # 3.1 获取 BoundingBox（无参数版本）
+            ll_pt, ur_pt = obj.GetBoundingBox()
+            print(f"[对象#{idx}] 原外包盒: min={ll_pt}, max={ur_pt}")
+
+            # 3.2 计算移动距离
+            if align_side == "下边界":
+                dy = y_target - float(ll_pt[1])
+            elif align_side == "上边界":
+                dy = y_target - float(ur_pt[1])
+            else:
+                print(f"[对象#{idx}] [错误] 不支持的对齐方式: {align_side}")
+                continue
+
+            # 3.3 执行移动（只沿 Y 方向）
+            base_pt = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, [0.0, 0.0, 0.0])
+            move_vec = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, [0.0, dy, 0.0])
+            obj.Move(base_pt, move_vec)
+
+            # 3.4 再读一遍外包盒验证
+            ll_pt2, ur_pt2 = obj.GetBoundingBox()
+            print(f"[对象#{idx}] 新外包盒: min={ll_pt2}, max={ur_pt2}")
+            print(f"[对象#{idx}] [成功] 文字{align_side}已对齐到 Y={y_target}")
+            success_count += 1
+
+        except Exception as e:
+            print(f"[对象#{idx}] [错误] 水平对齐失败: {e}")
+
+    if success_count == 0:
+        print("[结果] 所有对象水平对齐都失败。")
+        return False
+    elif success_count < len(objs):
+        print(f"[结果] 部分水平对齐成功: 成功 {success_count} / {len(objs)}")
+        return False
+    else:
+        print(f"[结果] 全部 {success_count} 个对象已成功对齐到 Y={y_target}")
+        return True

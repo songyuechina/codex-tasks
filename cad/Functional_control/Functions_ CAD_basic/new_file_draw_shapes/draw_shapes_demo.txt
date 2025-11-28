@@ -1,0 +1,48 @@
+﻿from pathlib import Path
+import sys
+from datetime import datetime
+
+SCRIPT_PATH = Path(__file__).resolve()
+CAD_DIR = SCRIPT_PATH.parents[4]
+SYSTEM_DIR = CAD_DIR / "system"
+SCRIPTS_DIR = CAD_DIR / "scripts"
+HELPER_DIR = SCRIPT_PATH.parent
+for extra in (SYSTEM_DIR, SCRIPTS_DIR, HELPER_DIR):
+    extra_str = str(extra)
+    if extra_str not in sys.path:
+        sys.path.insert(0, extra_str)
+
+import CAD_file_operations as cfo
+from CAD_basic import li
+import draw_shapes_helper as helper
+
+
+def create_and_draw(filename: str) -> None:
+    """New file, draw multiple shapes, then save/close."""
+    result = cfo.new_file(output_path=filename, close_after=False)
+    if not result:
+        raise RuntimeError("new_file failed")
+    if not li():
+        print("[警告] li() 连接失败，继续尝试绘图")
+
+    helper.draw_point((0, 0, 0))
+    helper.draw_line_segment((0, 0, 0), (2000, 0, 0))
+    helper.draw_circle_basic((1000, 1200, 0), 400)
+    helper.draw_arc_three_points((0, 0), (1000, 800), (2000, 0))
+    helper.draw_ellipse_axes((2500, 0), 1600, 900)
+    helper.draw_rectangle((300, -800), (1300, -200))
+    helper.draw_polyline([(0, 0), (0, 1500), (800, 1800), (1200, 600)])
+    helper.draw_spline([(1500, 0), (1800, 500), (2100, -200), (2500, 300), (2800, 0)])
+
+    cfo.save_file()
+    cfo.close_file("auto_save")
+    print(f"[完成] 已在 {filename} 保存并关闭绘图")
+
+
+if __name__ == "__main__":
+    demo_dir = CAD_DIR / "Functional_control" / "Functions_ CAD_basic" / "new_file_draw_shapes"
+    demo_dir.mkdir(exist_ok=True)
+    demo_name = datetime.now().strftime("shapes_demo_%d%M%S.dwg")
+    demo_path = demo_dir / demo_name
+    print(f">>> 示例：{demo_path}")
+    create_and_draw(str(demo_path))

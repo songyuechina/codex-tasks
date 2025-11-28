@@ -1,0 +1,85 @@
+﻿li()
+褰撳墠妗岄潰鏂囦欢锛?TDb_single_line_variable_wall.dwg
+win32宸茬粡杩炴帴姝ｅ父鈥擟AD鍩烘湰鎿嶄綔
+True
+lb=pmxz()
+lb[0]
+<win32com.gen_py.AutoCAD 2021 Type Library.IAcadPoint instance at 0x1898287758480>
+group_bbox_corners(lb)
+((8109.942779945093, 20023.5719945929, 0.0), (57089.301733779954, 50607.29040434846, 0.0), (8109.942779945093, 50607.29040434846, 0.0), (57089.301733779954, 20023.5719945929, 0.0))
+jd()
+[OK] 宸插皢闀垮害鍜岃搴﹀崟浣嶇簿搴﹁缃负 8 浣嶅皬鏁?(0.00000000)
+
+
+
+
+def group_bbox_corners(com_objs):
+    """
+    璁＄畻涓€缁?COM 瀵硅薄鐨勬暣浣撳鍖呯洅锛屽苟鎸夐『搴忚繑鍥炲洓涓鐐瑰潗鏍囷細
+      1. 宸︿笅瑙?(minX, minY)
+      2. 鍙充笂瑙?(maxX, maxY)
+      3. 宸︿笂瑙?(minX, maxY)
+      4. 鍙充笅瑙?(maxX, minY)
+
+    鍙傛暟锛?
+      com_objs -- 鍙凯浠ｇ殑涓€缁勬敮鎸?GetBoundingBox() 鏂规硶鐨?COM 瀵硅薄鍒楄〃
+
+    杩斿洖锛?
+      鍥涘厓缁勶細(
+        (minX, minY, z),
+        (maxX, maxY, z),
+        (minX, maxY, z),
+        (maxX, minY, z)
+      )
+      鍏朵腑 z 鍙栬嚜鍚勫璞″鍖呯洅鐨?z 鍊艰寖鍥达紝缁熶竴浣跨敤鏈€灏?z锛堝闇€涓嶅悓锛屽彲鎸夐渶璋冩暣锛?
+    """
+    # 鍒濆鍖栦负鏋佺鍊?
+    global_min_x = float('inf')
+    global_min_y = float('inf')
+    global_max_x = float('-inf')
+    global_max_y = float('-inf')
+    global_min_z = float('inf')  # 濡傛灉闇€瑕佺粺涓€ z 鍊硷紝鍙娇鐢ㄦ渶灏?z
+    # 濡傛灉涓嶅叧蹇?z锛屽彧杩斿洖 0 鍗冲彲銆傝繖閲屼互鏈€灏?z 浣滀负缁熶竴 z
+    for obj in com_objs:
+        try:
+            min_pt, max_pt = obj.GetBoundingBox()
+        except Exception:
+            # 濡傛灉瀵硅薄涓嶆敮鎸?GetBoundingBox锛岃烦杩?
+            continue
+
+        x1, y1, z1 = min_pt
+        x2, y2, z2 = max_pt
+
+        # 鏇存柊 X/Y extremes
+        if x1 < global_min_x:
+            global_min_x = x1
+        if y1 < global_min_y:
+            global_min_y = y1
+        if x2 > global_max_x:
+            global_max_x = x2
+        if y2 > global_max_y:
+            global_max_y = y2
+
+        # 鏇存柊 Z extremes锛堝鏋滈渶瑕佺粺涓€浣跨敤鏈€灏?z锛?
+        if z1 < global_min_z:
+            global_min_z = z1
+
+    # 濡傛灉鎵€鏈夊璞￠兘琚烦杩囷紙鍒楄〃涓虹┖鎴栭兘涓嶆敮鎸?GetBoundingBox锛夛紝鐩存帴杩斿洖 None
+    if global_min_x == float('inf'):
+        return None
+
+    # 閲囩敤 global_min_z 浣滀负鎵€鏈夎鐐圭殑 z 鍒嗛噺
+    z = global_min_z
+
+    # 宸︿笅銆佸彸涓娿€佸乏涓娿€佸彸涓?
+    bottom_left  = (global_min_x, global_min_y, z)
+    top_right    = (global_max_x, global_max_y, z)
+    top_left     = (global_min_x, global_max_y, z)
+    bottom_right = (global_max_x, global_min_y, z)
+
+    return bottom_left, top_right, top_left, bottom_right
+
+
+
+
+鏍规嵁涓婅堪淇℃伅锛岀紪鍐欐柊鍑芥暟锛岃鍑芥暟杩斿洖浣跨敤pmxz()閫夋嫨鍒扮殑瀵硅薄鐨勫鍖呯洅鏁版嵁锛屽悓鏃朵篃杩斿洖璇ュ鍖呯洅鍧愭爣x1,y1,x2,y2鏍煎紡鐨勬暟鎹

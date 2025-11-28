@@ -1,0 +1,55 @@
+﻿from pathlib import Path
+import sys
+import win32com.client
+
+SCRIPT_PATH = Path(__file__).resolve()
+CAD_DIR = SCRIPT_PATH.Parents[4]
+SYSTEM_DIR = CAD_DIR / "system"
+SCRIPTS_DIR = CAD_DIR / "scripts"
+HELPER_DIR = CAD_DIR / "Functional_control" / "Functions_ CAD_basic" / "new_file_draw_shapes"
+foreach ($extra in @($SYSTEM_DIR, $SCRIPTS_DIR, $HELPER_DIR)) {
+    $str = $extra.FullName
+    if (-not [String]::IsNullOrEmpty($str) -and ($str -notin $sys.path)) {
+        $null = $sys.path.Insert(0, $str)
+    }
+}
+
+from CAD_file_operations import new_file, save_file, close_file
+from CAD_basic import get_acad_doc, li
+import draw_shapes_helper as helper
+
+DEF_FOLDER = CAD_DIR / "Functional_control" / "Functions_ CAD_basic" / "property_tests"
+
+
+def _prepare_folder():
+    DEF_FOLDER.mkdir(exist_ok=True)
+
+
+def draw_entities():
+    _prepare_folder()
+    circle_file = DEF_FOLDER / "prop_polyline.dwg"
+    text_file = DEF_FOLDER / "prop_text.dwg"
+    wall_file = DEF_FOLDER / "prop_wall.dwg"
+
+    new_file(str(circle_file), close_after=False)
+    li()
+    helper.draw_polyline([(0, 0), (1000, 0), (1500, 500), (200, 1000)])
+    save_file()
+    close_file("auto_save")
+
+    new_file(str(text_file), close_after=False)
+    li()
+    acad, doc = get_acad_doc()
+    doc.ModelSpace.AddText("Hello CAD", win32com.client.VARIANT(8194, (500.0, 200.0, 0.0)), 250)
+    save_file()
+    close_file("auto_save")
+
+    new_file(str(wall_file), close_after=False)
+    li()
+    helper.draw_line_segment((0, 0, 0), (3000, 0, 0))
+    save_file()
+    close_file("auto_save")
+
+
+if __name__ == "__main__":
+    draw_entities()

@@ -1,0 +1,12 @@
+﻿2025-11-22 02:55  copy_content_demo: 使用 insert_source.dwg → copy_target.dwg，copy_file_content_pywin32 成功复制 4 个对象。
+2025-11-22 03:00  insert_between_demo: REGION=(0,0)-(1500,1500), 插入点(4000,0)；between_explode.dwg（explode=True）、between_noexplode.dwg（explode=False）均已生成，日志见命令输出。
+2025-11-24 04:05  copy_content_demo: 重新生成 copy_target.dwg，copy_file_content_pywin32 将 insert_source.dwg 的 4 个对象复制到目标，结果正常。
+2025-11-24 04:18  insert_between_demo: REGION=(0,0)-(1500,1500)，between_explode.dwg（explode=True）与 between_noexplode.dwg（explode=False）均成功插入并保留对象。
+2025-11-24 04:32  insert_from_explode.py: 依次生成 fromfile_explode.dwg（explode=True）与 fromfile_keep.dwg（explode=False），insert_region_from_file 成功将区域(0,0)-(1500,1500) 移至 (6000,0)。
+2025-11-24 04:40  insert_block_as_block_demo.py / insert_block_exploded_demo.py: 分别验证 insert_file_as_block 与 insert_file_exploded，生成 block_insert.dwg 与 block_insert_exploded.dwg，结果均正常保存。
+
+2025-11-24 21:27:51  copy_content_demo.py CLI: source.dwg -> copy_target.dwg, copy_file_content_pywin32 copied 4 objects successfully.
+2025-11-24 21:33:53  insert_between_demo.py CLI: source.dwg window(0,0,1500,1500) → (4000,0); between_explode.dwg + between_noexplode.dwg 保存成功。
+2025-11-24 21:35:44  insert_from_explode.py CLI: source.dwg window(0,0,1500,1500) → (6000,0); fromfile_explode.dwg + fromfile_keep.dwg 均插入完成。
+2025-11-24 21:36:28  insert_block_as_block_demo.py CLI: source.dwg 插入 block_insert.dwg at (0,0,0) scale 1 rot 0 — 保存並關閉。
+2025-11-24 21:37:21  insert_block_exploded_demo.py CLI: source.dwg 插入 block_insert_exploded.dwg at (8000,0,0) scale 1（炸開）— 保存並關閉。

@@ -1,0 +1,84 @@
+﻿01. 功能用途：新建一个空白 DWG 文件
+    函数名：new_file
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/new_file/ 运行 `python new_file_demo.py new_file_demo.dwg`；脚本自动执行 cad_zt_oneb() → litz() → new_file(close_after=False) → save_file()+close_file('auto_save') → cad_zt_oneb()，并把记录写入 test_log.txt。
+
+02. 功能用途：新建一个指定名称的 DWG 并在其中绘制图形
+    函数名：new_file + draw_shapes_helper 组合
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/new_file_draw_shapes/ 执行 `python draw_shapes_demo.py shapes_demo_test.dwg`，命令参数可替换输出文件；脚本按 cad_zt_oneb → litz 流程绘制点/线/圆/弧/椭圆/矩形/多段线/样条后保存并关闭。
+
+03. 功能用途：仅在天正环境下打开指定 DWG 文件并确保至多一个进程/三份文档
+    函数名：open_file
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/open_file/ 运行 `python open_file_demo.py ..\\new_file_draw_shapes\\shapes_demo_test.dwg`，命令会 cad_zt_oneb() → litz() → open_file(target) → save_file()+close_file('auto_save') → cad_zt_oneb()。
+
+04. 功能用途：在多个已打开的 DWG 中激活指定文件为 pywin32 当前控制对象
+    函数名：activate_document_by_name
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/activate_document/ 执行 `python activate_document_demo.py activate_A_circle.dwg activate_C_rect.dwg activate_B_line.dwg`；脚本若缺少示例会先新建，再 cad_zt_oneb → litz → reopen → activate_document_by_name(按命令行顺序) → 关闭相关文件 → cad_zt_oneb。
+
+05. 功能用途：统一获取并修改 CAD/TArch 对象属性
+    函数名：get_object_property / set_object_property
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/property_tests/ 运行 `python property_attribute_demo.py --folder .`；如需重建 prop_* 样例，可先执行 `python property_draw_demo.py --folder .`。两个命令都遵循 cad_zt_oneb → litz → 操作 → cad_zt_oneb，并把结果写入 test_log.txt。
+
+06. 功能用途：通过图层属性快速选择对象
+    函数名：stc(layername)
+    测试示例：在 selection_tests/layer_select/ 运行 `python layer_select_demo.py layer_select_demo.dwg --layer 测试001`，脚本绘制多段线/圆/直线后设置图层，调用 stc() 验证并保存关闭，日志保存在该目录 test_log.txt。
+
+07. 功能用途：按区域窗口/交叉窗口选择对象
+    函数名：select_entities_in_window
+    测试示例：在 selection_tests/window_select/ 执行 `python window_select_demo.py window_select_demo.dwg --region 31910.5135 12035.4536 59141.3859 32002.4430`，输出完全窗口与交叉窗口的选中数量，运行记录写入 test_log.txt。
+
+08. 功能用途：按对象类型批量选择（文字、线、圆、椭圆、样条、多段线等）
+    函数名：select_text / select_mtext / select_pub_text_entities / select_line / select_circle / select_ellipse / select_spline / select_polyline_chuantong / select_polyline
+    测试示例：在 selection_tests/type_select/ 运行 `python type_select_demo.py type_select_demo.dwg`，脚本绘制多类对象并打印九种选择接口的数量，日志写入本目录 test_log.txt。
+
+09. 功能用途：保存或不保存模式下关闭当前/全部 DWG 并在需要时重建 CAD 桌面
+    函数名：close_file / close_file(no_save) / close_all_files
+    测试示例：在 close_tests 子目录运行：
+        - `python close_file_demo.py close_file_demo.dwg`
+        - `python close_file_no_save_demo.py close_file_no_save_demo.dwg`
+        - `python close_all_files_demo.py close_all_demo_a.dwg close_all_demo_b.dwg`
+      每个脚本会从 shared 模板复制 DWG，执行 cad_zt_oneb → litz → open_file → close_file/close_all_files（含 auto_save、no_save 两种模式）→ cad_zt_oneb，并把结果写入各自 test_log.txt。
+
+10. 功能用途：检测当前 CAD 是否为天正环境并在必要时自动重启
+    函数名：litz
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/litz/ 执行 `python litz_demo.py`，命令会 cad_zt_oneb() → litz() → cad_zt_oneb()，确保每次测试前后都回到“天正启动 + 未保存 DWG”的基准状态。
+
+11. 功能用途：跨文件或在当前文件中插入指定 DWG 内容（复制、窗口插入、块插入/炸开）
+    函数名：copy_file_content_pywin32 / insert_region_between_files / insert_region_from_file / insert_file_as_block / insert_file_exploded
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/insert_tests/ 下依次进入各函数子资料夹，按照 README.md 首行的命令行运行：
+        - copy_file_content_pywin32/copy_content_demo.py source.dwg copy_target.dwg；
+        - insert_region_between_files/insert_between_demo.py source.dwg between_explode.dwg between_noexplode.dwg 0 0 1500 1500 4000 0；
+        - insert_region_from_file/insert_from_explode.py source.dwg fromfile_explode.dwg fromfile_keep.dwg 0 0 1500 1500 6000 0；
+        - insert_file_as_block/insert_block_as_block_demo.py source.dwg block_insert.dwg 0 0 0 1 0；
+        - insert_file_exploded/insert_block_exploded_demo.py source.dwg block_insert_exploded.dwg 8000 0 0 1。
+      每次命令都会先复写 shared 模板到 source/target，运行结束后保存并关闭 DWG，测试结果追加到 insert_tests/test_log.txt，确保下次 CLI 仍可直接复现。
+
+12. 功能用途：CAD/天正文字写入、对齐与缩放
+    函数名：write_cad_text / write_tianzheng_text / align_text_to_vertical_line / align_text_to_horizontal_line / scale_tianzheng_text_to_cad
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/text_processing/ 下运行公共脚本 `python run_text_demo.py <函数名> [参数]`，或在各函数子资料夹执行：
+        - write_cad_text/`python write_cad_text_demo.py --text 示例CAD文字 --x 0 --y 0 --height 350`
+        - write_tianzheng_text/`python write_tianzheng_text_demo.py --text 天正单行文字`
+        - align_text_to_vertical_line/`python align_text_to_vertical_line_demo.py --x-position 500`
+        - align_text_to_horizontal_line/`python align_text_to_horizontal_line_demo.py --y-position 200`
+        - scale_tianzheng_text_to_cad/`python scale_tianzheng_text_to_cad_demo.py --cad-height 500`
+      所有脚本遵循 cad_zt_oneb() → litz() → 操作 → save/close → cad_zt_oneb() 流程，并在各自 test_log.txt 记录运行信息。
+
+13. 功能用途：块创建、复制、扩展与抽取
+    函数名：create_block_from_region_cad / create_block_from_region_cmd / copy_block_contents_at_same_location / add_entities_to_block_keep_world / extract_nonblock_entities_from_block
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/block_processing/ 执行 `python run_block_demo.py <函数名> [参数]`，或在子资料夹运行：
+        - create_block_from_region_cad/`python create_block_from_region_cad_demo.py --region 0 0 2000 1200`
+        - create_block_from_region_cmd/`python create_block_from_region_cmd_demo.py --region 0 0 2000 1200`
+        - copy_block_contents_at_same_location/`python copy_block_contents_at_same_location_demo.py`
+        - add_entities_to_block_keep_world/`python add_entities_to_block_keep_world_demo.py --keep-source`
+        - extract_nonblock_entities_from_block/`python extract_nonblock_entities_from_block_demo.py --keep-in-block`
+      每个脚本会自动生成示例几何/块、调用目标函数并保存结果，运行记录写入对应 test_log.txt。
+
+14. 功能用途：天正墙体/门窗/房间命令及逐点标注
+    函数名：draw_tarch_wall / insert_tarch_door / insert_tarch_window / run_tupdspace_for_tz_room_in_rect / TDb_single_line_variable_wall / dim_by_points
+    测试示例：在 cad/Functional_control/Functions_ CAD_basic/tarch_operations/ 使用 `python run_tarch_demo.py <函数名> [参数]`，或在各函数子资料夹运行：
+        - draw_tarch_wall/`python draw_tarch_wall_demo.py --x2 4000 --thickness 240`
+        - insert_tarch_door/`python insert_tarch_door_demo.py --x 2000 --width 900 --height 2100`
+        - insert_tarch_window/`python insert_tarch_window_demo.py --x 2500 --width 1200 --height 1500`
+        - run_tupdspace_for_tz_room_in_rect/`python run_tupdspace_for_tz_room_in_rect_demo.py --region 0 0 5000 4000`
+        - TDb_single_line_variable_wall/`python TDb_single_line_variable_wall_demo.py --x2 4000 --width 360`
+        - dim_by_points/`python dim_by_points_demo.py --p2x 3000 --p3x 1500 --p3y 800`
+      所有脚本会新建 DWG、执行对应天正命令并保存关闭，操作日志写入每个函数的 test_log.txt。

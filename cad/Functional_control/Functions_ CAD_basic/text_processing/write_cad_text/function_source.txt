@@ -1,0 +1,158 @@
+def write_cad_text(
+    p=(0, 0, 0),
+    text="单行文字danhangwenzi",
+    alignment="左下",      # 推荐用 "左下"/"左上"/"右下"/"右上"/"中心"，兼容"左对齐"/"居中"/"右对齐"
+    height=350,
+    width_factor=1.0,
+    rotation=0.0,
+    oblique=0.0,
+    style="Standard"
+):
+    """
+    在指定位置写入 CAD 单行文字（AcDbText），并通过外包盒对齐到目标点 p。
+
+    对齐规则（基于外包盒）：
+        - "左下" / "左对齐" / "LB"       : 外包盒左下角对齐到 p
+        - "左上" / "LT"                 : 外包盒左上角对齐到 p
+        - "右下" / "右对齐" / "RB"      : 外包盒右下角对齐到 p
+        - "右上" / "RT"                 : 外包盒右上角对齐到 p
+        - "中心" / "居中" / "center"/"C": 外包盒中心对齐到 p
+
+    参数:
+        p: 插入点坐标 (x, y, z)，默认(0, 0, 0)；对齐后“视觉位置”以 p 为锚点。
+        text: 文字内容，默认"单行文字danhangwenzi"
+        alignment: 对齐方式（见上），默认"左下"
+        height: 文字高度，默认350（你的绘图单位）
+        width_factor: 宽度因子，默认1.0
+        rotation: 旋转角度(度)，默认0（绕 Z 轴）
+        oblique: 倾斜角度(度)，默认0
+        style: 文字样式名称，默认"Standard"
+
+    返回:
+        text_obj: 创建并对齐后的文字对象 (IAcadText)
+    """
+    import sys
+    from pathlib import Path
+    import math
+    import pythoncom
+    import win32com.client
+    from win32com.client import VARIANT
+
+    # 如果你希望复用 li() 保证 doc/mp 一致，也可以这样：
+    sys.path.append(str(Path(__file__).parent))
+    from CAD_basic import li  # noqa
+
+    # —— 小工具：基于外包盒对齐 —— #
+    def _align_entity_by_bbox(ent, target_point, align="左下"):
+        """
+        使用无参数 GetBoundingBox()：
+          1. min_pt, max_pt = ent.GetBoundingBox()
+          2. 根据 align 选锚点
+          3. Move(锚点 → 目标点)
+        """
+        try:
+            min_pt, max_pt = ent.GetBoundingBox()
+        except Exception as e:
+            print(f"[错误] 获取外包盒失败: {e}")
+            return
+
+        xmin, ymin, zmin = min_pt
+        xmax, ymax, zmax = max_pt
+        print(f"[对齐-前]  BBox min={min_pt}, max={max_pt}")
+
+        alg = str(align).strip().lower()
+        if alg in ("左下", "左对齐", "lb"):
+            anchor_pt = (xmin, ymin, zmin)
+        elif alg in ("左上", "lt"):
+            anchor_pt = (xmin, ymax, zmin)
+        elif alg in ("右下", "右对齐", "rb"):
+            anchor_pt = (xmax, ymin, zmin)
+        elif alg in ("右上", "rt"):
+            anchor_pt = (xmax, ymax, zmin)
+        elif alg in ("中心", "居中", "center", "c"):
+            anchor_pt = ((xmin + xmax) / 2.0,
+                         (ymin + ymax) / 2.0,
+                         (zmin + zmax) / 2.0)
+        else:
+            # 未识别就按左下处理
+            anchor_pt = (xmin, ymin, zmin)
+
+        # 目标点：如果传的是 (x, y)，z 用当前 zmin；否则使用传入 z
+        if len(target_point) == 2:
+            tx, ty = float(target_point[0]), float(target_point[1])
+            tz = float(zmin)
+        else:
+            tx, ty, tz = float(target_point[0]), float(target_point[1]), float(target_point[2])
+
+        target_pt = (tx, ty, tz)
+
+        print(f"[对齐-计算] alignment='{align}', anchor_pt={anchor_pt} → target_pt={target_pt}")
+
+        from_pt = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, anchor_pt)
+        to_pt   = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, target_pt)
+        ent.Move(from_pt, to_pt)
+
+        # 再读一次外包盒看结果
+        try:
+            min_pt2, max_pt2 = ent.GetBoundingBox()
+            print(f"[对齐-后]  BBox min={min_pt2}, max={max_pt2}")
+        except Exception as e:
+            print(f"[警告] 对齐后再次获取外包盒失败: {e}")
+
+    try:
+        # 0. 可选：先 li() 一下，保证 CAD_basic 的 doc/mp 状态一致
+        li()
+
+        # 1. 获取 CAD 应用/文档/模型空间
+        acad = win32com.client.GetActiveObject("AutoCAD.Application")
+        doc = acad.ActiveDocument
+        ms  = doc.ModelSpace
+
+        # 2. 创建基本文字（只设内容、插入点、高度）
+        #    注意 AddText 的第三个参数是高度，不带单位转换
+        insert_pt = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, list(p))
+        text_obj  = ms.AddText(text, insert_pt, height)
+        print(f"[步骤1] 已创建基本文字: \"{text}\"，插入点约为 {p}，高度={height}")
+
+        # 3. 修改文字样式
+        try:
+            text_obj.StyleName = style
+            print(f"[步骤2] 设置样式: {style}")
+        except Exception as e:
+            print(f"[警告] 设置样式失败: {e}")
+
+        # 4. 修改宽度因子
+        try:
+            text_obj.ScaleFactor = width_factor
+            print(f"[步骤3] 设置宽度因子: {width_factor}")
+        except Exception as e:
+            print(f"[警告] 设置宽度因子失败: {e}")
+
+        # 5. 修改旋转角度（度 → 弧度）
+        try:
+            text_obj.Rotation = math.radians(rotation)
+            print(f"[步骤4] 设置旋转角度: {rotation}°")
+        except Exception as e:
+            print(f"[警告] 设置旋转角度失败: {e}")
+
+        # 6. 修改倾斜角度（度 → 弧度）
+        try:
+            text_obj.ObliqueAngle = math.radians(oblique)
+            print(f"[步骤5] 设置倾斜角度: {oblique}°")
+        except Exception as e:
+            print(f"[警告] 设置倾斜角度失败: {e}")
+
+        # 7. 使用外包盒对齐到 p（而不是依赖 AutoCAD 内部的 Alignment/Justify）
+        try:
+            _align_entity_by_bbox(text_obj, p, align=alignment or "左下")
+        except Exception as e:
+            print(f"[警告] 外包盒对齐失败: {e}")
+
+        print(f"[完成] CAD 单行文字创建并对齐成功，目标锚点 ≈ {p}\n")
+        return text_obj
+
+    except Exception as e:
+        print(f"[错误] 创建 CAD 单行文字失败: {e}")
+        import traceback
+        traceback.print_exc()
+        return None

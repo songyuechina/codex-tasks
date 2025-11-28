@@ -1,0 +1,1 @@
+﻿2025-11-21 05:15  测试示例：在 open_file 专属脚本中调用 open_file(".../new_file_draw_shapes/shapes_demo_213859.dwg")，函数先清理多余 DWG 并保持激活文件，再打开目标文件。

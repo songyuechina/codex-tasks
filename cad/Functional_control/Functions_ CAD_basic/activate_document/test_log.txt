@@ -1,0 +1,1 @@
+﻿2025-11-21 05:40  依次创建 activate_A_circle/activate_B_line/activate_C_rect，绘制圆/直线/矩形并保存关闭，然后手动重新打开三份图，调用 activate_document_by_name() 先后激活 A、C、B，pywin32 控制对象按目标切换成功。

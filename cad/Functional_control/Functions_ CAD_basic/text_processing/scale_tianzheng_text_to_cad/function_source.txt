@@ -1,0 +1,106 @@
+def scale_tianzheng_text_to_cad(
+    tianzheng_text_obj,
+    cad_text_obj
+):
+    """
+    使用 ScaleEntity 将天正文字的 BoundingBox 高度缩放到 CAD 文字的高度。
+
+    参数:
+        tianzheng_text_obj:
+            - 单个天正文字对象（TDbText/TDbMText等，有 GetBoundingBox/ScaleEntity）
+            - 或多个天正文字对象组成的列表/元组/集合
+
+        cad_text_obj:
+            - CAD 文字对象（AcDbText/AcDbMText 等），
+              用它的 BoundingBox 高度作为“目标高度”
+    """
+    import numbers
+    import pythoncom
+    from win32com.client import VARIANT
+    li()
+    # —— 1. 归一化 tianzheng_text_obj 为列表 —— #
+    if tianzheng_text_obj is None:
+        print("[错误] tianzheng_text_obj 为空，无法缩放。")
+        return False
+
+    if isinstance(tianzheng_text_obj, (list, tuple, set)):
+        tz_objs = list(tianzheng_text_obj)
+    else:
+        tz_objs = [tianzheng_text_obj]
+
+    if not tz_objs:
+        print("[错误] tianzheng_text_obj 列表为空，无法缩放。")
+        return False
+
+    # —— 2. 获取 CAD 文字的目标高度 —— #
+    try:
+        cad_ll_pt, cad_ur_pt = cad_text_obj.GetBoundingBox()
+        cad_height = float(cad_ur_pt[1]) - float(cad_ll_pt[1])
+    except Exception as e:
+        print(f"[错误] 获取 CAD 文字 BoundingBox 失败: {e}")
+        return False
+
+    if not isinstance(cad_height, numbers.Real) or cad_height == 0:
+        print(f"[错误] CAD 文字高度无效: {cad_height}")
+        return False
+
+    print(f"[信息] 目标 CAD 文字高度 = {cad_height:.4f}，待缩放对象数 = {len(tz_objs)}")
+
+    # —— 3. 遍历缩放每一个天正文字 —— #
+    success_count = 0
+
+    for idx, tz_obj in enumerate(tz_objs, start=1):
+        try:
+            # 3.1 获取天正文字的 BoundingBox（无参数版）
+            tz_ll_pt, tz_ur_pt = tz_obj.GetBoundingBox()
+            tz_height = float(tz_ur_pt[1]) - float(tz_ll_pt[1])
+
+            print(f"[对象#{idx}] 原外包盒: min={tz_ll_pt}, max={tz_ur_pt}")
+            print(f"[对象#{idx}] 原高度: {tz_height:.4f}")
+
+            if tz_height == 0:
+                print(f"[对象#{idx}] [错误] 天正文字高度为 0，跳过。")
+                continue
+
+            # 3.2 计算缩放比例
+            scale_factor = cad_height / tz_height
+
+            # 3.3 以外包盒中心作为缩放基点
+            center_x = (float(tz_ll_pt[0]) + float(tz_ur_pt[0])) / 2.0
+            center_y = (float(tz_ll_pt[1]) + float(tz_ur_pt[1])) / 2.0
+            if len(tz_ll_pt) > 2:
+                center_z = (float(tz_ll_pt[2]) + float(tz_ur_pt[2])) / 2.0
+            else:
+                center_z = 0.0
+
+            scale_pt = VARIANT(
+                pythoncom.VT_ARRAY | pythoncom.VT_R8,
+                [center_x, center_y, center_z]
+            )
+
+            # 3.4 执行缩放
+            tz_obj.ScaleEntity(scale_pt, scale_factor)
+
+            # 3.5 再获取一次外包盒，验证新的高度
+            new_ll_pt, new_ur_pt = tz_obj.GetBoundingBox()
+            new_height = float(new_ur_pt[1]) - float(new_ll_pt[1])
+
+            print(f"[对象#{idx}] [成功] 已缩放天正文字")
+            print(f"  原高度: {tz_height:.4f}")
+            print(f"  目标高度: {cad_height:.4f}")
+            print(f"  实际新高度: {new_height:.4f}")
+            print(f"  缩放比例: {scale_factor:.6f}")
+            success_count += 1
+
+        except Exception as e:
+            print(f"[对象#{idx}] [错误] 缩放失败: {e}")
+
+    if success_count == 0:
+        print("[结果] 所有天正文字缩放都失败。")
+        return False
+    elif success_count < len(tz_objs):
+        print(f"[结果] 部分缩放成功: 成功 {success_count} / {len(tz_objs)}")
+        return False
+    else:
+        print(f"[结果] 全部 {success_count} 个天正文字已成功缩放到 CAD 文字高度。")
+        return True

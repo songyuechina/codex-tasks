@@ -1,0 +1,47 @@
+def copy_block_contents_at_same_location(block_ref):
+    """
+    【函数2】获取块内图形并在原位置复制
+
+    思路：
+        1. 复制一份块参照（与 block_ref 完全重合）；
+        2. 对复制出来的块参照执行 Explode()；
+        3. 删除临时块参照；
+        4. 返回 Explode 产生的新实体列表。
+
+    优点：
+        - 位置、比例、旋转全部由 AutoCAD 自己处理；
+        - 包括嵌套块在内的所有内容都会展开到当前空间；
+        - 原 block_ref 保留不动。
+    """
+    import win32com.client
+
+    copied_entities = []
+
+    try:
+        # 防止传进来的不是 IAcadBlockReference，可以适当 CastTo（可选）
+        # from win32com.client import CastTo
+        # block_ref = CastTo(block_ref, "IAcadBlockReference")
+
+        # 1. 复制一份块参照（复制品和原块重合）
+        temp_ref = block_ref.Copy()
+        print("[信息] 已创建临时块参照作为爆炸对象。")
+
+        # 2. Explode：返回一组新实体，这些实体已经应用了块的变换
+        exploded = temp_ref.Explode()  # 一般返回 tuple/列表
+        if exploded is None:
+            exploded = []
+        copied_entities = list(exploded)
+        print(f"[信息] Explode 产生 {len(copied_entities)} 个实体。")
+
+        # 3. 删除临时块参照，保留原块参照不动
+        try:
+            temp_ref.Delete()
+        except Exception:
+            pass
+
+        print(f"[成功] 已在原位置复制块内容（保留原块参照），复制实体数: {len(copied_entities)}")
+        return copied_entities
+
+    except Exception as e:
+        print(f"[错误] 操作失败: {e}")
+        return []

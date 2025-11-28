@@ -1,0 +1,19 @@
+2025-11-22 17:16:53,596 - INFO - 区域窗口: (-459.2085336908276,-454.20171544095865) -> (2353.3457304062104,2450.609027671384)
+2025-11-22 17:16:56,498 - INFO - 已打开源文件: insert_region_from_file.dwg
+2025-11-22 17:16:56,540 - INFO - 选中 2 个对象
+2025-11-22 17:16:56,540 - INFO - 发送 COPYCLIP 命令
+2025-11-22 17:18:57,057 - ERROR - 区域插入失败: (-2147023174, 'RPC 服务器不可用。', None, None)
+Traceback (most recent call last):
+  File "D:\codex-tasks\cad\scripts\CAD_file_operations.py_fixed.py", line 708, in insert_region_from_file
+    target_doc = acad.ActiveDocument
+                 ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\win32com\client\__init__.py", line 638, in __getattr__
+    return getattr(d, attr)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\win32com\client\__init__.py", line 589, in __getattr__
+    return self._ApplyTypes_(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\User\AppData\Local\Programs\Python\Python311\Lib\site-packages\win32com\client\__init__.py", line 580, in _ApplyTypes_
+    self._oleobj_.InvokeTypes(dispid, 0, wFlags, retType, argTypes, *args),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147023174, 'RPC 服务器不可用。', None, None)

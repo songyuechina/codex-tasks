@@ -1,0 +1,2 @@
+﻿2025-11-21 04:30  使用 new_file 创建 shapes_demo_213040.dwg（保留打开），li() 连接后调用 draw_shapes_helper 中的 draw_point/line/circle/arc/ellipse/rectangle/polyline/spline 依次绘制图形，最后 save_file() + close_file('auto_save') 保存并关闭。
+2025-11-21 04:38  复测：新建 shapes_demo_213859.dwg，draw_shapes_helper 依次绘点/线/圆/弧/椭圆/矩形/多段线/样条，save_file() 后 close_file('auto_save')，文件位于 new_file_draw_shapes 目录。

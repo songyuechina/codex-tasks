@@ -1,0 +1,92 @@
+def open_file(file_path):
+    """
+    打开DWG文件
+
+    Args:
+        file_path: 文件路径
+
+    Returns:
+        bool: 成功返回True
+    """
+    import sys
+    import time
+    import win32com.client
+    sys.path.append(str(Path(__file__).parent))
+    from CAD_basic import (
+        start_applicationV9,
+        jingchengshu_wenjian,
+        get_open_document_names,
+        close_dwg_by_name,
+        get_acad_doc,
+        cad_zt_zero,
+        cad_zt_oneb
+    )
+
+    def _ensure_single_process():
+        if jingchengshu_wenjian() > 1:
+            print("[警告] 检测到多个 CAD 进程，执行重置...")
+            cad_zt_zero()
+            cad_zt_oneb()
+
+    def _ensure_active_only():
+        try:
+            names = get_open_document_names()
+        except Exception as exc:
+            print(f"[警告] 获取已打开文件失败: {exc}")
+            return True
+
+        if len(names) <= 3:
+            return True
+
+        try:
+            _, active_doc = get_acad_doc()
+            active_name = active_doc.Name if active_doc else None
+        except Exception:
+            active_name = None
+
+        keep = active_name if active_name in names else names[-1]
+        print(f"[信息] 当前打开 {len(names)} 个文件，保留 {keep}，关闭其他文件")
+        for name in names:
+            if name == keep:
+                continue
+            close_dwg_by_name(name)
+
+        time.sleep(0.5)
+        try:
+            remaining = get_open_document_names()
+        except Exception:
+            remaining = []
+        if len(remaining) > 3:
+            print("[警告] 仍有多余文件未关闭，重置 CAD 环境")
+            return False
+
+        return True
+
+    _ensure_single_process()
+
+    def _get_acad():
+        return win32com.client.GetActiveObject("AutoCAD.Application")
+
+    # 确保CAD已启动
+    try:
+        acad = _get_acad()
+    except:
+        print("[信息] CAD未启动，正在启动天正...")
+        start_applicationV9(PTH=r"C:\Tangent\TArchT20V9", max_retries=3, retry_delay=2.0)
+        acad = _get_acad()
+
+    if not _ensure_active_only():
+        cad_zt_zero()
+        cad_zt_oneb()
+        acad = _get_acad()
+
+    # 规范化路径
+    target_path = str(Path(file_path).resolve()).lower()
+
+    # 检查是否已经打开
+    for doc in acad.Documents:
+        if str(Path(doc.FullName).resolve()).lower() == target_path:
+            print(f"[信息] 文件已打开: {file_path}")
+            return True
+
+    return open_dwg_paradigm(file_path)

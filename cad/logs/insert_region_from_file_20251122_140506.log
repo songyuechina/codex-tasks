@@ -1,0 +1,12 @@
+2025-11-22 14:05:06,900 - INFO - 区域窗口: (0,0) -> (1500,1500)
+2025-11-22 14:05:09,618 - INFO - 已打开源文件: insert_source.dwg
+2025-11-22 14:05:09,658 - INFO - 选中 2 个对象
+2025-11-22 14:05:09,658 - INFO - 发送 COPYCLIP 命令
+2025-11-22 14:07:54,857 - ERROR - 区域插入失败: (-2147023170, '远程过程调用失败。', None, None)
+Traceback (most recent call last):
+  File "D:\codex-tasks/cad/scripts\CAD_file_operations.py", line 671, in insert_region_from_file
+    source_doc.SendCommand(copy_cmd)
+  File "C:\Users\User\AppData\Local\Temp\gen_py\3.11\AA9A2205-75AA-43AD-9138-1767F1BB5E0Cx0x1x0.py", line 6675, in SendCommand
+    return self._oleobj_.InvokeTypes(63, LCID, 1, (24, 0), ((8, 1),),Command
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pywintypes.com_error: (-2147023170, '远程过程调用失败。', None, None)

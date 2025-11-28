@@ -1,0 +1,133 @@
+def run_tupdspace_for_tz_room_in_rect(
+    x1, y1, x2, y2,
+    ty: float = 1.0,
+    center_z: float = 0.0,
+    insert_coord=None,
+    require_tz_wall: bool = True,
+):
+    """
+    在矩形 (x1,y1)-(x2,y2) 范围内：
+      1. 调用 select_entities_in_window 让天正墙进入夹点编辑状态；
+      2. 日志统计天正墙数量，并打印句柄等信息；
+      3. 计算矩形中心 (仅日志用)；
+      4. 计算 TUPDSPACE 插入点:
+         - 若 insert_coord 为 None:
+             水平方向取矩形中心，
+             竖向在“矩形下边”外侧 4000，
+             z = center_z
+         - 若 insert_coord 为 (x,y,z)，则直接使用；
+      5. 调用 run_auto_TUPDSPACE_with_coord(call_coord) 触发 TUPDSPACE。
+
+    参数:
+        x1, y1, x2, y2 : 矩形两个对角点世界坐标
+        ty             : 传给 select_entities_in_window 的等待秒数
+        center_z       : 用于默认插入点与矩形中心的 z 值
+        insert_coord   : 可选，自定义插入点 (x,y,z)。
+                         若为 None，则自动采用“下方 4000 + 水平居中”的默认点。
+        require_tz_wall:
+                         True  -> 若未检测到天正墙，则不调用 TUPDSPACE
+                         False -> 不管有没有天正墙，都调用 TUPDSPACE
+
+    返回:
+        dict 示例：
+        {
+            "rect": ((x_lo, y_lo), (x_hi, y_hi)),
+            "tz_wall_count": 13,
+            "rect_center": (cx_center, cy_center, center_z),
+            "call_coord": (cx, cy, cz),   # 真实传给 TUPDSPACE 的坐标
+            "tupd_ok": True/False,
+            "tupd_returncode": 0/其他
+        }
+        若因 require_tz_wall=True 且无天正墙而未调用 TUPDSPACE，则返回 None。
+    """
+    print("========== [TUPDSPACE_ROOM] run_tupdspace_for_tz_room_in_rect BEGIN ==========")
+    print(f"[TUPDSPACE_ROOM] 输入矩形对角点: ({x1},{y1}) - ({x2},{y2})")
+    li()
+
+    # 1. 规范化矩形坐标
+    (x_lo, y_lo), (x_hi, y_hi) = normalize_rect(x1, y1, x2, y2)
+    print(f"[TUPDSPACE_ROOM] 规范化矩形: 左下=({x_lo},{y_lo}), 右上=({x_hi},{y_hi})")
+
+    # 2. 窗口选择 + 夹点编辑状态
+    print("[TUPDSPACE_ROOM] 调用 select_entities_in_window 进行窗口选择 ...")
+    try:
+        com_list = select_entities_in_window(x_lo, y_lo, x_hi, y_hi, ty=ty, select_mode="_W")
+    except Exception as e:
+        print("[TUPDSPACE_ROOM] ❌ 调用 select_entities_in_window 发生异常：", repr(e))
+        print("========== [TUPDSPACE_ROOM] run_tupdspace_for_tz_room_in_rect END(ERROR_SELECT) ==========")
+        return None
+
+    print(f"[TUPDSPACE_ROOM] select_entities_in_window 返回实体数 = {len(com_list)}")
+
+    # 3. 统计天正墙数量（ObjectName='TDbWall', Layer='WALL'），仅日志
+    tz_walls = []
+    for ent in com_list:
+        try:
+            oname = getattr(ent, "ObjectName", "")
+            layer = getattr(ent, "Layer", "")
+        except Exception:
+            continue
+
+        if oname == "TDbWall" and layer.upper() == "WALL":
+            tz_walls.append(ent)
+
+    print(f"[TUPDSPACE_ROOM] 其中天正墙 (ObjectName='TDbWall', Layer='WALL') 数量 = {len(tz_walls)}")
+
+    handles = []
+    for ent in tz_walls:
+        try:
+            h = ent.Handle
+        except Exception:
+            h = "<no_handle>"
+        handles.append(h)
+    print(f"[TUPDSPACE_ROOM] 天正墙句柄列表: {handles}")
+
+    if require_tz_wall and not tz_walls:
+        print("[TUPDSPACE_ROOM] ⚠ 未检测到天正墙，按 require_tz_wall=True 设定，不调用 TUPDSPACE。")
+        print("========== [TUPDSPACE_ROOM] run_tupdspace_for_tz_room_in_rect END(NO_WALL) ==========")
+        return None
+
+    # 4. 计算矩形中心（仅用于日志参考）
+    cx_center = (x_lo + x_hi) / 2.0
+    cy_center = (y_lo + y_hi) / 2.0
+    rect_center = (cx_center, cy_center, center_z)
+    print(f"[TUPDSPACE_ROOM] 矩形中心(仅日志参考): {rect_center}")
+
+    # 5. 决定真正传给 TUPDSPACE 的插入点 call_coord
+    if insert_coord is None:
+        # “下方 4000 + 水平居中”
+        # 这里“最下边”按数值更小的 y_lo 理解；若你图上坐标系是反的，
+        # 这一句可以改成用 y_hi + 4000。
+        x_mid = cx_center
+        bottom_y = y_lo           # 认为 y_lo 是“下边界”
+        y_ins = bottom_y - 4000.0 # 再往下 4000
+        z_ins = center_z
+        call_coord = (x_mid, y_ins, z_ins)
+        dy = y_ins - bottom_y
+        print(f"[TUPDSPACE_ROOM] insert_coord 未提供，计算默认插入点: {call_coord}")
+        print(f"[TUPDSPACE_ROOM] 默认插入点相对于最下边(y_lo={bottom_y})的偏移量 dy = {dy} (期望为 -4000.0)")
+    else:
+        if not (isinstance(insert_coord, (list, tuple)) and len(insert_coord) == 3):
+            raise ValueError("insert_coord 必须是长度为 3 的 (x,y,z) 元组或列表")
+        call_coord = tuple(insert_coord)
+        print(f"[TUPDSPACE_ROOM] 使用调用方提供的 insert_coord 作为插入点: {call_coord}")
+
+    # 6. 调用子程序，驱动 TUPDSPACE
+    print("[TUPDSPACE_ROOM] 调用 run_auto_TUPDSPACE_with_coord() ...")
+    tupd_result = run_auto_TUPDSPACE_with_coord(call_coord)
+    print(
+        f"[TUPDSPACE_ROOM] run_auto_TUPDSPACE_with_coord() 返回: "
+        f"ok={tupd_result.get('ok')}, "
+        f"returncode={tupd_result.get('returncode')}"
+    )
+
+    print("========== [TUPDSPACE_ROOM] run_tupdspace_for_tz_room_in_rect END ==========")
+
+    return {
+        "rect": ((x_lo, y_lo), (x_hi, y_hi)),
+        "tz_wall_count": len(tz_walls),
+        "rect_center": rect_center,
+        "call_coord": call_coord,
+        "tupd_ok": tupd_result.get("ok"),
+        "tupd_returncode": tupd_result.get("returncode"),
+    }
