@@ -1,13 +1,2 @@
-﻿先导入 from  CAD_file_operations.py import * ,然后执行D:/codex-tasks/cad/scripts/CAD_file_operations.py的cad_zt_oneb()，它将当前桌面状态自动调整为天正
-打开了一个未保存的dwg的状态。然后执行litz()，它确保当前cad界面是天正cad界面。在这个状态下，
-
-使用open_file(file_path)打开D:/codex-tasks/cad/ziliao/图签测试0.dwg，li()后，执行lb=stc("dy")就能选择到包含两根图框线的列表lb。执行函数insert_and_scale_labels_area(
-        lb,
-        filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
-        layername = "dy_quyu",
-
-        timestamp=None,
-        delpan = 0
-
-    )
-则函数应该能将图签插入到两根图框线区域。如果不能，那就是因为这次脚本迁移和 CastTo重写产生的错漏造成的，请修改相关函数。该函数之前是完全可实现的。
+﻿在D:\codex-tasks\cad\Functional_control\Functions_ label_catalogue_printing建立excel字典信息转换的专属文件夹，包括D:/codex-tasks/cad/scripts/CAD_basic.py的函数read_xlsx_to_dict，write_dict_to_xlsx。按规范
+建立相关文档和对函数进行测试，如果发现问题，就修改函数，直到函数能够成立，实现预期功能。

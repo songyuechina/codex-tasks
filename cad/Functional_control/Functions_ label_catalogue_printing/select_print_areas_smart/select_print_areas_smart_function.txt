@@ -1,0 +1,60 @@
+def select_print_areas_smart(
+    lm: float = 7000,
+    tol_single: float = 0.01,
+    mode: str = "block",              # "block" / "layer" / "screen"
+    layer_name: str | None = None,    # mode="layer" 时使用
+    cha_Y: float = 2000,
+    block_layers: tuple = ("dy_quyu", "tuqian_neibu_pl"),
+    aux_layer: str = "kuai_pl",       # 块外包盒辅助矩形图层
+    rect_layer: str = "dy_zhuanyong", # select_print_areas_rect_from_polylines 最终打印框所在图层
+    width: float = 0.0,
+    color: int = 256,
+    z: float = 0.0,
+):
+    """
+    综合选择打印区域函数：支持 3 种模式（三选一）并返回【排序后的打印多段线列表】。
+
+    参数：
+        lm          : select_print_areas_rect_from_polylines 的最小边长阈值。
+        tol_single  : 判定“单向多段线”的首尾距离阈值。
+        mode        : "block" / "layer" / "screen"
+                      - "block"  : 基于块外包盒 + 多段线分析（默认）；
+                      - "layer"  : 直接使用图层上的多段线矩形（stc(layer_name)）；
+                      - "screen" : 让用户从屏幕选择多段线矩形（pmxz()）。
+        layer_name  : mode="layer" 时指定打印区域所在图层名。
+        cha_Y       : sort_coms_by_llcorner 的“同一行”纵向容差。
+        block_layers: 块模式下，认为“候选打印块”的图层集合。
+        aux_layer   : 块模式下，用于绘制块外包盒矩形的辅助图层（用完会清空）。
+        rect_layer  : 块模式下，select_print_areas_rect_from_polylines 绘制最终打印框的图层。
+        width       : 新绘制多段线的宽度（一般 0）。
+        color       : 新绘制多段线的颜色（256 = BYLAYER）。
+        z           : 新绘制多段线的 Z 值。
+
+    返回：
+        List[IAcadLWPolyline] 或 List[IAcadPolyline]：
+        已按左下角排序（自上而下、自左向右）的打印区域矩形多段线列表。
+
+    块和多段线模式
+    LB_dy = select_print_areas_smart(
+        lm=7000,
+        tol_single=0.01,
+        mode="block",                 # 或省略
+        block_layers=("dy_quyu", "tuqian_neibu_pl"),
+        aux_layer="kuai_pl",
+        rect_layer="dy_zhuanyong",
+        cha_Y=2000,
+    )
+    
+    图层模式
+    LB_dy = select_print_areas_smart(
+        mode="layer",
+        layer_name="dy_quyu",         # 假设这个图层上已经是打印矩形
+        cha_Y=2000,
+    )
+    
+    屏幕选择模式
+    LB_dy = select_print_areas_smart(
+        mode="screen",
+        cha_Y=2000,
+    )
+    此时会弹出 pmxz() 的选择过程，让你框选多段线矩形

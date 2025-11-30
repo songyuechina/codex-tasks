@@ -1,0 +1,71 @@
+from openpyxl import load_workbook
+
+DRAWING_KEYS = [
+    "序号",
+    "图纸编号",
+    "图纸名称",
+    "图纸规格",
+    "出图比例",
+    "纸张数",
+    "专业名称",
+]
+
+PROJECT_KEYS = [
+    "项目名称",
+    "子项目名称",
+    "建设单位名称",
+    "专业名称",
+    "设计阶段",
+    "版本号",
+    "出图日期",
+    "设计编号",
+    "设计院名称",
+]
+
+
+def build_header_map(ws):
+    header_map = {}
+    for cell in ws[1]:
+        v = cell.value
+        if v is None:
+            continue
+        key = str(v).strip()
+        if key:
+            header_map[key] = cell.column
+    return header_map
+
+
+def write_dict_to_xlsx(data, template_xlsx_path: str, output_xlsx_path: str) -> None:
+    wb = load_workbook(template_xlsx_path)
+    ws = wb.active
+
+    header_map = build_header_map(ws)
+
+    max_row = ws.max_row
+    used_cols = set(header_map.values())
+    for row in range(2, max_row + 1):
+        for col in used_cols:
+            ws.cell(row=row, column=col, value=None)
+
+    project_info = data.get("project", {}) or {}
+    for key in PROJECT_KEYS:
+        col = header_map.get(key)
+        if col is None:
+            continue
+        value = project_info.get(key)
+        if value is not None:
+            ws.cell(row=2, column=col, value=value)
+
+    drawings = data.get("drawings", []) or []
+    start_row = 2
+    for index, drawing in enumerate(drawings):
+        row_index = start_row + index
+        for key in DRAWING_KEYS:
+            col = header_map.get(key)
+            if col is None:
+                continue
+            value = drawing.get(key)
+            if value is not None:
+                ws.cell(row=row_index, column=col, value=value)
+
+    wb.save(output_xlsx_path)

@@ -1,0 +1,16 @@
+﻿2025-11-29 00:50:00 | init | 创建测试脚本，等待现场运行结果。
+2025-11-29 01:16:54 - 已生成样例 DWG
+2025-11-29 01:19:33 | block | count=0 | handles=[]
+2025-11-29 01:20:58 | layer | count=0 | handles=[]
+2025-11-29 01:23:03 | block | count=0 | handles=[]
+2025-11-29 01:24:31 | layer | count=0 | handles=[]
+2025-11-29 01:31:18 - 已生成样例: ['build_block_mode_sample']
+2025-11-29 01:33:33 - 已生成样例: ['build_layer_mode_sample']
+2025-11-29 01:43:07 | block | count=0 | handles=[]
+2025-11-29 01:51:42 - 已生成样例: ['build_layer_mode_sample']
+2025-11-29 01:53:33 - 已生成样例: ['build_block_mode_sample', 'build_layer_mode_sample']
+2025-11-29 01:56:24 - 已生成样例: ['build_block_mode_sample']
+2025-11-29 01:58:07 | block | count=0 | handles=[]
+2025-11-29 02:02:51 - 已生成样例: ['build_block_mode_sample']
+2025-11-29 02:06:18 | block | count=2 | handles=['4DE', '4DF']
+2025-11-29 02:07:43 | layer | count=2 | handles=['4B8', '4B9']

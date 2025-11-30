@@ -1,0 +1,1 @@
+﻿2025-11-29 12:22:41 | project_template.xlsx + sample_project_data.json -> tests/outputs/sample_project_out.xlsx | drawings=2

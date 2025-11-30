@@ -59,7 +59,7 @@ logging.basicConfig(
 )
 
 # ================== 配置 ==================
-DEFAULT_OPEN_FILE = r"D:/Myprogramsystem/cad/CAD基本操作.py"
+DEFAULT_OPEN_FILE = r"D:/codex-tasks/cad/scripts/CAD_basic.py"
 
 # ================== 解析器 ==================
 def parse_mark_line(raw: str):

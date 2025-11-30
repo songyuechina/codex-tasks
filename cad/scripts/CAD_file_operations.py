@@ -35,7 +35,6 @@ from CAD_basic_operations import (
     insert_dwg_as_block_paradigm,
     insert_and_explode_paradigm
 )
-from CAD_basic import *  # 需要完整暴露 CAD_basic 的实用函数，便于被本模块调用
 
 
 #&&&&%% 第一部分  文件基础操作

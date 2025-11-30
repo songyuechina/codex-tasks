@@ -41,7 +41,15 @@ def _cad_safe_print(*args, **kwargs):
             return text
 
         safe_args = [_sanitize(arg) for arg in args]
-        return builtins._orig_print(*safe_args, **kwargs)
+        try:
+            return builtins._orig_print(*safe_args, **kwargs)
+        except OSError:
+            return builtins._orig_print(*safe_args)
+    except OSError:
+        try:
+            return builtins._orig_print(*args)
+        except Exception:
+            return None
 
 
 if not hasattr(builtins, "_orig_print"):
@@ -240,8 +248,6 @@ from scipy.spatial import ConvexHull
 from subprocess import DETACHED_PROCESS
 
 
-
-
 #T______________________________________________________________
 
 import time
@@ -263,6 +269,7 @@ import traceback
 import tkinter
 
 import threading
+
 
 
 #U______________________________________________________________
@@ -14360,48 +14367,6 @@ def set_attribute_format(
 
     return result
 
-#尝试含ATSYNC
-
-def atsync_block_by_name(block, option_letter="N", delay=0.2, verbose=True):
-    """
-    使用 ATSYNC 命令、通过“按名称”方式同步块属性。
-
-    参数:
-        block         : BlockReference
-        option_letter : 英文版一般是 'N' (Name)，中文界面可能是 'M'(名称) —— 自己调整
-        delay         : SendCommand 之间的等待秒数（防止 AutoCAD 还没反应过来）
-    """
-    try:
-        li()
-    except Exception:
-        pass
-
-    global doc
-    try:
-        blk_name = get_attr(block, "Name")
-    except Exception:
-        blk_name = None
-
-    if not blk_name:
-        if verbose:
-            print("[警告] ATSYNC 失败：块没有 Name")
-        return False
-
-    if verbose:
-        print(f"[INFO] ATSYNC 同步块：{blk_name}")
-
-    try:
-        # 一次性发完整命令字符串：
-        # ATSYNC ↵ 选项字母 ↵ 块名 ↵
-        cmd = f"_ATSYNC\n{option_letter}\n{blk_name}\n"
-        doc.SendCommand(cmd)
-        time.sleep(delay)
-        return True
-    except Exception as e:
-        if verbose:
-            print(f"[警告] ATSYNC SendCommand 失败: {e}")
-        return False
-
 
 def set_attribute_format_with_atsync(
     block,
@@ -14714,6 +14679,109 @@ def huoqu_kuai_pl(blocka):#输入实体块，得到实体块中多段线矩形�
 ##AcDbPolyline
 ##(-6000.0, 0.0, 0.0, 0.0, 0.0, 57400.0, -6000.0, 57400.0)
 ## 
+
+#&&%获取属性块的标签及其值
+def get_block_attributes_dict(
+    block_ref,
+    ignore_empty: bool = False,
+    upper_tag: bool = True,
+):
+    """
+    获取块参照 block_ref 的所有属性，返回 {标签: 纯文本值} 的字典。
+
+    特别规则：
+        若属性值形如 '\\W0.8000;1#楼'，则取 ';' 后面的部分 '1#楼' 作为真实值。
+        即：总是优先使用第一个分号 ';' 后面的内容作为纯文本值，
+        这用于剥离 MTEXT 格式控制前缀（如宽度控制 \\W0.8000; 等）。
+
+    参数:
+        block_ref   : IAcadBlockReference 实例
+        ignore_empty: True 时忽略空字符串 / 全空白值
+        upper_tag   : True 时将属性标签名统一转大写作为字典 key
+
+    返回:
+        dict，如:
+        {
+            "项目名称": "未来城",
+            "图纸名称": "1#楼",
+            ...
+        }
+    """
+
+    attrs_dict: dict[str, str] = {}
+
+    if block_ref is None:
+        return attrs_dict
+
+    # 不是块参照，直接返回空
+    try:
+        obj_name = getattr(block_ref, "ObjectName", "")
+    except Exception:
+        obj_name = ""
+    if "BlockReference" not in str(obj_name):
+        return attrs_dict
+
+    # 没有属性，返回空
+    try:
+        has_attrs = getattr(block_ref, "HasAttributes", False)
+    except Exception:
+        has_attrs = False
+    if not has_attrs:
+        return attrs_dict
+
+    try:
+        att_refs = block_ref.GetAttributes()
+    except Exception:
+        return attrs_dict
+
+    # 小工具：剥离 MTEXT 前缀，取分号后面的“真实值”
+    def _clean_value(val):
+        """把 '\\W0.8000;1#楼' → '1#楼'；其他情况尽量保持原值。"""
+        if not isinstance(val, str):
+            # 非字符串就直接转成 str
+            return "" if val is None else str(val)
+
+        # 统一去掉首尾空白，避免 '\W0.8; 1#楼' 之类
+        s = val.strip()
+
+        # 只处理以 '\' 开头且包含 ';' 的情况，避免误伤正常文本里本来就有分号的
+        if s.startswith("\\") and ";" in s:
+            # 只切第一个分号
+            _, right = s.split(";", 1)
+            s = right
+
+        # 再 strip 一遍，保证结果干净
+        return s.strip()
+
+    # 主循环：收集所有属性
+    for att in att_refs:
+        try:
+            tag = att.TagString
+            raw_val = att.TextString
+        except Exception:
+            continue
+
+        if not isinstance(tag, str):
+            continue
+
+        # 标签名大小写控制
+        tag_key = tag.upper() if upper_tag else tag
+
+        # 清洗值：去掉 MTEXT 控制前缀，得到纯文本
+        val = _clean_value(raw_val)
+
+        if ignore_empty and (val is None or str(val).strip() == ""):
+            continue
+
+        attrs_dict[tag_key] = val
+
+    return attrs_dict
+
+
+
+
+
+
 
 
 
@@ -16414,13 +16482,7 @@ print("__________________  CAD基本操作开始运行 _________________________
 """
 统一的CAD对象和天正对象属性访问
 支持CAD标准对象（通过CastTo）和天正对象（通过IDispatch.Invoke）
-多行属性文字的预设宽度可以大一点，它是一个自动分行数据。不一定要
-通过脚本变更数据，可以将核心属性块的分行宽度数据通过BE修改，然后
-ATTSYNC就可以全部变更。这样，如果分行宽度不合理，修正一下就可以了‘
-它不是一个需要高频变化的数据，与公司图签有点关联。而程序可以控制它
-左上或者居中，这样就解决了属性块多行文字的书写。对于项目名称这种
-相对固定的内容，直接使用函数控制它的分行。对于图纸名称，也可以考虑
-用字数来控制分行。因此，插图签、编目录的根本问题就解决了
+
 
 """
 
@@ -16883,8 +16945,41 @@ def align_last_ms_obj_lb_to_origin():
 
 #&&&&%% 第十二部分  打印插图签编目录
 
-#&&% 选择打印区域
+#&&% 插图签流程
+"""
+选择打印区域
+LB = select_print_areas_smart(）
 
+插入图签
+
+stable_insert_and_scale_labels_area(
+    LB,
+    filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+    layername="dy_quyu",
+    timestamp=None,
+    delpan=0,
+    core_layer="dy_quyu_H",
+    max_try=3,
+    verbose=True,
+    aggressive_purge=False,  # 新增：是否启用强力无实例块清理
+)
+建立打印线和图签绑定字典
+
+bind=rebuild_print_area_title_mapping()
+
+从单个图签块获取所有属性标签值
+get_block_attributes_dict(
+    block_ref,
+    ignore_empty: bool = False,
+    upper_tag: bool = True,
+)
+
+
+"""
+
+#&&% 综合选择打印区域
+@timeit
+@debuggable
 def select_print_areas_smart(
     lm: float = 7000,
     tol_single: float = 0.01,
@@ -16893,10 +16988,14 @@ def select_print_areas_smart(
     cha_Y: float = 2000,
     block_layers: tuple = ("dy_quyu", "tuqian_neibu_pl"),
     aux_layer: str = "kuai_pl",       # 块外包盒辅助矩形图层
-    rect_layer: str = "dy_zhuanyong", # select_print_areas_rect_from_polylines 最终打印框所在图层
+    rect_layer: str = "dy_zhuanyong", # 最终打印框所在图层
     width: float = 0.0,
     color: int = 256,
     z: float = 0.0,
+    block_scope_layers: tuple | None = None,  # 限制 block 模式初选范围的图层
+    mute_logs: bool = False,
+    rect_debug: bool = False,         # 传给矩形分析函数的 debug
+    use_pseudo_filter: bool = False,   # 👈 新增：是否启用“伪(极大)矩形”那套过滤逻辑
 ):
     """
     综合选择打印区域函数：支持 3 种模式（三选一）并返回【排序后的打印多段线列表】。
@@ -16916,48 +17015,30 @@ def select_print_areas_smart(
         width       : 新绘制多段线的宽度（一般 0）。
         color       : 新绘制多段线的颜色（256 = BYLAYER）。
         z           : 新绘制多段线的 Z 值。
-
-    返回：
-        List[IAcadLWPolyline] 或 List[IAcadPolyline]：
-        已按左下角排序（自上而下、自左向右）的打印区域矩形多段线列表。
-
-    块和多段线模式
-    LB_dy = select_print_areas_smart(
-        lm=7000,
-        tol_single=0.01,
-        mode="block",                 # 或省略
-        block_layers=("dy_quyu", "tuqian_neibu_pl"),
-        aux_layer="kuai_pl",
-        rect_layer="dy_zhuanyong",
-        cha_Y=2000,
-    )
-    
-    图层模式
-    LB_dy = select_print_areas_smart(
-        mode="layer",
-        layer_name="dy_quyu",         # 假设这个图层上已经是打印矩形
-        cha_Y=2000,
-    )
-    
-    屏幕选择模式
-    LB_dy = select_print_areas_smart(
-        mode="screen",
-        cha_Y=2000,
-    )
-    此时会弹出 pmxz() 的选择过程，让你框选多段线矩形
-
-
+        block_scope_layers:
+                      若不为空，用这些图层的实体 Handle 作为初步筛选块的范围。
+        mute_logs   : True 时本函数内部不输出日志（更快）。
+        rect_debug  : 传给 select_print_areas_rect_from_polylines(debug=...)，
+                      True 时会输出伪矩形 / 极大矩形的详细信息。
+        use_pseudo_filter:
+                      True  – 使用“伪矩形 + 伪极大矩形”过滤规则（原有行为）；
+                      False – 不做伪矩形判定，仅按极大矩形原则筛选打印区域。
     """
     global mp, sp
 
     # —— 日志小工具 —— #
     def log(msg, *args):
+        if mute_logs:
+            return
         try:
-            txt = msg.format(*args) if args else msg
+            text = msg.format(*args) if args else msg
         except Exception:
-            txt = msg
-        # node() + print 双输出
-        n = globals.get("node") if isinstance(globals, dict) else globals().get("node", None)
+            text = msg
+        # node 优先
+        try:
+            n = globals().get("node", None)
+        except Exception:
+            n = None
         if n is not None:
             try:
                 if args:
@@ -16966,32 +17047,13 @@ def select_print_areas_smart(
                     n(msg)
             except Exception:
                 pass
+        # 再 print
         try:
-            print(txt)
+            print(text)
         except Exception:
             pass
 
-    # 为了避免 globals() 的问题，直接简化一下：
-    def log(msg, *args):
-        try:
-            txt = msg.format(*args) if args else msg
-        except Exception:
-            txt = msg
-        try:
-            n = globals().get("node", None)
-            if n is not None:
-                if args:
-                    n(msg, *args)
-                else:
-                    n(msg)
-        except Exception:
-            pass
-        try:
-            print(txt)
-        except Exception:
-            pass
-
-    # —— 通用选择结果扁平化工具：stc / pmxz 可能返回多种结构 —— #
+    # —— 通用选择结果扁平化工具：stc / pmxz 等返回值规整为实体列表 —— #
     def normalize_selection(res):
         """
         将 stc(...) / pmxz(...) 等返回值规整为实体列表：
@@ -17017,32 +17079,33 @@ def select_print_areas_smart(
             # 单个实体
             return [res]
 
-    # —— 清空指定图层上的对象（辅助图层专用） —— #
+    # —— 清空指定图层上的对象（提速版：用 stc 按图层选取，而不是全遍历 mp/sp） —— #
     def clear_layer(layer: str):
         removed = 0
-        for space in (mp, sp):
-            if space is None:
-                continue
+        try:
+            res = stc(layer)
+        except Exception as e:
+            log("[CLEAN] stc('{}') 失败，无法清理该图层实体：{}", layer, e)
+            return 0
+
+        ents = normalize_selection(res)
+        for ent in ents:
             try:
-                ents = list(space)
+                ent.Erase()
+                removed += 1
             except Exception:
                 continue
-            for ent in ents:
-                try:
-                    if getattr(ent, "Layer", None) == layer:
-                        ent.Erase()
-                        removed += 1
-                except Exception:
-                    continue
+
         if removed > 0:
             log("[CLEAN] 图层 '{}' 已清空，共删除 {} 个对象", layer, removed)
         else:
             log("[CLEAN] 图层 '{}' 无对象或无需清理", layer)
+        return removed
 
     # —— 确保 CAD 连接正常 —— #
     li()
 
-    # —— 模式互斥检查 —— #
+    # —— 模式检查 —— #
     mode = (mode or "block").lower()
     if mode not in ("block", "layer", "screen"):
         log("⚠ mode 参数无效: {}，将退回为 'block' 模式", mode)
@@ -17063,7 +17126,48 @@ def select_print_areas_smart(
         log("▶ 图层模式：图层 '{}' 上选到 {} 个对象", layer_name, len(ents))
         if not ents:
             return []
-        lb_sorted = sort_coms_by_llcorner(ents, cha_Y=cha_Y)
+
+        allowed_poly = {
+            "AcDbPolyline",
+            "AcDb2dPolyline",
+            "AcDb3dPolyline",
+            "AcDbLWPolyline",
+        }
+        valid_polys = []
+        skipped_non_poly = 0
+        skipped_open = 0
+        for ent in ents:
+            name = get_object_property(ent, "ObjectName")
+            if name not in allowed_poly:
+                skipped_non_poly += 1
+                continue
+
+            # 优先直接拿 Closed 属性，失败再 cast，减少 COM 调用
+            closed = None
+            try:
+                closed = getattr(ent, "Closed")
+            except Exception:
+                pass
+            if closed is None:
+                ent_cast = cast_object(ent)
+                closed = get_attr(ent_cast, "Closed")
+            else:
+                ent_cast = ent
+
+            if closed is False:
+                skipped_open += 1
+                continue
+            valid_polys.append(ent_cast)
+
+        if skipped_non_poly or skipped_open:
+            log("⚠ 图层模式：剔除 {} 个非多段线、{} 个未闭合多段线。",
+                skipped_non_poly, skipped_open)
+
+        if not valid_polys:
+            log("⚠ 图层模式：没有符合条件的闭合多段线，返回空。")
+            return []
+
+        lb_sorted = sort_coms_by_llcorner(valid_polys, cha_Y=cha_Y)
         log("📌 图层模式：排序后打印区域数量={}", len(lb_sorted))
         return lb_sorted
 
@@ -17092,7 +17196,7 @@ def select_print_areas_smart(
         log("⚠ ensure_layer({}) 调用失败：{}", aux_layer, e)
     clear_layer(aux_layer)
 
-    # 1. 选出所有有效块实例
+    # 1. 选出所有块实例
     try:
         kuai_list = select_kuai()
     except Exception as e:
@@ -17100,6 +17204,31 @@ def select_print_areas_smart(
         kuai_list = []
 
     log("▶ 块模式：select_kuai 返回 {} 个块实例（含其他图层）", len(kuai_list))
+
+    # 1.1 如果指定 block_scope_layers，则先用 stc 限定初始范围（按 Handle 过滤）
+    layer_scope_handles: set[str] | None = None
+    if block_scope_layers:
+        layer_scope_handles = set()
+        for lyr in block_scope_layers:
+            try:
+                res = stc(lyr)
+            except Exception as e:
+                log("⚠ stc({}) 初选失败：{}", lyr, e)
+                continue
+            ents_layer = normalize_selection(res)
+            for ent in ents_layer:
+                try:
+                    h = getattr(ent, "Handle", None)
+                except Exception:
+                    h = None
+                if h:
+                    layer_scope_handles.add(h)
+        if layer_scope_handles:
+            log("📌 block_scope_layers 限定：图层 {} 共选到 {} 个对象（按 Handle 去重）",
+                list(block_scope_layers), len(layer_scope_handles))
+        else:
+            log("⚠ block_scope_layers 限定：未在 {} 上选到对象，后续 block 结果可能为空",
+                list(block_scope_layers))
 
     # 2. 过滤指定图层上的块（dy_quyu / tuqian_neibu_pl）
     block_layers_set = set(block_layers or ())
@@ -17109,6 +17238,16 @@ def select_print_areas_smart(
             lay = getattr(ent, "Layer", "")
         except Exception:
             lay = ""
+        try:
+            handle = getattr(ent, "Handle", None)
+        except Exception:
+            handle = None
+
+        if layer_scope_handles is not None:
+            # 在初选范围之外的块直接跳过
+            if not handle or handle not in layer_scope_handles:
+                continue
+
         if lay in block_layers_set:
             kuai_filtered.append(ent)
 
@@ -17116,7 +17255,7 @@ def select_print_areas_smart(
         list(block_layers_set), len(kuai_filtered))
 
     # 3. 根据块外包盒绘制矩形多段线到 aux_layer
-    created_pls = []
+    created_count = 0
     for blk in kuai_filtered:
         try:
             ll, ur = blk.GetBoundingBox()
@@ -17143,26 +17282,25 @@ def select_print_areas_smart(
         ]
 
         try:
-            pl_new = draw_lwpolyline(
+            _ = draw_lwpolyline(
                 coords3d,
                 layer_name=aux_layer,
                 width=width,
                 color=color,
                 closed=True,
             )
-            created_pls.append(pl_new)
+            created_count += 1
         except Exception as e:
             log("  ⚠ 在图层 '{}' 绘制块外包盒矩形失败：{}", aux_layer, e)
             continue
 
     log("📌 块模式：已在图层 '{}' 上绘制 {} 根辅助矩形多段线（块外包盒）",
-        aux_layer, len(created_pls))
+        aux_layer, created_count)
 
-    # 4. 等待 CAD 命令执行完成
+    # 4. 等待 CAD 命令执行完成（如果你实现了 wait_command_done）
     try:
         wait_command_done()
     except Exception:
-        # 没有的话也不强制
         pass
 
     # 5. 调用多段线分析函数，选出最终打印区域多段线
@@ -17173,6 +17311,8 @@ def select_print_areas_smart(
         width=width,
         color=color,
         z=z,
+        debug=rect_debug,             # 👈 调试输出（伪矩形理由等）
+        use_pseudo_filter=use_pseudo_filter,  # 👈 是否启用伪矩形过滤
     )
 
     log("📌 块模式：select_print_areas_rect_from_polylines 得到 {} 根打印区域多段线",
@@ -17192,19 +17332,469 @@ def select_print_areas_smart(
 
     return lb_sorted
 
+#&&% 以限定图层中的极大矩形选择打印区域
+def select_print_areas_smart_from_layers(
+    lm: float = 7000,
+    tol_single: float = 0.01,
+    mode: str = "block",
+    layer_name: str | None = None,
+    cha_Y: float = 2000,
+    block_layers: tuple = ("dy_quyu", "tuqian_neibu_pl"),
+    aux_layer: str = "kuai_pl",#从块转多段线
+    rect_layer: str = "dy_zhuanyong",
+    width: float = 0.0,
+    color: int = 256,
+    z: float = 0.0,
+    block_scope_layers: tuple = ("PUB_TITLE", "tuqian_neibu_pl", "dy_quyu_H", "dy_quyu"),
+    mute_logs: bool = False,
+    rect_debug: bool = False,   # 是否输出极大矩形/候选矩形的调试信息
+):
+    """
+    特别版打印区域选择（以“图层范围 + 极大矩形”原则为准）：
 
+    - 所有候选对象都锁定在 block_scope_layers 指定的图层集合里；
+      * 这些图层上的块 → 转成外包盒多段线参与筛选；
+      * 这些图层上的多段线 → 直接参与筛选；
+    - 从上述多段线集合中：
+      1) 识别矩形多段线（轴对齐的4点矩形）；
+      2) 同一外包盒只保留一根（去重）；
+      3) 过滤最小边 < lm 的矩形；
+      4) 按“极大矩形”原则筛选（只保留不被其它矩形严格包含者）；
+      5) 在 rect_layer 上按外包盒重画规范矩形，作为打印区域；
+    - 不再考虑任何“伪矩形 / 伪极大矩形”的逻辑；
+    - mode != "block" 时，回退使用原来的 select_print_areas_smart。
 
+    参数含义与 select_print_areas_smart 基本一致；
+    rect_debug=True 时，会打印候选矩形和极大矩形的详细信息（左下角、右上角、边长等）。
+    """
 
+    # —— 非 block 模式：直接回退到原函数 —— #
+    if (mode or "block").lower() != "block":
+        return select_print_areas_smart(
+            lm=lm,
+            tol_single=tol_single,
+            mode=mode,
+            layer_name=layer_name,
+            cha_Y=cha_Y,
+            block_layers=block_layers,
+            aux_layer=aux_layer,
+            rect_layer=rect_layer,
+            width=width,
+            color=color,
+            z=z,
+            block_scope_layers=block_scope_layers,
+            mute_logs=mute_logs,
+            rect_debug=rect_debug,
+        )
 
+    # ==================== 下面是新的 block 模式逻辑 ====================
 
+    import math
+    global mp, sp
 
+    # —— 日志工具 —— #
+    def log(msg, *args):
+        if mute_logs and not rect_debug:
+            return
+        try:
+            text = msg.format(*args) if args else msg
+        except Exception:
+            text = msg
+        # node 优先
+        try:
+            n = globals().get("node", None)
+        except Exception:
+            n = None
+        if n is not None:
+            try:
+                if args:
+                    n(msg, *args)
+                else:
+                    n(msg)
+            except Exception:
+                pass
+        # 再 print
+        try:
+            print(text)
+        except Exception:
+            pass
 
+    # —— 通用选择结果扁平化 —— #
+    def normalize_selection(res):
+        if res is None:
+            return []
+        if isinstance(res, (list, tuple)):
+            if len(res) == 2 and not hasattr(res[0], "GetBoundingBox"):
+                res = res[1]
+        if isinstance(res, (list, tuple)):
+            return list(res)
+        try:
+            return [ent for ent in res]
+        except TypeError:
+            return [res]
 
+    # —— 清空图层上的对象（用 stc，而不是遍历整个 mp/sp） —— #
+    def clear_layer(layer: str):
+        removed = 0
+        try:
+            res = stc(layer)
+        except Exception as e:
+            log("[CLEAN] stc('{}') 失败，无法清理该图层实体：{}", layer, e)
+            return 0
+        ents = normalize_selection(res)
+        for ent in ents:
+            try:
+                ent.Erase()
+                removed += 1
+            except Exception:
+                continue
+        if removed > 0:
+            log("[CLEAN] 图层 '{}' 已清空，共删除 {} 个对象", layer, removed)
+        else:
+            log("[CLEAN] 图层 '{}' 无对象或无需清理", layer)
+        return removed
 
+    # —— 基本几何工具 —— #
+    def is_polyline_entity(ent):
+        try:
+            name = str(get_attr(ent, "ObjectName"))
+        except Exception:
+            name = ""
+        return "Polyline" in name
 
+    def get_polyline_coords_xy(ent):
+        try:
+            coords = list(get_attr(ent, "Coordinates"))
+        except Exception:
+            return []
+        if not coords:
+            return []
+        n = len(coords)
+        if n % 3 == 0 and n % 2 != 0:
+            step = 3
+        else:
+            step = 2
+        pts = []
+        for i in range(0, n, step):
+            try:
+                x = coords[i]
+                y = coords[i+1]
+            except Exception:
+                break
+            pts.append((float(x), float(y)))
+        return pts
 
+    def get_bbox(ent):
+        try:
+            ll, ur = ent.GetBoundingBox()
+            x1, y1 = float(ll[0]), float(ll[1])
+            x2, y2 = float(ur[0]), float(ur[1])
+        except Exception:
+            return None
+        minx, maxx = (x1, x2) if x1 <= x2 else (x2, x1)
+        miny, maxy = (y1, y2) if y1 <= y2 else (y2, y1)
+        return (minx, miny, maxx, maxy)
 
+    def is_rectangle_like(ent, eps=1e-6):
+        """
+        仅判断“是否为轴对齐矩形”：4 个顶点、两种 x、两种 y，相邻边水平或竖直。
+        """
+        if not is_polyline_entity(ent):
+            return False
 
+        pts = get_polyline_coords_xy(ent)
+        if len(pts) < 4:
+            return False
+
+        # 去掉连续重复点
+        uniq = []
+        for p in pts:
+            if not uniq:
+                uniq.append(p)
+            else:
+                if abs(p[0] - uniq[-1][0]) > eps or abs(p[1] - uniq[-1][1]) > eps:
+                    uniq.append(p)
+
+        # 去掉首尾完全重合
+        if len(uniq) >= 2:
+            if abs(uniq[0][0]-uniq[-1][0]) < eps and abs(uniq[0][1]-uniq[-1][1]) < eps:
+                uniq = uniq[:-1]
+
+        if len(uniq) != 4:
+            return False
+
+        xs = sorted(set([p[0] for p in uniq]))
+        ys = sorted(set([p[1] for p in uniq]))
+        if len(xs) != 2 or len(ys) != 2:
+            return False
+
+        # 检查相邻边是否轴对齐
+        for i in range(4):
+            x0, y0 = uniq[i]
+            x1, y1 = uniq[(i+1) % 4]
+            if not (abs(x0 - x1) < eps or abs(y0 - y1) < eps):
+                return False
+
+        return True
+
+    def rect_strict_contains(a, b, eps=1e-6):
+        """
+        a 是否严格包含 b（完全相同 bbox 不算包含）。
+        a, b 为 dict，包含 minx、miny、maxx、maxy。
+        """
+        if not (
+            a["minx"] <= b["minx"] + eps and
+            a["miny"] <= b["miny"] + eps and
+            a["maxx"] >= b["maxx"] - eps and
+            a["maxy"] >= b["maxy"] - eps
+        ):
+            return False
+
+        same_minx = abs(a["minx"] - b["minx"]) < eps
+        same_miny = abs(a["miny"] - b["miny"]) < eps
+        same_maxx = abs(a["maxx"] - b["maxx"]) < eps
+        same_maxy = abs(a["maxy"] - b["maxy"]) < eps
+
+        if same_minx and same_miny and same_maxx and same_maxy:
+            return False
+
+        return True
+
+    # —— 连接 CAD —— #
+    li()
+
+    # —— 准备图层 —— #
+    try:
+        ensure_layer(aux_layer)
+    except Exception as e:
+        log("⚠ ensure_layer({}) 调用失败：{}", aux_layer, e)
+    try:
+        ensure_layer(rect_layer)
+    except Exception as e:
+        log("⚠ ensure_layer({}) 调用失败：{}", rect_layer, e)
+
+    # 清空辅助图层
+    clear_layer(aux_layer)
+
+    scope_layers_set = set(block_scope_layers or ())
+
+    # ==================== Step 1: 在限定图层上选块 & 原有多段线 ====================
+
+    # 1.1 限定图层上的块 → 画外包盒多段线到 aux_layer
+    try:
+        kuai_list = select_kuai()
+    except Exception as e:
+        log("⚠ select_kuai() 调用失败：{}", e)
+        kuai_list = []
+
+    kuai_filtered = []
+    for ent in kuai_list:
+        try:
+            lay = getattr(ent, "Layer", "")
+        except Exception:
+            lay = ""
+        if lay in scope_layers_set:
+            kuai_filtered.append(ent)
+
+    log("▶ 图层限定块模式：在图层 {} 上找到块实例 {} 个",
+        list(scope_layers_set), len(kuai_filtered))
+
+    created_from_blocks = 0
+    for blk in kuai_filtered:
+        bbox = get_bbox(blk)
+        if not bbox:
+            continue
+        minx, miny, maxx, maxy = bbox
+        dx = maxx - minx
+        dy = maxy - miny
+        if dx <= 0 or dy <= 0:
+            continue
+        coords3d = [
+            (minx, miny, z),
+            (minx, maxy, z),
+            (maxx, maxy, z),
+            (maxx, miny, z),
+            (minx, miny, z),
+        ]
+        try:
+            _ = draw_lwpolyline(
+                coords3d,
+                layer_name=aux_layer,
+                width=width,
+                color=color,
+                closed=True,
+            )
+            created_from_blocks += 1
+        except Exception as e:
+            log("  ⚠ 在图层 '{}' 绘制块外包盒矩形失败：{}", aux_layer, e)
+            continue
+
+    log("📌 块 → 辅助多段线：共绘制 {} 根", created_from_blocks)
+
+    # 1.2 限定图层上的原始多段线 + 刚刚在 aux_layer 上画的多段线
+    poly_candidates = []
+
+    allowed_poly_names = {
+        "AcDbPolyline",
+        "AcDb2dPolyline",
+        "AcDb3dPolyline",
+        "AcDbLWPolyline",
+    }
+
+    # 先从 block_scope_layers 中收集
+    for lyr in scope_layers_set:
+        try:
+            res = stc(lyr)
+        except Exception as e:
+            log("⚠ stc({}) 选择失败：{}", lyr, e)
+            continue
+        ents = normalize_selection(res)
+        for ent in ents:
+            try:
+                name = get_object_property(ent, "ObjectName")
+            except Exception:
+                name = ""
+            if name in allowed_poly_names:
+                poly_candidates.append(ent)
+
+    # 再从辅助图层 aux_layer 中收集多段线（都是块外包盒转的）
+    try:
+        res_aux = stc(aux_layer)
+    except Exception as e:
+        log("⚠ stc({}) 选择失败：{}", aux_layer, e)
+        res_aux = []
+    ents_aux = normalize_selection(res_aux)
+    for ent in ents_aux:
+        try:
+            name = get_object_property(ent, "ObjectName")
+        except Exception:
+            name = ""
+        if name in allowed_poly_names:
+            poly_candidates.append(ent)
+
+    log("▶ 候选多段线总数（图层范围内 + 块外包盒）={}", len(poly_candidates))
+
+    if not poly_candidates:
+        clear_layer(aux_layer)
+        return []
+
+    # ==================== Step 2: 识别矩形、去重、按 lm 过滤 ====================
+
+    rect_recs = []
+    for ent in poly_candidates:
+        if not is_rectangle_like(ent):
+            continue
+        bbox = get_bbox(ent)
+        if not bbox:
+            continue
+        minx, miny, maxx, maxy = bbox
+        dx = maxx - minx
+        dy = maxy - miny
+        min_side = min(dx, dy)
+        rect_recs.append({
+            "poly": ent,
+            "minx": minx,
+            "miny": miny,
+            "maxx": maxx,
+            "maxy": maxy,
+            "min_side": min_side,
+        })
+
+    log("▶ 识别为轴对齐矩形多段线的数量={}", len(rect_recs))
+    if not rect_recs:
+        clear_layer(aux_layer)
+        return []
+
+    # 按 bbox 去重
+    uniq_by_bbox = {}
+    dup_count = 0
+    for r in rect_recs:
+        key = (
+            round(r["minx"], 6),
+            round(r["miny"], 6),
+            round(r["maxx"], 6),
+            round(r["maxy"], 6),
+        )
+        if key in uniq_by_bbox:
+            dup_count += 1
+            continue
+        uniq_by_bbox[key] = r
+    rect_uniq = list(uniq_by_bbox.values())
+
+    log("📌 矩形去重：重复 {} 个，唯一矩形 {} 个", dup_count, len(rect_uniq))
+
+    # 按最小边过滤
+    cand = [r for r in rect_uniq if r["min_side"] >= lm]
+    log("▶ 过滤 min_side < {} 后矩形数={}", lm, len(cand))
+
+    if not cand:
+        clear_layer(aux_layer)
+        return []
+
+    # ==================== Step 3: 只做“极大矩形”筛选 ====================
+
+    maxima = []
+    for i, ri in enumerate(cand):
+        is_contained = False
+        for j, rj in enumerate(cand):
+            if i == j:
+                continue
+            if rect_strict_contains(rj, ri):
+                is_contained = True
+                break
+        if not is_contained:
+            maxima.append(ri)
+
+    log("📌 极大矩形数量={}", len(maxima))
+    if rect_debug:
+        for idx, r in enumerate(maxima, 1):
+            dx = r["maxx"] - r["minx"]
+            dy = r["maxy"] - r["miny"]
+            log(
+                "    极大矩形#{:02d}: LL=({:.3f}, {:.3f}), "
+                "UR=({:.3f}, {:.3f}), min_side={:.3f}, max_side={:.3f}",
+                idx, r["minx"], r["miny"], r["maxx"], r["maxy"],
+                min(dx, dy), max(dx, dy)
+            )
+
+    # ==================== Step 4: 在 rect_layer 上重画打印框 ====================
+
+    rect_pls = []
+    for r in maxima:
+        minx, miny, maxx, maxy = r["minx"], r["miny"], r["maxx"], r["maxy"]
+        coords3d = [
+            (minx, miny, z),
+            (minx, maxy, z),
+            (maxx, maxy, z),
+            (maxx, miny, z),
+            (minx, miny, z),
+        ]
+        try:
+            pl_new = draw_lwpolyline(
+                coords3d,
+                layer_name=rect_layer,
+                width=width,
+                color=color,
+                closed=True,
+            )
+            rect_pls.append(pl_new)
+        except Exception as e:
+            log("  ⚠ 在 '{}' 绘制打印矩形失败：{}", rect_layer, e)
+            continue
+
+    log("📌 最终在 '{}' 图层绘制打印矩形数量={}", rect_layer, len(rect_pls))
+
+    # 清理辅助图层
+    clear_layer(aux_layer)
+
+    if not rect_pls:
+        return []
+
+    # 排序后返回
+    lb_sorted = sort_coms_by_llcorner(rect_pls, cha_Y=cha_Y)
+    log("📌 排序后打印区域数量={}", len(lb_sorted))
+
+    return lb_sorted
 
 
 def select_print_areas_rect_from_polylines(
@@ -17214,32 +17804,52 @@ def select_print_areas_rect_from_polylines(
     width=0.0,
     color=256,
     z=0.0,
+    duanbian=10000,
+    debug: bool = False,
+    use_pseudo_filter: bool = True,
 ):
     """
     从当前 DWG 中【仅基于多段线】自动识别打印区域，并在指定图层上绘制
     “规范矩形多段线”作为打印框。
 
-    完整规则：
-        1) 只选 polyline；
+    完整规则（use_pseudo_filter=True 时）：
+        1) 只选 polyline（传统选择 + 新选择函数）；
         2) 过滤“单向多段线”（非闭合 + 首尾距离 > tol_single）；
-        3) 从剩余 polyline 中识别“矩形多段线”（轮廓为矩形即可，允许多点重叠）；
+        3) 从剩余 polyline 中识别“矩形多段线”（轮廓为轴对齐矩形即可，允许多点重叠）；
         4) 同一 bbox 的矩形多段线只保留一根（重复矩形过滤）；
         5) 过滤 min_side < lm 的矩形；
         6) 对通过 lm 的矩形集合 cand：
-           6.1 先做“伪矩形”判定（规则 1 & 2），把伪矩形剔除；
-           6.2 再在剩余矩形上做“极大矩形”筛选（严格包含，完全相同 bbox 不互相干掉）；
-        7) 对极大矩形，用外包盒调用 draw_lwpolyline 在 layer_name 上画规范矩形；
-        8) 对刚才判定出的伪矩形：
-           - 删除原对象；
-           - 用外包盒在 0 图层重画一圈矩形边框；
-        9) 返回：新绘制的真正打印框 LWPOLYLINE 列表（不包括伪矩形）。
+           6.1 若 use_pseudo_filter=True：
+               - 分析“伪矩形”，剔除：
+                 * 尺寸异常（过大/过小）；
+                 * 内含多个“大子矩形”的框；
+               - 再在剩余矩形上做“极大矩形”筛选；
+               - 删除伪矩形实体，并在 0 图层按 bbox 重绘一圈矩形边框（用于人工检查）。
+           6.2 若 use_pseudo_filter=False：
+               - 不做伪矩形判定，直接在 cand 上做“极大矩形”筛选；
+               - 不删除原多段线、不重绘伪矩形边框。
+        7) 对极大矩形集合 maxima：在 layer_name 上按外包盒调用 draw_lwpolyline 画规范矩形；
+        8) 返回：新绘制的真正打印框 LWPOLYLINE 列表。
+
+    参数：
+        lm              : 最短边长度阈值，小于该值的矩形不认为是打印区域。
+        tol_single      : 判定“单向多段线”的首尾距离阈值。
+        layer_name      : 真正打印框所在图层。
+        width, color, z : 重绘矩形多段线的绘制参数。
+        duanbian        : “伪矩形”判定中用到的短边阈值。
+        debug           : True 时输出详细调试信息（伪矩形理由、极大矩形 bbox 等）。
+        use_pseudo_filter:
+                          True  – 启用伪矩形过滤逻辑，并在图层 0 重绘伪矩形边框；
+                          False – 不做伪矩形过滤，仅按极大矩形原则选打印框。
     """
 
     import math
     global mp  # li() 会初始化 mp
 
-    # —— 日志包装：优先 node，同时 print 一份 —— #
+    # —— 日志包装：优先 node，同时 print 一份（仅 debug=True 时输出） —— #
     def log(msg, *args):
+        if not debug:
+            return
         text = msg.format(*args) if args else msg
         # node
         n = globals().get("node", None)
@@ -17396,6 +18006,7 @@ def select_print_areas_rect_from_polylines(
         if not res:
             continue
 
+        # 兼容 (selectionSet, list) 形式
         if isinstance(res, (list, tuple)):
             if len(res) == 2 and not hasattr(res[0], "GetBoundingBox"):
                 res = res[1]
@@ -17495,7 +18106,7 @@ def select_print_areas_rect_from_polylines(
         log("‼ Step3 结束：所有矩形 min_side 都 < lm，返回空列表。")
         return []
 
-    # ==================== Step 4：伪矩形筛选 + 再做极大矩形 ====================
+    # ==================== Step 4：伪矩形筛选（可选） + 极大矩形 ====================
 
     eps = 1e-6
 
@@ -17544,57 +18155,67 @@ def select_print_areas_rect_from_polylines(
 
         return True
 
-    # 4.1 伪矩形判定（基于 cand）
     pseudo_recs = []
-    pseudo_count = 0
+    pseudo_bbox_list = []
 
-    # 用于规则 2：内部子矩形统计（短边>29000）
-    child_candidates = [r for r in rect_uniq if r["min_side"] > 29000.0]
+    if use_pseudo_filter:
+        # 4.1 伪矩形判定（基于 cand）
+        pseudo_count = 0
 
-    for ri in cand:
-        dx = ri["maxx"] - ri["minx"]
-        dy = ri["maxy"] - ri["miny"]
-        min_side = min(dx, dy)
-        max_side = max(dx, dy)
+        # 用于规则 2：内部子矩形统计（短边>duanbian）
+        child_candidates = [r for r in rect_uniq if r["min_side"] > duanbian]
 
-        pseudo = False
-        reason = ""
+        for ri in cand:
+            dx = ri["maxx"] - ri["minx"]
+            dy = ri["maxy"] - ri["miny"]
+            min_side = min(dx, dy)
+            max_side = max(dx, dy)
 
-        # 规则 1：尺寸型伪矩形（阈值你改成 28000 了，这里沿用）
-        if max_side > 230000.0 or min_side < 28000.0:
-            pseudo = True
-            reason = "尺寸超限(最长边>{} 或 最短边<{})".format(230000, 28000)
-        else:
-            # 规则 2：包含型伪矩形
-            # 28000 <= min_side <= max_side <= 230000 时，
-            # 内部如果有多于 1 个 (min_side>29000) 的矩形多段线，则视为伪矩形
-            big_child_count = 0
-            for rj in child_candidates:
-                if rj is ri:
-                    continue
-                if rect_inclusive_contains(ri, rj):
-                    big_child_count += 1
-                    if big_child_count > 1:
-                        break
-            if big_child_count > 1:
+            pseudo = False
+            reason = ""
+
+            # 规则 1：尺寸型伪矩形
+            if max_side > 230000.0 or min_side < duanbian:
                 pseudo = True
-                reason = "内部包含 >1 个短边>29000 的矩形({})".format(big_child_count)
+                reason = "尺寸超限(最长边>{} 或 最短边<{})".format(230000, duanbian)
+            else:
+                # 规则 2：包含型伪矩形
+                # duanbian <= min_side <= max_side <= 230000 时，
+                # 内部如果有多于 1 个 (min_side>duanbian) 的矩形多段线，则视为伪矩形
+                big_child_count = 0
+                for rj in child_candidates:
+                    if rj is ri:
+                        continue
+                    if rect_inclusive_contains(ri, rj):
+                        big_child_count += 1
+                        if big_child_count > 1:
+                            break
+                if big_child_count > 1:
+                    pseudo = True
+                    reason = "内部包含 >1 个短边>{} 的矩形({})".format(duanbian, big_child_count)
 
-        if pseudo:
-            pseudo_recs.append(ri)
-            pseudo_count += 1
-            log("  ⤷ 伪矩形打印框过滤: min_side={:.3f}, max_side={:.3f}, 原因={}",
-                min_side, max_side, reason)
+            if pseudo:
+                pseudo_recs.append(ri)
+                pseudo_count += 1
+                log(
+                    "  ⤷ 伪矩形打印框过滤: LL=({:.3f}, {:.3f}), "
+                    "min_side={:.3f}, max_side={:.3f}, 原因={}",
+                    ri["minx"], ri["miny"], min_side, max_side, reason
+                )
 
-    log("📌 伪矩形打印框过滤掉 {} 个", pseudo_count)
+        log("📌 伪矩形打印框过滤掉 {} 个", pseudo_count)
 
-    # 4.2 剔除伪矩形后，再做极大矩形筛选
-    pseudo_ids = {id(r) for r in pseudo_recs}
-    base_list = [r for r in cand if id(r) not in pseudo_ids]
+        # 4.2 剔除伪矩形后，再做极大矩形筛选
+        pseudo_ids = {id(r) for r in pseudo_recs}
+        base_list = [r for r in cand if id(r) not in pseudo_ids]
+        if not base_list:
+            log("‼ Step4: 剔除伪矩形后无候选矩形，将仅重绘伪矩形边框。")
+    else:
+        # 不做伪矩形过滤，直接在 cand 上做极大矩形
+        base_list = cand
+        log("📌 use_pseudo_filter=False：跳过伪矩形判定，直接对 {} 个候选做极大矩形筛选", len(base_list))
 
-    if not base_list:
-        log("‼ Step4: 剔除伪矩形后无候选矩形，将仅重绘伪矩形边框。")
-
+    # —— 极大矩形筛选 —— #
     maxima = []
     for i, ri in enumerate(base_list):
         is_contained = False
@@ -17607,27 +18228,31 @@ def select_print_areas_rect_from_polylines(
         if not is_contained:
             maxima.append(ri)
 
-    log("📌 伪矩形剔除后极大矩形数量={}", len(maxima))
+    log("📌 极大矩形数量={}", len(maxima))
     for idx, r in enumerate(maxima, 1):
         dx = r["maxx"] - r["minx"]
         dy = r["maxy"] - r["miny"]
-        log("    极大矩形#{:02d}: minx={:.3f}, miny={:.3f}, maxx={:.3f}, maxy={:.3f}, min_side={:.3f}, max_side={:.3f}",
-            idx, r["minx"], r["miny"], r["maxx"], r["maxy"], min(dx, dy), max(dx, dy))
+        log(
+            "    极大矩形#{:02d}: minx={:.3f}, miny={:.3f}, "
+            "maxx={:.3f}, maxy={:.3f}, min_side={:.3f}, max_side={:.3f}",
+            idx, r["minx"], r["miny"], r["maxx"], r["maxy"],
+            min(dx, dy), max(dx, dy)
+        )
 
-    # 4.3 删除伪矩形实体，并记录外包盒以便重画
-    pseudo_bbox_list = []
-    for r in pseudo_recs:
-        pseudo_bbox_list.append((r["minx"], r["miny"], r["maxx"], r["maxy"]))
-        ent = r["poly"]
-        try:
-            h = get_attr(ent, "Handle")
-        except Exception:
-            h = "<?>"
-        try:
-            ent.Erase()
-            log("  ⤷ 已删除伪矩形实体 Handle={}", h)
-        except Exception as e:
-            log("  ⚠ 删除伪矩形实体失败 Handle={} : {}", h, e)
+    # —— 若启用伪矩形过滤：删除伪矩形实体，并记录外包盒以便重画 —— #
+    if use_pseudo_filter:
+        for r in pseudo_recs:
+            pseudo_bbox_list.append((r["minx"], r["miny"], r["maxx"], r["maxy"]))
+            ent = r["poly"]
+            try:
+                h = get_attr(ent, "Handle")
+            except Exception:
+                h = "<?>"
+            try:
+                ent.Erase()
+                log("  ⤷ 已删除伪矩形实体 Handle={}", h)
+            except Exception as e:
+                log("  ⚠ 删除伪矩形实体失败 Handle={} : {}", h, e)
 
     # ==================== Step 5：按外包盒绘制真正打印框 ====================
 
@@ -17657,40 +18282,382 @@ def select_print_areas_rect_from_polylines(
 
     log("📌 最终绘制打印矩形数量={}", len(rect_pls))
 
-    # ==================== Step 6：在 0 图层重绘伪矩形边框（外包盒） ====================
+    # ==================== Step 6：在 0 图层重绘伪矩形边框（仅 use_pseudo_filter=True） ====================
 
-    pseudo_pls = []
-    for (minx, miny, maxx, maxy) in pseudo_bbox_list:
-        coords3d = [
-            (minx, miny, z),
-            (minx, maxy, z),
-            (maxx, maxy, z),
-            (maxx, miny, z),
-            (minx, miny, z),
-        ]
-        try:
-            pl_pseudo = draw_lwpolyline(
-                coords3d,
-                layer_name="0",
-                width=0.0,
-                color=256,
-                closed=True,
-            )
-            pseudo_pls.append(pl_pseudo)
-        except Exception as e:
-            log("  ⚠ 重绘伪矩形边框失败: {}", e)
-            continue
+    if use_pseudo_filter and pseudo_bbox_list:
+        pseudo_pls = []
+        for (minx, miny, maxx, maxy) in pseudo_bbox_list:
+            coords3d = [
+                (minx, miny, z),
+                (minx, maxy, z),
+                (maxx, maxy, z),
+                (maxx, miny, z),
+                (minx, miny, z),
+            ]
+            try:
+                pl_pseudo = draw_lwpolyline(
+                    coords3d,
+                    layer_name="0",
+                    width=0.0,
+                    color=256,
+                    closed=True,
+                )
+                pseudo_pls.append(pl_pseudo)
+            except Exception as e:
+                log("  ⚠ 重绘伪矩形边框失败: {}", e)
+                continue
 
-    if pseudo_pls:
         log("📌 已在图层 0 重绘 {} 个伪矩形边框", len(pseudo_pls))
 
     return rect_pls
 
 
 
-#&&&% 一 打印
 
-#&&&% 二 插图签
+
+
+
+
+
+
+
+#&&% excel字典信息转换
+
+#1. 常量与工具函数
+
+# 第一部分：每张图纸的字段（列头）
+DRAWING_KEYS = [
+    "序号",
+    "图纸编号",
+    "图纸名称",
+    "图纸规格",
+    "出图比例",
+    "纸张数",
+    "专业名称",
+]
+
+# 第二部分：整体信息字段（列头）
+PROJECT_KEYS = [
+    "项目名称",
+    "子项目名称",
+    "建设单位名称",
+    "专业名称",
+    "设计阶段",
+    "版本号",
+    "出图日期",
+    "设计编号",
+    "设计院名称",
+]
+
+
+def build_header_map(ws) -> Dict[str, int]:
+    """
+    根据第 1 行表头构建 {表头文字: 列号} 的映射。
+    列号为 openpyxl 使用的 1-based 整数。
+    """
+    header_map: Dict[str, int] = {}
+    for cell in ws[1]:
+        v = cell.value
+        if v is None:
+            continue
+        key = str(v).strip()
+        if key:
+            header_map[key] = cell.column
+    return header_map
+
+
+
+#2. 从 xlsx 读成字典
+def read_xlsx_to_dict(xlsx_path: str) -> Dict[str, Any]:
+    """
+    读取“项目图纸信息模板.xlsx / 王二麻子住宅楼.xlsx”，
+    转成统一的数据字典结构。
+
+    返回字典结构示例：
+
+    data = {
+        "project": {          # 整体信息（第二部分）
+            "项目名称": "...",
+            "子项目名称": "...",
+            "建设单位名称": "...",
+            "专业名称": "...",
+            "设计阶段": "...",
+            "版本号": "...",
+            "出图日期": "...",   # 可以是字符串或 datetime.date
+            "设计编号": "...",
+            "设计院名称": "...",
+        },
+        "drawings": [         # 图纸列表（第一部分）
+            {
+                "序号": 1,
+                "图纸编号": "A-01",
+                "图纸名称": "一层平面图",
+                "图纸规格": "A2",
+                "出图比例": "1:100",
+                "纸张数": 1,
+                "专业名称": "建筑",
+    
+                # 可选：CAD 侧元数据（不写入 Excel，但便于 F2 找回）
+                "_layout_name": "A-01",
+                "_block_handle": "2F3A",
+            },
+            # ...
+        ]
+    }
+
+  """
+    wb = load_workbook(xlsx_path, data_only=True)
+    ws = wb.active
+
+    header_map = build_header_map(ws)
+
+    # ---------- 1) 整体信息（第二部分）：固定取第 2 行 ----------
+    project_row_index = 2
+    project_info: Dict[str, Any] = {}
+    for key in PROJECT_KEYS:
+        col = header_map.get(key)
+        if col is None:
+            # 模板里暂时没有这个表头，也允许将来扩展
+            continue
+        project_info[key] = ws.cell(row=project_row_index, column=col).value
+
+    # ---------- 2) 图纸信息（第一部分）：从第 2 行往下 ----------
+    drawings: List[Dict[str, Any]] = []
+    row = 2
+    empty_row_streak = 0  # 避免中间插入一两行空行就提前结束
+
+    while True:
+        row_data: Dict[str, Any] = {}
+        has_value = False
+        for key in DRAWING_KEYS:
+            col = header_map.get(key)
+            if col is None:
+                continue
+            value = ws.cell(row=row, column=col).value
+            row_data[key] = value
+            if value not in (None, ""):
+                has_value = True
+
+        if not has_value:
+            # 遇到空行，连续两行都空就认为结束
+            empty_row_streak += 1
+            if empty_row_streak >= 2:
+                break
+        else:
+            empty_row_streak = 0
+            drawings.append(row_data)
+
+        row += 1
+        # 保险的停止条件，防止死循环
+        if row > ws.max_row + 5:
+            break
+
+    return {
+        "project": project_info,
+        "drawings": drawings,
+    }
+
+#3. 从字典写回 xlsx
+
+def write_print_rows_to_excel(
+    rows_for_excel,
+    template_path: str,
+    output_path: str,
+    header_row_idx: int = 1,
+    data_start_row_idx: int = 2,
+):
+    """
+    使用项目模板，把 rows_for_excel 写入 Excel。
+    会：
+      1. 删除 header 下方所有旧行；
+      2. 按模板第 data_start_row_idx 行复制样式；
+      3. 序号列输出 01,02,… 格式；
+      4. 某字段在行字典中为空/缺省时，保留模板默认值。
+
+    参数:
+        rows_for_excel: List[dict] ，每个 dict 一行，key 用列标题，比如:
+            {
+              "图纸编号": "...",
+              "图纸名称": "...",
+              "图纸规格": "...",
+              "出图比例": "1:100",
+              "纸张数": 1,
+              "项目名称": "...",
+              "子项目名称": "...",
+              ...
+            }
+        template_path: 模板 xlsx 路径
+        output_path: 输出 xlsx 路径
+        header_row_idx: 表头所在行（一般是 1）
+        data_start_row_idx: 数据起始行（模板示例数据那一行，一般是 2）
+    """
+    template_path = str(template_path)
+    output_path = str(output_path)
+
+    wb = load_workbook(template_path)
+    ws = wb.active
+
+    # ===== 1. 读取表头和模板行 =====
+    header_cells = list(ws[header_row_idx])
+    headers = [c.value for c in header_cells]  # 如 ["序号", "图纸编号", "图纸名称", ...]
+
+    # 模板示例行（第二行），用来复制样式和默认值
+    template_row = list(ws[data_start_row_idx])
+    template_styles = {}
+    template_defaults = {}   # 按“列标题”存默认值
+
+    for col_idx, tmpl_cell in enumerate(template_row, start=1):
+        template_styles[col_idx] = tmpl_cell._style
+        header = headers[col_idx - 1] if col_idx - 1 < len(headers) else None
+        if header:
+            template_defaults[header] = tmpl_cell.value
+
+    # ===== 2. 删除 header 下方所有旧行 =====
+    if ws.max_row >= data_start_row_idx:
+        delete_count = ws.max_row - data_start_row_idx + 1
+        ws.delete_rows(data_start_row_idx, delete_count)
+
+    # ===== 3. 写入新的数据行 =====
+    for i, row_data in enumerate(rows_for_excel, start=1):
+        excel_row_idx = data_start_row_idx + i - 1
+        ws.insert_rows(excel_row_idx)
+
+        for col_idx, header in enumerate(headers, start=1):
+            cell = ws.cell(row=excel_row_idx, column=col_idx)
+
+            # 复制模板样式
+            if col_idx in template_styles:
+                cell._style = template_styles[col_idx]
+
+            # 没有标题的列，直接沿用模板值
+            if header is None:
+                if col_idx - 1 < len(template_row):
+                    cell.value = template_row[col_idx - 1].value
+                continue
+
+            # 序号列：固定 2 位数字
+            if header == "序号":
+                cell.value = f"{i:02d}"
+                continue
+
+            # 其它列：行字典 > 模板默认值
+            v = row_data.get(header, None)
+            if v is None or v == "":
+                v = template_defaults.get(header, None)
+            cell.value = v
+
+    # 保存文件
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+    wb.save(output_path)
+
+
+
+
+
+
+
+
+
+
+
+
+
+def write_dict_to_xlsx(
+    data: Dict[str, Any],
+    template_xlsx_path: str,
+    output_xlsx_path: str,
+) -> None:
+    """
+    将统一字典结构写回到 Excel 文件。
+
+    data 结构：
+        {
+            "project": {... 项目信息 ...},
+            "drawings": [
+                {... 第1张图纸信息 ...},
+                {... 第2张图纸信息 ...},
+                ...
+            ]
+        }
+    """
+    wb = load_workbook(template_xlsx_path)
+    ws = wb.active
+
+    header_map = build_header_map(ws)
+
+    # ---------- 0) 在清空之前，先从第 2 行读出“默认值” ----------
+    default_project: Dict[str, Any] = {}
+    default_drawing: Dict[str, Any] = {}
+
+    for key in PROJECT_KEYS:
+        col = header_map.get(key)
+        if col is None:
+            continue
+        default_project[key] = ws.cell(row=2, column=col).value
+
+    for key in DRAWING_KEYS:
+        col = header_map.get(key)
+        if col is None:
+            continue
+        default_drawing[key] = ws.cell(row=2, column=col).value
+
+    # ---------- 1) 从第 2 行开始，清空整张表所有数据 ----------
+    max_row = ws.max_row
+    max_col = ws.max_column
+    for row in range(2, max_row + 1):
+        for col in range(1, max_col + 1):
+            ws.cell(row=row, column=col, value=None)
+
+    # ---------- 2) 写入整体信息 project -> 固定写在第 2 行 ----------
+    project_info: Dict[str, Any] = data.get("project", {}) or {}
+    for key in PROJECT_KEYS:
+        col = header_map.get(key)
+        if col is None:
+            continue
+
+        val = project_info.get(key)
+        # 字典里为空，则用模板默认值
+        if val is None or val == "":
+            val = default_project.get(key)
+
+        if val is not None:
+            ws.cell(row=2, column=col, value=val)
+
+    # ---------- 3) 写入图纸信息 drawings -> 从第 2 行开始 ----------
+    drawings: List[Dict[str, Any]] = data.get("drawings", []) or []
+    start_row = 2
+
+    for index, drawing in enumerate(drawings):
+        row_index = start_row + index
+
+        for key in DRAWING_KEYS:
+            col = header_map.get(key)
+            if col is None:
+                continue
+
+            # 序号：统一写成 01, 02, 03...
+            if key == "序号":
+                seq_val = drawing.get(key)
+                if not seq_val:
+                    seq_val = f"{index + 1:02d}"
+                ws.cell(row=row_index, column=col, value=seq_val)
+                continue
+
+            val = drawing.get(key)
+            if val is None or val == "":
+                val = default_drawing.get(key)
+
+            if val is not None:
+                ws.cell(row=row_index, column=col, value=val)
+
+    # 经过第 1 步，start_row+len(drawings) 之后的行已经是空白了，
+    # 不需要再额外删除。
+
+    wb.save(output_xlsx_path)
+
+#&&&% 三 打印
+
+#&&&% 一 插图签
 """
 标准图签模板在D:/Myprogramsystem/XT/标准图签模板.dwg
 属性图签的同名图块，在进行内部的属性文字移动位置后，命令行窗口执行ATTSYNC，按提示操作完，所有同名属性块文字都会移动到新的位置
@@ -17708,6 +18675,21 @@ def select_print_areas_rect_from_polylines(
 6 ATTMODE 2 ATTDISP ON，确保设置好这两个值再做块
 
 根据20251126的最新函数，文字边界宽度可以设到12000,不需要通过文字边界换行，而是可以自由换行
+
+LB=select_print_areas_smart()
+ok,bind,info =stable_insert_and_scale_labels_area(
+    LB,
+    filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+    layername="dy_quyu",
+    timestamp=None,
+    delpan=0,
+    core_layer="dy_quyu_H",
+    max_try=3,
+    verbose=True,
+    aggressive_purge=False,  # 新增：是否启用强力无实例块清理
+)
+
+
 
 """
 
@@ -18857,8 +19839,431 @@ def insert_and_scale_labels_area_1(
     return bind_dict
 
 #&&% 插图签主函数
-@debuggable 
+
+@timeit
+@debuggable
 def insert_and_scale_labels_area(
+        coms_dayin,
+        filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
+        layername="dy_quyu",
+        timestamp=None,
+        delpan=0,
+        debug=False,   # 新增：调试开关，默认 False
+    ):
+    """
+    把公司公共图签块批量插入到 coms_dayin 定义的打印框区域，
+    自动按比例缩放并建立绑定字典。
+
+    性能优化版：
+        - 不再清理“没有实例的标准图签块定义”，避免大量块名扫描。
+        - 所有调试输出都通过 debug 开关控制（默认不输出）。
+
+    返回 bind_dict：
+        {
+            新块Handle: {
+                "frame_info": {...},
+                "title_block": <COM BlockReference>
+            },
+            "dyx_list": [...区域多段线...],
+            "tq_list": [...图签块...]
+        }
+    """
+    import time
+    import math
+    import re as _re
+
+    # 小封装：统一控制调试输出
+    def _log(msg, *args):
+        if debug:
+            try:
+                node(msg, *args)
+            except Exception:
+                # node 万一不在作用域也不至于把主逻辑搞挂
+                pass
+
+    # 先用 CAD_basic 自己的 li() 保证 acad/doc/mp 正常
+    li()
+
+    ensure_layer("dy_quyu")
+
+    # ---------- 小工具：筛选有效打印框 ----------
+    def filter_coms_with_frame(coms_dayin_local):
+        """
+        过滤出 generate_name_and_ratio_from_com 能正确处理的框，
+        返回：LBx = 有效框对象列表，LBy = 无效框 handle 列表（用于调试）
+        """
+        LBx = []
+        LBy = []
+        for ent in coms_dayin_local:
+            handle = get_attr(ent, "Handle")
+            try:
+                info = generate_name_and_ratio_from_com(ent)
+            except Exception:
+                # 调用失败则跳过
+                continue
+
+            if info != 0:
+                LBx.append(ent)
+            else:
+                if handle is not None:
+                    LBy.append(handle)
+
+        return LBx, LBy
+
+    # ---------- 小工具：根据 frame_info 计算几何修正系数 k_geom ----------
+    def compute_k_from_info(info: dict) -> float:
+        """
+        以“模板图签块为 1:100 基准”，根据实际图框的尺寸求出几何修正系数 k_geom。
+        """
+        try:
+            corners = info.get("corners") or []
+            entity = info.get("entity")
+            drawing_frame = info.get("drawing_frame") or ""
+            ratio_str = info.get("ratio") or "1:100"
+
+            # —— 1. 计算实际宽高（模型单位）——
+            w_act = h_act = None
+
+            if len(corners) >= 4:
+                p0, p1, p2, p3 = corners[:4]
+
+                def dist(a, b):
+                    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+                # 默认 corners 顺序：左下、左上、右上、右下
+                w_act = dist(p0, p3)  # 水平边
+                h_act = dist(p0, p1)  # 垂直边
+            elif entity is not None:
+                # 退路：用外包盒估一个
+                try:
+                    ll, ur = entity.GetBoundingBox()
+                    w_act = abs(ur[0] - ll[0])
+                    h_act = abs(ur[1] - ll[1])
+                except Exception:
+                    pass
+
+            if not w_act or not h_act:
+                return 1.0
+
+            # —— 2. 解析理论纸张尺寸（mm）——
+            # 例："ISO_A2_(594.00_x_420.00_MM)"
+            m = _re.search(r"\(([\d\.]+)\s*x\s*([\d\.]+)", drawing_frame)
+            if not m:
+                return 1.0
+
+            w_mm = float(m.group(1))
+            h_mm = float(m.group(2))
+
+            # —— 3. 解析比例 "1:100" ——>
+            m2 = _re.search(r"1\s*:\s*(\d+)", ratio_str)
+            base_scale = float(m2.group(1)) if m2 else 100.0  # 默认 1:100
+
+            # 模型中的“理论宽高”
+            w_nom = w_mm * base_scale
+            h_nom = h_mm * base_scale
+
+            if not w_nom or not h_nom:
+                return 1.0
+
+            kw = w_act / w_nom
+            kh = h_act / h_nom
+
+            k_list = [v for v in (kw, kh) if v > 0]
+            if not k_list:
+                return 1.0
+
+            k = sum(k_list) / len(k_list)
+
+            if k <= 0:
+                return 1.0
+
+            return k
+
+        except Exception as e:
+            _log("⚠ compute_k_from_info 异常: {}", e)
+            return 1.0
+
+    def adjust_block_to_frame(frame_ent, blk_com, tol_len=10.0):
+        """
+        在统一缩放 k_val 插入块之后，进一步检查打印框与块的外包盒尺寸。
+        不在容差内时，用 BoundingBox+Rotation 做一次 X/Y 双向缩放校正。
+        """
+        # 1) 打印框外包盒
+        try:
+            ll_f, ur_f = frame_ent.GetBoundingBox()
+            Wf = abs(ur_f[0] - ll_f[0])
+            Hf = abs(ur_f[1] - ll_f[1])
+        except Exception as e:
+            _log("  ⚠ adjust_block_to_frame: 获取打印框 BoundingBox 失败: {}", e)
+            return
+
+        # 2) 当前块外包盒
+        try:
+            ll_b, ur_b = blk_com.GetBoundingBox()
+            Wb = abs(ur_b[0] - ll_b[0])
+            Hb = abs(ur_b[1] - ll_b[1])
+        except Exception as e:
+            _log("  ⚠ adjust_block_to_frame: 获取图签块 BoundingBox 失败: {}", e)
+            return
+
+        if Wf <= 0 or Hf <= 0 or Wb <= 0 or Hb <= 0:
+            _log("  ⚠ adjust_block_to_frame: 宽高异常 Wf={}, Hf={}, Wb={}, Hb={}",
+                 Wf, Hf, Wb, Hb)
+            return
+
+        # 若本身就已经在容差内，认为是“标准图框或接近标准”，不再强行拉伸
+        if abs(Wf - Wb) <= tol_len and abs(Hf - Hb) <= tol_len:
+            _log("  ▶ adjust_block_to_frame: 框与图签块尺寸已在容差内，无需校正")
+            return
+
+        # 3) 读取当前缩放与旋转
+        try:
+            sx0 = getattr(blk_com, "XScaleFactor", 1.0)
+            sy0 = getattr(blk_com, "YScaleFactor", 1.0)
+        except Exception:
+            sx0 = sy0 = 1.0
+
+        try:
+            rot = getattr(blk_com, "Rotation", 0.0)  # 弧度
+        except Exception:
+            rot = 0.0
+
+        rot_deg = abs(rot * 180.0 / math.pi) % 180.0
+
+        # 4) 根据 rotation 决定“宽高和 X/Y 缩放因子的对应关系”
+        if rot_deg < 1.0 or abs(rot_deg - 180.0) < 1.0:
+            # 横向：世界宽 = XScale * 宽，世界高 = YScale * 高
+            factor_x = Wf / Wb
+            factor_y = Hf / Hb
+            mode = "anisotropic_horizontal"
+        elif abs(rot_deg - 90.0) < 1.0:
+            # 竖向：世界宽 ≈ YScale 方向的长度，世界高 ≈ XScale 方向的长度
+            factor_x = Hf / Hb   # XScale 作用于“高度”那一边
+            factor_y = Wf / Wb   # YScale 作用于“宽度”那一边
+            mode = "anisotropic_vertical"
+        else:
+            # 其它奇怪角度，退回统一比例近似
+            rw = Wf / Wb
+            rh = Hf / Hb
+            s = (rw + rh) / 2.0
+            factor_x = factor_y = s
+            mode = "uniform_fallback"
+
+        sx = sx0 * factor_x
+        sy = sy0 * factor_y
+
+        try:
+            blk_com.XScaleFactor = sx
+            blk_com.YScaleFactor = sy
+            _log(
+                "  ▶ adjust_block_to_frame 模式={}，rot≈{:.1f}°: "
+                "XScaleFactor {:.4f}→{:.4f}, YScaleFactor {:.4f}→{:.4f}",
+                mode, rot_deg, sx0, sx, sy0, sy
+            )
+        except Exception as e:
+            _log("  ⚠ adjust_block_to_frame: 设置 X/YScaleFactor 失败: {}", e)
+
+    # 目标图层先保证存在并清空（你原始逻辑是清空 dy_quyu）
+    ensure_layer(layername)
+
+    # ▶ 1 打印框排序
+    _log("▶ 1  打印框排序, 原数量={}", len(coms_dayin))
+    coms_dayin = sort_coms_by_llcorner(coms_dayin, cha_Y=2000)
+
+    # 筛选真正的“标准打印区域”（现在 generate_name_and_ratio_from_com 已能处理非标准）
+    coms_dayin, LBy = filter_coms_with_frame(coms_dayin)
+    _log("▶ 1.1  非标准打印区域handle{}", LBy)
+
+    # ▶ 2 重绘打印框并提取信息（画在 layername 上）
+    _log("▶ 2  绘制打印框并提取信息")
+    ensure_layer(layername)
+    res = draw_pl_and_extract_from_entities(
+        coms_dayin,
+        layer_name=layername,
+        width=0,
+        color=256,
+        A3dy=0,
+        Fandy=("ISO_A3_(420.00_x_297.00_MM)", "0:0", "A3", 0),
+    )
+    _log("    提取完毕, 共 {} 条", len(res))
+
+    # ▶ 3 原对象移层
+    for ent in coms_dayin:
+        try:
+            set_attr(ent, "Layer", "测试辅助")
+        except Exception:
+            pass
+    _log("▶ 3  原打印框移至 '测试辅助'")
+
+    # ▶ 4 调用公共块插入（插入并炸开模板图签）
+    _log("▶ 4  调用 Insert_Company_Label_Common_Block()")
+    ret = Insert_Company_Label_Common_Block(filepath=filepath)
+    if not ret or len(ret) < 3:
+        raise RuntimeError("Insert_Company_Label_Common_Block 返回格式异常")
+    ji_yuan, _, result_dict = ret
+    _log("    插入公共块成功, 新块数={}", len(ji_yuan))
+
+    # ▶ 5 Handle → idx 映射（用 get_attr 更稳）
+    ent2idx = {}
+    for idx, info in res.items():
+        ent = info.get("entity") if isinstance(info, dict) else None
+        if ent is None:
+            continue
+        h = get_attr(ent, "Handle")
+        if h:
+            ent2idx[h] = idx
+    _log("▶ 5  生成映射 ent2idx, 共 {} 条", len(ent2idx))
+
+    # ▶ 6 先从模板信息里算一轮“比例缩放系数 k_ratio”
+    # 1) 排序后的区域实体（用 res 中的 entity）
+    entities = [info["entity"] for info in res.values()]
+    entities = sort_coms_by_llcorner(entities, cha_Y=2000)
+
+    # 用你前面定义好的 compute_insert_factors（基于 ratio1/ratio2）
+    factors = compute_insert_factors(entities, res, result_dict)
+    # 建一个便于查找的字典：id(entity) -> (ent, blk_name_from_tpl, spec, k_ratio)
+    ent2factor = {id(t[0]): t for t in factors if t and t[0] is not None}
+
+    # 2) spec → 默认块名映射：A0+1/4 → A0_1_4
+    def block_name_from_spec(spec_str: str):
+        if not spec_str:
+            return None
+        s = str(spec_str).strip()
+        # 纯 A0/A1/A2/A3 直接返回
+        if s in ("A0", "A1", "A2", "A3"):
+            return s
+        # A0+1/4 → A0_1_4
+        s = s.replace("+", "_").replace("/", "_")
+        return s
+
+    bind_dict = {}
+
+    for seq, ob in enumerate(entities, 1):
+        h_ob = get_attr(ob, "Handle")
+        if not h_ob:
+            _log("⚠  区域 {} 无法获取 Handle，跳过", seq)
+            continue
+
+        idx = ent2idx.get(h_ob)
+        if idx is None:
+            _log("⚠  区域 {} 未找到索引, 跳过", seq)
+            continue
+
+        info = res.get(idx, {}) or {}
+        spec_val = info.get("spec") if isinstance(info, dict) else None
+
+        # 默认块名：从 spec 推一个
+        blk_name = block_name_from_spec(spec_val)
+
+        # 1）先从模板匹配结果里拿到比例缩放系数 k_ratio
+        k_ratio = 1.0
+        factor = ent2factor.get(id(ob))
+        if factor is not None:
+            _, blk_from_tpl, _, k_tmp = factor
+            # 如果模板里为这个 spec 指定了块名，则优先使用模板块名
+            if blk_from_tpl:
+                blk_name = blk_from_tpl
+            if k_tmp:
+                try:
+                    k_ratio = float(k_tmp)
+                except Exception:
+                    k_ratio = 1.0
+
+        if not blk_name:
+            _log("⚠  区域{}  无法根据 spec={} 确定块名，跳过", seq, spec_val)
+            continue
+
+        # 2）计算几何修正系数 k_geom（图框尺寸可能有 10–200 的偏差）
+        k_geom = compute_k_from_info(info)
+        k_val = (k_ratio or 1.0) * (k_geom or 1.0)
+
+        _log("▶  区域{}  spec={}  选用块名={}  k_ratio={:.4f}  k_geom={:.4f}  k_total={:.4f}",
+             seq, spec_val, blk_name, k_ratio, k_geom, k_val)
+
+        success = False
+        for attempt in range(1, 6):
+            try:
+                _, _, blk_com = insert_block_into_poly_area(
+                    blk_name, ob, k=k_val, max_retries=3
+                )
+
+                # —— 对非标准图框进行 BoundingBox 双向缩放校正 —— #
+                adjust_block_to_frame(ob, blk_com, tol_len=10.0)
+
+                handle_blk = get_attr(blk_com, "Handle")
+                bind_dict[handle_blk] = {
+                    "frame_info": res[idx],
+                    "title_block": blk_com,
+                }
+                _log("    ✅ 插入成功, handle={}  (k_total≈{:.4f})", handle_blk, k_val)
+                success = True
+                break
+            except Exception as e:
+                _log("    ⚠ 第{}次失败: {}", attempt, e)
+                time.sleep(0.2)
+        if not success:
+            _log("    ❌ 区域{} 放弃", seq)
+
+    # ▶ 7 公共块移层到“测试辅助”，然后清理
+    for br in ji_yuan:
+        try:
+            set_attr(br, "Layer", "测试辅助")
+        except Exception:
+            pass
+    ensure_layer("测试辅助")
+    _log("▶ 7  清理 '测试辅助'")
+
+    # 插入基本图签，应该放在 "标准图签" 图层（原逻辑保留）
+    # 原来这里 sleep(2) 两次，缩短一点以减少纯等待时间
+    time.sleep(0.1)
+    ensure_layer("标准图签")
+    time.sleep(0.1)
+
+    _log("▶ 8  delpan的值{}", delpan)
+    rename_and_delete_poly(layername=layername, timestamp=timestamp, delpan=delpan)
+
+    # ▶ 9 显示所有的图签属性，属性值就是标签名
+    LK = stc(layername)
+
+    LP = [ent for ent in LK if get_attr(ent, "ObjectName") in ("AcDbPolyline", "AcDb2dPolyline")]
+    LB = [ent for ent in LK if get_attr(ent, "ObjectName") in ("AcDbBlockReference",)]
+
+    LP = sort_coms_by_llcorner(LP, cha_Y=2000)
+    LB = sort_coms_by_llcorner(LB, cha_Y=2000)
+
+    fill_block_attributes_with_tag_name(LB)
+
+    bind_dict["dyx_list"] = LP
+    bind_dict["tq_list"] = LB
+
+    # 【性能优化】不再清理未使用的标准图签块：
+    # 之前这里会遍历所有块定义，逐个 select_block_by_name，
+    # 对大图纸来说非常耗时，而且你已经有防重名机制了，所以这一步可以安全取消。
+
+    # ▶ 10 保存
+    try:
+        savefile()
+    except Exception:
+        pass
+
+    name_zd = current_dwg_basename() + "_tuqian"
+    save_print_dict_generic(name_zd, bind_dict)
+    _log("▶ 10  结果已保存至 '{}'", name_zd)
+
+    return bind_dict
+
+
+
+
+
+
+
+
+
+
+
+@debuggable 
+def insert_and_scale_labels_area_1129(
         coms_dayin,
         filepath=r"D:/Myprogramsystem/XT/标准图签模板.dwg",
         layername="dy_quyu",
@@ -19559,6 +20964,7 @@ def explode_title_wrappers_to_core_layer(
 
 #&&% 插图签执行函数
 
+@timeit
 @debuggable
 def stable_insert_and_scale_labels_area(
     coms_dayin,
@@ -19569,9 +20975,10 @@ def stable_insert_and_scale_labels_area(
     core_layer="dy_quyu_H",
     max_try=3,
     verbose=True,
+    aggressive_purge=False,  # 新增：是否启用强力无实例块清理
 ):
     """
-    稳定插图签总包装（带失败战场清理 + 强悍无实例块清理）
+    稳定插图签总包装（带失败战场清理，可选强悍无实例块清理）
 
     每一轮流程：
       1. reserve_block_names_for_new_insert(...) 预留块名，防止旧定义污染新模板
@@ -19582,7 +20989,7 @@ def stable_insert_and_scale_labels_area(
     若 4 不通过：
       - ensure_layer("dy_quyu"), ensure_layer("tuqian_neibu_pl"), ensure_layer(core_layer)
       - 清空上述三个图层上的所有实体
-      - purge_unused_blocks_1(...) 清理当前 DWG 中所有“无实例块”
+      - （可选）purge_unused_blocks_1(...) 清理当前 DWG 中所有“无实例块”（aggressive_purge=True 时才执行）
       - 再进入下一轮尝试（最多 max_try 次）
 
     返回：
@@ -19593,9 +21000,19 @@ def stable_insert_and_scale_labels_area(
 
     global acad, doc, mp, sp
 
+    # 控制台打印（受 verbose 控制）
     def log(msg):
         if verbose:
             print(msg)
+
+    # node() 包装（受 verbose 控制）
+    def _node(msg, *args):
+        if verbose:
+            try:
+                node(msg, *args)
+            except Exception:
+                # 避免 node 不在作用域或格式异常导致主逻辑崩
+                pass
 
     # —— 图签相关的所有块名，用于“预留块名” —— #
     core_base_names = [
@@ -19634,7 +21051,8 @@ def stable_insert_and_scale_labels_area(
     # 先确认当前 DWG 环境可用
     if not li():
         msg = "[错误] stable_insert_and_scale_labels_area: li() 连接失败，未能锁定当前 DWG。"
-        node(msg)
+        _node(msg)
+        log(msg)
         info = {
             "success": False,
             "attempt": 0,
@@ -19645,14 +21063,14 @@ def stable_insert_and_scale_labels_area(
         return False, None, info
 
     for attempt in range(1, max_try + 1):
-        node("★★ 稳定插块：第 {}/{} 次尝试", attempt, max_try)
+        _node("★★ 稳定插块：第 {}/{} 次尝试", attempt, max_try)
         log(f"\n==== 稳定插块 第 {attempt}/{max_try} 次 ====")
 
         bind_dict = None
 
         # -------- 1) 预留块名：防止标准图签被旧定义污染 -------- #
         try:
-            node("▶ 1  预留图签块名，防止旧定义干扰…")
+            _node("▶ 1  预留图签块名，防止旧定义干扰…")
             reserve_block_names_for_new_insert(
                 core_base_names,
                 rename_prefix="legacy",
@@ -19660,12 +21078,12 @@ def stable_insert_and_scale_labels_area(
             )
         except Exception as e:
             last_msg = f"reserve_block_names_for_new_insert 异常（允许继续）：{e}"
-            node("  ⚠ {}", last_msg)
+            _node("  ⚠ {}", last_msg)
             log(last_msg)
 
         # -------- 2) 插入图签到 layername -------- #
         try:
-            node("▶ 2  调用 insert_and_scale_labels_area 插入图签…")
+            _node("▶ 2  调用 insert_and_scale_labels_area 插入图签…")
             bind_dict = insert_and_scale_labels_area(
                 coms_dayin=coms_dayin,
                 filepath=filepath,
@@ -19675,7 +21093,7 @@ def stable_insert_and_scale_labels_area(
             )
         except Exception as e:
             last_msg = f"insert_and_scale_labels_area 调用异常（允许继续）：{e}"
-            node("  ⚠ {}", last_msg)
+            _node("  ⚠ {}", last_msg)
             log(last_msg)
             bind_dict = None
 
@@ -19684,7 +21102,7 @@ def stable_insert_and_scale_labels_area(
 
         # -------- 3) 剥离/规范核心块 -------- #
         try:
-            node("▶ 3  剥离/规范核心块 normalize_core_title_blocks_by_layer…")
+            _node("▶ 3  剥离/规范核心块 normalize_core_title_blocks_by_layer…")
             _ = normalize_core_title_blocks_by_layer(
                 core_layer=core_layer,
                 core_base_names=None,
@@ -19692,7 +21110,7 @@ def stable_insert_and_scale_labels_area(
             )
         except Exception as e:
             last_msg = f"normalize_core_title_blocks_by_layer 异常（允许继续）：{e}"
-            node("  ⚠ {}", last_msg)
+            _node("  ⚠ {}", last_msg)
             log(last_msg)
 
         with suppress(Exception):
@@ -19700,11 +21118,11 @@ def stable_insert_and_scale_labels_area(
 
         # -------- 4) 总检测：只看核心层上的核心块数量 -------- #
         try:
-            node("▶ 4  统计核心层 '{}' 上的块实例…", core_layer)
+            _node("▶ 4  统计核心层 '{}' 上的块实例…", core_layer)
             try:
                 LK_core = stc(core_layer)
             except Exception as e:
-                node("  ⚠ stc({}) 失败：{}", core_layer, e)
+                _node("  ⚠ stc({}) 失败：{}", core_layer, e)
                 log(f"[警告] stc({core_layer}) 失败：{e}")
                 LK_core = []
 
@@ -19715,12 +21133,12 @@ def stable_insert_and_scale_labels_area(
             core_count = len(core_blocks)
             last_core_count = core_count
 
-            node("  ▶ 核心层 '{}' 上块数量 = {}，目标核心块数 = {}",
-                 core_layer, core_count, target_count)
+            _node("  ▶ 核心层 '{}' 上块数量 = {}，目标核心块数 = {}",
+                  core_layer, core_count, target_count)
             log(f"[INFO] 核心层 '{core_layer}' 上块数量 = {core_count}，目标 = {target_count}")
         except Exception as e:
             last_msg = f"总检测过程中异常：{e}"
-            node("  ⚠ {}", last_msg)
+            _node("  ⚠ {}", last_msg)
             log(last_msg)
             core_count = -1
 
@@ -19730,7 +21148,7 @@ def stable_insert_and_scale_labels_area(
                 f"稳定插块成功：第 {attempt} 次尝试，"
                 f"核心层 '{core_layer}' 上核心块数 = 目标数量 = {core_count}。"
             )
-            node("  ✅ {}", msg)
+            _node("  ✅ {}", msg)
             log(msg)
             info = {
                 "success": True,
@@ -19741,15 +21159,16 @@ def stable_insert_and_scale_labels_area(
             }
             return True, bind_dict, info
 
-        # ❌ 本次尝试未达预期 → 战场清理 + 强悍无实例块清理，然后再试
+        # ❌ 本次尝试未达预期 → 战场清理（图层实体 + 可选无实例块清理），然后再试
         last_msg = (
             f"第 {attempt} 次尝试未满足条件：核心层 '{core_layer}' 上核心块数 = {core_count}，"
             f"目标 = {target_count}"
         )
-        node("  ❌ {}", last_msg)
+        _node("  ❌ {}", last_msg)
         log(last_msg)
 
-        node("▶ F  本轮失败，开始战场清理（图层实体 + 无实例块）…")
+        _node("▶ F  本轮失败，开始战场清理（图层实体{}无实例块）…",
+              " + 强力" if aggressive_purge else "（无实例块清理已关闭）")
         log("[CLEAN] 本轮失败，开始战场清理…")
 
         # 4.F.1 确保相关图层存在
@@ -19764,25 +21183,28 @@ def stable_insert_and_scale_labels_area(
         with suppress(Exception):
             wait_command_done()
 
-        # 4.F.3 强悍无实例块清理（允许改名为垃圾块）
-        try:
-            node("▶ F.3 调用 purge_unused_blocks_1 强力清除无实例块…")
-            processed = purge_unused_blocks_1(
-                quiet=not verbose,
-                protect_names=None,     # 如需白名单可在此传入列表
-                max_delete_attempts=2,
-                rename_prefix="lajikuai",
-            )
-            log(f"[CLEAN] purge_unused_blocks_1 处理块定义数量 = {len(processed)}")
-        except Exception as e:
-            log(f"[警告] purge_unused_blocks_1 执行异常（忽略继续）：{e}")
-            node("  ⚠ purge_unused_blocks_1 异常：{}", e)
+        # 4.F.3 强悍无实例块清理（仅当 aggressive_purge=True 时执行）
+        if aggressive_purge:
+            try:
+                _node("▶ F.3 调用 purge_unused_blocks_1 强力清除无实例块…")
+                processed = purge_unused_blocks_1(
+                    quiet=not verbose,
+                    protect_names=None,     # 如需白名单可在此传入列表
+                    max_delete_attempts=2,
+                    rename_prefix="lajikuai",
+                )
+                log(f"[CLEAN] purge_unused_blocks_1 处理块定义数量 = {len(processed)}")
+            except Exception as e:
+                log(f"[警告] purge_unused_blocks_1 执行异常（忽略继续）：{e}")
+                _node("  ⚠ purge_unused_blocks_1 异常：{}", e)
 
-        with suppress(Exception):
-            wait_command_done()
+            with suppress(Exception):
+                wait_command_done()
+        else:
+            _node("▶ F.3 跳过 purge_unused_blocks_1（aggressive_purge=False）")
 
         # 给 CAD 一点缓冲时间，再进行下一轮
-        time.sleep(0.5)
+        time.sleep(0.3)
 
     # —— 多次尝试后仍未成功 —— #
     fail_msg = (
@@ -19790,7 +21212,7 @@ def stable_insert_and_scale_labels_area(
         f"核心层 '{core_layer}' 上核心块数 = {last_core_count}，目标 = {target_count}。"
         f"最后一条提示：{last_msg}"
     )
-    node("✖ {}", fail_msg)
+    _node("✖ {}", fail_msg)
     log(fail_msg)
 
     info = {
@@ -19801,6 +21223,7 @@ def stable_insert_and_scale_labels_area(
         "message": fail_msg,
     }
     return False, None, info
+
 
 
 
@@ -20020,21 +21443,1032 @@ def stable_insert_and_scale_labels_area_1(
     }
     return False, None, info
 
+#&&&% 打印线和图签属性块字典
+
+def rebuild_print_area_title_mapping(
+    core_layer: str = "dy_quyu_H",          # 放“最终核心图签块”的图层
+    rect_layer: str = "tuqian_neibu_pl",    # 主打印区域图层（实际上选择4个图层对象）
+    lm: float = 7000,                       # 最小边长阈值
+    cha_Y: float = 2000,                    # 行内纵向容差，用于 sort_coms_by_llcorner
+    ignore_empty_attrs: bool = False,       # 读取属性时是否忽略空值
+    upper_tag: bool = True,                 # 属性标签是否转大写
+    mute_logs: bool = False,                # 是否静默日志
+):
+    """
+    版本：调试极大矩形 —— 额外打印 10 个“极大矩形”的外包盒坐标和所在图层。
+
+    逻辑仍然是：
+        1. 在若干图层（tuqian_neibu_pl, dy_quyu, dy_zhuanyong, PUB_TITLE）上收集候选矩形；
+        2. 外包盒近似去重（tol=0.1）；
+        3. 求“极大矩形”（a 严格包含 b 时，b 被剔除）；
+        4. 再按 sort_coms_by_llcorner 排序，与 core_layer 上的块数量做配对。
+    """
+
+    # ---------------- 小日志工具 ----------------
+    def log(msg, *args):
+        if mute_logs:
+            return
+        try:
+            text = msg.format(*args) if args else msg
+        except Exception:
+            text = msg
+
+        # 尝试用 node()
+        try:
+            n = globals().get("node", None)
+        except Exception:
+            n = None
+        if n is not None:
+            try:
+                if args:
+                    n(msg, *args)
+                else:
+                    n(msg)
+            except Exception:
+                pass
+
+        # 再用 print
+        try:
+            print(text)
+        except Exception:
+            pass
+
+    # ---------------- 通用小工具 ----------------
+    def normalize_selection(res):
+        """把 stc 的返回统一成 [COM, COM, ...] 列表"""
+        if res is None:
+            return []
+        if isinstance(res, (list, tuple)):
+            # (selectionSet, list) 的形式
+            if len(res) == 2 and not hasattr(res[0], "GetBoundingBox"):
+                res = res[1]
+        if isinstance(res, (list, tuple)):
+            return list(res)
+        try:
+            return [ent for ent in res]
+        except TypeError:
+            return [res]
+
+    def is_polyline_entity(ent):
+        try:
+            name = str(get_attr(ent, "ObjectName"))
+        except Exception:
+            name = ""
+        return "Polyline" in name
+
+    def is_closed_polyline(ent):
+        for attr_name in ("Closed", "Closed2"):
+            try:
+                val = get_attr(ent, attr_name)
+                if bool(val):
+                    return True
+            except Exception:
+                continue
+        return False
+
+    def get_polyline_coords_xy(ent):
+        """
+        返回 [(x,y), ...]，忽略 z；失败返回 []
+        """
+        try:
+            coords = list(get_attr(ent, "Coordinates"))
+        except Exception:
+            return []
+        if not coords:
+            return []
+        n = len(coords)
+        step = 3 if (n % 3 == 0 and n % 2 != 0) else 2
+        pts = []
+        for i in range(0, n, step):
+            try:
+                x = coords[i]
+                y = coords[i + 1]
+            except Exception:
+                break
+            pts.append((float(x), float(y)))
+        return pts
+
+    def get_bbox(ent):
+        """返回 (minx, miny, maxx, maxy)，失败返回 None"""
+        try:
+            ll, ur = ent.GetBoundingBox()
+            x1, y1 = float(ll[0]), float(ll[1])
+            x2, y2 = float(ur[0]), float(ur[1])
+        except Exception:
+            return None
+        minx, maxx = (x1, x2) if x1 <= x2 else (x2, x1)
+        miny, maxy = (y1, y2) if y1 <= y2 else (y2, y1)
+        return (minx, miny, maxx, maxy)
+
+    def is_rectangle_like(ent, eps=1e-6):
+        """
+        判定多段线是否为“轴对齐矩形”：四个顶点、边平行于 X/Y 轴。
+        """
+        if not is_polyline_entity(ent):
+            return False
+
+        pts = get_polyline_coords_xy(ent)
+        if len(pts) < 4:
+            return False
+
+        # 去连续重复点
+        uniq = []
+        for p in pts:
+            if not uniq:
+                uniq.append(p)
+            else:
+                if (abs(p[0] - uniq[-1][0]) > eps) or (abs(p[1] - uniq[-1][1]) > eps):
+                    uniq.append(p)
+
+        # 去首尾重复
+        if len(uniq) >= 2:
+            if (abs(uniq[0][0] - uniq[-1][0]) < eps and
+                abs(uniq[0][1] - uniq[-1][1]) < eps):
+                uniq = uniq[:-1]
+
+        if len(uniq) != 4:
+            return False
+
+        xs = sorted(set(p[0] for p in uniq))
+        ys = sorted(set(p[1] for p in uniq))
+        if len(xs) != 2 or len(ys) != 2:
+            return False
+
+        # 检查边是否平行坐标轴
+        for i in range(4):
+            x0, y0 = uniq[i]
+            x1, y1 = uniq[(i + 1) % 4]
+            if not (abs(x0 - x1) < eps or abs(y0 - y1) < eps):
+                return False
+
+        return True
+
+    def rect_strict_contains(a, b, eps=1e-6):
+        """
+        a 是否严格包含 b（完全相同 bbox 不算）。
+        a, b 为 dict: {"minx","miny","maxx","maxy",...}
+        """
+        if not (
+            a["minx"] <= b["minx"] + eps and
+            a["miny"] <= b["miny"] + eps and
+            a["maxx"] >= b["maxx"] - eps and
+            a["maxy"] >= b["maxy"] - eps
+        ):
+            return False
+
+        same_minx = abs(a["minx"] - b["minx"]) < eps
+        same_miny = abs(a["miny"] - b["miny"]) < eps
+        same_maxx = abs(a["maxx"] - b["maxx"]) < eps
+        same_maxy = abs(a["maxy"] - b["maxy"]) < eps
+
+        # 完全相同不算“包含”
+        if same_minx and same_miny and same_maxx and same_maxy:
+            return False
+
+        return True
+
+    # ---------------- 0. 连接 CAD ----------------
+    li()
+
+    # ======================================================
+    # Step1: 在若干图层中收集候选矩形多段线 + 去重 + 极大矩形
+    # ======================================================
+
+    # 这里把几个相关图层都纳入候选：
+    layers_for_rect = [rect_layer, "dy_quyu", "dy_zhuanyong", "PUB_TITLE"]
+    # 去重
+    _seen = set()
+    layers_for_rect = [L for L in layers_for_rect if not (L in _seen or _seen.add(L))]
+
+    rect_candidates = []  # 每项: dict(poly, minx,miny,maxx,maxy,min_side,max_side,layer)
+
+    for L in layers_for_rect:
+        try:
+            res = stc(L)
+        except Exception as e:
+            log("⚠ stc({}) 选择失败：{}", L, e)
+            continue
+
+        ents = normalize_selection(res)
+        log("[OK] 第 1 次尝试：选到图层 ['{}'] 上 {} 个对象", L, len(ents))
+
+        for ent in ents:
+            if not is_polyline_entity(ent):
+                continue
+            if not is_closed_polyline(ent):
+                continue
+            if not is_rectangle_like(ent):
+                continue
+
+            bbox = get_bbox(ent)
+            if not bbox:
+                continue
+
+            minx, miny, maxx, maxy = bbox
+            dx = maxx - minx
+            dy = maxy - miny
+            min_side = min(dx, dy)
+            max_side = max(dx, dy)
+            if min_side < lm:
+                continue
+
+            rect_candidates.append(
+                {
+                    "poly": ent,
+                    "minx": minx,
+                    "miny": miny,
+                    "maxx": maxx,
+                    "maxy": maxy,
+                    "min_side": min_side,
+                    "max_side": max_side,
+                    "layer": L,
+                }
+            )
+
+    log("[OK] 第 1 次尝试：选到图层 {} 上 {} 个候选矩形",
+        layers_for_rect, len(rect_candidates))
+    log("📌 Step1: 图层 {} 上符合尺寸和矩形条件的候选总数={}",
+        layers_for_rect, len(rect_candidates))
+
+    if not rect_candidates:
+        return {
+            "dyx_list": [],
+            "tq_list": [],
+            "_meta": {
+                "poly_count": 0,
+                "block_count": 0,
+                "paired": 0,
+                "ok": False,
+                "message": f"在图层 {layers_for_rect} 上未找到符合条件的矩形多段线",
+            },
+        }
+
+    # ---- 1.1 打印所有候选的 bbox，方便分析 ----
+    log("—— 候选矩形外包盒明细（共 {} 个，min_side >= {}）——",
+        len(rect_candidates), lm)
+    for i, r in enumerate(rect_candidates, start=1):
+        log(
+            "  候选#{:02d} [layer={}]: minx={:.3f}, miny={:.3f}, "
+            "maxx={:.3f}, maxy={:.3f}, min_side={:.3f}, max_side={:.3f}",
+            i, r["layer"],
+            r["minx"], r["miny"], r["maxx"], r["maxy"],
+            r["min_side"], r["max_side"],
+        )
+
+    # ---- 1.2 外包盒相近去重（tol=0.1）----
+    tol = 0.1
+    unique_rects = []
+    for r in rect_candidates:
+        dup = False
+        for u in unique_rects:
+            if (
+                abs(r["minx"] - u["minx"]) < tol and
+                abs(r["miny"] - u["miny"]) < tol and
+                abs(r["maxx"] - u["maxx"]) < tol and
+                abs(r["maxy"] - u["maxy"]) < tol
+            ):
+                dup = True
+                log(
+                    "  ⤷ 认为与已有矩形重复 (tol={}): minx={:.3f}, miny={:.3f}, "
+                    "maxx={:.3f}, maxy={:.3f}",
+                    tol, r["minx"], r["miny"], r["maxx"], r["maxy"],
+                )
+                break
+        if not dup:
+            unique_rects.append(r)
+
+    log("📌 Step1: 外包盒去重后矩形数量={}（去掉近似重复 {} 个，tol={}）",
+        len(unique_rects), len(rect_candidates) - len(unique_rects), tol)
+
+    # ---- 1.3 求“极大矩形”列表（谁被别人严格包含就被剔除）----
+    maxima = []
+    for i, ri in enumerate(unique_rects):
+        contained = False
+        for j, rj in enumerate(unique_rects):
+            if i == j:
+                continue
+            if rect_strict_contains(rj, ri):
+                contained = True
+                break
+        if not contained:
+            maxima.append(ri)
+
+    log("📌 Step1: 极大矩形数量={}", len(maxima))
+
+    # —— 关键：把这 10 个极大矩形逐个打印出来 —— #
+    log("—— 极大矩形外包盒明细（共 {} 个）——", len(maxima))
+    for k, r in enumerate(maxima, start=1):
+        log(
+            "  极大#{:02d} [layer={}]: minx={:.3f}, miny={:.3f}, "
+            "maxx={:.3f}, maxy={:.3f}, min_side={:.3f}, max_side={:.3f}",
+            k, r["layer"],
+            r["minx"], r["miny"], r["maxx"], r["maxy"],
+            r["min_side"], r["max_side"],
+        )
+
+    # 取出极大矩形对应的多段线
+    polys_sorted = sort_coms_by_llcorner(
+        [r["poly"] for r in maxima],
+        cha_Y=cha_Y
+    )
+    log("📌 Step1: 排序后的打印区域矩形数={}", len(polys_sorted))
+
+    # ======================================================
+    # Step2: 在 core_layer 中选出所有块参照
+    # ======================================================
+    try:
+        res_blk = stc(core_layer)
+    except Exception as e:
+        log("⚠ stc({}) 选择失败：{}", core_layer, e)
+        return {
+            "dyx_list": polys_sorted,
+            "tq_list": [],
+            "_meta": {
+                "poly_count": len(polys_sorted),
+                "block_count": 0,
+                "paired": 0,
+                "ok": False,
+                "message": f"stc({core_layer}) 失败: {e}",
+            },
+        }
+
+    ents_blk = normalize_selection(res_blk)
+    log("▶ 在核心层 '{}' 上初选到 {} 个对象", core_layer, len(ents_blk))
+
+    block_list = [
+        ent for ent in ents_blk
+        if getattr(ent, "ObjectName", "") in ("AcDbBlockReference", "AcDbMInsertBlock")
+    ]
+    log("📌 核心层 '{}' 上块参照数量={}", core_layer, len(block_list))
+
+    if not block_list:
+        return {
+            "dyx_list": polys_sorted,
+            "tq_list": [],
+            "_meta": {
+                "poly_count": len(polys_sorted),
+                "block_count": 0,
+                "paired": 0,
+                "ok": False,
+                "message": f"核心层 {core_layer} 上没有找到任何块参照",
+            },
+        }
+
+    blocks_sorted = sort_coms_by_llcorner(block_list, cha_Y=cha_Y)
+    log("📌 排序后的块数量={}", len(blocks_sorted))
+
+    # ======================================================
+    # Step3: 一一配对并生成 bind 字典（仍然按 min(n_poly, n_blk)）
+    # ======================================================
+    n_poly = len(polys_sorted)
+    n_blk = len(blocks_sorted)
+    n_pair = min(n_poly, n_blk)
+
+    if n_poly != n_blk:
+        log("⚠ 打印区域数量({}) 与块数量({}) 不相等，将按 min({}, {})={} 配对。",
+            n_poly, n_blk, n_poly, n_blk, n_pair)
+
+    bind_new = {}
+    for idx in range(n_pair):
+        poly = polys_sorted[idx]
+        blk = blocks_sorted[idx]
+        try:
+            h_blk = get_attr(blk, "Handle")
+        except Exception:
+            h_blk = None
+
+        try:
+            frame_info = generate_name_and_ratio_from_com(poly)
+        except Exception:
+            frame_info = None
+
+        try:
+            attrs = get_block_attributes_dict(
+                blk,
+                ignore_empty=ignore_empty_attrs,
+                upper_tag=upper_tag,
+            )
+        except Exception:
+            attrs = {}
+
+        key = h_blk or f"IDX_{idx+1}"
+        bind_new[key] = {
+            "index": idx + 1,
+            "frame_poly": poly,
+            "title_block": blk,
+            "frame_info": frame_info,
+            "attrs": attrs,
+        }
+
+    bind_new["dyx_list"] = polys_sorted
+    bind_new["tq_list"] = blocks_sorted
+    bind_new["_meta"] = {
+        "poly_count": n_poly,
+        "block_count": n_blk,
+        "paired": n_pair,
+        "ok": (n_poly == n_blk == n_pair),
+        "message": (
+            "打印区域与图签块数量完全匹配"
+            if n_poly == n_blk == n_pair
+            else "打印区域与图签块数量不一致，已按最小数量配对"
+        ),
+    }
+
+    return bind_new
+
+
+
+#&&% 从插完图签返回的字典获取打印线和块信息
+def get_area_poly_and_block(bind_dict, i, one_based=True):
+    """
+    从 stable_insert_and_scale_labels_area 的 bind_dict 中，
+    取出第 i 个打印区域对应的：
+
+        - poly: 打印框多段线（dyx_list[i]）
+        - blk : 该区域的图签块（tq_list[i]）
+
+    参数:
+        bind_dict : stable_insert_and_scale_labels_area 返回的第二个值
+        i         : 区域序号（默认 1 开始）
+        one_based : True 表示 i 从 1 开始；False 表示从 0 开始
+
+    返回:
+        (poly, blk)
+    """
+    dy_list = bind_dict.get("dyx_list") or []
+    tq_list = bind_dict.get("tq_list") or []
+
+    if one_based:
+        idx = i - 1
+    else:
+        idx = i
+
+    if idx < 0 or idx >= len(dy_list) or idx >= len(tq_list):
+        raise IndexError(
+            f"索引超出范围：idx={idx}, dy_len={len(dy_list)}, tq_len={len(tq_list)}"
+        )
+
+    poly = dy_list[idx]
+    blk  = tq_list[idx]
+    return poly, blk
+
+#&&&% 从图纸输出字典和excel文件
+
+"""
+必须采用天正图框的PUB_TITLE图层创建封面等没有属性块的图框
+使用了dy_bind图层存储最后的打印区域，但对重复操作还需要考虑影响如何消除
+
+"""
+
+
+def build_full_print_dict_and_export_excel( 
+    bind,
+    template_path=r"D:/Mypro/基础服务/用户1/07标准模板/项目图纸信息模板.xlsx",
+    output_path=None,
+):
+    """
+    从 bind(打印框+图签块绑定结果) 中汇总信息，并按【项目图纸信息模板.xlsx】
+    的格式写入 Excel。
+
+    约定 / 行为：
+    1. 序号列(列A) 从 "00" 开始，逐行 01, 02, ...
+    2. 图纸编号列(列B)：
+       - 取模板第2行原值作为前缀，如 "某专业代号00"
+       - 去掉尾部数字得到前缀，如 "某专业代号"
+       - 按序号拼 "前缀 + 序号两位"，如 "某专业代号00"~"某专业代号08"
+    3. 纸张数列(列F)：统一写为 "总张数/1"，例如 9 张就是 "9/1"
+    4. 右侧整体信息 9 列（项目名称~设计院名称）：
+       - 只在第2行写入
+       - 从所有图签属性中找“第一个非空值”
+       - 如果属性字典中该字段为空，则保留模板里的默认值，不覆盖
+    5. 多余行清理：
+       - 从第(首行+条目数)行开始，向下 200 行全部清空内容
+    """
+
+    import time
+    import re
+    from pathlib import Path
+    import win32com.client
+
+    t0 = time.time()
+
+    # ======================== 1. CAD 侧准备 ========================
+    # 保证 li() 已经把 acad/doc/mp 等全局对象准备好
+    if not li():
+        print("[错误] li() 连接失败，无法导出 Excel")
+        return False
+
+    global doc  # li() 里会设置
+    try:
+        doc_name = Path(doc.Name).stem
+    except Exception:
+        doc_name = "未命名图纸"
+
+    if output_path is None:
+        out_dir = Path(r"D:/Mypro/基础服务/用户1/01插图签")
+        out_dir.mkdir(parents=True, exist_ok=True)
+        output_path = out_dir / f"{doc_name}.xlsx"
+    else:
+        output_path = Path(output_path)
+
+    # -------- 1.1 从 bind 中整理打印区域 + 图签块 + 属性 --------
+    dyx_list = bind.get("dyx_list", []) or []
+    tq_list  = bind.get("tq_list", []) or []
+
+    print(f"📌 bind 中已有打印区域数(dyx_list) = {len(dyx_list)}，图签块数(tq_list) = {len(tq_list)}")
+
+    # 把块引用按 Handle 建一个字典，方便调试用
+    handle_to_block = {}
+    for br in tq_list:
+        try:
+            h = br.Handle
+            handle_to_block[h] = br
+        except Exception:
+            continue
+    print(f"📌 由 bind 构建 Handle → 块 映射数量 = {len(handle_to_block)}")
+
+    # 这里假定你之前已经在 rebuild_print_area_title_mapping 里
+    # 把 dyx_list 和 tq_list 排好序、一一对应；我们直接 zip 起来
+    count = min(len(dyx_list), len(tq_list))
+    if count == 0:
+        print("⚠ bind 中没有可用的打印区域或图签块，终止导出")
+        return False
+
+    paired = list(zip(dyx_list[:count], tq_list[:count]))
+
+    # 构造一个“图纸信息列表”，每个元素是 attrs 字典（从块属性提取）
+    print_infos = []
+    for idx, (dyx, br) in enumerate(paired, start=1):
+        try:
+            attrs = get_block_attributes_dict(br)  # 你已有的函数
+        except Exception as exc:
+            print(f"[警告] 第 {idx} 个块获取属性失败: {exc}")
+            attrs = {}
+        print_infos.append(
+            {
+                "index": idx - 1,  # 从0开始，后面再格式化为 "00"
+                "block": br,
+                "dyx": dyx,
+                "attrs": attrs,
+            }
+        )
+
+    # ======================== 2. 提取“整体信息” ========================
+    # 这 9 个字段只写到第二行
+    overall_keys = [
+        "项目名称",
+        "子项目名称",
+        "建设单位名称",
+        "专业名称",
+        "设计阶段",
+        "版本号",
+        "出图日期",
+        "设计编号",
+        "设计院名称",
+    ]
+    overall_info = {k: None for k in overall_keys}
+
+    first_non_empty_idx = None
+
+    for i, info in enumerate(print_infos):
+        attrs = info["attrs"] or {}
+        non_empty_found = False
+        for k in overall_keys:
+            if overall_info[k]:
+                continue
+            v = attrs.get(k)
+            if v is not None and str(v).strip() != "":
+                overall_info[k] = str(v)
+                non_empty_found = True
+        if non_empty_found and first_non_empty_idx is None:
+            first_non_empty_idx = i
+
+    print(
+        f"📌 汇总：打印区域总数 = {len(print_infos)}，"
+        f"其中有图签块且有属性的 = {len(print_infos)}, "
+        f"首个非空属性索引 = {first_non_empty_idx if first_non_empty_idx is not None else '无'}"
+    )
+    print(f"📌 已从首个有属性的图签块提取项目整体信息: {overall_info}")
+
+    # ======================== 3. 打开 Excel 模板 ========================
+    excel = win32com.client.Dispatch("Excel.Application")
+    excel.Visible = False
+
+    template_path = Path(template_path)
+    if not template_path.is_file():
+        print(f"[错误] 模板文件不存在: {template_path}")
+        return False
+
+    wb = excel.Workbooks.Open(str(template_path))
+    try:
+        ws = wb.Worksheets(1)  # 只考虑第一个工作表 Sheet1
+    except Exception:
+        ws = wb.ActiveSheet
+
+    # 行列位置约定：如果你的模板不一样，可以在这里改
+    ROW_START = 2  # 从第 2 行开始写数据
+    COL_SER   = 1  # A 序号
+    COL_CODE  = 2  # B 图纸编号
+    COL_NAME  = 3  # C 图纸名称
+    COL_SPEC  = 4  # D 图纸规格
+    COL_SCALE = 5  # E 出图比例
+    COL_SHEETS = 6 # F 纸张数
+
+    COL_OVERALL_START = 7  # G 列开始是 项目名称
+    # overall_keys 对应 G~O 这 9 列
+
+    n = len(print_infos)
+
+    # -------- 3.1 读取模板第2行的一些默认值 --------
+    # 图纸编号前缀：从 B2 中剥离尾部数字
+    template_code_val = str(ws.Cells(ROW_START, COL_CODE).Value or "").strip()
+    m = re.match(r"^(.*?)(\d+)$", template_code_val)
+    if m:
+        code_prefix = m.group(1)
+    else:
+        # 没有数字尾巴，就整个当前缀
+        code_prefix = template_code_val
+
+    # 纸张总数
+    total_sheets = n
+
+    # -------- 3.2 为 A 列“序号”和 F 列“纸张数”设置为文本格式 --------
+    # 避免 "00" 被转成 0，"9/1" 被转成日期 9月1日
+    if n > 0:
+        last_row = ROW_START + n - 1
+        try:
+            # 序号列 A
+            rng_ser = ws.Range(
+                ws.Cells(ROW_START, COL_SER),
+                ws.Cells(last_row, COL_SER)
+            )
+            rng_ser.NumberFormatLocal = "@"
+
+            # 纸张数列 F
+            rng_sheets = ws.Range(
+                ws.Cells(ROW_START, COL_SHEETS),
+                ws.Cells(last_row, COL_SHEETS)
+            )
+            rng_sheets.NumberFormatLocal = "@"
+        except Exception as exc:
+            print(f"[警告] 设置序号/纸张数列为文本格式失败: {exc}")
+
+    # ======================== 4. 逐行写入左侧“每张图纸信息” ========================
+    for row_idx, info in enumerate(print_infos, start=ROW_START):
+        i = info["index"]  # 0-based
+        attrs = info["attrs"] or {}
+
+        # 序号：两位数，从 00 开始（A 列已是文本格式）
+        seq_str = f"{i:02d}"
+        ws.Cells(row_idx, COL_SER).Value = seq_str
+
+        # 图纸编号：模板前缀 + 序号两位
+        if code_prefix:
+            ws.Cells(row_idx, COL_CODE).Value = f"{code_prefix}{seq_str}"
+        else:
+            # 如果模板没前缀，就直接用原来的值或者标签值
+            ws.Cells(row_idx, COL_CODE).Value = attrs.get("图纸编号") or template_code_val or seq_str
+
+        # 图纸名称：优先块属性，没有就用原模板该行值
+        cur_name = ws.Cells(row_idx, COL_NAME).Value
+        new_name = attrs.get("图纸名称")
+        if new_name is not None and str(new_name).strip() != "":
+            ws.Cells(row_idx, COL_NAME).Value = str(new_name)
+        else:
+            # 保留原值（可能是模板里的默认值）
+            ws.Cells(row_idx, COL_NAME).Value = cur_name
+
+        # 图纸规格：优先块属性“图纸规格”，否则保留模板
+        cur_spec = ws.Cells(row_idx, COL_SPEC).Value
+        new_spec = attrs.get("图纸规格")
+        if new_spec is not None and str(new_spec).strip() != "":
+            ws.Cells(row_idx, COL_SPEC).Value = str(new_spec)
+        else:
+            ws.Cells(row_idx, COL_SPEC).Value = cur_spec
+
+        # 出图比例：优先块属性“出图比例”，否则保留模板
+        cur_scale = ws.Cells(row_idx, COL_SCALE).Value
+        new_scale = attrs.get("出图比例")
+        if new_scale is not None and str(new_scale).strip() != "":
+            ws.Cells(row_idx, COL_SCALE).Value = str(new_scale)
+        else:
+            ws.Cells(row_idx, COL_SCALE).Value = cur_scale
+
+        # 纸张数：统一写为 “总数/1”（F 列已是文本格式）
+        ws.Cells(row_idx, COL_SHEETS).Value = f"{total_sheets}/1"
+
+    # ======================== 5. 写入右侧“整体信息”9列（只写第2行） ========================
+    # G~O 九列：项目名称 ~ 设计院名称
+    # 规则：如果 overall_info 中有非空值，就覆盖模板；
+    #      如果 overall_info 中为空，则保留模板原值(例如“建筑专业”)。
+    for offset, key in enumerate(overall_keys):
+        col = COL_OVERALL_START + offset
+        cur_val = ws.Cells(ROW_START, col).Value
+        new_val = overall_info.get(key)
+        if new_val is not None and str(new_val).strip() != "":
+            ws.Cells(ROW_START, col).Value = str(new_val)
+        else:
+            # 保留模板原有默认值
+            ws.Cells(ROW_START, col).Value = cur_val
+
+    # ======================== 6. 清理多余行 ========================
+    # 从第 (ROW_START + n) 行开始，向下 200 行全部清空内容
+    clear_start = ROW_START + n
+    clear_end   = clear_start + 200
+
+    try:
+        rng = ws.Range(f"{clear_start}:{clear_end}")
+        rng.EntireRow.ClearContents()
+    except Exception as exc:
+        print(f"[警告] 清理多余行失败: {exc}")
+
+    # ======================== 7. 保存到输出路径 ========================
+    # 如果输出路径和模板不同，就另存为新文件
+    if str(output_path.resolve()) != str(template_path.resolve()):
+        # 如果目标文件已存在，先关闭再覆盖
+        try:
+            if output_path.is_file():
+                output_path.unlink()
+        except Exception:
+            pass
+        wb.SaveAs(str(output_path))
+    else:
+        wb.Save()
+
+    wb.Close(SaveChanges=0)
+    excel.Quit()
+
+    print(f"📌 生成图纸条目数 = {n}")
+    print(f"✅ 已写入 Excel：{output_path}")
+    print(f"⏱ 完成 `build_full_print_dict_and_export_excel`，耗时：{time.time() - t0:.3f} 秒")
+    return True
 
 
 
 
 
+def build_full_print_dict_and_export_excel_1(
+    bind,
+    template_path=r"D:/Mypro/基础服务/用户1/07标准模板/项目图纸信息模板.xlsx",
+    output_path=None,
+):
+    """
+    从 bind(打印框+图签块绑定结果) 中汇总信息，并按【项目图纸信息模板.xlsx】
+    的格式写入 Excel。
 
+    约定 / 行为：
+    1. 序号列(列A) 从 "00" 开始，逐行 01, 02, ...
+    2. 图纸编号列(列B)：
+       - 取模板第2行原值作为前缀，如 "某专业代号00"
+       - 去掉尾部数字得到前缀，如 "某专业代号"
+       - 按序号拼 "前缀 + 序号两位"，如 "某专业代号00"~"某专业代号08"
+    3. 纸张数列(列F)：统一写为 "总张数/1"，例如 9 张就是 "9/1"
+    4. 右侧整体信息 9 列（项目名称~设计院名称）：
+       - 只在第2行写入
+       - 从所有图签属性中找“第一个非空值”
+       - 如果属性字典中该字段为空，则保留模板里的默认值，不覆盖
+    5. 多余行清理：
+       - 从第(首行+条目数)行开始，向下 200 行全部清空内容
+    """
 
+    import time
+    import re
+    from pathlib import Path
+    import win32com.client
 
+    t0 = time.time()
 
+    # ======================== 1. CAD 侧准备 ========================
+    # 保证 li() 已经把 acad/doc/mp 等全局对象准备好
+    if not li():
+        print("[错误] li() 连接失败，无法导出 Excel")
+        return False
 
+    global doc  # li() 里会设置
+    try:
+        doc_name = Path(doc.Name).stem
+    except Exception:
+        doc_name = "未命名图纸"
 
+    if output_path is None:
+        out_dir = Path(r"D:/Mypro/基础服务/用户1/01插图签")
+        out_dir.mkdir(parents=True, exist_ok=True)
+        output_path = out_dir / f"{doc_name}.xlsx"
+    else:
+        output_path = Path(output_path)
 
+    # -------- 1.1 从 bind 中整理打印区域 + 图签块 + 属性 --------
+    dyx_list = bind.get("dyx_list", []) or []
+    tq_list  = bind.get("tq_list", []) or []
 
+    print(f"📌 bind 中已有打印区域数(dyx_list) = {len(dyx_list)}，图签块数(tq_list) = {len(tq_list)}")
 
+    # 把块引用按 Handle 建一个字典，方便调试用
+    handle_to_block = {}
+    for br in tq_list:
+        try:
+            h = br.Handle
+            handle_to_block[h] = br
+        except Exception:
+            continue
+    print(f"📌 由 bind 构建 Handle → 块 映射数量 = {len(handle_to_block)}")
 
+    # 这里假定你之前已经在 rebuild_print_area_title_mapping 里
+    # 把 dyx_list 和 tq_list 排好序、一一对应；我们直接 zip 起来
+    count = min(len(dyx_list), len(tq_list))
+    if count == 0:
+        print("⚠ bind 中没有可用的打印区域或图签块，终止导出")
+        return False
+
+    paired = list(zip(dyx_list[:count], tq_list[:count]))
+
+    # 构造一个“图纸信息列表”，每个元素是 attrs 字典（从块属性提取）
+    print_infos = []
+    for idx, (dyx, br) in enumerate(paired, start=1):
+        try:
+            attrs = get_block_attributes_dict(br)  # 你已有的函数
+        except Exception as exc:
+            print(f"[警告] 第 {idx} 个块获取属性失败: {exc}")
+            attrs = {}
+        print_infos.append(
+            {
+                "index": idx - 1,  # 从0开始，后面再格式化为 "00"
+                "block": br,
+                "dyx": dyx,
+                "attrs": attrs,
+            }
+        )
+
+    # ======================== 2. 提取“整体信息” ========================
+    # 这 9 个字段只写到第二行
+    overall_keys = [
+        "项目名称",
+        "子项目名称",
+        "建设单位名称",
+        "专业名称",
+        "设计阶段",
+        "版本号",
+        "出图日期",
+        "设计编号",
+        "设计院名称",
+    ]
+    overall_info = {k: None for k in overall_keys}
+
+    first_non_empty_idx = None
+
+    for i, info in enumerate(print_infos):
+        attrs = info["attrs"] or {}
+        non_empty_found = False
+        for k in overall_keys:
+            if overall_info[k]:
+                continue
+            v = attrs.get(k)
+            if v is not None and str(v).strip() != "":
+                overall_info[k] = str(v)
+                non_empty_found = True
+        if non_empty_found and first_non_empty_idx is None:
+            first_non_empty_idx = i
+
+    print(
+        f"📌 汇总：打印区域总数 = {len(print_infos)}，"
+        f"其中有图签块且有属性的 = {len(print_infos)}, "
+        f"首个非空属性索引 = {first_non_empty_idx if first_non_empty_idx is not None else '无'}"
+    )
+    print(f"📌 已从首个有属性的图签块提取项目整体信息: {overall_info}")
+
+    # ======================== 3. 打开 Excel 模板 ========================
+    excel = win32com.client.Dispatch("Excel.Application")
+    excel.Visible = False
+
+    template_path = Path(template_path)
+    if not template_path.is_file():
+        print(f"[错误] 模板文件不存在: {template_path}")
+        return False
+
+    wb = excel.Workbooks.Open(str(template_path))
+    try:
+        ws = wb.Worksheets(1)  # 只考虑第一个工作表 Sheet1
+    except Exception:
+        ws = wb.ActiveSheet
+
+    # 行列位置约定：如果你的模板不一样，可以在这里改
+    ROW_START = 2  # 从第 2 行开始写数据
+    COL_SER   = 1  # A 序号
+    COL_CODE  = 2  # B 图纸编号
+    COL_NAME  = 3  # C 图纸名称
+    COL_SPEC  = 4  # D 图纸规格
+    COL_SCALE = 5  # E 出图比例
+    COL_SHEETS = 6 # F 纸张数
+
+    COL_OVERALL_START = 7  # G 列开始是 项目名称
+    # overall_keys 对应 G~O 这 9 列
+
+    n = len(print_infos)
+
+    # -------- 3.1 读取模板第2行的一些默认值 --------
+    # 图纸编号前缀：从 B2 中剥离尾部数字
+    template_code_val = str(ws.Cells(ROW_START, COL_CODE).Value or "").strip()
+    m = re.match(r"^(.*?)(\d+)$", template_code_val)
+    if m:
+        code_prefix = m.group(1)
+    else:
+        # 没有数字尾巴，就整个当前缀
+        code_prefix = template_code_val
+
+    # 模板中的默认纸张数（只用格式，不用数值）
+    # 我们统一改成 “总数/1”，所以这里只是占位
+    # 纸张总数
+    total_sheets = n
+
+    # ======================== 4. 逐行写入左侧“每张图纸信息” ========================
+    for row_idx, info in enumerate(print_infos, start=ROW_START):
+        i = info["index"]  # 0-based
+        attrs = info["attrs"] or {}
+
+        # 序号：两位数，从 00 开始
+        seq_str = f"{i:02d}"
+        ws.Cells(row_idx, COL_SER).Value = seq_str
+
+        # 图纸编号：模板前缀 + 序号两位
+        if code_prefix:
+            ws.Cells(row_idx, COL_CODE).Value = f"{code_prefix}{seq_str}"
+        else:
+            # 如果模板没前缀，就直接用原来的值或者标签值
+            ws.Cells(row_idx, COL_CODE).Value = attrs.get("图纸编号") or template_code_val or seq_str
+
+        # 图纸名称：优先块属性，没有就用原模板该行值
+        cur_name = ws.Cells(row_idx, COL_NAME).Value
+        new_name = attrs.get("图纸名称")
+        if new_name is not None and str(new_name).strip() != "":
+            ws.Cells(row_idx, COL_NAME).Value = str(new_name)
+        else:
+            # 保留原值（可能是模板里的默认值）
+            ws.Cells(row_idx, COL_NAME).Value = cur_name
+
+        # 图纸规格：优先块属性“图纸规格”，否则保留模板
+        cur_spec = ws.Cells(row_idx, COL_SPEC).Value
+        new_spec = attrs.get("图纸规格")
+        if new_spec is not None and str(new_spec).strip() != "":
+            ws.Cells(row_idx, COL_SPEC).Value = str(new_spec)
+        else:
+            ws.Cells(row_idx, COL_SPEC).Value = cur_spec
+
+        # 出图比例：优先块属性“出图比例”，否则保留模板
+        cur_scale = ws.Cells(row_idx, COL_SCALE).Value
+        new_scale = attrs.get("出图比例")
+        if new_scale is not None and str(new_scale).strip() != "":
+            ws.Cells(row_idx, COL_SCALE).Value = str(new_scale)
+        else:
+            ws.Cells(row_idx, COL_SCALE).Value = cur_scale
+
+        # 纸张数：统一写为 “总数/1”
+        ws.Cells(row_idx, COL_SHEETS).Value = f"{total_sheets}/1"
+
+    # ======================== 5. 写入右侧“整体信息”9列（只写第2行） ========================
+    # G~O 九列：项目名称 ~ 设计院名称
+    # 规则：如果 overall_info 中有非空值，就覆盖模板；
+    #      如果 overall_info 中为空，则保留模板原值(例如“建筑专业”)。
+    for offset, key in enumerate(overall_keys):
+        col = COL_OVERALL_START + offset
+        cur_val = ws.Cells(ROW_START, col).Value
+        new_val = overall_info.get(key)
+        if new_val is not None and str(new_val).strip() != "":
+            ws.Cells(ROW_START, col).Value = str(new_val)
+        else:
+            # 保留模板原有默认值
+            ws.Cells(ROW_START, col).Value = cur_val
+
+    # ======================== 6. 清理多余行 ========================
+    # 从第 (ROW_START + n) 行开始，向下 200 行全部清空内容
+    clear_start = ROW_START + n
+    clear_end   = clear_start + 200
+
+    try:
+        rng = ws.Range(f"{clear_start}:{clear_end}")
+        rng.EntireRow.ClearContents()
+    except Exception as exc:
+        print(f"[警告] 清理多余行失败: {exc}")
+
+    # ======================== 7. 保存到输出路径 ========================
+    # 如果输出路径和模板不同，就另存为新文件
+    if str(output_path.resolve()) != str(template_path.resolve()):
+        # 如果目标文件已存在，先关闭再覆盖
+        try:
+            if output_path.is_file():
+                output_path.unlink()
+        except Exception:
+            pass
+        wb.SaveAs(str(output_path))
+    else:
+        wb.Save()
+
+    wb.Close(SaveChanges=0)
+    excel.Quit()
+
+    print(f"📌 生成图纸条目数 = {n}")
+    print(f"✅ 已写入 Excel：{output_path}")
+    print(f"⏱ 完成 `build_full_print_dict_and_export_excel`，耗时：{time.time() - t0:.3f} 秒")
+    return True
 
 
 
