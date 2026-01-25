@@ -685,6 +685,67 @@
 - 风险：炸开失败导致空文本；排序容差不适配。
 - 测试点：多行/单行；含格式化字符；爆炸后无 TextString。
 
+## library/cad_objects.py
+
+### add_objects_to_group(group_name, obj_list)
+- 作用：将一批对象加入指定组（不存在则新建）。
+- 关键步骤：doc.Groups.Item 取组 -> 不存在则 Add -> AppendItems(vtlist(obj_list))。
+- 输出：Group 对象。
+- 副作用：修改组内容。
+- 风险：组名冲突；对象无效导致 Append 失败。
+- 测试点：空列表；组已存在/不存在。
+
+### copy_group_S1_from_doc1_to_doc2(doc1, doc2, group_name="S1")
+- 作用：将 doc1 中指定组复制到 doc2 并重建组关系。
+- 关键步骤：
+  1) 激活 doc1，收集组内 Handle 对应对象；  
+  2) 用复制粘贴命令（_copybase/_copyclip）复制；  
+  3) 激活 doc2，记录粘贴前后 Handle 差集；  
+  4) 将新对象加入同名组。
+- 副作用：切换活动文档；执行剪贴板操作；新增组对象。
+- 风险：剪贴板干扰；Handle 差集不稳定；组不存在报错。
+- 测试点：组名不存在；多文档并行；空组。
+
+### sc_objs_to_layer(layer_name, cl=256)
+- 作用：屏幕交互选择对象并统一设置图层与颜色。
+- 关键步骤：SelectionSets.SelectOnScreen -> 创建/获取图层 -> 设置 Layer/Color。
+- 输出：所选对象列表。
+- 副作用：弹出选择交互；修改对象图层和颜色。
+- 风险：选择集残留；用户取消选择返回空。
+- 测试点：图层不存在；颜色修改失败；无对象选择。
+
+### create_layers_from_list(layer_names)
+- 作用：批量创建图层（已存在则跳过）。
+- 关键步骤：get_acad_doc -> doc.Layers -> 遍历 Item/ Add；统计创建/跳过数。
+- 输出：None（日志提示）。
+- 副作用：新增图层。
+- 风险：CAD 未连接；图层名非法。
+- 测试点：重复名称；空列表。
+
+### dim_by_points(*args)
+- 作用：通过天正 zdbz 命令对三点进行逐点标注。
+- 关键步骤：最小化窗口 -> 激活 AutoCAD -> SendCommand zdbz + 三点坐标。
+- 输出：bool。
+- 副作用：操作窗口焦点；进入命令栈；生成标注。
+- 风险：窗口激活失败；参数不足。
+- 测试点：三点坐标；CAD 未就绪。
+
+### ensure_layer_model_only(layer_name="jizhunwall")
+- 作用：仅清理模型空间中的指定图层对象（保留图纸空间）。
+- 关键步骤：获取/创建图层并设为当前层；select_tuceng 拉取对象；用 get_obj_loc 判定模型空间删除；重复尝试+刷新。
+- 输出：None（日志提示）。
+- 副作用：删除模型空间对象；切换当前图层。
+- 风险：get_obj_loc 判定失误导致误删；对象锁定删除失败。
+- 测试点：仅图纸空间对象；混合空间对象。
+
+### force_layer_objects_color(layer_name, target_color=256, max_retries=3)
+- 作用：强制将图层内对象改为指定颜色，带重试与“读不到颜色也算成功”的容错。
+- 关键步骤：stc 选层对象 -> set_attr(color) -> obj.Update -> 读取 Color 验证；失败重试。
+- 输出：bool（True/False）。
+- 副作用：修改对象颜色。
+- 风险：读取 Color 为 None 时信任写入可能掩盖失败；对象锁定。
+- 测试点：空图层；颜色读回失败；多次重试。
+
 
 ## scripts/Insert_chart/insert_labels.py
 

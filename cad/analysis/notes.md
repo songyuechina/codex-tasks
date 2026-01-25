@@ -333,3 +333,5 @@ Local-ish imports (heuristic):
 - 已补充 library/cad_control.py 核心控制函数理解（fix_com_cache / 视图缩放 / 样式重命名 / MATCHPROP / srhd/srhd_p）。
 ## 人工深读进度
 - 已补充 library/cad_geometry.py 关键几何处理函数理解（样条长度估算/伪交点/打断/去重/房间轮廓/绘制/天正多行文字提取）。
+## 人工深读进度
+- 已补充 library/cad_objects.py 常用对象/图层操作函数理解（分组复制/交互设层/批量建层/逐点标注/模型空间清理/强制改色）。
