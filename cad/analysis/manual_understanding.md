@@ -254,6 +254,24 @@
 - 风险：generate_name_and_ratio_from_com 识别失败；WPS 关闭误杀用户窗口；命名冲突覆盖。
 - 测试点：无图签/有图签；横竖混合；wps_close_threshold=0。
 
+## scripts/CAD_basic.py (重复封装/同名实现)
+
+### fix_com_cache / set_current_dimstyle_via_command / shitu_region / shitu_entity / transfer_props_by_matchprop / srhd / srhd_p
+- 说明：与 `library/cad_control.py` 同名函数逻辑基本一致，为拷贝/重复实现。
+- 建议参考：`library/cad_control.py` 对应函数理解。
+
+### get_spline_length_by_conversion / find_fake_intersection_regions / lines_daduan / delete_duplicate_lines / delete_redundant_lines / get_room_outline_from_point / draw_polyline / TDbMText_content
+- 说明：与 `library/cad_geometry.py` 同名函数逻辑基本一致，为拷贝/重复实现。
+- 建议参考：`library/cad_geometry.py` 对应函数理解。
+
+### update_block_def_attributes_v7 / get_bounding_box_of_block / delete_block_instances_and_definition_optimized / insert_standard_block / add_entities_to_block_direct / extract_specific_entities_from_block / _atomic_explode_and_delete / safe_explode_retry
+- 说明：与 `library/cad_blocks.py` 同名函数逻辑基本一致（含重复定义覆盖）。
+- 建议参考：`library/cad_blocks.py` 对应函数理解。
+
+### add_objects_to_group / copy_group_S1_from_doc1_to_doc2 / sc_objs_to_layer / create_layers_from_list / dim_by_points / ensure_layer_model_only / force_layer_objects_color
+- 说明：与 `library/cad_objects.py` 同名函数逻辑基本一致，为拷贝/重复实现。
+- 建议参考：`library/cad_objects.py` 对应函数理解。
+
 ## scripts/CAD_basic.py (目录图签填写)
 
 ### update_catalog_titleblocks_from_excel(ctq, excel_path, catalog_name="图纸目录", custom_suffixes=None)

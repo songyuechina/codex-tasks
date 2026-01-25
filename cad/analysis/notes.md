@@ -345,3 +345,5 @@ Local-ish imports (heuristic):
 - 已补充 cad_command_monitor.analyze_state 理解（忙碌判定与提示语关键字）。
 ## 人工深读进度
 - 已补充 CAD_System_Queue.py 锁管理与 MasterRunner 初始化逻辑理解。
+## 人工深读进度
+- 已补充 CAD_basic 中与 library 模块重复实现的函数映射说明（控制/几何/块/对象）。
