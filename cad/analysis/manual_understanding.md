@@ -371,6 +371,35 @@
 - 风险：路径大小写/解析差异；文档未完全打开但已列出。
 - 测试点：同名不同路径；超时未打开。
 
+## system/common_logger.py
+
+### set_debug_mode(mode=1, who="AI", wait_time=30)
+- 作用：更新调试模式与暂停策略（全局 DEBUG_CONFIG）。
+- 副作用：影响 checkpoint/CriticalSection 的行为；写日志。
+- 风险：全局状态污染；并发场景不隔离。
+
+### record_test_result(script_name=None, func_name=None, is_pass=False, **variables)
+- 作用：将测试结果写入 `tests/testfunc.xlsx`。
+- 关键步骤：推断调用者脚本/函数名 -> append 行 -> save。
+- 副作用：写入 Excel 文件。
+- 风险：openpyxl 不可用则跳过；Excel 文件被占用。
+
+### checkpoint(desc, is_pass=True, **variables)
+- 作用：记录单次检查点结果（写 Excel + 可选人工暂停）。
+- 关键步骤：取调用者信息 -> record_test_result -> 若 HUMAN 模式则 sleep。
+- 副作用：写 Excel；可能阻塞等待。
+- 风险：误设 HUMAN 模式导致脚本停顿。
+
+### CriticalSection(description="关键操作", script_name=None, func_name=None)
+- 作用：关键流程上下文管理器，自动记录 PASS/FAIL 与指标。
+- 关键步骤：__enter__ 写日志；__exit__ 写 Excel、处理异常、可选人工暂停。
+- 副作用：记录 Excel；可能阻塞等待。
+- 风险：异常信息被简化；并发写 Excel。
+
+### node(msg, *args, **kwargs)
+- 作用：格式化日志输出的轻量封装。
+- 副作用：写日志。
+
 
 ## system/CAD_selection.py
 
