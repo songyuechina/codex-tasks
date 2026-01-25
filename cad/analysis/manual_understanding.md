@@ -451,3 +451,110 @@
 - 风险：选择失败导致无炸开；marker 未删除；模型空间顺序变化。
 - 测试点：ent 为 None；爆炸生成大量对象；CAD 忙碌。
 
+
+## scripts/Insert_chart/insert_labels.py
+
+### get_block_true_name(blk_obj)
+- 作用：统一获取块“真实名称”。
+- 关键步骤：优先取 Name（代码如此），若为空再取 EffectiveName；与注释“先 EffectiveName”存在轻微不一致。
+- 输入/输出：输入块对象；输出字符串或 None。
+- 依赖/副作用：依赖 get_attr；无副作用。
+- 风险：动态块 Name/EffectiveName 可能为空或无属性。
+- 测试点：普通块/动态块/匿名块。
+
+### filter_blocks_by_list(all_blocks=None, target_names=Block_Names_0)
+- 作用：从块实例中过滤指定块名集合。
+- 关键步骤：缺省时调用 select_kuai 获取全体块；将 target_names 变集合；遍历 get_block_true_name 并筛选。
+- 输入/输出：输入块列表与名字清单；输出命中的块列表。
+- 副作用：打印筛选统计信息。
+- 风险：select_kuai 返回异常或过慢；Name/EffectiveName 获取失败导致漏检。
+- 测试点：空列表；含动态块；target_names 较大集合。
+
+### block_name_from_spec(spec_str: str)
+- 作用：将规格字符串（如 A1+1/4）规范为块名键。
+- 关键步骤：剥空、直接识别 A0/A1/A2/A3；其余将 “+” “/” 替换为 “_”。
+- 输入/输出：输入规格字符串；输出块名或 None。
+- 风险：规格格式非预期（如小写、空白）导致 None。
+- 测试点：标准规格、复合规格、空值。
+
+### compute_k_from_info(info: dict) -> float
+- 作用：根据 frame_info 估算几何修正因子 k_geom（模板 1:100 基准）。
+- 关键步骤：
+  1) 由 corners 或 entity BoundingBox 得到实际宽高；
+  2) 解析 drawing_frame 中的纸张尺寸（mm）；
+  3) 解析 ratio（1:n），算名义宽高 = mm * n；
+  4) k = 平均(实际宽高 / 名义宽高)。
+- 输入/输出：输入 frame_info；输出 k（默认 1.0）。
+- 风险：drawing_frame/ratio 解析失败；corners 为空或顺序异常。
+- 测试点：有 corners/无 corners；ratio 缺失；drawing_frame 无尺寸字符串。
+
+### compute_insert_factors(entities, res, result_dict)
+- 作用：根据识别规格与模板信息推算插入缩放系数 k。
+- 关键步骤：
+  1) 从 result_dict 构建 spec -> (block_name, ratio)；
+  2) 对每个实体匹配 res 中的 spec/ratio；
+  3) 解析比例分母 d1/d2 得出 k = d1 / d2。
+- 输出：[(entity, block_name, spec, k), ...]。
+- 风险：spec 未命中导致 block_name/k 为空；ratio 格式不符合 “1:n”。
+- 测试点：spec 缺失；ratio 为 None；d2=0。
+
+### adjust_block_to_frame(frame_ent, blk_com, tol_len=10.0)
+- 作用：在统一缩放后做二次校正，使图签块外包盒更贴合图框。
+- 关键步骤：
+  1) 读取框/块 BoundingBox 宽高；
+  2) 若差值在 tol_len 内则跳过；
+  3) 根据旋转角 0/90 推算 X/Y 方向缩放因子；
+  4) 设置 XScaleFactor/YScaleFactor。
+- 副作用：修改块缩放；可能改变图签比例。
+- 风险：BoundingBox 获取失败；Rotation 角度非 0/90 走均值回退。
+- 测试点：横向/竖向块；极端比例图框；tol 边界。
+
+### insert_and_scale_labels_area_any(coms_dayin=None, filepath=...)
+- 作用：批量插入图签到图框区域，按规格信号匹配并缩放对齐（多版本迭代，最终为 V9.3）。
+- 关键步骤（V9.3 最终版）：
+  1) 窗口处理：最小化、激活 AutoCAD；初始化统计/日志变量；
+  2) 预计算：无 coms_dayin 则 select_maxrect_polylines_1；去重、排序；计算动态识别容差；
+  3) 识别：generate_name_and_ratio_from_com 得到 spec/ratio/drawing_frame；
+  4) 事务：CADGuard 内 Insert_Company_Label_Common_Block 导入模板并炸开；
+  5) 同步审计：wait_quiescent + Regen，多轮重试锁定 12 个真实块名（checkpoint）；
+  6) 分发：按 spec→真实块名映射插入；compute_k_from_info 估算 k；adjust_block_to_frame 校正；
+  7) 清理与收尾：删除模板实例，保存 DWG；finally 记录 record_test_result。
+- 输入/输出：输入多段线列表或自动识别；输出 bind_dict（块 Handle -> frame_info/title_block）。
+- 依赖/副作用：大量 COM 操作；窗口焦点切换；写日志/Excel；保存 DWG。
+- 风险：块名审计不足 (<12) 直接抛错；窗口激活失败；CAD 忙碌导致点名失败。
+- 测试点：无多段线；模板路径错误；不同规格信号；重试超时。
+
+### normalize_core_title_blocks_by_layer_new1(core_layer="dy_quyu_H", core_base_names=None, verbose=True)
+- 作用：将图签“壳块”炸开为内核块（-H），并重命名原块定义（多版本迭代，最终为 V3.2）。
+- 关键步骤（V3.2 最终版）：
+  1) 事务级重试（MAX_RETRIES=3），每次在 CADGuard 内执行；
+  2) 扫描块实例（select_kuai + SelectionSet 回退），锁定壳块；
+  3) 对每个壳块执行 safe_explode_retry（炸开+验证），记录失败警告；
+  4) wait_quiescent + Regen 后审计：核块数 >= 初始数量且壳块为 0；checkpoint 记录；
+  5) 成功则重命名块定义（时间戳 + 冲突规避），失败则抛异常触发回滚与重试。
+- 输出：bool。
+- 副作用：删除块实例；重命名块定义；写审计 checkpoint。
+- 风险：safe_explode_retry 失败导致回滚；审计条件过严；命名冲突。
+- 测试点：无目标块；CAD 忙碌；核块数量不足或壳块残留。
+
+### run_title_block_assembly_pipeline(external_coms=None, external_filepath=None)
+- 作用：图签总装流水线（最终版本有参/无参兼容）。
+- 关键步骤：
+  1) 数据源：外部 coms / 交互选择；外部路径 / 默认标准图签路径；
+  2) Phase1：调用 insert_and_scale_labels_area_any，记录插入数量；
+  3) Bridge：wait_quiescent + Regen 稳定数据库；
+  4) Phase2：调用 normalize_core_title_blocks_by_layer_new1（目标壳块清单）；
+  5) CriticalSection 记录阶段状态与人工提示。
+- 输出：bool。
+- 副作用：插入/炸开/重命名块定义；写日志。
+- 风险：Phase1 返回 0 即终止；等待不足导致后续审计失败。
+- 测试点：外部参数为空；交互选择为空；CAD 忙碌时的阶段切换。
+
+### run_full_project_workflow()
+- 作用：旗舰级入口，封装总装流水线并记录阶段状态。
+- 关键步骤：CriticalSection 下调用 run_title_block_assembly_pipeline，失败即抛异常；预留后续步骤。
+- 输出：无显式返回（异常表示失败）。
+- 副作用：执行整套图签流程；记录日志。
+- 风险：流水线失败导致异常中断。
+- 测试点：流水线失败场景；CriticalSection 是否写入记录。
+

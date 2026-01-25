@@ -287,6 +287,8 @@ Local-ish imports (heuristic):
   - Bridge: `wait_quiescent` + `C.doc.Regen(1)` 稳定几何。
   - Phase 2: `normalize_core_title_blocks_by_layer_new1` 规范化/炸开核心图签壳块。
   - 失败即终止；成功输出流程完成日志。
+## insert_labels 深读进度
+- 已补充 `insert_labels.py` 的辅助函数（真实块名、规格→块名、几何缩放计算、二次校正等）与主流程 V9.3/V3.2 最终版理解，标注多版本定义覆盖关系。
 
 ## CAD_basic 连接层理解补充
 - `CAD_basic.py` 通过 try/except 引入 `system.licad`，并覆盖 `li()` 实现连接后同步全局 `acad/doc/mp/sp`；若 licad 不可用则提供哑函数与退化 retry_on_busy。 
