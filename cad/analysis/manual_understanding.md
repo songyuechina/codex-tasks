@@ -179,3 +179,32 @@
 - 风险：Excel 路径推断不稳定；属性写入失败。
 - 测试点：ctq 长度不匹配；Excel 缺失；计算比例异常。
 
+
+## library/cad_objects.py
+
+### ensure_layer(layer_name="jizhunwall")
+- 作用：确保图层存在并设为当前图层，然后清空该图层所有对象（最多 5 次重试）。
+- 关键步骤：创建/获取图层 -> ActiveLayer 切换 -> select_tuceng 获取对象 -> Delete -> RE/ZE 刷新。
+- 输入/输出：输入图层名；无显式返回（None）。
+- 依赖/副作用：删除图层内所有对象；发送 RE/ZE 命令；依赖 CAD 连接与选择。
+- 风险：误删图层内容；删除失败时残留；需要 CAD 空闲。
+- 测试点：图层不存在；对象被锁定/不可删除；空图层。
+
+### set_layer_properties(layer_name, color_index=9, linetype="Continuous", on=True, frozen=False)
+- 作用：设置图层颜色、线型、开关、冻结状态（不存在则创建）。
+- 关键步骤：获取/创建图层 -> 设置颜色/线型 -> Load 线型 -> LayerOn/Frozen -> RE 刷新。
+- 输入/输出：输入图层参数；无显式返回。
+- 依赖/副作用：修改图层属性；可能加载线型；发送 RE 命令。
+- 风险：线型加载失败；CAD 忙碌导致属性设置失败。
+- 测试点：无该线型；冻结/解冻切换；图层已存在。
+
+## system/cad_command_monitor.py
+
+### send_nuclear_esc(hwnd, acad_doc)
+- 作用：强制取消 CAD 卡死命令（抢焦点 + 物理 ESC + 消息 ESC + COM SendCommand）。
+- 关键步骤：force_bring_to_front 抢焦点；循环 keybd_event 发送 ESC；PostMessage 发送 ESC；doc.SendCommand(chr(27))。
+- 输入/输出：输入窗口句柄与文档对象；返回 bool。
+- 依赖/副作用：控制系统焦点与键盘；可能影响用户前台操作。
+- 风险：窗口焦点失败导致取消无效；后台运行可能触发安全限制。
+- 测试点：无 hwnd；CAD doc 为 None；多实例 CAD。
+

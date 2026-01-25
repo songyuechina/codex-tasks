@@ -300,3 +300,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充打印相关函数与目录图签写入函数的人工理解。 
+
+## 人工深读进度
+- 已补充图层管理函数与 cad_command_monitor 强制取消逻辑的人工理解。
