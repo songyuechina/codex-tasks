@@ -327,3 +327,5 @@ Local-ish imports (heuristic):
 - 已补充 CAD_basic 的目录模板配置读取与 LISP 布局打印 v1 逻辑理解。
 ## 人工深读进度
 - 已补充 CAD_basic 目录图签专用写入函数 update_catalog_titleblocks_from_excel_y 理解。
+## 人工深读进度
+- 已补充 CAD_basic 模型/布局打印核心与批量打印引擎函数理解（export_*_pure / print_dwg_file_model / print_polylines_list）。

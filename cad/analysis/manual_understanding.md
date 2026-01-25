@@ -202,6 +202,58 @@
 - 风险：行高固定 800 假设不匹配；X 范围解析失败返回 (0,0)。
 - 测试点：缺列/空单元格；自定义行高；4 排数据不全。
 
+## scripts/CAD_basic.py (打印引擎/批量)
+
+### export_model_window_pure(point_a, point_b, pdf_fullpath, device=..., media=..., ctb=..., rotation=0, xiubukuan=25)
+- 作用：模型空间窗口打印（COM 版），带边界标记和 A0 旋转修正。
+- 关键步骤：
+  1) 标准化坐标；绘制临时边界标记线（dy_zhuanyong 图层）；  
+  2) 配置 ActiveLayout 打印机/纸张/样式；A0 旋转反转；  
+  3) SetWindowToPlot -> PlotToFile；清理同名 PDF。
+- 输出：bool。
+- 副作用：绘制边界标记线（不自动删除）；改变打印设置；写 PDF。
+- 风险：标记线污染图面；A0 旋转判断固定。
+- 测试点：A0 纸张；pdf 覆盖；无 CAD 连接。
+
+### export_layout_window_pure(point_a, point_b, pdf_fullpath, layout_name, ...)
+- 作用：布局空间窗口打印（COM 版），强调“先注入窗口后切换 PlotType”。
+- 关键步骤：切换布局 -> 设置窗口 -> PlotType=acWindow -> 设置纸张/样式 -> PlotToFile。
+- 输出：bool。
+- 副作用：切换布局；修改打印设置；删除同名 PDF。
+- 风险：布局切换失败；SetWindowToPlot 顺序不正确会失效。
+- 测试点：布局不存在；A0 旋转；坐标反向输入。
+
+### export_layout_window_pure_bianju(point_a, point_b, pdf_fullpath, layout_name, ...)
+- 作用：布局打印“边距修正版”，通过 pad_L/R/T/B 微调窗口范围。
+- 关键步骤：坐标标准化+边距修正 -> 设置窗口 -> 打印参数 -> PlotToFile。
+- 输出：bool。
+- 副作用：改变打印窗口；修改打印设置；删除同名 PDF。
+- 风险：边距参数固定为 0，需手工调整；A0 修正同上。
+- 测试点：边距非零；A0 旋转；布局切换失败。
+
+### print_dwg_file_model(file_path=None, ..., force_fixed_media=False, select_config=0, xiubukuan=25)
+- 作用：模型空间批量打印主管理器，打开文件->提取打印框->调用 print_polylines_list。
+- 关键步骤：
+  1) 设定输出目录并清理旧目录；  
+  2) TILEMODE=1，smart_rebuild_print_info 获取打印框/图签；  
+  3) 调用 print_polylines_list（传入图签用于命名）。
+- 输出：字符串（成功/失败信息）。
+- 副作用：删除输出目录；可能打开/切换/保存文档。
+- 风险：ctq 为空直接失败；强制模型空间影响当前状态。
+- 测试点：file_path 为空/存在；无打印框；select_config=1。
+
+### print_polylines_list(polylines_list, title_blocks_list=None, ..., mode="Model", layout_name="布局1", xiubukuan=25)
+- 作用：批量打印引擎（V14），按几何方向分组打印，支持图签命名与 WPS 清理。
+- 关键步骤：
+  1) 生成任务单：bbox -> generate_name_and_ratio_from_com -> rotation_flag；  
+  2) 依据图签属性/外部参数生成文件名并清洗非法字符；  
+  3) 横向/竖向分组，分别调用 export_model_window_lisp_fit 或 export_layout_window_lisp_fit；  
+  4) 每打印 wps_close_threshold 张尝试关闭 WPS 预览窗口；组间等待 safety_delay。
+- 输出：bool（内部统计 total_success）。
+- 副作用：打印输出大量 PDF；强制关闭 WPS 窗口；改变 CAD 状态。
+- 风险：generate_name_and_ratio_from_com 识别失败；WPS 关闭误杀用户窗口；命名冲突覆盖。
+- 测试点：无图签/有图签；横竖混合；wps_close_threshold=0。
+
 ## scripts/CAD_basic.py (目录图签填写)
 
 ### update_catalog_titleblocks_from_excel(ctq, excel_path, catalog_name="图纸目录", custom_suffixes=None)
