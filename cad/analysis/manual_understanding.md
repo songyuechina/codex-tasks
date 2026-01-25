@@ -277,3 +277,40 @@
 - 依赖/副作用：同库版本（LISP 选择集 + -BLOCK 覆盖 + Regen）。
 - 风险/测试点：同库版本；注意该函数在 CAD_basic 中重复定义来源。
 
+
+## scripts/CAD_file_operations.py
+
+### new_file(output_path=None, close_after=False)
+- 作用：在确保天正/ CAD 环境稳定的前提下新建 DWG（可选择关闭）。
+- 关键步骤：
+  1) 若目标路径已打开则激活并返回；若存在同名文件则删除；
+  2) 控制打开文件数量（<=3），多余则关闭；
+  3) 天正环境自检：绘制墙体确认可用，不可用则 cad_zt_zero + cad_zt_oneb 重新初始化；
+  4) 调用 new_dwg_enhanced 创建文件；可按 close_after 关闭。
+- 输入/输出：output_path 为空则创建未保存文档；返回 bool。
+- 副作用：可能删除同名文件；关闭其他文档；重启 CAD 环境；绘制/删除临时墙体。
+- 风险：误删同名文件；cad_zt_* 会重置环境；绘墙自检对文档有短暂污染。
+- 测试点：目标文件已打开/锁定；CAD 忙碌；打开文档数>3。
+
+### open_file(file_path)
+- 作用：安全打开 DWG（单例进程 + 负载控制 + 幂等激活）。
+- 关键步骤：li 连接 -> 必要时 litz 初始化 -> 若已打开则激活；若打开数量过多则关闭非活跃；最后打开目标文件。
+- 输入/输出：file_path；返回 bool。
+- 副作用：可能关闭其他文档、重启 CAD 环境、切换激活文档。
+- 风险：路径解析失败；文件占用导致无法打开；多进程清理误杀。
+- 测试点：文件已打开；文件不存在；多进程场景。
+
+### save_file()/save_file_as(output_path)/close_file(save_option="auto_save")
+- 作用：当前活动文档保存、另存为与关闭。
+- 关键步骤：调用 CAD_basic_operations 的 save_current/save_as/close_current 相关范式；处理 auto_save。
+- 副作用：写磁盘，关闭文档。
+- 风险：只读文件/权限问题；保存时 CAD 忙碌。
+- 测试点：未保存文档；只读状态；save_option="no_save"。
+
+### switch_to_layout(layout_name, retry=10, delay=0.5)
+- 作用：切换到指定布局并等待激活。
+- 关键步骤：doc.Layouts.Item(layout_name) -> ActiveLayout；重试直到成功。
+- 副作用：改变当前布局与 MSpace 状态。
+- 风险：布局不存在/被锁定；切换失败时影响后续操作。
+- 测试点：无该布局；多次切换；CAD 忙碌。
+

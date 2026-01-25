@@ -312,3 +312,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已标注 CAD_basic 中与库重复的块重定义函数。 
+
+## 人工深读进度
+- 已补充 CAD_file_operations 的新建/打开/保存/布局切换等核心接口理解。 
