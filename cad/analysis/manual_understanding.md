@@ -622,6 +622,69 @@
 - 风险：布局空间锁定；输入格式异常。
 - 测试点：单点/多点/列表输入。
 
+## library/cad_geometry.py
+
+### get_spline_length_by_conversion(spline_entity)
+- 作用：通过 SPLINEDIT 将样条转为多段线来估算长度。
+- 关键步骤：复制样条 -> highlight_entity_by_bbox -> SendCommand _SPLINEDIT P -> 等待 -> 取 ModelSpace 最后对象 Length -> 删除临时多段线。
+- 输出：float 或 None。
+- 副作用：发送命令、添加并删除临时对象。
+- 风险：命令时序导致最后对象非目标；CAD 忙碌。
+- 测试点：无效样条；复杂样条；Length 属性缺失。
+
+### find_fake_intersection_regions(lines, tol=10, real_tol=0.01)
+- 作用：查找“伪相交点”（端点靠近线但未真正相交），并绘制标记圆。
+- 关键步骤：对每条线端点计算到其他线的点线距离；若 < tol 且 >= real_tol 则为伪交点；在“测试辅助”图层画半径 1000 圆。
+- 副作用：绘制辅助圆；确保图层存在。
+- 风险：O(n^2) 对大集合较慢；容差误判。
+- 测试点：密集线段；真实交点；重复端点。
+
+### lines_daduan(start_point, end_point)
+- 作用：调用天正 tlinebk 命令打断线段。
+- 关键步骤：拼接命令字符串（含三维坐标）并 SendCommand。
+- 副作用：修改几何；进入命令栈。
+- 风险：命令不可用/被劫持；坐标格式错误。
+- 测试点：三维坐标；天正未安装。
+
+### delete_duplicate_lines(lines, tol=0.01)
+- 作用：删除完全重复的线段（端点相同或反向相同）。
+- 关键步骤：两两对比端点（容差）；保留首条，删除重复。
+- 输出：保留的线段列表。
+- 副作用：删除实体。
+- 风险：容差过大误删；非 AcDbLine 输入。
+- 测试点：反向线段；重合多条。
+
+### delete_redundant_lines(lines, tol=0.01)
+- 作用：删除完全重复或局部重叠的冗余线段。
+- 关键步骤：判断完全重复或“短线段完全落在长线段上”；按 Handle 删除冗余。
+- 输出：None（日志提示）。
+- 副作用：删除实体。
+- 风险：浮点容差导致误删；输入含非共线线段。
+- 测试点：共线重叠；部分重叠；独立线段。
+
+### get_room_outline_from_point(x, y, z=0)
+- 作用：从内点触发 TSpOutline 命令获取房间轮廓。
+- 关键步骤：构造命令 "TSpOutline" + 点坐标 + 回车确认。
+- 副作用：生成轮廓对象；进入命令栈。
+- 风险：命令不存在；点不在封闭区域。
+- 测试点：不同房间封闭边界；非法点。
+
+### draw_polyline(vertices, layer_name="tuqian_baobu", tol=0.5, width=50, color=256, target_space=None)
+- 作用：绘制轻量多段线（V3，支持指定容器）。
+- 关键步骤：选择绘制容器（target_space 或 ActiveLayout.Block/ModelSpace）；展平坐标并 AddLightWeightPolyline；设置 Layer/Color/Closed/Width。
+- 输出：多段线对象或 None。
+- 副作用：添加实体。
+- 风险：坐标格式错误；C.doc 未初始化。
+- 测试点：闭合/非闭合；目标容器为 Block；空点列表。
+
+### TDbMText_content(comobj, separator="\\n")
+- 作用：提取天正多行文字内容（复制+炸开+排序+重组）。
+- 关键步骤：复制对象 -> explode_single_object_marker -> 按 Y 分桶、X 排序 -> 行变更插入 separator -> 清理碎片。
+- 输出：字符串。
+- 副作用：创建/删除临时碎片；依赖 li() 环境连接。
+- 风险：炸开失败导致空文本；排序容差不适配。
+- 测试点：多行/单行；含格式化字符；爆炸后无 TextString。
+
 
 ## scripts/Insert_chart/insert_labels.py
 

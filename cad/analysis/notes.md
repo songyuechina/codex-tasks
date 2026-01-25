@@ -331,3 +331,5 @@ Local-ish imports (heuristic):
 - 已补充 CAD_basic 模型/布局打印核心与批量打印引擎函数理解（export_*_pure / print_dwg_file_model / print_polylines_list）。
 ## 人工深读进度
 - 已补充 library/cad_control.py 核心控制函数理解（fix_com_cache / 视图缩放 / 样式重命名 / MATCHPROP / srhd/srhd_p）。
+## 人工深读进度
+- 已补充 library/cad_geometry.py 关键几何处理函数理解（样条长度估算/伪交点/打断/去重/房间轮廓/绘制/天正多行文字提取）。
