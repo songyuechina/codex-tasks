@@ -400,6 +400,42 @@
 - 作用：格式化日志输出的轻量封装。
 - 副作用：写日志。
 
+## system/CAD_com_utils.py
+
+### LoggerHotSwapper
+- 作用：通过“方法指针替换”实现日志静音（info/debug 置为 no-op）。
+- 关键点：warning/error/critical 始终保留；sys_logger 被反向注入 common_logger。
+- 风险：并发修改 logger 状态影响全局输出。
+
+### silent_mode()
+- 作用：上下文静音模式（进入 mute、退出 unmute）。
+- 副作用：抑制 info/debug 输出。
+- 风险：嵌套使用时状态恢复依赖正确退出。
+
+### retry_on_busy(func_or_retries=None, max_retries=10, base_delay=0.5)
+- 作用：通用 COM 忙碌重试装饰器，指数退避并 PumpWaitingMessages。
+- 判据：RPC Busy 错误码或字符串；RPC Down 直接抛错。
+- 风险：长时间重试导致阻塞。
+
+### SafeCOM.call / SafeCOM.list_selection
+- 作用：在无法装饰器的场景下安全调用 COM；稳定转换选择集为列表。
+- 风险：SelectionSet.Count 变化导致空结果。
+
+### alias(*names)
+- 作用：为函数添加模块级别别名（设置属性）。
+- 副作用：污染模块命名空间。
+
+### node(msg, *args, **kwargs)
+- 作用：调试输出控制（仅 DEBUG 且栈底函数允许输出）。
+- 风险：DEBUG/栈状态不一致导致无输出。
+
+### timeit(func)
+- 作用：耗时统计装饰器（info 开始、warning 结束）。
+- 副作用：写日志；异常时写 error 并抛出。
+
+### debuggable(func)
+- 作用：调试标记装饰器（当前实现不改变行为）。
+
 
 ## system/CAD_selection.py
 
