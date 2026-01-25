@@ -556,6 +556,19 @@
 - 说明：历史版本快照，LockManager/MasterRunner 逻辑与 `scripts/CAD_System_Queue.py` 大体一致。
 - 建议参考：以 `scripts/CAD_System_Queue.py` 最新版理解为准。
 
+## scripts/CAD_check_standards.py
+
+### bianmulu_func4_h(layout_name=None, operate_target="Model", select_config=None, verbose=1, tol=0.01)
+- 作用：目录编制 Step4 的“测试规范版”，显式使用 C.doc 与 CAD_file_operations。
+- 关键步骤：
+  1) 获取主文件路径并推导目录 DWG；  
+  2) Layout 分支：打开目录文件 -> 选择范围 -> SCALE/COPYBASE -> 关闭源 -> 再粘贴回主文件；  
+  3) Model 分支：打开目录文件 -> 计算区域 -> 关闭 -> 打开主文件 -> 计算目标位置 -> 调用 insert_region_between_files。
+- 输出：bool。
+- 副作用：打开/关闭文档；发送命令；可能缩放目录内容。
+- 风险：路径推导失败；insert_region_between_files 缺失；命令执行时序问题。
+- 测试点：布局/模型两分支；目录文件不存在；目标位置计算边界。
+
 
 ## system/licad.py
 
