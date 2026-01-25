@@ -365,3 +365,5 @@ Local-ish imports (heuristic):
 - 已补充 project_setup.PathConfig 路径配置理解。
 ## 人工深读进度
 - 已补充 CAD_basic_operations 关键保存/关闭范式理解。
+## 人工深读进度
+- 已补充 cad_dialog_killer 对话框自动关闭逻辑理解。

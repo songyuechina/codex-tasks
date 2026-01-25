@@ -466,6 +466,34 @@
 - 输出：bool。
 - 风险：路径只读/被占用；短路径获取失败。
 
+## system/cad_dialog_killer.py
+
+### read_delay()
+- 作用：从控制文件读取对话框关闭延迟秒数。
+- 输出：int（失败返回 0）。
+- 风险：控制文件缺失或内容非法。
+
+### get_cad_pids()
+- 作用：获取 CAD 进程 PID 集合。
+- 关键步骤：psutil.process_iter 过滤 acad.exe/tarcht20v9.exe。
+- 风险：psutil 权限不足或进程名变更。
+
+### enum_and_maybe_close(hwnd, cad_pids, delay, now)
+- 作用：枚举窗口，筛选 CAD 对话框并按延迟发送 ESC 关闭。
+- 关键步骤：可见窗口 + #32770 + PID 属于 CAD；记录首次出现时间；超时则 PostMessage ESC。
+- 副作用：关闭对话框；更新 _first_seen。
+- 风险：误关闭合法对话框；窗口类名变化。
+
+### is_already_running() / create_lock() / remove_lock()
+- 作用：单实例锁机制（lock 文件记录 PID）。
+- 副作用：创建/删除锁文件。
+- 风险：锁文件残留导致误判。
+
+### main()
+- 作用：主循环，周期性扫描对话框并按配置关闭。
+- 关键步骤：读取 delay -> 获取 CAD PIDs -> EnumWindows -> enum_and_maybe_close -> sleep。
+- 风险：无限循环；错误处理依赖 KeyboardInterrupt。
+
 
 ## system/CAD_selection.py
 
