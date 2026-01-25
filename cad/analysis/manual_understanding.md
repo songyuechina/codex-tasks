@@ -552,6 +552,76 @@
 - 风险：选择失败导致无炸开；marker 未删除；模型空间顺序变化。
 - 测试点：ent 为 None；爆炸生成大量对象；CAD 忙碌。
 
+## library/cad_control.py
+
+### fix_com_cache()
+- 作用：清理 win32com 的 gen_py 缓存，修复 COM 接口损坏/AttributeError。
+- 关键步骤：定位 gen_py 路径（win32com.__gen_path__ 或 gencache）；rmtree 删除；再扫描 site-packages/win32com/gen_py 并清理。
+- 输入/输出：无输入；无返回（打印日志）。
+- 副作用：删除缓存文件夹；需要重启 Python/AutoCAD 以重建缓存。
+- 风险：权限不足导致清理失败；删除系统级缓存需管理员权限。
+- 测试点：存在损坏缓存；无缓存路径；只读目录。
+
+### shitu_region(x1, y1, x2, y2)
+- 作用：按区域外包盒缩放视图。
+- 关键步骤：计算 margin h=0.3*(dx+dy)/2；构造 ZOOM Window 命令并 SendCommand。
+- 副作用：改变当前视图缩放。
+- 风险：输入坐标异常导致缩放错位；CAD 忙碌。
+- 测试点：极小/极大区域；反向坐标。
+
+### shitu_entity(obj)
+- 作用：按对象外包盒缩放视图。
+- 关键步骤：GetBoundingBox -> 计算 margin -> 发送 ZOOM Window 命令。
+- 副作用：改变当前视图缩放。
+- 风险：对象无 BoundingBox；COM 异常。
+- 测试点：无效对象；极细长对象。
+
+### set_current_dimstyle_via_command(style_name="_TCH_ARCH")
+- 作用：通过命令行设置当前标注样式（兼容天正）。
+- 关键步骤：SendCommand("-DIMSTYLE\nR\n{style_name}\n")。
+- 副作用：改变当前标注样式；进入命令栈。
+- 风险：样式不存在时命令失败。
+- 测试点：样式存在/不存在；CAD 忙碌。
+
+### rename_conflicting_text_styles(file1_path, file2_path, suffix="_1", ...)
+- 作用：找出两个 DWG 中同名的用户文字样式，并在 file1 中改名+更新实体引用。
+- 关键步骤：
+  1) 打开两个 DWG；收集 TextStyles 名称，排除系统样式；  
+  2) 对冲突样式执行 -RENAME 命令，等待样式表更新；  
+  3) 遍历 ModelSpace，将 Text/MText/TDbText/TDbMText 的旧样式替换为新样式；  
+  4) 保存 file1，关闭两个文件（file2 不保存）。
+- 输出：无显式返回。
+- 副作用：修改 file1 文字样式与实体属性；保存文件。
+- 风险：重命名未生效导致样式残留；处理大文件遍历慢。
+- 测试点：冲突样式不存在；同名样式多次冲突；TDb* 对象。
+
+### transfer_props_by_matchprop(entity, Ob, max_try=3, delay=0.4)
+- 作用：用 MATCHPROP 将源对象属性批量复制到目标对象（重试直到 Layer 变化）。
+- 关键步骤：
+  1) 选择源对象为 Previous（优先 highlight_entity_by_bbox；失败则用 Handle LISP 选择）；  
+  2) 对目标对象扩展窗口范围，发送 MATCHPROP P + Window；  
+  3) 轮询 Ob.Layer 是否变为源图层，失败则重试。
+- 输出：bool。
+- 副作用：改变目标对象属性；发命令并依赖当前选择集。
+- 风险：命令栈干扰导致 Previous 失效；目标 Layer 未变化误判失败。
+- 测试点：源/目标同层；highlight_entity_by_bbox 失败；CAD 忙碌。
+
+### srhd(*args)
+- 作用：在模型空间绘制点并标注序号（测试辅助）。
+- 关键步骤：确保“测试辅助”图层存在；解析输入点列表；AddPoint+AddText 编号。
+- 输出：字符串提示。
+- 副作用：创建图层并添加点/文字对象。
+- 风险：输入格式异常；图层锁定。
+- 测试点：单点/多点/列表输入；非数值坐标。
+
+### srhd_p(*args)
+- 作用：在图纸空间绘制点并标注序号（测试辅助）。
+- 关键步骤：同 srhd，但写入 PaperSpace。
+- 输出：字符串提示。
+- 副作用：创建图层并添加点/文字对象到图纸空间。
+- 风险：布局空间锁定；输入格式异常。
+- 测试点：单点/多点/列表输入。
+
 
 ## scripts/Insert_chart/insert_labels.py
 

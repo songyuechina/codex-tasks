@@ -329,3 +329,5 @@ Local-ish imports (heuristic):
 - 已补充 CAD_basic 目录图签专用写入函数 update_catalog_titleblocks_from_excel_y 理解。
 ## 人工深读进度
 - 已补充 CAD_basic 模型/布局打印核心与批量打印引擎函数理解（export_*_pure / print_dwg_file_model / print_polylines_list）。
+## 人工深读进度
+- 已补充 library/cad_control.py 核心控制函数理解（fix_com_cache / 视图缩放 / 样式重命名 / MATCHPROP / srhd/srhd_p）。
