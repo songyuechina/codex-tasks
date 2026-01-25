@@ -552,6 +552,84 @@
 - 风险：选择失败导致无炸开；marker 未删除；模型空间顺序变化。
 - 测试点：ent 为 None；爆炸生成大量对象；CAD 忙碌。
 
+### update_block_def_attributes_v7(block_ref_or_name, target_tag, ...)
+- 作用：修改块定义中的属性定义（高度/对正/宽度因子/旋转/MText 边界等）。
+- 关键步骤：
+  1) 解析块名（EffectiveName/Name）；遍历块定义锁定目标 Tag；  
+  2) 先设置 Alignment（避免 MText 开启后锁死对正）；  
+  3) 设置样式/高度/宽度因子/旋转；  
+  4) 如设置 boundary_width 则启用 MText，并在对齐点或插入点基础上 Move 对齐。
+- 输出：bool（是否发生变化）。
+- 副作用：修改块定义属性；影响所有块实例显示。
+- 风险：Tag 未找到；Alignment/MText 顺序错误导致报错。
+- 测试点：动态块；Tag 不存在；对齐点移动。
+
+### get_bounding_box_of_block(block_name)
+- 作用：计算块定义的整体包围盒。
+- 关键步骤：遍历块定义内对象 GetBoundingBox，聚合 min/max。
+- 输出：((minx,miny,minz),(maxx,maxy,maxz))。
+- 风险：对象无 BoundingBox 被跳过，可能低估范围。
+- 测试点：空块；含无边界对象。
+
+### delete_block_instances_and_definition_optimized(target_name, max_retries=5)
+- 作用：删除指定块的所有实例与定义（文件内有多版定义，最后版本生效）。
+- 关键步骤：
+  1) SelectionSet 过滤 INSERT + 块名，Erase 实例；  
+  2) 尝试删除 Blocks 表中的定义；  
+  3) 反查 Blocks.Item 验尸，失败则 Regen+重试。
+- 输出：bool。
+- 副作用：删除实例与块定义。
+- 风险：嵌套引用导致定义无法删除；选择集残留。
+- 测试点：块不存在；被嵌套引用；大量实例。
+
+### insert_standard_block(block_dwg, insertion_point=(0,0,0), scale=(1,1,1), rotation=0, wait=0.3)
+- 作用：命令式插入标准块（不炸开），返回新插入块及包围盒。
+- 关键步骤：记录插入前块句柄 -> -INSERT 命令 -> Regen/ZE -> 计算新块差集 -> 归零旋转并取 BoundingBox。
+- 输出：[(blk_ref, corners), ...]。
+- 副作用：插入块引用；发送命令；刷新视图。
+- 风险：文件不存在；命令时序导致未检测到新块。
+- 测试点：重复插入；路径含空格；rotation 非 0。
+
+### add_entities_to_block_direct(block_ref, entities, delete_original=True)
+- 作用：将外部实体复制进块定义，并逆向变换回块局部坐标。
+- 关键步骤：
+  1) CopyObjects(entities -> block_def)；  
+  2) 使用 block_ref 的插入点/旋转/比例进行逆变换（Move/Rotate/Scale）；  
+  3) 可选删除原实体；Update 块引用。
+- 输出：bool。
+- 副作用：修改块定义；可能删除原对象。
+- 风险：CopyObjects 返回结构不稳定；逆变换点类型需 Variant。
+- 测试点：动态块；非统一比例；delete_original=False。
+
+### extract_specific_entities_from_block(block_ref, mode='all', keep_in_block=True)
+- 作用：从块中提取指定类型对象（文字/块/多段线/全部）。
+- 关键步骤：
+  1) Explode 生成副本；  
+  2) 按 ObjectName 过滤，非目标即删除；  
+  3) keep_in_block=False 时，从块定义内删除对应对象并 Update/Regen。
+- 输出：提取对象列表（位于模型空间）。
+- 副作用：炸开产生临时对象；可修改块定义。
+- 风险：MInsertBlock 不支持；all+keep_in_block=False 风险较高。
+- 测试点：mode=text/block/polyline；keep_in_block=False。
+
+### _atomic_explode_and_delete(block_entity)
+- 作用：原子炸开+删除（带 retry_on_busy）。
+- 关键步骤：Explode -> wait_quiescent -> Delete。
+- 输出：Explode 返回对象列表。
+- 风险：对象锁定导致失败；等待不足。
+- 测试点：天正对象；CAD 忙碌。
+
+### safe_explode_retry(entity, max_retries=5, rescue_retries=5, interval=1.0, verbose=True)
+- 作用：带“深度搜救”的炸开，保证对象消失即视为成功。
+- 关键步骤：
+  1) _atomic_explode_and_delete；若有返回直接成功；  
+  2) 若无返回但对象已消失，则通过 owner_space.Count 增量扫描搜救新对象；  
+  3) 重试至成功；对象仍存活则返回 None。
+- 输出：list/[] 表示成功，None 表示失败。
+- 副作用：可能 Regen；等待 CAD 同步。
+- 风险：搜救索引假设失败；对象已删除但无新对象时返回空列表。
+- 测试点：Explode 返回空；对象已删除；CAD 忙碌。
+
 ## library/cad_control.py
 
 ### fix_com_cache()
