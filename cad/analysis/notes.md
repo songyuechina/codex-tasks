@@ -309,3 +309,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充 CAD_selection 关键窗口/选择集函数理解。 
+
+## 人工深读进度
+- 已标注 CAD_basic 中与库重复的块重定义函数。 

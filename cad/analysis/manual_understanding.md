@@ -269,3 +269,11 @@
 - 风险：Handle 不可用；命令执行失败。
 - 测试点：无 ent；实体已被删除。
 
+
+## scripts/CAD_basic.py (块重定义)
+
+### redefine_block_with_entities(block_ref, entities, ty=0.5, debug_log_path="C:\\cad_debug_log.txt")
+- 说明：与 `library/cad_blocks.py::redefine_block_with_entities` 基本一致，为调试版重定义块内容（使用 -BLOCK 覆盖）。
+- 依赖/副作用：同库版本（LISP 选择集 + -BLOCK 覆盖 + Regen）。
+- 风险/测试点：同库版本；注意该函数在 CAD_basic 中重复定义来源。
+
