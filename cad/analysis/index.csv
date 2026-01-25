@@ -1,0 +1,57 @@
+path,lines,bytes
+"library/cad_annotation.py",507,13004
+"library/cad_blocks.py",4371,155737
+"library/cad_control.py",3358,109289
+"library/cad_geometry.py",4830,172213
+"library/cad_objects.py",2633,88301
+"library/execution_result.py",275,8063
+"library/tarch_building.py",1532,51649
+"library/test_monitor.py",371,13122
+"scripts/_temp_step1_select.py",45,1296
+"scripts/_temp_step2_insert.py",34,925
+"scripts/_temp_task_runner.py",27,1280
+"scripts/apply_modifications.py",187,6417
+"scripts/auto_TUPDSPACE.py",63,1945
+"scripts/CAD_basic.py",29454,1045276
+"scripts/CAD_check_standards.py",206,6905
+"scripts/CAD_dev_standards.py",227,8674
+"scripts/CAD_file_operations.py",3700,128666
+"scripts/CAD_Legacy_Runner.py",150,6055
+"scripts/CAD_System_Queue - V30.py",1036,46804
+"scripts/CAD_System_Queue - V31.py",1087,49329
+"scripts/CAD_System_Queue - V33.py",1078,45168
+"scripts/CAD_System_Queue.py",1273,53810
+"scripts/IDLE_bootstrap.py",110,3372
+"scripts/Insert_chart/insert_labels.py",1911,71497
+"scripts/Insert_chart/函数测试.py",1264,99611
+"scripts/Insert_chart/剥开.py",134,8856
+"scripts/Insert_chart/插入20260115.py",830,82329
+"scripts/Insert_chart/插入20260115f2.py",83,5021
+"scripts/Insert_chart/选择函数的调试.py",339,27107
+"scripts/Master_Orchestrator.py",224,7643
+"scripts/修复codex脚本.py",67,2155
+"scripts/函数编写规范.py",1629,59117
+"scripts/测试.py",58,2518
+"scripts/脚本导航14版.py",1272,50084
+"scripts/连接测试.py",149,7705
+"scripts/选择测试错误.py",4361,213124
+"system/CAD_basic_operations.py",1081,37990
+"system/CAD_com_utils - V10.py",163,5689
+"system/CAD_com_utils.py",327,9296
+"system/cad_command_monitor.py",265,9506
+"system/CAD_coordination - V10.py",418,14789
+"system/CAD_coordination - V20.py",243,8419
+"system/CAD_coordination - V33.py",562,20954
+"system/CAD_coordination.py",576,20959
+"system/CAD_core.py",2335,78388
+"system/cad_dialog_killer.py",164,5160
+"system/CAD_enhanced_functions.py",177,4909
+"system/CAD_selection - V10.py",1006,38939
+"system/CAD_selection.py",1003,39355
+"system/common_logger - V1.1.py",68,2272
+"system/common_logger - V1.4.py",297,10220
+"system/common_logger.py",203,6857
+"system/licad - V10.py",424,16325
+"system/licad - V20.py",284,9947
+"system/licad.py",481,17816
+"system/project_setup.py",91,2930
