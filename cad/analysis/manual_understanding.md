@@ -569,6 +569,64 @@
 - 风险：路径推导失败；insert_region_between_files 缺失；命令执行时序问题。
 - 测试点：布局/模型两分支；目录文件不存在；目标位置计算边界。
 
+## scripts/脚本导航14版.py
+
+### clean_old_logs()
+- 作用：清理非当天的导航器日志文件。
+- 关键步骤：遍历 script_navigator_*.log，解析日期，不是今天则删除。
+- 副作用：删除旧日志文件。
+- 风险：日期解析失败；文件被占用。
+- 测试点：无日志文件；历史日志存在。
+
+### _normalize_registry_path(path)
+- 作用：将注册表路径标准化为绝对路径。
+- 关键步骤：Path.resolve 或 os.path.abspath。
+- 输出：规范化路径或原值/None。
+- 风险：异常时回退到原值。
+
+### _pid_exists(pid)
+- 作用：检查进程是否存在（跨平台）。
+- 关键步骤：Windows 用 OpenProcess；其他平台用 os.kill(pid,0)。
+- 输出：bool。
+- 风险：权限不足导致误判。
+
+### _read_registry_data() / _write_registry_data(data)
+- 作用：读取/写入脚本注册表 JSON。
+- 关键步骤：读 REGISTRY_FILE -> dict；写入 JSON（indent=2）。
+- 副作用：读写磁盘文件。
+- 风险：JSON 解析失败；写入失败被吞掉。
+
+### _cleanup_registry_data(data)
+- 作用：清理注册表中过期 PID，去重并剔除无效进程。
+- 输出：bool（是否发生修改）。
+- 风险：_pid_exists 误判；数据结构异常被移除。
+
+### _load_clean_registry()
+- 作用：读取注册表并清理后回写。
+- 关键步骤：_read_registry_data -> _cleanup_registry_data -> _write_registry_data。
+- 输出：清理后的 dict。
+
+### parse_mark_line(raw)
+- 作用：解析脚本中的 #&& 标记层级。
+- 输出：(level, text) 或 None。
+- 风险：BOM/空白处理不一致。
+
+### is_file_in_use(filepath)
+- 作用：检测文件是否被其他进程占用（基于 psutil）。
+- 关键步骤：遍历进程 open_files，匹配路径。
+- 输出：bool。
+- 风险：psutil 不可用则跳过；AccessDenied。
+
+### _tree_walk(tree, parent="")
+- 作用：遍历 Tk Treeview 的所有节点（生成器）。
+- 输出：节点 id 迭代器。
+
+### ScriptNavigator.__init__(script_path=None)
+- 作用：脚本导航 GUI 初始化（IDLE 引导、树形视图、查找与运行）。
+- 关键步骤：clean_old_logs -> _ensure_idle_bootstrap -> 初始化状态字段 -> 构建 UI/快捷键 -> 可选加载初始脚本。
+- 副作用：启动 UI 线程；可能启动 IDLE 子进程；写注册表/日志。
+- 风险：IDLE 引导失败；UI 过多状态导致内存压力。
+
 
 ## system/licad.py
 

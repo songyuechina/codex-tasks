@@ -355,3 +355,5 @@ Local-ish imports (heuristic):
 - 已标注 system/licad、CAD_coordination、CAD_selection、CAD_System_Queue 的版本快照与主文件的对应关系。
 ## 人工深读进度
 - 已补充 CAD_check_standards.bianmulu_func4_h 测试规范版逻辑理解。
+## 人工深读进度
+- 已补充 脚本导航14版.py 的日志/注册表/解析与 GUI 初始化逻辑理解。
