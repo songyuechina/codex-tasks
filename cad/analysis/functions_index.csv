@@ -1,0 +1,1302 @@
+file,function,lineno,end_lineno,section,has_doc,doc_first,com_calls,file_ops,win_ops,try_count,bare_except,return_kinds
+library/cad_annotation.py,vtpnt,27,29,,1,将三维坐标转换为VARIANT类型,,,,0,0,object
+library/cad_annotation.py,write_cad_text,35,79,&&&% 单行文字操作,1,在CAD中写入单行文字,AddText,,,1,0,"NoneType,object"
+library/cad_annotation.py,write_mtext,83,120,&&&% 多行文字操作,1,在CAD中写入多行文字,AddMText,,,1,0,"NoneType,object"
+library/cad_annotation.py,add_dim_aligned,125,146,&&% 对齐标注,1,添加对齐标注,,,,1,0,"NoneType,object"
+library/cad_annotation.py,add_dim_rotated,149,172,&&% 旋转标注,1,添加旋转标注,,,,1,0,"NoneType,object"
+library/cad_annotation.py,add_dim_angular,175,198,&&% 角度标注,1,【新增】添加角度标注,,,,1,0,"NoneType,object"
+library/cad_annotation.py,add_dim_radial,201,222,&&% 半径标注,1,【新增】添加半径标注,,,,1,0,"NoneType,object"
+library/cad_annotation.py,add_dim_diametric,225,246,&&% 直径标注,1,【新增】添加直径标注,,,,1,0,"NoneType,object"
+library/cad_annotation.py,add_leader,251,277,&&% 添加引线,1,添加引线,,,,1,0,"NoneType,object"
+library/cad_annotation.py,get_text_content,279,301,&&% 添加引线,1,获取文字对象的内容,,,,1,0,"NoneType,object"
+library/cad_annotation.py,set_text_content,303,325,&&% 添加引线,1,设置文字对象的内容,,,,1,0,bool
+library/cad_annotation.py,get_text_height,327,341,&&% 添加引线,1,获取文字高度,,,,1,0,"NoneType,object"
+library/cad_annotation.py,set_text_height,343,359,&&% 添加引线,1,设置文字高度,,,,1,0,bool
+library/cad_annotation.py,get_text_rotation,364,378,&&% 获取文字旋转角度,1,【新增】获取文字旋转角度,,,,1,0,"NoneType,object"
+library/cad_annotation.py,set_text_rotation,381,397,&&% 设置文字旋转角度,1,【新增】设置文字旋转角度,,,,1,0,bool
+library/cad_annotation.py,batch_modify_text,400,423,&&% 批量修改文字,1,【新增】批量修改文字属性,,,,1,0,object
+library/cad_annotation.py,create_table,428,453,&&% 创建表格,1,【新增】创建表格,,,,1,0,"NoneType,object"
+library/cad_annotation.py,set_table_cell_text,456,474,&&% 设置表格单元格文字,1,【新增】设置表格单元格文字,,,,1,0,bool
+library/cad_annotation.py,get_table_cell_text,477,493,&&% 获取表格单元格文字,1,【新增】获取表格单元格文字,,,,1,0,"NoneType,object"
+library/cad_blocks.py,get_block_name,40,46,&&% 获取块实例块名,1,获取块名，兼容动态块(EffectiveName),,,,1,1,object
+library/cad_blocks.py,huoqukuai_shuxing_zhi,50,69,&&% 获取块属性值,0,,GetAttributes,,,0,0,tuple
+library/cad_blocks.py,update_block_def_attributes_safe,75,240,&&% 属性块标签编辑,1,【函数编号】: BLK-007-Safe,Item;Move,,,2,0,bool
+library/cad_blocks.py,update_block_def_attributes_v7,243,425,&&% 属性块标签编辑,1,【函数编号】: BLK-007,Item;Move,,,7,4,bool
+library/cad_blocks.py,attsync_block_instance,429,458,&&% 属性块标签编辑生效,1,【函数编号】: CMD-001,,,,1,1,object
+library/cad_blocks.py,attsync_block_instance_base,460,510,&&% 属性块标签编辑生效,1,【函数编号】: CMD-001,SendCommand,,,2,1,bool
+library/cad_blocks.py,set_attribute_mtext,515,651,&&% 设置属性块的标签值,1,"set_attribute_mtext(p[0],""图纸规格"",""A0"")",GetAttributes;Update,,,4,2,object
+library/cad_blocks.py,get_block_attributes_dict,658,752,&&% 获取属性块标签及标签值,1,获取块参照 block_ref 的所有属性，返回 {标签: 纯文本值} 的字典。,GetAttributes,,,4,0,object
+library/cad_blocks.py,separate_entities_by_block_names,755,804,&&% 筛选出指定块名外的对象,1,将实体列表分为两组：,,,,0,0,tuple
+library/cad_blocks.py,huoqu_kuai_pl,810,830,&&% 获取块内多段线,0,,Item,,,0,0,
+library/cad_blocks.py,create_block_with_basepoint,840,852,&&% 创建带基点块,0,,AddCircle,,,0,0,
+library/cad_blocks.py,create_block_with_triangle_and_text,858,879,&&% 创建三角形文字块,0,,AddLine;AddText,,,0,0,
+library/cad_blocks.py,huoqu_kuai_pl,883,902,&&% 创建三角形文字块,0,,Item,,,0,0,
+library/cad_blocks.py,get_bounding_box_of_block,909,936,&&% 获取块包围盒,0,,Item,,,1,1,tuple
+library/cad_blocks.py,create_new_block_with_insert_and_line,940,963,&&% 创建含插入和直线的块,0,,InsertBlock;AddLine,,,0,0,None
+library/cad_blocks.py,copy_and_move_blocks_from_layer,968,989,&&% 复制并移动图层块,0,,Copy;Move,,,0,0,
+library/cad_blocks.py,delete_block_instances_and_definition_retry,996,1064,&&% 旧版,1,删除指定名称的块实例和块定义，带重试机制。,Item;Delete,,,1,0,"None,bool"
+library/cad_blocks.py,delete_block_instances_and_definition_optimized,1068,1146,&&% 极速清理,1,【函数编号】: CLEAN-ROBUST-V34 (核验版),Item;Delete;Erase,,,5,3,bool
+library/cad_blocks.py,delete_block_instances_and_definition_optimized,1150,1231,&&% 再次优化,1,【最终推荐版】,Item;Delete;Erase,,,5,1,bool
+library/cad_blocks.py,rename_block_entity,1236,1259,&&% 重命名块实体,1,将给定块参照实体 ent 的块名改为 new_name。,Item,,,1,0,
+library/cad_blocks.py,get_block_instances,1264,1297,&&% 由块名选择实例,1,根据给定的块定义名，检索当前图形中所有对应的块参照实例（BlockReference），,,,,2,0,"list,object"
+library/cad_blocks.py,get_entities_from_block_reference,1304,1323,&&% 获取块引用实体,1,获取块引用对象中的所有子实体（COM对象形式）。,Item,,,1,0,"list,object"
+library/cad_blocks.py,insert_block_into_autocad,1334,1354,&&% 插入块到CAD,1,以块的方式插入 DWG 文件到 AutoCAD 中,InsertBlock,,,1,0,
+library/cad_blocks.py,insert_standard_block,1361,1431,&&% 插入标准块,1,不炸开，,SendCommand,,,1,0,"list,object"
+library/cad_blocks.py,insert_and_explode_dwg,1438,1527,&&% 插入并炸开DWG,1,将一个 WBLOCK 导出的标准块 DWG 插入到当前图，,SendCommand,,,2,0,"list,tuple"
+library/cad_blocks.py,insert_and_explode_dwg,1533,1631,&&% 新版本性能测试0109,1,【V3.0 重构版】插入并炸开 DWG,SendCommand,,,2,1,tuple
+library/cad_blocks.py,get_large_block_instances,1638,1691,&&% 获取大块实例,1,获取模型空间中所有块实例，筛选出“包围盒面积大于 area_threshold” 的块，,,,,2,0,"list,object"
+library/cad_blocks.py,get_large_block_instances_with_tolerance,1697,1728,&&% 确定合乎标准打印要求的自建多段线区域,1,获取当前 DWG 中所有大尺寸块实例,,,,2,0,"list,object"
+library/cad_blocks.py,transform_point_by_block,1735,1767,&&% 块内坐标转换成世界坐标（适合平面上的一般块）,1,"将块内部坐标 local_pt = (lx, ly, lz) 转换为世界坐标：",,,,0,0,tuple
+library/cad_blocks.py,select_block_by_name,1771,1804,&&% 按名称选择块,1,从 *模型空间* 快速选出指定块名的所有实例，返回实体列表。,Delete;Item,,,1,0,"list,object"
+library/cad_blocks.py,get_all_block_definitions,1808,1865,&&% 获取所有块定义,1,返回当前 DWG 中所有块定义（BlockTableRecord）对象列表。,Item,,,2,0,object
+library/cad_blocks.py,get_all_block_names,1869,1884,&&% 获取所有块名,1,使用全局 li()/doc 获取当前 DWG 中所有块定义的名字列表。,,,,1,0,object
+library/cad_blocks.py,purge_block,1888,1943,&&% 块清理,1,删除指定块的所有实例，并彻底清除该块定义。,Item;Delete,,,1,0,
+library/cad_blocks.py,purge_unused_blocks,1946,1983,&&% 清理未使用块,1,一次性清除所有未被任何 INSERT 实例引用的块定义。,Item,,,0,0,object
+library/cad_blocks.py,purge_block_1,1989,2126,&&% 清理块1,1,删除指定块的所有实例，并尽可能彻底清除该块定义。,Item;Delete,,,6,0,"None,bool,object"
+library/cad_blocks.py,purge_unused_blocks_1,2130,2287,&&% 清理未使用块1,1,一次性清除“当前文件中没有任何实例引用”的块定义。,Item;Delete,,,6,0,"bool,list,object"
+library/cad_blocks.py,reserve_block_names_for_new_insert,2291,2374,&&% 预留新插入块名,1,【核心目标】在插入新块之前，为一组块名“预留新定义空间”。,Item,,,3,0,"dict,object"
+library/cad_blocks.py,get_selected_blockreference_names,2381,2407,&&% 获取选定块引用名,1,使用 pmxz() 选择实体，并返回所有块引用（AcDbBlockReference）的块名列表。,,,,2,0,"list,object"
+library/cad_blocks.py,create_block_from_region_cad,2451,2793,&&% 从区域创建CAD块,1,【纯 CAD 重绘版】从矩形区域创建块（重画为标准 CAD 实体），,InsertBlock;Item;Delete;AddLine;AddCircle;AddPolyline;AddText;AddMText;AddPoint,,,13,0,"NoneType,bool,object,tuple"
+library/cad_blocks.py,create_block_from_region_cmd,2798,2988,&&% 从区域创建CMD块,1,【命令行版】通过 -BLOCK 从矩形区域创建块（保留天正对象），,SendCommand;GetVariable;Delete;Item;InsertBlock,,,7,1,"NoneType,object,tuple"
+library/cad_blocks.py,create_block_from_list_cmd,2992,3149,&&% 从列表对象创建块,1,【命令行版】将指定的 Python 对象列表封装成块。,SendCommand;Item;InsertBlock,,,4,3,"NoneType,object"
+library/cad_blocks.py,get_block_contents_at_same_location,3156,3207,&&% 获取块内实体,1,"【函数2】获取块内图形并在原位置复制,它的作用是获取到实体内部对象",Copy;Explode;Delete,,,2,0,"list,object"
+library/cad_blocks.py,add_entities_to_block_direct,3214,3394,&&% 添加实体到块,1,【函数】进入块定义内部添加对象（强类型修正版）,Update;Item;Move;Rotate;ScaleEntity;Delete,,,6,2,"bool,object"
+library/cad_blocks.py,add_entities_to_block_definition_explode,3398,3532,&&% 添加实体到块,1,【函数】向块定义中追加对象（独立版）,SendCommand;Explode;Update;GetVariable,,,4,3,bool
+library/cad_blocks.py,redefine_block_with_entities,3539,3699,&&% 重定义块内容,1,【调试专用版 V2】redefine_block_with_entities,SetVariable;SendCommand;Item;GetVariable;Update,open,,8,5,bool
+library/cad_blocks.py,extract_specific_entities_from_block,3720,3907,&&% 提取非块实体,1,【函数】从块中提取指定类型的对象（筛选版）,Explode;Update;Delete;Item,,,7,2,"list,object"
+library/cad_blocks.py,safe_explode,3914,3923,&&% 确保简单炸开块,1,【原子操作】,Explode,,,0,0,object
+library/cad_blocks.py,_atomic_explode_and_delete,3928,3948,&&% 确保简单炸开块,1,【原子操作】,Explode;Delete,,,1,1,object
+library/cad_blocks.py,safe_explode_retry,3951,4079,&&% 确保简单炸开块,1,【通用原子函数 - 深度搜救修正版 (V5.0)】,Item,,,7,5,"NoneType,bool,list,object"
+library/cad_blocks.py,explode_single_object_marker,4088,4173,&&% 炸开对象并回溯,1,【主函数】炸开单个对象（辅助线回溯版）,SendCommand;AddLine;Item;Delete,,,5,2,"list,object"
+library/cad_blocks.py,safe_explode_and_delete,4176,4226,&&% 安全炸开并删除,1,对块对象 bk 执行安全的 Explode 与 Delete 操作：,Explode;Delete,,,3,0,object
+library/cad_blocks.py,count_blocks_by_name,4231,4249,&&% count_blocks_by_name,1,# 【新增】统计指定块数量,,,,1,0,"int,object"
+library/cad_blocks.py,count_blocks_by_type,4252,4272,&&% count_blocks_by_type,1,# 【新增】按类型统计块,,,,1,0,"dict,object"
+library/cad_blocks.py,generate_block_report,4275,4303,&&% generate_block_report,1,# 【新增】生成块统计报告,,open,,1,0,bool
+library/cad_blocks.py,batch_replace_blocks,4307,4338,&&% batch_replace_blocks,1,# 【新增】批量替换块,,,,2,0,"int,object"
+library/cad_blocks.py,smart_replace_blocks,4341,4369,&&% smart_replace_blocks,1,# 【新增】智能替换块,,,,2,0,"int,object"
+library/cad_control.py,fix_com_cache,46,97,&&% 清理缓存,1,【急救】清理 win32com 的 gen_py 缓存,,rmtree,,4,2,
+library/cad_control.py,delete_all_nul_under_folder,104,142,&&% 清除nul,1,输入文件夹路径（如 D:\claude-tasks），,,remove,,1,0,None
+library/cad_control.py,kill_dialog_killer,146,179,&&% 终止弹窗程序,1,查找并终止名为 'cad_dialog_killer.py' 的 Python 进程,,,,1,0,
+library/cad_control.py,kill_python_script_by_name,186,237,&&% 终止指定py脚本 (psutil版),1,【推荐】使用 psutil 精准终止指定名称的 Python 脚本。,,,,1,0,object
+library/cad_control.py,kill_wps,491,524,&&% 结束WPS进程,1,结束所有 WPS/金山办公相关进程，特别是 wpspdf.exe。,,,,0,0,
+library/cad_control.py,close_all_excel_processes,529,617,&&%关闭excel进程,1,【函数编号】: SYS-KILL-XLS,,,,2,0,"bool,int,object"
+library/cad_control.py,safe_delete,633,685,&&&% 确保安全删除,1,安全删除 CAD 对象。,Delete,,,3,0,bool
+library/cad_control.py,move_entities_in_region,698,749,&&% 区域实体移动,1,将 `coms` 对象的包围盒内所有实体，沿向量 (target - 左下角) 移动，,Move,,,2,0,
+library/cad_control.py,圆点,755,769,&&% 设置点样式,1,控制点的显示,SetVariable,,,0,0,
+library/cad_control.py,图纸背景,774,776,&&% 设置图纸背景色,0,,,,,0,0,
+library/cad_control.py,shitu_region,785,802,&&% 视图区域缩放,1,按按对象外包盒调整视图,SendCommand,,,0,0,
+library/cad_control.py,shitu_entity,807,828,&&% 视图实体缩放,1,按按对象外包盒调整视图,SendCommand,,,0,0,
+library/cad_control.py,record_screen_gif,850,879,&&% 录制屏幕GIF,1,录制屏幕并保存为 GIF。,,,,0,0,
+library/cad_control.py,minimize_all_windows,885,926,&&% 最小化所有窗口,1,模拟按下 Win+M，将所有窗口最小化。,,,keybd_event,0,0,
+library/cad_control.py,set_autocad_window_to_top_left,934,970,&&% CAD窗口置左上,1,将 AutoCAD 窗口还原并移动到屏幕左上角，可选将其调整为半屏大小。,,,,1,0,None
+library/cad_control.py,l,975,977,&&% CAD窗口置左上别名,0,,,,,0,0,
+library/cad_control.py,minimize_all_windows_d,985,994,&&% 最小化窗口Win+D,1,模拟 Win + D，将所有窗口最小化（切换）。,,,keybd_event,0,0,
+library/cad_control.py,minimize_all_windows_m,998,1017,&&% 最小化窗口Win+M,1,模拟按下 Win+M，将所有窗口最小化。,,,keybd_event,0,0,
+library/cad_control.py,restore_and_position,1021,1088,&&% 恢复并定位窗口,1,将第一个标题中包含 name 的窗口恢复、激活，并调整到指定位置和大小。,,,,5,0,bool
+library/cad_control.py,list_open_window_titles,1093,1104,&&% 列出打开窗口标题,1,获取当前所有可见窗口的标题列表包括子窗口。,,,,0,0,object
+library/cad_control.py,ceshubiao_weizhi,1107,1116,&&% 测鼠标位置,1,提示用户 5 秒内将鼠标移动到 AutoCAD 命令栏输入位置，,,,,0,0,tuple
+library/cad_control.py,run_idle_background,1119,1132,&&% 后台运行IDLE,1,用后台模式启动 IDLE 去运行某个脚本，返回 Popen 实例。,,,,0,0,object
+library/cad_control.py,click_and_drag,1145,1165,&&% 点击并拖动,1,"在屏幕坐标 (x, y) 按下左键，然后向纵向拖动距离 juli。",,,,0,0,
+library/cad_control.py,click_and_find_image_shape,1169,1203,&&% 点击并找图,1,"在 (x, y) 单击一次，然后不断在整个屏幕上查找与 tupian_path 对应的图片形状，",,,,0,0,"NoneType,tuple"
+library/cad_control.py,right_click_and_move,1207,1225,&&% 右键点击并移动,1,"在屏幕坐标 (x, y) 处执行右键点击，然后将鼠标相对于 (x, y) ",,,,0,0,
+library/cad_control.py,kill_all_idle,1228,1238,&&% 结束所有IDLE进程,1,终止所有名为 'idle' 或 'idle.exe' 的进程（不再需要任务管理器）。,,,,1,0,
+library/cad_control.py,set_idle_window_to_top_right,1242,1267,&&% IDLE窗口置右上,0,,,,,0,0,None
+library/cad_control.py,r,1270,1272,&&% IDLE窗口置右上,0,,,,,0,0,
+library/cad_control.py,place_obs_bottom_right,1276,1302,&&% OBS窗口置右下,1,将 OBS Studio 主窗口移动到屏幕右下角，并缩放为屏幕宽高的一半。,,,,0,0,None
+library/cad_control.py,r2,1305,1307,&&% OBS窗口置右下,0,,,,,0,0,
+library/cad_control.py,minimize_window,1311,1328,&&% 最小化指定窗口,1,通用：最小化第一个标题包含 window_keyword 的可见窗口。,,,,0,0,bool
+library/cad_control.py,maximize_autocad_window,1331,1362,&&% 最大化CAD窗口,1,强制最大化第一个标题包含 window_keyword 的可见窗口。,,,ShowWindow,1,0,bool
+library/cad_control.py,start_obs_recording_by_click,1366,1387,&&% 点击开始OBS录制,1,"通过鼠标点击屏幕上 (x,y) 坐标来控制 OBS 开始/停止录制。",,,,0,0,
+library/cad_control.py,fs,1392,1400,&&% 发送微信,1,微信调到0.5窗口,,,,0,0,
+library/cad_control.py,xuanqun,1403,1430,&&% 选微信群,0,,,,,0,0,
+library/cad_control.py,copy_to_clipboard,1434,1451,&&% 复制到剪贴板,1,将传入的 text 文本写入系统剪贴板，供后续右键→粘贴使用。,,,,0,0,
+library/cad_control.py,xieweixin,1454,1475,&&% 写微信,0,,,,,0,0,
+library/cad_control.py,主操作函数,1478,1517,&&% 主操作函数,0,,,,,0,0,
+library/cad_control.py,main_func,1521,1523,&&% 主函数入口,0,,,,,0,0,
+library/cad_control.py,luping,1528,1572,&&% 录屏,1,1) 开始 OBS 录制  ,,,,0,0,
+library/cad_control.py,魔方,1576,1580,&&% 魔方,0,,,,,0,0,
+library/cad_control.py,run_py,1585,1600,&&% 运行Python脚本,0,,,,,1,0,
+library/cad_control.py,focus_cmdline,1604,1611,&&% 聚焦命令行,1,把鼠标移到命令行并单击，确保焦点回到 AutoCAD 命令栏。,,,,0,0,
+library/cad_control.py,activate_window_by_title,1618,1668,&&% 激活窗口和子窗口,1,激活一个指定标题的窗口。,,,ShowWindow;SetForegroundWindow,1,0,"bool,tuple"
+library/cad_control.py,click_in_window,1672,1722,&&% 窗口内点击,1,在指定窗口的某个相对像素位置点击一次（相对于窗口左上角的偏移量）。,,,ShowWindow;SetForegroundWindow,1,0,bool
+library/cad_control.py,activate_and_click_aikeyun,1730,1760,&&% 激活并点击艾可云,0,,,,,1,1,
+library/cad_control.py,drag_in_window_simple,1766,1802,&&% 窗口内简单拖拽,1,拖拽函数，支持相对或绝对起点：,,,,0,0,
+library/cad_control.py,run_auto_explode_area,1817,1841,&&% 纯窗口操作炸开区域内对象,1,这是一个未使用pywin32API控制天正CAD的典型函数,,,,1,0,
+library/cad_control.py,list_all_windows,1845,1854,&&% 列出所有窗口,0,,,,,0,0,
+library/cad_control.py,minimize_window,1857,1874,&&% 列出所有窗口,1,通用：最小化第一个标题包含 window_keyword 的可见窗口。,,,,0,0,bool
+library/cad_control.py,maximize_autocad_window,1876,1907,&&% 列出所有窗口,1,强制最大化第一个标题包含 window_keyword 的可见窗口。,,,ShowWindow,1,0,bool
+library/cad_control.py,set_dwg_units_precision,1932,1951,&&% 设置单位精度,1,设置当前 DWG 文件的单位及精度：,SetVariable,,,1,0,
+library/cad_control.py,jd,1954,1955,&&% 设置单位精度,0,,,,,0,0,
+library/cad_control.py,list_dim_styles,1960,1973,&&% 列出标注样式,1,列出当前 DWG 文件中所有标注样式名称。,Item,,,1,0,"list,object"
+library/cad_control.py,set_current_dimstyle_via_command,1978,1989,&&% 设置当前标注样式,1,使用命令行方式设置当前标注样式，兼容天正。,SendCommand,,,1,0,
+library/cad_control.py,set_current_text_style,1994,2007,&&% 设置当前文字样式,1,设置当前文字样式（通过 COM 接口方式）。,Item,,,1,0,
+library/cad_control.py,huoqu_ziti_style,2011,2015,&&% 获取字体样式,0,,,,,0,0,object
+library/cad_control.py,create_text_style,2037,2082,&&% 创建文字样式,1,在当前 DWG 中创建（或更新）一个中文文字样式。,Item,,,3,0,
+library/cad_control.py,set_text_style_onlyshx,2088,2123,&&% 设置SHX文字样式,1,C:/Program Files/Autodesk/AutoCAD 2021/Fonts查找可用shx字体    ,Item,,,1,0,bool
+library/cad_control.py,set_text_style,2128,2151,&&% 设置文字样式,1,设置CAD中文字样式：英文shx文件 + 中文大字体文件,Item,,,1,0,bool
+library/cad_control.py,rename_conflicting_text_styles,2170,2264,&&% 重命名冲突文字样式,1,在两个 DWG 中找出同名（用户）文字样式，,Open;Save;Close;SendCommand;Item,,,4,0,None
+library/cad_control.py,transfer_props_by_matchprop,2429,2496,&&% 格式刷属性传递,0,,SendCommand,,,2,0,"None,bool,tuple"
+library/cad_control.py,run_dual_threads_1,2539,2634,&&% 双线程运行1,1,通用“双线程-GUI”调度器,,,,0,0,bool
+library/cad_control.py,cancel_cad_selection,2639,2651,&&% 取消CAD选择,0,,,,,1,0,bool
+library/cad_control.py,close_wps_window_by_click,2657,2689,&&&% 打印辅助,1,在标题包含 title_keyword 的窗口右上角点击一次（×），尝试关闭该窗口。,,,EnumWindows,0,0,bool
+library/cad_control.py,min_w,2699,2718,&&% 最小化窗口,0,,,,keybd_event,0,0,
+library/cad_control.py,ql,2724,2726,&&% 清除测试图层,0,,,,,0,0,
+library/cad_control.py,srhd,2735,2778,&&% 模型空间画点,1,在模型空间绘制点并标注序号，支持以下调用形式：,Item;AddPoint;AddText,,,2,1,"None,str"
+library/cad_control.py,srhd_p,2783,2827,&&% 图纸空间画点,1,在图纸空间绘制点和编号，支持：,Item;AddPoint;AddText,,,2,1,"None,str"
+library/cad_control.py,comtomath,2831,2841,&&% COM点转数学点,0,,,,,0,0,object
+library/cad_control.py,p,2843,2849,&&% COM点转数学点,0,,,,,0,0,object
+library/cad_control.py,fuzhi_chakan,2859,2882,&&% 复制查看,0,,Copy;Move,,,1,0,object
+library/cad_control.py,celiang_wenzichangdu,2887,2899,&&% 测量文字长度,0,,Copy;Delete,,,0,0,object
+library/cad_control.py,celiang_wenzichangdu_write,2904,2918,&&% 写入并测量文字长度,0,,AddText;Delete,,,0,0,object
+library/cad_control.py,qingkong_wenjianjia,2925,2940,&&% 清空文件夹,0,,,remove,,0,0,
+library/cad_control.py,get_bbox_info,2947,2999,&&% 获取包围盒信息,1,获取传入 AutoCAD COM 对象（如 Line、Circle、BlockReference 等）的外包盒信息，,,,,1,0,"NoneType,tuple"
+library/cad_control.py,bbox_orientation_flag,3003,3022,&&% 包围盒方向标志,1,判断任意 COM 对象的外包盒是竖向、横向还是正方形：,,,,0,0,object
+library/cad_control.py,group_bbox_corners,3026,3119,&&% 获取多个对象的外包盒数据,1,【通用加强版】计算一组 COM 对象的整体外包盒，并按顺序返回四个角点。,Update,,,1,0,"NoneType,tuple"
+library/cad_control.py,bbox_center_2,3154,3159,&&% 包围盒中心2D,0,,,,,0,0,tuple
+library/cad_control.py,bbox_center_3,3162,3167,&&% 包围盒中心3D,1,"返回实体外包盒中心 (cx, cy, cz)",,,,0,0,tuple
+library/cad_control.py,safe_get_bbox,3170,3233,&&% 安全获取包围盒,1,【通用加强版】安全获取 AutoCAD 图元外包盒 (GetBoundingBox),Update,,,1,0,"NoneType,tuple"
+library/cad_control.py,analyze_dwg_objects_status,3238,3353,&&% dwg状态分析函数,1,分析当前激活DWG文件中的对象状态,,,,5,1,object
+library/cad_geometry.py,compute_line_angle,52,71,&&% 计算直线角度,1,计算直线的方向角（单位：度），基于 StartPoint / EndPoint。,,,,1,0,"NoneType,object"
+library/cad_geometry.py,draw_point,76,92,&&% 绘制点,1,在模型空间绘制一个 AutoCAD 点实体。,AddPoint,,,1,0,"NoneType,object"
+library/cad_geometry.py,draw_line,95,110,&&% 绘制直线,1,在模型空间中绘制从 p1 到 p2 的直线段。,AddLine,,,1,0,"NoneType,object"
+library/cad_geometry.py,draw_circle,114,130,&&% 绘制圆,1,以 center 为圆心、radius 为半径绘制圆。,AddCircle,,,1,0,"NoneType,object"
+library/cad_geometry.py,draw_regular_polygon,134,161,&&% 绘制正多边形,1,绘制正多边形（LWPolyline，已闭合）,AddLightWeightPolyline,,,1,0,"NoneType,object"
+library/cad_geometry.py,prioritize_horizontal,166,185,&&% 优先水平线,1,将列表中所有“水平”直线段（起点和终点的 y 差小于 tol）放在最前面，,,,,0,0,tuple
+library/cad_geometry.py,get_spline_length_by_conversion,190,225,&&% 获取样条曲线长度,1,将样条曲线对象复制、高亮并通过 _SPLINEDIT 转为多段线，,Copy;SendCommand;Item;Delete,,,1,0,"NoneType,object"
+library/cad_geometry.py,estimate_ellipse_length,228,242,&&% 估算椭圆周长,1,估算椭圆对象的长度（周长），使用 Ramanujan 公式。,,,,1,0,"NoneType,object"
+library/cad_geometry.py,get_entity_geometry_info,247,329,&&% 获取几何信息,1,根据图元类型返回其关键几何信息：,,,,1,0,dict
+library/cad_geometry.py,points_on_line_at_distance_3d,336,371,&&% 直线定距点,1,已知 px 在由 p1->p2 确定的直线上，返回在该直线上与 px 距离为 distance 的两个点。,,,,0,0,list
+library/cad_geometry.py,find_fake_intersection_regions,379,438,&&% 查找伪交点区域,1,查找伪相交区域：对于任意线段 A 的端点 P，若：,AddCircle,,,2,1,object
+library/cad_geometry.py,lines_daduan,446,462,&&% 直线打断,1,这个命令对于避免天正墙体没有出现不相交的覆盖是非常重要的，直接应用天正的tlinebk,SendCommand,,,0,0,
+library/cad_geometry.py,delete_duplicate_lines,472,517,&&% 删除重复直线,1,删除重复的直线段，仅保留每组中一条。,Delete,,,2,2,"bool,object"
+library/cad_geometry.py,delete_redundant_lines,524,596,&&% 删除冗余直线,1,删除重复线段和局部重复线段，只保留每组中的一条。,Delete,,,3,3,"bool,object"
+library/cad_geometry.py,find_isolated_intersections,602,674,&&% 查找孤立交点,1,找出线段列表 LB 中的孤立线段，并计算它们与其它线段的所有交点。,Delete,,,0,0,"NoneType,object,tuple"
+library/cad_geometry.py,get_inner_point_of_polygon,683,697,&&% 获取多边形内点,1,获取给定 polygon 的一个保证在其内部的点。,,,,0,0,tuple
+library/cad_geometry.py,get_room_outline_from_point,722,744,&&% 获取房间轮廓,1,自动发送 TSpOutline 命令，从指定点获取房间轮廓。,SendCommand,,,1,0,
+library/cad_geometry.py,connect_lines_to_polyline_if_closed,748,820,&&% 连接闭合多段线,1,判断线段是否首尾连接成闭合多边形，如果是，则绘制PL多段线。,AddLightWeightPolyline,,,2,0,"NoneType,object"
+library/cad_geometry.py,is_closed_polygon_from_lines,824,883,&&% 判断闭合多边形,1,判断一组 AutoCAD 直线段是否首尾连接形成闭合多边形。,,,,2,0,bool
+library/cad_geometry.py,same_point,886,888,&&% 判断同点,1,判断两个点是否在容差范围内相同（只比较 X、Y 坐标）,,,,0,0,object
+library/cad_geometry.py,same_line,892,905,&&% 判断同线,1,判断两条线段 ln1 和 ln2 是否“相同”,,,,0,0,object
+library/cad_geometry.py,calculate_absolute_angle,909,922,&&% 计算绝对角度,1,计算线段（line）从点 P 出发的绝对角度（0-360°）,,,,0,0,object
+library/cad_geometry.py,calculate_relative_angle,925,956,&&% 计算相对角度,1,计算当前参考线（current_line）与候选线段（line）之间的相对角度，,,,,0,0,object
+library/cad_geometry.py,find_lines_angle,962,997,&&% 按角度查找线段,1,查找与指定点 P 共端点的所有线段，并按从 P 出发离开的绝对几何角度排序。,,,,1,0,object
+library/cad_geometry.py,find_lines_sharing_point,1003,1030,&&% 查找共点线段,1,查找与指定点 P 共端点的所有线段，并按从 current_line 逆时针旋转到其他线段的相对角度排序。,,,,1,0,object
+library/cad_geometry.py,find_successor_line_max,1036,1078,&&% 查找最大转角后继线,1,在给定共点 P 处，排除当前线段（current_line）后，,,,,0,0,tuple
+library/cad_geometry.py,find_rightbottom_point,1083,1098,&&% 查找右下角点,1,从所有线段端点中，找出 y 值最小的点；若有多个，则选 x 最大的点作为最右下角点。,,,,0,0,"NoneType,object"
+library/cad_geometry.py,find_rightbottom_closed_polygon,1140,1204,&&% 查找右下角闭合多边形,1,利用所有线段构造封闭多边形：,,,,0,0,"NoneType,object"
+library/cad_geometry.py,draw_polygon_as_polyline,1211,1318,&&% 绘制多边形,1,将构造的多边形（polygon）转换为顶点序列，并在当前 AutoCAD 文档 doc 的 ModelSpace 中添加,Item;AddPolyline;Update,,,2,0,"NoneType,object"
+library/cad_geometry.py,is_nearly_equal,1327,1328,&&% 近似相等,0,,,,,0,0,object
+library/cad_geometry.py,find_successor_line_min,1335,1377,&&% 查找最小转角后继线,0,,,,,1,0,tuple
+library/cad_geometry.py,get_outer_contour,1386,1454,&&% 获取外轮廓,1,获取一组直线段的外轮廓线,,,,0,0,"list,object"
+library/cad_geometry.py,deduplicate_vertices,1483,1517,&&% 顶点去重,1,去掉顶点列表中相邻重复的顶点：,,,,0,0,"list,object"
+library/cad_geometry.py,analyze_polygon_branches,1525,1667,&&% 分析多边形分支,1,分析封闭多边形 PL 的分枝情况。PL 为封闭多边形的顶点列表（按逆时针顺序排列），,,,,3,0,"NoneType,object"
+library/cad_geometry.py,remove_lines_in_LBv,1673,1707,&&% 移除指定顶点线段,1,从 COM 线段列表 lines 中移除那些其两个顶点都在 LB_v 中的线段。,,,,1,0,object
+library/cad_geometry.py,process_polygons,1714,1791,&&% 处理多边形,1,递归提取并绘制直线段集 lines 中所有封闭多边形。,,,,0,0,tuple
+library/cad_geometry.py,extract_polygon_from_lines,1796,1860,&&% 提取多边形,1,将表示封闭多边形边缘的线段（COM对象列表）转换为顶点列表（按顺序排列），,,remove,,2,0,"NoneType,object"
+library/cad_geometry.py,explode_polylines,1869,1893,&&% 炸开多段线,1,对多段线列表 LB 中的每一个多段线，调用 .Explode() 方法，,Explode,,,1,0,object
+library/cad_geometry.py,subtract_line_sets,1899,1920,&&% 线段集相减,1,比较两个线段集合 lines1 和 lines2，返回 lines1 中那些不在 lines2 中的线段。,,,,0,0,object
+library/cad_geometry.py,process_final,1928,1959,&&% 最终处理,0,,Delete,,,0,0,tuple
+library/cad_geometry.py,draw_lwpolyline,2011,2088,&&% 绘制轻量多段线,1,"根据一组 (x, y, z) 坐标点绘制轻量级多段线（LWPOLYLINE）。",Item;AddLightWeightPolyline,,,2,0,object
+library/cad_geometry.py,draw_lwpolyline,2092,2144,&&% 绘制轻量多段线20260113,1,【通用版】支持在 模型空间 或 任意布局空间 绘制。,Item;AddLightWeightPolyline,,,2,0,"NoneType,object"
+library/cad_geometry.py,get_unique_vertices_from_pl_com,2151,2183,&&% 获取唯一顶点,1,提取多段线的顶点列表，不重复连续线段的公共顶点，返回顶点列表。,,,,0,0,object
+library/cad_geometry.py,convert_lines_to_points,2188,2208,&&% 线段转点集,1,将com线段列表转换为顶点列表，每条线段的两个端点作为一个独立的列表。,,,,0,0,object
+library/cad_geometry.py,merge_segments_new,2213,2272,&&% 合并线段,1,使用convert_lines_to_points 将线段实体转成顶点列表表达式后就可以使用此命令,,,,1,0,"object,tuple"
+library/cad_geometry.py,draw_polyline,2279,2358,&&% 绘制多段线,1,【修正版 V3】绘制轻量多段线 (LWPolyline),AddLightWeightPolyline,,,5,3,"NoneType,object"
+library/cad_geometry.py,lines_to_polylines,2374,2466,&&% 线段转多段线,1,将直线段合并为多段线 (空间自适应版),,,,4,3,"list,object"
+library/cad_geometry.py,find_min_point,2471,2484,&&% 查找最小点,1,获取任意对象的左下角坐标（通过其外包盒）。,,,,1,0,tuple
+library/cad_geometry.py,find_max_point,2489,2502,&&% 查找最大点,1,获取任意对象的右上角坐标（通过其外包盒）。,,,,1,0,tuple
+library/cad_geometry.py,distance,2506,2508,&&% 计算距离,1,计算两点之间的距离,,,,0,0,object
+library/cad_geometry.py,define_rectangle_by_diagonal,2515,2535,&&% 定义矩形,1,使用两个对角顶点定义矩形，矩形的边与坐标轴平行或垂直。,,,,0,0,tuple
+library/cad_geometry.py,define_rectangle_by_diagonal_x,2538,2558,&&% 定义矩形X,1,使用两个对角顶点定义矩形，矩形的边与坐标轴平行或垂直。,,,,0,0,object
+library/cad_geometry.py,expand_rectangle,2565,2583,&&% 定义矩形X,1,给定矩形框的两个对角点（p1 和 p2），,,,,0,0,tuple
+library/cad_geometry.py,parse_rectangle_points,2589,2636,&&% 定义矩形X,1,接收多种坐标格式输入，统一解析为矩形四角点：,,,,1,0,"NoneType,tuple"
+library/cad_geometry.py,get_rectangular_polylines,2640,2715,&&&% 模型空间选出矩形多段线,1,【智能筛选】获取所有“矩形”多段线 (兼容轻量线和老式线)。,,,,3,2,object
+library/cad_geometry.py,get_layout_rectangular_polylines_coords,2831,2931,&&%图纸空间矩形多段线,1,【早期绑定专用】基于 get_attr 的矩形分析 (已集成 sys_logger),Item,,,2,0,"list,object"
+library/cad_geometry.py,generate_name_and_ratio_from_com,2938,3126,&&&%  分析打印线20260110,1,【V5.0 强制兜底版】,,,,3,2,"int,tuple"
+library/cad_geometry.py,get_cad_app,3133,3140,&&% 打印数据分析,1,连接 CAD,,,,1,0,"NoneType,object"
+library/cad_geometry.py,get_dimensions,3142,3156,&&% 打印数据分析,1,获取实体长宽（长边在前）,,,,1,0,tuple
+library/cad_geometry.py,sort_coms_by_llcorner,3158,3187,&&% 打印数据分析,1,按 BoundingBox 左下角坐标排序：,,,,1,0,object
+library/cad_geometry.py,main,3189,3257,&&% 打印数据分析,0,,Delete;Item,,,2,0,None
+library/cad_geometry.py,generate_relation_list,3259,3285,&&% 打印数据分析,0,,,,,0,0,object
+library/cad_geometry.py,check_strict_standard_size,3291,3407,&&&% 选择标准打印区域,1,【函数编号】: MAP-CHECK-SIZE-004,,,,2,0,"int,object"
+library/cad_geometry.py,check_strict_standard_size,3412,3510,&&%新版20260111,1,【修正版 V5.0】,,,,2,2,"int,tuple"
+library/cad_geometry.py,polyline_sort,3514,3538,&&% 多段线排序,1,对com多段线按照特定规则进行排序,,,,0,0,object
+library/cad_geometry.py,plcom_to_coor,3547,3595,&&% 多段线转坐标,1,接受多根轻量级多段线或常规多段线的 COM 对象列表，返回它们的坐标列表及闭合状态。,,,,0,0,object
+library/cad_geometry.py,plcoor_to_com,3602,3649,&&% 坐标转多段线,1,在当前 DWG 中根据坐标和封闭标志绘制多条轻量级多段线。,Item;AddLightWeightPolyline,,,1,0,object
+library/cad_geometry.py,panduan_shuxiangkuang,3659,3675,&&% 判断竖向框,0,,,,,0,0,bool
+library/cad_geometry.py,tongyi_tufu,3681,3695,&&% 统一图幅,1,将打印线列表的每根线对应的图纸尺寸统一为一个TFname,,,,0,0,object
+library/cad_geometry.py,simplify_polygon,3714,3750,&&% 简化多边形,1,简化多边形顶点列表：如果某顶点 P 与其前后两点共线（在容差 tol 范围内），则将其移除。,,,,0,0,object
+library/cad_geometry.py,normalize_polygon,3756,3776,&&% 标准化多边形,1,标准化多边形顶点列表：  ,,,,0,0,"list,object"
+library/cad_geometry.py,get_adjacent_points,3781,3795,&&% 获取相邻点,1,在多边形 polygon 中返回顶点 p 的前后相邻点（支持循环）。,,,,1,0,tuple
+library/cad_geometry.py,point_in_polygon,3800,3816,&&% 点在多边形内,1,"判断三维点 pt=(x,y,z) 在多边形 polygon 的 XY 投影内否。",,,,0,0,object
+library/cad_geometry.py,line_segment_intersection_2d,3821,3845,&&% 线段相交,1,计算射线 L(t)=p + t·d 与线段 AB 在 XY 平面上的交点。,,,,0,0,"NoneType,tuple"
+library/cad_geometry.py,get_auxiliary_point,3850,3895,&&% 获取辅助点,1,"对于多边形顶点 p 及其前后相邻点 p_prev, p_next，",,,,0,0,"object,tuple"
+library/cad_geometry.py,concavity_measure,3900,3925,&&% 凹凸度量,1,"给定 p, p_prev, p_next, q（均为 (x,y,z)），",,,,0,0,object
+library/cad_geometry.py,concavity_angle,3930,3936,&&% 凹凸角,1,直接计算多边形 polygon 上顶点 p 的凹凸度量角。,,,,0,0,object
+library/cad_geometry.py,split_orthogonal_hexagon,3945,4014,&&% 水平分割六边形,1,将正交六边形 polygon 按凹顶点所在水平线切成两个矩形。,,,,0,0,object
+library/cad_geometry.py,split_orthogonal_hexagon_vertical,4018,4089,&&% 竖向分割六边形,1,将正交六边形 polygon 按凹顶点所在竖线切成两个矩形。,,,,0,0,object
+library/cad_geometry.py,area_of,4095,4103,&&% 计算面积,1,多边形面积计算（顶点首尾闭合或不闭合均可）,,,,0,0,object
+library/cad_geometry.py,split_hexagon_combined,4108,4154,&&% 综合分割六边形,1,合理分割一个正交（近似）六边形 PL：,,,,0,0,list
+library/cad_geometry.py,get_bbox_edge_segments,4165,4206,&&% 获取包围盒边,1,获取对象 pl 的包围盒四条边，分别作为独立的列表返回：,,,,1,0,tuple
+library/cad_geometry.py,get_texts_in_polyline,4219,4263,&&% 获取多段线内文字,1,在多段线 com_pl 内部筛选文字，并返回文字对象列表和对应的文字内容列表。,,,,0,0,tuple
+library/cad_geometry.py,TDbMText_content,4272,4370,&&% 获取天正多行文字,1,【函数】获取天正多行文字内容（副本炸开版，支持换行识别）,Copy;Delete,,,4,2,"object,str,tuple"
+library/cad_geometry.py,distribute_points_on_entity,4383,4434,&&% 实体均分点,0,,InsertBlock,,,0,0,object
+library/cad_geometry.py,is_segment_contained,4449,4510,&&% 判断线段包含,1,判断 seg_a 是否完全位于 seg_b 上（包含端点）。,,,,0,0,"bool,object,tuple"
+library/cad_geometry.py,common_segments_between_polylines,4515,4625,&&% 公共线段,1,返回 pl1 中与 pl2 “共线且有重叠”的区段列表，每个区段用,,,,0,0,"NoneType,object,tuple"
+library/cad_geometry.py,is_rect_inside_rect,4643,4667,&&% 矩形包含判断,1,判定 axis‑aligned 的矩形 rect_inner 是否被（含边界）完全包在 rect_outer 内。,,,,0,0,object
+library/cad_geometry.py,two_plines_making_rectangle,4676,4787,&&% 两多段线组矩形,1,判断两条正交多段线拼在一起后是否正好是一个矩形。,,,,0,0,"bool,object"
+library/cad_geometry.py,are_all_vertices_inside,4798,4826,&&% 顶点全在内部,1,判断多段线 pl2 的所有顶点是否都在多段线 pl1 构成的多边形内部。,,,,0,0,tuple
+library/cad_objects.py,ensure_list,34,91,&&&&%% 第四部分 一般对象,1,【通用工具】将输入参数统一转换为列表。,,,,1,1,"bool,list,object"
+library/cad_objects.py,sort_tuples,102,126,&&% 元组排序,1,这是很有用的一个双值排序函数，对于COM对象，可以先将其转换为元组，即可使用这个函数,,,,0,0,object
+library/cad_objects.py,multi_dim_tolerance_sort,129,160,&&% 多维容差排序,1,对 lst 列表中的元组按多维坐标字段排序，考虑每个维度的容差进行逐层排序。,,,,0,0,object
+library/cad_objects.py,get_ll_pt,163,165,&&% 多维容差排序,0,,,,,0,0,tuple
+library/cad_objects.py,get_center,167,169,&&% 多维容差排序,0,,,,,0,0,tuple
+library/cad_objects.py,sort_entities_by_position,172,203,&&% 实体位置排序,1,对实体列表根据其坐标（通过 extract_func 获取）进行排序：,,,,0,0,object
+library/cad_objects.py,get_line_start,205,211,&&% 实体位置排序,1,"提取一条直线的起点 (x, y)",,,,0,0,tuple
+library/cad_objects.py,sort_coms_by_llcorner,216,244,&&% 左下角排序,1,按 BoundingBox 左下角坐标排序：,,,,1,0,object
+library/cad_objects.py,sort_coms_by_rbcorner,250,283,&&% 右上角排序,1,竖向图框（或已整体旋转 -90° 的图纸）使用 ——  ,,,,1,0,object
+library/cad_objects.py,sort_coms_by_llcorner_custom,287,334,&&% 自定义左下角排序,1,"按左下角 x, y 坐标对 COM 对象列表 objs 排序：",,,,0,0,object
+library/cad_objects.py,sort_coms_by_center,338,391,&&% 中心点排序,1,按外包盒中心坐标对 COM 对象列表 objs 排序：,,,,0,0,"list,object"
+library/cad_objects.py,number_entities_by_order,397,420,&&% 实体编号,1,对排序好的 COM 实体对象列表进行编号。,,,,0,0,object
+library/cad_objects.py,pr_list,428,446,&&% 列表遍历操作,1,"args:  位置参数元组 (例如: 10, 20)",,,,1,0,object
+library/cad_objects.py,apply_to_each2,453,465,&&% 列表提取操作,1,对 obj_list 中的每个对象，先通过 extract_func 提取值，,,,,0,0,
+library/cad_objects.py,get_boundingbox_from_objects,521,540,&&% 获取对象群包围盒,1,从一组图形对象（如 LB）中获取整体包围盒,,,,1,0,tuple
+library/cad_objects.py,chuangjian_zu,546,550,&&% 创建组,0,,,,,0,0,object
+library/cad_objects.py,nametogroup,553,556,&&% 获取组对象,0,,Item,,,0,0,object
+library/cad_objects.py,get_all_group_names,561,571,&&% 获取所有组名,1,获取当前 DWG 文档中所有组的名称列表。,Item,,,0,0,object
+library/cad_objects.py,get_all_groups,574,588,&&% 获取所有组,1,获取当前 DWG 文档中所有组的 COM 对象列表及其名称。,Item,,,0,0,object
+library/cad_objects.py,add_objects_to_group,594,608,&&% 添加对象到组,1,将 obj_list 中的所有图形对象加入名为 group_name 的组中,Item,,,1,1,object
+library/cad_objects.py,add_object_to_group,614,636,&&% 添加单对象到组,1,将单个图形对象 obj 加入名为 group_name 的组中。,Item,,,1,0,object
+library/cad_objects.py,remove_object_from_group,640,666,&&% 移除组内对象,1,将单个 COM 对象 obj 从名为 group_name 的组中移出。,Item,,,2,0,"NoneType,object"
+library/cad_objects.py,remove_objects_from_group,670,693,&&% 批量移除组内对象,1,将 obj_list 中的所有图形对象从名为 group_name 的组中移出。,Item,,,2,0,"NoneType,object"
+library/cad_objects.py,get_com_from_groupname,701,719,&&% 获取组内实体,1,根据组名获取对应实体列表。,Item,,,1,0,"list,object"
+library/cad_objects.py,get_com_from_groupname_by_type,723,748,&&% 获取组内实体分类,1,根据组名获取对应实体，并按类型名分类返回。,Item,,,0,0,"dict,object"
+library/cad_objects.py,get_group_entities_sorted,752,786,&&% 获取组内实体排序,1,从组中按类型获取实体，并对指定类型按坐标排序。,,,,0,0,"object,tuple"
+library/cad_objects.py,get_group_entities_sorted_by_type_and_bbox,793,834,&&% 组内实体按中心排序,1,将组 group_name 中的实体按类型分类，并对每种类型内部按包围盒中心排序：,Item,,,0,0,object
+library/cad_objects.py,common_group_entities_sorted,839,893,&&% 共有组实体排序,1,获取两个组中共有的实体，按类型分类并按包围盒中心排序。,Item,,,0,0,"object,tuple"
+library/cad_objects.py,get_boundingbox_from_group,896,907,&&% 获取组包围盒,1,并非组的实际BoundingBOX数据,Item,,,0,0,tuple
+library/cad_objects.py,copy_group_S1_from_doc1_to_doc2,910,970,&&% 复制组S1,1,将 doc1 中名为 group_name 的组复制到 doc2 中，并重新组装组。,Item;SendCommand,,,1,0,
+library/cad_objects.py,HandleToObject,1016,1025,&&% 句柄转对象,1,对连接在墙上的门窗测试无效,,,,0,0,object
+library/cad_objects.py,print_coms_handle,1028,1036,&&% 句柄转对象,0,,,,,0,0,
+library/cad_objects.py,handles_to_coms,1043,1056,&&% 批量句柄转对象,1,对连接在墙上的门窗测试无效,,,,0,0,object
+library/cad_objects.py,get_all_handles,1060,1076,&&% 获取所有句柄,1,获取当前图纸中所有对象（通常在 ModelSpace）的 Handle 值列表。,,,,1,1,object
+library/cad_objects.py,find_entity_by_handle,1079,1096,&&% 查找实体,1,遍历当前图纸所有对象，手动比对 Handle 值，找到指定的实体对象。,,,,1,1,"NoneType,object"
+library/cad_objects.py,group_objects_by_type_and_handle,1101,1132,&&% 按类型句柄分组,1,将com对象列表 LB 中的对象按 ObjectName 分类，并存储其 Handle。,,,,1,0,object
+library/cad_objects.py,record_handle_with_type,1137,1150,&&% 记录类型句柄,1,替代 XData 方法：记录对象 Handle、类型名、编号，返回结构化字典。,,,,1,1,object
+library/cad_objects.py,convert_named_dict,1153,1170,&&% 转换命名字典,1,"将 ZD[""门""] 的结构由 Handle: 编号 转换为 编号: COM对象",,,,1,1,object
+library/cad_objects.py,get_named_object,1173,1175,&&% 获取命名对象,0,,,,,0,0,object
+library/cad_objects.py,draw_tags_on_objects_fixed,1180,1221,&&% 绘制固定标签,1,在每个对象的中心点附近绘制标注文字。,AddText,,,1,0,
+library/cad_objects.py,label_tarch_doors,1226,1254,&&% 标记天正门,1,从对象列表 LB1 中筛选出天正门 (ObjectName == 'TDbOpening')，,,,,2,1,object
+library/cad_objects.py,get_handle_object_map,1271,1273,&&% 获取句柄映射,1,返回 {handle: object} 映射,,,,0,0,object
+library/cad_objects.py,set_xdata,1300,1345,&&% 设置扩展数据,1,向任意 AutoCAD COM 对象（如 Line、Circle、BlockReference 等）附加 XData。,SetXData,,,0,0,object
+library/cad_objects.py,get_xdata,1348,1388,&&% 获取扩展数据,1,从任意 AutoCAD COM 对象（如 Line、Circle、BlockReference 等）读取 XData。,GetXData,,,1,0,"object,tuple"
+library/cad_objects.py,set_xdata_tab,1394,1401,&&% 设置打印标记,0,,,,,0,0,None
+library/cad_objects.py,is_printApp_xdata_com,1404,1414,&&% 检查打印标记,0,,,,,1,1,bool
+library/cad_objects.py,write_cad_text,1420,1538,&&% 写CAD单行文字,1,【架构适配版】在指定位置写入 CAD 单行文字。,AddText;Update;Move,,,3,0,"None,NoneType,object"
+library/cad_objects.py,write_tianzheng_text,1543,1771,&&% 写天正单行文字,1,在当前激活图中写入一段“天正单行文字”（通过系统模板 Copy 实现），,Move;Copy;Delete,,,14,0,"None,NoneType,object"
+library/cad_objects.py,align_text_to_vertical_line,1777,1878,&&% 文字垂直对齐,1,将文字按 BoundingBox 边界对齐到指定垂直线的 X 坐标。,Move,,,2,0,bool
+library/cad_objects.py,align_text_to_horizontal_line,1882,1981,&&% 文字水平对齐,1,将文字按 BoundingBox 边界对齐到指定水平线的 Y 坐标。,Move,,,2,0,bool
+library/cad_objects.py,scale_tianzheng_text_to_cad,1986,2088,&&% 缩放天正文字,1,使用 ScaleEntity 将天正文字的 BoundingBox 高度缩放到 CAD 文字的高度。,ScaleEntity,,,2,0,bool
+library/cad_objects.py,sc_objs_to_layer,2097,2142,&&% *** 将屏幕所选对象赋予到指定图层,0,,Item;Delete,,,3,2,"list,object"
+library/cad_objects.py,delete_layer,2145,2178,&&% 删除图层,1,删除当前 DWG 文件中名为 layername 的图层。,Item;Delete,,,3,0,None
+library/cad_objects.py,create_layers_from_list,2183,2209,&&% 从列表创建图层,1,创建列表中指定的图层，如果图层已存在则跳过。,Item,,,2,1,
+library/cad_objects.py,delete_layers_from_list,2213,2251,&&% 从列表删除图层,1,删除列表中指定的图层,Item;Delete,,,2,0,dict
+library/cad_objects.py,dim_by_points,2255,2295,&&% 逐点标注,1,使用天正逐点标注命令对倾斜对象进行标注,SendCommand,,,1,0,bool
+library/cad_objects.py,ensure_layer,2299,2348,&&% 确保图层存在并清空,1,确保图层存在并设为当前图层，同时删除该图层上所有对象（最多重试 3 次）。,Item;SendCommand;Delete,,,3,1,
+library/cad_objects.py,ensure_layer_model_only,2351,2411,&&% 只在模型空间上清理,1,确保图层存在并设为当前图层，同时【仅删除】该图层在模型空间（Model Space）中的对象。,Item;SendCommand;Delete,,,3,0,
+library/cad_objects.py,ensure_layer_current,2420,2440,&&% 确保图层当前,1,确保图层存在并设为当前图层，失败时最多重试 max_retries 次。,Item,,,2,0,bool
+library/cad_objects.py,set_layer_properties,2448,2492,&&% 设置图层属性,1,设置指定图层的颜色、线型、开关状态和冻结状态。,SendCommand;Item,,,3,2,
+library/cad_objects.py,set_layer_with_retry,2500,2548,&&% 将列表中的对象图层设为目标图层,1,将给定 COM 对象列表 LB 中的每个对象的 Layer 属性设为 layername。,Item,,,3,0,tuple
+library/cad_objects.py,force_layer_objects_color,2557,2630,&&% 强制改图层对象颜色,1,[最终修正版] 强制改色,Update,,,4,3,bool
+library/execution_result.py,ExecutionResult.__init__,39,61,,1,初始化执行结果,,,,0,0,
+library/execution_result.py,ExecutionResult.is_success,63,65,,1,判断是否成功,,,,0,0,object
+library/execution_result.py,ExecutionResult.is_failed,67,74,,1,判断是否失败,,,,0,0,object
+library/execution_result.py,ExecutionResult.is_partial,76,78,,1,判断是否部分成功,,,,0,0,object
+library/execution_result.py,ExecutionResult.to_dict,80,88,,1,转换为字典,,,,0,0,dict
+library/execution_result.py,ExecutionResult.__repr__,90,91,,0,,,,,0,0,object
+library/execution_result.py,ExecutionResult.__bool__,93,95,,1,支持布尔判断：if result: ...,,,,0,0,object
+library/execution_result.py,success,100,120,,1,创建成功结果,,,,0,0,object
+library/execution_result.py,failed,123,143,,1,创建失败结果,,,,0,0,object
+library/execution_result.py,partial,146,172,,1,创建部分成功结果,,,,0,0,object
+library/execution_result.py,error,175,195,,1,创建错误结果,,,,0,0,object
+library/execution_result.py,with_execution_check,200,274,,1,函数执行检查装饰器,,,,0,0,object
+library/tarch_building.py,dim_by_points,29,45,,1,使用天正逐点标注命令对任意两点进行标注,,,,0,0,object
+library/tarch_building.py,draw_tarch_wall,49,109,&&% 绘制天正墙,1,绘制天正墙体,,,,2,0,bool
+library/tarch_building.py,insert_tarch_door,112,208,&&% 插入天正门,1,在墙体上插入天正门,Item,,,4,0,dict
+library/tarch_building.py,insert_tarch_window,213,376,&&% 插入天正窗,1,在墙体上插入天正窗,Delete,mkdir,,4,0,dict
+library/tarch_building.py,run_tupdspace_for_tz_room_in_rect,383,515,&&% 获取天正房间,1,"在矩形 (x1,y1)-(x2,y2) 范围内：",,,,3,0,"NoneType,dict"
+library/tarch_building.py,run_auto_TUPDSPACE_with_coord,516,627,&&% 获取天正房间,1,调用 auto_TUPDSPACE.py 子程序，传入坐标，并等待其执行完成（无黑框弹出）。,,,,1,0,object
+library/tarch_building.py,TDb_single_line_variable_wall,633,712,&&% 单线变墙,1,单线变墙函数：将区域内的线段转换为天正墙体,Delete,,,3,0,"bool,object"
+library/tarch_building.py,convert_lines_to_walls,717,771,&&% 单线变墙,1,"Convert lines to thin walls; return (detected_lines, success_walls, failed_walls).",Delete,,,2,0,tuple
+library/tarch_building.py,set_walls_thickness,775,789,&&% 单线变墙,1,Adjust all TDbWall objects in window to desired thickness. Return count.,,,,1,0,object
+library/tarch_building.py,activate_cad_middle_click,808,825,&&&% 基本函数,1,【纯物理激活】中键点击,,,ShowWindow;SetForegroundWindow,2,2,bool
+library/tarch_building.py,insert_tarch_window_lisp_mode,827,904,&&&% 基本函数,1,【函数编号】: TARCH-LISP-V20 (稳健等待版),,,,0,0,bool
+library/tarch_building.py,_get_dynamic_cache_path,917,930,&&&% 门类函数,1,【核心配置】动态获取当前用户的缓存文件路径,,,,0,0,object
+library/tarch_building.py,_load_cache_from_disk,932,942,&&&% 门类函数,1,[内部] 从硬盘加载缓存到内存,,open,,1,0,
+library/tarch_building.py,_save_cache_to_disk,944,955,&&&% 门类函数,1,[内部] 将内存缓存保存到硬盘,,open,,1,0,
+library/tarch_building.py,_activate_cad_safe,964,980,&&&% 门类函数,1,【物理激活】鼠标移至窗口中心点击中键,,,ShowWindow;SetForegroundWindow,2,2,bool
+library/tarch_building.py,_wait_for_user_hover,982,1007,&&&% 门类函数,1,【示教捕获】等待用户悬停鼠标来获取坐标,,,,0,0,object
+library/tarch_building.py,get_wall_thickness,1015,1033,&&% get_wall_thickness,1,# 【新增】获取墙体厚度,,,,1,0,"NoneType,object"
+library/tarch_building.py,get_wall_length,1036,1053,&&% get_wall_length,1,# 【新增】获取墙体长度,,,,1,0,"NoneType,object"
+library/tarch_building.py,get_wall_height,1056,1073,&&% get_wall_height,1,# 【新增】获取墙体高度,,,,1,0,"NoneType,object"
+library/tarch_building.py,modify_wall_thickness,1077,1097,&&% modify_wall_thickness,1,# 【新增】修改墙体厚度,,,,1,0,bool
+library/tarch_building.py,modify_wall_height,1100,1118,&&% modify_wall_height,1,# 【新增】修改墙体高度,,,,1,0,bool
+library/tarch_building.py,modify_door_size,1122,1142,&&% modify_door_size,1,# 【新增】修改门尺寸,,,,1,0,bool
+library/tarch_building.py,modify_window_size,1145,1165,&&% modify_window_size,1,# 【新增】修改窗尺寸,,,,1,0,bool
+library/tarch_building.py,delete_door,1168,1184,&&% delete_door,1,# 【新增】删除门,Delete,,,1,0,bool
+library/tarch_building.py,delete_window,1187,1203,&&% delete_window,1,# 【新增】删除窗,Delete,,,1,0,bool
+library/tarch_building.py,insert_tarch_column,1207,1233,&&% insert_tarch_column,1,# 【新增】插入天正柱子,,,,1,0,dict
+library/tarch_building.py,modify_column_size,1236,1256,&&% modify_column_size,1,# 【新增】修改柱子尺寸,,,,1,0,bool
+library/tarch_building.py,insert_tarch_stair,1260,1285,&&% insert_tarch_stair,1,# 【新增】插入天正楼梯,,,,1,0,dict
+library/tarch_building.py,modify_stair_params,1288,1307,&&% modify_stair_params,1,# 【新增】修改楼梯参数,,,,1,0,bool
+library/tarch_building.py,label_room_name,1311,1333,&&% label_room_name,1,# 【新增】标注房间名称,,,,1,0,bool
+library/tarch_building.py,insert_tarch_door_universal,1336,1478,&&% label_room_name,1,【函数编号】: TARCH-UI-PRO-V2 (终极通用版),,,,1,0,bool
+library/test_monitor.py,TestMonitor.__init__,27,37,,1,初始化测试监测器,,,,0,0,
+library/test_monitor.py,TestMonitor.capture_dwg_state,39,95,,1,捕获当前DWG文件状态,,,,1,0,object
+library/test_monitor.py,TestMonitor.capture_folder_state,97,155,,1,捕获文件夹状态,,,,1,0,object
+library/test_monitor.py,TestMonitor.before_test,157,187,,1,测试前监测,,,,0,0,
+library/test_monitor.py,TestMonitor.after_test,189,219,,1,测试后监测,,,,0,0,
+library/test_monitor.py,TestMonitor.compare_and_judge,221,344,,1,对比测试前后状态并判断是否成功,,,,0,0,object
+library/test_monitor.py,TestMonitor.save_report,346,370,,1,保存测试报告,,open,,0,0,
+scripts/apply_modifications.py,create_backup,27,35,,1,创建文件备份,,,,0,0,"NoneType,object"
+scripts/apply_modifications.py,read_file,37,40,,1,读取文件内容,,open,,0,0,object
+scripts/apply_modifications.py,write_file,42,45,,1,写入文件,,open,,0,0,
+scripts/apply_modifications.py,find_function_range,47,80,,1,查找函数的起始和结束行号,,,,0,0,"NoneType,tuple"
+scripts/apply_modifications.py,apply_modifications,82,170,,1,应用修改,,,,0,0,bool
+scripts/auto_TUPDSPACE.py,activate_autocad_window,7,14,,0,,,,,0,0,bool
+scripts/auto_TUPDSPACE.py,run_tupdspace_flow,17,35,,0,,,,,0,0,
+scripts/auto_TUPDSPACE.py,auto_tupdspace_with_repair,38,54,,0,,,,,0,0,None
+scripts/CAD_basic.py,_cad_safe_print,35,57,&&&&%%  第一部分 导入连接,1,Wrap built-in print to drop unsupported characters (emoji) on GBK consoles.,,,,4,0,"NoneType,object"
+scripts/CAD_basic.py,_log,536,552,&&% 控制函数运行时间,1,将错误或超时信息写入 Excel 日志。如果工作表不存在则创建。,,,,0,0,
+scripts/CAD_basic.py,_kill_acad,555,565,&&% 控制函数运行时间,1,强制结束所有以 acad 开头的 CAD 进程。,,,,1,0,
+scripts/CAD_basic.py,connect_database_task,572,575,&&% 超时控制,0,,,,,0,0,str
+scripts/CAD_basic.py,safe_save_cad,579,591,&&% 超时控制,0,,,,,1,0,bool
+scripts/CAD_basic.py,timeout_and_log2,598,634,&&% 双重超时保护装饰器,1,装饰器：对关键函数添加双重超时保护。,,,,1,0,object
+scripts/CAD_basic.py,test_draw_circle_and_wait,638,689,&&% 双重超时保护装饰器,1,测试：在 CAD 中画圆并触发等待命令，,SendCommand,,,4,0,"None,object"
+scripts/CAD_basic.py,wait_quiescent_ceshi,719,737,&&% 测试轮询等待,1,"详细拆解 ""._ZOOM _E ""片段含义解析.原生别理会用户是否修改过这个命令，",,,,0,0,
+scripts/CAD_basic.py,complex_operation_demo,740,808,&&% 测试PostCommand,1,不要用旧窗口,,,,1,0,
+scripts/CAD_basic.py,draw_infinite_spiral,814,872,&&% 测试卡住状态,0,,AddLine;Update,,,2,0,"None,object"
+scripts/CAD_basic.py,speak_msg,893,912,&&% 语音播报,1,后台线程播放语音，避免阻塞 CAD 主进程,,,,1,0,None
+scripts/CAD_basic.py,com_to_handle,929,939,&&% JSON数据读取存放设置,1,如果是 COM 对象，则返回它的 Handle（字符串）；否则原样返回 obj。,,,,1,0,object
+scripts/CAD_basic.py,serialize,941,952,&&% JSON数据读取存放设置,1,递归地将 dict/list/tuple/COMObject 转为只含基础类型(包括 handle 字符串)的结构。,,,,0,0,object
+scripts/CAD_basic.py,save_print_dict_generic,955,965,&&% 保存打印字典,1,将 bind_dict 序列化并写入 JSON 文件，键为 dwg_name。,,open,,0,0,
+scripts/CAD_basic.py,load,970,987,&&% 加载打印字典,1,从 JSON 文件加载之前保存的打印字典（只含基本类型 & handle 字符串）。,,open,,0,0,"dict,object"
+scripts/CAD_basic.py,current_dwg_basename,990,997,&&% 加载打印字典,1,acad.ActiveDocument.Name 可能带路径或带 .dwg，,,,,0,0,object
+scripts/CAD_basic.py,current_dwg_folder,999,1035,&&% 加载打印字典,1,【V2.0 安全版】获取当前激活文档所在的文件夹路径。,,,,2,1,"NoneType,object"
+scripts/CAD_basic.py,vtpnt,1044,1046,&&% 数据类型转换函数,1,坐标点转化为浮点数,,,,0,0,object
+scripts/CAD_basic.py,vtobj,1048,1050,&&% 数据类型转换函数,1,转化为对象数组,,,,0,0,object
+scripts/CAD_basic.py,vtFloat,1052,1054,&&% 数据类型转换函数,1,列表转化为浮点数,,,,0,0,object
+scripts/CAD_basic.py,vtInt,1056,1058,&&% 数据类型转换函数,1,列表转化为整数,,,,0,0,object
+scripts/CAD_basic.py,vtVariant,1060,1062,&&% 数据类型转换函数,1,列表转化为变体,,,,0,0,object
+scripts/CAD_basic.py,ConvertArrays2Variant,1064,1076,&&% 数据类型转换函数,0,,,,,0,0,object
+scripts/CAD_basic.py,vtlist,1078,1086,&&% 数据类型转换函数,1,将对象列表转为 VARIANT 类型以供 COM 接口使用,,,,0,0,object
+scripts/CAD_basic.py,start_applicationV9,1095,1184,&&% 启动天正CAD及守护进程,1,【核心启动器】,,,,2,0,"NoneType,object"
+scripts/CAD_basic.py,force_show_cad_interface,1186,1216,&&% 启动天正CAD及守护进程,1,【辅助函数】强制显示并最大化现有的 AutoCAD 窗口,,,ShowWindow;SetForegroundWindow,2,1,bool
+scripts/CAD_basic.py,st,1219,1241,&&% 常规启动,0,,,,,0,0,bool
+scripts/CAD_basic.py,get_acad_process_id,1243,1247,&&% 常规启动,0,,,,,0,0,"NoneType,object"
+scripts/CAD_basic.py,jingchengshu_wenjian,1252,1261,&&% 获取CAD进程数,0,,,,,0,0,object
+scripts/CAD_basic.py,close_all_cad_processes,1271,1329,&&% 关闭所有CAD进程,1,强制关闭所有CAD进程,,,,1,0,bool
+scripts/CAD_basic.py,close_oldest_cad_process,1332,1349,&&% 关闭最早CAD进程,0,,,,,1,0,
+scripts/CAD_basic.py,ensure_typelib_from_running,1355,1360,&&% 关闭最早CAD进程,1,从正在运行的 AutoCAD 直接生成 makepy（不依赖注册表）,,,,0,0,
+scripts/CAD_basic.py,_ComLiveProxy.__init__,1364,1364,&&% 关闭最早CAD进程,0,,,,,0,0,
+scripts/CAD_basic.py,_ComLiveProxy.__getattr__,1365,1367,&&% 关闭最早CAD进程,0,,,,,0,0,object
+scripts/CAD_basic.py,_ComLiveProxy.__dir__,1369,1369,&&% 关闭最早CAD进程,0,,,,,0,0,object
+scripts/CAD_basic.py,zoom_window,1377,1380,&&% 窗口缩放,0,,,,,0,0,
+scripts/CAD_basic.py,aci_to_rgb,1388,1394,&&&% RGB色彩,0,,,,,0,0,object
+scripts/CAD_basic.py,get_entity_rgb,1396,1428,&&% 获取实体RGB,1,"返回 (rgb_tuple_or_None, source_str)",Item,,,0,0,tuple
+scripts/CAD_basic.py,chongfu_caozuo,1448,1500,&&% 重复操作,1,对指定函数/方法进行重复调用，直到成功或耗尽重试次数。,,,,2,1,tuple
+scripts/CAD_basic.py,simple_timer,1515,1522,&&% 简单计时器,0,,,,,0,0,object
+scripts/CAD_basic.py,_coinit_once,1535,1540,&&&% 选择,1,线程初始化防呆设计,,,,1,0,
+scripts/CAD_basic.py,get_acad_doc,1542,1620,&&&% 选择,1,[底层原语] 获取/启动 AutoCAD 应用和文档 (安全修正版)暂时保留给引用20250106,,,,6,1,tuple
+scripts/CAD_basic.py,normalize_rect,1622,1625,&&&% 选择,0,,,,,0,0,tuple
+scripts/CAD_basic.py,get_pmxz_group_bbox,1770,1826,&&% 获取选择集包围盒,1,使用 pmxz() 选择一组对象，计算它们的整体外包盒。,,,,1,0,tuple
+scripts/CAD_basic.py,g,1831,1833,&&% 获取选择集包围盒别名,0,,,,,0,0,
+scripts/CAD_basic.py,align_last_ms_obj_lb_to_origin,1837,1903,&&% 最后对象对齐原点,1,选择当前激活图中“模型空间最后一个对象”，,Move,,,6,0,"NoneType,object"
+scripts/CAD_basic.py,get_entity_full_info,1905,1999,&&% 最后对象对齐原点,1,基于优化后的 get_attr，获取实体的完整位置信息和图层属性。,Item,,,1,0,"NoneType,dict"
+scripts/CAD_basic.py,compute_line_angle,2021,2040,&&% 计算直线角度,1,计算直线的方向角（单位：度），基于 StartPoint / EndPoint。,,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,draw_point,2044,2060,&&% 绘制点,1,在模型空间绘制一个 AutoCAD 点实体。,AddPoint,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,draw_line,2063,2078,&&% 绘制直线,1,在模型空间中绘制从 p1 到 p2 的直线段。,AddLine,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,draw_circle,2082,2098,&&% 绘制圆,1,以 center 为圆心、radius 为半径绘制圆。,AddCircle,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,draw_regular_polygon,2102,2129,&&% 绘制正多边形,1,绘制正多边形（LWPolyline，已闭合）,AddLightWeightPolyline,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,prioritize_horizontal,2134,2153,&&% 优先水平线,1,将列表中所有“水平”直线段（起点和终点的 y 差小于 tol）放在最前面，,,,,0,0,tuple
+scripts/CAD_basic.py,get_spline_length_by_conversion,2157,2192,&&% 获取样条曲线长度,1,将样条曲线对象复制、高亮并通过 _SPLINEDIT 转为多段线，,Copy;SendCommand;Item;Delete,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,estimate_ellipse_length,2195,2209,&&% 估算椭圆周长,1,估算椭圆对象的长度（周长），使用 Ramanujan 公式。,,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,get_entity_geometry_info,2214,2296,&&% 获取几何信息,1,根据图元类型返回其关键几何信息：,,,,1,0,dict
+scripts/CAD_basic.py,points_on_line_at_distance_3d,2303,2338,&&% 直线定距点,1,已知 px 在由 p1->p2 确定的直线上，返回在该直线上与 px 距离为 distance 的两个点。,,,,0,0,list
+scripts/CAD_basic.py,find_fake_intersection_regions,2344,2403,&&% 查找伪交点区域,1,查找伪相交区域：对于任意线段 A 的端点 P，若：,AddCircle,,,2,1,object
+scripts/CAD_basic.py,lines_daduan,2410,2426,&&% 直线打断,1,这个命令对于避免天正墙体没有出现不相交的覆盖是非常重要的，直接应用天正的tlinebk,SendCommand,,,0,0,
+scripts/CAD_basic.py,delete_duplicate_lines,2436,2481,&&% 删除重复直线,1,删除重复的直线段，仅保留每组中一条。,Delete,,,2,2,"bool,object"
+scripts/CAD_basic.py,delete_redundant_lines,2488,2560,&&% 删除冗余直线,1,删除重复线段和局部重复线段，只保留每组中的一条。,Delete,,,3,3,"bool,object"
+scripts/CAD_basic.py,find_isolated_intersections,2566,2638,&&% 查找孤立交点,1,找出线段列表 LB 中的孤立线段，并计算它们与其它线段的所有交点。,Delete,,,0,0,"NoneType,object,tuple"
+scripts/CAD_basic.py,get_inner_point_of_polygon,2647,2661,&&% 获取多边形内点,1,获取给定 polygon 的一个保证在其内部的点。,,,,0,0,tuple
+scripts/CAD_basic.py,get_room_outline_from_point,2685,2707,&&% 获取房间轮廓,1,自动发送 TSpOutline 命令，从指定点获取房间轮廓。,SendCommand,,,1,0,
+scripts/CAD_basic.py,connect_lines_to_polyline_if_closed,2711,2783,&&% 连接闭合多段线,1,判断线段是否首尾连接成闭合多边形，如果是，则绘制PL多段线。,AddLightWeightPolyline,,,2,0,"NoneType,object"
+scripts/CAD_basic.py,is_closed_polygon_from_lines,2787,2846,&&% 判断闭合多边形,1,判断一组 AutoCAD 直线段是否首尾连接形成闭合多边形。,,,,2,0,bool
+scripts/CAD_basic.py,same_point,2849,2851,&&% 判断同点,1,判断两个点是否在容差范围内相同（只比较 X、Y 坐标）,,,,0,0,object
+scripts/CAD_basic.py,same_line,2855,2868,&&% 判断同线,1,判断两条线段 ln1 和 ln2 是否“相同”,,,,0,0,object
+scripts/CAD_basic.py,calculate_absolute_angle,2872,2885,&&% 计算绝对角度,1,计算线段（line）从点 P 出发的绝对角度（0-360°）,,,,0,0,object
+scripts/CAD_basic.py,calculate_relative_angle,2888,2919,&&% 计算相对角度,1,计算当前参考线（current_line）与候选线段（line）之间的相对角度，,,,,0,0,object
+scripts/CAD_basic.py,find_lines_angle,2925,2960,&&% 按角度查找线段,1,查找与指定点 P 共端点的所有线段，并按从 P 出发离开的绝对几何角度排序。,,,,1,0,object
+scripts/CAD_basic.py,find_lines_sharing_point,2966,2993,&&% 查找共点线段,1,查找与指定点 P 共端点的所有线段，并按从 current_line 逆时针旋转到其他线段的相对角度排序。,,,,1,0,object
+scripts/CAD_basic.py,find_successor_line_max,2999,3041,&&% 查找最大转角后继线,1,在给定共点 P 处，排除当前线段（current_line）后，,,,,0,0,tuple
+scripts/CAD_basic.py,find_rightbottom_point,3046,3061,&&% 查找右下角点,1,从所有线段端点中，找出 y 值最小的点；若有多个，则选 x 最大的点作为最右下角点。,,,,0,0,"NoneType,object"
+scripts/CAD_basic.py,find_rightbottom_closed_polygon,3103,3167,&&% 查找右下角闭合多边形,1,利用所有线段构造封闭多边形：,,,,0,0,"NoneType,object"
+scripts/CAD_basic.py,draw_polygon_as_polyline,3174,3281,&&% 绘制多边形,1,将构造的多边形（polygon）转换为顶点序列，并在当前 AutoCAD 文档 doc 的 ModelSpace 中添加,Item;AddPolyline;Update,,,2,0,"NoneType,object"
+scripts/CAD_basic.py,is_nearly_equal,3290,3291,&&% 近似相等,0,,,,,0,0,object
+scripts/CAD_basic.py,find_successor_line_min,3298,3340,&&% 查找最小转角后继线,0,,,,,1,0,tuple
+scripts/CAD_basic.py,get_outer_contour,3349,3417,&&% 获取外轮廓,1,获取一组直线段的外轮廓线,,,,0,0,"list,object"
+scripts/CAD_basic.py,deduplicate_vertices,3446,3480,&&% 顶点去重,1,去掉顶点列表中相邻重复的顶点：,,,,0,0,"list,object"
+scripts/CAD_basic.py,analyze_polygon_branches,3488,3630,&&% 分析多边形分支,1,分析封闭多边形 PL 的分枝情况。PL 为封闭多边形的顶点列表（按逆时针顺序排列），,,,,3,0,"NoneType,object"
+scripts/CAD_basic.py,remove_lines_in_LBv,3636,3670,&&% 移除指定顶点线段,1,从 COM 线段列表 lines 中移除那些其两个顶点都在 LB_v 中的线段。,,,,1,0,object
+scripts/CAD_basic.py,process_polygons,3677,3754,&&% 处理多边形,1,递归提取并绘制直线段集 lines 中所有封闭多边形。,,,,0,0,tuple
+scripts/CAD_basic.py,extract_polygon_from_lines,3759,3823,&&% 提取多边形,1,将表示封闭多边形边缘的线段（COM对象列表）转换为顶点列表（按顺序排列），,,remove,,2,0,"NoneType,object"
+scripts/CAD_basic.py,explode_polylines,3832,3856,&&% 炸开多段线,1,对多段线列表 LB 中的每一个多段线，调用 .Explode() 方法，,Explode,,,1,0,object
+scripts/CAD_basic.py,subtract_line_sets,3862,3883,&&% 线段集相减,1,比较两个线段集合 lines1 和 lines2，返回 lines1 中那些不在 lines2 中的线段。,,,,0,0,object
+scripts/CAD_basic.py,process_final,3891,3922,&&% 最终处理,0,,Delete,,,0,0,tuple
+scripts/CAD_basic.py,draw_lwpolyline,3973,4050,&&% 绘制轻量多段线,1,"根据一组 (x, y, z) 坐标点绘制轻量级多段线（LWPOLYLINE）。",Item;AddLightWeightPolyline,,,2,0,object
+scripts/CAD_basic.py,draw_lwpolyline,4054,4106,&&% 绘制轻量多段线20260113,1,【通用版】支持在 模型空间 或 任意布局空间 绘制。,Item;AddLightWeightPolyline,,,2,0,"NoneType,object"
+scripts/CAD_basic.py,get_unique_vertices_from_pl_com,4113,4145,&&% 获取唯一顶点,1,提取多段线的顶点列表，不重复连续线段的公共顶点，返回顶点列表。,,,,0,0,object
+scripts/CAD_basic.py,convert_lines_to_points,4150,4170,&&% 线段转点集,1,将com线段列表转换为顶点列表，每条线段的两个端点作为一个独立的列表。,,,,0,0,object
+scripts/CAD_basic.py,merge_segments_new,4175,4234,&&% 合并线段,1,使用convert_lines_to_points 将线段实体转成顶点列表表达式后就可以使用此命令,,,,1,0,"object,tuple"
+scripts/CAD_basic.py,draw_polyline,4241,4320,&&% 绘制多段线,1,【修正版 V3】绘制轻量多段线 (LWPolyline),AddLightWeightPolyline,,,5,3,"NoneType,object"
+scripts/CAD_basic.py,lines_to_polylines,4336,4428,&&% 线段转多段线,1,将直线段合并为多段线 (空间自适应版),,,,4,3,"list,object"
+scripts/CAD_basic.py,find_min_point,4433,4446,&&% 查找最小点,1,获取任意对象的左下角坐标（通过其外包盒）。,,,,1,0,tuple
+scripts/CAD_basic.py,find_max_point,4451,4464,&&% 查找最大点,1,获取任意对象的右上角坐标（通过其外包盒）。,,,,1,0,tuple
+scripts/CAD_basic.py,distance,4468,4470,&&% 计算距离,1,计算两点之间的距离,,,,0,0,object
+scripts/CAD_basic.py,define_rectangle_by_diagonal,4477,4497,&&% 定义矩形,1,使用两个对角顶点定义矩形，矩形的边与坐标轴平行或垂直。,,,,0,0,tuple
+scripts/CAD_basic.py,define_rectangle_by_diagonal_x,4500,4520,&&% 定义矩形X,1,使用两个对角顶点定义矩形，矩形的边与坐标轴平行或垂直。,,,,0,0,object
+scripts/CAD_basic.py,expand_rectangle,4527,4545,&&% 定义矩形X,1,给定矩形框的两个对角点（p1 和 p2），,,,,0,0,tuple
+scripts/CAD_basic.py,parse_rectangle_points,4551,4597,&&% 定义矩形X,1,接收多种坐标格式输入，统一解析为矩形四角点：,,,,1,0,"NoneType,tuple"
+scripts/CAD_basic.py,get_rectangular_polylines,4601,4676,&&&% 模型空间选出矩形多段线,1,【智能筛选】获取所有“矩形”多段线 (兼容轻量线和老式线)。,,,,3,2,object
+scripts/CAD_basic.py,get_layout_rectangular_polylines_coords,4792,4892,&&%图纸空间矩形多段线,1,【早期绑定专用】基于 get_attr 的矩形分析 (已集成 sys_logger),Item,,,2,0,"list,object"
+scripts/CAD_basic.py,generate_name_and_ratio_from_com,4898,5086,&&&%  分析打印线20260110,1,【V5.0 强制兜底版】,,,,3,2,"int,tuple"
+scripts/CAD_basic.py,get_cad_app,5093,5100,&&% 打印数据分析,1,连接 CAD,,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,get_dimensions,5102,5116,&&% 打印数据分析,1,获取实体长宽（长边在前）,,,,1,0,tuple
+scripts/CAD_basic.py,sort_coms_by_llcorner,5118,5147,&&% 打印数据分析,1,按 BoundingBox 左下角坐标排序：,,,,1,0,object
+scripts/CAD_basic.py,main,5149,5217,&&% 打印数据分析,0,,Delete;Item,,,2,0,None
+scripts/CAD_basic.py,generate_relation_list,5219,5245,&&% 打印数据分析,0,,,,,0,0,object
+scripts/CAD_basic.py,check_strict_standard_size,5251,5367,&&&% 选择标准打印区域,1,【函数编号】: MAP-CHECK-SIZE-004,,,,2,0,"int,object"
+scripts/CAD_basic.py,check_strict_standard_size,5372,5470,&&%新版20260111,1,【修正版 V5.0】,,,,2,2,"int,tuple"
+scripts/CAD_basic.py,polyline_sort,5474,5498,&&% 多段线排序,1,对com多段线按照特定规则进行排序,,,,0,0,object
+scripts/CAD_basic.py,plcom_to_coor,5507,5555,&&% 多段线转坐标,1,接受多根轻量级多段线或常规多段线的 COM 对象列表，返回它们的坐标列表及闭合状态。,,,,0,0,object
+scripts/CAD_basic.py,plcoor_to_com,5562,5609,&&% 坐标转多段线,1,在当前 DWG 中根据坐标和封闭标志绘制多条轻量级多段线。,Item;AddLightWeightPolyline,,,1,0,object
+scripts/CAD_basic.py,panduan_shuxiangkuang,5619,5635,&&% 判断竖向框,0,,,,,0,0,bool
+scripts/CAD_basic.py,tongyi_tufu,5641,5655,&&% 统一图幅,1,将打印线列表的每根线对应的图纸尺寸统一为一个TFname,,,,0,0,object
+scripts/CAD_basic.py,simplify_polygon,5674,5710,&&% 简化多边形,1,简化多边形顶点列表：如果某顶点 P 与其前后两点共线（在容差 tol 范围内），则将其移除。,,,,0,0,object
+scripts/CAD_basic.py,normalize_polygon,5716,5736,&&% 标准化多边形,1,标准化多边形顶点列表：  ,,,,0,0,"list,object"
+scripts/CAD_basic.py,get_adjacent_points,5741,5755,&&% 获取相邻点,1,在多边形 polygon 中返回顶点 p 的前后相邻点（支持循环）。,,,,1,0,tuple
+scripts/CAD_basic.py,point_in_polygon,5760,5776,&&% 点在多边形内,1,"判断三维点 pt=(x,y,z) 在多边形 polygon 的 XY 投影内否。",,,,0,0,object
+scripts/CAD_basic.py,line_segment_intersection_2d,5781,5805,&&% 线段相交,1,计算射线 L(t)=p + t·d 与线段 AB 在 XY 平面上的交点。,,,,0,0,"NoneType,tuple"
+scripts/CAD_basic.py,get_auxiliary_point,5810,5855,&&% 获取辅助点,1,"对于多边形顶点 p 及其前后相邻点 p_prev, p_next，",,,,0,0,"object,tuple"
+scripts/CAD_basic.py,concavity_measure,5860,5885,&&% 凹凸度量,1,"给定 p, p_prev, p_next, q（均为 (x,y,z)），",,,,0,0,object
+scripts/CAD_basic.py,concavity_angle,5890,5896,&&% 凹凸角,1,直接计算多边形 polygon 上顶点 p 的凹凸度量角。,,,,0,0,object
+scripts/CAD_basic.py,split_orthogonal_hexagon,5905,5974,&&% 水平分割六边形,1,将正交六边形 polygon 按凹顶点所在水平线切成两个矩形。,,,,0,0,object
+scripts/CAD_basic.py,split_orthogonal_hexagon_vertical,5978,6049,&&% 竖向分割六边形,1,将正交六边形 polygon 按凹顶点所在竖线切成两个矩形。,,,,0,0,object
+scripts/CAD_basic.py,area_of,6055,6063,&&% 计算面积,1,多边形面积计算（顶点首尾闭合或不闭合均可）,,,,0,0,object
+scripts/CAD_basic.py,split_hexagon_combined,6068,6114,&&% 综合分割六边形,1,合理分割一个正交（近似）六边形 PL：,,,,0,0,list
+scripts/CAD_basic.py,get_bbox_edge_segments,6125,6166,&&% 获取包围盒边,1,获取对象 pl 的包围盒四条边，分别作为独立的列表返回：,,,,1,0,tuple
+scripts/CAD_basic.py,get_texts_in_polyline,6179,6223,&&% 获取多段线内文字,1,在多段线 com_pl 内部筛选文字，并返回文字对象列表和对应的文字内容列表。,,,,0,0,tuple
+scripts/CAD_basic.py,TDbMText_content,6232,6330,&&% 获取天正多行文字,1,【函数】获取天正多行文字内容（副本炸开版，支持换行识别）,Copy;Delete,,,4,2,"object,str,tuple"
+scripts/CAD_basic.py,distribute_points_on_entity,6343,6394,&&% 实体均分点,0,,InsertBlock,,,0,0,object
+scripts/CAD_basic.py,is_segment_contained,6409,6470,&&% 判断线段包含,1,判断 seg_a 是否完全位于 seg_b 上（包含端点）。,,,,0,0,"bool,object,tuple"
+scripts/CAD_basic.py,common_segments_between_polylines,6475,6585,&&% 公共线段,1,返回 pl1 中与 pl2 “共线且有重叠”的区段列表，每个区段用,,,,0,0,"NoneType,object,tuple"
+scripts/CAD_basic.py,is_rect_inside_rect,6603,6627,&&% 矩形包含判断,1,判定 axis‑aligned 的矩形 rect_inner 是否被（含边界）完全包在 rect_outer 内。,,,,0,0,object
+scripts/CAD_basic.py,two_plines_making_rectangle,6636,6747,&&% 两多段线组矩形,1,判断两条正交多段线拼在一起后是否正好是一个矩形。,,,,0,0,"bool,object"
+scripts/CAD_basic.py,are_all_vertices_inside,6758,6786,&&% 顶点全在内部,1,判断多段线 pl2 的所有顶点是否都在多段线 pl1 构成的多边形内部。,,,,0,0,tuple
+scripts/CAD_basic.py,ensure_list,6793,6850,&&&&%% 第四部分 一般对象,1,【通用工具】将输入参数统一转换为列表。,,,,1,1,"bool,list,object"
+scripts/CAD_basic.py,sort_tuples,6861,6885,&&% 元组排序,1,这是很有用的一个双值排序函数，对于COM对象，可以先将其转换为元组，即可使用这个函数,,,,0,0,object
+scripts/CAD_basic.py,multi_dim_tolerance_sort,6888,6919,&&% 多维容差排序,1,对 lst 列表中的元组按多维坐标字段排序，考虑每个维度的容差进行逐层排序。,,,,0,0,object
+scripts/CAD_basic.py,get_ll_pt,6922,6924,&&% 多维容差排序,0,,,,,0,0,tuple
+scripts/CAD_basic.py,get_center,6926,6928,&&% 多维容差排序,0,,,,,0,0,tuple
+scripts/CAD_basic.py,sort_entities_by_position,6931,6962,&&% 实体位置排序,1,对实体列表根据其坐标（通过 extract_func 获取）进行排序：,,,,0,0,object
+scripts/CAD_basic.py,get_line_start,6964,6970,&&% 实体位置排序,1,"提取一条直线的起点 (x, y)",,,,0,0,tuple
+scripts/CAD_basic.py,sort_coms_by_llcorner,6975,7003,&&% 左下角排序,1,按 BoundingBox 左下角坐标排序：,,,,1,0,object
+scripts/CAD_basic.py,sort_coms_by_rbcorner,7009,7042,&&% 右上角排序,1,竖向图框（或已整体旋转 -90° 的图纸）使用 ——  ,,,,1,0,object
+scripts/CAD_basic.py,sort_coms_by_llcorner_custom,7046,7093,&&% 自定义左下角排序,1,"按左下角 x, y 坐标对 COM 对象列表 objs 排序：",,,,0,0,object
+scripts/CAD_basic.py,sort_coms_by_center,7097,7150,&&% 中心点排序,1,按外包盒中心坐标对 COM 对象列表 objs 排序：,,,,0,0,"list,object"
+scripts/CAD_basic.py,number_entities_by_order,7156,7179,&&% 实体编号,1,对排序好的 COM 实体对象列表进行编号。,,,,0,0,object
+scripts/CAD_basic.py,pr_list,7186,7204,&&% 列表遍历操作,1,"args:  位置参数元组 (例如: 10, 20)",,,,1,0,object
+scripts/CAD_basic.py,apply_to_each2,7211,7223,&&% 列表提取操作,1,对 obj_list 中的每个对象，先通过 extract_func 提取值，,,,,0,0,
+scripts/CAD_basic.py,get_boundingbox_from_objects,7278,7297,&&% 获取对象群包围盒,1,从一组图形对象（如 LB）中获取整体包围盒,,,,1,0,tuple
+scripts/CAD_basic.py,chuangjian_zu,7303,7307,&&% 创建组,0,,,,,0,0,object
+scripts/CAD_basic.py,nametogroup,7310,7313,&&% 获取组对象,0,,Item,,,0,0,object
+scripts/CAD_basic.py,get_all_group_names,7318,7328,&&% 获取所有组名,1,获取当前 DWG 文档中所有组的名称列表。,Item,,,0,0,object
+scripts/CAD_basic.py,get_all_groups,7331,7345,&&% 获取所有组,1,获取当前 DWG 文档中所有组的 COM 对象列表及其名称。,Item,,,0,0,object
+scripts/CAD_basic.py,add_objects_to_group,7351,7365,&&% 添加对象到组,1,将 obj_list 中的所有图形对象加入名为 group_name 的组中,Item,,,1,1,object
+scripts/CAD_basic.py,add_object_to_group,7371,7393,&&% 添加单对象到组,1,将单个图形对象 obj 加入名为 group_name 的组中。,Item,,,1,0,object
+scripts/CAD_basic.py,remove_object_from_group,7397,7423,&&% 移除组内对象,1,将单个 COM 对象 obj 从名为 group_name 的组中移出。,Item,,,2,0,"NoneType,object"
+scripts/CAD_basic.py,remove_objects_from_group,7427,7450,&&% 批量移除组内对象,1,将 obj_list 中的所有图形对象从名为 group_name 的组中移出。,Item,,,2,0,"NoneType,object"
+scripts/CAD_basic.py,get_com_from_groupname,7458,7476,&&% 获取组内实体,1,根据组名获取对应实体列表。,Item,,,1,0,"list,object"
+scripts/CAD_basic.py,get_com_from_groupname_by_type,7480,7505,&&% 获取组内实体分类,1,根据组名获取对应实体，并按类型名分类返回。,Item,,,0,0,"dict,object"
+scripts/CAD_basic.py,get_group_entities_sorted,7509,7543,&&% 获取组内实体排序,1,从组中按类型获取实体，并对指定类型按坐标排序。,,,,0,0,"object,tuple"
+scripts/CAD_basic.py,get_group_entities_sorted_by_type_and_bbox,7550,7591,&&% 组内实体按中心排序,1,将组 group_name 中的实体按类型分类，并对每种类型内部按包围盒中心排序：,Item,,,0,0,object
+scripts/CAD_basic.py,common_group_entities_sorted,7596,7650,&&% 共有组实体排序,1,获取两个组中共有的实体，按类型分类并按包围盒中心排序。,Item,,,0,0,"object,tuple"
+scripts/CAD_basic.py,get_boundingbox_from_group,7653,7664,&&% 获取组包围盒,1,并非组的实际BoundingBOX数据,Item,,,0,0,tuple
+scripts/CAD_basic.py,copy_group_S1_from_doc1_to_doc2,7667,7727,&&% 复制组S1,1,将 doc1 中名为 group_name 的组复制到 doc2 中，并重新组装组。,Item;SendCommand,,,1,0,
+scripts/CAD_basic.py,HandleToObject,7773,7782,&&% 句柄转对象,1,对连接在墙上的门窗测试无效,,,,0,0,object
+scripts/CAD_basic.py,print_coms_handle,7785,7793,&&% 句柄转对象,0,,,,,0,0,
+scripts/CAD_basic.py,handles_to_coms,7800,7813,&&% 批量句柄转对象,1,对连接在墙上的门窗测试无效,,,,0,0,object
+scripts/CAD_basic.py,get_all_handles,7817,7833,&&% 获取所有句柄,1,获取当前图纸中所有对象（通常在 ModelSpace）的 Handle 值列表。,,,,1,1,object
+scripts/CAD_basic.py,find_entity_by_handle,7836,7853,&&% 查找实体,1,遍历当前图纸所有对象，手动比对 Handle 值，找到指定的实体对象。,,,,1,1,"NoneType,object"
+scripts/CAD_basic.py,group_objects_by_type_and_handle,7858,7889,&&% 按类型句柄分组,1,将com对象列表 LB 中的对象按 ObjectName 分类，并存储其 Handle。,,,,1,0,object
+scripts/CAD_basic.py,record_handle_with_type,7894,7907,&&% 记录类型句柄,1,替代 XData 方法：记录对象 Handle、类型名、编号，返回结构化字典。,,,,1,1,object
+scripts/CAD_basic.py,convert_named_dict,7910,7927,&&% 转换命名字典,1,"将 ZD[""门""] 的结构由 Handle: 编号 转换为 编号: COM对象",,,,1,1,object
+scripts/CAD_basic.py,get_named_object,7930,7932,&&% 获取命名对象,0,,,,,0,0,object
+scripts/CAD_basic.py,draw_tags_on_objects_fixed,7937,7978,&&% 绘制固定标签,1,在每个对象的中心点附近绘制标注文字。,AddText,,,1,0,
+scripts/CAD_basic.py,label_tarch_doors,7983,8011,&&% 标记天正门,1,从对象列表 LB1 中筛选出天正门 (ObjectName == 'TDbOpening')，,,,,2,1,object
+scripts/CAD_basic.py,get_handle_object_map,8028,8030,&&% 获取句柄映射,1,返回 {handle: object} 映射,,,,0,0,object
+scripts/CAD_basic.py,set_xdata,8057,8102,&&% 设置扩展数据,1,向任意 AutoCAD COM 对象（如 Line、Circle、BlockReference 等）附加 XData。,SetXData,,,0,0,object
+scripts/CAD_basic.py,get_xdata,8105,8145,&&% 获取扩展数据,1,从任意 AutoCAD COM 对象（如 Line、Circle、BlockReference 等）读取 XData。,GetXData,,,1,0,"object,tuple"
+scripts/CAD_basic.py,set_xdata_tab,8151,8158,&&% 设置打印标记,0,,,,,0,0,None
+scripts/CAD_basic.py,is_printApp_xdata_com,8161,8171,&&% 检查打印标记,0,,,,,1,1,bool
+scripts/CAD_basic.py,write_cad_text,8177,8295,&&% 写CAD单行文字,1,【架构适配版】在指定位置写入 CAD 单行文字。,AddText;Update;Move,,,3,0,"None,NoneType,object"
+scripts/CAD_basic.py,write_tianzheng_text,8300,8528,&&% 写天正单行文字,1,在当前激活图中写入一段“天正单行文字”（通过系统模板 Copy 实现），,Move;Copy;Delete,,,14,0,"None,NoneType,object"
+scripts/CAD_basic.py,align_text_to_vertical_line,8534,8635,&&% 文字垂直对齐,1,将文字按 BoundingBox 边界对齐到指定垂直线的 X 坐标。,Move,,,2,0,bool
+scripts/CAD_basic.py,align_text_to_horizontal_line,8639,8738,&&% 文字水平对齐,1,将文字按 BoundingBox 边界对齐到指定水平线的 Y 坐标。,Move,,,2,0,bool
+scripts/CAD_basic.py,scale_tianzheng_text_to_cad,8743,8845,&&% 缩放天正文字,1,使用 ScaleEntity 将天正文字的 BoundingBox 高度缩放到 CAD 文字的高度。,ScaleEntity,,,2,0,bool
+scripts/CAD_basic.py,sc_objs_to_layer,8854,8899,&&% *** 将屏幕所选对象赋予到指定图层,0,,Item;Delete,,,3,2,"list,object"
+scripts/CAD_basic.py,delete_layer,8902,8935,&&% 删除图层,1,删除当前 DWG 文件中名为 layername 的图层。,Item;Delete,,,3,0,None
+scripts/CAD_basic.py,create_layers_from_list,8940,8966,&&% 从列表创建图层,1,创建列表中指定的图层，如果图层已存在则跳过。,Item,,,2,1,
+scripts/CAD_basic.py,delete_layers_from_list,8970,9008,&&% 从列表删除图层,1,删除列表中指定的图层,Item;Delete,,,2,0,dict
+scripts/CAD_basic.py,dim_by_points,9012,9052,&&% 逐点标注,1,使用天正逐点标注命令对倾斜对象进行标注,SendCommand,,,1,0,bool
+scripts/CAD_basic.py,ensure_layer,9056,9105,&&% 确保图层存在并清空,1,确保图层存在并设为当前图层，同时删除该图层上所有对象（最多重试 3 次）。,Item;SendCommand;Delete,,,3,1,
+scripts/CAD_basic.py,ensure_layer_model_only,9108,9168,&&% 只在模型空间上清理,1,确保图层存在并设为当前图层，同时【仅删除】该图层在模型空间（Model Space）中的对象。,Item;SendCommand;Delete,,,3,0,
+scripts/CAD_basic.py,ensure_layer_current,9177,9197,&&% 确保图层当前,1,确保图层存在并设为当前图层，失败时最多重试 max_retries 次。,Item,,,2,0,bool
+scripts/CAD_basic.py,set_layer_properties,9205,9249,&&% 设置图层属性,1,设置指定图层的颜色、线型、开关状态和冻结状态。,SendCommand;Item,,,3,2,
+scripts/CAD_basic.py,set_layer_with_retry,9257,9305,&&% 将列表中的对象图层设为目标图层,1,将给定 COM 对象列表 LB 中的每个对象的 Layer 属性设为 layername。,Item,,,3,0,tuple
+scripts/CAD_basic.py,force_layer_objects_color,9314,9387,&&% 强制改图层对象颜色,1,[最终修正版] 强制改色,Update,,,4,3,bool
+scripts/CAD_basic.py,build_J_points_from_selected_texts,9409,9440,&&% 从文本构建J点,0,,,,,0,0,"object,tuple"
+scripts/CAD_basic.py,convert_pts_dict_to_latlon,9445,9487,&&% 坐标转经纬度,1,"输入: pts_dict = {'J1': (N, E), 'J2': (N, E), ...}",,,,0,0,"object,tuple"
+scripts/CAD_basic.py,xianshi_yincangtuxing,9519,9523,&&% 显示隐藏图形,0,,SendCommand;Save,,,0,0,
+scripts/CAD_basic.py,run_cad_program,9534,9553,&&% 运行CAD程序,0,,SendCommand,,,1,0,
+scripts/CAD_basic.py,automate_window_with_pywinauto_t7,9557,9612,&&% 自动化T7窗口,0,,,,,4,0,
+scripts/CAD_basic.py,zhuancheng_t7,9616,9655,&&% 转成T7,1,在li()连接激活文件后，直接执行该命令即可转换,,,,0,0,
+scripts/CAD_basic.py,automate_window_with_pywinauto_t3,9666,9720,&&% 自动化T3窗口,0,,,,,4,0,
+scripts/CAD_basic.py,zhuancheng_t3,9724,9764,&&% 转成T3,1,在li()连接激活文件后，直接执行该命令即可转换,,,,0,0,
+scripts/CAD_basic.py,ensure_file_absent,9783,9799,&&% 确保文件被删除,1,确保指定路径的文件不存在。如果存在，则删除并等待 ty 秒。,,remove,,1,0,
+scripts/CAD_basic.py,traverse_with_os_walk,9803,9813,&&% 遍历目录,1,遍历 root_dir 及其所有子目录，打印每个目录和文件的完整路径。,,,,0,0,
+scripts/CAD_basic.py,find_files_with_extensions,9818,9825,&&% 按后缀查找文件,0,,,,,0,0,object
+scripts/CAD_basic.py,get_filename_without_extension,9828,9835,&&% 获取无后缀文件名,0,,,,,0,0,object
+scripts/CAD_basic.py,delete_files_with_patterns,9839,9862,&&% 按模式删除文件,1,删除文件夹中符合指定模式的文件。,,remove,,0,0,
+scripts/CAD_basic.py,clear_files_with_prefix,9868,9902,&&% 清除指定前缀文件,1,清除指定文件夹中所有文件名包含给定前缀的文件。若文件正在被占用或删除失败，会尝试重试一次。,,remove,,2,0,None
+scripts/CAD_basic.py,find_files_with_string,9907,9913,&&% 按字符串查找文件,0,,,,,0,0,object
+scripts/CAD_basic.py,join_paths,9917,9921,&&% 路径拼接,0,,,,,0,0,object
+scripts/CAD_basic.py,get_block_name,9934,9940,&&% 获取块实例块名,1,获取块名，兼容动态块(EffectiveName),,,,1,1,object
+scripts/CAD_basic.py,huoqukuai_shuxing_zhi,9944,9963,&&% 获取块属性值,0,,GetAttributes,,,0,0,tuple
+scripts/CAD_basic.py,update_block_def_attributes_safe,9969,10134,&&% 属性块标签编辑,1,【函数编号】: BLK-007-Safe,Item;Move,,,2,0,bool
+scripts/CAD_basic.py,update_block_def_attributes_v7,10137,10319,&&% 属性块标签编辑,1,【函数编号】: BLK-007,Item;Move,,,7,4,bool
+scripts/CAD_basic.py,attsync_block_instance,10323,10352,&&% 属性块标签编辑生效,1,【函数编号】: CMD-001,,,,1,1,object
+scripts/CAD_basic.py,attsync_block_instance_base,10354,10404,&&% 属性块标签编辑生效,1,【函数编号】: CMD-001,SendCommand,,,2,1,bool
+scripts/CAD_basic.py,set_attribute_mtext,10409,10545,&&% 设置属性块的标签值,1,"set_attribute_mtext(p[0],""图纸规格"",""A0"")",GetAttributes;Update,,,4,2,object
+scripts/CAD_basic.py,get_block_attributes_dict,10552,10646,&&% 获取属性块标签及标签值,1,获取块参照 block_ref 的所有属性，返回 {标签: 纯文本值} 的字典。,GetAttributes,,,4,0,object
+scripts/CAD_basic.py,separate_entities_by_block_names,10649,10698,&&% 筛选出指定块名外的对象,1,将实体列表分为两组：,,,,0,0,tuple
+scripts/CAD_basic.py,huoqu_kuai_pl,10704,10724,&&% 获取块内多段线,0,,Item,,,0,0,
+scripts/CAD_basic.py,create_block_with_basepoint,10733,10745,&&% 创建带基点块,0,,AddCircle,,,0,0,
+scripts/CAD_basic.py,create_block_with_triangle_and_text,10751,10772,&&% 创建三角形文字块,0,,AddLine;AddText,,,0,0,
+scripts/CAD_basic.py,huoqu_kuai_pl,10776,10795,&&% 创建三角形文字块,0,,Item,,,0,0,
+scripts/CAD_basic.py,get_bounding_box_of_block,10802,10829,&&% 获取块包围盒,0,,Item,,,1,1,tuple
+scripts/CAD_basic.py,create_new_block_with_insert_and_line,10833,10856,&&% 创建含插入和直线的块,0,,InsertBlock;AddLine,,,0,0,None
+scripts/CAD_basic.py,copy_and_move_blocks_from_layer,10861,10882,&&% 复制并移动图层块,0,,Copy;Move,,,0,0,
+scripts/CAD_basic.py,delete_block_instances_and_definition_retry,10889,10957,&&% 旧版,1,删除指定名称的块实例和块定义，带重试机制。,Item;Delete,,,1,0,"None,bool"
+scripts/CAD_basic.py,delete_block_instances_and_definition_optimized,10961,11039,&&% 极速清理,1,【函数编号】: CLEAN-ROBUST-V34 (核验版),Item;Delete;Erase,,,5,3,bool
+scripts/CAD_basic.py,delete_block_instances_and_definition_optimized,11043,11124,&&% 再次优化,1,【最终推荐版】,Item;Delete;Erase,,,5,1,bool
+scripts/CAD_basic.py,rename_block_entity,11129,11152,&&% 重命名块实体,1,将给定块参照实体 ent 的块名改为 new_name。,Item,,,1,0,
+scripts/CAD_basic.py,get_block_instances,11156,11189,&&% 由块名选择实例,1,根据给定的块定义名，检索当前图形中所有对应的块参照实例（BlockReference），,,,,2,0,"list,object"
+scripts/CAD_basic.py,get_entities_from_block_reference,11196,11215,&&% 获取块引用实体,1,获取块引用对象中的所有子实体（COM对象形式）。,Item,,,1,0,"list,object"
+scripts/CAD_basic.py,insert_block_into_autocad,11225,11245,&&% 插入块到CAD,1,以块的方式插入 DWG 文件到 AutoCAD 中,InsertBlock,,,1,0,
+scripts/CAD_basic.py,insert_standard_block,11252,11322,&&% 插入标准块,1,不炸开，,SendCommand,,,1,0,"list,object"
+scripts/CAD_basic.py,insert_and_explode_dwg,11329,11418,&&% 插入并炸开DWG,1,将一个 WBLOCK 导出的标准块 DWG 插入到当前图，,SendCommand,,,2,0,"list,tuple"
+scripts/CAD_basic.py,insert_and_explode_dwg,11424,11522,&&% 新版本性能测试0109,1,【V3.0 重构版】插入并炸开 DWG,SendCommand,,,2,1,tuple
+scripts/CAD_basic.py,get_large_block_instances,11529,11582,&&% 获取大块实例,1,获取模型空间中所有块实例，筛选出“包围盒面积大于 area_threshold” 的块，,,,,2,0,"list,object"
+scripts/CAD_basic.py,get_large_block_instances_with_tolerance,11588,11619,&&% 确定合乎标准打印要求的自建多段线区域,1,获取当前 DWG 中所有大尺寸块实例,,,,2,0,"list,object"
+scripts/CAD_basic.py,transform_point_by_block,11626,11658,&&% 块内坐标转换成世界坐标（适合平面上的一般块）,1,"将块内部坐标 local_pt = (lx, ly, lz) 转换为世界坐标：",,,,0,0,tuple
+scripts/CAD_basic.py,select_block_by_name,11662,11695,&&% 按名称选择块,1,从 *模型空间* 快速选出指定块名的所有实例，返回实体列表。,Delete;Item,,,1,0,"list,object"
+scripts/CAD_basic.py,get_all_block_definitions,11698,11755,&&% 获取所有块定义,1,返回当前 DWG 中所有块定义（BlockTableRecord）对象列表。,Item,,,2,0,object
+scripts/CAD_basic.py,get_all_block_names,11759,11774,&&% 获取所有块名,1,使用全局 li()/doc 获取当前 DWG 中所有块定义的名字列表。,,,,1,0,object
+scripts/CAD_basic.py,purge_block,11778,11833,&&% 块清理,1,删除指定块的所有实例，并彻底清除该块定义。,Item;Delete,,,1,0,
+scripts/CAD_basic.py,purge_unused_blocks,11836,11873,&&% 清理未使用块,1,一次性清除所有未被任何 INSERT 实例引用的块定义。,Item,,,0,0,object
+scripts/CAD_basic.py,purge_block_1,11879,12016,&&% 清理块1,1,删除指定块的所有实例，并尽可能彻底清除该块定义。,Item;Delete,,,6,0,"None,bool,object"
+scripts/CAD_basic.py,purge_unused_blocks_1,12020,12177,&&% 清理未使用块1,1,一次性清除“当前文件中没有任何实例引用”的块定义。,Item;Delete,,,6,0,"bool,list,object"
+scripts/CAD_basic.py,reserve_block_names_for_new_insert,12181,12264,&&% 预留新插入块名,1,【核心目标】在插入新块之前，为一组块名“预留新定义空间”。,Item,,,3,0,"dict,object"
+scripts/CAD_basic.py,get_selected_blockreference_names,12271,12297,&&% 获取选定块引用名,1,使用 pmxz() 选择实体，并返回所有块引用（AcDbBlockReference）的块名列表。,,,,2,0,"list,object"
+scripts/CAD_basic.py,create_block_from_region_cad,12341,12683,&&% 从区域创建CAD块,1,【纯 CAD 重绘版】从矩形区域创建块（重画为标准 CAD 实体），,InsertBlock;Item;Delete;AddLine;AddCircle;AddPolyline;AddText;AddMText;AddPoint,,,13,0,"NoneType,bool,object,tuple"
+scripts/CAD_basic.py,create_block_from_region_cmd,12688,12878,&&% 从区域创建CMD块,1,【命令行版】通过 -BLOCK 从矩形区域创建块（保留天正对象），,SendCommand;GetVariable;Delete;Item;InsertBlock,,,7,1,"NoneType,object,tuple"
+scripts/CAD_basic.py,create_block_from_list_cmd,12882,13039,&&% 从列表对象创建块,1,【命令行版】将指定的 Python 对象列表封装成块。,SendCommand;Item;InsertBlock,,,4,3,"NoneType,object"
+scripts/CAD_basic.py,get_block_contents_at_same_location,13045,13096,&&% 获取块内实体,1,"【函数2】获取块内图形并在原位置复制,它的作用是获取到实体内部对象",Copy;Explode;Delete,,,2,0,"list,object"
+scripts/CAD_basic.py,add_entities_to_block_direct,13103,13283,&&% 添加实体到块,1,【函数】进入块定义内部添加对象（强类型修正版）,Update;Item;Move;Rotate;ScaleEntity;Delete,,,6,2,"bool,object"
+scripts/CAD_basic.py,add_entities_to_block_definition_explode,13287,13421,&&% 添加实体到块,1,【函数】向块定义中追加对象（独立版）,SendCommand;Explode;Update;GetVariable,,,4,3,bool
+scripts/CAD_basic.py,redefine_block_with_entities,13428,13588,&&% 重定义块内容,1,【调试专用版 V2】redefine_block_with_entities,SetVariable;SendCommand;Item;GetVariable;Update,open,,8,5,bool
+scripts/CAD_basic.py,extract_specific_entities_from_block,13609,13796,&&% 提取非块实体,1,【函数】从块中提取指定类型的对象（筛选版）,Explode;Update;Delete;Item,,,7,2,"list,object"
+scripts/CAD_basic.py,safe_explode,13803,13812,&&% 确保简单炸开块,1,【原子操作】,Explode,,,0,0,object
+scripts/CAD_basic.py,_atomic_explode_and_delete,13817,13837,&&% 确保简单炸开块,1,【原子操作】,Explode;Delete,,,1,1,object
+scripts/CAD_basic.py,safe_explode_retry,13840,13968,&&% 确保简单炸开块,1,【通用原子函数 - 深度搜救修正版 (V5.0)】,Item,,,7,5,"NoneType,bool,list,object"
+scripts/CAD_basic.py,explode_single_object_marker,13977,14062,&&% 炸开对象并回溯,1,【主函数】炸开单个对象（辅助线回溯版）,SendCommand;AddLine;Item;Delete,,,5,2,"list,object"
+scripts/CAD_basic.py,safe_explode_and_delete,14065,14115,&&% 安全炸开并删除,1,对块对象 bk 执行安全的 Explode 与 Delete 操作：,Explode;Delete,,,3,0,object
+scripts/CAD_basic.py,fix_com_cache,14130,14181,&&% 清理缓存,1,【急救】清理 win32com 的 gen_py 缓存,,rmtree,,4,2,
+scripts/CAD_basic.py,delete_all_nul_under_folder,14188,14226,&&% 清除nul,1,输入文件夹路径（如 D:\claude-tasks），,,remove,,1,0,None
+scripts/CAD_basic.py,kill_dialog_killer,14230,14263,&&% 终止弹窗程序,1,查找并终止名为 'cad_dialog_killer.py' 的 Python 进程,,,,1,0,
+scripts/CAD_basic.py,kill_python_script_by_name,14270,14321,&&% 终止指定py脚本 (psutil版),1,【推荐】使用 psutil 精准终止指定名称的 Python 脚本。,,,,1,0,object
+scripts/CAD_basic.py,kill_wps,14575,14608,&&% 结束WPS进程,1,结束所有 WPS/金山办公相关进程，特别是 wpspdf.exe。,,,,0,0,
+scripts/CAD_basic.py,close_all_excel_processes,14613,14701,&&%关闭excel进程,1,【函数编号】: SYS-KILL-XLS,,,,2,0,"bool,int,object"
+scripts/CAD_basic.py,safe_delete,14717,14769,&&&% 确保安全删除,1,安全删除 CAD 对象。,Delete,,,3,0,bool
+scripts/CAD_basic.py,move_entities_in_region,14782,14833,&&% 区域实体移动,1,将 `coms` 对象的包围盒内所有实体，沿向量 (target - 左下角) 移动，,Move,,,2,0,
+scripts/CAD_basic.py,圆点,14838,14852,&&% 设置点样式,1,控制点的显示,SetVariable,,,0,0,
+scripts/CAD_basic.py,图纸背景,14857,14859,&&% 设置图纸背景色,0,,,,,0,0,
+scripts/CAD_basic.py,shitu_region,14868,14885,&&% 视图区域缩放,1,按按对象外包盒调整视图,SendCommand,,,0,0,
+scripts/CAD_basic.py,shitu_entity,14890,14911,&&% 视图实体缩放,1,按按对象外包盒调整视图,SendCommand,,,0,0,
+scripts/CAD_basic.py,record_screen_gif,14933,14962,&&% 录制屏幕GIF,1,录制屏幕并保存为 GIF。,,,,0,0,
+scripts/CAD_basic.py,minimize_all_windows,14967,15008,&&% 最小化所有窗口,1,模拟按下 Win+M，将所有窗口最小化。,,,keybd_event,0,0,
+scripts/CAD_basic.py,set_autocad_window_to_top_left,15016,15052,&&% CAD窗口置左上,1,将 AutoCAD 窗口还原并移动到屏幕左上角，可选将其调整为半屏大小。,,,,1,0,None
+scripts/CAD_basic.py,l,15057,15059,&&% CAD窗口置左上别名,0,,,,,0,0,
+scripts/CAD_basic.py,minimize_all_windows_d,15067,15076,&&% 最小化窗口Win+D,1,模拟 Win + D，将所有窗口最小化（切换）。,,,keybd_event,0,0,
+scripts/CAD_basic.py,minimize_all_windows_m,15080,15099,&&% 最小化窗口Win+M,1,模拟按下 Win+M，将所有窗口最小化。,,,keybd_event,0,0,
+scripts/CAD_basic.py,restore_and_position,15103,15170,&&% 恢复并定位窗口,1,将第一个标题中包含 name 的窗口恢复、激活，并调整到指定位置和大小。,,,,5,0,bool
+scripts/CAD_basic.py,list_open_window_titles,15175,15186,&&% 列出打开窗口标题,1,获取当前所有可见窗口的标题列表包括子窗口。,,,,0,0,object
+scripts/CAD_basic.py,ceshubiao_weizhi,15189,15198,&&% 测鼠标位置,1,提示用户 5 秒内将鼠标移动到 AutoCAD 命令栏输入位置，,,,,0,0,tuple
+scripts/CAD_basic.py,run_idle_background,15201,15214,&&% 后台运行IDLE,1,用后台模式启动 IDLE 去运行某个脚本，返回 Popen 实例。,,,,0,0,object
+scripts/CAD_basic.py,click_and_drag,15227,15247,&&% 点击并拖动,1,"在屏幕坐标 (x, y) 按下左键，然后向纵向拖动距离 juli。",,,,0,0,
+scripts/CAD_basic.py,click_and_find_image_shape,15251,15285,&&% 点击并找图,1,"在 (x, y) 单击一次，然后不断在整个屏幕上查找与 tupian_path 对应的图片形状，",,,,0,0,"NoneType,tuple"
+scripts/CAD_basic.py,right_click_and_move,15289,15307,&&% 右键点击并移动,1,"在屏幕坐标 (x, y) 处执行右键点击，然后将鼠标相对于 (x, y) ",,,,0,0,
+scripts/CAD_basic.py,kill_all_idle,15310,15320,&&% 结束所有IDLE进程,1,终止所有名为 'idle' 或 'idle.exe' 的进程（不再需要任务管理器）。,,,,1,0,
+scripts/CAD_basic.py,set_idle_window_to_top_right,15324,15349,&&% IDLE窗口置右上,0,,,,,0,0,None
+scripts/CAD_basic.py,r,15352,15354,&&% IDLE窗口置右上,0,,,,,0,0,
+scripts/CAD_basic.py,place_obs_bottom_right,15358,15384,&&% OBS窗口置右下,1,将 OBS Studio 主窗口移动到屏幕右下角，并缩放为屏幕宽高的一半。,,,,0,0,None
+scripts/CAD_basic.py,r2,15387,15389,&&% OBS窗口置右下,0,,,,,0,0,
+scripts/CAD_basic.py,minimize_window,15393,15410,&&% 最小化指定窗口,1,通用：最小化第一个标题包含 window_keyword 的可见窗口。,,,,0,0,bool
+scripts/CAD_basic.py,maximize_autocad_window,15413,15444,&&% 最大化CAD窗口,1,强制最大化第一个标题包含 window_keyword 的可见窗口。,,,ShowWindow,1,0,bool
+scripts/CAD_basic.py,start_obs_recording_by_click,15448,15469,&&% 点击开始OBS录制,1,"通过鼠标点击屏幕上 (x,y) 坐标来控制 OBS 开始/停止录制。",,,,0,0,
+scripts/CAD_basic.py,fs,15474,15482,&&% 发送微信,1,微信调到0.5窗口,,,,0,0,
+scripts/CAD_basic.py,xuanqun,15485,15512,&&% 选微信群,0,,,,,0,0,
+scripts/CAD_basic.py,copy_to_clipboard,15516,15533,&&% 复制到剪贴板,1,将传入的 text 文本写入系统剪贴板，供后续右键→粘贴使用。,,,,0,0,
+scripts/CAD_basic.py,xieweixin,15536,15557,&&% 写微信,0,,,,,0,0,
+scripts/CAD_basic.py,主操作函数,15560,15599,&&% 主操作函数,0,,,,,0,0,
+scripts/CAD_basic.py,main_func,15603,15605,&&% 主函数入口,0,,,,,0,0,
+scripts/CAD_basic.py,luping,15610,15654,&&% 录屏,1,1) 开始 OBS 录制  ,,,,0,0,
+scripts/CAD_basic.py,魔方,15658,15662,&&% 魔方,0,,,,,0,0,
+scripts/CAD_basic.py,run_py,15667,15682,&&% 运行Python脚本,0,,,,,1,0,
+scripts/CAD_basic.py,focus_cmdline,15686,15693,&&% 聚焦命令行,1,把鼠标移到命令行并单击，确保焦点回到 AutoCAD 命令栏。,,,,0,0,
+scripts/CAD_basic.py,activate_window_by_title,15700,15750,&&% 激活窗口和子窗口,1,激活一个指定标题的窗口。,,,ShowWindow;SetForegroundWindow,1,0,"bool,tuple"
+scripts/CAD_basic.py,click_in_window,15754,15804,&&% 窗口内点击,1,在指定窗口的某个相对像素位置点击一次（相对于窗口左上角的偏移量）。,,,ShowWindow;SetForegroundWindow,1,0,bool
+scripts/CAD_basic.py,activate_and_click_aikeyun,15812,15842,&&% 激活并点击艾可云,0,,,,,1,1,
+scripts/CAD_basic.py,drag_in_window_simple,15848,15884,&&% 窗口内简单拖拽,1,拖拽函数，支持相对或绝对起点：,,,,0,0,
+scripts/CAD_basic.py,run_auto_explode_area,15899,15923,&&% 纯窗口操作炸开区域内对象,1,这是一个未使用pywin32API控制天正CAD的典型函数,,,,1,0,
+scripts/CAD_basic.py,list_all_windows,15927,15936,&&% 列出所有窗口,0,,,,,0,0,
+scripts/CAD_basic.py,minimize_window,15939,15956,&&% 列出所有窗口,1,通用：最小化第一个标题包含 window_keyword 的可见窗口。,,,,0,0,bool
+scripts/CAD_basic.py,maximize_autocad_window,15958,15989,&&% 列出所有窗口,1,强制最大化第一个标题包含 window_keyword 的可见窗口。,,,ShowWindow,1,0,bool
+scripts/CAD_basic.py,set_dwg_units_precision,16013,16032,&&% 设置单位精度,1,设置当前 DWG 文件的单位及精度：,SetVariable,,,1,0,
+scripts/CAD_basic.py,jd,16035,16036,&&% 设置单位精度,0,,,,,0,0,
+scripts/CAD_basic.py,list_dim_styles,16041,16054,&&% 列出标注样式,1,列出当前 DWG 文件中所有标注样式名称。,Item,,,1,0,"list,object"
+scripts/CAD_basic.py,set_current_dimstyle_via_command,16059,16070,&&% 设置当前标注样式,1,使用命令行方式设置当前标注样式，兼容天正。,SendCommand,,,1,0,
+scripts/CAD_basic.py,set_current_text_style,16075,16088,&&% 设置当前文字样式,1,设置当前文字样式（通过 COM 接口方式）。,Item,,,1,0,
+scripts/CAD_basic.py,huoqu_ziti_style,16092,16096,&&% 获取字体样式,0,,,,,0,0,object
+scripts/CAD_basic.py,create_text_style,16118,16163,&&% 创建文字样式,1,在当前 DWG 中创建（或更新）一个中文文字样式。,Item,,,3,0,
+scripts/CAD_basic.py,set_text_style_onlyshx,16169,16204,&&% 设置SHX文字样式,1,C:/Program Files/Autodesk/AutoCAD 2021/Fonts查找可用shx字体    ,Item,,,1,0,bool
+scripts/CAD_basic.py,set_text_style,16209,16232,&&% 设置文字样式,1,设置CAD中文字样式：英文shx文件 + 中文大字体文件,Item,,,1,0,bool
+scripts/CAD_basic.py,rename_conflicting_text_styles,16251,16345,&&% 重命名冲突文字样式,1,在两个 DWG 中找出同名（用户）文字样式，,Open;Save;Close;SendCommand;Item,,,4,0,None
+scripts/CAD_basic.py,transfer_props_by_matchprop,16510,16577,&&% 格式刷属性传递,0,,SendCommand,,,2,0,"None,bool,tuple"
+scripts/CAD_basic.py,run_dual_threads_1,16620,16715,&&% 双线程运行1,1,通用“双线程-GUI”调度器,,,,0,0,bool
+scripts/CAD_basic.py,cancel_cad_selection,16720,16732,&&% 取消CAD选择,0,,,,,1,0,bool
+scripts/CAD_basic.py,close_wps_window_by_click,16738,16770,&&&% 打印辅助,1,在标题包含 title_keyword 的窗口右上角点击一次（×），尝试关闭该窗口。,,,EnumWindows,0,0,bool
+scripts/CAD_basic.py,min_w,16780,16799,&&% 最小化窗口,0,,,,keybd_event,0,0,
+scripts/CAD_basic.py,ql,16805,16807,&&% 清除测试图层,0,,,,,0,0,
+scripts/CAD_basic.py,srhd,16816,16859,&&% 模型空间画点,1,在模型空间绘制点并标注序号，支持以下调用形式：,Item;AddPoint;AddText,,,2,1,"None,str"
+scripts/CAD_basic.py,srhd_p,16864,16908,&&% 图纸空间画点,1,在图纸空间绘制点和编号，支持：,Item;AddPoint;AddText,,,2,1,"None,str"
+scripts/CAD_basic.py,comtomath,16912,16922,&&% COM点转数学点,0,,,,,0,0,object
+scripts/CAD_basic.py,p,16924,16930,&&% COM点转数学点,0,,,,,0,0,object
+scripts/CAD_basic.py,fuzhi_chakan,16940,16963,&&% 复制查看,0,,Copy;Move,,,1,0,object
+scripts/CAD_basic.py,celiang_wenzichangdu,16968,16980,&&% 测量文字长度,0,,Copy;Delete,,,0,0,object
+scripts/CAD_basic.py,celiang_wenzichangdu_write,16985,16999,&&% 写入并测量文字长度,0,,AddText;Delete,,,0,0,object
+scripts/CAD_basic.py,qingkong_wenjianjia,17006,17021,&&% 清空文件夹,0,,,remove,,0,0,
+scripts/CAD_basic.py,get_bbox_info,17027,17079,&&% 获取包围盒信息,1,获取传入 AutoCAD COM 对象（如 Line、Circle、BlockReference 等）的外包盒信息，,,,,1,0,"NoneType,tuple"
+scripts/CAD_basic.py,bbox_orientation_flag,17083,17102,&&% 包围盒方向标志,1,判断任意 COM 对象的外包盒是竖向、横向还是正方形：,,,,0,0,object
+scripts/CAD_basic.py,group_bbox_corners,17106,17199,&&% 获取多个对象的外包盒数据,1,【通用加强版】计算一组 COM 对象的整体外包盒，并按顺序返回四个角点。,Update,,,1,0,"NoneType,tuple"
+scripts/CAD_basic.py,bbox_center_2,17234,17239,&&% 包围盒中心2D,0,,,,,0,0,tuple
+scripts/CAD_basic.py,bbox_center_3,17242,17247,&&% 包围盒中心3D,1,"返回实体外包盒中心 (cx, cy, cz)",,,,0,0,tuple
+scripts/CAD_basic.py,safe_get_bbox,17250,17313,&&% 安全获取包围盒,1,【通用加强版】安全获取 AutoCAD 图元外包盒 (GetBoundingBox),Update,,,1,0,"NoneType,tuple"
+scripts/CAD_basic.py,resolve_log_level,17394,17398,&&% 调试风格规范,1,解析日志等级: 参数 > 全局,,,,0,0,object
+scripts/CAD_basic.py,get_data_root,17406,17411,&&% 数据处理中心,1,获取数据存储根目录,,,,0,0,"object,str"
+scripts/CAD_basic.py,_resolve_json_path,17413,17440,&&% 数据处理中心,1,统一路径解析工具,,,,3,3,object
+scripts/CAD_basic.py,extract_poly_data,17446,17471,&&% 数据处理中心,1,【存储】提取多段线数据 (改为 getattr 安全读取),,,,1,0,"NoneType,object"
+scripts/CAD_basic.py,restore_poly_adaptive,17474,17539,&&% 数据处理中心,1,【加载】自适应恢复 (改为 set_attr 安全赋值),AddLightWeightPolyline,,,8,6,"NoneType,object"
+scripts/CAD_basic.py,save_poly_list,17548,17570,&&% 多段线列表信息存取,1,保存多段线列表到 JSON,,open,,1,0,bool
+scripts/CAD_basic.py,load_poly_list,17572,17592,&&% 多段线列表信息存取,1,加载 JSON 并恢复多段线列表,,open,,1,0,"list,object"
+scripts/CAD_basic.py,save_ctq,17601,17636,&&% ctq信息存取,1,"【功能】: 保存 (polys, blocks, mapping) 到 JSON。",,open,,1,1,bool
+scripts/CAD_basic.py,load_ctq,17639,17713,&&% ctq信息存取,1,【功能】: 加载 JSON -> 恢复对象 -> 生成 CTQ,,open,,3,3,tuple
+scripts/CAD_basic.py,Redefine_standard_blocks,17726,17905,&&% 重定义标准图签文件中的核心块,1,【函数编号】: BLOCK-UPDATE-001,,,,4,2,
+scripts/CAD_basic.py,get_sorted_titles_by_areas_final,17915,17995,&&% 图名排序,1,【最终重命名版】,,,,2,1,object
+scripts/CAD_basic.py,get_sorted_titles_ce,18000,18080,&&% 选择测试,1,【最终重命名版】,,,,2,1,object
+scripts/CAD_basic.py,batch_attsync_loop,18087,18167,&&% 编辑块生效的强化,1,【函数编号】: CMD-002 (Select版),,,,3,2,bool
+scripts/CAD_basic.py,smart_select_polylines,18176,18254,&&% 统一选择,1,【函数编号】: CACHE-LAYER-001 (智能缓存选择器 - V12.1 参数优化版),,,,1,1,object
+scripts/CAD_basic.py,universal_select_polylines,18257,18324,&&% 统一选择,1,【函数编号】: SELECT-UNIFIED-002 (V12.1 - 综合分发器),,,,0,0,"list,object"
+scripts/CAD_basic.py,select_print_areas_maxrect_from_polylines,18333,18337,&&% 模型空间极大矩形选择打印区域,1,"【兼容层】旧参数 lm, duanbian, tol_single 等已被 kwargs 自动吃掉并忽略。",,,,0,0,object
+scripts/CAD_basic.py,select_maxrect_polylines_1,18341,18607,&&% 模型空间极大矩形选择打印区域,1,【V12.0 步进式审计版】,Delete,,,6,5,tuple
+scripts/CAD_basic.py,select_print_areas_paperspace,18615,18759,&&% 图纸空间打印区域的选择,1,【函数编号】: SEL-PAPER-002 (V16.4 - 抗干扰增强版),Item;Delete,,,7,5,tuple
+scripts/CAD_basic.py,select_standard_print_areas,18766,19042,&&% 标准框选择打印区域,1,【函数编号】: RECOG-002,Delete;Item,,,13,8,"NoneType,list,object,tuple"
+scripts/CAD_basic.py,select_print_areas_from_blocks,19048,19264,&&% 从指定图层列表的图块建立打印区域,1,【函数编号】: RECOG-003,Delete;Item,,,10,6,tuple
+scripts/CAD_basic.py,select_print_areas_from_layer,19271,19452,&&% 从指定图层获得打印区域,1,【函数编号】: RECOG-004,Delete;Item,,,10,5,tuple
+scripts/CAD_basic.py,select_print_areas_from_screen,19458,19636,&&% 从屏幕选择获得打印区域,1,【函数编号】: RECOG-005,Delete;Item,,,9,5,tuple
+scripts/CAD_basic.py,check_valid_rect_pro,19644,19705,&&% 从屏幕选择获得打印区域,1,【辅助函数】矩形有效性深度检查,,,,3,2,tuple
+scripts/CAD_basic.py,remove_duplicate_polylines,19714,19841,&&% 对多段线去重处理,1,【函数编号】: UTIL-CLEAN-001,,,,1,0,object
+scripts/CAD_basic.py,universal_insert_labels_dispatch,19848,20029,&&% 统一插图签,0,,,,,3,0,bool
+scripts/CAD_basic.py,insert_and_scale_labels_area_power,20039,20130,&&% 幂等增强插入加速版,1,【函数编号】: BLOCK-INSERT-001 (V34 - 同文件直调版),Item,,,4,2,"bool,object"
+scripts/CAD_basic.py,insert_and_scale_labels_paper_space,20145,20244,&&% 图纸空间的图签插入,1,【函数编号】: BLOCK-INSERT-002 (V32 - 返回值解包修复版),,,,3,1,bool
+scripts/CAD_basic.py,clean_blocks_until_vanished,20248,20330,&&% 图纸空间的图签插入,1,【函数编号】: BLK-CLEAN-001,Item,,,4,1,bool
+scripts/CAD_basic.py,plcoor_to_com,20334,20368,&&% 坐标转多段线COM,1,根据坐标数据批量创建轻量多段线并返回 COM 对象列表。,Item;AddLightWeightPolyline,,,1,0,object
+scripts/CAD_basic.py,draw_pl_and_extract_info,20372,20447,&&% 绘制PL并提取信息,1,"resu: List[(blk_entity, corners)]",Item;AddLightWeightPolyline;SendCommand,,,6,0,object
+scripts/CAD_basic.py,draw_pl_and_extract_from_entities,20451,20538,&&% 从实体绘制PL并提取,1,把 entities 统一转换为闭合多段线，并提取图幅 / 比例 / 规格信息。,SendCommand,,,5,0,object
+scripts/CAD_basic.py,insert_block_into_poly_area,20542,20594,&&% 区域内插入块,1,在多段线/多边形 poly_ent 所定义区域内插入已定义块，,InsertBlock,,,2,0,tuple
+scripts/CAD_basic.py,insert_block_into_poly_area,20597,20657,&&% 区域内插入块20260109,1,【修正版 V2】自动识别 poly_ent 所在空间（模型或布局），直接使用 C.doc。,InsertBlock,,,3,0,tuple
+scripts/CAD_basic.py,compute_insert_factors,20662,20697,&&% 计算插入因子,1,根据 res 的 ratio/spec 与 result_dict（图签模板信息）的块定义，计算缩放系数 k。,,,,0,0,object
+scripts/CAD_basic.py,get_factor_for_entity,20701,20706,&&% 获取实体因子,1,在 factors 中找到第一项为 entity 的元组。,,,,0,0,"NoneType,object"
+scripts/CAD_basic.py,insert_company_label_common_block,20714,20765,&&% 插入公司通用图签单线程,1,直接插入“公司通用图签块”DWG，并炸开，生成外包盒多段线信息。,,,,1,0,tuple
+scripts/CAD_basic.py,f1_insert_company_getwindow,20773,20820,&&% 线程1:插入公司图签,1,线程1：插入公司图签块，并将结果写入 result_box['data']。,,,,1,0,
+scripts/CAD_basic.py,_find_shx_dialog,20824,20836,&&% 线程1:插入公司图签,1,查找“缺少 SHX 字体”对话框窗口句柄。,,,EnumWindows,0,0,object
+scripts/CAD_basic.py,_ignore_shx_dialog,20840,20846,&&% 线程1:插入公司图签,1,向“缺少 SHX 字体”对话框发送 ESC 键关闭。,,,PostMessage,0,0,
+scripts/CAD_basic.py,f2_delwindow,20850,20885,&&% 线程2:删除窗口,1,线程2：轮询“缺少 SHX”对话框并自动 ESC 关闭。,,,,1,0,
+scripts/CAD_basic.py,run_dual_threads,20889,20949,&&% 线程2:删除窗口,1,启动 f1 / f2 协作：,,,,1,0,bool
+scripts/CAD_basic.py,Insert_Company_Label_Common_Block,20953,20984,&&% 插入公司通用图签(双线程),1,高层：在忽略 SHX 对话框的前提下插入公司图签块。,,,,0,0,"object,tuple"
+scripts/CAD_basic.py,clean_internal_polylines,20992,21028,&&% 清理内部多段线,1,删除块定义内图层为 'tuqian_neibu_pl' 的多段线。,SendCommand;Item,,,2,0,object
+scripts/CAD_basic.py,fill_block_attributes_with_tag_name,21034,21053,&&% 清理内部多段线,1,将块属性文字设置为对应的标签名（用于调试，直接在图签上显示 Tag）。,GetAttributes,,,1,0,
+scripts/CAD_basic.py,_make_bind_dict_serializable,21057,21151,&&% 清理内部多段线,1,将 insert_and_scale_labels_area 生成的 bind_dict 压缩成,,,,4,0,object
+scripts/CAD_basic.py,normalize_core_title_blocks_by_layer,21154,21177,&&% 清理内部多段线,1,【桥接函数】,,,,1,0,"bool,object"
+scripts/CAD_basic.py,explode_title_wrappers_to_core_layer,21181,21286,&&% 炸开图签壳块,1,"【步骤 1】炸开 ""dy_quyu"" 上的图签壳块，把内部的核心块 A?-H 释放到 ""dy_quyu_H"" 层。",SendCommand;Erase,,,5,0,"bool,int,object"
+scripts/CAD_basic.py,repair_mp_insert,21298,21368,&&% 模型空间修复插入,1,【函数功能】: 修复模型空间插入对象的线宽与图层 (V2.1 - 纯净版),,,,2,1,bool
+scripts/CAD_basic.py,repair_sp_insert,21375,21449,&&% 图纸空间样式修复插入,1,【函数功能】: 直接在布局空间修复图签 (无需借道模型空间),,,,3,2,bool
+scripts/CAD_basic.py,smart_repair_frame_polyline_widths_m,21457,21649,&&% 线宽修复,1,【函数编号】: FIX-002-Smart (V9.2 - 尺寸优先分流版),,,,4,2,"bool,float,object"
+scripts/CAD_basic.py,smart_repair_frame_polyline_widths_p,21651,21843,&&% 线宽修复,1,【函数编号】: FIX-002-Smart (V9.2 - 尺寸优先分流版),,,,4,2,"bool,float,object"
+scripts/CAD_basic.py,cut_model_to_paper_and_switch,21849,21956,&&% 从模型空间剪切到图纸空间,1,【函数编号】: MOVE-SPACE-V3.2 (自信版),Item;Delete,,,9,4,"bool,object"
+scripts/CAD_basic.py,_fallback_copy_method,21961,21990,&&% 从模型空间剪切到图纸空间,0,,Item;SendCommand,,,1,0,bool
+scripts/CAD_basic.py,cut_screen_selection_to_paper,21998,22084,&&% 从模型空间屏幕选择对象复制到图纸空间,1,【功能】: 屏幕选择模型空间对象 -> 原坐标复制到指定布局空间,Item;SetVariable,,,5,1,None
+scripts/CAD_basic.py,copy_layout_polylines_to_model,22092,22186,&&% 从图纸空间复制打印区域到模型空间,1,【函数编号】: MAP-COPY-LAYOUT-004 (布局切换+列表直传版),Item,,,5,3,"list,object"
+scripts/CAD_basic.py,clear_layout_objects,22192,22281,&&% 清空图纸空间,1,【函数编号】: MAP-CLEAR-LAYOUT-003 (多轮重试版),Item;Delete,,,7,4,bool
+scripts/CAD_basic.py,clean_unused_blocks_global_scan,22286,22367,&&% 清除无实例块,1,【函数编号】: CLEAN-005 (精准概念版),Item;Delete,,,4,3,None
+scripts/CAD_basic.py,smart_rebuild_print_info,22374,22492,&&% 统一重建字典,1,【函数编号】: MAP-UNIFIED-001 (V2.1 - 终极简化版),,,,4,1,"object,tuple"
+scripts/CAD_basic.py,rebuild_print_area_title_mapping,22501,22657,&&% 重建字典_模型空间,1,【函数编号】: MAP-MODEL-FINAL (V40 - 简化判定版),Item,,,5,2,"bool,tuple"
+scripts/CAD_basic.py,rebuild_print_area_title_mapping_paper,22667,22824,&&% 重建字典_图纸空间,1,【函数编号】: MAP-PAPER-FINAL (V40 - 统一逻辑版),Item,,,5,3,"bool,tuple"
+scripts/CAD_basic.py,build_header_map,22860,22873,&&% 构建表头映射,1,根据第 1 行表头构建 {表头文字: 列号} 的映射。,,,,0,0,object
+scripts/CAD_basic.py,read_xlsx_to_dict,22880,22974,&&% 读取Excel到字典,1,读取 Excel，转成统一的数据字典结构。,,,,1,0,dict
+scripts/CAD_basic.py,write_dict_to_xlsx,22977,23096,&&% 写入字典到Excel,1,【最终修正版】将字典写回 Excel。,,,,2,0,None
+scripts/CAD_basic.py,auto_export_excel_with_fallback,23104,23172,&&% 自动导出,1,【函数编号】: XLS-AUTO-FORCE-001,,,,0,0,"bool,object"
+scripts/CAD_basic.py,build_full_print_dict_and_export_excel,23181,23524,&&% 基础导出,1,【函数编号】: XLS-001 (V3.9 - 极简回退版),Open;Item;Close;Copy;SaveAs;Delete,unlink,,16,11,bool
+scripts/CAD_basic.py,auto_process_drawing_names_by_style,23532,23632,&&% 自动_图名标注写入图签,1,【函数编号】: XLS-AUTO-003 (V1.0 - 全自动图名抓取版),,,,0,0,"bool,object"
+scripts/CAD_basic.py,process_drawing_names_and_fill_titleblocks,23640,23876,&&% 基础_图名标注写入图签,1,【函数编号】: XLS-003 (V3.1 - 双空间适配版),Item;GetAttributes,,,7,5,bool
+scripts/CAD_basic.py,auto_import_excel_to_cad,23882,23984,&&% 自动写入,1,【函数编号】: XLS-AUTO-002 (V2.0 - 完整标准版),,,,0,0,"bool,object"
+scripts/CAD_basic.py,read_excel_and_update_cad_titleblocks,23994,24174,&&% 基础写入,1,【函数编号】: XLS-002 (V3.1 - 双空间适配版),Open;Item;Close,copy,,7,2,bool
+scripts/CAD_basic.py,auto_update_titleblock_format_by_style,24182,24251,&&% 自动_修改图块标签属性,1,【函数编号】: XLS-AUTO-004 (V1.0 - 格式刷),,,,0,0,"bool,object"
+scripts/CAD_basic.py,batch_update_block_attributes_config,24257,24397,&&% 基础_修改图块标签属性,1,【函数编号】: BLK-008-Smart,,,,1,0,"bool,object"
+scripts/CAD_basic.py,bianmulu_func1_h,24406,24601,&&% 统一编目录1,1,【函数编号】: CAT-UNIFIED-001 (V9.0 - 严格命名版),Close;Item;SetVariable;Delete,,,9,6,bool
+scripts/CAD_basic.py,bianmulu_func2_h,24608,24864,&&% 编目录2_统一,1,【函数编号】: CAT-UNIFIED-002 (V9.0 - 严格寻址版),Close;Item;SetVariable;Copy,,,15,12,bool
+scripts/CAD_basic.py,bianmulu_func3_h,24870,25035,&&% 编好目录,1,【函数编号】: CAT-UNIFIED-003 (V9.0 - 严格寻址版),Close,,,6,2,bool
+scripts/CAD_basic.py,bianmulu_func4_h,25041,25299,&&% 合并,1,【函数编号】: CAT-UNIFIED-004 (V9.8 - 规范展开版),Close;SetVariable;SendCommand;Item;InsertBlock;Delete;Explode,,,10,6,bool
+scripts/CAD_basic.py,update_catalog_titleblocks_from_excel,25310,25480,&&% 写入目录图签,1,【目录专用 - 修正版】读取 Excel 项目信息 -> 生成目录图签,Open;Close,copy,,6,3,bool
+scripts/CAD_basic.py,update_catalog_titleblocks_from_excel_y,25502,25648,&&% 写入目录图签,1,【目录专用】读取 Excel 项目信息 -> 生成目录图签,Open;Close,copy,,3,2,bool
+scripts/CAD_basic.py,write_catalog_from_excel_to_cad,25654,26328,&&% 从excel写入目录dwg文件,1,【函数编号】: CAT-001,Open;Update;Item;AddText;Delete;Close,copy,,21,18,"None,bool,float,object,tuple"
+scripts/CAD_basic.py,read_catalog_template_config,26333,26425,&&% 读取目录结构的excel文件,1,【配置读取器 - 兼容增强版】,Open;Close,,,5,3,"NoneType,float,object"
+scripts/CAD_basic.py,CatalogConfigBuilder.__init__,26447,26450,&&% 将目录dwg文件合并到主文件,0,,,,,0,0,
+scripts/CAD_basic.py,CatalogConfigBuilder.add_column_layout,26452,26457,&&% 将目录dwg文件合并到主文件,1,定义第 N 排的纵向布局,,,,0,0,
+scripts/CAD_basic.py,CatalogConfigBuilder.set_field_x_ranges,26459,26461,&&% 将目录dwg文件合并到主文件,1,"定义某个字段在每一排的 X 轴范围 [(min, max), (min, max)...]",,,,0,0,
+scripts/CAD_basic.py,CatalogConfigBuilder.generate,26463,26480,&&% 将目录dwg文件合并到主文件,0,,,,,0,0,object
+scripts/CAD_basic.py,get_my_template_config_from_excel,26483,26560,&&% 将目录dwg文件合并到主文件,1,读取配置目录结构Excel，解析参数，返回 template_config 字典,Open;Close,,,3,2,"NoneType,object,tuple"
+scripts/CAD_basic.py,rename_drawings,26568,26671,&&% 文件名修改1,1,功能：根据Excel内容和原有编号重命名图纸，支持自定义排序列表。,,,,2,0,"None,object"
+scripts/CAD_basic.py,get_mouse_target_v3,26687,26758,&&% 模拟键盘调整打印图幅,1,参数:,,,,0,0,tuple
+scripts/CAD_basic.py,safe_input_text,26763,26772,&&% 模拟键盘调整打印图幅,0,,,,,0,0,
+scripts/CAD_basic.py,auto_setup_custom_paper_sizes,26777,26897,&&% 模拟键盘调整打印图幅,1,auto_setup_custom_paper_sizes(dy_yonghu),,,,1,0,
+scripts/CAD_basic.py,list_current_printer_papers,26929,26985,&&% 获取当前图幅尺寸,1,列出指定打印机的所有纸张名称 (内部名 vs 显示名),,,,2,0,None
+scripts/CAD_basic.py,replace_cad_fonts_incremental,26991,27053,&&% 配置字体,0,,,,,1,0,None
+scripts/CAD_basic.py,is_admin,27054,27059,&&% 配置字体,1,检查当前是否获得管理员权限,,,,1,1,"bool,object"
+scripts/CAD_basic.py,sanitize_filename,27065,27068,&&% 配置字体,1,【COMMON-001-AUX】文件名清洗,,,,0,0,"object,str"
+scripts/CAD_basic.py,export_model_window_pure,27074,27201,&&% 模型空间窗口打印,1,【函数编号】: PRINT-001 (A0修正版),SetVariable,remove,,4,1,bool
+scripts/CAD_basic.py,export_model_window_lisp_fit,27205,27310,&&% 模型空间LISP窗口打印export_model_window_lisp_fit,1,【函数编号】: PRINT-002 (LISP 强力修正版 - V2修复Bug),SendCommand,remove,,4,1,bool
+scripts/CAD_basic.py,export_layout_window_pure,27318,27445,&&% 图纸空间窗口打印,1,【函数编号】: PRINT-002,SetVariable,remove,,3,1,bool
+scripts/CAD_basic.py,export_layout_window_pure_bianju,27450,27574,&&% 图纸空间打印边距修正版备用,1,【函数编号】: PRINT-002-V3 (A0修正版),SetVariable,remove,,3,1,bool
+scripts/CAD_basic.py,export_layout_window_lisp_fit_v1,27578,27738,&&% 布局空间LISP窗口打印,1,【函数编号】: PRINT-004 (LISP-Layout 终极版 - 旧版本，已重命名),SendCommand;Item,remove,,4,2,bool
+scripts/CAD_basic.py,export_layout_window_lisp_fit,27742,27869,&&% 布局空间LISP窗口打印,1,【函数编号】: PRINT-LAYOUT-ANTI-TARCH (天正穿透版),SendCommand,,,5,1,bool
+scripts/CAD_basic.py,print_batch_custom_list,27873,28104,&&% 文件夹打印,1,【函数编号】: PRINT-006 (Router Version),,copy;rmtree,,4,1,"bool,object"
+scripts/CAD_basic.py,mark_print_areas_final,28115,28240,&&% 典型文件的绘制,1,【函数编号】: DRAW-007 (最终版 - 瞄准镜样式),Item,,,5,4,"None,object"
+scripts/CAD_basic.py,generate_tarch_drawing_names_v5,28244,28366,&&% 生成图名标注,1,【函数功能】: DRAW-008 (v5.0 - 网格自适应终极版),Copy;Move;Update,,,3,1,object
+scripts/CAD_basic.py,print_dwg_file_model,28378,28501,&&% 模型空间文件打印,1,【函数编号】: PRINT-MODEL-MANAGER (V1 - 模型空间专用),SetVariable,rmtree,,4,1,"object,str"
+scripts/CAD_basic.py,print_polylines_list,28507,28756,&&% 模型空间批量打印,1,【函数编号】: PRINT-FINAL (V14 - 旋转逻辑修复版),SetVariable;Item,,EnumWindows;ShowWindow;PostMessage,7,5,"None,bool"
+scripts/CAD_basic.py,print_dwg_file_layout,28763,28855,&&% 图纸空间文件打印,1,【功能】: 布局空间批量打印主管理器 (V7 - Polyline适配版),,rmtree,,2,2,object
+scripts/CAD_basic.py,print_layout_polylines_list,28860,29123,&&% 图纸空间列表打印,1,【函数编号】: PRINT-LAYOUT-ENGINE (V7.1 - 侦察版),,,EnumWindows;ShowWindow;PostMessage,7,5,"None,bool"
+scripts/CAD_basic.py,print_layout_polylines_list_y,29127,29244,&&% 图纸空间列表打印,1,【函数编号】: PRINT-LAYOUT-ENGINE (V7.2 - 稳健量产版),,,,4,3,bool
+scripts/CAD_basic.py,smart_print_dispatch,29250,29354,&&% 统一打印,1,【函数编号】: PRINT-DISPATCHER (智能分发中心),,,,0,0,object
+scripts/CAD_check_standards.py,bianmulu_func4_h,14,167,,1,【函数编号】: CAT-UNIFIED-004 (V6.2 - 显式句柄版),SendCommand;Close;SetVariable,,,4,0,bool
+scripts/CAD_dev_standards.py,docstring_standard_example,60,82,,1,【函数编号】: DEMO-001 (V1.0 - 标准范例),,,,0,0,
+scripts/CAD_dev_standards.py,count_layers_demo,91,132,,1,[范例] 统计包含指定名称的图层数量,,,,1,0,"int,object"
+scripts/CAD_dev_standards.py,_check_name_match,134,142,,1,[子函数] 配合主函数的 verbose 等级,,,,0,0,object
+scripts/CAD_dev_standards.py,draw_circle_standard_example,159,183,,1,[范例] 标准绘图函数,AddCircle,,,1,0,bool
+scripts/CAD_dev_standards.py,architecture_full_demo,192,226,,1,[范例] 集成所有架构要求的标准函数,AddCircle,,,1,0,bool
+scripts/CAD_Legacy_Runner.py,LegacyCADRunner.__init__,28,62,,0,,,,,0,0,
+scripts/CAD_Legacy_Runner.py,LegacyCADRunner.write,65,70,,0,,,,,0,0,
+scripts/CAD_Legacy_Runner.py,LegacyCADRunner.flush,72,72,,0,,,,,0,0,
+scripts/CAD_Legacy_Runner.py,LegacyCADRunner.run_in_thread,75,84,,0,,,,,1,0,
+scripts/CAD_Legacy_Runner.py,LegacyCADRunner.gui_test_connection,90,100,,1,对应 CAD_basic.py 中的 li(),,,,0,0,
+scripts/CAD_Legacy_Runner.py,LegacyCADRunner.gui_new_file,102,117,,1,对应 CAD_file_operations.py 中的 new_file(),,,,0,0,None
+scripts/CAD_Legacy_Runner.py,LegacyCADRunner.gui_save_as,119,144,,1,对应 CAD_file_operations.py 中的 save_as (假设你有这个函数),SaveAs,,,1,0,None
+scripts/CAD_System_Queue - V30.py,LockManager.__init__,160,164,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,LockManager.try_acquire,165,168,,0,,,,,0,0,tuple
+scripts/CAD_System_Queue - V30.py,LockManager._write_lock,169,173,,0,,,open,,1,1,
+scripts/CAD_System_Queue - V30.py,LockManager.release,174,178,,0,,,remove,,1,1,
+scripts/CAD_System_Queue - V30.py,LockManager.check_waiters,179,179,,0,,,,,0,0,list
+scripts/CAD_System_Queue - V30.py,LockManager.add_to_wait_list,180,180,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.__init__,185,237,,0,,,,ShowWindow,1,1,
+scripts/CAD_System_Queue - V30.py,MasterRunner._ensure_bootstrap,239,242,,0,,,open,,1,1,
+scripts/CAD_System_Queue - V30.py,MasterRunner.launch_idle,244,253,,0,,,,,1,1,None
+scripts/CAD_System_Queue - V30.py,MasterRunner._init_ui,255,272,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.create_tab,274,277,,0,,,,,0,0,object
+scripts/CAD_System_Queue - V30.py,MasterRunner.setup_dashboard,280,306,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.setup_title_block_tab,309,344,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.setup_catalog,347,361,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.setup_print,364,402,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.add_step_btn,405,407,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.add_dragon_btn,409,411,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.send_script_to_idle,413,423,,0,,,open,,1,0,bool
+scripts/CAD_System_Queue - V30.py,MasterRunner.ask_attribute_config,425,471,,0,,,,,1,1,tuple
+scripts/CAD_System_Queue - V30.py,MasterRunner.ask_detection_params,476,501,,0,,,,,0,0,tuple
+scripts/CAD_System_Queue - V30.py,MasterRunner.run_macro,505,968,,0,,,,,1,1,"None,object"
+scripts/CAD_System_Queue - V30.py,MasterRunner.refresh_workspace_paths,970,1005,,0,,,,,1,1,
+scripts/CAD_System_Queue - V30.py,MasterRunner.log,1007,1011,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.monitor_waiters,1013,1016,,0,,,,,0,0,
+scripts/CAD_System_Queue - V30.py,MasterRunner.on_close,1018,1023,,0,,,,,1,1,
+scripts/CAD_System_Queue - V31.py,LockManager.__init__,162,166,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,LockManager.try_acquire,167,170,,0,,,,,0,0,tuple
+scripts/CAD_System_Queue - V31.py,LockManager._write_lock,171,175,,0,,,open,,1,1,
+scripts/CAD_System_Queue - V31.py,LockManager.release,176,180,,0,,,remove,,1,1,
+scripts/CAD_System_Queue - V31.py,LockManager.check_waiters,181,181,,0,,,,,0,0,list
+scripts/CAD_System_Queue - V31.py,LockManager.add_to_wait_list,182,182,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.__init__,187,239,,0,,,,ShowWindow,1,1,
+scripts/CAD_System_Queue - V31.py,MasterRunner._ensure_bootstrap,241,244,,0,,,open,,1,1,
+scripts/CAD_System_Queue - V31.py,MasterRunner.launch_idle,246,255,,0,,,,,1,1,None
+scripts/CAD_System_Queue - V31.py,MasterRunner._init_ui,257,274,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.create_tab,276,279,,0,,,,,0,0,object
+scripts/CAD_System_Queue - V31.py,MasterRunner.setup_dashboard,282,308,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.setup_title_block_tab,311,346,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.setup_catalog,349,363,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.setup_print,366,404,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.add_step_btn,407,409,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.add_dragon_btn,411,413,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.send_script_to_idle,415,425,,0,,,open,,1,0,bool
+scripts/CAD_System_Queue - V31.py,MasterRunner.ask_attribute_config,427,473,,0,,,,,1,1,tuple
+scripts/CAD_System_Queue - V31.py,MasterRunner.ask_detection_params,478,503,,0,,,,,0,0,tuple
+scripts/CAD_System_Queue - V31.py,MasterRunner.run_macro,507,1019,,0,,,,,1,1,"None,object"
+scripts/CAD_System_Queue - V31.py,MasterRunner.refresh_workspace_paths,1021,1056,,0,,,,,1,1,
+scripts/CAD_System_Queue - V31.py,MasterRunner.log,1058,1062,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.monitor_waiters,1064,1067,,0,,,,,0,0,
+scripts/CAD_System_Queue - V31.py,MasterRunner.on_close,1069,1074,,0,,,,,1,1,
+scripts/CAD_System_Queue - V33.py,LockManager.__init__,161,165,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,LockManager.try_acquire,166,169,,0,,,,,0,0,tuple
+scripts/CAD_System_Queue - V33.py,LockManager._write_lock,170,174,,0,,,open,,1,1,
+scripts/CAD_System_Queue - V33.py,LockManager.release,175,179,,0,,,remove,,1,1,
+scripts/CAD_System_Queue - V33.py,LockManager.check_waiters,180,180,,0,,,,,0,0,list
+scripts/CAD_System_Queue - V33.py,LockManager.add_to_wait_list,181,181,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.__init__,186,252,,0,,,,ShowWindow,1,1,
+scripts/CAD_System_Queue - V33.py,MasterRunner._ensure_bootstrap,254,257,,0,,,open,,1,1,
+scripts/CAD_System_Queue - V33.py,MasterRunner.launch_idle,259,268,,0,,,,,1,1,None
+scripts/CAD_System_Queue - V33.py,MasterRunner._init_ui,270,294,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.create_tab,296,299,,0,,,,,0,0,object
+scripts/CAD_System_Queue - V33.py,MasterRunner.setup_dashboard,302,316,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.setup_datacenter,319,369,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.setup_title_block_tab,372,411,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.setup_catalog,414,428,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.setup_print,431,469,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.add_step_btn,472,474,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.add_dragon_btn,476,478,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.send_script_to_idle,480,490,,0,,,open,,1,0,bool
+scripts/CAD_System_Queue - V33.py,MasterRunner.ask_attribute_config,492,538,,0,,,,,1,1,tuple
+scripts/CAD_System_Queue - V33.py,MasterRunner.run_datacenter_macro,541,683,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.run_macro,686,1010,,0,,,,,1,1,None
+scripts/CAD_System_Queue - V33.py,MasterRunner.refresh_workspace_paths,1012,1047,,0,,,,,1,1,
+scripts/CAD_System_Queue - V33.py,MasterRunner.log,1049,1053,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.monitor_waiters,1055,1058,,0,,,,,0,0,
+scripts/CAD_System_Queue - V33.py,MasterRunner.on_close,1060,1065,,0,,,,,1,1,
+scripts/CAD_System_Queue.py,LockManager.__init__,161,165,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,LockManager.try_acquire,166,169,,0,,,,,0,0,tuple
+scripts/CAD_System_Queue.py,LockManager._write_lock,170,174,,0,,,open,,1,1,
+scripts/CAD_System_Queue.py,LockManager.release,175,179,,0,,,remove,,1,1,
+scripts/CAD_System_Queue.py,LockManager.check_waiters,180,180,,0,,,,,0,0,list
+scripts/CAD_System_Queue.py,LockManager.add_to_wait_list,181,181,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.__init__,186,252,,0,,,,ShowWindow,1,1,
+scripts/CAD_System_Queue.py,MasterRunner._ensure_bootstrap,254,257,,0,,,open,,1,1,
+scripts/CAD_System_Queue.py,MasterRunner.launch_idle,259,268,,0,,,,,1,1,None
+scripts/CAD_System_Queue.py,MasterRunner._init_ui,270,294,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.create_tab,296,299,,0,,,,,0,0,object
+scripts/CAD_System_Queue.py,MasterRunner.setup_dashboard,303,356,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.setup_datacenter,360,410,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.setup_title_block_tab,413,452,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.setup_catalog,455,469,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.setup_print,472,510,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.add_step_btn,513,515,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.add_dragon_btn,517,519,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.send_script_to_idle,521,531,,0,,,open,,1,0,bool
+scripts/CAD_System_Queue.py,MasterRunner.ask_attribute_config,533,579,,0,,,,,1,1,tuple
+scripts/CAD_System_Queue.py,MasterRunner.run_datacenter_macro,582,724,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.run_macro,727,1201,,0,,,,,1,1,None
+scripts/CAD_System_Queue.py,MasterRunner.refresh_workspace_paths,1207,1242,,0,,,,,1,1,
+scripts/CAD_System_Queue.py,MasterRunner.log,1244,1248,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.monitor_waiters,1250,1253,,0,,,,,0,0,
+scripts/CAD_System_Queue.py,MasterRunner.on_close,1255,1260,,0,,,,,1,1,
+scripts/IDLE_bootstrap.py,run_script_in_main,11,71,,1,模拟 IDLE 的 'Run Module' (F5)。,,open,,1,0,None
+scripts/IDLE_bootstrap.py,start_listener,73,96,,1,启动 Socket 监听线程,,,,2,0,
+scripts/Master_Orchestrator.py,AssistantVoice.__init__,57,72,,0,,,,,1,0,
+scripts/Master_Orchestrator.py,AssistantVoice.speak,74,81,,1,播报消息（非阻塞模式建议，这里简化为阻塞）,,,,1,1,None
+scripts/Master_Orchestrator.py,campaign_insert_labels,87,107,,1,【战役 1】插图签系统,,,,0,0,dict
+scripts/Master_Orchestrator.py,campaign_build_catalog,109,117,,1,【战役 2】编目录系统 (示例框架),,,,0,0,dict
+scripts/Master_Orchestrator.py,campaign_batch_print,119,124,,1,【战役 3】自动打印系统 (示例框架),,,,0,0,dict
+scripts/Master_Orchestrator.py,run_project_master_control,128,187,,1,【战略总控】,,,,0,0,bool
+scripts/修复codex脚本.py,fix_and_copy_newlines,1,11,,0,,,open,,0,0,
+scripts/修复codex脚本.py,create_py_file_from_txt,13,23,,0,,,open,,0,0,
+scripts/修复codex脚本.py,fix_and_convert,26,40,,0,,,,,0,0,
+scripts/函数编写规范.py,li,186,324,,1,【函数编号】: COMMON-CONN-001,,,,9,2,bool
+scripts/函数编写规范.py,get_acad_doc,327,416,,1,【函数编号】: COMMON-CONN-002,,,,4,1,tuple
+scripts/函数编写规范.py,_coinit_once,422,432,,1,【函数编号】: COMMON-CONN-003-AUX,,,,1,0,
+scripts/函数编写规范.py,com_retry,434,455,,1,【函数编号】: COMMON-CONN-004-AUX,,,,1,0,object
+scripts/函数编写规范.py,select_tuceng,468,514,&&% 按图层选择,1,【函数编号】: SELECT-001,SendCommand,,,2,0,"list,object"
+scripts/函数编写规范.py,stc,517,522,&&% 图层选择别名,1,【函数编号】: SELECT-001-ALIAS,,,,0,0,object
+scripts/函数编写规范.py,select_kuai,526,559,&&% 选择所有块,1,【函数编号】: SELECT-002,SendCommand,,,2,0,"list,object"
+scripts/函数编写规范.py,select_text,564,573,&&% 选择所有文本,1,【函数编号】: SELECT-003,,,,0,0,object
+scripts/函数编写规范.py,select_mtext,577,586,&&% 选择所有多行文本,1,【函数编号】: SELECT-004,,,,0,0,object
+scripts/函数编写规范.py,select_pub_text_entities,590,613,&&% 选择天正文本,1,【函数编号】: SELECT-005,,,,0,0,tuple
+scripts/函数编写规范.py,collect_all_texts,616,637,&&% 收集所有文本,1,【函数编号】: SELECT-006,,,,1,0,tuple
+scripts/函数编写规范.py,select_line,642,647,&&% 选择直线,1,【函数编号】: SELECT-007 | 选择所有直线 (LINE),,,,0,0,object
+scripts/函数编写规范.py,select_circle,650,655,&&% 选择圆,1,【函数编号】: SELECT-008 | 选择所有圆 (CIRCLE),,,,0,0,object
+scripts/函数编写规范.py,select_ellipse,658,663,&&% 选择椭圆,1,【函数编号】: SELECT-009 | 选择所有椭圆 (ELLIPSE),,,,0,0,object
+scripts/函数编写规范.py,select_spline,666,671,&&% 选择样条曲线,1,【函数编号】: SELECT-010 | 选择所有样条曲线 (SPLINE),,,,0,0,object
+scripts/函数编写规范.py,select_polyline_chuantong,676,695,&&% 选择传统多段线,1,【函数编号】: SELECT-011,SendCommand,,,2,0,"list,object"
+scripts/函数编写规范.py,select_polyline,698,717,&&% 选择轻量多段线,1,【函数编号】: SELECT-012,SendCommand,,,2,0,"list,object"
+scripts/函数编写规范.py,normalize_rect,725,732,&&% 选择轻量多段线,1,【函数编号】: GEOM-UTIL-001,,,,0,0,tuple
+scripts/函数编写规范.py,pt3,735,742,&&% 选择轻量多段线,1,【函数编号】: GEOM-UTIL-002,,,,0,0,object
+scripts/函数编写规范.py,select_entities_in_window,748,821,&&% 隐显结合的区域选择（高亮选择并返回 PickfirstSelectionSet）,1,【函数编号】: SELECT-013,SendCommand,,,3,0,object
+scripts/函数编写规范.py,set_entity_grip_state_precise,825,882,&&% 让对象处于夹点编辑状态,1,【函数编号】: SELECT-014,SendCommand,,,1,0,"NoneType,object"
+scripts/函数编写规范.py,safe_get_bbox,886,949,&&% 安全获取包围盒,1,【函数编号】: COMMON-UTIL-003,Update,,,1,0,"NoneType,tuple"
+scripts/函数编写规范.py,_maybe_cast,1119,1134,&&% 安全转换COM对象,1,【函数编号】: COMMON-OBJ-001-AUX,,,,2,0,object
+scripts/函数编写规范.py,cast_object,1137,1142,&&% 转换对象,1,【函数编号】: COMMON-OBJ-001,,,,0,0,object
+scripts/函数编写规范.py,get_object_property,1145,1164,&&% 获取对象属性,1,【函数编号】: COMMON-OBJ-002,,,,1,0,"NoneType,object"
+scripts/函数编写规范.py,set_object_property,1167,1188,&&% 设置对象属性,1,【函数编号】: COMMON-OBJ-003,,,,1,0,bool
+scripts/函数编写规范.py,get_attr,1191,1203,&&% 安全获取属性,1,【函数编号】: COMMON-OBJ-004,,,,1,0,object
+scripts/函数编写规范.py,set_attr,1207,1218,&&% 安全设置属性,1,【函数编号】: COMMON-OBJ-005,,,,1,0,bool
+scripts/函数编写规范.py,brute_dump_tarch_props,1224,1250,&&% 暴力获取天正属性,1,【函数编号】: DEBUG-TARCH-001,,,,1,0,
+scripts/函数编写规范.py,sort_coms_by_llcorner,1257,1292,&&% 左下角排序,1,【函数编号】: COMMON-SORT-001,,,,1,0,object
+scripts/函数编写规范.py,sort_coms_by_rbcorner,1298,1331,&&% 右上角排序,1,【函数编号】: COMMON-SORT-002,,,,1,0,object
+scripts/函数编写规范.py,sort_coms_by_center,1334,1379,&&% 中心点排序,1,【函数编号】: COMMON-SORT-003,,,,0,0,"list,object"
+scripts/函数编写规范.py,draw_point,1390,1408,&&% 绘制点,1,【函数编号】: DRAW-001,AddPoint,,,1,0,"NoneType,object"
+scripts/函数编写规范.py,draw_line,1411,1428,&&% 绘制直线,1,【函数编号】: DRAW-002,AddLine,,,1,0,"NoneType,object"
+scripts/函数编写规范.py,draw_circle,1432,1450,&&% 绘制圆,1,【函数编号】: DRAW-003,AddCircle,,,1,0,"NoneType,object"
+scripts/函数编写规范.py,draw_regular_polygon,1454,1489,&&% 绘制正多边形,1,【函数编号】: DRAW-004,AddLightWeightPolyline,,,1,0,"NoneType,object"
+scripts/函数编写规范.py,draw_lwpolyline,1493,1555,&&% 绘制轻量多段线,1,【函数编号】: DRAW-005,Item;AddLightWeightPolyline,,,2,0,object
+scripts/函数编写规范.py,draw_polyline,1558,1628,&&% 绘制多段线,1,【函数编号】: DRAW-006,Item;AddPolyline;Update,,,2,0,"NoneType,object"
+scripts/测试.py,generate_relation_list,18,37,,0,,,,,0,0,object
+scripts/脚本导航14版.py,clean_old_logs,144,154,,0,,,glob;remove,,1,0,
+scripts/脚本导航14版.py,_normalize_registry_path,168,177,,0,,,,,2,0,"NoneType,object"
+scripts/脚本导航14版.py,_pid_exists,180,196,,0,,,,,1,0,bool
+scripts/脚本导航14版.py,_read_registry_data,199,208,,0,,,read_text,,1,0,"dict,object"
+scripts/脚本导航14版.py,_write_registry_data,211,215,,0,,,write_text,,1,0,
+scripts/脚本导航14版.py,_cleanup_registry_data,218,240,,0,,,,,0,0,object
+scripts/脚本导航14版.py,_load_clean_registry,243,247,,0,,,,,0,0,object
+scripts/脚本导航14版.py,parse_mark_line,253,261,,0,,,,,0,0,"NoneType,tuple"
+scripts/脚本导航14版.py,is_file_in_use,272,299,,0,,,,,1,0,bool
+scripts/脚本导航14版.py,_tree_walk,301,304,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator.__init__,313,370,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._ensure_idle_bootstrap,372,381,,1,检查并更新/创建 IDLE_bootstrap.py 文件,,open,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._build_ui,384,446,,0,,,,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._bind_shortcuts,449,468,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._apply_fonts,471,492,,0,,,copy,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._zoom_in,494,497,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._zoom_out,499,502,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._on_mousewheel_zoom,504,509,,0,,,,,0,0,str
+scripts/脚本导航14版.py,ScriptNavigator._on_mousewheel_sync,512,513,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._on_scrollbar,515,518,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._on_code_yscroll,520,523,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._schedule_line_numbers,526,527,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator.update_line_numbers,529,546,,0,,,,,1,0,None
+scripts/脚本导航14版.py,ScriptNavigator._on_key_release_update,549,550,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._on_text_modified,552,560,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._schedule_nav_refresh,562,565,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._content_signature,567,571,,0,,,,,0,0,object
+scripts/脚本导航14版.py,ScriptNavigator._maybe_refresh_nav,573,577,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._open_script,580,586,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._open_new_file,589,598,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator.load_script,601,625,,0,,,open,,1,0,None
+scripts/脚本导航14版.py,ScriptNavigator._register_file_session,627,637,,0,,,,,0,0,None
+scripts/脚本导航14版.py,ScriptNavigator._unregister_current_file,639,653,,0,,,,,0,0,None
+scripts/脚本导航14版.py,ScriptNavigator.save_script,655,681,,0,,,open,,1,0,bool
+scripts/脚本导航14版.py,ScriptNavigator._format_nav_label,684,685,,0,,,,,0,0,object
+scripts/脚本导航14版.py,ScriptNavigator._refresh_nav,687,745,,0,,,,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._collapse_all,747,751,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._expand_all,753,759,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._on_tree_select,761,768,,0,,,,,0,0,None
+scripts/脚本导航14版.py,ScriptNavigator._nav_select_and_highlight,770,774,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._highlight_line,776,785,,0,,,,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._auto_resize_nav,787,813,,0,,,,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._indent,816,826,,0,,,,,1,0,str
+scripts/脚本导航14版.py,ScriptNavigator._unindent,828,843,,0,,,,,1,0,str
+scripts/脚本导航14版.py,ScriptNavigator._comment_selection,846,862,,0,,,,,0,0,str
+scripts/脚本导航14版.py,ScriptNavigator._uncomment_selection,864,879,,0,,,,,0,0,str
+scripts/脚本导航14版.py,ScriptNavigator._get_selection_line_range,881,890,,0,,,,,1,0,"NoneType,tuple"
+scripts/脚本导航14版.py,ScriptNavigator._leading_ws_len,893,900,,0,,,,,0,0,object
+scripts/脚本导航14版.py,ScriptNavigator._find_dialog,903,908,,0,,,,,0,0,str
+scripts/脚本导航14版.py,ScriptNavigator._do_find,910,926,,0,,,,,0,0,None
+scripts/脚本导航14版.py,ScriptNavigator._go_to_match,928,931,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._find_next,933,938,,0,,,,,0,0,str
+scripts/脚本导航14版.py,ScriptNavigator._find_prev,940,945,,0,,,,,0,0,str
+scripts/脚本导航14版.py,ScriptNavigator._copy_all,947,950,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._copy_sel,952,962,,0,,,,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator.goto_line_prompt,964,971,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator.run_in_idle,974,1028,,0,,,,,1,0,None
+scripts/脚本导航14版.py,ScriptNavigator._send_script_to_idle,1030,1056,,0,,,,,1,0,bool
+scripts/脚本导航14版.py,ScriptNavigator._on_close,1060,1068,,0,,,,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._add_nav_tag,1071,1075,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._remove_nav_tag,1077,1079,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._clear_nav_highlight_only,1081,1084,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._clear_nav_and_code_highlight,1086,1088,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._scan_for_markers,1090,1128,,0,,,,,1,0,
+scripts/脚本导航14版.py,ScriptNavigator._on_click_image_marker,1130,1138,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._show_image_popup,1140,1189,,0,,,open,,1,0,None
+scripts/脚本导航14版.py,ScriptNavigator._hide_image_popup,1191,1200,,0,,,,,0,0,
+scripts/脚本导航14版.py,ScriptNavigator._toggle_maximize,1202,1213,,0,,,,,0,0,None
+scripts/脚本导航14版.py,ScriptNavigator._on_popup_mousewheel,1215,1247,,0,,,,,1,0,None
+scripts/脚本导航14版.py,ScriptNavigator._on_click_link,1249,1265,,0,,,,,1,0,
+system/cad_command_monitor.py,force_bring_to_front,40,65,,1,【霸道操作】强制将窗口置顶并获取焦点,,,keybd_event;SetForegroundWindow;ShowWindow,1,0,bool
+system/cad_command_monitor.py,send_nuclear_esc,67,101,,1,先抢焦点，再按 ESC,SendCommand,,keybd_event;PostMessage,2,1,bool
+system/cad_command_monitor.py,get_active_cad_app,103,109,,0,,,,,1,0,"NoneType,object"
+system/cad_command_monitor.py,analyze_state,111,152,,1,V5.0+ 逻辑：吞掉 Call Rejected，判定为 BUSY,GetVariable,,,3,1,tuple
+system/cad_command_monitor.py,is_already_running,154,164,,0,,,unlink;read_text,,1,1,bool
+system/cad_command_monitor.py,create_lock,166,166,,0,,,write_text,,0,0,
+system/cad_command_monitor.py,remove_lock,167,167,,0,,,unlink,,0,0,
+system/cad_command_monitor.py,main,170,261,,0,,,,,2,1,None
+system/CAD_com_utils - V10.py,_retry_logic,36,80,,1,实际执行重试的内部函数,,,,2,1,object
+system/CAD_com_utils - V10.py,retry_on_busy,83,120,,1,【智能通用装饰器】,,,,0,0,object
+system/CAD_com_utils - V10.py,SafeCOM.call,126,128,,0,,,,,0,0,object
+system/CAD_com_utils - V10.py,SafeCOM.list_selection,131,141,,0,,,,,1,1,"list,object"
+system/CAD_com_utils - V10.py,retry_if_busy,147,156,,1,【兼容补丁】旧接口：retry_if_busy,,,,0,0,object
+system/CAD_com_utils.py,_dummy_func,37,38,,0,,,,,0,0,
+system/CAD_com_utils.py,LoggerHotSwapper.__init__,45,53,,0,,,,,0,0,
+system/CAD_com_utils.py,LoggerHotSwapper.mute,55,58,,1,开启静音：将 info/debug 指向空函数,,,,0,0,
+system/CAD_com_utils.py,LoggerHotSwapper.unmute,60,63,,1,解除静音：恢复原始函数,,,,0,0,
+system/CAD_com_utils.py,LoggerHotSwapper.mute_mode,67,69,,1,获取当前静音状态 (True/False),,,,0,0,object
+system/CAD_com_utils.py,LoggerHotSwapper.mute_mode,72,81,,1,设置静音状态,,,,0,0,
+system/CAD_com_utils.py,LoggerHotSwapper.__getattr__,83,84,,0,,,,,0,0,object
+system/CAD_com_utils.py,silent_mode,95,106,,1,【静音模式上下文】,,,,1,0,
+system/CAD_com_utils.py,_retry_logic,114,157,,1,实际执行重试的内部函数,,,,2,1,object
+system/CAD_com_utils.py,retry_on_busy,160,185,,1,【智能通用装饰器】,,,,0,0,object
+system/CAD_com_utils.py,SafeCOM.call,190,191,,0,,,,,0,0,object
+system/CAD_com_utils.py,SafeCOM.list_selection,194,203,,0,,,,,1,1,"list,object"
+system/CAD_com_utils.py,retry_if_busy,206,207,,0,,,,,0,0,object
+system/CAD_com_utils.py,alias,214,224,&&% 函数别名,1,"@alias(""别名1"",""别名2"",…)",,,,0,0,object
+system/CAD_com_utils.py,node,241,253,&&% 调试机制,1,只有 DEBUG = True 且当前帧属于【栈底】函数时才打印。,,,,1,0,None
+system/CAD_com_utils.py,timeit,258,282,&&% 调试机制,1,【耗时统计】,,,,1,0,object
+system/CAD_com_utils.py,debuggable,284,292,&&% 调试机制,1,【调试标记】,,,,0,0,object
+system/CAD_coordination - V33.py,wait_quiescent,61,172,,1,【等待空闲】基于 Licad.C 的智能检测 (增强版),GetVariable,,,2,1,bool
+system/CAD_coordination - V33.py,CADGuard.__init__,197,215,,0,,,,,0,0,
+system/CAD_coordination - V33.py,CADGuard.__enter__,217,258,,0,,,,,3,3,object
+system/CAD_coordination - V33.py,CADGuard.__exit__,260,320,,0,,SendCommand;Update,,,6,6,bool
+system/CAD_coordination - V33.py,FileGuard.__init__,331,335,,0,,,,,0,0,
+system/CAD_coordination - V33.py,FileGuard.__enter__,337,349,,0,,,,,1,0,object
+system/CAD_coordination - V33.py,FileGuard.set_success,351,353,,1,显式标记为成功,,,,0,0,
+system/CAD_coordination - V33.py,FileGuard.__exit__,355,392,,0,,,remove;move,,3,1,
+system/CAD_coordination - V33.py,run_safety_loop,397,463,,1,【核弹级安全执行循环】,,,,1,0,bool
+system/CAD_coordination - V33.py,send_cmd_with_sync,469,496,,1,【发送命令】带同步等待,SendCommand,,,2,1,"bool,object"
+system/CAD_coordination - V33.py,wait_document_opened,499,520,,1,等待文档加载,Item,,,1,1,bool
+system/CAD_coordination - V33.py,ensure_single_process,524,539,,1,进程清理,,,,2,2,bool
+system/CAD_coordination - V33.py,start_cad_with_dialog_killer,541,549,,1,启动 CAD,,,,1,1,"bool,object"
+system/CAD_coordination - V33.py,wait_command_done,552,553,,0,,,,,0,0,object
+system/CAD_coordination.py,wait_quiescent,55,110,,1,【等待空闲】基于 Licad.C 的智能检测,GetVariable,,,2,1,bool
+system/CAD_coordination.py,wait_quiescent,114,186,&&% 20260114,1,【等待空闲】V3.2 稳健版 + 效能报告,GetVariable,,,2,1,bool
+system/CAD_coordination.py,CADGuard.__init__,211,229,&&% 20260114,0,,,,,0,0,
+system/CAD_coordination.py,CADGuard.__enter__,231,272,&&% 20260114,0,,,,,3,3,object
+system/CAD_coordination.py,CADGuard.__exit__,274,334,&&% 20260114,0,,SendCommand;Update,,,6,6,bool
+system/CAD_coordination.py,FileGuard.__init__,345,349,&&% 20260114,0,,,,,0,0,
+system/CAD_coordination.py,FileGuard.__enter__,351,363,&&% 20260114,0,,,,,1,0,object
+system/CAD_coordination.py,FileGuard.set_success,365,367,&&% 20260114,1,显式标记为成功,,,,0,0,
+system/CAD_coordination.py,FileGuard.__exit__,369,406,&&% 20260114,0,,,remove;move,,3,1,
+system/CAD_coordination.py,run_safety_loop,411,477,&&% 20260114,1,【核弹级安全执行循环】,,,,1,0,bool
+system/CAD_coordination.py,send_cmd_with_sync,483,510,&&% 20260114,1,【发送命令】带同步等待,SendCommand,,,2,1,"bool,object"
+system/CAD_coordination.py,wait_document_opened,513,534,&&% 20260114,1,等待文档加载,Item,,,1,1,bool
+system/CAD_coordination.py,ensure_single_process,538,553,&&% 20260114,1,进程清理,,,,2,2,bool
+system/CAD_coordination.py,start_cad_with_dialog_killer,555,563,&&% 20260114,1,启动 CAD,,,,1,1,"bool,object"
+system/CAD_coordination.py,wait_command_done,566,567,&&% 20260114,0,,,,,0,0,object
+system/CAD_selection - V10.py,com_retry,202,211,,0,,,,,1,0,object
+system/CAD_selection - V10.py,cast_object,287,292,,1,【CORE-002-1】智能类型转换 (终极混合模式),,,,0,0,object
+system/CAD_selection - V10.py,_maybe_cast,295,339,,1,【CORE-002】智能类型转换 (终极混合模式),,,,2,1,"NoneType,object"
+system/CAD_selection - V10.py,to_vt_int,344,345,,0,,,,,0,0,object
+system/CAD_selection - V10.py,to_vt_variant,347,348,,0,,,,,0,0,object
+system/CAD_selection - V10.py,_to_vt_point,350,352,,0,,,,,0,0,"NoneType,object"
+system/CAD_selection - V10.py,pt3,354,355,,0,,,,,0,0,object
+system/CAD_selection - V10.py,normalize_rect,357,360,,0,,,,,0,0,tuple
+system/CAD_selection - V10.py,expand_rectangle,362,365,,0,,,,,0,0,object
+system/CAD_selection - V10.py,ss_select,371,422,,1,【SEL-001】通用选择集构造器,Delete;Item,,,4,2,object
+system/CAD_selection - V10.py,select_entities_through_point,428,446,,1,【SEL-GEO-001】点选 (微小窗交法),,,,1,0,"list,object"
+system/CAD_selection - V10.py,select_objects_in_window_area,448,474,,1,【SEL-GEO-002】隐性窗口选择（带自动 Zoom）,SendCommand,,,3,2,"list,object"
+system/CAD_selection - V10.py,select_paperspace_objects_in_window,476,502,,1,【SEL-GEO-003】图纸空间区域选择,SetVariable;Item,,,2,2,object
+system/CAD_selection - V10.py,pmxz,504,506,,1,【SEL-GEO-004】交互式屏幕选择,,,,0,0,object
+system/CAD_selection - V10.py,get_last_n_objects,508,524,,1,【SEL-GEO-005】获取最后生成的 N 个图元,Item,,,2,1,"list,object"
+system/CAD_selection - V10.py,last_obj,526,531,,1,【SEL-GEO-006】获取最后一个对象,Item,,,0,0,"NoneType,object"
+system/CAD_selection - V10.py,select_tuceng,537,545,,1,【SEL-TYPE-001】按图层名选择,,,,1,0,"list,object"
+system/CAD_selection - V10.py,stc,547,548,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_kuai,550,551,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_text,553,554,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_mtext,556,557,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_line,559,560,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_circle,562,563,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_ellipse,565,566,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_spline,568,569,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_polyline,571,572,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_polyline_chuantong,574,575,,0,,,,,0,0,object
+system/CAD_selection - V10.py,select_all_texts_mixed,577,588,,1,【SEL-TYPE-011】混合选择文本 (CAD+天正),,,,1,1,object
+system/CAD_selection - V10.py,select_pub_text_entities,590,598,,1,【SEL-TYPE-012】PUB_TEXT 图层天正文字,,,,0,0,tuple
+system/CAD_selection - V10.py,select_group_entities,600,614,,1,【SEL-TYPE-013】选择组,,,,2,1,bool
+system/CAD_selection - V10.py,yin_to_xian_xuanze,620,633,,1,【VIS-001】隐性->显性 (Delete/Undo法),SendCommand;Delete,,,3,2,
+system/CAD_selection - V10.py,yin_to_xian_safe,635,657,,1,【VIS-002】隐性->显性 (LISP sssetfirst法，推荐),SendCommand,,,1,0,None
+system/CAD_selection - V10.py,xian_to_yin_pickfirst,659,669,,1,【VIS-003】获取 Pickfirst 选择集,Item;SendCommand,,,1,1,"list,object"
+system/CAD_selection - V10.py,select_entities_in_window,671,685,,1,【VIS-004】区域高亮并返回对象,SendCommand,,,1,1,object
+system/CAD_selection - V10.py,highlight_entities_in_window,687,689,,1,【VIS-005】仅高亮区域,,,,0,0,
+system/CAD_selection - V10.py,highlight_entity_by_bbox,691,700,,1,【VIS-006】高亮单个对象 (包围盒法),,,,1,0,
+system/CAD_selection - V10.py,set_entity_grip_state_precise,702,711,,1,【VIS-007】独占式高亮,SendCommand,,,1,1,"None,object"
+system/CAD_selection - V10.py,isolate_modelspace_area,713,720,,1,【VIS-008】隔离显示区域,SendCommand,,,0,0,
+system/CAD_selection - V10.py,unhide_all,722,740,,1,【VIS-009】显示隐藏对象,Item,,,2,2,object
+system/CAD_selection - V10.py,_resolve_attr_case_insensitive,883,918,,1,【PROP-000】属性名解析器 (带缓存与暴力回退),,,,2,1,"NoneType,object"
+system/CAD_selection - V10.py,get_attr,920,938,,1,【PROP-001】万能获取属性,,,,1,1,"NoneType,object"
+system/CAD_selection - V10.py,set_attr,940,958,,1,【PROP-002】万能设置属性,,,,1,1,bool
+system/CAD_selection - V10.py,get_object_property,961,974,&&% 兼容旧代码获取对象属性,1,统一获取对象属性（自动识别CAD对象或天正对象）,,,,1,0,"NoneType,object"
+system/CAD_selection - V10.py,set_object_property,977,992,&&% 兼容旧代设置对象属性,1,统一设置对象属性（自动识别CAD对象或天正对象）,,,,1,0,bool
+system/CAD_selection - V10.py,brute_dump_tarch_props,996,1005,&&% 兼容旧代设置对象属性,1,【PROP-003】天正属性扫描调试,,,,1,1,
+system/CAD_selection.py,cast_object,279,280,,0,,,,,0,0,object
+system/CAD_selection.py,_maybe_cast,282,308,,1,【CORE-002】智能类型转换,,,,2,1,"NoneType,object"
+system/CAD_selection.py,to_vt_int,311,312,,0,,,,,0,0,object
+system/CAD_selection.py,to_vt_variant,314,315,,0,,,,,0,0,object
+system/CAD_selection.py,_to_vt_point,317,319,,0,,,,,0,0,"NoneType,object"
+system/CAD_selection.py,pt3,321,322,,0,,,,,0,0,object
+system/CAD_selection.py,normalize_rect,324,327,,0,,,,,0,0,tuple
+system/CAD_selection.py,expand_rectangle,329,332,,0,,,,,0,0,object
+system/CAD_selection.py,com_retry,335,345,,1,【兼容补丁】,,,,0,0,object
+system/CAD_selection.py,current_space_only,348,385,&&% 限定空间装饰器,1,【装饰器】过滤结果，只保留属于当前激活空间（模型或当前布局）的对象。,,,,2,1,"list,object"
+system/CAD_selection.py,ss_select,395,442,&&% 限定空间装饰器,1,【SEL-001】通用选择集构造器 (重构版),Delete,,,3,2,object
+system/CAD_selection.py,select_entities_through_point,449,463,&&% 限定空间装饰器,1,【SEL-GEO-001】点选,,,,0,0,object
+system/CAD_selection.py,select_objects_in_window_area,467,488,&&% 限定空间装饰器,1,【SEL-GEO-002】隐性窗口选择（带自动 Zoom）,SendCommand,,,1,1,object
+system/CAD_selection.py,select_paperspace_objects_in_window,491,518,&&% 限定空间装饰器,1,【SEL-GEO-003】图纸空间区域选择,SetVariable,,,2,2,object
+system/CAD_selection.py,pmxz,520,521,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,get_last_n_objects,524,540,&&% 限定空间装饰器,1,【SEL-GEO-005】获取最后生成的 N 个图元,Item,,,1,1,"list,object"
+system/CAD_selection.py,last_obj,542,546,&&% 限定空间装饰器,0,,Item,,,0,0,"NoneType,object"
+system/CAD_selection.py,select_tuceng,554,558,&&% 限定空间装饰器,1,【SEL-TYPE-001】按图层名选择,,,,0,0,object
+system/CAD_selection.py,stc,560,561,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_kuai,564,565,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_text,566,567,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_mtext,568,569,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_line,570,571,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_circle,572,573,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_ellipse,574,575,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_spline,576,577,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_polyline,578,579,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_polyline_chuantong,580,581,&&% 限定空间装饰器,0,,,,,0,0,object
+system/CAD_selection.py,select_all_texts_mixed,583,589,&&% 限定空间装饰器,0,,,,,1,1,object
+system/CAD_selection.py,select_pub_text_entities,591,598,&&% 限定空间装饰器,0,,,,,0,0,tuple
+system/CAD_selection.py,select_group_entities,602,615,&&% 限定空间装饰器,0,,,,,2,1,bool
+system/CAD_selection.py,yin_to_xian_xuanze,622,635,&&% 限定空间装饰器,1,【VIS-001】隐转显 (Delete/Undo法),SendCommand;Delete,,,2,1,
+system/CAD_selection.py,yin_to_xian_safe,638,657,&&% 限定空间装饰器,1,【VIS-002】隐转显 (LISP sssetfirst法),SendCommand,,,0,0,None
+system/CAD_selection.py,xian_to_yin_pickfirst,659,668,&&% 限定空间装饰器,0,,SendCommand,,,1,1,"list,object"
+system/CAD_selection.py,select_entities_in_window,670,684,&&% 限定空间装饰器,0,,SendCommand,,,1,1,object
+system/CAD_selection.py,highlight_entities_in_window,686,687,&&% 限定空间装饰器,0,,,,,0,0,
+system/CAD_selection.py,highlight_entity_by_bbox,689,697,&&% 限定空间装饰器,0,,,,,1,0,
+system/CAD_selection.py,set_entity_grip_state_precise,699,707,&&% 限定空间装饰器,0,,SendCommand,,,1,1,"None,object"
+system/CAD_selection.py,isolate_modelspace_area,709,715,&&% 限定空间装饰器,0,,SendCommand,,,0,0,
+system/CAD_selection.py,unhide_all,718,739,&&% 限定空间装饰器,0,,,,,2,2,object
+system/CAD_selection.py,_resolve_attr_case_insensitive,882,903,&&% 限定空间装饰器,0,,,,,2,1,"NoneType,object"
+system/CAD_selection.py,get_attr,905,924,&&% 限定空间装饰器,0,,,,,1,1,"NoneType,object"
+system/CAD_selection.py,get_attr,928,962,&&% 20261014,1,【修正版】安全获取对象属性 (支持默认值),,,,1,0,object
+system/CAD_selection.py,set_attr,967,985,&&% 20261014,0,,,,,1,1,bool
+system/CAD_selection.py,get_object_property,988,988,&&% 20261014,0,,,,,0,0,object
+system/CAD_selection.py,set_object_property,989,989,&&% 20261014,0,,,,,0,0,object
+system/CAD_selection.py,brute_dump_tarch_props,991,999,&&% 20261014,0,,,,,1,1,
+system/common_logger - V1.1.py,setup_logger,10,59,,1,配置全局唯一的日志记录器,,,,2,1,object
+system/common_logger - V1.4.py,set_debug_mode,33,37,,1,用于在其他脚本中动态修改调试状态,,,,0,0,
+system/common_logger - V1.4.py,set_debug_mode,48,61,,1,设置调试系统的运行模式,,,,0,0,
+system/common_logger - V1.4.py,record_test_result,84,143,,1,将测试运行时的变量快照写入 Excel。,,,,1,0,
+system/common_logger - V1.4.py,setup_logger,150,199,,1,配置全局唯一的日志记录器,,,,2,1,object
+system/common_logger - V1.4.py,DebugContext.__init__,208,212,,0,,,,,0,0,
+system/common_logger - V1.4.py,DebugContext.is_ai,215,217,,1,是否为 AI 自动化模式,,,,0,0,object
+system/common_logger - V1.4.py,DebugContext.is_human,220,222,,1,是否为 人类 观察模式,,,,0,0,object
+system/common_logger - V1.4.py,DebugContext.__enter__,224,228,,0,,,,,0,0,object
+system/common_logger - V1.4.py,DebugContext.__exit__,230,253,,0,,,,,1,0,bool
+system/common_logger - V1.4.py,node,258,276,,1,【简易日志包装器】,,,,1,1,
+system/common_logger.py,set_debug_mode,35,41,,0,,,,,0,0,
+system/common_logger.py,setup_logger,46,65,,0,,,,,1,1,object
+system/common_logger.py,record_test_result,72,110,,0,,,,,2,1,None
+system/common_logger.py,checkpoint,115,133,,0,,,,,2,1,
+system/common_logger.py,CriticalSection.__init__,136,164,,0,,,,,1,1,
+system/common_logger.py,CriticalSection.record,166,167,,0,,,,,0,0,
+system/common_logger.py,CriticalSection.__enter__,169,171,,0,,,,,0,0,object
+system/common_logger.py,CriticalSection.__exit__,173,196,,0,,,,,2,1,bool
+system/common_logger.py,node,198,202,,0,,,,,1,1,
+system/licad - V10.py,_coinit_once,19,24,,1,线程初始化防呆设计,,,,1,1,
+system/licad - V10.py,_retry_on_busy,30,118,,1,[装饰器工厂] 自动处理 CAD 忙碌 (RPC_E_CALL_REJECTED)。,,,,2,1,object
+system/licad - V10.py,get_acad_doc,126,204,,1,[底层原语] 获取/启动 AutoCAD 应用和文档 (安全修正版),,,,6,1,tuple
+system/licad - V10.py,AutoCadProxy.__init__,211,215,,0,,,,,0,0,
+system/licad - V10.py,AutoCadProxy.li,220,277,,1,[智能连接],AddLine;Delete,,,5,2,bool
+system/licad - V10.py,AutoCadProxy.acad,281,281,,0,,,,,0,0,object
+system/licad - V10.py,AutoCadProxy.doc,283,283,,0,,,,,0,0,object
+system/licad - V10.py,AutoCadProxy.mp,285,285,,0,,,,,0,0,object
+system/licad - V10.py,AutoCadProxy.sp,287,287,,0,,,,,0,0,object
+system/licad - V10.py,AutoCadProxy.save_file,294,303,,0,,Save,,,1,0,bool
+system/licad - V10.py,AutoCadProxy.save_file_as,306,322,,0,,SaveAs,,,1,0,bool
+system/licad - V10.py,AutoCadProxy.open_file,325,352,,0,,Open,,,3,2,bool
+system/licad - V10.py,AutoCadProxy.close_file,355,376,,0,,Close,,,2,1,bool
+system/licad - V10.py,AutoCadProxy.close_dwg_by_name,378,387,,0,,Item;Close,,,1,0,bool
+system/licad - V10.py,li,399,400,,0,,,,,0,0,object
+system/licad - V10.py,save_file,402,403,,0,,,,,0,0,object
+system/licad - V10.py,save_file_as,405,406,,0,,,,,0,0,object
+system/licad - V10.py,open_file,408,409,,0,,,,,0,0,object
+system/licad - V10.py,close_file,411,412,,0,,,,,0,0,object
+system/licad - V10.py,close_dwg_by_name,414,415,,0,,,,,0,0,object
+system/licad - V10.py,retry_on_busy,418,419,,0,,,,,0,0,object
+system/licad - V20.py,_coinit_once,30,32,,0,,,,,1,1,
+system/licad - V20.py,get_acad_doc,34,76,,1,获取/启动 AutoCAD 应用和文档,,,,5,4,tuple
+system/licad - V20.py,SafeDocumentWrapper.__init__,87,88,,0,,,,,0,0,
+system/licad - V20.py,SafeDocumentWrapper.SendCommand,90,104,,1,【拦截】劫持 SendCommand，转为同步安全模式,SendCommand,,,0,0,object
+system/licad - V20.py,SafeDocumentWrapper.__getattr__,106,111,,1,"【转发】除了 SendCommand 以外的所有属性/方法（如 Name, SaveAs, Layers），",,,,0,0,object
+system/licad - V20.py,SafeDocumentWrapper.__dir__,113,115,,1,让 IDE 能自动提示真实对象的属性,,,,0,0,object
+system/licad - V20.py,AutoCadProxy.__init__,122,124,,0,,,,,0,0,
+system/licad - V20.py,AutoCadProxy.li,126,144,,1,连接刷新,,,,3,2,bool
+system/licad - V20.py,AutoCadProxy.doc,147,155,,1,【关键修改】,,,,0,0,object
+system/licad - V20.py,AutoCadProxy.acad,157,157,,0,,,,,0,0,object
+system/licad - V20.py,AutoCadProxy.mp,159,159,,0,,,,,0,0,object
+system/licad - V20.py,AutoCadProxy.sp,161,161,,0,,,,,0,0,object
+system/licad - V20.py,AutoCadProxy.save_file,166,170,,0,,Save,,,0,0,bool
+system/licad - V20.py,AutoCadProxy.save_file_as,173,182,,0,,SaveAs,,,0,0,bool
+system/licad - V20.py,AutoCadProxy.open_file,185,203,,0,,Open,,,1,1,bool
+system/licad - V20.py,AutoCadProxy.close_file,206,213,,0,,Close,,,0,0,bool
+system/licad - V20.py,AutoCadProxy.close_dwg_by_name,215,221,,0,,Close;Item,,,1,1,bool
+system/licad - V20.py,AutoCadProxy.SendCommand,226,246,,1,代理发送命令：,SendCommand,,,1,0,object
+system/licad - V20.py,AutoCadProxy.force_update,252,263,,1,【灾难恢复专用】,,,,0,0,
+system/licad - V20.py,li,274,274,,0,,,,,0,0,object
+system/licad - V20.py,save_file,275,275,,0,,,,,0,0,object
+system/licad - V20.py,save_file_as,276,276,,0,,,,,0,0,object
+system/licad - V20.py,open_file,277,277,,0,,,,,0,0,object
+system/licad - V20.py,close_file,278,278,,0,,,,,0,0,object
+system/licad - V20.py,close_dwg_by_name,279,279,,0,,,,,0,0,object
+system/licad.py,_coinit_once,31,33,,0,,,,,1,1,
+system/licad.py,get_acad_doc,39,85,,1,[底层原语] 获取/启动 AutoCAD 应用和文档,,,,6,3,tuple
+system/licad.py,get_acad_doc,89,174,,1,[底层原语] 获取/启动 AutoCAD 应用和文档,,,,5,2,"bool,object,tuple"
+system/licad.py,get_acad_doc,177,302,,1,[底层原语] 获取/启动 AutoCAD 应用和文档,,rmtree,,9,5,"bool,object,tuple"
+system/licad.py,SafeDocumentWrapper.__init__,310,311,,0,,,,,0,0,
+system/licad.py,SafeDocumentWrapper.SendCommand,313,322,,0,,SendCommand,,,1,0,object
+system/licad.py,SafeDocumentWrapper.__getattr__,324,325,,0,,,,,0,0,object
+system/licad.py,SafeDocumentWrapper.__dir__,327,328,,0,,,,,0,0,object
+system/licad.py,AutoCadProxy.__init__,335,339,,0,,,,,0,0,
+system/licad.py,AutoCadProxy.li,341,371,,1,[智能连接] 三层验证,AddLine;Delete,,,4,3,bool
+system/licad.py,AutoCadProxy.acad,375,375,,0,,,,,0,0,object
+system/licad.py,AutoCadProxy.doc,378,381,,1,【Wrapper】返回安全替身,,,,0,0,object
+system/licad.py,AutoCadProxy.raw_doc,384,387,,1,【Raw】返回原始对象,,,,0,0,object
+system/licad.py,AutoCadProxy.mp,390,390,,0,,,,,0,0,object
+system/licad.py,AutoCadProxy.sp,393,393,,0,,,,,0,0,object
+system/licad.py,AutoCadProxy.msp,396,396,,0,,,,,0,0,object
+system/licad.py,AutoCadProxy.save_file,401,408,,0,,Save,,,1,0,bool
+system/licad.py,AutoCadProxy.save_file_as,411,421,,0,,SaveAs,,,1,0,bool
+system/licad.py,AutoCadProxy.open_file,424,438,,0,,Open,,,2,2,bool
+system/licad.py,AutoCadProxy.close_file,441,451,,0,,Close;Save,,,2,2,bool
+system/licad.py,AutoCadProxy.close_dwg_by_name,453,457,,0,,Close;Item,,,1,1,bool
+system/licad.py,li,465,465,,0,,,,,0,0,object
+system/licad.py,save_file,466,466,,0,,,,,0,0,object
+system/licad.py,save_file_as,467,467,,0,,,,,0,0,object
+system/licad.py,open_file,468,468,,0,,,,,0,0,object
+system/licad.py,close_file,469,469,,0,,,,,0,0,object
+system/licad.py,close_dwg_by_name,470,470,,0,,,,,0,0,object
+system/licad.py,retry_on_busy,473,475,,1,转发给 CAD_com_utils 的装饰器,,,,0,0,object

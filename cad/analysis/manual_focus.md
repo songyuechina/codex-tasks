@@ -1,0 +1,202 @@
+# 深读优先级函数清单（自动评分）
+
+- scripts/CAD_basic.py::bianmulu_func4_h (score=9) COM=[Close;SetVariable;SendCommand;Item;InsertBlock;Delete;Explode] FILE=[] WIN=[] bare_except=6
+- library/cad_blocks.py::redefine_block_with_entities (score=8) COM=[SetVariable;SendCommand;Item;GetVariable;Update] FILE=[open] WIN=[] bare_except=5
+- scripts/CAD_basic.py::redefine_block_with_entities (score=8) COM=[SetVariable;SendCommand;Item;GetVariable;Update] FILE=[open] WIN=[] bare_except=5
+- scripts/CAD_basic.py::build_full_print_dict_and_export_excel (score=8) COM=[Open;Item;Close;Copy;SaveAs;Delete] FILE=[unlink] WIN=[] bare_except=11
+- scripts/CAD_basic.py::read_excel_and_update_cad_titleblocks (score=8) COM=[Open;Item;Close] FILE=[copy] WIN=[] bare_except=2
+- scripts/CAD_basic.py::update_catalog_titleblocks_from_excel (score=8) COM=[Open;Close] FILE=[copy] WIN=[] bare_except=3
+- scripts/CAD_basic.py::update_catalog_titleblocks_from_excel_y (score=8) COM=[Open;Close] FILE=[copy] WIN=[] bare_except=2
+- scripts/CAD_basic.py::write_catalog_from_excel_to_cad (score=8) COM=[Open;Update;Item;AddText;Delete;Close] FILE=[copy] WIN=[] bare_except=18
+- scripts/CAD_basic.py::export_model_window_lisp_fit (score=8) COM=[SendCommand] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_basic.py::export_layout_window_lisp_fit_v1 (score=8) COM=[SendCommand;Item] FILE=[remove] WIN=[] bare_except=2
+- system/cad_command_monitor.py::send_nuclear_esc (score=8) COM=[SendCommand] FILE=[] WIN=[keybd_event;PostMessage] bare_except=1
+- library/cad_blocks.py::attsync_block_instance_base (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- library/cad_blocks.py::insert_and_explode_dwg (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- library/cad_blocks.py::create_block_from_region_cmd (score=7) COM=[SendCommand;GetVariable;Delete;Item;InsertBlock] FILE=[] WIN=[] bare_except=1
+- library/cad_blocks.py::create_block_from_list_cmd (score=7) COM=[SendCommand;Item;InsertBlock] FILE=[] WIN=[] bare_except=3
+- library/cad_blocks.py::add_entities_to_block_definition_explode (score=7) COM=[SendCommand;Explode;Update;GetVariable] FILE=[] WIN=[] bare_except=3
+- library/cad_blocks.py::explode_single_object_marker (score=7) COM=[SendCommand;AddLine;Item;Delete] FILE=[] WIN=[] bare_except=2
+- library/cad_objects.py::ensure_layer (score=7) COM=[Item;SendCommand;Delete] FILE=[] WIN=[] bare_except=1
+- library/cad_objects.py::set_layer_properties (score=7) COM=[SendCommand;Item] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::ensure_layer (score=7) COM=[Item;SendCommand;Delete] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::set_layer_properties (score=7) COM=[SendCommand;Item] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::attsync_block_instance_base (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::insert_and_explode_dwg (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::create_block_from_region_cmd (score=7) COM=[SendCommand;GetVariable;Delete;Item;InsertBlock] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::create_block_from_list_cmd (score=7) COM=[SendCommand;Item;InsertBlock] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::add_entities_to_block_definition_explode (score=7) COM=[SendCommand;Explode;Update;GetVariable] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::explode_single_object_marker (score=7) COM=[SendCommand;AddLine;Item;Delete] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::bianmulu_func1_h (score=7) COM=[Close;Item;SetVariable;Delete] FILE=[] WIN=[] bare_except=6
+- scripts/CAD_basic.py::bianmulu_func2_h (score=7) COM=[Close;Item;SetVariable;Copy] FILE=[] WIN=[] bare_except=12
+- scripts/CAD_basic.py::bianmulu_func3_h (score=7) COM=[Close] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::read_catalog_template_config (score=7) COM=[Open;Close] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::get_my_template_config_from_excel (score=7) COM=[Open;Close] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::export_layout_window_lisp_fit (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_coordination - V33.py::CADGuard.__exit__ (score=7) COM=[SendCommand;Update] FILE=[] WIN=[] bare_except=6
+- system/CAD_coordination - V33.py::send_cmd_with_sync (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_coordination.py::CADGuard.__exit__ (score=7) COM=[SendCommand;Update] FILE=[] WIN=[] bare_except=6
+- system/CAD_coordination.py::send_cmd_with_sync (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection - V10.py::select_objects_in_window_area (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=2
+- system/CAD_selection - V10.py::yin_to_xian_xuanze (score=7) COM=[SendCommand;Delete] FILE=[] WIN=[] bare_except=2
+- system/CAD_selection - V10.py::xian_to_yin_pickfirst (score=7) COM=[Item;SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection - V10.py::select_entities_in_window (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection - V10.py::set_entity_grip_state_precise (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection.py::select_objects_in_window_area (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection.py::yin_to_xian_xuanze (score=7) COM=[SendCommand;Delete] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection.py::xian_to_yin_pickfirst (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection.py::select_entities_in_window (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection.py::set_entity_grip_state_precise (score=7) COM=[SendCommand] FILE=[] WIN=[] bare_except=1
+- system/licad - V10.py::AutoCadProxy.close_file (score=7) COM=[Close] FILE=[] WIN=[] bare_except=1
+- system/licad - V20.py::AutoCadProxy.close_dwg_by_name (score=7) COM=[Close;Item] FILE=[] WIN=[] bare_except=1
+- system/licad.py::AutoCadProxy.close_file (score=7) COM=[Close;Save] FILE=[] WIN=[] bare_except=2
+- system/licad.py::AutoCadProxy.close_dwg_by_name (score=7) COM=[Close;Item] FILE=[] WIN=[] bare_except=1
+- library/cad_control.py::rename_conflicting_text_styles (score=6) COM=[Open;Save;Close;SendCommand;Item] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::xianshi_yincangtuxing (score=6) COM=[SendCommand;Save] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::rename_conflicting_text_styles (score=6) COM=[Open;Save;Close;SendCommand;Item] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::export_model_window_pure (score=6) COM=[SetVariable] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_basic.py::export_layout_window_pure (score=6) COM=[SetVariable] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_basic.py::export_layout_window_pure_bianju (score=6) COM=[SetVariable] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_basic.py::print_dwg_file_model (score=6) COM=[SetVariable] FILE=[rmtree] WIN=[] bare_except=1
+- scripts/CAD_basic.py::print_polylines_list (score=6) COM=[SetVariable;Item] FILE=[] WIN=[EnumWindows;ShowWindow;PostMessage] bare_except=5
+- scripts/CAD_check_standards.py::bianmulu_func4_h (score=6) COM=[SendCommand;Close;SetVariable] FILE=[] WIN=[] bare_except=0
+- library/cad_blocks.py::update_block_def_attributes_v7 (score=5) COM=[Item;Move] FILE=[] WIN=[] bare_except=4
+- library/cad_blocks.py::set_attribute_mtext (score=5) COM=[GetAttributes;Update] FILE=[] WIN=[] bare_except=2
+- library/cad_blocks.py::get_bounding_box_of_block (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- library/cad_blocks.py::delete_block_instances_and_definition_optimized (score=5) COM=[Item;Delete;Erase] FILE=[] WIN=[] bare_except=3
+- library/cad_blocks.py::delete_block_instances_and_definition_optimized (score=5) COM=[Item;Delete;Erase] FILE=[] WIN=[] bare_except=1
+- library/cad_blocks.py::add_entities_to_block_direct (score=5) COM=[Update;Item;Move;Rotate;ScaleEntity;Delete] FILE=[] WIN=[] bare_except=2
+- library/cad_blocks.py::extract_specific_entities_from_block (score=5) COM=[Explode;Update;Delete;Item] FILE=[] WIN=[] bare_except=2
+- library/cad_blocks.py::_atomic_explode_and_delete (score=5) COM=[Explode;Delete] FILE=[] WIN=[] bare_except=1
+- library/cad_blocks.py::safe_explode_retry (score=5) COM=[Item] FILE=[] WIN=[] bare_except=5
+- library/cad_control.py::srhd (score=5) COM=[Item;AddPoint;AddText] FILE=[] WIN=[] bare_except=1
+- library/cad_control.py::srhd_p (score=5) COM=[Item;AddPoint;AddText] FILE=[] WIN=[] bare_except=1
+- library/cad_geometry.py::find_fake_intersection_regions (score=5) COM=[AddCircle] FILE=[] WIN=[] bare_except=1
+- library/cad_geometry.py::delete_duplicate_lines (score=5) COM=[Delete] FILE=[] WIN=[] bare_except=2
+- library/cad_geometry.py::delete_redundant_lines (score=5) COM=[Delete] FILE=[] WIN=[] bare_except=3
+- library/cad_geometry.py::draw_polyline (score=5) COM=[AddLightWeightPolyline] FILE=[] WIN=[] bare_except=3
+- library/cad_geometry.py::TDbMText_content (score=5) COM=[Copy;Delete] FILE=[] WIN=[] bare_except=2
+- library/cad_objects.py::add_objects_to_group (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- library/cad_objects.py::sc_objs_to_layer (score=5) COM=[Item;Delete] FILE=[] WIN=[] bare_except=2
+- library/cad_objects.py::create_layers_from_list (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- library/cad_objects.py::force_layer_objects_color (score=5) COM=[Update] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::find_fake_intersection_regions (score=5) COM=[AddCircle] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::delete_duplicate_lines (score=5) COM=[Delete] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::delete_redundant_lines (score=5) COM=[Delete] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::draw_polyline (score=5) COM=[AddLightWeightPolyline] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::TDbMText_content (score=5) COM=[Copy;Delete] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::add_objects_to_group (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::sc_objs_to_layer (score=5) COM=[Item;Delete] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::create_layers_from_list (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::force_layer_objects_color (score=5) COM=[Update] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::update_block_def_attributes_v7 (score=5) COM=[Item;Move] FILE=[] WIN=[] bare_except=4
+- scripts/CAD_basic.py::set_attribute_mtext (score=5) COM=[GetAttributes;Update] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::get_bounding_box_of_block (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::delete_block_instances_and_definition_optimized (score=5) COM=[Item;Delete;Erase] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::delete_block_instances_and_definition_optimized (score=5) COM=[Item;Delete;Erase] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::add_entities_to_block_direct (score=5) COM=[Update;Item;Move;Rotate;ScaleEntity;Delete] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::extract_specific_entities_from_block (score=5) COM=[Explode;Update;Delete;Item] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::_atomic_explode_and_delete (score=5) COM=[Explode;Delete] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::safe_explode_retry (score=5) COM=[Item] FILE=[] WIN=[] bare_except=5
+- scripts/CAD_basic.py::srhd (score=5) COM=[Item;AddPoint;AddText] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::srhd_p (score=5) COM=[Item;AddPoint;AddText] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::restore_poly_adaptive (score=5) COM=[AddLightWeightPolyline] FILE=[] WIN=[] bare_except=6
+- scripts/CAD_basic.py::select_maxrect_polylines_1 (score=5) COM=[Delete] FILE=[] WIN=[] bare_except=5
+- scripts/CAD_basic.py::select_print_areas_paperspace (score=5) COM=[Item;Delete] FILE=[] WIN=[] bare_except=5
+- scripts/CAD_basic.py::select_standard_print_areas (score=5) COM=[Delete;Item] FILE=[] WIN=[] bare_except=8
+- scripts/CAD_basic.py::select_print_areas_from_blocks (score=5) COM=[Delete;Item] FILE=[] WIN=[] bare_except=6
+- scripts/CAD_basic.py::select_print_areas_from_layer (score=5) COM=[Delete;Item] FILE=[] WIN=[] bare_except=5
+- scripts/CAD_basic.py::select_print_areas_from_screen (score=5) COM=[Delete;Item] FILE=[] WIN=[] bare_except=5
+- scripts/CAD_basic.py::insert_and_scale_labels_area_power (score=5) COM=[Item] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::clean_blocks_until_vanished (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::cut_model_to_paper_and_switch (score=5) COM=[Item;Delete] FILE=[] WIN=[] bare_except=4
+- scripts/CAD_basic.py::cut_screen_selection_to_paper (score=5) COM=[Item;SetVariable] FILE=[] WIN=[] bare_except=1
+- scripts/CAD_basic.py::copy_layout_polylines_to_model (score=5) COM=[Item] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::clear_layout_objects (score=5) COM=[Item;Delete] FILE=[] WIN=[] bare_except=4
+- scripts/CAD_basic.py::clean_unused_blocks_global_scan (score=5) COM=[Item;Delete] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::rebuild_print_area_title_mapping (score=5) COM=[Item] FILE=[] WIN=[] bare_except=2
+- scripts/CAD_basic.py::rebuild_print_area_title_mapping_paper (score=5) COM=[Item] FILE=[] WIN=[] bare_except=3
+- scripts/CAD_basic.py::process_drawing_names_and_fill_titleblocks (score=5) COM=[Item;GetAttributes] FILE=[] WIN=[] bare_except=5
+- scripts/CAD_basic.py::mark_print_areas_final (score=5) COM=[Item] FILE=[] WIN=[] bare_except=4
+- scripts/CAD_basic.py::generate_tarch_drawing_names_v5 (score=5) COM=[Copy;Move;Update] FILE=[] WIN=[] bare_except=1
+- system/CAD_coordination - V33.py::wait_quiescent (score=5) COM=[GetVariable] FILE=[] WIN=[] bare_except=1
+- system/CAD_coordination - V33.py::wait_document_opened (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- system/CAD_coordination.py::wait_quiescent (score=5) COM=[GetVariable] FILE=[] WIN=[] bare_except=1
+- system/CAD_coordination.py::wait_quiescent (score=5) COM=[GetVariable] FILE=[] WIN=[] bare_except=1
+- system/CAD_coordination.py::wait_document_opened (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection - V10.py::ss_select (score=5) COM=[Delete;Item] FILE=[] WIN=[] bare_except=2
+- system/CAD_selection - V10.py::select_paperspace_objects_in_window (score=5) COM=[SetVariable;Item] FILE=[] WIN=[] bare_except=2
+- system/CAD_selection - V10.py::get_last_n_objects (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- system/CAD_selection - V10.py::unhide_all (score=5) COM=[Item] FILE=[] WIN=[] bare_except=2
+- system/CAD_selection.py::ss_select (score=5) COM=[Delete] FILE=[] WIN=[] bare_except=2
+- system/CAD_selection.py::select_paperspace_objects_in_window (score=5) COM=[SetVariable] FILE=[] WIN=[] bare_except=2
+- system/CAD_selection.py::get_last_n_objects (score=5) COM=[Item] FILE=[] WIN=[] bare_except=1
+- system/cad_command_monitor.py::analyze_state (score=5) COM=[GetVariable] FILE=[] WIN=[] bare_except=1
+- system/licad - V10.py::AutoCadProxy.li (score=5) COM=[AddLine;Delete] FILE=[] WIN=[] bare_except=2
+- system/licad - V10.py::AutoCadProxy.open_file (score=5) COM=[Open] FILE=[] WIN=[] bare_except=2
+- system/licad - V20.py::AutoCadProxy.open_file (score=5) COM=[Open] FILE=[] WIN=[] bare_except=1
+- system/licad.py::AutoCadProxy.li (score=5) COM=[AddLine;Delete] FILE=[] WIN=[] bare_except=3
+- system/licad.py::AutoCadProxy.open_file (score=5) COM=[Open] FILE=[] WIN=[] bare_except=2
+- library/cad_blocks.py::insert_standard_block (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_blocks.py::insert_and_explode_dwg (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_control.py::fix_com_cache (score=4) COM=[] FILE=[rmtree] WIN=[] bare_except=2
+- library/cad_control.py::shitu_region (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_control.py::shitu_entity (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_control.py::set_current_dimstyle_via_command (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_control.py::transfer_props_by_matchprop (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_geometry.py::get_spline_length_by_conversion (score=4) COM=[Copy;SendCommand;Item;Delete] FILE=[] WIN=[] bare_except=0
+- library/cad_geometry.py::lines_daduan (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_geometry.py::get_room_outline_from_point (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_objects.py::copy_group_S1_from_doc1_to_doc2 (score=4) COM=[Item;SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_objects.py::dim_by_points (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- library/cad_objects.py::ensure_layer_model_only (score=4) COM=[Item;SendCommand;Delete] FILE=[] WIN=[] bare_except=0
+- library/tarch_building.py::activate_cad_middle_click (score=4) COM=[] FILE=[] WIN=[ShowWindow;SetForegroundWindow] bare_except=2
+- library/tarch_building.py::_activate_cad_safe (score=4) COM=[] FILE=[] WIN=[ShowWindow;SetForegroundWindow] bare_except=2
+- scripts/CAD_Legacy_Runner.py::LegacyCADRunner.gui_save_as (score=4) COM=[SaveAs] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_System_Queue - V30.py::LockManager._write_lock (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V30.py::LockManager.release (score=4) COM=[] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V30.py::MasterRunner.__init__ (score=4) COM=[] FILE=[] WIN=[ShowWindow] bare_except=1
+- scripts/CAD_System_Queue - V30.py::MasterRunner._ensure_bootstrap (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V31.py::LockManager._write_lock (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V31.py::LockManager.release (score=4) COM=[] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V31.py::MasterRunner.__init__ (score=4) COM=[] FILE=[] WIN=[ShowWindow] bare_except=1
+- scripts/CAD_System_Queue - V31.py::MasterRunner._ensure_bootstrap (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V33.py::LockManager._write_lock (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V33.py::LockManager.release (score=4) COM=[] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_System_Queue - V33.py::MasterRunner.__init__ (score=4) COM=[] FILE=[] WIN=[ShowWindow] bare_except=1
+- scripts/CAD_System_Queue - V33.py::MasterRunner._ensure_bootstrap (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_System_Queue.py::LockManager._write_lock (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_System_Queue.py::LockManager.release (score=4) COM=[] FILE=[remove] WIN=[] bare_except=1
+- scripts/CAD_System_Queue.py::MasterRunner.__init__ (score=4) COM=[] FILE=[] WIN=[ShowWindow] bare_except=1
+- scripts/CAD_System_Queue.py::MasterRunner._ensure_bootstrap (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_basic.py::test_draw_circle_and_wait (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::force_show_cad_interface (score=4) COM=[] FILE=[] WIN=[ShowWindow;SetForegroundWindow] bare_except=1
+- scripts/CAD_basic.py::get_spline_length_by_conversion (score=4) COM=[Copy;SendCommand;Item;Delete] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::lines_daduan (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::get_room_outline_from_point (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::copy_group_S1_from_doc1_to_doc2 (score=4) COM=[Item;SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::dim_by_points (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::ensure_layer_model_only (score=4) COM=[Item;SendCommand;Delete] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::run_cad_program (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::insert_standard_block (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::insert_and_explode_dwg (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::fix_com_cache (score=4) COM=[] FILE=[rmtree] WIN=[] bare_except=2
+- scripts/CAD_basic.py::shitu_region (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::shitu_entity (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::set_current_dimstyle_via_command (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::transfer_props_by_matchprop (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::save_ctq (score=4) COM=[] FILE=[open] WIN=[] bare_except=1
+- scripts/CAD_basic.py::load_ctq (score=4) COM=[] FILE=[open] WIN=[] bare_except=3
+- scripts/CAD_basic.py::draw_pl_and_extract_info (score=4) COM=[Item;AddLightWeightPolyline;SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::draw_pl_and_extract_from_entities (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::clean_internal_polylines (score=4) COM=[SendCommand;Item] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::explode_title_wrappers_to_core_layer (score=4) COM=[SendCommand;Erase] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::_fallback_copy_method (score=4) COM=[Item;SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/CAD_basic.py::print_batch_custom_list (score=4) COM=[] FILE=[copy;rmtree] WIN=[] bare_except=1
+- scripts/CAD_basic.py::print_dwg_file_layout (score=4) COM=[] FILE=[rmtree] WIN=[] bare_except=2
+- scripts/CAD_basic.py::print_layout_polylines_list (score=4) COM=[] FILE=[] WIN=[EnumWindows;ShowWindow;PostMessage] bare_except=5
+- scripts/函数编写规范.py::select_tuceng (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/函数编写规范.py::select_kuai (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/函数编写规范.py::select_polyline_chuantong (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/函数编写规范.py::select_polyline (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0
+- scripts/函数编写规范.py::select_entities_in_window (score=4) COM=[SendCommand] FILE=[] WIN=[] bare_except=0

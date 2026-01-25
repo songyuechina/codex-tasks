@@ -245,3 +245,38 @@ Local-ish imports (heuristic):
 ## 深度结构映射
 - `cad/analysis/deep_cad_basic.md`：CAD_basic.py 分区与函数映射。 
 - `cad/analysis/deep_insert_labels.md`：insert_labels.py 分区与函数映射。
+
+## 函数级深度草稿
+- 已生成 `cad/analysis/functions_deep.md`：包含调用/属性/异常结构/副作用线索，待逐函数人工修订。
+
+## 重点重复定义（清单）
+- `cad/analysis/duplicates.md` 已记录关键重复定义，例如 `licad.get_acad_doc` x3、`CAD_coordination.wait_quiescent` x2、`insert_labels.run_title_block_assembly_pipeline` 等（后者在 notes 中补充）。
+
+## insert_labels 重复定义
+- `cad/analysis/deep_insert_labels_duplicates.md`：重复定义的具体行号，用于人工核对覆盖版本。 
+
+## Docstring 覆盖率
+- `cad/analysis/doc_coverage.md`：按文件统计函数注释覆盖率。
+
+## 风险热点
+- `cad/analysis/risk_hotspots.md`：裸 except / COM / 文件 / 窗口操作函数清单。
+
+## 分区概览
+- `cad/analysis/section_summary.md`：按 #&& 分区统计函数与标签。
+
+## 进一步人工理解补充
+### scripts/CAD_System_Queue.py
+- 结构：内嵌 IDLE 引导代码（字符串），通过本地 socket 监听执行脚本；GUI 负责选择/下发任务。
+- 关键点：IDLE 端维护 GLOBAL_CTX（dy/ctq/ctq_p），用于跨步骤共享内存；run_script_in_main 在 __main__ 执行脚本。
+- 风险：大量 exec/动态执行 + 全局状态共享；socket 端口固定 65432。
+
+### scripts/脚本导航14版.py
+- 作用：脚本导航/执行 GUI（Tree Edition），内置 IDLE 引导程序；修复 BOM 读取并在执行前切换 cwd。
+- 机制：通过 socket 将脚本路径发送给 IDLE 引擎执行，日志按日期写入脚本目录。
+- 风险：动态执行 + GUI 依赖，路径/编码处理是关键点。
+
+## 选择模块清单
+- `cad/analysis/selection_manifest.md`：CAD_selection 的 API MANIFEST 完整摘录。
+
+## 深读优先级
+- `cad/analysis/manual_focus.md`：自动评分得到的优先深读函数列表。
