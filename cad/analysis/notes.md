@@ -297,3 +297,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充 CAD_basic 的目录编制与 Excel 导入/导出相关核心函数到 manual_understanding.md。
+
+## 人工深读进度
+- 已补充打印相关函数与目录图签写入函数的人工理解。 

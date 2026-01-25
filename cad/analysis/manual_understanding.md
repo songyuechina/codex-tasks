@@ -136,3 +136,46 @@
 - 风险：目录结构映射失败；文字样式/行高不匹配。
 - 测试点：空 Excel/空 ctq；不同模板序号；文字溢出处理。
 
+
+## scripts/CAD_basic.py (打印相关)
+
+### export_model_window_lisp_fit(point_a, point_b, pdf_fullpath, device=..., media=..., ctb=..., rotation=0, xiubukuan=25)
+- 作用：模型空间窗口打印（LISP 命令版），输出 PDF。
+- 关键步骤：
+  1) 标准化窗口坐标；
+  2) 若纸张为 A0 则自动调整旋转；
+  3) 构造 -plot LISP 命令（Window + Fit + Center + CTB）；
+  4) SendCommand 执行并等待 PDF 生成。
+- 输入/输出：输入两点与 pdf_fullpath；输出 bool。
+- 依赖/副作用：
+  - SendCommand 驱动 AutoCAD；
+  - 会删除同名 PDF 并重新生成。
+- 风险：命令执行受 CAD 状态影响；生成超时或文件为空。
+- 测试点：A0 旋转逻辑；路径含中文；输出文件已存在。
+
+### export_layout_window_lisp_fit(layout_name, point_a, point_b, pdf_fullpath, ...)
+- 作用：布局空间窗口打印（LISP 命令版），输出 PDF。
+- 关键步骤：
+  1) 切换到 layout_name 并 MSpace=False；
+  2) 标准化坐标；
+  3) 构造并发送 -plot 命令（Layout/Window/Fit/CTB）；
+  4) 等待生成文件。
+- 输入/输出：输入 layout_name 与窗口坐标；输出 bool。
+- 依赖/副作用：修改当前布局与打印设置；删除同名 PDF。
+- 风险：布局切换失败；命令执行时序问题。
+- 测试点：布局不存在/空布局；多页布局；输出文件占用。
+
+## scripts/CAD_basic.py (目录图签填写)
+
+### update_catalog_titleblocks_from_excel(ctq, excel_path, catalog_name="图纸目录", custom_suffixes=None)
+- 作用：读取 Excel 项目信息并写入“目录图签”块属性（包含图幅与比例）。
+- 关键步骤：
+  1) 校验 ctq 结构与图签块列表；
+  2) Excel COM 读取项目字段；
+  3) 根据 generate_name_and_ratio_from_com 计算比例/图幅；
+  4) 生成图纸编号并调用 set_attribute_mtext 写入。
+- 输入/输出：输入 ctq 与 Excel 路径；输出 bool。
+- 依赖/副作用：Excel COM；修改 CAD 块属性。
+- 风险：Excel 路径推断不稳定；属性写入失败。
+- 测试点：ctq 长度不匹配；Excel 缺失；计算比例异常。
+
