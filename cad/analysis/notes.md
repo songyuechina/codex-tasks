@@ -306,3 +306,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充 CAD_coordination 的 CADGuard 与 send_cmd_with_sync 理解。 
+
+## 人工深读进度
+- 已补充 CAD_selection 关键窗口/选择集函数理解。 

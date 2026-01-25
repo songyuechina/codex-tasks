@@ -229,3 +229,43 @@
 - 风险：命令未执行或被拒绝；wait_quiescent 超时。
 - 测试点：CAD 无文档；忙碌状态；命令不带换行。
 
+
+## system/CAD_selection.py
+
+### select_objects_in_window_area(x1, y1, x2, y2)
+- 作用：隐性窗口选择，先自动 Zoom 到范围，再使用 ss_select 获取窗口内对象。
+- 关键步骤：计算中心与 margin -> ZoomWindow 或 Zoom 命令 -> ss_select("window").
+- 输入/输出：输入窗口坐标；返回对象列表。
+- 依赖/副作用：改变视图缩放；依赖 CAD COM 与 ss_select。
+- 风险：Zoom 失败时依赖 SendCommand；坐标顺序错误需 normalize。
+- 测试点：小窗口/极大窗口；无对象场景；CAD 忙碌。
+
+### yin_to_xian_xuanze(LB, wait_s=0.6)
+- 作用：将“隐性选择集”转为显性选择（Delete/Undo 法）。
+- 关键步骤：StartUndoMark -> 删除对象 -> _U 撤销 -> SELECT P。
+- 输入/输出：输入对象列表；无显式返回。
+- 副作用：触发撤销栈与选择集状态。
+- 风险：删除失败导致撤销不完整；命令堆栈受干扰。
+- 测试点：空列表；对象不可删除。
+
+### xian_to_yin_pickfirst(clear_grips=True, autocast=True)
+- 作用：从 PickfirstSelectionSet 获取当前显性选择并返回对象列表。
+- 关键步骤：读取 PickfirstSelectionSet -> SafeCOM.list_selection -> 可选清空 grips。
+- 输入/输出：返回对象列表。
+- 风险：选择集正被用户操作时返回空；清空影响用户交互。
+- 测试点：无选择集；autocast 开关。
+
+### select_entities_in_window(x1, y1, x2, y2, ty=1.0, select_mode="_W")
+- 作用：通过命令方式窗口选择，并返回 PickfirstSelectionSet。
+- 关键步骤：ZOOM 到范围 -> SELECT Window -> SafeCOM.list_selection。
+- 副作用：改变视图；影响当前选择集。
+- 风险：SendCommand 时序问题；时间等待不足导致空集。
+- 测试点：不同 select_mode（_W/_C）；窗口极小；ty=0。
+
+### set_entity_grip_state_precise(ent)
+- 作用：通过 sssetfirst 将单个实体设置为抓手激活状态。
+- 关键步骤：清空 sssetfirst -> handent 选中指定 Handle。
+- 副作用：改变当前选择集/抓手显示。
+- 风险：Handle 不可用；命令执行失败。
+- 测试点：无 ent；实体已被删除。
+
