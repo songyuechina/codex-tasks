@@ -314,3 +314,46 @@
 - 风险：布局不存在/被锁定；切换失败时影响后续操作。
 - 测试点：无该布局；多次切换；CAD 忙碌。
 
+
+## system/licad.py
+
+### get_acad_doc(max_wait=15.0)
+- 作用：获取或启动 AutoCAD 应用与文档（自愈版，V3 覆盖前版）。
+- 关键步骤：
+  1) 检测 acad.exe 进程；若存在但 COM 未就绪则等待；
+  2) 若超时则尝试清理 win32com 缓存 gen_py 并提示重启；
+  3) 若无进程则 EnsureDispatch 启动新实例；
+  4) 获取 ActiveDocument，不存在则 Documents.Add。
+- 输入/输出：max_wait 超时阈值；返回 (app, doc) 或抛异常。
+- 副作用：可能清理 COM 缓存；可能启动新 CAD 实例。
+- 风险：僵尸进程导致长等待；清缓存需要重启 Python/CAD 生效。
+- 测试点：已有 CAD 未就绪；无进程；缓存损坏情形。
+
+### AutoCadProxy.li()
+- 作用：智能连接 CAD 并校验可用性；刷新 acad/doc/mp/sp。
+- 关键步骤：
+  1) 校验现有连接是否有效；
+  2) 调用 get_acad_doc 获取 app/doc；
+  3) 通过 ModelSpace 添加/删除线验证可写；
+  4) 设置 Visible 并缓存 mp/sp。
+- 输出：True/False。
+- 风险：COM 忙碌/断连；校验写入失败。
+- 测试点：ActiveDocument 切换；CAD 忙碌。
+
+### AutoCadProxy.open_file(path)
+- 作用：打开 DWG 文件，若已打开则激活。
+- 关键步骤：遍历 Documents 比较 FullName；未打开则 Documents.Open；连接刷新。
+- 输出：bool。
+- 风险：路径不存在；Documents.Open 抛异常。
+- 测试点：已打开/未打开；大小写路径。
+
+### AutoCadProxy.save_file / save_file_as
+- 作用：保存当前文档或另存为指定路径。
+- 副作用：写磁盘；save_file_as 刷新连接。
+- 风险：只读/权限不足。
+
+### AutoCadProxy.close_file(opt="auto_save") / close_dwg_by_name
+- 作用：保存并关闭当前文档或按名称关闭文档。
+- 副作用：关闭文档，可能触发保存。
+- 风险：关闭目标错误；COM 忙碌导致失败。
+

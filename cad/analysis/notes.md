@@ -315,3 +315,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充 CAD_file_operations 的新建/打开/保存/布局切换等核心接口理解。 
+
+## 人工深读进度
+- 已补充 licad 核心连接与文件操作函数理解。 
