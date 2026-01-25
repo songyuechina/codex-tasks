@@ -1172,6 +1172,21 @@
 ### create_table / set_table_cell_text / get_table_cell_text
 - 作用：创建表格并读写单元格文本。
 
+## library/execution_result.py
+
+### ExecutionStatus / ExecutionResult
+- 作用：标准化函数执行结果（状态枚举 + 结果容器）。
+- 关键点：ExecutionResult 支持 is_success/is_failed/is_partial、to_dict、__bool__。
+- 风险：与现有 bool 返回混用需兼容。
+
+### success / failed / partial / error
+- 作用：便捷构造 ExecutionResult。
+- 输出：ExecutionResult。
+
+### with_execution_check(expected_conditions)
+- 作用：执行后条件检查装饰器（如最小数量/错误数量/必需键）。
+- 副作用：可能将结果状态强制改为 FAILED。
+
 ## library/cad_objects.py
 
 ### add_objects_to_group(group_name, obj_list)
