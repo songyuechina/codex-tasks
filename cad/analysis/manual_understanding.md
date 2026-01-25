@@ -444,6 +444,28 @@
 - 副作用：修改 sys.path；自动创建 logs/tests 目录。
 - 风险：USERPATH 未设置时 fallback 固定路径；路径权限问题。
 
+## system/CAD_basic_operations.py
+
+### close_current_dwg_paradigm(save_option="prompt")
+- 作用：关闭当前 DWG（API Close 版，不弹保存对话框）。
+- 关键步骤：GetActiveObject -> ActiveDocument.Close(True/False)；prompt 模式若未保存则自动保存。
+- 输出：bool。
+- 副作用：关闭当前文档，可能强制保存。
+- 风险：未命名文件 SaveAs 失败；Close(True) 触发异常。
+
+### save_current_dwg_paradigm()
+- 作用：保存当前 DWG（三级策略：COM Save -> QSAVE -> SaveAs 覆盖）。
+- 关键步骤：检查 ReadOnly/未命名；强制 Saved=False；尝试 Save；失败则 SendCommand _qsave；最后 SaveAs 覆盖。
+- 输出：bool。
+- 副作用：写磁盘；可能触发命令执行等待。
+- 风险：RPC Busy；SaveAs 覆盖失败。
+
+### save_as_dwg_paradigm(output_path)
+- 作用：另存为 DWG（优化版）。
+- 关键步骤：检查占用；创建目录；可用短路径；SaveAs 阻塞保存并验证文件存在。
+- 输出：bool。
+- 风险：路径只读/被占用；短路径获取失败。
+
 
 ## system/CAD_selection.py
 

@@ -363,3 +363,5 @@ Local-ish imports (heuristic):
 - 已补充 CAD_com_utils 的日志热替换与重试机制理解（LoggerHotSwapper / retry_on_busy / SafeCOM）。
 ## 人工深读进度
 - 已补充 project_setup.PathConfig 路径配置理解。
+## 人工深读进度
+- 已补充 CAD_basic_operations 关键保存/关闭范式理解。
