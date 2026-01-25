@@ -303,3 +303,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充图层管理函数与 cad_command_monitor 强制取消逻辑的人工理解。
+
+## 人工深读进度
+- 已补充 CAD_coordination 的 CADGuard 与 send_cmd_with_sync 理解。 

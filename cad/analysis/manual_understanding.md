@@ -208,3 +208,24 @@
 - 风险：窗口焦点失败导致取消无效；后台运行可能触发安全限制。
 - 测试点：无 hwnd；CAD doc 为 None；多实例 CAD。
 
+
+## system/CAD_coordination.py
+
+### CADGuard.__enter__/__exit__
+- 作用：事务守卫，支持嵌套与独立回滚（UndoMark）。
+- 关键步骤：
+  - __enter__: 记录嵌套深度；连接 CAD；wait_quiescent；按需 StartUndoMark；根事务可控制 UI。
+  - __exit__: 异常时 EndUndoMark + SendCommand "_U" 回滚；根事务刷新并重置深度；正常时 EndUndoMark + wait_quiescent。
+- 输入/输出：作为上下文管理器，异常时返回 False 以继续抛出。
+- 副作用：发送 Undo 命令；可能更新 UI；改变 CAD 状态。
+- 风险：嵌套深度不一致可能导致撤销范围错误；回滚依赖命令成功发送。
+- 测试点：嵌套事务/independent_undo=True；异常抛出路径；CAD 忙碌。
+
+### send_cmd_with_sync(cmd, wait_after=0.3, timeout=30.0)
+- 作用：向 CAD 发送命令并同步等待空闲。
+- 关键步骤：确保 CAD 可见 -> C.raw_doc.SendCommand -> sleep -> wait_quiescent。
+- 输入/输出：输入命令字符串；输出 bool。
+- 依赖/副作用：SendCommand 驱动 CAD；可能改变文档状态。
+- 风险：命令未执行或被拒绝；wait_quiescent 超时。
+- 测试点：CAD 无文档；忙碌状态；命令不带换行。
+
