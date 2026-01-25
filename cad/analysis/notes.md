@@ -347,3 +347,5 @@ Local-ish imports (heuristic):
 - 已补充 CAD_System_Queue.py 锁管理与 MasterRunner 初始化逻辑理解。
 ## 人工深读进度
 - 已补充 CAD_basic 中与 library 模块重复实现的函数映射说明（控制/几何/块/对象）。
+## 人工深读进度
+- 已补充 CAD_Legacy_Runner GUI 初始化与另存为逻辑理解。

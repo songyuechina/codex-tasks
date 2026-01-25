@@ -521,6 +521,23 @@
 - 风险：写入失败被吞掉导致后续启动无脚本。
 - 测试点：只读目录；编码异常。
 
+## scripts/CAD_Legacy_Runner.py
+
+### LegacyCADRunner.__init__(root)
+- 作用：初始化 Tk GUI 控制台，绑定 CAD 基础功能按钮。
+- 关键步骤：配置窗口与按钮；建立日志区域；重定向 stdout/stderr 到 UI；设置线程执行包装器。
+- 副作用：覆盖 sys.stdout/sys.stderr；启动 UI 事件循环。
+- 风险：UI 线程阻塞；print 重定向影响其他模块输出。
+- 测试点：无 CAD 连接时按钮行为；多线程输出。
+
+### LegacyCADRunner.gui_save_as()
+- 作用：GUI 另存为当前 DWG。
+- 关键步骤：cb.li() 确保连接 -> 文件对话框取路径 -> 线程内调用 cfo.save_as 或 doc.SaveAs。
+- 输出：无返回（日志提示）。
+- 副作用：保存/另存为文件；线程执行。
+- 风险：未连接 CAD 时直接退出；路径为空/权限不足。
+- 测试点：cfo.save_as 缺失分支；文件覆盖。
+
 
 ## system/licad.py
 
