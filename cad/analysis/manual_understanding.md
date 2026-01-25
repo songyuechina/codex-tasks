@@ -886,6 +886,24 @@
 - 风险：炸开失败导致空文本；排序容差不适配。
 - 测试点：多行/单行；含格式化字符；爆炸后无 TextString。
 
+## library/tarch_building.py
+
+### activate_cad_middle_click(hwnd)
+- 作用：通过中键点击激活 CAD 窗口（物理操作）。
+- 关键步骤：还原窗口 -> SetForegroundWindow -> 取窗口中心 -> pyautogui 中键点击。
+- 输出：bool。
+- 副作用：抢占焦点/鼠标位置；影响用户操作。
+- 风险：窗口句柄无效；后台限制前置失败。
+- 测试点：最小化窗口；多显示器；无窗口句柄。
+
+### _activate_cad_safe(hwnd)
+- 作用：内部版窗口激活，逻辑与 activate_cad_middle_click 类似。
+- 关键步骤：还原窗口 -> SetForegroundWindow -> 中键点击中心点。
+- 输出：bool。
+- 副作用：抢焦点；移动鼠标。
+- 风险：与用户操作冲突。
+- 测试点：窗口不可见；权限限制。
+
 ## library/cad_objects.py
 
 ### add_objects_to_group(group_name, obj_list)
