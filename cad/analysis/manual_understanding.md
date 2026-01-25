@@ -1187,6 +1187,19 @@
 - 作用：执行后条件检查装饰器（如最小数量/错误数量/必需键）。
 - 副作用：可能将结果状态强制改为 FAILED。
 
+## library/test_monitor.py
+
+### TestMonitor(test_name)
+- 作用：测试前后状态监测与对比（DWG 对象/输出文件）。
+- 核心方法：
+  - capture_dwg_state：用 ss_select 统计 LINE/LWPOLYLINE/CIRCLE/INSERT 数量与句柄；
+  - capture_folder_state：统计目录文件数量与扩展名分布；
+  - before_test/after_test：保存快照；
+  - compare_and_judge：按预期变化判断 PASS/FAIL；
+  - save_report：输出 JSON 报告。
+- 副作用：遍历 CAD 对象与文件系统；写报告文件。
+- 风险：对象数量过大导致耗时；目录权限问题。
+
 ## library/cad_objects.py
 
 ### add_objects_to_group(group_name, obj_list)

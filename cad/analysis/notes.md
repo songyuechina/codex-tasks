@@ -373,3 +373,5 @@ Local-ish imports (heuristic):
 - 已补充 cad_annotation 注释/标注/表格函数理解。
 ## 人工深读进度
 - 已补充 execution_result 的执行状态封装理解。
+## 人工深读进度
+- 已补充 test_monitor 测试前后监测与报告逻辑理解。
