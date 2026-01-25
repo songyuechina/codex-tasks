@@ -494,6 +494,30 @@
 - 关键步骤：读取 delay -> 获取 CAD PIDs -> EnumWindows -> enum_and_maybe_close -> sleep。
 - 风险：无限循环；错误处理依赖 KeyboardInterrupt。
 
+## system/CAD_enhanced_functions.py
+
+### open_dwg_enhanced(path, visible=True)
+- 作用：增强版 DWG 打开（集成协同等待）。
+- 关键步骤：ensure_single_process -> Dispatch AutoCAD -> Open -> wait_document_opened -> wait_quiescent。
+- 输出：(acad, doc) 或 (None, None)。
+- 风险：COM 初始化失败；打开超时。
+
+### open_dwg_sync(path, visible=True)
+- 作用：同步打开 DWG（先启用弹窗治理与协同）。
+- 关键步骤：start_cad_with_dialog_killer -> ensure_single_process -> open_dwg_enhanced。
+- 输出：bool。
+- 风险：CAD 未启动导致失败；依赖 start_cad_with_dialog_killer。
+
+### start_cad_session_with_coordination()
+- 作用：启动 CAD 并激活协同机制。
+- 关键步骤：start_cad_with_dialog_killer -> ensure_single_process -> wait_quiescent。
+- 输出：bool（空闲失败也返回 True）。
+- 风险：启动失败被掩盖。
+
+### test_cad_coordination()
+- 作用：自测协同机制（启动、发送命令、等待空闲）。
+- 副作用：发送 LINE 命令；修改图面。
+
 
 ## system/CAD_selection.py
 
