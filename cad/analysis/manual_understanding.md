@@ -165,6 +165,43 @@
 - 风险：布局切换失败；命令执行时序问题。
 - 测试点：布局不存在/空布局；多页布局；输出文件占用。
 
+### export_layout_window_lisp_fit_v1(point_a, point_b, pdf_fullpath, layout_name, ...)
+- 作用：旧版布局空间 LISP 打印（绕过部分 COM 打印 BUG），输出 PDF。
+- 关键步骤：
+  1) 尝试预切换到目标布局（COM）；失败则继续；
+  2) 标准化坐标，A0 纸张旋转修正；
+  3) 构造完整 -plot LISP 命令（Window + Fit + Center + CTB）；
+  4) 发送命令并轮询等待 PDF 生成（最长 60s）。
+- 输入/输出：输入布局名/窗口坐标/输出路径；输出 bool。
+- 依赖/副作用：SendCommand 驱动打印；删除同名 PDF；可能影响当前命令状态。
+- 风险：布局打印交互提示差异导致卡死；超时等待过长。
+- 测试点：不同 CAD 版本提示；A0 旋转；路径含空格/中文。
+
+## scripts/CAD_basic.py (目录模板配置)
+
+### read_catalog_template_config(excel_path)
+- 作用：读取目录模板 Excel 的“数学定义参数”，支持单元格为 “x1,x2” 或 “x1,y1,x2,y2” 格式。
+- 关键步骤：
+  1) DispatchEx 启动 Excel，ReadOnly 打开；读取第2行全局参数（Y 起点/行数/行距）；  
+  2) 第2-5行读取列坐标（idx/name/no/spec），用 _smart_float 解析范围并取中心；  
+  3) 形成 config 字典并返回。
+- 输入/输出：输入 Excel 路径；输出 config dict 或 None。
+- 依赖/副作用：Excel COM；读取第1工作表；不会改写文件。
+- 风险：单元格字符串解析失败被重置为 0；Excel COM 启动失败。
+- 测试点：中文逗号；4 值坐标格式；缺失行/列。
+
+### get_my_template_config_from_excel(config_path)
+- 作用：读取目录结构 Excel 并生成完整坐标字典（通过 CatalogConfigBuilder）。
+- 关键步骤：
+  1) 读取第2行全局参数（Y_START_1/Y_START_2/行数）；  
+  2) 初始化 CatalogConfigBuilder（行高固定 800）；  
+  3) 读取第2-5行的 idx/name/no/spec X 范围；  
+  4) builder.generate 生成每排每行的坐标字符串配置。
+- 输入/输出：输入 Excel 路径；输出 template_config dict 或 None。
+- 依赖/副作用：Excel COM；打印成功日志。
+- 风险：行高固定 800 假设不匹配；X 范围解析失败返回 (0,0)。
+- 测试点：缺列/空单元格；自定义行高；4 排数据不全。
+
 ## scripts/CAD_basic.py (目录图签填写)
 
 ### update_catalog_titleblocks_from_excel(ctq, excel_path, catalog_name="图纸目录", custom_suffixes=None)

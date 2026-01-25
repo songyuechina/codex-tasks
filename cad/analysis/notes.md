@@ -323,3 +323,5 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充 cad_blocks 关键块操作函数（ATTSYNC/属性读写/插入炸开/建块/追加/回溯爆炸）。
+## 人工深读进度
+- 已补充 CAD_basic 的目录模板配置读取与 LISP 布局打印 v1 逻辑理解。
