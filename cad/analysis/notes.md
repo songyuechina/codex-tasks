@@ -337,3 +337,5 @@ Local-ish imports (heuristic):
 - 已补充 library/cad_objects.py 常用对象/图层操作函数理解（分组复制/交互设层/批量建层/逐点标注/模型空间清理/强制改色）。
 ## 人工深读进度
 - 已补充 library/cad_blocks.py 块定义/清理/提取/炸开等核心函数理解（update_block_def_attributes_v7、delete_block_instances_and_definition_optimized、safe_explode_retry 等）。
+## 人工深读进度
+- 已补充 CAD_coordination 的 wait_quiescent/wait_document_opened 理解（注意文件内重复定义覆盖）。

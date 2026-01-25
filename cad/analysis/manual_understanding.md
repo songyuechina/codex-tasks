@@ -330,6 +330,22 @@
 - 风险：命令未执行或被拒绝；wait_quiescent 超时。
 - 测试点：CAD 无文档；忙碌状态；命令不带换行。
 
+### wait_quiescent(min_quiet=0.5, timeout=60.0)
+- 作用：等待 CAD 命令队列空闲（V3.2 版本，文件内后定义覆盖前定义）。
+- 关键步骤：循环读取 C.raw_doc 的 CMDACTIVE/CMDNAMES；异常视为忙碌；持续空闲 >= min_quiet 即通过；超时返回 False。
+- 输出：bool。
+- 副作用：记录 info 级等待报告（busy_hits 统计）。
+- 风险：COM 异常被视为忙碌可能导致长等待；C.raw_doc 为空直接失败。
+- 测试点：CAD 忙碌/空闲；超时路径；无文档连接。
+
+### wait_document_opened(path, timeout=120.0)
+- 作用：等待指定路径/文件名的文档加载完成。
+- 关键步骤：轮询 C.acad.Documents，比较 FullName 或文件名匹配；超时退出。
+- 输出：bool。
+- 副作用：无。
+- 风险：路径大小写/解析差异；文档未完全打开但已列出。
+- 测试点：同名不同路径；超时未打开。
+
 
 ## system/CAD_selection.py
 
