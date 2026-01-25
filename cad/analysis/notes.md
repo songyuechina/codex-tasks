@@ -241,3 +241,7 @@ Local-ish imports (heuristic):
 
 ## 调用关系图
 - 已生成 `cad/analysis/callgraph.md`：同文件内的函数调用关系（简版）。
+
+## 深度结构映射
+- `cad/analysis/deep_cad_basic.md`：CAD_basic.py 分区与函数映射。 
+- `cad/analysis/deep_insert_labels.md`：insert_labels.py 分区与函数映射。
