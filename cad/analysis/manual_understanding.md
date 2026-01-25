@@ -436,6 +436,14 @@
 ### debuggable(func)
 - 作用：调试标记装饰器（当前实现不改变行为）。
 
+## system/project_setup.py
+
+### PathConfig
+- 作用：统一项目路径配置与 USERPATH 解析。
+- 关键步骤：基于 __file__ 推断项目根目录；注入 sys.path；导出 SCRIPTS/TESTS/LOGS 等路径；从 USERPATH 环境变量解析用户根目录。
+- 副作用：修改 sys.path；自动创建 logs/tests 目录。
+- 风险：USERPATH 未设置时 fallback 固定路径；路径权限问题。
+
 
 ## system/CAD_selection.py
 

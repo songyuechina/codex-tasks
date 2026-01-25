@@ -361,3 +361,5 @@ Local-ish imports (heuristic):
 - 已补充 common_logger 的关键日志/检查点/Excel 记录机制理解。
 ## 人工深读进度
 - 已补充 CAD_com_utils 的日志热替换与重试机制理解（LoggerHotSwapper / retry_on_busy / SafeCOM）。
+## 人工深读进度
+- 已补充 project_setup.PathConfig 路径配置理解。
