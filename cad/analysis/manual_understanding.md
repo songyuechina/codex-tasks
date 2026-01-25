@@ -216,6 +216,18 @@
 - 风险：Excel 路径推断不稳定；属性写入失败。
 - 测试点：ctq 长度不匹配；Excel 缺失；计算比例异常。
 
+### update_catalog_titleblocks_from_excel_y(ctq, excel_path=..., catalog_name="图纸目录", custom_suffixes=None)
+- 作用：目录专用版本，仅读取 Excel 项目头信息，自动生成目录图号并写入图签块。
+- 关键步骤：
+  1) 校验 ctq/块列表与 Excel 路径（缺失则尝试按 doc 名推断固定目录下的 Excel）；  
+  2) 仅读取 Excel 第2行项目通用字段（G列起）；  
+  3) 以“专业代号”为前缀生成图号：默认 00/00-1.. 或按 custom_suffixes；  
+  4) 组装属性并用 set_attribute_mtext 写入；支持多行字段分割。
+- 输入/输出：输入 ctq 与 Excel 路径；输出 bool。
+- 依赖/副作用：Excel COM；修改 CAD 块属性。
+- 风险：固定路径推断失败；多页目录时编号规则固定；Excel 头字段顺序必须一致。
+- 测试点：custom_suffixes 长度不足；只有 1 张目录；Excel 缺失。 
+
 
 ## library/cad_objects.py
 
