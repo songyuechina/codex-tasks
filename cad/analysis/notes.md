@@ -229,3 +229,15 @@ Local-ish imports (heuristic):
 ## 下一步工作指引
 - 继续对 scripts/Insert_chart 与 CAD_basic.py 分段精读，补充关键流程与参数约束。
 - 针对 review.md 中的高风险标记函数进行人工复核与分级。
+
+## 函数级理解记录
+- 已生成 `cad/analysis/functions.md`：每个函数包含参数、返回推断、调用概览、理解/风险/测试点。该文件为持续迭代的主入口。
+
+## 进一步观察（脚本层）
+- `scripts/Insert_chart/insert_labels.py` 内 `insert_and_scale_labels_area_any` 与 `normalize_core_title_blocks_by_layer_new1` 多次重复定义（后者覆盖前者），`run_title_block_assembly_pipeline` 也重复定义（后者覆盖前者）。
+
+## 重复定义清单
+- 已生成 `cad/analysis/duplicates.md`：列出同文件内重复定义函数（后定义覆盖前定义）。
+
+## 调用关系图
+- 已生成 `cad/analysis/callgraph.md`：同文件内的函数调用关系（简版）。
