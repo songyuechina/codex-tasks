@@ -291,3 +291,9 @@ Local-ish imports (heuristic):
 ## CAD_basic 连接层理解补充
 - `CAD_basic.py` 通过 try/except 引入 `system.licad`，并覆盖 `li()` 实现连接后同步全局 `acad/doc/mp/sp`；若 licad 不可用则提供哑函数与退化 retry_on_busy。 
 - 因此大量旧函数依赖全局变量，不经过 C 代理直接操作 COM 对象。 
+
+## 人工深读记录
+- 已新增 `cad/analysis/manual_understanding.md`：人工深读的函数级理解（持续补充）。
+
+## 人工深读进度
+- 已补充 CAD_basic 的目录编制与 Excel 导入/导出相关核心函数到 manual_understanding.md。
