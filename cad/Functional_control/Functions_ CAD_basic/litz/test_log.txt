@@ -1,3 +1,0 @@
-﻿2025-11-22 23:35  litz_demo.py: 初始无天正进程，运行 litz() → 首次探针失败后自动 close_all_cad_processes() 并 start_applicationV9()，约 30s 内重新连接成功，探针墙句柄=F5，最终日志显示 litz result: True。运行完毕后 jingchengshu_wenjian()=1，未出现重复进程。
-2025-11-22 23:45  litz_demo.py: 在天正环境下直接运行，首次探针成功（Handle=F6），litz result: True，jingchengshu_wenjian() 仍为 1。
-2025-11-22 23:58  litz_demo.py: 更新 li() 增加 allow_spawn 控制并在 litz 中避免 get_acad_doc 触发二次启动；多次运行均保持单 CAD 进程，探针成功 (Handle≈F5)。

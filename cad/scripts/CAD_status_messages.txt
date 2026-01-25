@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-01-10T20:16:31",
+  "open_files": [
+    "D:\\CLAUDE~1\\cad\\XITONG~1\\0.dwg",
+    "D:\\CLAUDE~1\\cad\\XITONG~1\\1.dwg",
+    "D:\\CLAUDE~1\\cad\\XITONG~1\\2.dwg"
+  ],
+  "active_folder": "D:\\CLAUDE~1\\cad\\XITONG~1",
+  "active_file": "D:\\CLAUDE~1\\cad\\XITONG~1\\2.dwg",
+  "active_name": "2.dwg",
+  "pid": 17616
+}

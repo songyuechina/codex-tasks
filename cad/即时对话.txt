@@ -1,2 +1,0 @@
-﻿在D:\codex-tasks\cad\Functional_control\Functions_ label_catalogue_printing建立excel字典信息转换的专属文件夹，包括D:/codex-tasks/cad/scripts/CAD_basic.py的函数read_xlsx_to_dict，write_dict_to_xlsx。按规范
-建立相关文档和对函数进行测试，如果发现问题，就修改函数，直到函数能够成立，实现预期功能。

@@ -7,10 +7,43 @@ CAD基本操作范式实现
 """
 
 import time
-import os
 import pythoncom
-from pathlib import Path
 from typing import List, Optional, Tuple
+
+import sys
+import os
+from pathlib import Path
+
+# ================= 1. 路径系统配置 (System通用版) =================
+# 获取当前文件绝对路径 (锚点: .../cad/system/xxxx.py)
+CURRENT_FILE = Path(__file__).resolve()
+
+# 推导目录结构
+SYSTEM_DIR = CURRENT_FILE.parent             # .../cad/system (本目录)
+CAD_DIR = SYSTEM_DIR.parent                  # .../cad
+SCRIPTS_DIR = CAD_DIR / "scripts"            # .../cad/scripts (兄弟目录)
+WORKSPACE_DIR = CAD_DIR.parent               # 项目根目录
+
+# ================= 2. 动态注入环境变量 =================
+# 将 scripts 和 system 目录都加入搜索路径
+# 这样 system 下的文件也能 import CAD_basic (位于 scripts)
+paths_to_insert = [str(SYSTEM_DIR), str(SCRIPTS_DIR)]
+
+for p in paths_to_insert:
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
+# ================= 3. 基础依赖导入检查 (可选) =================
+# 这里可以尝试导入同一目录下的工具，确保环境正常
+try:
+    # 尝试导入同级目录的工具，验证路径是否生效
+    from CAD_com_utils import SafeCOM
+except ImportError:
+    pass # 某些基础文件可能不依赖这个，跳过
+
+
+
+
 
 # 导入协同机制
 from CAD_coordination import (
@@ -291,57 +324,99 @@ def open_multiple_files_paradigm(file_paths: List[str]) -> int:
 # 3. 关闭文件操作范式
 # ============================================================================
 
+
+
 def close_current_dwg_paradigm(save_option: str = "prompt") -> bool:
     """
-    关闭当前文件范式
+    关闭当前文件范式 (优化版：使用 COM API，无需发送命令)
 
     参数:
-    - save_option: "prompt"(提示保存), "auto_save"(自动保存), "no_save"(不保存)
+    - save_option: 
+        "auto_save": 自动保存更改并关闭
+        "no_save": 强制不保存更改直接关闭 (丢弃修改)
+        "prompt": 智能判断 (如果已修改则保存，未修改则直接关闭) *注：API无法触发原生UI弹窗*
+    
+    返回:
+    - bool: 执行成功返回 True，失败返回 False
     """
+    import win32com.client
+    import time
+
     try:
-        # 1. 检查是否有文件打开
-        if get_open_file_count() == 0:
+        # 1. 获取 AutoCAD 应用实例
+        try:
+            acad = win32com.client.GetActiveObject("AutoCAD.Application")
+        except Exception:
+            print("[警告] 无法连接到 AutoCAD，可能未启动")
+            return True # 视为无文件处理
+
+        # 2. 检查是否有文档打开
+        # 注意：AutoCAD 2013+ 在 0 文档时 Count 可能不准确，但通常 Documents.Count 0 表示无图
+        if acad.Documents.Count == 0:
             print("[警告] 没有打开的文件")
             return True
 
-        # 2. 获取当前文件信息
-        import win32com.client
-        acad = win32com.client.GetActiveObject("AutoCAD.Application")
-        current_doc = acad.ActiveDocument
-        doc_name = current_doc.Name
-
-        print(f"[处理] 正在关闭当前文件: {doc_name}")
-
-        # 3. 处理保存选项
-        if save_option == "auto_save":
-            # 自动保存
-            try:
-                current_doc.Save()
-                print(f"[成功] 已保存: {doc_name}")
-            except Exception as save_error:
-                print(f"[警告] 保存失败: {save_error}")
-        elif save_option == "no_save":
-            # 不保存
-            print(f"[警告] 不保存关闭: {doc_name}")
-        else:
-            # 提示保存(默认)
-            print(f"[提示] 提示保存: {doc_name}")
-
-        # 4. 执行关闭命令
-        success = send_cmd_with_sync("_CLOSE\n", wait_after=1.0, timeout=30.0)
-
-        if success:
-            # 5. 等待关闭完成
-            wait_quiescent(min_quiet=1.0, timeout=30.0)
-            print(f"[成功] 文件已关闭: {doc_name}")
+        # 3. 获取当前文件对象
+        try:
+            current_doc = acad.ActiveDocument
+            doc_name = current_doc.Name
+        except Exception:
+            # 某些特殊状态下可能获取不到 ActiveDocument（如只有起始页）
+            print("[提示] 无活动文档可关闭")
             return True
-        else:
-            print(f"[错误] 关闭文件失败: {doc_name}")
+
+        print(f"[处理] 正在通过 API 关闭文件: {doc_name}")
+
+        # 4. 执行关闭逻辑 (使用 API Close 方法)
+        # doc.Close(SaveChanges: bool, FileName: str)
+        # SaveChanges: True=保存, False=不保存(丢弃)
+        
+        try:
+            if save_option == "auto_save":
+                # 显式保存并关闭
+                print(f"[状态] 自动保存并关闭: {doc_name}")
+                current_doc.Close(True)
+                
+            elif save_option == "no_save":
+                # 显式丢弃修改并关闭
+                print(f"[状态] 丢弃修改并关闭: {doc_name}")
+                current_doc.Close(False)
+                
+            else: 
+                # case "prompt" 或其他默认值
+                # API 无法触发 AutoCAD 的 "是否保存" 弹窗。
+                # 这里的逻辑优化为：智能安全关闭。
+                if not current_doc.Saved:
+                    print(f"[提示] 文件[{doc_name}]有未保存修改，模式为prompt，已自动执行保存以防丢失。")
+                    current_doc.Close(True)
+                else:
+                    print(f"[状态] 文件未修改，直接关闭: {doc_name}")
+                    current_doc.Close(False)
+            
+            # 5. 简单的后置确认 (非必须，但为了稳定性)
+            # 由于 COM Close 是同步的，代码走到这里通常意味着文件对象已销毁或正在销毁
+            # 释放引用
+            del current_doc
+            return True
+
+        except Exception as close_err:
+            # 常见错误：文件从未保存过（无路径），调用 Close(True) 会触发另存为对话框从而阻塞或报错
+            if "未保存" in str(close_err) or "SaveAs" in str(close_err):
+                print(f"[警告] 新建文件尚未命名，无法自动保存，尝试强制关闭: {close_err}")
+                try:
+                    current_doc.Close(False) # 失败后尝试不保存强制关闭
+                    return True
+                except:
+                    pass
+            print(f"[错误] API 关闭执行失败: {close_err}")
             return False
 
     except Exception as e:
-        print(f"[错误] 关闭文件异常: {e}")
+        print(f"[错误] 关闭文件流程异常: {e}")
         return False
+
+
+
 
 def close_dwg_by_name_paradigm(file_name: str) -> bool:
     """按文件名关闭文件范式"""
@@ -399,109 +474,212 @@ def close_all_dwg_paradigm() -> bool:
 
 def save_current_dwg_paradigm() -> bool:
     """
-    保存当前文件范式
+    保存当前文件范式 (V2.0 - 策略升级版)
 
-    规则:
-    - 使用短路径处理中文/特殊字符
-    - 确保保存操作完成
-    - 文件状态为已保存
+    【升级点】:
+    1. 引入 "三级保存策略" (COM Save -> Command Qsave -> SaveAs Overwrite)。
+    2. 增加对 "Read-only" 的显式检测。
+    3. 增加 SendCommand 后的指令同步等待 (通过检查 cmdActive)。
     """
+    import win32com.client
+    import os
+    import time
+    
+    # 辅助：检查 CAD 是否在执行命令
+    def wait_for_cmd_active(doc, timeout=5):
+        start = time.time()
+        while time.time() - start < timeout:
+            try:
+                # GetVariable("CMDACTIVE") 返回位码，0 表示空闲
+                if doc.GetVariable("CMDACTIVE") == 0:
+                    return True
+            except: pass
+            time.sleep(0.5)
+        return False
+
     try:
-        # 1. 检查是否有文件打开
-        if get_open_file_count() == 0:
-            print("[错误] 没有打开的文件")
+        # 1. 获取环境
+        try:
+            acad = win32com.client.GetActiveObject("AutoCAD.Application")
+            current_doc = acad.ActiveDocument
+            doc_name = current_doc.Name
+        except Exception:
+            print("[错误] 无法获取 CAD 活动文档，保存失败。")
             return False
 
-        # 2. 获取文件信息
-        import win32com.client
-        acad = win32com.client.GetActiveObject("AutoCAD.Application")
-        current_doc = acad.ActiveDocument
-        doc_name = current_doc.Name
+        # 2. 检查只读状态 (预防性检查)
+        # 注意: 只有部分 CAD 版本暴露 ReadOnly 属性，如果没有则跳过
+        try:
+            if getattr(current_doc, "ReadOnly", False):
+                print(f"[警告] 文件 '{doc_name}' 为只读状态，无法保存。")
+                return False
+        except: pass
 
-        print(f"[保存] 正在保存: {doc_name}")
+        # 3. 检查是否为新建未保存文件
+        if not current_doc.FullName:
+            print(f"[信息] 检测到未命名文件，转为另存流程...")
+            # 假设默认保存路径
+            default_path = os.path.join(r"D:\temp", doc_name)
+            if "save_as_dwg_paradigm" in globals():
+                return save_as_dwg_paradigm(default_path)
+            else:
+                try:
+                    current_doc.SaveAs(default_path)
+                    print(f"[成功] 新文件已保存至: {default_path}")
+                    return True
+                except Exception as e:
+                    print(f"[错误] 新文件保存失败: {e}")
+                    return False
 
-        # 3. 等待CAD空闲
-        wait_quiescent(min_quiet=0.5, timeout=15.0)
+        # ======================== 核心保存逻辑 ========================
+        print(f"[保存] 开始保存: {doc_name} ...")
+        
+        # 强制标记为未保存，防止 CAD 因为缓存而跳过写入
+        try: current_doc.Saved = False
+        except: pass
 
-        # 4. 执行保存操作
+        # --- 策略 A: 标准 COM Save ---
         try:
             current_doc.Save()
-            print(f"[成功] 保存成功: {doc_name}")
+            # 双重验证
+            if current_doc.Saved:
+                print(f"[成功] COM Save 完成: {doc_name}")
+                return True
+        except Exception as e:
+            # 只有当错误是 RPC 拒绝时才值得重试，否则直接降级
+            if "-2147418111" in str(e):
+                print("   ⚠️ COM Save 被拒绝 (RPC Busy)，尝试降级策略...")
+                time.sleep(1.0)
+            else:
+                print(f"   ⚠️ COM Save 异常: {e}")
 
-            # 5. 等待保存完成
-            wait_quiescent(min_quiet=1.0, timeout=30.0)
+        # --- 策略 B: 发送 QSAVE 命令 (降级方案) ---
+        print("   🔄 尝试策略 B: 发送 _qsave 命令...")
+        try:
+            current_doc.SendCommand("_qsave\n")
+            
+            # 等待命令执行完成 (最多 10秒)
+            if wait_for_cmd_active(current_doc, timeout=10):
+                # 再次检查 Saved 状态
+                if current_doc.Saved:
+                    print(f"[成功] Command Save 完成: {doc_name}")
+                    return True
+            else:
+                print("   ⚠️ QSAVE 命令超时。")
+                
+        except Exception as e:
+            print(f"   ⚠️ Command Save 异常: {e}")
+
+        # --- 策略 C: 原位 SaveAs (绝杀方案) ---
+        # 当文件锁死导致无法 Save 时，SaveAs 往往能强制覆盖
+        print("   🔄 尝试策略 C: 原位 SaveAs (覆盖)...")
+        try:
+            full_path = current_doc.FullName
+            # SaveAs 要求提供文件类型，通常自动识别
+            current_doc.SaveAs(full_path)
+            print(f"[成功] SaveAs 覆盖完成: {doc_name}")
             return True
-
-        except Exception as save_error:
-            print(f"[警告] 直接保存失败,尝试另存为: {save_error}")
-
-            # 如果是未保存文件,尝试另存为
-            if not hasattr(current_doc, 'FullName') or not current_doc.FullName:
-                default_path = f"D:/temp/{doc_name}"
-                return save_as_dwg_paradigm(default_path)
-
+        except Exception as e:
+            print(f"   ❌ 所有保存策略均失败: {e}")
             return False
 
     except Exception as e:
-        print(f"[错误] 保存文件异常: {e}")
+        print(f"[错误] 保存流程发生未捕获异常: {e}")
         return False
+
+
+
+
+
 
 def save_as_dwg_paradigm(output_path: str) -> bool:
     """
-    另存为文件范式
+    另存为文件范式 (优化版)
 
-    规则:
-    - 使用短路径处理中文/特殊字符
-    - 创建输出目录
-    - 验证文件创建
+    优化说明:
+    1. 移除不必要的等待 (COM SaveAs 是阻塞的)。
+    2. 优化短路径逻辑 (确保针对存在的目录获取短路径)。
+    3. 增加文件已存在时的覆盖逻辑检查。
     """
+    import win32com.client
+    import os
+    from pathlib import Path
+
     try:
         # 1. 基础验证
-        if get_open_file_count() == 0:
+        try:
+            acad = win32com.client.GetActiveObject("AutoCAD.Application")
+        except:
+            print("[错误] 无法连接 AutoCAD")
+            return False
+
+        if acad.Documents.Count == 0:
             print("[错误] 没有打开的文件")
             return False
 
-        # 2. 创建输出目录
-        output_file = Path(output_path)
-        output_file.parent.mkdir(parents=True, exist_ok=True)
-
-        # 3. 获取当前文件信息
-        import win32com.client
-        acad = win32com.client.GetActiveObject("AutoCAD.Application")
         current_doc = acad.ActiveDocument
         doc_name = current_doc.Name
 
-        print(f"[保存] 正在另存为: {doc_name} → {output_path}")
-
-        # 4. 等待CAD空闲
-        wait_quiescent(min_quiet=0.5, timeout=15.0)
-
-        # 5. 使用短路径
-        short_path = _get_short_path(output_path)
-
-        # 6. 执行另存为操作
-        try:
-            current_doc.SaveAs(short_path)
-            print(f"[成功] 另存为成功: {output_path}")
-
-            # 7. 验证文件是否创建
-            if output_file.exists():
-                print(f"[成功] 文件已创建: {output_path}")
-
-                # 8. 等待保存完成
-                wait_quiescent(min_quiet=1.0, timeout=30.0)
-                return True
-            else:
-                print(f"[错误] 文件未创建: {output_path}")
+        # 2. 路径与目录准备
+        output_file = Path(output_path).resolve()
+        
+        # 检查目标是否只读/被占用 (简单的预判)
+        if output_file.exists():
+            try:
+                # 尝试以追加模式打开一下，检测是否被占用
+                with open(output_file, 'a'): pass
+            except PermissionError:
+                print(f"[错误] 目标文件被占用或只读，无法覆盖: {output_path}")
                 return False
 
-        except Exception as save_error:
-            print(f"[错误] 另存为失败: {save_error}")
+        try:
+            output_file.parent.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            print(f"[错误] 无法创建目录: {e}")
+            return False
+
+        print(f"[保存] 正在另存为: {doc_name} -> {output_file.name}")
+
+        # 3. 短路径处理 (关键优化)
+        # 针对中文路径，COM 接口有时候由于编码问题会报错，转为 8.3 短路径最安全
+        # 注意：文件可能还没创建，所以我们获取文件夹的短路径
+        try:
+            # 假设 _get_short_path 是你外部定义的函数
+            # 如果文件不存在，直接对全路径取短路径可能会失败，建议只对文件夹取
+            if "_get_short_path" in globals():
+                parent_short = _get_short_path(str(output_file.parent))
+                final_save_path = os.path.join(parent_short, output_file.name)
+            else:
+                final_save_path = str(output_file)
+        except:
+            # 如果短路径获取失败，回退到普通路径
+            final_save_path = str(output_file)
+
+        # 4. 执行另存为 (阻塞式)
+        try:
+            # SaveAs(FileName, FileType)
+            # 如果你需要指定存为 2004 格式等，可以在第二个参数指定 Enum
+            # 这里默认使用当前版本格式
+            current_doc.SaveAs(final_save_path)
+            
+            # 5. 验证
+            if output_file.exists():
+                print(f"[成功] 另存为完成: {output_file.name}")
+                return True
+            else:
+                print(f"[错误] SaveAs 未报错但文件未生成: {output_path}")
+                return False
+
+        except Exception as save_err:
+            print(f"[错误] 执行 SaveAs 失败: {save_err}")
             return False
 
     except Exception as e:
-        print(f"[错误] 另存为文件异常: {e}")
+        print(f"[错误] 另存为流程异常: {e}")
         return False
+
+
+
 
 def auto_save_dwg_paradigm(interval_seconds: int = 300) -> bool:
     """自动保存范式"""

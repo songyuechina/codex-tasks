@@ -1,3 +1,0 @@
-﻿stc(layername) -> cad/scripts/CAD_basic.py
-select_entities_in_window(x1, y1, x2, y2, ty, select_mode) -> cad/scripts/CAD_basic.py
-select_text / select_mtext / select_pub_text_entities / select_line / select_circle / select_ellipse / select_spline / select_polyline_chuantong / select_polyline -> cad/scripts/CAD_basic.py 第四部分

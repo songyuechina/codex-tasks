@@ -1,6 +1,0 @@
-2025-11-16 14:15:03,535 - INFO - 窗类型检查通过: jz-pingchuang
-2025-11-16 14:15:03,544 - INFO - 已连接当前激活文件
-2025-11-16 14:15:03,560 - INFO - 未找到Mc_yuan_bj图层，需要插入MC_yuan.dwg
-2025-11-16 14:15:03,561 - INFO - 当前文件: D:\codex-tasks\tests\CAD_file_operations\dwg_outputs\copy_content.dwg
-2025-11-16 14:15:03,619 - INFO - 已插入MC_yuan.dwg
-2025-11-16 14:15:06,365 - ERROR - 插入门失败

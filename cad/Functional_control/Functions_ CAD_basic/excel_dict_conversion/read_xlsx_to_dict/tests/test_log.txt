@@ -1,2 +1,0 @@
-﻿2025-11-29 12:20:54 | sample_project.xlsx | drawings=2 | output=tests/outputs/sample_project.json
-2025-11-29 12:20:54 | project_template.xlsx | drawings=0 | output=tests/outputs/template_check.json

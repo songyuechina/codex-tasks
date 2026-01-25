@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+#D:/claude-tasks/cad/system/cad_dialog_killer.py
+#版本 V1.0
 import time
 import win32gui, win32con, win32process
 import psutil
@@ -25,7 +26,7 @@ LOCK_FILE = Path(__file__).parent / "cad_dialog_killer.lock"
 # —— 配置区 ——  
 CAD_PROCESS_NAMES = {"tarcht20v9.exe", "acad.exe"}
 DIALOG_CLASS      = "#32770"
-INTERVAL_SEC      = 15
+INTERVAL_SEC      = 5
 CONTROL_FILE      = Path(
     r"D:/Myprogramsystem/XT/Basic_service_processing/取消窗口延迟控制.txt"
 )

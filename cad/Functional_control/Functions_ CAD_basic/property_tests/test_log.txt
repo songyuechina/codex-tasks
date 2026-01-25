@@ -1,1 +1,0 @@
-2025-11-21 06:30  property_attribute_demo：依次测试 prop_polyline/prop_text/prop_wall，get_object_property 读取 Coordinates/TextString/Thickness(*)，set_object_property 修改坐标首点、文字追加 _MOD、墙厚度加 50mm，全部保存成功。

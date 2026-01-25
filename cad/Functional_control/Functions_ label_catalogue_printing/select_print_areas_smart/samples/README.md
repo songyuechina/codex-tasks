@@ -1,1 +1,0 @@
-﻿# 样例 DWG 说明\n\n此目录由 tests/create_test_samples.py 自动填充：\n\n- block_mode_sample.dwg：包含三组块引用（其中两组位于打印图层），用于验证块模式。\n- layer_mode_sample.dwg：包含闭合/未闭合多段线及其它对象，用于验证图层模式的过滤逻辑。\n\n如需重新生成，删除旧文件后运行 python tests/create_test_samples.py。

@@ -1,3 +1,0 @@
-2025-11-22 00:40  layer_select_demo: 创建 layer_select_demo.dwg，绘制多段线/圆/直线，全部设置图层 '测试001'，stc('测试001') 选中 3 个对象，已保存并关闭。
-2025-11-22 00:45  window_select_demo: 在 window_select_demo.dwg 绘制圆/直线2条，_W 选择命中 2 个对象，_C 选择命中 3 个对象，结果符合预期。
-2025-11-22 00:50  type_select_demo: 生成 type_select_demo.dwg，select_text=1, select_mtext=1, select_pub_text_entities=2, select_line=1, select_circle=1, select_ellipse=1, select_spline=1, select_polyline_chuantong=0, select_polyline=2；结果打印记录。

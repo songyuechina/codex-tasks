@@ -40,5 +40,27 @@ def fix_and_convert(source_filename):
     print(f"已修复并生成新的 Python 文件：{py_filename}")
 
 # 输入文件路径
-source_filename = 'D:/codex-tasks/cad/scripts/CAD_basic.py'
+source_filename = 'D:/codex-tasks/cad/scripts/脚本导航14版.py'
 fix_and_convert(source_filename)
+
+instructions = """
+在 IDLE 中调用 CAD_file_operations 中的函数时，可先运行：
+
+import sys
+sys.path.insert(0, r"D:/codex-tasks/cad/scripts")
+from system.CAD_core import cad_zt_oneb
+
+随后直接调用 cad_zt_oneb() 等函数即可，IDLE 会为模块提供 __file__，避免报错。
+"""
+print(instructions.strip())
+
+
+
+
+
+
+
+
+
+
+

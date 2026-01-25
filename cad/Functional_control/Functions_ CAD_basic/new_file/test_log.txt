@@ -1,3 +1,0 @@
-﻿2025-11-21 03:00  测试命令：new_file(output_path=".../new_file_215954.dwg", close_after=False)
-结果：自检通过 (Handle=145)，成功新建文件 new_file_215954.dwg 并保持打开。
-说明：CAD 进程 PID=6248，已有文件 new_file_215744.dwg，测试完成后目录中新增新文件。

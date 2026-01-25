@@ -1,3 +1,0 @@
-﻿2025-11-22 16:10  close_file_demo.py (auto_save): 打开 close_demo_a.dwg → li() 连接 → close_file('auto_save') 保存并关闭，CAD 输出确认保存后以不保存模式退出，无报错。
-2025-11-22 16:16  close_file_no_save_demo.py: 打开 close_demo_b.dwg → li() 连接 → close_file('no_save') 记录当前文件列表后重置 CAD，cad_zt_oneb() 重新启动，再次自动打开 close_demo_b.dwg，确认流程完成。
-2025-11-22 16:21  close_all_files_demo.py: 依次测试 close_all_files('auto_save') 与 close_all_files('no_save')，前者保存并逐个关闭 close_demo_a/b，后者记录路径后重置 CAD 并重新打开两份 DWG，全流程输出与预期一致。
