@@ -280,3 +280,14 @@ Local-ish imports (heuristic):
 
 ## 深读优先级
 - `cad/analysis/manual_focus.md`：自动评分得到的优先深读函数列表。
+
+## insert_labels 流水线理解补充
+- `run_title_block_assembly_pipeline`（后定义版本生效）：
+  - Phase 1: 根据外部 coms 或交互选区，调用 `insert_and_scale_labels_area_any` 插入图签。
+  - Bridge: `wait_quiescent` + `C.doc.Regen(1)` 稳定几何。
+  - Phase 2: `normalize_core_title_blocks_by_layer_new1` 规范化/炸开核心图签壳块。
+  - 失败即终止；成功输出流程完成日志。
+
+## CAD_basic 连接层理解补充
+- `CAD_basic.py` 通过 try/except 引入 `system.licad`，并覆盖 `li()` 实现连接后同步全局 `acad/doc/mp/sp`；若 licad 不可用则提供哑函数与退化 retry_on_busy。 
+- 因此大量旧函数依赖全局变量，不经过 C 代理直接操作 COM 对象。 
