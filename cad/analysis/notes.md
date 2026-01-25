@@ -120,3 +120,112 @@ Local-ish imports (heuristic):
 - 继续整理 `cad/library/*.py`（领域模型与几何/对象封装）。
 - 之后整理 `cad/scripts/*.py`（入口与编排脚本）。
 - 最后梳理测试策略与优化路径。
+
+## 模块总览（人工摘要）
+- 详细自动摘要见 `cad/analysis/modules_summary.md`。
+- 函数级审查清单见 `cad/analysis/review.md`（含 1301 个函数/方法）。
+
+## 体系结构理解（当前版）
+- **连接层**：`system/licad.py` 提供 C 代理（AutoCadProxy）连接 CAD COM；带自愈与重试。
+- **重试/静音层**：`system/CAD_com_utils.py` 提供 retry_on_busy 与日志静默（LoggerHotSwapper）。
+- **协同层**：`system/CAD_coordination.py` 负责等待空闲、命令同步、进程/文件守护。
+- **操作范式层**：`system/CAD_basic_operations.py` 封装 open/new/save/close 标准流程。
+- **聚合层**：`system/CAD_core.py` 与 `scripts/CAD_file_operations.py` 统一接口并回退 CAD_basic。
+- **功能库层**：`library/*` 拆分自 CAD_basic，覆盖几何、对象、图块、注释、控制。
+- **业务脚本层**：`scripts/Insert_chart/*`、`scripts/Master_Orchestrator.py` 等。
+- **守护/监控层**：`system/cad_dialog_killer.py`、`system/cad_command_monitor.py`。
+
+## 关键风险与现状
+- `licad.py` 内 `get_acad_doc` 三次定义，行为由最后版本决定；历史逻辑被覆盖。
+- `CAD_coordination.py` 内 `wait_quiescent` 两次定义，后者覆盖前者。
+- `CAD_basic.py` 与 `library/*` 功能重叠，存在两套来源与不一致风险。
+- 大量全局单例与副作用（C.acad/doc/mp/sp、日志替换、print 替换）。
+- UI 自动化（窗口控制/鼠标点击/OBS录屏）依赖环境，测试需隔离。
+
+## 核心模块详解（人工摘要）
+
+### system/project_setup.py
+- 作用：路径配置（PathConfig），提供 cad/scripts/system/workspace 的根路径。
+- 依赖：无 COM；纯路径配置。
+
+### system/CAD_selection.py
+- 作用：选择集与实体转换（CastTo、动态封装）；提供丰富选择接口清单。
+- 特点：包含 API MANIFEST；多处自动重试与窗口选择。
+- 风险：依赖 CAD COM，选择与 Zoom 可能影响当前图面状态。
+
+### system/CAD_basic_operations.py
+- 作用：open/new/save/close 的标准化流程与进程检查。
+- 依赖：CAD_coordination（wait_quiescent、send_cmd_with_sync 等）。
+- 风险：对 CAD 状态高度敏感，需稳定的单进程环境。
+
+### system/cad_dialog_killer.py
+- 作用：后台关闭 CAD 弹窗（扫描 HWND，发送 ESC）。
+- 风险：可能误关非目标弹窗；依赖窗口类名与进程名。
+
+### system/cad_command_monitor.py
+- 作用：监测 CAD 命令卡死并强制取消（ESC + COM）。
+- 风险：抢焦点/发送物理按键可能影响用户环境。
+
+### library/cad_geometry.py
+- 作用：线面/多段线几何分析、封闭多边形、框选、轮廓、分割等算法。
+- 依赖：shapely + CAD COM；大量函数用于多段线处理与打印区域识别。
+- 风险：算法链较长，需独立纯函数化以便单元测试。
+
+### library/cad_blocks.py
+- 作用：块属性读写、块定义/实例管理、插入与炸开、清理块、块内实体处理。
+- 观察：存在函数重复定义（如 delete_block_instances_and_definition_optimized）。
+- 风险：破坏性操作多（删除/炸开/重定义），需事务化与备份。
+
+### library/cad_objects.py
+- 作用：对象排序、分组、句柄、XData、文字处理、图层管理。
+- 特点：大量工具函数可拆分为纯函数；依赖 CAD COM。
+
+### library/cad_control.py
+- 作用：系统级控制（清缓存、杀进程、窗口/鼠标自动化、录屏、OBS）。
+- 风险：强副作用/系统级操作；建议隔离为“运维工具层”。
+
+### library/cad_annotation.py
+- 作用：文字/标注/表格等注释工具函数。
+- 风险：CAD COM 依赖；测试可通过 Mock 对象验证参数拼装。
+
+### library/tarch_building.py
+- 作用：天正建筑组件操作（墙/门/窗/房间）与 TUPDSPACE。
+- 风险：强依赖 SendCommand 与等待空闲；易受 CAD 状态影响。
+
+### library/execution_result.py
+- 作用：统一执行结果模型（ExecutionStatus/ExecutionResult）。
+- 可作为后续重构的返回值标准。
+
+### library/test_monitor.py
+- 作用：测试前后状态监测（对象统计、文件夹状态）并输出日志。
+
+### scripts/CAD_basic.py
+- 作用：历史巨型核心脚本，包含连接、选择、几何、对象、文件、块、控制等全套逻辑。
+- 现状：与 library/* 高度重叠；仍被多个脚本直接 import。
+- 风险：全局副作用多（print 替换、全局变量、复合依赖）。
+
+### scripts/CAD_file_operations.py
+- 作用：文件操作统一接口（open/new/save/close/insert）；与 CAD_core 功能重叠。
+- 风险：依赖 CAD_basic + CAD_basic_operations + CAD_selection，多层耦合。
+
+### scripts/CAD_System_Queue*.py
+- 作用：UI 队列/调度系统（Tkinter + 内置 IDLE 执行器），用于分步执行脚本。
+- 风险：大量 exec/动态执行，依赖 GLOBAL_CTX 共享内存。
+
+### scripts/Master_Orchestrator.py
+- 作用：工程图纸自动化总控（战役/战术层），串联 Insert_chart 流程。
+- 风险：依赖业务脚本稳定性；需 FileGuard 与 CADGuard 保驾。
+
+### scripts/Insert_chart/*
+- 作用：图签插入/选择/测试与绘图脚本；属于业务层核心。
+- 风险：操作面广、强依赖 CAD 状态，建议优先补充集成测试。
+
+### scripts/函数编写规范.py / CAD_dev_standards.py / CAD_check_standards.py
+- 作用：编码与脚本规范/检查辅助。
+
+### scripts/选择测试错误.py / 测试.py / 连接测试.py / 修复codex脚本.py
+- 作用：测试/修复类脚本，偏一次性或开发调试用途。
+
+## 下一步工作指引
+- 继续对 scripts/Insert_chart 与 CAD_basic.py 分段精读，补充关键流程与参数约束。
+- 针对 review.md 中的高风险标记函数进行人工复核与分级。
