@@ -318,3 +318,6 @@ Local-ish imports (heuristic):
 
 ## 人工深读进度
 - 已补充 licad 核心连接与文件操作函数理解。 
+
+## 人工深读进度
+- 已补充 cad_blocks 关键块操作函数（ATTSYNC/属性读写/插入炸开/建块/追加/回溯爆炸）。

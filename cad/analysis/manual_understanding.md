@@ -357,3 +357,97 @@
 - 副作用：关闭文档，可能触发保存。
 - 风险：关闭目标错误；COM 忙碌导致失败。
 
+
+## library/cad_blocks.py
+
+### attsync_block_instance_base(block_ref_obj)
+- 作用：对指定块执行 ATTSYNC 同步（刷新属性显示）。
+- 关键步骤：获取块名（EffectiveName/Name）-> 发送 _ATTSYNC N 块名 命令。
+- 输入/输出：输入块引用；返回 bool（命令发送成功与否）。
+- 依赖/副作用：SendCommand 改变 CAD 命令状态；可能影响当前选择。
+- 风险：动态块名解析失败；命令堆叠过快导致未知命令。
+- 测试点：动态块；文档未连接；对象无 Document。
+
+### set_attribute_mtext(block, tags, new_texts, keep_prefix=True, verbose=True)
+- 作用：批量设置块属性值，支持多行文本（\P）与保留格式前缀。
+- 关键步骤：
+  1) 标准化 tags 与 new_texts；
+  2) GetAttributes 建立 tag->attr 映射；
+  3) 处理多行内容，必要时开启 MTextAttribute；
+  4) set_attr(TextString) 更新并 Update。
+- 输入/输出：返回 dict {tag: bool}。
+- 依赖/副作用：修改块属性；可能改变 MText 模式。
+- 风险：标签不存在；MTextAttribute 设置失败；编码/特殊符号。
+- 测试点：单标签/多标签；多行列表；keep_prefix 前缀保留。
+
+### get_block_attributes_dict(block_ref, ignore_empty=False, upper_tag=True)
+- 作用：读取块属性并清洗 MTEXT 前缀（如 \W0.8;）。
+- 关键步骤：校验块引用与 HasAttributes -> GetAttributes -> TagString/TextString -> 清洗。
+- 输入/输出：返回 {tag: value} 字典。
+- 风险：非 BlockReference；属性读取异常；分号清洗误伤。
+- 测试点：无属性块；动态块；包含格式前缀。
+
+### insert_and_explode_dwg(block_dwg, insertion_point=(0,0,0), scale=(1,1,1), rotation=0, wait=0.3)
+- 作用：插入 DWG 块并炸开，返回新增块与包围盒角点；后定义版本（V3.0）生效。
+- 关键步骤：
+  1) 记录插入前块句柄；
+  2) -INSERT 命令插入；
+  3) EXPLODE Last；
+  4) diff 计算新块；
+  5) SafeCOM 获取包围盒，归零旋转。
+- 返回：([ (blk, corners), ... ], last_blk)
+- 副作用：插入/炸开实体；改变模型空间对象。
+- 风险：炸开失败无新块；CADGuard 与 SendCommand 时序；路径不存在。
+- 测试点：不存在 DWG；重复插入；CAD 忙碌。
+
+### create_block_from_region_cmd(x1,y1,x2,y2, insert_point_option="左下", block_name_prefix="块", base_point=None, ty=1.0)
+- 作用：通过 -BLOCK 命令按矩形区域创建块（保留天正对象），并插入块实例。
+- 关键步骤：
+  1) SelectionSet.Window 选择区域对象（SafeCOM list）；
+  2) group_bbox_corners 计算基点；
+  3) 生成唯一块名；
+  4) -BLOCK W 窗口创建定义；
+  5) InsertBlock 插入实例；
+  6) 删除原对象残留。
+- 返回：IAcadBlockReference 或 None。
+- 副作用：删除区域内对象并替换为块实例。
+- 风险：选择集为空；CMDACTIVE 忙碌；误删对象。
+- 测试点：空区域；base_point 指定；天正对象存在。
+
+### create_block_from_list_cmd(entities, insert_point_option="左下", block_name_prefix="块", base_point=None, ty=0.5)
+- 作用：通过 LISP 选择集将任意对象列表封装为块。
+- 关键步骤：
+  1) ensure_list 预处理；
+  2) group_bbox_corners 计算基点；
+  3) 生成唯一块名；
+  4) 将 Handle 批量 ssadd -> -BLOCK 覆盖创建块；
+  5) InsertBlock 插入实例。
+- 返回：IAcadBlockReference 或 None。
+- 副作用：块定义创建；原对象可能被块化删除。
+- 风险：Handle 无效；LISP 选择集为空；命令堆叠。
+- 测试点：空列表；含天正对象；大量对象。
+
+### add_entities_to_block_definition_explode(block_ref, new_entities, ty=0.5)
+- 作用：追加对象到块定义（不清除原块对象），通过 Explode + -BLOCK 覆盖重定义。
+- 关键步骤：
+  1) Explode 原块生成图元；
+  2) 合并 new_entities 与 exploded_list；
+  3) LISP 选择集 -> -BLOCK 覆盖；
+  4) Regen + Update。
+- 返回：bool。
+- 副作用：重定义块，模型空间对象会被吸入块定义。
+- 风险：Explode 失败；LISP 选择集失败；重定义覆盖错误块名。
+- 测试点：动态块/匿名块；追加对象为空；CMDACTIVE 忙碌。
+
+### explode_single_object_marker(ent)
+- 作用：炸开单个对象，并通过“辅助线回溯”收集新碎片。
+- 关键步骤：
+  1) 绘制 marker 线；
+  2) set_entity_grip_state_precise 选中目标；
+  3) SendCommand EXPLODE；
+  4) 逆序遍历 ModelSpace 到 marker；
+  5) 删除 marker。
+- 返回：炸开碎片列表。
+- 风险：选择失败导致无炸开；marker 未删除；模型空间顺序变化。
+- 测试点：ent 为 None；爆炸生成大量对象；CAD 忙碌。
+
