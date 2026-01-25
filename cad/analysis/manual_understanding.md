@@ -309,6 +309,13 @@
 - 风险：窗口焦点失败导致取消无效；后台运行可能触发安全限制。
 - 测试点：无 hwnd；CAD doc 为 None；多实例 CAD。
 
+### analyze_state(acad)
+- 作用：分析 CAD 忙碌状态，区分空闲/等待输入/异常。
+- 关键步骤：读取 ActiveDocument/HWND；GetVariable(CMDACTIVE/CMDNAMES/LASTPROMPT)；Call Rejected 视为忙；关键词检测提示语。
+- 输出：(status, display_name, hwnd, doc)，status=0/1/2。
+- 风险：COM 异常导致误判；LASTPROMPT 语言差异导致漏检。
+- 测试点：命令等待输入；Call Rejected；无文档。
+
 
 ## system/CAD_coordination.py
 

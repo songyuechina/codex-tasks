@@ -341,3 +341,5 @@ Local-ish imports (heuristic):
 - 已补充 CAD_coordination 的 wait_quiescent/wait_document_opened 理解（注意文件内重复定义覆盖）。
 ## 人工深读进度
 - 已补充 CAD_selection 扩展选择函数理解（ss_select / select_paperspace_objects_in_window / get_last_n_objects / unhide_all）。
+## 人工深读进度
+- 已补充 cad_command_monitor.analyze_state 理解（忙碌判定与提示语关键字）。
