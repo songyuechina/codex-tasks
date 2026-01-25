@@ -386,6 +386,36 @@
 - 风险：Handle 不可用；命令执行失败。
 - 测试点：无 ent；实体已被删除。
 
+### ss_select(mode="all", p1=None, p2=None, filter_types=None, filter_data=None, autocast=True, prompt=None)
+- 作用：通用选择集构造器（重构版），支持 all/window/crossing/onscreen。
+- 关键步骤：创建唯一 SelectionSet -> 按模式 Select -> SafeCOM.list_selection 拉取 -> autocast。
+- 副作用：触发选择集；最终删除 SelectionSet。
+- 风险：mode 传参错误；过滤器类型/数据不匹配。
+- 测试点：window/crossing/onscreen；过滤器为空；大批量对象。
+
+### select_paperspace_objects_in_window(x1, y1, x2, y2)
+- 作用：在图纸空间窗口选择对象（优先 Select，失败则遍历 BoundingBox）。
+- 关键步骤：TILEMODE=0；normalize_rect；ss_select(window)；否则遍历 C.sp 判断相交。
+- 输出：对象列表。
+- 副作用：切换到布局空间。
+- 风险：大对象量遍历较慢；GetBoundingBox 失败对象被跳过。
+- 测试点：空布局；大量对象；极小窗口。
+
+### get_last_n_objects(n=1, autocast=True)
+- 作用：获取 ModelSpace 中最后生成的 N 个对象。
+- 关键步骤：从 mp.Count - n 开始遍历 Item(i)；可选 autocast。
+- 输出：对象列表。
+- 风险：ModelSpace.Count 变化导致结果不稳定。
+- 测试点：n 大于 Count；autocast=False。
+
+### unhide_all(space=None, filter_names=None, highlight=False)
+- 作用：批量将隐藏对象 Visible=True，可按类型过滤并高亮。
+- 关键步骤：SafeCOM.list_selection 获取空间对象；若 Visible=False 且类型匹配则设置 Visible=True；可 Highlight。
+- 输出：被揭示对象列表。
+- 副作用：改变对象可见性；可高亮对象。
+- 风险：大量对象遍历耗时；特殊对象 Visible 属性不可写。
+- 测试点：filter_names 为空/指定；highlight=True。
+
 
 ## scripts/CAD_basic.py (块重定义)
 

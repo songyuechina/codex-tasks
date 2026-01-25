@@ -339,3 +339,5 @@ Local-ish imports (heuristic):
 - 已补充 library/cad_blocks.py 块定义/清理/提取/炸开等核心函数理解（update_block_def_attributes_v7、delete_block_instances_and_definition_optimized、safe_explode_retry 等）。
 ## 人工深读进度
 - 已补充 CAD_coordination 的 wait_quiescent/wait_document_opened 理解（注意文件内重复定义覆盖）。
+## 人工深读进度
+- 已补充 CAD_selection 扩展选择函数理解（ss_select / select_paperspace_objects_in_window / get_last_n_objects / unhide_all）。
