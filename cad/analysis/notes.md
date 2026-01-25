@@ -369,3 +369,5 @@ Local-ish imports (heuristic):
 - 已补充 cad_dialog_killer 对话框自动关闭逻辑理解。
 ## 人工深读进度
 - 已补充 CAD_enhanced_functions 协同打开/测试流程理解。
+## 人工深读进度
+- 已补充 cad_annotation 注释/标注/表格函数理解。

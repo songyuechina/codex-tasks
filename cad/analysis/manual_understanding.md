@@ -1140,6 +1140,38 @@
 - 风险：与用户操作冲突。
 - 测试点：窗口不可见；权限限制。
 
+## library/cad_annotation.py
+
+### vtpnt(x, y, z)
+- 作用：坐标转 VARIANT（ActiveX 点）。
+- 用途：供文字/标注/表格等 COM 调用。
+
+### write_cad_text(...) / write_mtext(...)
+- 作用：写入单行/多行文字到 ModelSpace。
+- 关键点：设置样式/层/颜色/附件点等属性。
+- 风险：C.mp 未初始化；文本样式不存在。
+
+### add_dim_aligned / add_dim_rotated / add_dim_angular / add_dim_radial / add_dim_diametric
+- 作用：创建各类标注对象（对齐/旋转/角度/半径/直径）。
+- 风险：坐标无效；CAD 忙碌。
+
+### add_leader(points, annotation=None)
+- 作用：创建引线（acLineWithArrow）。
+- 关键点：展平点列表为 VARIANT。
+
+### get_text_content / set_text_content
+- 作用：读取/写入文字内容（AcDbText/AcDbMText）。
+- 风险：对象类型不匹配。
+
+### get_text_height / set_text_height / get_text_rotation / set_text_rotation
+- 作用：获取/设置文字高度与旋转。
+
+### batch_modify_text(text_objs, **kwargs)
+- 作用：批量修改文字属性（高度/旋转/内容）。
+
+### create_table / set_table_cell_text / get_table_cell_text
+- 作用：创建表格并读写单元格文本。
+
 ## library/cad_objects.py
 
 ### add_objects_to_group(group_name, obj_list)
