@@ -351,3 +351,5 @@ Local-ish imports (heuristic):
 - 已补充 CAD_Legacy_Runner GUI 初始化与另存为逻辑理解。
 ## 人工深读进度
 - 已补充 tarch_building 的窗口激活函数理解（activate_cad_middle_click / _activate_cad_safe）。
+## 人工深读进度
+- 已标注 system/licad、CAD_coordination、CAD_selection、CAD_System_Queue 的版本快照与主文件的对应关系。

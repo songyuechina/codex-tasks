@@ -538,6 +538,24 @@
 - 风险：未连接 CAD 时直接退出；路径为空/权限不足。
 - 测试点：cfo.save_as 缺失分支；文件覆盖。
 
+## Versioned snapshots (旧版脚本对照)
+
+### system/CAD_coordination - V10.py / V20.py / V33.py
+- 说明：历史版本快照，核心函数（CADGuard / wait_quiescent / send_cmd_with_sync / wait_document_opened）与 `system/CAD_coordination.py` 逻辑相近。
+- 建议参考：以 `system/CAD_coordination.py` 最新版理解为准。
+
+### system/CAD_selection - V10.py
+- 说明：历史版本快照，选择函数与 `system/CAD_selection.py` 基本同构。
+- 建议参考：以当前文件的 ss_select/select_* 逻辑为准。
+
+### system/licad - V10.py / V20.py
+- 说明：历史版本快照，AutoCadProxy 的 li/open/close 等接口与 `system/licad.py` 基本一致。
+- 建议参考：以 `system/licad.py` 最新版理解为准。
+
+### scripts/CAD_System_Queue - V30.py / V31.py / V33.py
+- 说明：历史版本快照，LockManager/MasterRunner 逻辑与 `scripts/CAD_System_Queue.py` 大体一致。
+- 建议参考：以 `scripts/CAD_System_Queue.py` 最新版理解为准。
+
 
 ## system/licad.py
 
