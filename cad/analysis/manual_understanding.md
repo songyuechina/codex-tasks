@@ -468,6 +468,41 @@
 - 风险：布局不存在/被锁定；切换失败时影响后续操作。
 - 测试点：无该布局；多次切换；CAD 忙碌。
 
+## scripts/CAD_System_Queue.py
+
+### LockManager._write_lock()
+- 作用：写入 SYSTEM.lock，记录当前用户和时间。
+- 关键步骤：json.dump({"user": self.user, "time": now}) 到 lock_file。
+- 副作用：创建/覆盖锁文件。
+- 风险：文件写入失败被吞掉；锁文件残留。
+- 测试点：无写权限；已有锁文件。
+
+### LockManager.release()
+- 作用：释放锁与等待文件（SYSTEM.lock / WAITING.list）。
+- 关键步骤：若存在则 os.remove。
+- 副作用：删除锁文件。
+- 风险：删除失败被吞掉；并发释放导致竞态。
+- 测试点：文件不存在；权限不足。
+
+### MasterRunner.__init__(root, user_name, service_path)
+- 作用：GUI 主控制器初始化（路径、UI、IDLE 引擎、线程）。
+- 关键步骤：
+  1) 设置 USERPATH、窗口标题与几何；  
+  2) 初始化 LockManager；配置 ttk 样式与配置变量；  
+  3) 写入 IDLE 引导脚本并异步启动 IDLE；  
+  4) 构建 UI 标签页并刷新路径；  
+  5) 启动监控线程与关闭钩子。
+- 副作用：设置环境变量；启动线程/子进程；写 bootstrap 文件。
+- 风险：IDLE 启动失败；UI 线程阻塞。
+- 测试点：不同用户目录；无权限写入 BOOTSTRAP_FILE。
+
+### MasterRunner._ensure_bootstrap()
+- 作用：生成/刷新 IDLE_bootstrap.py。
+- 关键步骤：写入 IDLE_BOOTSTRAP_CODE 到 BOOTSTRAP_FILE。
+- 副作用：覆盖 bootstrap 文件。
+- 风险：写入失败被吞掉导致后续启动无脚本。
+- 测试点：只读目录；编码异常。
+
 
 ## system/licad.py
 
