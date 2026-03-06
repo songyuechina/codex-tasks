@@ -1,6 +1,6 @@
-# Local DWG/data workspace lives outside the repo.
-# The local `dwg_cases/` folder mirrors `D:\Mypro\基础服务\用户1` and should not be pushed.
-dwg_cases/
+# Typical DWG case files belong in the repo.
+# Real user/project working files stay outside the repo, e.g. under:
+# D:\Mypro\基础服务\用户1
 
 # Python cache
 __pycache__/
