@@ -1,0 +1,24 @@
+{
+  "name": "common_logger",
+  "path": "cad/system/common_logger.py",
+  "layer": "quote",
+  "purpose": "Provide a single shared project logger (CAD_System) and optional Excel test recording for checkpoints/critical sections.",
+  "public_api": [
+    "sys_logger : logging.Logger (use .debug/.info/.warning/.error/.critical)",
+    "set_debug_mode(mode=0|1, who='AI'|'HUMAN', wait_time=int, log_level=None) -> None",
+    "set_log_level(level, apply_to_console=True, apply_to_file=True) -> None",
+    "checkpoint(desc:str, is_pass:bool=True, **vars) -> None",
+    "CriticalSection(description='关键操作', script_name=None, func_name=None) (context manager)",
+    "record_test_result(script_name=None, func_name=None, is_pass=False, **vars) -> None",
+    "node(msg:str, *args, **kwargs) -> None  # alias to sys_logger.info"
+  ],
+  "side_effects": [
+    "Writes rotating log file: cad/system/system_run.log (if file handler available).",
+    "May write Excel rows: cad/tests/testfunc.xlsx (only if openpyxl installed).",
+    "May pause/print only when MODE=1 and WHO='HUMAN' and WAIT>0."
+  ],
+  "constraints": [
+    "Business modules should NOT call set_debug_mode(); call it once in entry/test/agent startup.",
+    "CriticalSection does NOT swallow exceptions (re-raises)."
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "analysis": {
+    "function": "current_dwg_folder",
+    "summary": "获取当前 AutoCAD 激活文档所在文件夹路径，失败或未保存时返回 None",
+    "inputs": [],
+    "steps": [
+      "初始化 doc 为 None",
+      "尝试从全局 C.doc 获取文档对象",
+      "若 doc 仍为 None，尝试通过 COM 获取 AutoCAD.Application.ActiveDocument",
+      "若无文档则返回 None",
+      "读取文档 FullName，若为空返回 None",
+      "返回 FullName 的目录路径",
+      "任何异常捕获后返回 None"
+    ],
+    "branches": [
+      {
+        "when": "C.doc 存在且为真值",
+        "does": "使用 C.doc 作为文档对象",
+        "returns": "继续后续路径解析"
+      },
+      {
+        "when": "C.doc 为 None 或假值",
+        "does": "尝试通过 COM 获取 ActiveDocument",
+        "returns": "成功则继续后续解析，失败则可能返回 None"
+      },
+      {
+        "when": "doc 为 None",
+        "does": "直接返回 None",
+        "returns": "None"
+      },
+      {
+        "when": "doc.FullName 为空或假值",
+        "does": "认为未保存新建文件",
+        "returns": "None"
+      },
+      {
+        "when": "正常获取 FullName",
+        "does": "返回其目录名",
+        "returns": "str 路径"
+      }
+    ],
+    "errors": [
+      {
+        "case": "COM 获取 AutoCAD.Application 失败或 ActiveDocument 异常",
+        "symptom": "抛出异常",
+        "handling": "忽略异常",
+        "returns": "继续后续逻辑，最终可能返回 None"
+      },
+      {
+        "case": "访问 doc 或 FullName 时任意异常",
+        "symptom": "抛出异常",
+        "handling": "捕获 Exception",
+        "returns": "None"
+      }
+    ],
+    "side_effects": [
+      "通过 COM 访问 AutoCAD 应用对象",
+      "依赖系统已安装并运行 AutoCAD/COM 注册",
+      "读取全局对象 system.licad.C"
+    ],
+    "returns": {
+      "shape": "str|None",
+      "fields": [
+        {
+          "path": "return",
+          "meaning": "当前文档所在文件夹路径；无文档/未保存/异常时为 None",
+          "example": "C:\\\\projects\\\\drawing"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "current_dwg_folder()  # C.doc 有效且 FullName='C:\\\\a\\\\b.dwg'",
+        "expect": "return='C:\\\\a'"
+      },
+      {
+        "call": "current_dwg_folder()  # C.doc 为 None，COM 获取失败",
+        "expect": "return=None"
+      },
+      {
+        "call": "current_dwg_folder()  # doc.FullName='' (新建未保存)",
+        "expect": "return=None"
+      }
+    ]
+  },
+  "contract": {
+    "function": "current_dwg_folder",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "str|None",
+        "fields": [
+          {
+            "path": "return",
+            "meaning": "当前文档所在文件夹路径；无文档/未保存/异常时为 None",
+            "example": "C:\\\\projects\\\\drawing"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "COM 获取 AutoCAD.Application 失败或 ActiveDocument 异常",
+          "returns": "继续后续逻辑，最终可能返回 None",
+          "meaning": "抛出异常"
+        },
+        {
+          "when": "访问 doc 或 FullName 时任意异常",
+          "returns": "None",
+          "meaning": "抛出异常"
+        }
+      ]
+    },
+    "side_effects": [
+      "通过 COM 访问 AutoCAD 应用对象",
+      "依赖系统已安装并运行 AutoCAD/COM 注册",
+      "读取全局对象 system.licad.C"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:current_dwg_folder",
+  "source_hash": "6c3591eb882f1f2f380ca9cce3ffc8804963b443042d55b2dbe5bad7b950bb40",
+  "updated_at": "2026-02-26 17:28:22"
+}

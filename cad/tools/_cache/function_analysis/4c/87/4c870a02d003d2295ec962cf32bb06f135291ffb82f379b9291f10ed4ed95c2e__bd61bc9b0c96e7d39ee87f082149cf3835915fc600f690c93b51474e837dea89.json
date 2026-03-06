@@ -1,0 +1,147 @@
+{
+  "analysis": {
+    "function": "ConvertArrays2Variant",
+    "summary": "将输入的 Python 数组根据指定类型包装成 COM VARIANT 数组。",
+    "inputs": [
+      {
+        "name": "inputdata",
+        "type": "array-like",
+        "meaning": "要包装为 VARIANT 的数组数据",
+        "default": null
+      },
+      {
+        "name": "vartype",
+        "type": "str",
+        "meaning": "目标数组元素类型标识（ArrayofObjects/Double/ShortInteger/LongInteger/Variant）",
+        "default": null
+      }
+    ],
+    "steps": [
+      "导入 pythoncom 常量",
+      "根据 vartype 选择对应 VT_* 标志并与 VT_ARRAY 组合",
+      "调用 win32com.client.VARIANT 创建 VARIANT 数组",
+      "返回创建的 VARIANT"
+    ],
+    "branches": [
+      {
+        "when": "vartype == 'ArrayofObjects'",
+        "does": "使用 VT_ARRAY|VT_DISPATCH 包装对象数组",
+        "returns": "VARIANT(array of dispatch)"
+      },
+      {
+        "when": "vartype == 'Double'",
+        "does": "使用 VT_ARRAY|VT_R8 包装双精度数组",
+        "returns": "VARIANT(array of float)"
+      },
+      {
+        "when": "vartype == 'ShortInteger'",
+        "does": "使用 VT_ARRAY|VT_I2 包装短整型数组",
+        "returns": "VARIANT(array of int16)"
+      },
+      {
+        "when": "vartype == 'LongInteger'",
+        "does": "使用 VT_ARRAY|VT_I4 包装长整型数组",
+        "returns": "VARIANT(array of int32)"
+      },
+      {
+        "when": "vartype == 'Variant'",
+        "does": "使用 VT_ARRAY|VT_VARIANT 包装变体数组",
+        "returns": "VARIANT(array of variant)"
+      }
+    ],
+    "errors": [
+      {
+        "case": "vartype 不在支持列表",
+        "symptom": "outputdata 未定义导致 UnboundLocalError",
+        "handling": "无显式处理",
+        "returns": "异常抛出"
+      },
+      {
+        "case": "win32com/pythoncom 不可用或输入数据不符合 COM 类型要求",
+        "symptom": "ImportError/pywintypes.com_error",
+        "handling": "无显式处理",
+        "returns": "异常抛出"
+      }
+    ],
+    "side_effects": [
+      "依赖外部 COM 库 win32com/pythoncom 创建 VARIANT 对象"
+    ],
+    "returns": {
+      "shape": "COM VARIANT 对象",
+      "fields": [
+        {
+          "path": "self",
+          "meaning": "包装后的 VARIANT 数组对象",
+          "example": "VARIANT(VT_ARRAY|VT_R8,[1.0,2.0])"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "ConvertArrays2Variant([1.0,2.5],'Double')",
+        "expect": "返回 VT_ARRAY|VT_R8 的 VARIANT 数组"
+      },
+      {
+        "call": "ConvertArrays2Variant([1,2,3],'LongInteger')",
+        "expect": "返回 VT_ARRAY|VT_I4 的 VARIANT 数组"
+      },
+      {
+        "call": "ConvertArrays2Variant([obj1,obj2],'ArrayofObjects')",
+        "expect": "返回 VT_ARRAY|VT_DISPATCH 的 VARIANT 数组"
+      }
+    ]
+  },
+  "contract": {
+    "function": "ConvertArrays2Variant",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "inputdata": {
+          "type": "array-like",
+          "meaning": "要包装为 VARIANT 的数组数据",
+          "default": null
+        },
+        "vartype": {
+          "type": "str",
+          "meaning": "目标数组元素类型标识（ArrayofObjects/Double/ShortInteger/LongInteger/Variant）",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "COM VARIANT 对象",
+        "fields": [
+          {
+            "path": "self",
+            "meaning": "包装后的 VARIANT 数组对象",
+            "example": "VARIANT(VT_ARRAY|VT_R8,[1.0,2.0])"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "vartype 不在支持列表",
+          "returns": "异常抛出",
+          "meaning": "outputdata 未定义导致 UnboundLocalError"
+        },
+        {
+          "when": "win32com/pythoncom 不可用或输入数据不符合 COM 类型要求",
+          "returns": "异常抛出",
+          "meaning": "ImportError/pywintypes.com_error"
+        }
+      ]
+    },
+    "side_effects": [
+      "依赖外部 COM 库 win32com/pythoncom 创建 VARIANT 对象"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:ConvertArrays2Variant",
+  "source_hash": "bd61bc9b0c96e7d39ee87f082149cf3835915fc600f690c93b51474e837dea89",
+  "updated_at": "2026-02-26 17:28:24"
+}

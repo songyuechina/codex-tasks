@@ -1,0 +1,131 @@
+{
+  "analysis": {
+    "function": "load",
+    "summary": "从内存或磁盘JSON文件加载指定DWG的打印字典，未找到则返回空字典并记录日志",
+    "inputs": [
+      {
+        "name": "dwg_name",
+        "type": "str",
+        "meaning": "DWG文件的纯名称，用于索引内存缓存与拼接JSON文件名",
+        "default": ""
+      }
+    ],
+    "steps": [
+      "检查PRINT_DICTS缓存是否已有dwg_name",
+      "拼接保存路径SAVE_DIR/{dwg_name}_打印字典.json",
+      "若文件存在则打开并json.load读取",
+      "写回PRINT_DICTS缓存并记录info日志",
+      "若文件不存在则记录警告日志并返回空字典"
+    ],
+    "branches": [
+      {
+        "when": "dwg_name in PRINT_DICTS",
+        "does": "直接返回缓存中的字典",
+        "returns": "PRINT_DICTS[dwg_name]"
+      },
+      {
+        "when": "os.path.isfile(path)为真",
+        "does": "读取JSON、写入缓存、记录OK日志",
+        "returns": "data"
+      },
+      {
+        "when": "os.path.isfile(path)为假",
+        "does": "记录警告日志",
+        "returns": "{}"
+      }
+    ],
+    "errors": [
+      {
+        "case": "JSON文件损坏或内容非JSON",
+        "symptom": "json.load抛出异常",
+        "handling": "未捕获，异常向上抛出",
+        "returns": "无返回（异常中断）"
+      },
+      {
+        "case": "文件无法打开/权限问题",
+        "symptom": "open抛出异常",
+        "handling": "未捕获，异常向上抛出",
+        "returns": "无返回（异常中断）"
+      }
+    ],
+    "side_effects": [
+      "读取文件系统中的JSON文件",
+      "更新全局缓存PRINT_DICTS",
+      "写入sys_logger日志"
+    ],
+    "returns": {
+      "shape": "dict",
+      "fields": [
+        {
+          "path": "*",
+          "meaning": "任意键值对，内容为此前保存的打印字典字段（基础类型与handle字符串）",
+          "example": "{\"layout\":\"A1\",\"scale\":1.0,\"handles\":[\"AB12\"]}"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "load(\"demo\")（PRINT_DICTS已含demo）",
+        "expect": "返回缓存字典；不访问文件"
+      },
+      {
+        "call": "load(\"demo\")（文件存在且可读）",
+        "expect": "返回JSON内容字典，并写入PRINT_DICTS[\"demo\"]"
+      },
+      {
+        "call": "load(\"missing\")（文件不存在）",
+        "expect": "返回{}，记录警告日志"
+      }
+    ]
+  },
+  "contract": {
+    "function": "load",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "dwg_name": {
+          "type": "str",
+          "meaning": "DWG文件的纯名称，用于索引内存缓存与拼接JSON文件名",
+          "default": ""
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "dict",
+        "fields": [
+          {
+            "path": "*",
+            "meaning": "任意键值对，内容为此前保存的打印字典字段（基础类型与handle字符串）",
+            "example": "{\"layout\":\"A1\",\"scale\":1.0,\"handles\":[\"AB12\"]}"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "JSON文件损坏或内容非JSON",
+          "returns": "无返回（异常中断）",
+          "meaning": "json.load抛出异常"
+        },
+        {
+          "when": "文件无法打开/权限问题",
+          "returns": "无返回（异常中断）",
+          "meaning": "open抛出异常"
+        }
+      ]
+    },
+    "side_effects": [
+      "读取文件系统中的JSON文件",
+      "更新全局缓存PRINT_DICTS",
+      "写入sys_logger日志"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:load",
+  "source_hash": "9ead97fdc761d926886ed884a8e60c93f5fd2e3de2c7e00f52ac8c55c91b6017",
+  "updated_at": "2026-02-26 17:28:21"
+}

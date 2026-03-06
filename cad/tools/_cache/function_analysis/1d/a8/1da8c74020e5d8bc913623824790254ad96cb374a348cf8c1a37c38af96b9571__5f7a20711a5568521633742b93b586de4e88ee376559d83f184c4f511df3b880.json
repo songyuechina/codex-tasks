@@ -1,0 +1,102 @@
+{
+  "analysis": {
+    "function": "speak_msg",
+    "summary": "后台启动守护线程进行语音播报，避免阻塞主进程；若无 TTS 支持则直接返回。",
+    "inputs": [
+      {
+        "name": "text",
+        "type": "str",
+        "meaning": "要播报的文本内容",
+        "default": ""
+      }
+    ],
+    "steps": [
+      "检查全局开关 HAS_TTS，若不可用则结束",
+      "定义内部函数 _run 初始化语音引擎并设置语速",
+      "在 _run 中调用 say/runAndWait 进行播报，异常忽略",
+      "创建守护线程执行 _run 并启动"
+    ],
+    "branches": [
+      {
+        "when": "HAS_TTS 为 False",
+        "does": "不创建线程，不执行播报",
+        "returns": "None"
+      },
+      {
+        "when": "HAS_TTS 为 True",
+        "does": "创建并启动守护线程执行语音播放",
+        "returns": "None（异步）"
+      }
+    ],
+    "errors": [
+      {
+        "case": "pyttsx3.init()/setProperty/say/runAndWait 抛出异常",
+        "symptom": "语音播放失败或中断",
+        "handling": "异常被捕获并忽略",
+        "returns": "None"
+      }
+    ],
+    "side_effects": [
+      "创建并启动后台守护线程",
+      "调用 pyttsx3 语音引擎产生系统音频输出",
+      "依赖外部 TTS 引擎/音频设备"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "speak_msg(\"你好\")",
+        "expect": "无返回；若 HAS_TTS=True 则异步播报“你好”"
+      },
+      {
+        "call": "speak_msg(\"\")",
+        "expect": "无返回；若 HAS_TTS=True 则可能播报空内容或无声"
+      },
+      {
+        "call": "HAS_TTS=False; speak_msg(\"test\")",
+        "expect": "无返回；不启动线程、不播报"
+      }
+    ]
+  },
+  "contract": {
+    "function": "speak_msg",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "text": {
+          "type": "str",
+          "meaning": "要播报的文本内容",
+          "default": ""
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "pyttsx3.init()/setProperty/say/runAndWait 抛出异常",
+          "returns": "None",
+          "meaning": "语音播放失败或中断"
+        }
+      ]
+    },
+    "side_effects": [
+      "创建并启动后台守护线程",
+      "调用 pyttsx3 语音引擎产生系统音频输出",
+      "依赖外部 TTS 引擎/音频设备"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:speak_msg",
+  "source_hash": "5f7a20711a5568521633742b93b586de4e88ee376559d83f184c4f511df3b880",
+  "updated_at": "2026-02-26 17:28:20"
+}

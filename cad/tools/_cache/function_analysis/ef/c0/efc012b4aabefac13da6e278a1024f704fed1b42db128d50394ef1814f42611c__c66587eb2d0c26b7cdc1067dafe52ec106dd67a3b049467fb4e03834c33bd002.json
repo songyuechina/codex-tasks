@@ -1,0 +1,128 @@
+{
+  "analysis": {
+    "function": "st",
+    "summary": "调用 CAD 操作与内部流程，读取当前文档名与进程数判断是否返回 True。",
+    "inputs": [],
+    "steps": [
+      "导入并调用 cad_zt_oneb()",
+      "调用 jd()",
+      "调用 jc() 获取进程数 shu",
+      "打印进程数",
+      "读取 C.doc.Name",
+      "判断 Name 与 shu 是否满足条件",
+      "返回布尔结果"
+    ],
+    "branches": [
+      {
+        "when": "Name == 'Drawing1.dwg' and shu == 1",
+        "does": "返回 True",
+        "returns": "True"
+      },
+      {
+        "when": "否则",
+        "does": "返回 False",
+        "returns": "False"
+      }
+    ],
+    "errors": [
+      {
+        "case": "导入 CAD_file_operations 或 cad_zt_oneb 不存在",
+        "symptom": "ImportError/AttributeError",
+        "handling": "未处理，异常抛出",
+        "returns": "无返回"
+      },
+      {
+        "case": "C 或 C.doc/Name 不存在",
+        "symptom": "NameError/AttributeError",
+        "handling": "未处理，异常抛出",
+        "returns": "无返回"
+      },
+      {
+        "case": "jd/jc 未定义",
+        "symptom": "NameError",
+        "handling": "未处理，异常抛出",
+        "returns": "无返回"
+      }
+    ],
+    "side_effects": [
+      "调用 CAD 操作 cad_zt_oneb()（外部系统）",
+      "调用 jd()/jc()（可能影响外部状态）",
+      "打印到标准输出",
+      "访问外部 CAD 文档对象 C.doc"
+    ],
+    "returns": {
+      "shape": "bool",
+      "fields": [
+        {
+          "path": "return",
+          "meaning": "当前文档名为 Drawing1.dwg 且进程数为 1 时为 True，否则 False",
+          "example": "True"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "st()  # C.doc.Name='Drawing1.dwg', jc()->1",
+        "expect": "True"
+      },
+      {
+        "call": "st()  # C.doc.Name='Drawing1.dwg', jc()->2",
+        "expect": "False"
+      },
+      {
+        "call": "st()  # C.doc.Name='Other.dwg', jc()->1",
+        "expect": "False"
+      }
+    ]
+  },
+  "contract": {
+    "function": "st",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "bool",
+        "fields": [
+          {
+            "path": "return",
+            "meaning": "当前文档名为 Drawing1.dwg 且进程数为 1 时为 True，否则 False",
+            "example": "True"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "导入 CAD_file_operations 或 cad_zt_oneb 不存在",
+          "returns": "无返回",
+          "meaning": "ImportError/AttributeError"
+        },
+        {
+          "when": "C 或 C.doc/Name 不存在",
+          "returns": "无返回",
+          "meaning": "NameError/AttributeError"
+        },
+        {
+          "when": "jd/jc 未定义",
+          "returns": "无返回",
+          "meaning": "NameError"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用 CAD 操作 cad_zt_oneb()（外部系统）",
+      "调用 jd()/jc()（可能影响外部状态）",
+      "打印到标准输出",
+      "访问外部 CAD 文档对象 C.doc"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:st",
+  "source_hash": "c66587eb2d0c26b7cdc1067dafe52ec106dd67a3b049467fb4e03834c33bd002",
+  "updated_at": "2026-02-26 17:28:25"
+}

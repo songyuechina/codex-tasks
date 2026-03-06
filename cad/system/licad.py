@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# 文件位置: D:/claude-tasks/cad/system/licad.py V2.6
+# 文件位置: D:/codex-tasks/cad/system/licad.py V2.6
 import time
 import os
 import sys
@@ -468,6 +468,55 @@ def save_file_as(p): return C.save_file_as(p)
 def open_file(p): return C.open_file(p)
 def close_file(o="auto_save"): return C.close_file(o)
 def close_dwg_by_name(n): return C.close_dwg_by_name(n)
+
+#&&% 解析文档
+def resolve_doc(docname=None):
+    """
+    解析文档名称/路径并激活，返回安全文档对象（SafeDocumentWrapper）。
+    docname=None 时返回当前激活文档。
+    """
+    try:
+        C.li()
+    except Exception as e:
+        sys_logger.error(f"[licad.resolve_doc] 连接失败: {e}")
+        return None
+
+    if docname is None:
+        return C.doc
+
+    try:
+        target = str(docname).strip()
+        if not target:
+            return C.doc
+        target_lower = target.lower()
+    except Exception as e:
+        sys_logger.error(f"[licad.resolve_doc] docname 非法: {e}")
+        return None
+
+    try:
+        for d in C.acad.Documents:
+            try:
+                name = str(d.Name or "").lower()
+                full = str(d.FullName or "").lower()
+                stem = Path(full).stem.lower() if full else ""
+                if target_lower in (name, full, stem):
+                    try:
+                        d.Activate()
+                    except Exception:
+                        pass
+                    try:
+                        C.li()
+                    except Exception:
+                        pass
+                    return C.doc
+            except Exception:
+                continue
+    except Exception as e:
+        sys_logger.error(f"[licad.resolve_doc] 遍历文档失败: {e}")
+        return None
+
+    sys_logger.warning(f"[licad.resolve_doc] 未找到文档: {docname}")
+    return None
 
 # 🔥【关键修复】直接使用别名调用，解决递归死锁
 def retry_on_busy(func_or_args=None, **kwargs):

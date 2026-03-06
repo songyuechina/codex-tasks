@@ -1,0 +1,98 @@
+{
+  "analysis": {
+    "function": "jingchengshu_wenjian",
+    "summary": "统计当前系统中名为 acad.exe 的 CAD 进程数量并返回计数。",
+    "inputs": [],
+    "steps": [
+      "定义目标进程名 CAD_PROCESS_NAME='acad.exe'",
+      "初始化计数器 found_process_i=0",
+      "遍历系统进程列表 psutil.process_iter(['pid','name'])",
+      "若进程名匹配目标则计数加一",
+      "返回计数器"
+    ],
+    "branches": [
+      {
+        "when": "进程名等于 'acad.exe'",
+        "does": "found_process_i 加 1",
+        "returns": "继续遍历直至结束"
+      },
+      {
+        "when": "进程名不等于 'acad.exe'",
+        "does": "不修改计数",
+        "returns": "继续遍历直至结束"
+      }
+    ],
+    "errors": [
+      {
+        "case": "psutil.process_iter 访问进程信息时出现权限或进程消失异常",
+        "symptom": "抛出 AccessDenied/NoSuchProcess/ZombieProcess 等异常",
+        "handling": "未捕获，异常向上抛出",
+        "returns": "无返回"
+      }
+    ],
+    "side_effects": [
+      "读取系统进程列表（依赖本机操作系统进程信息）"
+    ],
+    "returns": {
+      "shape": "int",
+      "fields": [
+        {
+          "path": "(root)",
+          "meaning": "匹配到的 acad.exe 进程数量",
+          "example": 2
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "jingchengshu_wenjian()",
+        "expect": "返回 0（未运行 CAD）"
+      },
+      {
+        "call": "jingchengshu_wenjian()",
+        "expect": "返回 1（单个 CAD 进程）"
+      },
+      {
+        "call": "jingchengshu_wenjian()",
+        "expect": "返回 3（多个 CAD 进程）"
+      }
+    ]
+  },
+  "contract": {
+    "function": "jingchengshu_wenjian",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "int",
+        "fields": [
+          {
+            "path": "(root)",
+            "meaning": "匹配到的 acad.exe 进程数量",
+            "example": 2
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "psutil.process_iter 访问进程信息时出现权限或进程消失异常",
+          "returns": "无返回",
+          "meaning": "抛出 AccessDenied/NoSuchProcess/ZombieProcess 等异常"
+        }
+      ]
+    },
+    "side_effects": [
+      "读取系统进程列表（依赖本机操作系统进程信息）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:jingchengshu_wenjian",
+  "source_hash": "91e951feb3a23113a39041c57a1467ef964b161c9816fc6c4f32befe90393171",
+  "updated_at": "2026-02-26 17:28:26"
+}

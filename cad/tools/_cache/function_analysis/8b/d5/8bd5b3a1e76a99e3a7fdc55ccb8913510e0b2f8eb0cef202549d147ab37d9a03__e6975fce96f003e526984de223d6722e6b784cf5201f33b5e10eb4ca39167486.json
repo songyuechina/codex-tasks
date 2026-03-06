@@ -1,0 +1,98 @@
+{
+  "analysis": {
+    "function": "start_applicationV9",
+    "summary": "Function body not provided; unable to analyze control flow, branches, or returns.",
+    "inputs": [
+      {
+        "name": "PTH",
+        "type": "str",
+        "meaning": "Not specified in provided snippet.",
+        "default": "C:\\Tangent\\TArchT20V9"
+      },
+      {
+        "name": "max_retries",
+        "type": "int",
+        "meaning": "Not specified in provided snippet.",
+        "default": 3
+      },
+      {
+        "name": "retry_delay",
+        "type": "float",
+        "meaning": "Not specified in provided snippet.",
+        "default": 2.0
+      }
+    ],
+    "steps": [
+      "Function body missing; provide full implementation to analyze steps."
+    ],
+    "branches": [],
+    "errors": [
+      {
+        "case": "source_missing",
+        "symptom": "Only function signature provided; no body to analyze.",
+        "handling": "Provide full function source code.",
+        "returns": "unknown"
+      }
+    ],
+    "side_effects": [
+      "unknown (function body missing)"
+    ],
+    "returns": {
+      "shape": "unknown",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "start_applicationV9()",
+        "expect": "output unknown (function body missing)"
+      }
+    ]
+  },
+  "contract": {
+    "function": "start_applicationV9",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "PTH": {
+          "type": "str",
+          "meaning": "Not specified in provided snippet.",
+          "default": "C:\\Tangent\\TArchT20V9"
+        },
+        "max_retries": {
+          "type": "int",
+          "meaning": "Not specified in provided snippet.",
+          "default": 3
+        },
+        "retry_delay": {
+          "type": "float",
+          "meaning": "Not specified in provided snippet.",
+          "default": 2.0
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "unknown",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "source_missing",
+          "returns": "unknown",
+          "meaning": "Only function signature provided; no body to analyze."
+        }
+      ]
+    },
+    "side_effects": [
+      "unknown (function body missing)"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:start_applicationV9",
+  "source_hash": "e6975fce96f003e526984de223d6722e6b784cf5201f33b5e10eb4ca39167486",
+  "updated_at": "2026-02-26 17:28:24"
+}

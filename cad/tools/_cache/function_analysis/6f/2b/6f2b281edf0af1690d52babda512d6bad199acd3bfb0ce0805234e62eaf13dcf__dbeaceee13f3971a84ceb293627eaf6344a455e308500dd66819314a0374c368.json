@@ -1,0 +1,140 @@
+{
+  "analysis": {
+    "function": "draw_infinite_spiral",
+    "summary": "连接 AutoCAD 并持续绘制螺旋线用于压力测试，循环直到中断或异常。",
+    "inputs": [],
+    "steps": [
+      "打印启动与目的说明",
+      "尝试连接 AutoCAD COM 对象并获取 ModelSpace",
+      "定义带重试的安全画线与更新函数",
+      "初始化中心点、角度、半径和计数器",
+      "进入无限循环计算两点坐标",
+      "调用安全画线，按计数设置颜色",
+      "每 50 条输出进度并更新对象",
+      "递增计数并短暂休眠",
+      "捕获中断或异常打印提示"
+    ],
+    "branches": [
+      {
+        "when": "连接 AutoCAD 失败（GetActiveObject 异常）",
+        "does": "打印无法连接 CAD",
+        "returns": "None（提前结束）"
+      },
+      {
+        "when": "i % 50 == 0",
+        "does": "打印进度并对最后一条线调用 Update",
+        "returns": "继续循环"
+      },
+      {
+        "when": "KeyboardInterrupt",
+        "does": "打印测试停止",
+        "returns": "None（自然结束）"
+      },
+      {
+        "when": "其他异常",
+        "does": "打印未知错误",
+        "returns": "None（自然结束）"
+      }
+    ],
+    "errors": [
+      {
+        "case": "无法连接 CAD（COM 连接异常）",
+        "symptom": "打印“无法连接 CAD: ...”",
+        "handling": "直接返回",
+        "returns": "None"
+      },
+      {
+        "case": "绘制过程中未知异常",
+        "symptom": "打印“未知错误: ...”",
+        "handling": "结束循环",
+        "returns": "None"
+      },
+      {
+        "case": "用户中断（Ctrl+C）",
+        "symptom": "打印“测试停止。”",
+        "handling": "结束循环",
+        "returns": "None"
+      }
+    ],
+    "side_effects": [
+      "调用 AutoCAD COM 接口获取活动文档与 ModelSpace",
+      "在 ModelSpace 中持续新增线对象并更新",
+      "向控制台打印日志与进度",
+      "短暂 sleep 影响执行节奏"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": [
+        {
+          "path": "",
+          "meaning": "函数无显式返回值，默认返回 None",
+          "example": "None"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "draw_infinite_spiral()  # AutoCAD 正常运行",
+        "expect": "持续绘制螺旋线并输出进度，直到中断"
+      },
+      {
+        "call": "draw_infinite_spiral()  # AutoCAD 未启动",
+        "expect": "打印无法连接 CAD 并返回 None"
+      },
+      {
+        "call": "draw_infinite_spiral()  # 运行中按 Ctrl+C",
+        "expect": "打印测试停止并返回 None"
+      }
+    ]
+  },
+  "contract": {
+    "function": "draw_infinite_spiral",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [
+          {
+            "path": "",
+            "meaning": "函数无显式返回值，默认返回 None",
+            "example": "None"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "无法连接 CAD（COM 连接异常）",
+          "returns": "None",
+          "meaning": "打印“无法连接 CAD: ...”"
+        },
+        {
+          "when": "绘制过程中未知异常",
+          "returns": "None",
+          "meaning": "打印“未知错误: ...”"
+        },
+        {
+          "when": "用户中断（Ctrl+C）",
+          "returns": "None",
+          "meaning": "打印“测试停止。”"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用 AutoCAD COM 接口获取活动文档与 ModelSpace",
+      "在 ModelSpace 中持续新增线对象并更新",
+      "向控制台打印日志与进度",
+      "短暂 sleep 影响执行节奏"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:draw_infinite_spiral",
+  "source_hash": "dbeaceee13f3971a84ceb293627eaf6344a455e308500dd66819314a0374c368",
+  "updated_at": "2026-02-26 17:28:19"
+}

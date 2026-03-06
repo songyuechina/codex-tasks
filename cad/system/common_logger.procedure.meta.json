@@ -1,0 +1,35 @@
+{
+  "name": "common_logger",
+  "path": "cad/system/common_logger.py",
+  "layer": "procedure",
+  "usage_rules": [
+    "Business scripts: replace all print() with sys_logger.<level>().",
+    "Entry/test/agent startup: call set_debug_mode() once to control verbosity.",
+    "Levels: debug=details; info=milestones; warning=recoverable; error=fail+raise; critical=fatal."
+  ],
+  "quick_start": {
+    "business_script": [
+      "from system.common_logger import sys_logger",
+      "sys_logger.info('stage start')",
+      "sys_logger.debug(f'x={x}')",
+      "sys_logger.warning('fallback used')"
+    ],
+    "entry_script": [
+      "from system.common_logger import set_debug_mode",
+      "set_debug_mode(mode=0)  # quiet (WARNING)",
+      "set_debug_mode(mode=1)  # debug (INFO)",
+      "set_debug_mode(mode=1, log_level='DEBUG')  # deep"
+    ],
+    "risky_section": [
+      "from system.common_logger import CriticalSection",
+      "with CriticalSection('pywin32 CAD call') as cs:",
+      "    cs.record(filepath=path)",
+      "    # do risky ops"
+    ]
+  },
+  "pitfalls": [
+    "INFO not shown when log level is WARNING (filtered, not missing).",
+    "Excel not written if openpyxl missing or xlsx locked by Excel.",
+    "Do not call set_debug_mode() in many modules (inconsistent behavior)."
+  ]
+}

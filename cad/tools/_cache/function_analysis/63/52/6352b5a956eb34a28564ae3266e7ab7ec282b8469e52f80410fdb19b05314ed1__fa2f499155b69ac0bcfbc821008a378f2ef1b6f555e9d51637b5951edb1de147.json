@@ -1,0 +1,115 @@
+{
+  "analysis": {
+    "function": "com_to_handle",
+    "summary": "Return COM object Handle string when available; otherwise return input unchanged.",
+    "inputs": [
+      {
+        "name": "obj",
+        "type": "Any",
+        "meaning": "Potential COM Dispatch object or any value",
+        "default": null
+      }
+    ],
+    "steps": [
+      "Check whether obj has attribute Handle via hasattr",
+      "If hasattr returns true, return obj.Handle",
+      "If accessing Handle raises pythoncom.com_error, ignore and fall through",
+      "Return obj unchanged"
+    ],
+    "branches": [
+      {
+        "when": "hasattr(obj, \"Handle\") is true and no com_error",
+        "does": "Return obj.Handle",
+        "returns": "Handle string"
+      },
+      {
+        "when": "hasattr is false",
+        "does": "Skip handle access",
+        "returns": "obj"
+      },
+      {
+        "when": "hasattr/Handle access raises pythoncom.com_error",
+        "does": "Suppress exception",
+        "returns": "obj"
+      }
+    ],
+    "errors": [
+      {
+        "case": "pythoncom.com_error during hasattr or Handle access",
+        "symptom": "COM error thrown while probing Handle",
+        "handling": "Exception swallowed",
+        "returns": "obj"
+      }
+    ],
+    "side_effects": [
+      "Accessing COM object's Handle property (may trigger COM call)"
+    ],
+    "returns": {
+      "shape": "Any",
+      "fields": [
+        {
+          "path": "$",
+          "meaning": "Handle string if available, else original obj",
+          "example": "\"3F2A\" or original object/value"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "com_to_handle(dispatch_obj_with_handle)",
+        "expect": "Returns dispatch_obj_with_handle.Handle (string)"
+      },
+      {
+        "call": "com_to_handle(123)",
+        "expect": "Returns 123"
+      },
+      {
+        "call": "com_to_handle(dispatch_obj_raises_com_error)",
+        "expect": "Returns original object despite COM error"
+      }
+    ]
+  },
+  "contract": {
+    "function": "com_to_handle",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "obj": {
+          "type": "Any",
+          "meaning": "Potential COM Dispatch object or any value",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "Any",
+        "fields": [
+          {
+            "path": "$",
+            "meaning": "Handle string if available, else original obj",
+            "example": "\"3F2A\" or original object/value"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "pythoncom.com_error during hasattr or Handle access",
+          "returns": "obj",
+          "meaning": "COM error thrown while probing Handle"
+        }
+      ]
+    },
+    "side_effects": [
+      "Accessing COM object's Handle property (may trigger COM call)"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:com_to_handle",
+  "source_hash": "fa2f499155b69ac0bcfbc821008a378f2ef1b6f555e9d51637b5951edb1de147",
+  "updated_at": "2026-02-26 17:28:20"
+}

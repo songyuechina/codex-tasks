@@ -1,0 +1,125 @@
+{
+  "analysis": {
+    "function": "vtInt",
+    "summary": "将 Python 列表封装为 COM VARIANT 的 16 位整数数组。",
+    "inputs": [
+      {
+        "name": "lst",
+        "type": "list",
+        "meaning": "待封装的整数序列，用于生成 VT_I2 数组",
+        "default": null
+      }
+    ],
+    "steps": [
+      "使用 pythoncom 类型标志 VT_ARRAY | VT_I2",
+      "调用 win32com.client.VARIANT(type_flag, lst) 创建 COM VARIANT",
+      "返回该 VARIANT 实例"
+    ],
+    "branches": [
+      {
+        "when": "始终（无条件）",
+        "does": "创建并返回 VARIANT 整数数组",
+        "returns": "COM VARIANT 实例"
+      }
+    ],
+    "errors": [
+      {
+        "case": "win32com 或 pythoncom 不可用",
+        "symptom": "ImportError/AttributeError",
+        "handling": "未捕获，向上抛出",
+        "returns": null
+      },
+      {
+        "case": "lst 中元素不可转换为 16 位整数或列表类型非法",
+        "symptom": "VARIANT 构造失败或类型错误",
+        "handling": "未捕获，向上抛出",
+        "returns": null
+      }
+    ],
+    "side_effects": [
+      "创建 COM VARIANT 对象（依赖 win32com/pythoncom 运行时）"
+    ],
+    "returns": {
+      "shape": "win32com.client.VARIANT 实例",
+      "fields": [
+        {
+          "path": "value",
+          "meaning": "包含 VT_I2 类型的数组数据",
+          "example": "[1,2,3]"
+        },
+        {
+          "path": "vt",
+          "meaning": "类型标志 VT_ARRAY | VT_I2",
+          "example": "(VT_ARRAY|VT_I2)"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "vtInt([1,2,3])",
+        "expect": "VARIANT 数组，类型为 VT_I2，值 [1,2,3]"
+      },
+      {
+        "call": "vtInt([])",
+        "expect": "空 VARIANT 数组，类型为 VT_I2"
+      },
+      {
+        "call": "vtInt([1000,-2])",
+        "expect": "VARIANT 数组，值 [1000,-2]"
+      }
+    ]
+  },
+  "contract": {
+    "function": "vtInt",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "lst": {
+          "type": "list",
+          "meaning": "待封装的整数序列，用于生成 VT_I2 数组",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "win32com.client.VARIANT 实例",
+        "fields": [
+          {
+            "path": "value",
+            "meaning": "包含 VT_I2 类型的数组数据",
+            "example": "[1,2,3]"
+          },
+          {
+            "path": "vt",
+            "meaning": "类型标志 VT_ARRAY | VT_I2",
+            "example": "(VT_ARRAY|VT_I2)"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "win32com 或 pythoncom 不可用",
+          "returns": null,
+          "meaning": "ImportError/AttributeError"
+        },
+        {
+          "when": "lst 中元素不可转换为 16 位整数或列表类型非法",
+          "returns": null,
+          "meaning": "VARIANT 构造失败或类型错误"
+        }
+      ]
+    },
+    "side_effects": [
+      "创建 COM VARIANT 对象（依赖 win32com/pythoncom 运行时）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:vtInt",
+  "source_hash": "9645a041cf2ae8950beabba412274bfe3bc6bc6ce7777e230bf3ed0929489191",
+  "updated_at": "2026-02-26 17:28:23"
+}

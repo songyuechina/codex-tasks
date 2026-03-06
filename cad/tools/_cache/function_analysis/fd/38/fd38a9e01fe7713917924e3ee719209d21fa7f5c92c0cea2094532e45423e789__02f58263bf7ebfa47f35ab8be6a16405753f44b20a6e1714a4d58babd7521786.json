@@ -1,0 +1,115 @@
+{
+  "analysis": {
+    "function": "vtVariant",
+    "summary": "将 Python 列表封装为 COM VARIANT 数组（VT_ARRAY|VT_VARIANT）。",
+    "inputs": [
+      {
+        "name": "lst",
+        "type": "list",
+        "meaning": "要封装为 COM 变体数组的 Python 列表/序列",
+        "default": null
+      }
+    ],
+    "steps": [
+      "调用 win32com.client.VARIANT 构造器",
+      "组合类型标志 pythoncom.VT_ARRAY | pythoncom.VT_VARIANT",
+      "将 lst 作为数据传入并返回 VARIANT 对象"
+    ],
+    "branches": [
+      {
+        "when": "始终",
+        "does": "构造 VARIANT（数组 + 变体元素）并返回",
+        "returns": "win32com.client.VARIANT 对象"
+      }
+    ],
+    "errors": [
+      {
+        "case": "lst 不是可转换序列或包含不支持类型",
+        "symptom": "win32com/pywin32 抛出类型或 COM 异常",
+        "handling": "未捕获，向上传播",
+        "returns": null
+      },
+      {
+        "case": "pywin32/pysqlcom 未安装或 win32com.client 不可用",
+        "symptom": "ImportError/AttributeError",
+        "handling": "未捕获，向上传播",
+        "returns": null
+      }
+    ],
+    "side_effects": [
+      "依赖外部 COM 库（pywin32），创建 COM VARIANT 对象"
+    ],
+    "returns": {
+      "shape": "win32com.client.VARIANT",
+      "fields": [
+        {
+          "path": "<variant>",
+          "meaning": "COM VARIANT（数组，元素为 VARIANT）",
+          "example": "VARIANT(VT_ARRAY|VT_VARIANT, [1, 'a'])"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "vtVariant([1, 2, 3])",
+        "expect": "返回 VARIANT，类型为 VT_ARRAY|VT_VARIANT，值为 [1,2,3]"
+      },
+      {
+        "call": "vtVariant(['a', None])",
+        "expect": "返回 VARIANT，类型为 VT_ARRAY|VT_VARIANT，值为 ['a', None]"
+      },
+      {
+        "call": "vtVariant([])",
+        "expect": "返回 VARIANT，类型为 VT_ARRAY|VT_VARIANT，值为空数组"
+      }
+    ]
+  },
+  "contract": {
+    "function": "vtVariant",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "lst": {
+          "type": "list",
+          "meaning": "要封装为 COM 变体数组的 Python 列表/序列",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "win32com.client.VARIANT",
+        "fields": [
+          {
+            "path": "<variant>",
+            "meaning": "COM VARIANT（数组，元素为 VARIANT）",
+            "example": "VARIANT(VT_ARRAY|VT_VARIANT, [1, 'a'])"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "lst 不是可转换序列或包含不支持类型",
+          "returns": null,
+          "meaning": "win32com/pywin32 抛出类型或 COM 异常"
+        },
+        {
+          "when": "pywin32/pysqlcom 未安装或 win32com.client 不可用",
+          "returns": null,
+          "meaning": "ImportError/AttributeError"
+        }
+      ]
+    },
+    "side_effects": [
+      "依赖外部 COM 库（pywin32），创建 COM VARIANT 对象"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:vtVariant",
+  "source_hash": "02f58263bf7ebfa47f35ab8be6a16405753f44b20a6e1714a4d58babd7521786",
+  "updated_at": "2026-02-26 17:28:24"
+}

@@ -1,0 +1,116 @@
+{
+  "analysis": {
+    "function": "vtobj",
+    "summary": "将输入对象包装为 COM VARIANT 数组（VT_ARRAY|VT_DISPATCH）。",
+    "inputs": [
+      {
+        "name": "obj",
+        "type": "iterable or sequence of COM-dispatchable objects",
+        "meaning": "要转换为 COM 对象数组的元素集合",
+        "default": "none"
+      }
+    ],
+    "steps": [
+      "调用 win32com.client.VARIANT 构造函数",
+      "使用 pythoncom.VT_ARRAY | pythoncom.VT_DISPATCH 作为类型标志",
+      "传入 obj 作为数组内容",
+      "返回 VARIANT 对象"
+    ],
+    "branches": [],
+    "errors": [
+      {
+        "case": "obj 不可迭代或元素不可被 COM 调度",
+        "symptom": "VARIANT 构造失败或 COM 类型错误异常",
+        "handling": "未捕获，异常向上抛出",
+        "returns": "无返回"
+      },
+      {
+        "case": "win32com/pythoncom 不可用或 COM 子系统异常",
+        "symptom": "ImportError/pywintypes.com_error 等异常",
+        "handling": "未捕获，异常向上抛出",
+        "returns": "无返回"
+      }
+    ],
+    "side_effects": [
+      "调用 COM 相关库构造 VARIANT 对象（依赖系统 COM 子系统与 win32com/pythoncom）"
+    ],
+    "returns": {
+      "shape": "win32com.client.VARIANT",
+      "fields": [
+        {
+          "path": "type",
+          "meaning": "组合类型标志 VT_ARRAY|VT_DISPATCH",
+          "example": "VT_ARRAY|VT_DISPATCH"
+        },
+        {
+          "path": "value",
+          "meaning": "由 obj 形成的对象数组",
+          "example": "[<COM obj1>, <COM obj2>...]"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "vtobj([com_obj1, com_obj2])",
+        "expect": "返回 VARIANT(type=VT_ARRAY|VT_DISPATCH, value=[com_obj1, com_obj2])"
+      },
+      {
+        "call": "vtobj([])",
+        "expect": "返回 VARIANT(type=VT_ARRAY|VT_DISPATCH, value=[])"
+      }
+    ]
+  },
+  "contract": {
+    "function": "vtobj",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "obj": {
+          "type": "iterable or sequence of COM-dispatchable objects",
+          "meaning": "要转换为 COM 对象数组的元素集合",
+          "default": "none"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "win32com.client.VARIANT",
+        "fields": [
+          {
+            "path": "type",
+            "meaning": "组合类型标志 VT_ARRAY|VT_DISPATCH",
+            "example": "VT_ARRAY|VT_DISPATCH"
+          },
+          {
+            "path": "value",
+            "meaning": "由 obj 形成的对象数组",
+            "example": "[<COM obj1>, <COM obj2>...]"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "obj 不可迭代或元素不可被 COM 调度",
+          "returns": "无返回",
+          "meaning": "VARIANT 构造失败或 COM 类型错误异常"
+        },
+        {
+          "when": "win32com/pythoncom 不可用或 COM 子系统异常",
+          "returns": "无返回",
+          "meaning": "ImportError/pywintypes.com_error 等异常"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用 COM 相关库构造 VARIANT 对象（依赖系统 COM 子系统与 win32com/pythoncom）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:vtobj",
+  "source_hash": "bff9017f0f50f5b5e1adc13bf655293e425438dd51e047750672d46f44b097cf",
+  "updated_at": "2026-02-26 17:28:22"
+}

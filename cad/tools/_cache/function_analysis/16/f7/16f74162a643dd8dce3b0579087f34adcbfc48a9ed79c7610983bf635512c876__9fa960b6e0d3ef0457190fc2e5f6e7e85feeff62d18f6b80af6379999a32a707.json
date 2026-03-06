@@ -1,0 +1,190 @@
+{
+  "analysis": {
+    "function": "test_draw_circle_and_wait",
+    "summary": "在 CAD 中绘制圆形并触发等待命令，同时启动后台超时线程在指定时间后发送无效命令以中断等待；异常时记录日志并返回空。",
+    "inputs": [
+      {
+        "name": "center",
+        "type": "tuple",
+        "meaning": "圆心坐标",
+        "default": "(0,0,0)"
+      },
+      {
+        "name": "radius",
+        "type": "number",
+        "meaning": "圆半径",
+        "default": "10000"
+      },
+      {
+        "name": "timeout_sec",
+        "type": "number",
+        "meaning": "超时秒数，用于后台线程触发中断",
+        "default": "20"
+      }
+    ],
+    "steps": [
+      "尝试获取当前 DWG 文件名，失败则置为 '<unknown>'",
+      "调用 CAD 绘制圆（draw_circle）",
+      "如果绘制失败则打印错误并返回空",
+      "向 CAD 发送等待命令 'h\\n'",
+      "启动守护线程，计时 timeout_sec+1 秒后发送无效命令中断 CAD",
+      "正常返回绘制的圆对象",
+      "捕获任意异常时记录日志并尝试写入详细日志，然后返回空"
+    ],
+    "branches": [
+      {
+        "when": "draw_circle(center, radius) 返回 None",
+        "does": "打印错误信息，终止流程",
+        "returns": "None"
+      },
+      {
+        "when": "后台线程计时超过 timeout_sec+1",
+        "does": "向 CAD 发送无效命令以中断等待",
+        "returns": "不影响主返回值"
+      },
+      {
+        "when": "任意异常被捕获",
+        "does": "记录错误日志并尝试写入详细日志",
+        "returns": "None"
+      },
+      {
+        "when": "正常执行完成",
+        "does": "启动后台线程并返回圆对象",
+        "returns": "CAD 圆对象"
+      }
+    ],
+    "errors": [
+      {
+        "case": "current_dwg_basename 获取失败",
+        "symptom": "异常抛出",
+        "handling": "忽略异常，使用 '<unknown>'",
+        "returns": "不影响主流程"
+      },
+      {
+        "case": "draw_circle 失败返回 None",
+        "symptom": "圆绘制失败",
+        "handling": "打印错误并直接返回",
+        "returns": "None"
+      },
+      {
+        "case": "doc.SendCommand 失败（后台线程）",
+        "symptom": "发送无效命令异常",
+        "handling": "记录警告日志",
+        "returns": "不影响主返回值"
+      },
+      {
+        "case": "主流程任意异常",
+        "symptom": "异常抛出",
+        "handling": "记录错误日志并尝试写入详细日志",
+        "returns": "None"
+      }
+    ],
+    "side_effects": [
+      "调用 CAD 接口绘制圆（draw_circle）",
+      "向 CAD 发送命令 doc.SendCommand('h\\n')",
+      "启动后台守护线程并周期性 sleep",
+      "后台线程可能向 CAD 发送无效命令以中断等待",
+      "打印错误信息到标准输出",
+      "记录日志（sys_logger.info、_log）",
+      "依赖外部 CAD 环境与 DWG 文档对象 doc"
+    ],
+    "returns": {
+      "shape": "圆对象或 None",
+      "fields": [
+        {
+          "path": "<return>",
+          "meaning": "成功时返回 CAD 圆对象，失败或异常时返回 None",
+          "example": "<CircleObject> 或 None"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "test_draw_circle_and_wait()",
+        "expect": "返回 CAD 圆对象；同时向 CAD 发送等待命令并启动超时线程"
+      },
+      {
+        "call": "test_draw_circle_and_wait(center=(10,20,0), radius=50, timeout_sec=5)",
+        "expect": "返回 CAD 圆对象；5 秒后后台线程发送无效命令中断等待"
+      },
+      {
+        "call": "test_draw_circle_and_wait(radius=-1)",
+        "expect": "若 draw_circle 失败则打印错误并返回 None"
+      }
+    ]
+  },
+  "contract": {
+    "function": "test_draw_circle_and_wait",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "center": {
+          "type": "tuple",
+          "meaning": "圆心坐标",
+          "default": "(0,0,0)"
+        },
+        "radius": {
+          "type": "number",
+          "meaning": "圆半径",
+          "default": "10000"
+        },
+        "timeout_sec": {
+          "type": "number",
+          "meaning": "超时秒数，用于后台线程触发中断",
+          "default": "20"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "圆对象或 None",
+        "fields": [
+          {
+            "path": "<return>",
+            "meaning": "成功时返回 CAD 圆对象，失败或异常时返回 None",
+            "example": "<CircleObject> 或 None"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "current_dwg_basename 获取失败",
+          "returns": "不影响主流程",
+          "meaning": "异常抛出"
+        },
+        {
+          "when": "draw_circle 失败返回 None",
+          "returns": "None",
+          "meaning": "圆绘制失败"
+        },
+        {
+          "when": "doc.SendCommand 失败（后台线程）",
+          "returns": "不影响主返回值",
+          "meaning": "发送无效命令异常"
+        },
+        {
+          "when": "主流程任意异常",
+          "returns": "None",
+          "meaning": "异常抛出"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用 CAD 接口绘制圆（draw_circle）",
+      "向 CAD 发送命令 doc.SendCommand('h\\n')",
+      "启动后台守护线程并周期性 sleep",
+      "后台线程可能向 CAD 发送无效命令以中断等待",
+      "打印错误信息到标准输出",
+      "记录日志（sys_logger.info、_log）",
+      "依赖外部 CAD 环境与 DWG 文档对象 doc"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:test_draw_circle_and_wait",
+  "source_hash": "9fa960b6e0d3ef0457190fc2e5f6e7e85feeff62d18f6b80af6379999a32a707",
+  "updated_at": "2026-02-26 17:28:18"
+}

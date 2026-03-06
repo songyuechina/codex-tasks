@@ -1,0 +1,153 @@
+{
+  "analysis": {
+    "function": "serialize",
+    "summary": "递归转换输入为仅含基础类型/handle字符串的结构，支持 dict/list/tuple，其他对象通过 com_to_handle 转换",
+    "inputs": [
+      {
+        "name": "obj",
+        "type": "Any",
+        "meaning": "待序列化对象，可为 dict/list/tuple/COM 对象等",
+        "default": null
+      }
+    ],
+    "steps": [
+      "判断 obj 是否为 dict，递归序列化每个值",
+      "否则判断是否为 list，递归序列化每个元素",
+      "否则判断是否为 tuple，递归序列化每个元素并保持 tuple",
+      "否则将 obj 交给 com_to_handle 转为 handle 字符串"
+    ],
+    "branches": [
+      {
+        "when": "obj 是 dict",
+        "does": "对 obj.items() 逐项递归 serialize",
+        "returns": "新的 dict，值被转换"
+      },
+      {
+        "when": "obj 是 list",
+        "does": "对列表元素递归 serialize",
+        "returns": "新的 list，元素被转换"
+      },
+      {
+        "when": "obj 是 tuple",
+        "does": "对元组元素递归 serialize",
+        "returns": "新的 tuple，元素被转换"
+      },
+      {
+        "when": "obj 不是容器类型",
+        "does": "调用 com_to_handle(obj)",
+        "returns": "handle 字符串或其返回值"
+      }
+    ],
+    "errors": [
+      {
+        "case": "com_to_handle 失败或外部对象无效",
+        "symptom": "抛出异常或返回无效值",
+        "handling": "本函数不捕获异常",
+        "returns": "无（异常向外抛出）"
+      },
+      {
+        "case": "递归对象中包含不可序列化项",
+        "symptom": "递归过程中 com_to_handle 失败",
+        "handling": "本函数不捕获异常",
+        "returns": "无（异常向外抛出）"
+      }
+    ],
+    "side_effects": [
+      "可能调用外部 COM 相关系统（由 com_to_handle 实现）",
+      "无文件/网络/数据库写入在本函数中发生"
+    ],
+    "returns": {
+      "shape": "dict | list | tuple | handle-string/primitive",
+      "fields": [
+        {
+          "path": "$",
+          "meaning": "与输入结构同形的序列化结果或 handle",
+          "example": "{'a': 'H123', 'b': [1, 'H456']}"
+        },
+        {
+          "path": "$[i]",
+          "meaning": "list/tuple 中第 i 个已转换元素",
+          "example": "('H1','H2')"
+        },
+        {
+          "path": "$.key",
+          "meaning": "dict 中 key 对应的已转换值",
+          "example": "'H999'"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "serialize({'a': obj1, 'b': [obj2, 3]})",
+        "expect": "{'a': 'HANDLE(obj1)', 'b': ['HANDLE(obj2)', 3]}（handle 由 com_to_handle 决定）"
+      },
+      {
+        "call": "serialize((obj1, obj2))",
+        "expect": "('HANDLE(obj1)', 'HANDLE(obj2)')"
+      },
+      {
+        "call": "serialize(obj1)",
+        "expect": "'HANDLE(obj1)'"
+      }
+    ]
+  },
+  "contract": {
+    "function": "serialize",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "obj": {
+          "type": "Any",
+          "meaning": "待序列化对象，可为 dict/list/tuple/COM 对象等",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "dict | list | tuple | handle-string/primitive",
+        "fields": [
+          {
+            "path": "$",
+            "meaning": "与输入结构同形的序列化结果或 handle",
+            "example": "{'a': 'H123', 'b': [1, 'H456']}"
+          },
+          {
+            "path": "$[i]",
+            "meaning": "list/tuple 中第 i 个已转换元素",
+            "example": "('H1','H2')"
+          },
+          {
+            "path": "$.key",
+            "meaning": "dict 中 key 对应的已转换值",
+            "example": "'H999'"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "com_to_handle 失败或外部对象无效",
+          "returns": "无（异常向外抛出）",
+          "meaning": "抛出异常或返回无效值"
+        },
+        {
+          "when": "递归对象中包含不可序列化项",
+          "returns": "无（异常向外抛出）",
+          "meaning": "递归过程中 com_to_handle 失败"
+        }
+      ]
+    },
+    "side_effects": [
+      "可能调用外部 COM 相关系统（由 com_to_handle 实现）",
+      "无文件/网络/数据库写入在本函数中发生"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:serialize",
+  "source_hash": "741b2dfe11ecda93439571d6c27859fcb56644833f6204acde118c9dc9f9527c",
+  "updated_at": "2026-02-26 17:28:21"
+}

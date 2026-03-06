@@ -1,0 +1,18 @@
+{
+  "role": "planner",
+  "name": "Planner",
+  "started_at": "2026-02-23T22:22:20+08:00",
+  "last_seen": "2026-02-23T22:30:15+08:00",
+  "turn_count": 2,
+  "current_task": "none",
+  "current_status": "idle",
+  "completion": 0,
+  "next_action": "",
+  "last_user": "我们在本地电脑使用天正CAD系统，主要研究建筑施工图的自动化，先完善工程图纸基础服务系统，即CAD图纸的插图签编目录打印服务。",
+  "last_output": "太好了，先把“工程图纸基础服务系统”的 MVP 收敛到三件事：插图签（图框/标题栏）、编目录（图纸目录表）、打印（批量出PDF）。下面是可落地的技术路线与3-4周实施计划，请你确认版本与资产后我细化WBS与第一周清单。\n\n目标与范围\n- 插图签：按规范在每个布局插入标准图框/图签块，自动填充属性（项目/专业/楼栋/图名/图号/阶段/版次/设计/校对/日期等）。\n- 编目录：从布局/图签属性汇总生成目录表（在“目录”布局或模型空间放置表格块），支持刷新。\n- 打印出图：按版式(A4/A3/A2/A1)、CTB、PC3 批量出PDF，命名规则可配置（如 项目-专业-图号-图名-版次.pdf）。\n\n技术路线（本地PC、天正CAD环境）\n- CAD宿主：优先 AutoCAD(+天正) .NET 插件；如是 ZWCAD(+天正) 则使用 ZRX .NET 插件，接口基本一致（QtZcad）。\n- 插件语言：C# .NET（AutoCAD/ZWCAD .NET API + COM），提供稳定命令，UI先从命令行交互开始。\n- 外层编排：可选提供一个 Python/CLI（调用 CAD 的 COM `/b` 脚本）做批处理，不依赖UI，提高一次性出图效率。\n- 数据源：Excel/CSV（图纸清单）+ YAML（全局配置与映射）。图签属性与字段名做一层映射，便于不同图框复用。\n- 兼容天正：不依赖天正自定义对象，只操作布局、块、属性、外部参照与打印，保障跨版本与稳定性。\n\n目录结构与配置（建议）\n- 项目根\n  - config.yml（全局：出图目录、CTB/PC3、图签块名、字段映射、命名规则）\n  - sheets.xlsx（图纸清单：layout、sheet_no、title、size、scale、discipline、building、revision…）\n  - blocks/TitleBlocks.dwg（标准图框/图签块库，含A4/A3/A2/A1）\n  - plot/CTB/*.ctb、plot/PC3/*.pc3（项目指定样式与设备）\n示例 config.yml\n```yaml\nproject: XX项目\ndiscipline: 建施\nplot:\n  pc3: \"DWG To PDF.pc3\"\n  ctb: \"A1_Arch.ctb\"\n  output_dir: \"./_out/pdf\"\n  naming: \"{project}-{discipline}-{sheet_no}-{title}-{rev}.pdf\"\ntitleblock:\n  block_name_map:\n    A1: \"TB_A1\"\n    A2: \"TB_A2\"\n    A3: \"TB_A3\"\n  attr_map:\n    project: \"PRJ\"\n    discipline: \"DISC\"\n    sheet_no: \"SHEET_NO\"\n    title: \"TITLE\"\n    building: \"BLDG\"\n    floor: \"FLOOR\"\n    designer: \"DESIGNER\"\n    checker: \"CHECKER\"\n    reviewer: \"REVIEWER\"\n    date: \"DATE\"\n    rev: \"REV\"\ntable:\n  index_layout: \"目录\"\n  columns: [\"sheet_no\",\"title\",\"size\",\"scale\",\"rev\",\"remark\"]\n```\n\n插件命令设计（首批）\n- TZINSIGN：当前布局按 config/sheets 插入图框图签块，自动对齐页面范围并填充属性。\n- TZUPDATTR：批量刷新所选布局的图签属性（从 sheets.xlsx 或当前DWG自定义属性）。\n- TZGENDIR：生成/刷新目录表（支持放置点选择、表头样式、列宽自动）。\n- TZPLOT：批量出PDF（按布局过滤、纸张映射、命名规则）；支持干跑检查（只生成清单不打印）。\n- TZCHECK：体检报告（缺失布局/块、属性未匹配、视口未锁定比例、找不到CTB/PC3、字体缺失）。\n\nMVP 里程碑（3-4周）\n- 第1周\n  - 资产盘点：你方提供图框/图签块DWG、现用CTB/PC3、命名规则、3~5个样图DWG。\n  - 规范固化：字段清单与 attr_map、输出命名规范、目录表列定义。\n  - 骨架搭建：C# 插件工程、配置读取、DWG打开/布局遍历、日志机制。\n- 第2周\n  - 插图签：块库加载、不同幅面块选择、插入与页面框对齐、属性填充（含中文字体处理）。\n  - 编目录：从布局与属性汇总生成表格（AcTable 或块+MText），支持刷",
+  "last_output_file": "D:\\codex-tasks\\cad\\Planner_Agent\\outputs\\planner_20260223-223015.md",
+  "pending_task_ids": [
+    "T0001"
+  ],
+  "active_plan_version": null
+}

@@ -1,0 +1,109 @@
+{
+  "analysis": {
+    "function": "current_dwg_basename",
+    "summary": "从 CAD 当前文档名称中提取不带扩展名的文件名。",
+    "inputs": [],
+    "steps": [
+      "读取 acad.ActiveDocument.Name 获取当前文档名称",
+      "对名称先取 basename 再去掉扩展名",
+      "返回处理后的基础文件名"
+    ],
+    "branches": [
+      {
+        "when": "Name 包含路径或扩展名",
+        "does": "basename+splitext 去除路径与扩展",
+        "returns": "基础文件名字符串"
+      },
+      {
+        "when": "Name 不包含路径或扩展名",
+        "does": "splitext 返回原名",
+        "returns": "原名字符串"
+      }
+    ],
+    "errors": [
+      {
+        "case": "acad 或 ActiveDocument 不可用",
+        "symptom": "AttributeError/COMError",
+        "handling": "未处理，异常向外抛出",
+        "returns": null
+      },
+      {
+        "case": "Name 为 None 或非字符串",
+        "symptom": "TypeError in os.path",
+        "handling": "未处理，异常向外抛出",
+        "returns": null
+      }
+    ],
+    "side_effects": [
+      "访问外部 CAD 对象 acad.ActiveDocument.Name（COM/应用状态依赖）"
+    ],
+    "returns": {
+      "shape": "string",
+      "fields": [
+        {
+          "path": "",
+          "meaning": "当前文档不带扩展名的文件名",
+          "example": "floorplan"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "current_dwg_basename() with Name='C:/proj/floorplan.dwg'",
+        "expect": "floorplan"
+      },
+      {
+        "call": "current_dwg_basename() with Name='draft1.dwg'",
+        "expect": "draft1"
+      },
+      {
+        "call": "current_dwg_basename() with Name='Untitled'",
+        "expect": "Untitled"
+      }
+    ]
+  },
+  "contract": {
+    "function": "current_dwg_basename",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "string",
+        "fields": [
+          {
+            "path": "",
+            "meaning": "当前文档不带扩展名的文件名",
+            "example": "floorplan"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "acad 或 ActiveDocument 不可用",
+          "returns": null,
+          "meaning": "AttributeError/COMError"
+        },
+        {
+          "when": "Name 为 None 或非字符串",
+          "returns": null,
+          "meaning": "TypeError in os.path"
+        }
+      ]
+    },
+    "side_effects": [
+      "访问外部 CAD 对象 acad.ActiveDocument.Name（COM/应用状态依赖）"
+    ],
+    "safe_usage_notes": [
+      "返回值为字符串，调用方需通过内容判断成功/失败（例如是否以 ❌ 开头）"
+    ]
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:current_dwg_basename",
+  "source_hash": "394ac358c27989ec4470452bffae8c669e3a6603bbdf9188b4aed5d05af782f2",
+  "updated_at": "2026-02-26 17:28:21"
+}

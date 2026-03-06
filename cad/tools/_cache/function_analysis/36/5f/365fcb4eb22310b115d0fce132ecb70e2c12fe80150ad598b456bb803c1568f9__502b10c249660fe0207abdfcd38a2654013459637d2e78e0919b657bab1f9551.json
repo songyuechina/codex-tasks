@@ -1,0 +1,111 @@
+{
+  "analysis": {
+    "function": "ensure_typelib_from_running",
+    "summary": "从正在运行的 AutoCAD COM 实例提取类型库并生成 makepy 缓存。",
+    "inputs": [],
+    "steps": [
+      "初始化 COM 运行环境（_coinit_once）",
+      "通过 EnsureDispatch 获取 AutoCAD.Application COM 对象",
+      "从 COM 对象获取 TypeInfo 并取出包含的 TypeLib",
+      "调用 makepy.GenerateFromTypeLibSpec 生成类型库的 Python 包装"
+    ],
+    "branches": [],
+    "errors": [
+      {
+        "case": "COM 未初始化或初始化失败",
+        "symptom": "抛出 COM 相关异常（如 pythoncom.com_error）",
+        "handling": "未捕获，异常外抛",
+        "returns": "无"
+      },
+      {
+        "case": "AutoCAD 未运行或 COM ProgID 不可用",
+        "symptom": "EnsureDispatch 失败或抛出 com_error",
+        "handling": "未捕获，异常外抛",
+        "returns": "无"
+      },
+      {
+        "case": "获取 TypeInfo/TypeLib 失败",
+        "symptom": "GetTypeInfo 或 GetContainingTypeLib 抛出异常",
+        "handling": "未捕获，异常外抛",
+        "returns": "无"
+      },
+      {
+        "case": "生成 makepy 失败",
+        "symptom": "GenerateFromTypeLibSpec 抛出异常或生成失败",
+        "handling": "未捕获，异常外抛",
+        "returns": "无"
+      }
+    ],
+    "side_effects": [
+      "访问并控制本地 COM 自动化对象（AutoCAD.Application）",
+      "调用 makepy 生成并写入本地 gen_py 缓存文件",
+      "依赖系统已运行的 AutoCAD 实例"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "ensure_typelib_from_running()",
+        "expect": "成功生成 makepy 缓存，返回 None"
+      },
+      {
+        "call": "ensure_typelib_from_running()  (AutoCAD 未运行)",
+        "expect": "抛出 com_error，返回 None（异常外抛）"
+      },
+      {
+        "call": "ensure_typelib_from_running()  (TypeLib 获取失败)",
+        "expect": "抛出异常，返回 None（异常外抛）"
+      }
+    ]
+  },
+  "contract": {
+    "function": "ensure_typelib_from_running",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "COM 未初始化或初始化失败",
+          "returns": "无",
+          "meaning": "抛出 COM 相关异常（如 pythoncom.com_error）"
+        },
+        {
+          "when": "AutoCAD 未运行或 COM ProgID 不可用",
+          "returns": "无",
+          "meaning": "EnsureDispatch 失败或抛出 com_error"
+        },
+        {
+          "when": "获取 TypeInfo/TypeLib 失败",
+          "returns": "无",
+          "meaning": "GetTypeInfo 或 GetContainingTypeLib 抛出异常"
+        },
+        {
+          "when": "生成 makepy 失败",
+          "returns": "无",
+          "meaning": "GenerateFromTypeLibSpec 抛出异常或生成失败"
+        }
+      ]
+    },
+    "side_effects": [
+      "访问并控制本地 COM 自动化对象（AutoCAD.Application）",
+      "调用 makepy 生成并写入本地 gen_py 缓存文件",
+      "依赖系统已运行的 AutoCAD 实例"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:ensure_typelib_from_running",
+  "source_hash": "502b10c249660fe0207abdfcd38a2654013459637d2e78e0919b657bab1f9551",
+  "updated_at": "2026-02-26 17:28:26"
+}

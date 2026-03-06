@@ -1,0 +1,125 @@
+{
+  "analysis": {
+    "function": "vtFloat",
+    "summary": "将传入列表封装为 COM VARIANT 的双精度浮点数组。",
+    "inputs": [
+      {
+        "name": "lst",
+        "type": "list[float]",
+        "meaning": "需要转换为 COM 浮点数组的数值列表",
+        "default": "无"
+      }
+    ],
+    "steps": [
+      "接收列表参数",
+      "调用 win32com.client.VARIANT 构造函数",
+      "使用 pythoncom.VT_ARRAY | pythoncom.VT_R8 作为类型标志并返回封装结果"
+    ],
+    "branches": [
+      {
+        "when": "正常输入列表且 COM 组件可用",
+        "does": "构造 VARIANT 浮点数组",
+        "returns": "VARIANT(VT_ARRAY|VT_R8, lst)"
+      }
+    ],
+    "errors": [
+      {
+        "case": "win32com/pythoncom 不可用或未安装",
+        "symptom": "ImportError/AttributeError/COM 相关异常",
+        "handling": "未捕获，向外抛出",
+        "returns": "无"
+      },
+      {
+        "case": "lst 含不可转换为浮点的元素或类型不支持",
+        "symptom": "TypeError/ValueError 或 COM 类型异常",
+        "handling": "未捕获，向外抛出",
+        "returns": "无"
+      }
+    ],
+    "side_effects": [
+      "依赖并调用外部 COM 库 win32com/pythoncom 进行 VARIANT 构造"
+    ],
+    "returns": {
+      "shape": "win32com.client.VARIANT 对象",
+      "fields": [
+        {
+          "path": "value",
+          "meaning": "封装的浮点数组内容",
+          "example": "[1.0, 2.5]"
+        },
+        {
+          "path": "vt",
+          "meaning": "COM 类型标志",
+          "example": "VT_ARRAY|VT_R8"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "vtFloat([1, 2.5, 3])",
+        "expect": "返回 VARIANT，类型为 VT_ARRAY|VT_R8，值为 [1.0, 2.5, 3.0]"
+      },
+      {
+        "call": "vtFloat([])",
+        "expect": "返回 VARIANT，类型为 VT_ARRAY|VT_R8，值为空数组"
+      },
+      {
+        "call": "vtFloat([\"a\"])",
+        "expect": "抛出类型转换相关异常，无返回"
+      }
+    ]
+  },
+  "contract": {
+    "function": "vtFloat",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "lst": {
+          "type": "list[float]",
+          "meaning": "需要转换为 COM 浮点数组的数值列表",
+          "default": "无"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "win32com.client.VARIANT 对象",
+        "fields": [
+          {
+            "path": "value",
+            "meaning": "封装的浮点数组内容",
+            "example": "[1.0, 2.5]"
+          },
+          {
+            "path": "vt",
+            "meaning": "COM 类型标志",
+            "example": "VT_ARRAY|VT_R8"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "win32com/pythoncom 不可用或未安装",
+          "returns": "无",
+          "meaning": "ImportError/AttributeError/COM 相关异常"
+        },
+        {
+          "when": "lst 含不可转换为浮点的元素或类型不支持",
+          "returns": "无",
+          "meaning": "TypeError/ValueError 或 COM 类型异常"
+        }
+      ]
+    },
+    "side_effects": [
+      "依赖并调用外部 COM 库 win32com/pythoncom 进行 VARIANT 构造"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:vtFloat",
+  "source_hash": "45c27dc2879e183eb1c099f5e40278dd4ec4936a093b8a087a36810157d2a9b6",
+  "updated_at": "2026-02-26 17:28:23"
+}

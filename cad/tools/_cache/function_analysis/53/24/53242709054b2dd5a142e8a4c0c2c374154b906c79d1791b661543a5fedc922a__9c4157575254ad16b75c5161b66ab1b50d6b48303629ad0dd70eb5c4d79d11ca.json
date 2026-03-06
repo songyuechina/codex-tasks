@@ -1,0 +1,151 @@
+{
+  "analysis": {
+    "function": "close_all_cad_processes",
+    "summary": "强制关闭所有 CAD 进程，最多重试 3 次，验证关闭结果并返回成功/失败。",
+    "inputs": [
+      {
+        "name": "(none)",
+        "type": "-",
+        "meaning": "无入参",
+        "default": "-"
+      }
+    ],
+    "steps": [
+      "设置最大重试次数为 3",
+      "循环尝试：查询当前 CAD 进程数量",
+      "若无进程则直接返回成功",
+      "调用 taskkill 强制终止 acad.exe",
+      "根据返回码判断是否成功、无需关闭或失败",
+      "成功后等待并再次验证进程是否清空",
+      "失败时记录日志并在重试间隔后继续",
+      "多次失败后返回 False"
+    ],
+    "branches": [
+      {
+        "when": "jingchengshu_wenjian() == 0",
+        "does": "打印无需关闭信息并返回",
+        "returns": "True"
+      },
+      {
+        "when": "taskkill returncode == 0 且验证后进程数为 0",
+        "does": "打印成功与验证信息",
+        "returns": "True"
+      },
+      {
+        "when": "taskkill returncode == 0 但验证仍有进程",
+        "does": "记录警告并进入重试逻辑",
+        "returns": "继续循环"
+      },
+      {
+        "when": "taskkill returncode == 128",
+        "does": "认为无进程需要关闭",
+        "returns": "True"
+      },
+      {
+        "when": "taskkill returncode 其他",
+        "does": "记录返回码与输出",
+        "returns": "继续循环"
+      },
+      {
+        "when": "所有重试耗尽",
+        "does": "打印失败提示",
+        "returns": "False"
+      }
+    ],
+    "errors": [
+      {
+        "case": "subprocess.TimeoutExpired",
+        "symptom": "taskkill 超时",
+        "handling": "记录错误并可重试",
+        "returns": "继续循环，最终可能 False"
+      },
+      {
+        "case": "Exception 任意异常",
+        "symptom": "关闭失败并附带异常信息",
+        "handling": "记录错误并可重试",
+        "returns": "继续循环，最终可能 False"
+      }
+    ],
+    "side_effects": [
+      "调用系统命令 taskkill 终止 acad.exe 进程",
+      "访问外部进程列表（jingchengshu_wenjian）",
+      "输出到日志 sys_logger.info 与 print",
+      "time.sleep 等待造成时间延迟"
+    ],
+    "returns": {
+      "shape": "bool",
+      "fields": [
+        {
+          "path": "(return)",
+          "meaning": "是否成功关闭所有 CAD 进程",
+          "example": "True"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "close_all_cad_processes()",
+        "expect": "返回 True；日志提示没有 CAD 进程需要关闭"
+      },
+      {
+        "call": "close_all_cad_processes()",
+        "expect": "返回 True；taskkill 成功且验证进程数为 0"
+      },
+      {
+        "call": "close_all_cad_processes()",
+        "expect": "返回 False；多次重试仍无法关闭进程"
+      }
+    ]
+  },
+  "contract": {
+    "function": "close_all_cad_processes",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "(none)": {
+          "type": "-",
+          "meaning": "无入参",
+          "default": "-"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "bool",
+        "fields": [
+          {
+            "path": "(return)",
+            "meaning": "是否成功关闭所有 CAD 进程",
+            "example": "True"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "subprocess.TimeoutExpired",
+          "returns": "继续循环，最终可能 False",
+          "meaning": "taskkill 超时"
+        },
+        {
+          "when": "Exception 任意异常",
+          "returns": "继续循环，最终可能 False",
+          "meaning": "关闭失败并附带异常信息"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用系统命令 taskkill 终止 acad.exe 进程",
+      "访问外部进程列表（jingchengshu_wenjian）",
+      "输出到日志 sys_logger.info 与 print",
+      "time.sleep 等待造成时间延迟"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:close_all_cad_processes",
+  "source_hash": "9c4157575254ad16b75c5161b66ab1b50d6b48303629ad0dd70eb5c4d79d11ca",
+  "updated_at": "2026-02-26 17:28:26"
+}

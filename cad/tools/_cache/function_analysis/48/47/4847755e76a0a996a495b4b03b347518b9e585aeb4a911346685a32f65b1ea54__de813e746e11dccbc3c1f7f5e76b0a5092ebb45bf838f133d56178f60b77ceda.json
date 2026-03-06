@@ -1,0 +1,114 @@
+{
+  "analysis": {
+    "function": "wait_quiescent_ceshi",
+    "summary": "打开指定DWG文件，等待CAD空闲后发送ZOOM范围命令，再次等待空闲完成。",
+    "inputs": [
+      {
+        "name": "none",
+        "type": "-",
+        "meaning": "无参数",
+        "default": "-"
+      }
+    ],
+    "steps": [
+      "导入CAD文件操作函数open_file",
+      "打开固定路径的DWG文件",
+      "调用wait_quiescent等待CAD空闲",
+      "通过C.doc.PostCommand发送LISP命令执行ZOOM Extents",
+      "再次调用wait_quiescent等待命令完成"
+    ],
+    "branches": [],
+    "errors": [
+      {
+        "case": "DWG文件路径不存在或无法访问",
+        "symptom": "open_file抛出异常或打开失败",
+        "handling": "未捕获，异常向外抛出",
+        "returns": "无返回"
+      },
+      {
+        "case": "CAD环境未初始化或C/doc不可用",
+        "symptom": "C.doc.PostCommand访问错误",
+        "handling": "未捕获，异常向外抛出",
+        "returns": "无返回"
+      },
+      {
+        "case": "wait_quiescent不可用或等待超时",
+        "symptom": "函数抛异常或阻塞",
+        "handling": "未捕获，异常向外抛出",
+        "returns": "无返回"
+      }
+    ],
+    "side_effects": [
+      "访问文件系统打开DWG文件",
+      "调用CAD API发送命令并改变当前视图缩放",
+      "依赖CAD会话与命令队列状态"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "wait_quiescent_ceshi()",
+        "expect": "打开指定DWG并缩放到全图范围，函数返回None"
+      },
+      {
+        "call": "wait_quiescent_ceshi()（DWG路径不可用）",
+        "expect": "open_file失败抛异常，未返回正常结果"
+      },
+      {
+        "call": "wait_quiescent_ceshi()（CAD未就绪）",
+        "expect": "wait_quiescent或PostCommand报错抛异常"
+      }
+    ]
+  },
+  "contract": {
+    "function": "wait_quiescent_ceshi",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "none": {
+          "type": "-",
+          "meaning": "无参数",
+          "default": "-"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "DWG文件路径不存在或无法访问",
+          "returns": "无返回",
+          "meaning": "open_file抛出异常或打开失败"
+        },
+        {
+          "when": "CAD环境未初始化或C/doc不可用",
+          "returns": "无返回",
+          "meaning": "C.doc.PostCommand访问错误"
+        },
+        {
+          "when": "wait_quiescent不可用或等待超时",
+          "returns": "无返回",
+          "meaning": "函数抛异常或阻塞"
+        }
+      ]
+    },
+    "side_effects": [
+      "访问文件系统打开DWG文件",
+      "调用CAD API发送命令并改变当前视图缩放",
+      "依赖CAD会话与命令队列状态"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:wait_quiescent_ceshi",
+  "source_hash": "de813e746e11dccbc3c1f7f5e76b0a5092ebb45bf838f133d56178f60b77ceda",
+  "updated_at": "2026-02-26 17:28:19"
+}

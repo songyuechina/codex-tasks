@@ -500,7 +500,7 @@ sys_logger.mute_mode = GLOBAL_SILENT_MODE
 
 
 
-set_debug_mode(mode=1, who="AI", wait_time=30)
+set_debug_mode(mode=1, who="AI", wait_time=0)
 
 
 
@@ -3968,86 +3968,7 @@ def process_final(lines, tol=0.5, max_steps=50, layer_name="测试辅助"):
 
 
 
-#&&% 绘制轻量多段线
-@alias("画轻量多段线")
-def draw_lwpolyline(
-    coords3d: list[tuple[float, float, float]],
-    layer_name: str = "0",
-    width: float = 0.0,
-    color: int = 256,
-    closed: bool = False
-):
-    """
-    根据一组 (x, y, z) 坐标点绘制轻量级多段线（LWPOLYLINE）。
 
-    :param coords3d: 形如 [(x1, y1, z1), (x2, y2, z2), …] 的点列表，
-                     仅使用 x,y 坐标，忽略 z。
-    :param layer_name: 目标图层名称，不存在则自动创建。
-    :param width:      多段线恒宽 (ConstantWidth)。
-    :param color:      颜色索引 (AutoCAD Color Index)，256=BYLAYER。
-    :param closed:     是否闭合多段线（首尾相连）。
-
-    :return:           新建的轻量级多段线对象 (COM AddLightWeightPolyline)。
-
-    pts = [
-        (0.0, 0.0, 0.0),
-        (100.0, 0.0, 0.0),
-        (100.0, 50.0, 0.0),
-        (0.0, 50.0, 0.0),
-    ]
-    poly = draw_lwpolyline(
-        coords3d=pts,
-        layer_name="dy_quyu",
-        width=0.0,
-        color=1,      # 红色
-        closed=True
-    )
-    poly.Coordinates
-    (0.0, 0.0, 100.0, 0.0, 100.0, 50.0, 0.0, 50.0)
-
-    len((0.0, 0.0, 100.0, 0.0, 100.0, 50.0, 0.0, 50.0))
-    8
-
-    """
-    # 1️⃣ 连接 AutoCAD
-
-    # 2️⃣ 确保图层存在
-    layers = doc.Layers
-    try:
-        lyr = layers.Item(layer_name)
-    except Exception:
-        lyr = layers.Add(layer_name)
-    # Optional: 开启图层
-    lyr.LayerOn = True
-
-    # 3️⃣ 准备坐标数组：扁平化 x,y
-    raw = []
-    for x, y, _ in coords3d:
-        raw.extend((x, y))
-    # 转 COM VARIANT 数组
-    arr = win32com.client.VARIANT(
-        pythoncom.VT_ARRAY | pythoncom.VT_R8,
-        raw
-    )
-
-    # 4️⃣ 绘制轻量级多段线
-
-    try:
-
-        pline = mp.AddLightWeightPolyline(arr)
-        pline.Layer         = layer_name
-        pline.ConstantWidth = width
-        pline.color         = color
-        pline.Closed        = bool(closed)
-
-        sys_logger.info(f"[OK] 已在图层『{layer_name}』绘制多段线，Closed = {closed}")
-        return pline
-    except Exception as e:
-        print("[错误] 绘制多段线失败:", e) 
-
-   # 5️⃣ 返回新对象
-
-    return pline
 
 #&&% 绘制轻量多段线20260113
 @alias("画轻量多段线")
@@ -5115,37 +5036,6 @@ def get_dimensions(ent):
     except Exception:
         return 0, 0
 
-def sort_coms_by_llcorner(com_list, cha_Y=2000):
-    """
-    按 BoundingBox 左下角坐标排序：
-      · 先按 y 降序（越大越靠前，即自上而下）
-      · 同一行(Δy<cha_Y)内按 x 升序（自左向右）
-    """
-    wrapped = []
-    for ent in com_list:
-        try:
-            p1, _ = ent.GetBoundingBox()      # p1 已是左下
-            x_ll, y_ll = p1[0], p1[1]
-        except Exception:
-            x_ll = y_ll = float('-inf')       # 取不到的一律放最后
-        wrapped.append((ent, x_ll, y_ll))     # (实体, x, y)
-
-    # 先按 y 降序
-    wrapped.sort(key=lambda t: -t[2])
-
-    i = 0
-    while i < len(wrapped): # 注意：这里稍微改了一点点逻辑以确保处理最后一行
-        j = i + 1
-        # 寻找当前行的结束位置
-        while j < len(wrapped) and abs(wrapped[i][2] - wrapped[j][2]) < cha_Y:
-            j += 1
-        # 行内再按 x 升序
-        if j - i > 1:
-            wrapped[i:j] = sorted(wrapped[i:j], key=lambda t: t[1])
-        i = j
-
-    return [ent for ent, _, _ in wrapped]
-
 def main():
     acad = get_cad_app()
     if not acad: return
@@ -5248,126 +5138,6 @@ def generate_relation_list(data_list):
 #&&&% 选择标准打印区域
 
 
-def check_strict_standard_size(comobj, tol=10):
-    """
-    【函数编号】: MAP-CHECK-SIZE-004
-    【功能】: 严格检查对象外包盒是否符合标准打印框尺寸。
-             支持动态容差：虽然输入参数 tol 固定，但内部判定时会根据倍率缩放容差。
-             即：当 scale=0.01 时，实际使用的容差是 tol * 0.01 = 0.1。
-    
-    【参数】:
-        tol: 基准容差 (默认10)，对应 scale=1.0 时的允许误差。
-    """
-    
-    # ————————————— 1. 基础数据定义 —————————————
-    LB_dayingkuang = [
-        (118900, 84100, 100),  (178350, 126150, 150),   (59450, 42050, 50),     (29725, 21025, 25), 
-        (133800, 84100, 100),  (200700, 126150, 150),   (66900, 42050, 50),     (33450, 21025, 25), 
-        (148600, 84100, 100),  (222900, 126150, 150),   (74300, 42050, 50),     (37150, 21025, 25), 
-        (84100,  59400, 100),  (126150, 89100,  150),   (42050, 29700, 50),     (21025, 14850, 25), 
-        (105100, 59400, 100),  (157650, 89100,  150),   (52550, 29700, 50),     (26275, 14850, 25), 
-        (126100, 59400, 100),  (189150, 89100,  150),   (63050, 29700, 50),     (31525, 14850, 25), 
-        (147100, 59400, 100),  (220650, 89100,  150),   (73550, 29700, 50),     (36775, 14850, 25), 
-        (59400,  42000, 100),  (89100,  63000,  150),   (29700, 21000, 50),     (14850, 10500, 25), 
-        (74300,  42000, 100),  (111450, 63000,  150),   (37150, 21000, 50),     (18575, 10500, 25), 
-        (89100,  42000, 100),  (133650, 63000,  150),   (44550, 21000, 50),     (22275, 10500, 25), 
-        (104100, 42000, 100),  (156150, 63000,  150),   (52050, 21000, 50),     (26025, 10500, 25), 
-        (42000,  29700, 100),  (63000,  44550,  150),   (21000, 14850, 50),     (10500, 7425,  25), 
-    ]
-
-    drawing_map_ml = [
-        ("A0", "1:100"), ("A0", "1:150"), ("A0", "1:50"),  ("A0", "1:25"),
-        ("A0+1/8", "1:100"), ("A0+1/8", "1:150"), ("A0+1/8", "1:50"),  ("A0+1/8", "1:25"),
-        ("A0+1/4", "1:100"), ("A0+1/4", "1:150"), ("A0+1/4", "1:50"),  ("A0+1/4", "1:25"),
-        ("A1", "1:100"), ("A1", "1:150"), ("A1", "1:50"), ("A1", "1:25"),
-        ("A1+1/4", "1:100"), ("A1+1/4", "1:150"), ("A1+1/4", "1:50"),  ("A1+1/4", "1:25"),
-        ("A1+1/2", "1:100"), ("A1+1/2", "1:150"), ("A1+1/2", "1:50"),  ("A1+1/2", "1:25"),
-        ("A1+3/4", "1:100"), ("A1+3/4", "1:150"), ("A1+3/4", "1:50"),  ("A1+3/4", "1:25"),
-        ("A2", "1:100"), ("A2", "1:150"), ("A2", "1:50"),  ("A2", "1:25"),
-        ("A2+1/4", "1:100"), ("A2+1/4", "1:150"), ("A2+1/4", "1:50"),  ("A2+1/4", "1:25"),
-        ("A2+1/2", "1:100"), ("A2+1/2", "1:150"), ("A2+1/2", "1:50"),  ("A2+1/2", "1:25"),
-        ("A2+3/4", "1:100"), ("A2+3/4", "1:150"), ("A2+3/4", "1:50"),  ("A2+3/4", "1:25"),
-        ("A3", "1:100"), ("A3", "1:150"), ("A3", "1:50"),  ("A3", "1:25")
-    ]
-
-    drawing_map = [
-        "ISO_A0_(841.00_x_1189.00_MM)", "ISO_A0_(841.00_x_1189.00_MM)", "ISO_A0_(841.00_x_1189.00_MM)", "ISO_A0_(841.00_x_1189.00_MM)",
-        "UserDefinedMetric (1338.00 x 841.00毫米)", "UserDefinedMetric (1338.00 x 841.00毫米)",
-        "UserDefinedMetric (1338.00 x 841.00毫米)", "UserDefinedMetric (1338.00 x 841.00毫米)",
-        "UserDefinedMetric (1486.00 x 841.00毫米)", "UserDefinedMetric (1486.00 x 841.00毫米)",
-        "UserDefinedMetric (1486.00 x 841.00毫米)", "UserDefinedMetric (1486.00 x 841.00毫米)",
-        "ISO_A1_(841.00_x_594.00_MM)", "ISO_A1_(841.00_x_594.00_MM)", "ISO_A1_(841.00_x_594.00_MM)", "ISO_A1_(841.00_x_594.00_MM)",
-        "UserDefinedMetric (1051.00 x 594.00毫米)", "UserDefinedMetric (1051.00 x 594.00毫米)",
-        "UserDefinedMetric (1051.00 x 594.00毫米)", "UserDefinedMetric (1051.00 x 594.00毫米)",
-        "UserDefinedMetric (1261.00 x 594.00毫米)", "UserDefinedMetric (1261.00 x 594.00毫米)",
-        "UserDefinedMetric (1261.00 x 594.00毫米)", "UserDefinedMetric (1261.00 x 594.00毫米)",
-        "UserDefinedMetric (1471.00 x 594.00毫米)", "UserDefinedMetric (1471.00 x 594.00毫米)",
-        "UserDefinedMetric (1471.00 x 594.00毫米)", "UserDefinedMetric (1471.00 x 594.00毫米)",
-        "ISO_A2_(594.00_x_420.00_MM)", "ISO_A2_(594.00_x_420.00_MM)", "ISO_A2_(594.00_x_420.00_MM)", "ISO_A2_(594.00_x_420.00_MM)",
-        "UserDefinedMetric (743.00 x 420.00毫米)", "UserDefinedMetric (743.00 x 420.00毫米)",
-        "UserDefinedMetric (743.00 x 420.00毫米)", "UserDefinedMetric (743.00 x 420.00毫米)",
-        "UserDefinedMetric (891.00 x 420.00毫米)", "UserDefinedMetric (891.00 x 420.00毫米)",
-        "UserDefinedMetric (891.00 x 420.00毫米)", "UserDefinedMetric (891.00 x 420.00毫米)",
-        "UserDefinedMetric (1041.00 x 420.00毫米)", "UserDefinedMetric (1041.00 x 420.00毫米)",
-        "UserDefinedMetric (1041.00 x 420.00毫米)", "UserDefinedMetric (1041.00 x 420.00毫米)",
-        "ISO_A3_(420.00_x_297.00_MM)", "ISO_A3_(420.00_x_297.00_MM)", "ISO_A3_(420.00_x_297.00_MM)", "ISO_A3_(420.00_x_297.00_MM)"
-    ]
-
-    # —————————— 2. 获取对象外包盒信息 ——————————
-    try:
-        PL_min = find_min_point(comobj)
-        PL_max = find_max_point(comobj)
-        # 依赖外部函数 define_rectangle_by_diagonal
-        _, length, width = define_rectangle_by_diagonal(PL_min, PL_max)
-        
-        dx = abs(PL_max[0] - PL_min[0])
-        dy = abs(PL_max[1] - PL_min[1])
-        # 1表示竖向，0表示横向
-        orientation_flag = 1 if dy > dx else 0
-    except Exception as e:
-        sys_logger.info(f"获取对象几何信息失败: {e}")
-        return 0
-
-    # —————————— 3. 严格匹配逻辑 ——————————
-    allowed_scales = [1.0, 1.1, 1.2, 0.01]
-
-    for i, (std_len, std_wid, _) in enumerate(LB_dayingkuang):
-        for scale in allowed_scales:
-            # 计算目标尺寸
-            target_len = std_len * scale
-            target_wid = std_wid * scale
-            
-            # 🔥 核心修正：使用传入的 tol 乘以 scale 得到当前容差
-            # tol 是基准容差(针对1.0倍率)。
-            # 当 scale=0.01 时，current_tol 变成 0.1 (假设 tol=10)
-            current_tol = tol * scale
-            
-            # 判断是否命中
-            if (abs(length - target_len) <= current_tol) and (abs(width - target_wid) <= current_tol):
-                
-                # --- 命中后的附加视觉处理 ---
-                try:
-                    if scale == 1.2:
-                        comobj.Color = 5  # 蓝色 (×1.2)
-                except Exception:
-                    pass
-
-                # --- 构造返回值 ---
-                scale_str = drawing_map_ml[i][1]
-                
-                result = (
-                    drawing_map[i],          # 纸张规范名
-                    scale_str,               # 比例
-                    drawing_map_ml[i][0],    # 图号
-                    orientation_flag         # 竖向标志
-                )
-                return result
-
-    # —————————— 4. 未命中 ——————————
-    return 0
-
-
-#&&%新版20260111
 @debuggable
 def check_strict_standard_size(comobj, tol=10):
     """
@@ -5559,63 +5329,6 @@ def plcom_to_coor(plines):
 
     
 #&&% 坐标转多段线
-def plcoor_to_com(coord_info, layer_name="测试辅助", width=0, color=256):
-    """
-    在当前 DWG 中根据坐标和封闭标志绘制多条轻量级多段线。
-
-    :param coord_info: 列表，每个元素为 (pts, closed_flag)，
-                       pts 为 [(x0,y0),…] 顶点列表，
-                       closed_flag 为 1（闭合）或 0（不闭合）。
-    :param layer_name: 目标图层名称（不存在则创建），默认 "测试辅助"
-    :param width:      多段线宽度，默认 0
-    :param color:      颜色索引，默认 256（BYLAYER）
-    :return:           绘制的多段线对象列表
-    """
-    # 1) 连接 AutoCAD
-    acad = win32com.client.gencache.EnsureDispatch("AutoCAD.Application")
-    doc  = acad.ActiveDocument
-    ms   = doc.ModelSpace
-
-    # 2) 确保图层存在
-    layers = doc.Layers
-    try:
-        lyr = layers.Item(layer_name)
-    except Exception:
-        lyr = layers.Add(layer_name)
-    lyr.LayerOn = True
-
-    created = []
-    for pts, closed_flag in coord_info:
-        # 将 pts 展平为 [x0,y0,x1,y1,…]
-        raw = []
-        for x, y in pts:
-            raw.extend((x, y))
-        # 转为 COM 数组
-        arr = win32com.client.VARIANT(
-            pythoncom.VT_ARRAY | pythoncom.VT_R8,
-            raw
-        )
-        # 添加轻量级多段线
-        lw = ms.AddLightWeightPolyline(arr)
-        lw.Layer         = layer_name
-        lw.ConstantWidth = width
-        lw.color         = color
-        lw.Closed        = bool(closed_flag)
-        created.append(lw)
-
-    # 可选：缩放到可见范围
-    acad.ZoomExtents()
-    sys_logger.info(f"[OK] 已绘制 {len(created)} 条轻量级多段线到图层 “{layer_name}”")
-    return created
-
-
-
-
-
-
-# 5 确定多段线打印框是否竖向
-
-#&&% 判断竖向框
 def panduan_shuxiangkuang(polyline):
 
     PL_min = find_min_point(polyline)
@@ -10701,35 +10414,6 @@ def separate_entities_by_block_names(entities, target_names):
 
 
 #&&% 获取块内多段线
-def huoqu_kuai_pl(blocka):#输入实体块，得到实体块中多段线矩形的坐标，其坐标以插入点的定义点为原点
-    # 连接到AutoCAD
-    acad = win32com.client.gencache.EnsureDispatch("AutoCAD.Application")
-    doc = acad.ActiveDocument
-
-    kuaiming=blocka.Name
-
-    # 获取块定义
-    block_def = doc.Blocks.Item(str(kuaiming))
-
-    # 获取块定义中的所有对象
-    block_objects = list(block_def)
-
-    # 查找三角形并删除
-    for obj in block_objects:
-
-##        print(obj.ObjectName)
-        
-        if obj.ObjectName == "AcDbPolyline":
-
-            print(obj.Coordinates)
-
-
-
-
-
-#定义基点的块
-
-#&&% 创建带基点块
 def create_block_with_basepoint():
     # 连接到AutoCAD
     acad = win32com.client.gencache.EnsureDispatch("AutoCAD.Application")
@@ -10957,88 +10641,6 @@ def delete_block_instances_and_definition_retry(target_block_name, max_rounds=3)
     return False
 
 #&&% 极速清理
-
-def delete_block_instances_and_definition_optimized(target_name, max_retries=5):
-    """
-    【函数编号】: CLEAN-ROBUST-V34 (核验版)
-    【功能】: 
-        删除指定图块的实例和定义。
-        核心改进：增加【块表反查】。不仅要实例删光，还要确认 Block Table 里彻底查无此人。
-    """
-    doc = C.doc
-    
-    # 0. 先预检：如果块表里压根没有，直接返回成功，省得费劲
-    try:
-        doc.Blocks.Item(target_name)
-    except:
-        # sys_logger.info(f"ℹ️ [预检] {target_name} 根本不存在，无需清理。")
-        return True
-
-    for attempt in range(1, max_retries + 1):
-        try:
-            # ====================================================
-            # 阶段 A: 清理实例 (Model Space) - 过滤器极速版
-            # ====================================================
-            ss_name = "RobustDelete_SS"
-            try: doc.SelectionSets.Item(ss_name).Delete()
-            except: pass
-            ss = doc.SelectionSets.Add(ss_name)
-            
-            p_filter_type = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_I2, [0, 2])
-            p_filter_data = VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_VARIANT, ["INSERT", target_name])
-            
-            ss.Select(5, None, None, p_filter_type, p_filter_data) # 5=All
-            
-            if ss.Count > 0:
-                ss.Erase() # 删除
-                # 【关键】等待操作完成
-                wait_command_done()
-            
-            ss.Delete()
-
-            # ====================================================
-            # 阶段 B: 清理定义 (Blocks Table)
-            # ====================================================
-            try:
-                blk_def = doc.Blocks.Item(target_name)
-                blk_def.Delete()
-            except:
-                # 这里报错很正常（比如被嵌套引用），先不管，下面统一验尸
-                pass
-
-            # ====================================================
-            # 阶段 C: 【核心】块表反查验尸
-            # ====================================================
-            # 无论刚才有没有报错，我现在去查户口。
-            # 如果还能查到，说明没死透；如果报错，说明彻底没了。
-            try:
-                # 尝试再次获取
-                _ = doc.Blocks.Item(target_name)
-                
-                # 🔴 还能获取到？说明清理失败！
-                # sys_logger.info(f"   ⚠️ 第 {attempt} 轮：[{target_name}] 定义仍存活 (可能被嵌套)。重试中...")
-                
-                # 强制刷新，试图断开引用锁
-                if attempt % 2 == 0: # 偶数轮次尝试 Regen
-                    doc.Regen(1)
-                
-                time.sleep(0.5)
-                continue # 进入下一轮循环
-                
-            except Exception:
-                # 🟢 报错了？说明 Block Table 里没有这个 key 了！
-                sys_logger.info(f"🗑️ [清理成功] {target_name} 已彻底根除。")
-                return True
-
-        except Exception as e:
-            sys_logger.info(f"   ⚠️ 异常: {e}")
-            time.sleep(0.5)
-            
-    # 如果跑完循环还在
-    sys_logger.info(f"❌ [清理失败] {target_name} 顽固残留 (检查是否被其他块嵌套引用)。")
-    return False
-
-#&&% 再次优化
 
 def delete_block_instances_and_definition_optimized(target_name, max_retries=5):
     """
@@ -11326,100 +10928,6 @@ def insert_standard_block(block_dwg,
 
 
 #&&% 插入并炸开DWG
-def insert_and_explode_dwg(block_dwg,
-                           insertion_point=(0, 0, 0),
-                           scale=(1, 1, 1),
-                           rotation=0,
-                           wait=0.3):
-    """
-    将一个 WBLOCK 导出的标准块 DWG 插入到当前图，
-    并立即 EXPLODE 成普通图元（不保留块引用）。
-
-    参数:
-        block_dwg: 标准块 DWG 路径
-        insertion_point: 插入点 (x,y,z)
-        scale: (sx,sy,sz)
-        rotation: 旋转角度（度）
-        wait: 每步命令后等待秒数
-    """
-
-    before = select_kuai()
-    before_handles = {b.Handle for b in before}
-
-    if not os.path.isfile(block_dwg):
-        raise FileNotFoundError(block_dwg)
-
-    # 准备参数
-    x, y, z    = insertion_point
-    sx, sy, sz = scale
-    path       = os.path.abspath(block_dwg).replace("\\", "/")
-
-    # 1) 插入块
-    insert_cmd = (
-        "-INSERT\n"
-        f"\"{path}\"\n"    # 文件路径要加双引号
-        f"{x},{y},{z}\n"
-        f"{sx}\n"
-        f"{sy}\n"
-        f"{sz}\n"
-        f"{rotation}\n"
-    )
-    doc.SendCommand(insert_cmd)
-    time.sleep(wait)
-
-    doc.SendCommand("RE\n")
-    doc.SendCommand("Z\nE\n")
-    time.sleep(wait)
-
-    # 2) EXPLODE “Last”   （炸开最新插入的块引用）
-    explode_cmd = (
-        "EXPLODE\n"
-        "L\n"    # Last
-        "\n"     # 完成选择
-    )
-    doc.SendCommand(explode_cmd)
-    time.sleep(wait)
-
-    sys_logger.info(f"[OK] 已插入并炸开：{os.path.basename(path)} @ ({x},{y},{z})")
-
-    after = select_kuai()
-    new_refs = [b for b in after if b.Handle not in before_handles]
-    if not new_refs:
-        print("[警告] 未检测到任何新插入的块引用")
-        return []
-
-    results = []
-    for blk in new_refs:
-        # 5. 先将它旋转归零（容错，不成功就算了）
-        try:
-            blk.Rotation = 0
-        except Exception:
-            pass
-
-        # 7. 取它的包围盒四角（加上 safe_get_bbox 防 CAD 忙）
-        try:
-            p1, p2 = safe_get_bbox(blk)
-        except Exception as e:
-            sys_logger.info(f"[警告] 获取块 {getattr(blk, 'Name', '?')} 外包盒失败：{e}")
-            continue
-
-        minx, miny, minz = p1
-        maxx, maxy, maxz = p2
-        corners = [
-            (minx, miny, minz),  # 左下
-            (minx, maxy, minz),  # 左上
-            (maxx, maxy, minz),  # 右上
-            (maxx, miny, minz),  # 右下
-        ]
-
-        results.append((blk, corners))
-
-    # 兼容你当前调用方式：返回 (列表, 最后一个块)
-    return results, blk if results else ([], None)
-
-
-#&&% 新版本性能测试0109
-
 @retry_on_busy
 def insert_and_explode_dwg(
         block_dwg,
@@ -15390,61 +14898,6 @@ def r2():
 
 
 #&&% 最小化指定窗口
-def minimize_window(window_keyword: str = 'OBS') -> bool:
-    """
-    通用：最小化第一个标题包含 window_keyword 的可见窗口。
-
-    :param window_keyword: 要匹配的窗口标题关键字（子串匹配），默认 'OBS'
-    :return: 如果成功最小化返回 True，否则返回 False
-    """
-    # 1) 找到所有匹配的可见窗口
-    windows = [w for w in gw.getWindowsWithTitle(window_keyword) if w.visible]
-    if not windows:
-        print(f'[错误] 未找到标题包含 "{window_keyword}" 的可见窗口')
-        return False
-
-    # 2) 取第一个并最小化
-    win = windows[0]
-    print(f'🔍 找到窗口: "{win.title}"，执行最小化')
-    win.minimize()
-    return True
-
-#&&% 最大化CAD窗口
-def maximize_autocad_window(window_keyword: str = 'AutoCAD') -> bool:
-    """
-    强制最大化第一个标题包含 window_keyword 的可见窗口。
-    优先尝试使用 win32gui，如不可用则退回 ctypes 调用 user32。
-    """
-    # 1) 找到目标窗口
-    wins = [w for w in gw.getWindowsWithTitle(window_keyword) if w.visible]
-    if not wins:
-        sys_logger.info(f"[错误] 未找到标题包含 “{window_keyword}” 的可见窗口")
-        return False
-
-    win = wins[0]
-    hWnd = win._hWnd
-
-    # 2) 先恢复（避免最小化状态），再最大化
-    #    尝试使用 win32gui
-    try:
-        import win32gui, win32con
-        win32gui.ShowWindow(hWnd, win32con.SW_RESTORE)
-        time.sleep(0.1)
-        win32gui.ShowWindow(hWnd, win32con.SW_MAXIMIZE)
-    except ImportError:
-        # 如果没有 pywin32，就退回 ctypes
-        SW_RESTORE  = 9
-        SW_MAXIMIZE = 3
-        ctypes.windll.user32.ShowWindow(hWnd, SW_RESTORE)
-        time.sleep(0.1)
-        ctypes.windll.user32.ShowWindow(hWnd, SW_MAXIMIZE)
-
-    time.sleep(0.2)  # 确保窗口完成最大化
-    sys_logger.info(f"[OK] 已将窗口 “{win.title}” 最大化")
-    return True
-
-
-#&&% 点击开始OBS录制
 def start_obs_recording_by_click(x: int = 1768, y: int = 872,
                                  button: str = 'left',
                                  clicks: int = 1,
@@ -20539,61 +19992,6 @@ def draw_pl_and_extract_from_entities(
 
 
 #&&% 区域内插入块
-def insert_block_into_poly_area(block_name, poly_ent, k=1.0, max_retries=3):
-    """
-    在多段线/多边形 poly_ent 所定义区域内插入已定义块，
-    横向区域（宽 >= 高）在左下插入；竖向区域在左上插入并顺时针旋转 90°。
-    """
-    import time
-    import math
-    import win32com.client
-    import pythoncom
-
-    if not hasattr(poly_ent, "GetBoundingBox"):
-        raise TypeError("poly_ent 必须具备 GetBoundingBox 方法")
-
-    li()
-    global doc, mp
-    if doc is None or mp is None:
-        raise RuntimeError("[insert_block_into_poly_area] doc/mp 为 None")
-
-    p1, p2 = poly_ent.GetBoundingBox()
-    minx, miny, minz = p1
-    maxx, maxy, _ = p2
-    width = maxx - minx
-    height = maxy - miny
-
-    orientation = 0 if width >= height else 1
-    ins_pt = (minx, miny, minz) if orientation == 0 else (minx, maxy, minz)
-
-    ins_var = win32com.client.VARIANT(
-        pythoncom.VT_ARRAY | pythoncom.VT_R8,
-        ins_pt,
-    )
-
-    block_ref = None
-    last_err = None
-    for attempt in range(1, max_retries + 1):
-        try:
-            block_ref = mp.InsertBlock(ins_var, block_name, k, k, k, 0.0)
-            break
-        except Exception as exc:
-            last_err = exc
-            sys_logger.info(f"⚠ 第 {attempt} 次插入块失败: {exc}")
-            time.sleep(0.5)
-    else:
-        raise RuntimeError(f"❌ 多次尝试仍无法插入块 {block_name}: {last_err}")
-
-    # 竖向时顺时针 90°
-    if orientation == 1 and block_ref is not None:
-        try:
-            set_attr(block_ref, "Rotation", -math.pi / 2)
-        except Exception as exc:
-            print("⚠ 设置 Rotation 失败：", exc)
-
-    return orientation, ins_pt, block_ref
-
-#&&% 区域内插入块20260109
 def insert_block_into_poly_area(block_name, poly_ent, k=1.0, max_retries=3):
     """
     【修正版 V2】自动识别 poly_ent 所在空间（模型或布局），直接使用 C.doc。
@@ -29362,12 +28760,6 @@ def smart_print_dispatch(
 
 
 print("__________________  CAD基本操作开始运行 _________________________")
-
-
-
-
-
-
 
 
 

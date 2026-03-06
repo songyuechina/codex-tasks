@@ -1,0 +1,116 @@
+{
+  "analysis": {
+    "function": "save_print_dict_generic",
+    "summary": "序列化打印字典并保存为 JSON 文件，同时缓存到全局字典并记录日志",
+    "inputs": [
+      {
+        "name": "dwg_name",
+        "type": "str",
+        "meaning": "图纸/文件标识，用于生成 JSON 文件名与索引键",
+        "default": null
+      },
+      {
+        "name": "bind_dict",
+        "type": "dict",
+        "meaning": "待保存的打印字典，序列化时会把 COM 对象转换为 Handle",
+        "default": null
+      }
+    ],
+    "steps": [
+      "调用 serialize 对 bind_dict 序列化",
+      "拼接保存路径 SAVE_DIR/\"{dwg_name}_打印字典.json\"",
+      "以 UTF-8 写入 JSON 文件（ensure_ascii=False, indent=2）",
+      "将序列化结果写入全局 PRINT_DICTS[dwg_name]",
+      "记录成功日志"
+    ],
+    "branches": [],
+    "errors": [
+      {
+        "case": "serialize 失败（如 COM 对象不可序列化）",
+        "symptom": "抛出异常",
+        "handling": "未捕获，向上抛出",
+        "returns": null
+      },
+      {
+        "case": "文件系统错误（路径不存在/权限不足/磁盘错误）",
+        "symptom": "open/json.dump 抛出异常",
+        "handling": "未捕获，向上抛出",
+        "returns": null
+      }
+    ],
+    "side_effects": [
+      "调用 serialize 可能依赖外部 COM/CAD 对象",
+      "写入文件系统 JSON 文件",
+      "修改全局字典 PRINT_DICTS",
+      "写日志 sys_logger.info"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "save_print_dict_generic(\"A001\", {\"layout\":\"L1\",\"entity\":<COM obj>})",
+        "expect": "创建文件 SAVE_DIR/A001_打印字典.json；PRINT_DICTS[\"A001\"] 存在；日志记录成功"
+      },
+      {
+        "call": "save_print_dict_generic(\"B2\", {})",
+        "expect": "创建空结构 JSON 文件；PRINT_DICTS[\"B2\"] 为 {}；日志记录成功"
+      },
+      {
+        "call": "save_print_dict_generic(\"C3\", {\"k\":\"v\"})",
+        "expect": "JSON 文件包含 k=v；PRINT_DICTS[\"C3\"][\"k\"] 为 \"v\""
+      }
+    ]
+  },
+  "contract": {
+    "function": "save_print_dict_generic",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "dwg_name": {
+          "type": "str",
+          "meaning": "图纸/文件标识，用于生成 JSON 文件名与索引键",
+          "default": null
+        },
+        "bind_dict": {
+          "type": "dict",
+          "meaning": "待保存的打印字典，序列化时会把 COM 对象转换为 Handle",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "serialize 失败（如 COM 对象不可序列化）",
+          "returns": null,
+          "meaning": "抛出异常"
+        },
+        {
+          "when": "文件系统错误（路径不存在/权限不足/磁盘错误）",
+          "returns": null,
+          "meaning": "open/json.dump 抛出异常"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用 serialize 可能依赖外部 COM/CAD 对象",
+      "写入文件系统 JSON 文件",
+      "修改全局字典 PRINT_DICTS",
+      "写日志 sys_logger.info"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:save_print_dict_generic",
+  "source_hash": "b21e3c17d522fcdda148b2db1ae6346e595e3d0acc2d0904d140c58f9d3b3205",
+  "updated_at": "2026-02-26 17:28:21"
+}

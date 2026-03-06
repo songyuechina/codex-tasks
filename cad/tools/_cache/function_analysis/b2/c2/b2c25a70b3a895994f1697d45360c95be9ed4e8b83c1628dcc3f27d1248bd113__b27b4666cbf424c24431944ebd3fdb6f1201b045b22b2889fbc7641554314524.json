@@ -1,0 +1,124 @@
+{
+  "analysis": {
+    "function": "force_show_cad_interface",
+    "summary": "通过 COM 获取已运行的 AutoCAD 应用，设置可见与窗口状态，并用 Windows API 还原和置顶窗口，返回是否成功激活。",
+    "inputs": [],
+    "steps": [
+      "通过 COM 获取正在运行的 AutoCAD 应用对象",
+      "设置应用可见性为 True",
+      "尝试设置窗口状态为最大化（失败则忽略）",
+      "读取应用窗口句柄 HWND",
+      "若句柄存在则调用 Windows API 还原并置顶窗口",
+      "打印提示并返回成功",
+      "若发生异常则记录日志并返回失败"
+    ],
+    "branches": [
+      {
+        "when": "成功获取 AutoCAD 且 hwnd 为真",
+        "does": "ShowWindow 还原窗口并 SetForegroundWindow 置顶",
+        "returns": "True"
+      },
+      {
+        "when": "成功获取 AutoCAD 但 hwnd 为空/假值",
+        "does": "不执行窗口操作",
+        "returns": "None（隐式返回）"
+      },
+      {
+        "when": "设置 WindowState 失败",
+        "does": "忽略异常继续后续流程",
+        "returns": "不改变返回路径"
+      }
+    ],
+    "errors": [
+      {
+        "case": "COM 获取失败或 COM 未响应",
+        "symptom": "抛出异常",
+        "handling": "记录 sys_logger.info 并返回 False",
+        "returns": "False"
+      },
+      {
+        "case": "Windows API 调用异常",
+        "symptom": "进入外层 try 异常分支",
+        "handling": "记录 sys_logger.info 并返回 False",
+        "returns": "False"
+      }
+    ],
+    "side_effects": [
+      "访问 COM 系统对象：win32com.client.GetActiveObject",
+      "修改 AutoCAD 应用可见性与窗口状态",
+      "调用 Windows API：win32gui.ShowWindow / SetForegroundWindow",
+      "打印控制台日志",
+      "写入系统日志 sys_logger.info"
+    ],
+    "returns": {
+      "shape": "bool | None",
+      "fields": [
+        {
+          "path": "return",
+          "meaning": "是否成功强制显示并激活 CAD 窗口；句柄为空时隐式返回 None",
+          "example": "True"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "force_show_cad_interface()",
+        "expect": "return=True，AutoCAD 窗口置顶并最大化"
+      },
+      {
+        "call": "force_show_cad_interface()",
+        "expect": "return=False，COM 获取失败且日志记录错误"
+      },
+      {
+        "call": "force_show_cad_interface()",
+        "expect": "return=None，COM 获取成功但 hwnd 为空，未执行置顶"
+      }
+    ]
+  },
+  "contract": {
+    "function": "force_show_cad_interface",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "bool | None",
+        "fields": [
+          {
+            "path": "return",
+            "meaning": "是否成功强制显示并激活 CAD 窗口；句柄为空时隐式返回 None",
+            "example": "True"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "COM 获取失败或 COM 未响应",
+          "returns": "False",
+          "meaning": "抛出异常"
+        },
+        {
+          "when": "Windows API 调用异常",
+          "returns": "False",
+          "meaning": "进入外层 try 异常分支"
+        }
+      ]
+    },
+    "side_effects": [
+      "访问 COM 系统对象：win32com.client.GetActiveObject",
+      "修改 AutoCAD 应用可见性与窗口状态",
+      "调用 Windows API：win32gui.ShowWindow / SetForegroundWindow",
+      "打印控制台日志",
+      "写入系统日志 sys_logger.info"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:force_show_cad_interface",
+  "source_hash": "b27b4666cbf424c24431944ebd3fdb6f1201b045b22b2889fbc7641554314524",
+  "updated_at": "2026-02-26 17:28:25"
+}

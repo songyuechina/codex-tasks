@@ -1,0 +1,162 @@
+{
+  "analysis": {
+    "function": "get_entity_rgb",
+    "summary": "从 CAD 实体颜色属性推断 RGB 值与来源说明，依次检查 TrueColor、ByLayer、ByBlock、ACI 并给出兜底结果。",
+    "inputs": [
+      {
+        "name": "ent",
+        "type": "CAD entity (COM对象)",
+        "meaning": "包含 TrueColor、ColorIndex/Color、Layer、Document 等属性的实体对象",
+        "default": "无"
+      }
+    ],
+    "steps": [
+      "读取 ent.TrueColor，并尝试获取 ColorMethod",
+      "若 TrueColor 具备 RGB 值则直接返回 (R,G,B) 与来源说明",
+      "读取 ent.ColorIndex（若无则退回 ent.Color）",
+      "若为 ByLayer，则从 Document.Layers.Item 获取图层 TrueColor 并返回 RGB",
+      "若为 ByBlock，则返回 None 并提示需上级块参照解析",
+      "若为 1..255 的 ACI，则调用 aci_to_rgb 转为 RGB 并返回",
+      "否则返回 Unknown 兜底"
+    ],
+    "branches": [
+      {
+        "when": "TrueColor.ColorMethod==3 或 TrueColor 有非零 RGB 值",
+        "does": "使用 TrueColor 的 Red/Green/Blue",
+        "returns": "(R,G,B), 'ByRGB(TrueColor)'"
+      },
+      {
+        "when": "ColorIndex/Color == 256 (ByLayer)",
+        "does": "读取 ent.Layer 并访问 ent.Document.Layers.Item(layer_name).TrueColor",
+        "returns": "(R,G,B), 'ByLayer(<layer>)'"
+      },
+      {
+        "when": "ColorIndex/Color == 0 (ByBlock)",
+        "does": "无法在此函数内解析显示色",
+        "returns": "None, 'ByBlock(需根据上级块参照解析)'"
+      },
+      {
+        "when": "ColorIndex/Color 为 int 且 1<=ci<=255",
+        "does": "调用 aci_to_rgb(ci) 转换",
+        "returns": "(rgb或None), 'ACI(<ci>)'"
+      },
+      {
+        "when": "以上均不满足",
+        "does": "兜底返回未知来源",
+        "returns": "None, 'Unknown'"
+      }
+    ],
+    "errors": [
+      {
+        "case": "ent 或其属性缺失/不可访问（COM属性异常）",
+        "symptom": "属性访问抛出异常或返回异常值",
+        "handling": "未捕获，异常向上传播",
+        "returns": "无"
+      },
+      {
+        "case": "ent.Document.Layers.Item(layer_name) 失败（图层不存在/COM异常）",
+        "symptom": "访问图层 TrueColor 失败",
+        "handling": "未捕获，异常向上传播",
+        "returns": "无"
+      },
+      {
+        "case": "aci_to_rgb 返回 None/空值",
+        "symptom": "ACI 转换失败或未定义",
+        "handling": "返回 (None, 'ACI(<ci>)')",
+        "returns": "None 与来源字符串"
+      }
+    ],
+    "side_effects": [
+      "读取 CAD COM 对象属性",
+      "访问 CAD 文档图层集合（ent.Document.Layers.Item）"
+    ],
+    "returns": {
+      "shape": "tuple(rgb_tuple_or_None, source_str)",
+      "fields": [
+        {
+          "path": "0",
+          "meaning": "RGB 三元组或 None",
+          "example": "(255,0,0) 或 None"
+        },
+        {
+          "path": "1",
+          "meaning": "来源说明字符串",
+          "example": "ByRGB(TrueColor) / ByLayer(LAYER1) / ByBlock(需根据上级块参照解析) / ACI(7) / Unknown"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "get_entity_rgb(ent) 其中 ent.TrueColor.ColorMethod=3, TrueColor=(10,20,30)",
+        "expect": "返回 (10,20,30), 'ByRGB(TrueColor)'"
+      },
+      {
+        "call": "get_entity_rgb(ent) 其中 ColorIndex=256, Layer='A', 图层 TrueColor=(1,2,3)",
+        "expect": "返回 (1,2,3), 'ByLayer(A)'"
+      },
+      {
+        "call": "get_entity_rgb(ent) 其中 ColorIndex=7, aci_to_rgb(7)=(255,255,255)",
+        "expect": "返回 (255,255,255), 'ACI(7)'"
+      }
+    ]
+  },
+  "contract": {
+    "function": "get_entity_rgb",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "ent": {
+          "type": "CAD entity (COM对象)",
+          "meaning": "包含 TrueColor、ColorIndex/Color、Layer、Document 等属性的实体对象",
+          "default": "无"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "tuple(rgb_tuple_or_None, source_str)",
+        "fields": [
+          {
+            "path": "0",
+            "meaning": "RGB 三元组或 None",
+            "example": "(255,0,0) 或 None"
+          },
+          {
+            "path": "1",
+            "meaning": "来源说明字符串",
+            "example": "ByRGB(TrueColor) / ByLayer(LAYER1) / ByBlock(需根据上级块参照解析) / ACI(7) / Unknown"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "ent 或其属性缺失/不可访问（COM属性异常）",
+          "returns": "无",
+          "meaning": "属性访问抛出异常或返回异常值"
+        },
+        {
+          "when": "ent.Document.Layers.Item(layer_name) 失败（图层不存在/COM异常）",
+          "returns": "无",
+          "meaning": "访问图层 TrueColor 失败"
+        },
+        {
+          "when": "aci_to_rgb 返回 None/空值",
+          "returns": "None 与来源字符串",
+          "meaning": "ACI 转换失败或未定义"
+        }
+      ]
+    },
+    "side_effects": [
+      "读取 CAD COM 对象属性",
+      "访问 CAD 文档图层集合（ent.Document.Layers.Item）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:get_entity_rgb",
+  "source_hash": "9d8f4323b5b1cb759669c517dac2018c629a00cd38e48656a0c3c3b97adad7ad",
+  "updated_at": "2026-02-26 17:28:27"
+}

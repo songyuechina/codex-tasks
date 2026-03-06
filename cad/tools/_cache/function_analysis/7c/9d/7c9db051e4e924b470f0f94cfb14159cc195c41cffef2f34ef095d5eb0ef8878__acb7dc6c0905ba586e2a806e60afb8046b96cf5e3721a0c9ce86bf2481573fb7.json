@@ -1,0 +1,93 @@
+{
+  "analysis": {
+    "function": "complex_operation_demo",
+    "summary": "构建并发送一条包含选择/移动/旋转/缩放的CAD长指令到外部CAD系统执行，带连接检查与静默等待。",
+    "inputs": [],
+    "steps": [
+      "准备窗口坐标、移动/旋转/缩放参数字符串",
+      "按顺序追加 SELECT/MOVE/ROTATE/SCALE 子命令到列表",
+      "用空格 join 成完整长命令并追加末尾空格",
+      "打印调试信息输出完整命令",
+      "检查 CAD 连接状态 C.li()",
+      "激活文档、发送命令、sleep 等待、wait_quiescent 同步"
+    ],
+    "branches": [
+      {
+        "when": "C.li() 为真",
+        "does": "激活文档并发送命令，延时与等待静默",
+        "returns": "无显式返回（None）"
+      },
+      {
+        "when": "C.li() 为假",
+        "does": "跳过发送执行流程",
+        "returns": "无显式返回（None）"
+      }
+    ],
+    "errors": [
+      {
+        "case": "C.doc.Activate/PostCommand/sleep/wait_quiescent 抛异常",
+        "symptom": "打印“执行失败: {e}”",
+        "handling": "捕获异常并仅打印",
+        "returns": "无显式返回（None）"
+      }
+    ],
+    "side_effects": [
+      "依赖外部CAD系统连接（system.licad.C）",
+      "激活CAD文档并发送命令到CAD（C.doc.Activate/PostCommand）",
+      "阻塞式等待（time.sleep 和 wait_quiescent）",
+      "标准输出打印调试信息"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "complex_operation_demo()",
+        "expect": "若 C.li()=True：打印执行长指令并向CAD发送；返回None"
+      },
+      {
+        "call": "complex_operation_demo()  # 且 C.li()=False",
+        "expect": "仅打印执行长指令；不发送命令；返回None"
+      },
+      {
+        "call": "complex_operation_demo()  # CAD执行阶段抛异常",
+        "expect": "打印执行失败信息；返回None"
+      }
+    ]
+  },
+  "contract": {
+    "function": "complex_operation_demo",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "C.doc.Activate/PostCommand/sleep/wait_quiescent 抛异常",
+          "returns": "无显式返回（None）",
+          "meaning": "打印“执行失败: {e}”"
+        }
+      ]
+    },
+    "side_effects": [
+      "依赖外部CAD系统连接（system.licad.C）",
+      "激活CAD文档并发送命令到CAD（C.doc.Activate/PostCommand）",
+      "阻塞式等待（time.sleep 和 wait_quiescent）",
+      "标准输出打印调试信息"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:complex_operation_demo",
+  "source_hash": "acb7dc6c0905ba586e2a806e60afb8046b96cf5e3721a0c9ce86bf2481573fb7",
+  "updated_at": "2026-02-26 17:28:19"
+}

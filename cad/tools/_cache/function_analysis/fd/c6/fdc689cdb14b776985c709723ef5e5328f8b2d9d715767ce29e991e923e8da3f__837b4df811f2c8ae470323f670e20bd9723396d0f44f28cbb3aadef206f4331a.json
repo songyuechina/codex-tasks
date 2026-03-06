@@ -1,0 +1,140 @@
+{
+  "analysis": {
+    "function": "vtpnt",
+    "summary": "将三维坐标包装为 COM VARIANT 类型的双精度数组。",
+    "inputs": [
+      {
+        "name": "x",
+        "type": "number",
+        "meaning": "X 坐标值",
+        "default": null
+      },
+      {
+        "name": "y",
+        "type": "number",
+        "meaning": "Y 坐标值",
+        "default": null
+      },
+      {
+        "name": "z",
+        "type": "number",
+        "meaning": "Z 坐标值",
+        "default": null
+      }
+    ],
+    "steps": [
+      "将 (x, y, z) 组装为三元组",
+      "使用 win32com.client.VARIANT 创建 VT_ARRAY | VT_R8 的 COM 变体并返回"
+    ],
+    "branches": [],
+    "errors": [
+      {
+        "case": "win32com 或 pythoncom 不可用/未安装",
+        "symptom": "ImportError 或 AttributeError",
+        "handling": "未捕获异常，直接抛出",
+        "returns": "无"
+      },
+      {
+        "case": "x/y/z 不是可转换为双精度的数值",
+        "symptom": "COM 类型错误或 TypeError",
+        "handling": "未捕获异常，直接抛出",
+        "returns": "无"
+      }
+    ],
+    "side_effects": [
+      "依赖 Windows COM 子系统与 win32com/pythoncom 库"
+    ],
+    "returns": {
+      "shape": "win32com.client.VARIANT",
+      "fields": [
+        {
+          "path": "value",
+          "meaning": "包含三个双精度浮点的数组值",
+          "example": "(1.0, 2.0, 3.0)"
+        },
+        {
+          "path": "vt",
+          "meaning": "VT_ARRAY | VT_R8 类型标记",
+          "example": "8205"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "vtpnt(1, 2, 3)",
+        "expect": "VARIANT 类型，value 为 (1.0, 2.0, 3.0)"
+      },
+      {
+        "call": "vtpnt(0.5, -1.25, 10)",
+        "expect": "VARIANT 类型，value 为 (0.5, -1.25, 10.0)"
+      },
+      {
+        "call": "vtpnt(0, 0, 0)",
+        "expect": "VARIANT 类型，value 为 (0.0, 0.0, 0.0)"
+      }
+    ]
+  },
+  "contract": {
+    "function": "vtpnt",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "x": {
+          "type": "number",
+          "meaning": "X 坐标值",
+          "default": null
+        },
+        "y": {
+          "type": "number",
+          "meaning": "Y 坐标值",
+          "default": null
+        },
+        "z": {
+          "type": "number",
+          "meaning": "Z 坐标值",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "win32com.client.VARIANT",
+        "fields": [
+          {
+            "path": "value",
+            "meaning": "包含三个双精度浮点的数组值",
+            "example": "(1.0, 2.0, 3.0)"
+          },
+          {
+            "path": "vt",
+            "meaning": "VT_ARRAY | VT_R8 类型标记",
+            "example": "8205"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "win32com 或 pythoncom 不可用/未安装",
+          "returns": "无",
+          "meaning": "ImportError 或 AttributeError"
+        },
+        {
+          "when": "x/y/z 不是可转换为双精度的数值",
+          "returns": "无",
+          "meaning": "COM 类型错误或 TypeError"
+        }
+      ]
+    },
+    "side_effects": [
+      "依赖 Windows COM 子系统与 win32com/pythoncom 库"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:vtpnt",
+  "source_hash": "837b4df811f2c8ae470323f670e20bd9723396d0f44f28cbb3aadef206f4331a",
+  "updated_at": "2026-02-26 17:28:22"
+}

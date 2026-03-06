@@ -1,0 +1,121 @@
+{
+  "analysis": {
+    "function": "simple_timer",
+    "summary": "函数装饰器：包装目标函数，测量执行耗时并记录日志，返回原函数结果。",
+    "inputs": [
+      {
+        "name": "func",
+        "type": "callable",
+        "meaning": "被装饰/包装的函数",
+        "default": "无"
+      }
+    ],
+    "steps": [
+      "定义 wrapper(*args, **kwargs) 作为实际调用入口",
+      "调用 time.time() 记录开始时间",
+      "执行 func(*args, **kwargs) 并保存结果",
+      "调用 time.time() 记录结束时间",
+      "通过 sys_logger.info 记录耗时日志",
+      "返回 func 的结果",
+      "返回 wrapper 作为装饰器输出"
+    ],
+    "branches": [
+      {
+        "when": "无显式分支",
+        "does": "总是记录耗时并返回结果",
+        "returns": "原函数的返回值"
+      }
+    ],
+    "errors": [
+      {
+        "case": "func(*args, **kwargs) 抛出异常",
+        "symptom": "wrapper 未捕获异常，直接中断",
+        "handling": "无处理，异常向上抛出",
+        "returns": "无返回"
+      },
+      {
+        "case": "time.time 或 sys_logger.info 失败（如 time 未导入或 logger 错误）",
+        "symptom": "NameError/AttributeError 或日志异常",
+        "handling": "无处理，异常向上抛出",
+        "returns": "无返回"
+      }
+    ],
+    "side_effects": [
+      "调用 time.time() 获取系统时间",
+      "调用 sys_logger.info 输出日志（外部日志系统）"
+    ],
+    "returns": {
+      "shape": "callable",
+      "fields": [
+        {
+          "path": "result",
+          "meaning": "原函数返回值原样返回",
+          "example": "42 或 {'ok': True}"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "@simple_timer\ndef add(a,b): return a+b\nadd(1,2)",
+        "expect": "返回 3；日志含 “add 耗时：X.XXXX 秒”"
+      },
+      {
+        "call": "timed = simple_timer(lambda x: x*2); timed(4)",
+        "expect": "返回 8；日志含 “<lambda> 耗时：X.XXXX 秒”"
+      },
+      {
+        "call": "@simple_timer\ndef fail(): raise ValueError('err')\nfail()",
+        "expect": "抛出 ValueError；可能已记录耗时（取决于异常发生前是否到达日志语句）"
+      }
+    ]
+  },
+  "contract": {
+    "function": "simple_timer",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "func": {
+          "type": "callable",
+          "meaning": "被装饰/包装的函数",
+          "default": "无"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "callable",
+        "fields": [
+          {
+            "path": "result",
+            "meaning": "原函数返回值原样返回",
+            "example": "42 或 {'ok': True}"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "func(*args, **kwargs) 抛出异常",
+          "returns": "无返回",
+          "meaning": "wrapper 未捕获异常，直接中断"
+        },
+        {
+          "when": "time.time 或 sys_logger.info 失败（如 time 未导入或 logger 错误）",
+          "returns": "无返回",
+          "meaning": "NameError/AttributeError 或日志异常"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用 time.time() 获取系统时间",
+      "调用 sys_logger.info 输出日志（外部日志系统）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:simple_timer",
+  "source_hash": "8956a3543daf65fe27a9eef25ea07e012366d590e5408406188584226a4b8c61",
+  "updated_at": "2026-02-26 17:28:28"
+}

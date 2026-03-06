@@ -1,0 +1,96 @@
+1) 最终顶层结构（确认版）
+D:/codex-tasks/
+  cad/                    # A. 驱动天正CAD系统脚本（执行环境层，历史保留）
+  dwg_cases/              # B. DWG案例资产系统（典型 + 真实）
+  dwg_agents_ops/         # C. 面向DWG作业的智能体系统（运行/修正/反馈）
+  dwg_system_tools/       # D. 面向DWG系统控制的工具系统（分析/索引/状态差异）
+  folder.meta.json        # 根系统宪法（机器读）
+  SYSTEM_RULES.md         # 根系统宪法（人读，可选）
+2) 四大系统语义定位（写进 root folder.meta）
+目录	系统角色	核心对象	职责关键词
+cad	执行层	CAD软件接口	驱动、绘图、文件操作
+dwg_cases	资产层	DWG文件	典型案例、真实案例、回归
+dwg_agents_ops	作业层	DWG任务	运行、验证、修正、积累
+dwg_system_tools	控制层	DWG系统	分析、生成、索引、对比
+
+一句话总结依赖关系：
+
+dwg_agents_ops → cad + dwg_cases + dwg_system_tools
+cad → dwg_system_tools
+dwg_cases → (无)
+dwg_system_tools → (尽量无)
+3) 你这次命名调整的一个深层好处
+
+以前如果用 cad_agents / cad_tools：
+
+会误以为系统围绕 CAD 软件
+
+CAD 更像“平台中心”
+
+现在改为 dwg_*：
+
+系统围绕“图纸信息本体”
+
+CAD 只是执行载体（可替换为其他CAD内核）
+
+系统具备更强的长期可迁移性
+
+这是一个架构哲学层面的正确抽象。
+
+4) 各子系统内部建议最小结构
+4.1 dwg_cases/
+dwg_cases/
+  typical/            # 典型基准案例（可回归）
+  real/               # 真实生产案例（持续累积）
+  folder.meta.json
+
+每个案例配 meta：
+
+print_area_01.dwg
+print_area_01.case.meta.json
+4.2 dwg_agents_ops/
+dwg_agents_ops/
+  Tester_Agent/
+  Implementer_Agent/
+  Reviewer_Agent/
+  Planner_Agent/
+  folder.meta.json
+
+这里放你前面写的：
+
+案例运行器
+
+meta 生成驱动
+
+回归校验器
+
+自动修正调度器
+
+4.3 dwg_system_tools/
+dwg_system_tools/
+  meta_gen/            # 从脚本生成 quote/procedure meta
+  function_graph/      # 函数引用/调用图
+  state_diff/          # CAD运行前后状态差异
+  registry/            # 全局索引数据库
+  folder.meta.json
+5) folder.meta.json 在这个结构里的角色
+
+现在它的语义非常清晰：
+
+/codex-tasks/folder.meta.json → 四大系统地图 + 依赖规则
+
+/cad/folder.meta.json → CAD执行脚本结构
+
+/dwg_cases/folder.meta.json → 案例资产结构
+
+/dwg_agents_ops/folder.meta.json → 智能体作业结构
+
+/dwg_system_tools/folder.meta.json → 控制工具结构
+
+形成完整“系统语义目录树”。
+
+6) 一句话固化你现在的系统哲学（建议写进 SYSTEM_RULES）
+
+系统以 DWG 信息为核心操作对象；CAD 仅为执行载体；案例、智能体、工具均围绕 DWG 构建并与 CAD 并列存在。
+
+这句话非常重要，它会指导后续所有脚本与工具的归属。

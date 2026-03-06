@@ -1,0 +1,114 @@
+{
+  "analysis": {
+    "function": "vtlist",
+    "summary": "将 Python 对象列表包装为 COM 可用的 VARIANT(VT_ARRAY|VT_DISPATCH)。",
+    "inputs": [
+      {
+        "name": "obj_list",
+        "type": "list",
+        "meaning": "待传入 COM 的对象列表，元素通常为可分派的 COM 对象",
+        "default": null
+      }
+    ],
+    "steps": [
+      "构造 VARIANT，类型标志为 pythoncom.VT_ARRAY | pythoncom.VT_DISPATCH",
+      "将 obj_list 作为 VARIANT 值返回"
+    ],
+    "branches": [],
+    "errors": [
+      {
+        "case": "未导入 VARIANT 或 pythoncom",
+        "symptom": "NameError 或 ImportError",
+        "handling": "未处理，异常上抛",
+        "returns": null
+      },
+      {
+        "case": "obj_list 不是可序列化为 VT_ARRAY 的列表或含不可分派对象",
+        "symptom": "pywintypes.error 或 TypeError",
+        "handling": "未处理，异常上抛",
+        "returns": null
+      }
+    ],
+    "side_effects": [
+      "依赖 win32com.client.VARIANT 与 pythoncom 常量（外部 COM 库）"
+    ],
+    "returns": {
+      "shape": "VARIANT",
+      "fields": [
+        {
+          "path": "vt",
+          "meaning": "类型标志，包含 VT_ARRAY 与 VT_DISPATCH",
+          "example": "VT_ARRAY|VT_DISPATCH"
+        },
+        {
+          "path": "value",
+          "meaning": "原始对象列表",
+          "example": "[com_obj1, com_obj2]"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "vtlist([com_obj1, com_obj2])",
+        "expect": "VARIANT(VT_ARRAY|VT_DISPATCH, [com_obj1, com_obj2])"
+      },
+      {
+        "call": "vtlist([])",
+        "expect": "VARIANT(VT_ARRAY|VT_DISPATCH, [])"
+      }
+    ]
+  },
+  "contract": {
+    "function": "vtlist",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "obj_list": {
+          "type": "list",
+          "meaning": "待传入 COM 的对象列表，元素通常为可分派的 COM 对象",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "VARIANT",
+        "fields": [
+          {
+            "path": "vt",
+            "meaning": "类型标志，包含 VT_ARRAY 与 VT_DISPATCH",
+            "example": "VT_ARRAY|VT_DISPATCH"
+          },
+          {
+            "path": "value",
+            "meaning": "原始对象列表",
+            "example": "[com_obj1, com_obj2]"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "未导入 VARIANT 或 pythoncom",
+          "returns": null,
+          "meaning": "NameError 或 ImportError"
+        },
+        {
+          "when": "obj_list 不是可序列化为 VT_ARRAY 的列表或含不可分派对象",
+          "returns": null,
+          "meaning": "pywintypes.error 或 TypeError"
+        }
+      ]
+    },
+    "side_effects": [
+      "依赖 win32com.client.VARIANT 与 pythoncom 常量（外部 COM 库）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:vtlist",
+  "source_hash": "971b0c4c377ede8cbcb9519bcb2c47990b30be4a953da2f6dc0581ed6942a25e",
+  "updated_at": "2026-02-26 17:28:24"
+}

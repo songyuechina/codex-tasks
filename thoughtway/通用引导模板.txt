@@ -1,0 +1,20 @@
+通用引导模板（建议作为标准头部）：
+#1确保整个codex-tasks/目录下的所有脚本随codex-tasks/文件夹一起自由迁移
+#2确保整个codex-tasks/目录下的所有脚本自由导入系统的基础脚本，例如在dwg_system_tools的某个层级的文件夹内的脚本导入cad/system下的日志脚本common_logger 
+from pathlib import Path
+import sys
+
+def find_codex_tasks_root(p: Path) -> Path:
+    cur = p.resolve()
+    if cur.is_file():
+        cur = cur.parent
+    while True:
+        if cur.name.lower() == "codex-tasks":
+            return cur
+        if cur.parent == cur:
+            raise RuntimeError("找不到根目录 codex-tasks")
+        cur = cur.parent
+
+root = find_codex_tasks_root(Path(__file__))
+sys.path.insert(0, str(root))              # ✅ 新根：codex-tasks
+sys.path.insert(0, str(root / "cad"))      # ✅ 旧根：兼容 system/library（过渡期）

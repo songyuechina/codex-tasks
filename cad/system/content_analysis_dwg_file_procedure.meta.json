@@ -1,0 +1,68 @@
+{
+  "meta_version": "1.0",
+  "script": {
+    "name": "content_analysis_dwg_file.py",
+    "path": "cad/system/content_analysis_dwg_file.py",
+    "encoding": "utf-8",
+    "version": ""
+  },
+  "procedure": {
+    "usage": "用于获取DWG图形对象统计信息，可选择重新扫描或从数据库读取快照。",
+    "examples": [
+      "get_dwg_graphics_summary()",
+      "get_dwg_graphics_summary(use_db=True)",
+      "get_dwg_graphics_summary(filepath='D:/xxx.dwg', use_db=False)"
+    ],
+    "workflow": [
+      "（可选）根据filepath调用CAD_core.open_file",
+      "调用C.li()连接当前CAD文档",
+      "执行健康检查_check_doc_health",
+      "调用_snapshot_obj_counts_handles_and_digest扫描Model与各Layout",
+      "构建state并调用persist_cad_state写入数据库",
+      "（如由本函数打开）关闭DWG文件",
+      "返回结构化结果"
+    ]
+  },
+  "functions": [
+    {
+      "name": "get_dwg_graphics_summary",
+      "is_simple": false,
+      "steps": [
+        "解析types与handle_types参数",
+        "决定use_db或computed路径",
+        "构建最终result字典并可选打印摘要"
+      ],
+      "confidence": {
+        "steps": "medium"
+      },
+      "evidence": {
+        "line_start": -1,
+        "line_end": -1
+      }
+    },
+    {
+      "name": "get_cad_state",
+      "is_simple": false,
+      "steps": [
+        "处理reuse_db逻辑",
+        "连接CAD并获取doc/acad",
+        "执行对象扫描与统计",
+        "写入数据库并计算timing"
+      ],
+      "confidence": {
+        "steps": "medium"
+      },
+      "evidence": {
+        "line_start": -1,
+        "line_end": -1
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "verify workflow against real line numbers",
+      "confirm all early return branches"
+    ],
+    "function_count": 3
+  }
+}

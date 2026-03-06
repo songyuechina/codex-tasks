@@ -1,0 +1,145 @@
+{
+  "analysis": {
+    "function": "_log",
+    "summary": "将错误或超时信息追加到 Excel 日志表，若不存在则创建表头。",
+    "inputs": [
+      {
+        "name": "func_name",
+        "type": "str",
+        "meaning": "记录的函数名",
+        "default": null
+      },
+      {
+        "name": "args",
+        "type": "tuple/any",
+        "meaning": "调用参数的原始位置参数",
+        "default": null
+      },
+      {
+        "name": "kwargs",
+        "type": "dict/any",
+        "meaning": "调用参数的关键字参数",
+        "default": null
+      },
+      {
+        "name": "note",
+        "type": "str/any",
+        "meaning": "备注信息（错误/超时说明）",
+        "default": null
+      }
+    ],
+    "steps": [
+      "导入并调用 load_workbook 打开 LOG_PATH",
+      "检查 LOG_SHEET 是否存在",
+      "若不存在则创建新表并写入表头",
+      "追加一行日志：时间戳、函数名、参数 repr、备注",
+      "保存工作簿到 LOG_PATH"
+    ],
+    "branches": [
+      {
+        "when": "LOG_SHEET 已存在于工作簿",
+        "does": "使用已有工作表追加日志",
+        "returns": "None"
+      },
+      {
+        "when": "LOG_SHEET 不存在",
+        "does": "创建新表并写入表头后追加日志",
+        "returns": "None"
+      }
+    ],
+    "errors": [
+      {
+        "case": "LOG_PATH 不存在或不可读",
+        "symptom": "load_workbook 抛出异常（如 FileNotFoundError/InvalidFileException）",
+        "handling": "未捕获，异常向外抛出",
+        "returns": "无（异常中断）"
+      },
+      {
+        "case": "写入权限不足或保存失败",
+        "symptom": "wb.save 抛出异常（如 PermissionError/IOError）",
+        "handling": "未捕获，异常向外抛出",
+        "returns": "无（异常中断）"
+      }
+    ],
+    "side_effects": [
+      "读取文件系统中的 Excel 文件 LOG_PATH",
+      "可能创建新的工作表并写入表头",
+      "向工作表追加一行日志",
+      "保存并写回 Excel 文件"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "_log('do_task', (1, 2), {'timeout':5}, 'timeout')",
+        "expect": "日志表新增一行，备注为 timeout"
+      },
+      {
+        "call": "_log('fetch', (), {}, 'error: 404')",
+        "expect": "日志表新增一行，参数 repr 为 args=(), kwargs={}"
+      }
+    ]
+  },
+  "contract": {
+    "function": "_log",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "func_name": {
+          "type": "str",
+          "meaning": "记录的函数名",
+          "default": null
+        },
+        "args": {
+          "type": "tuple/any",
+          "meaning": "调用参数的原始位置参数",
+          "default": null
+        },
+        "kwargs": {
+          "type": "dict/any",
+          "meaning": "调用参数的关键字参数",
+          "default": null
+        },
+        "note": {
+          "type": "str/any",
+          "meaning": "备注信息（错误/超时说明）",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "LOG_PATH 不存在或不可读",
+          "returns": "无（异常中断）",
+          "meaning": "load_workbook 抛出异常（如 FileNotFoundError/InvalidFileException）"
+        },
+        {
+          "when": "写入权限不足或保存失败",
+          "returns": "无（异常中断）",
+          "meaning": "wb.save 抛出异常（如 PermissionError/IOError）"
+        }
+      ]
+    },
+    "side_effects": [
+      "读取文件系统中的 Excel 文件 LOG_PATH",
+      "可能创建新的工作表并写入表头",
+      "向工作表追加一行日志",
+      "保存并写回 Excel 文件"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:_log",
+  "source_hash": "88911df3af57e244ecff5cf3f10d56c1cad473d487f4f144cea45d535bc591ca",
+  "updated_at": "2026-02-26 17:28:17"
+}

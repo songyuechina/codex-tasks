@@ -1,0 +1,100 @@
+{
+  "analysis": {
+    "function": "_kill_acad",
+    "summary": "遍历系统进程并强制结束名称以“acad”开头的进程。",
+    "inputs": [],
+    "steps": [
+      "遍历系统进程列表（pid、name）",
+      "读取进程名",
+      "若进程名存在且以“acad”开头则尝试杀死进程",
+      "忽略杀死进程时的异常"
+    ],
+    "branches": [
+      {
+        "when": "name 为空或不存在",
+        "does": "跳过该进程",
+        "returns": "无显式返回，继续遍历"
+      },
+      {
+        "when": "name 存在且 name.lower().startswith(\"acad\") 为真",
+        "does": "尝试调用 proc.kill()",
+        "returns": "无显式返回，继续遍历"
+      },
+      {
+        "when": "name 存在但不以 acad 开头",
+        "does": "跳过该进程",
+        "returns": "无显式返回，继续遍历"
+      }
+    ],
+    "errors": [
+      {
+        "case": "proc.kill() 抛出异常（权限不足/进程已退出等）",
+        "symptom": "杀进程失败",
+        "handling": "异常被捕获并忽略",
+        "returns": "无显式返回，继续遍历"
+      }
+    ],
+    "side_effects": [
+      "访问系统进程列表（psutil.process_iter）",
+      "可能终止系统中以 acad 开头的进程（proc.kill）"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": [
+        {
+          "path": "return",
+          "meaning": "无返回值",
+          "example": null
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "_kill_acad()",
+        "expect": "遍历并尝试结束所有名称以 acad 开头的进程；无返回值"
+      },
+      {
+        "call": "_kill_acad()  # 系统中无 acad 进程",
+        "expect": "不执行 kill；无返回值"
+      }
+    ]
+  },
+  "contract": {
+    "function": "_kill_acad",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [
+          {
+            "path": "return",
+            "meaning": "无返回值",
+            "example": null
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "proc.kill() 抛出异常（权限不足/进程已退出等）",
+          "returns": "无显式返回，继续遍历",
+          "meaning": "杀进程失败"
+        }
+      ]
+    },
+    "side_effects": [
+      "访问系统进程列表（psutil.process_iter）",
+      "可能终止系统中以 acad 开头的进程（proc.kill）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:_kill_acad",
+  "source_hash": "c0e4cc4d8b9f67ebd6bfc2ccf92292fb270d3516144fed6285dd568f0d7733f6",
+  "updated_at": "2026-02-26 17:28:17"
+}

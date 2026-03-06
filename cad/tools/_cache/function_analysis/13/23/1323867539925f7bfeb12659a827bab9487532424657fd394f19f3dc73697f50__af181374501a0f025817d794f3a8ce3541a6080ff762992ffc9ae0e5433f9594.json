@@ -1,0 +1,148 @@
+{
+  "analysis": {
+    "function": "timeout_and_log2",
+    "summary": "返回一个装饰器，为被装饰函数提供守护线程超时监控与异常日志记录，超时会调用外部CAD终止函数并记录日志。",
+    "inputs": [
+      {
+        "name": "timeout_sec",
+        "type": "float",
+        "meaning": "超时阈值（秒）；守护线程等待该时长后判定是否超时",
+        "default": "无"
+      }
+    ],
+    "steps": [
+      "创建装饰器decorator(func)",
+      "包装函数wrapper(*args, **kwargs)，创建线程事件finished",
+      "启动守护线程watchdog等待timeout_sec",
+      "watchdog超时且未finished则调用_kill_acad并记录日志",
+      "执行原函数func并捕获异常",
+      "异常时记录日志并重新抛出",
+      "无论成功或异常，finally中设置finished",
+      "返回原函数结果"
+    ],
+    "branches": [
+      {
+        "when": "watchdog等待timeout_sec后finished未设置",
+        "does": "调用_kill_acad并_log超时",
+        "returns": "不影响wrapper返回（仍取决于func执行）"
+      },
+      {
+        "when": "func执行成功",
+        "does": "进入finally设置finished",
+        "returns": "返回func的result"
+      },
+      {
+        "when": "func抛出异常",
+        "does": "记录异常日志并重新抛出",
+        "returns": "无返回（异常传播）"
+      }
+    ],
+    "errors": [
+      {
+        "case": "func内部异常",
+        "symptom": "异常被捕获",
+        "handling": "记录日志后重新抛出",
+        "returns": "无（异常传播）"
+      },
+      {
+        "case": "watchdog超时触发",
+        "symptom": "_kill_acad被调用",
+        "handling": "记录超时日志",
+        "returns": "wrapper仍尝试返回func结果（若func仍在运行则由其自身决定）"
+      }
+    ],
+    "side_effects": [
+      "创建守护线程并与Event同步",
+      "可能调用外部CAD终止函数_kill_acad()",
+      "记录日志_log(...)",
+      "依赖traceback.format_exc()生成异常栈",
+      "并发访问args/kwargs用于日志记录"
+    ],
+    "returns": {
+      "shape": "callable",
+      "fields": [
+        {
+          "path": "return",
+          "meaning": "装饰器函数decorator(func)，用于包装目标函数",
+          "example": "decorator"
+        },
+        {
+          "path": "return(func)->wrapper",
+          "meaning": "包装后的函数，调用时执行超时监控与日志",
+          "example": "wrapper(*args, **kwargs) -> result"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "@timeout_and_log2(5)\ndef f(x): return x*2\nf(3)",
+        "expect": "正常返回结果6，未触发超时日志"
+      },
+      {
+        "call": "@timeout_and_log2(1)\ndef f(): time.sleep(5); return 'ok'\nf()",
+        "expect": "守护线程超时触发_kill_acad并记录日志；若函数仍执行最终可能返回'ok'或被外部终止"
+      },
+      {
+        "call": "@timeout_and_log2(10)\ndef f(): raise ValueError('bad')\nf()",
+        "expect": "记录异常日志后抛出ValueError"
+      }
+    ]
+  },
+  "contract": {
+    "function": "timeout_and_log2",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "timeout_sec": {
+          "type": "float",
+          "meaning": "超时阈值（秒）；守护线程等待该时长后判定是否超时",
+          "default": "无"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "callable",
+        "fields": [
+          {
+            "path": "return",
+            "meaning": "装饰器函数decorator(func)，用于包装目标函数",
+            "example": "decorator"
+          },
+          {
+            "path": "return(func)->wrapper",
+            "meaning": "包装后的函数，调用时执行超时监控与日志",
+            "example": "wrapper(*args, **kwargs) -> result"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "func内部异常",
+          "returns": "无（异常传播）",
+          "meaning": "异常被捕获"
+        },
+        {
+          "when": "watchdog超时触发",
+          "returns": "wrapper仍尝试返回func结果（若func仍在运行则由其自身决定）",
+          "meaning": "_kill_acad被调用"
+        }
+      ]
+    },
+    "side_effects": [
+      "创建守护线程并与Event同步",
+      "可能调用外部CAD终止函数_kill_acad()",
+      "记录日志_log(...)",
+      "依赖traceback.format_exc()生成异常栈",
+      "并发访问args/kwargs用于日志记录"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:timeout_and_log2",
+  "source_hash": "af181374501a0f025817d794f3a8ce3541a6080ff762992ffc9ae0e5433f9594",
+  "updated_at": "2026-02-26 17:28:18"
+}

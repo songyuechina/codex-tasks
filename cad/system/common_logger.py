@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-# 文件位置: D:/claude-tasks/cad/system/common_logger.py
-# 版本: V2.1 (修复 CriticalSection 属性缺失 Bug)
+# 文件位置: D:/codex-tasks/cad/system/common_logger.py
+# 版本: V3.0 
 
 import os
 import sys
@@ -17,6 +17,20 @@ try:
 except ImportError:
     openpyxl = None
 
+import traceback
+"""
+安静模式（只看 WARNING/ERROR）：
+from system.common_logger import set_debug_mode
+set_debug_mode(mode=0, who="AI", wait_time=0)  # 默认 log_level=WARNING
+
+调试模式（看 INFO）：
+set_debug_mode(mode=1, who="AI", wait_time=30)  # 默认 log_level=INFO
+
+强制更详细（DEBUG）：
+set_debug_mode(mode=1, who="AI", wait_time=0, log_level="DEBUG")
+
+"""
+
 # ==========================================
 # 1. 全局配置
 # ==========================================
@@ -28,43 +42,122 @@ if not TESTS_DIR.exists():
     try: TESTS_DIR.mkdir(parents=True, exist_ok=True)
     except: pass
 
+
+
 DEBUG_CONFIG = {
-    "MODE": 0, "WHO": "AI", "WAIT": 0
+    "MODE": 0,
+    "WHO": "AI",
+    "WAIT": 0,
+    # ✅ 新增：日志级别（同时用于控制台 + 文件，默认建议 WARNING 更安静）
+    # 可选值：DEBUG / INFO / WARNING / ERROR / CRITICAL
+    "LOG_LEVEL": "WARNING",
 }
 
-def set_debug_mode(mode=1, who="AI", wait_time=30):
+
+
+
+def set_debug_mode(mode=1, who="AI", wait_time=30, log_level=None):
+    """
+    ✅ B方案：debug 模式同时管理：
+    - MODE / WHO / WAIT（原有人工介入逻辑）
+    - LOG_LEVEL（控制日志输出强度）
+    """
     global DEBUG_CONFIG
     DEBUG_CONFIG["MODE"] = int(mode)
     DEBUG_CONFIG["WHO"] = str(who).upper()
     DEBUG_CONFIG["WAIT"] = int(wait_time)
+
+    # 默认策略：mode=0 安静；mode=1 详细
+    if log_level is None:
+        desired = "WARNING" if DEBUG_CONFIG["MODE"] == 0 else "INFO"
+    else:
+        desired = str(log_level).strip().upper()
+
+    DEBUG_CONFIG["LOG_LEVEL"] = desired
+
+    # 应用到 logger（控制台 + 文件）
+    try:
+        set_log_level(desired, apply_to_console=True, apply_to_file=True)
+    except Exception:
+        pass
+
     if 'sys_logger' in globals():
-        sys_logger.info(f"🔧 调试配置更新: Mode={mode}, Who={who}, Wait={wait_time}s")
+        sys_logger.info(f"🔧 调试配置更新: Mode={mode}, Who={who}, Wait={wait_time}s, LogLevel={desired}")
 
 # ==========================================
 # 2. 日志系统
 # ==========================================
+
+
+def _parse_log_level(level) -> int:
+    """把 'INFO' / logging.INFO / None 转成 logging 的 level int"""
+    if level is None:
+        return logging.INFO
+    if isinstance(level, int):
+        return level
+    s = str(level).strip().upper()
+    return getattr(logging, s, logging.INFO)
+
+
+
 def setup_logger(log_file="system_run.log"):
     logger = logging.getLogger("CAD_System")
-    logger.setLevel(logging.INFO)
-    if logger.handlers: return logger
-    
-    formatter = logging.Formatter('%(asctime)s - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
-    
+
+    initial_level = _parse_log_level(DEBUG_CONFIG.get("LOG_LEVEL", "INFO"))
+    logger.setLevel(initial_level)
+
+    formatter = logging.Formatter(
+        '%(asctime)s - [%(levelname)s] - %(filename)s:%(lineno)d - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+    # ✅ 如果已经有 handler，也要把 level 同步一遍（避免“看起来不生效”）
+    if logger.handlers:
+        for h in logger.handlers:
+            try:
+                h.setLevel(initial_level)
+                h.setFormatter(formatter)
+            except Exception:
+                pass
+        return logger
+
     # File Handler
     log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), log_file)
     try:
         fh = RotatingFileHandler(log_path, maxBytes=5*1024*1024, backupCount=3, encoding='utf-8')
         fh.setFormatter(formatter)
+        fh.setLevel(initial_level)
         logger.addHandler(fh)
-    except: pass
+    except:
+        pass
 
     # Console Handler
     ch = logging.StreamHandler(sys.stdout)
     ch.setFormatter(formatter)
+    ch.setLevel(initial_level)
     logger.addHandler(ch)
-    return logger
 
+    return logger
 sys_logger = setup_logger()
+
+
+
+
+
+def set_log_level(level="INFO", *, apply_to_console=True, apply_to_file=True):
+    """
+    ✅ 动态设置日志级别：同时设置 logger 和各 handler
+    """
+    lv = _parse_log_level(level)
+    logger = logging.getLogger("CAD_System")
+    logger.setLevel(lv)
+
+    for h in logger.handlers:
+        if apply_to_file and isinstance(h, RotatingFileHandler):
+            h.setLevel(lv)
+        if apply_to_console and isinstance(h, logging.StreamHandler) and not isinstance(h, RotatingFileHandler):
+            h.setLevel(lv)
+
 
 # ==========================================
 # 3. Excel 记录
@@ -200,3 +293,11 @@ def node(msg, *args, **kwargs):
         try: msg = msg.format(*args, **kwargs)
         except: pass
     sys_logger.info(msg)
+
+
+sys_logger.info("...调试配置更新....")
+sys_logger.info("set_debug_mode called from:\n" + "".join(traceback.format_stack(limit=6)))
+
+
+
+    

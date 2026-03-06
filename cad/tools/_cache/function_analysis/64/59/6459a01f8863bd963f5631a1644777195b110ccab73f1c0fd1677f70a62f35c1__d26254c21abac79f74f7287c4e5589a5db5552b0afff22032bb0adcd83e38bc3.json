@@ -1,0 +1,175 @@
+{
+  "analysis": {
+    "function": "zoom_window",
+    "summary": "规范化矩形坐标并按比例扩边，然后向外部系统发送窗口缩放命令。",
+    "inputs": [
+      {
+        "name": "x1",
+        "type": "number",
+        "meaning": "矩形角点1的X坐标",
+        "default": null
+      },
+      {
+        "name": "y1",
+        "type": "number",
+        "meaning": "矩形角点1的Y坐标",
+        "default": null
+      },
+      {
+        "name": "x2",
+        "type": "number",
+        "meaning": "矩形角点2的X坐标",
+        "default": null
+      },
+      {
+        "name": "y2",
+        "type": "number",
+        "meaning": "矩形角点2的Y坐标",
+        "default": null
+      },
+      {
+        "name": "pad_ratio",
+        "type": "number",
+        "meaning": "缩放窗口外扩比例，基于矩形宽高均值",
+        "default": 0.1
+      },
+      {
+        "name": "doc",
+        "type": "any",
+        "meaning": "未使用的可选文档对象占位",
+        "default": null
+      }
+    ],
+    "steps": [
+      "调用 normalize_rect 规范化矩形，得到左下与右上坐标",
+      "计算 pad_ratio 乘以矩形宽高均值的扩边距离 pad",
+      "构造 ZOOM Window 命令字符串，使用扩边后的坐标",
+      "调用 send_cmd 发送命令并等待 0.6 秒"
+    ],
+    "branches": [
+      {
+        "when": "无显式分支",
+        "does": "顺序执行规范化、扩边与命令发送",
+        "returns": "None"
+      }
+    ],
+    "errors": [
+      {
+        "case": "normalize_rect 失败或参数非数值",
+        "symptom": "抛出异常或返回无法解包",
+        "handling": "未处理，异常向上抛出",
+        "returns": "无返回（异常中断）"
+      },
+      {
+        "case": "send_cmd 失败/外部系统不可用",
+        "symptom": "命令发送异常或无响应",
+        "handling": "未处理，异常向上抛出",
+        "returns": "无返回（异常中断）"
+      }
+    ],
+    "side_effects": [
+      "通过 send_cmd 向外部 CAD/命令接口发送缩放指令",
+      "可能影响当前视图/文档显示状态",
+      "等待 0.6 秒（可能阻塞）"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": [
+        {
+          "path": "return",
+          "meaning": "无显式返回值",
+          "example": null
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "zoom_window(0, 0, 100, 50)",
+        "expect": "发送缩放窗口命令，窗口扩边 7.5 左右，无返回值"
+      },
+      {
+        "call": "zoom_window(10, 20, -10, 0, pad_ratio=0.2)",
+        "expect": "先规范化坐标，再扩边并发送命令，无返回值"
+      },
+      {
+        "call": "zoom_window(5, 5, 5, 5, pad_ratio=0)",
+        "expect": "窗口为单点或零面积，仍发送命令，无返回值"
+      }
+    ]
+  },
+  "contract": {
+    "function": "zoom_window",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "x1": {
+          "type": "number",
+          "meaning": "矩形角点1的X坐标",
+          "default": null
+        },
+        "y1": {
+          "type": "number",
+          "meaning": "矩形角点1的Y坐标",
+          "default": null
+        },
+        "x2": {
+          "type": "number",
+          "meaning": "矩形角点2的X坐标",
+          "default": null
+        },
+        "y2": {
+          "type": "number",
+          "meaning": "矩形角点2的Y坐标",
+          "default": null
+        },
+        "pad_ratio": {
+          "type": "number",
+          "meaning": "缩放窗口外扩比例，基于矩形宽高均值",
+          "default": 0.1
+        },
+        "doc": {
+          "type": "any",
+          "meaning": "未使用的可选文档对象占位",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [
+          {
+            "path": "return",
+            "meaning": "无显式返回值",
+            "example": null
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "normalize_rect 失败或参数非数值",
+          "returns": "无返回（异常中断）",
+          "meaning": "抛出异常或返回无法解包"
+        },
+        {
+          "when": "send_cmd 失败/外部系统不可用",
+          "returns": "无返回（异常中断）",
+          "meaning": "命令发送异常或无响应"
+        }
+      ]
+    },
+    "side_effects": [
+      "通过 send_cmd 向外部 CAD/命令接口发送缩放指令",
+      "可能影响当前视图/文档显示状态",
+      "等待 0.6 秒（可能阻塞）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:zoom_window",
+  "source_hash": "d26254c21abac79f74f7287c4e5589a5db5552b0afff22032bb0adcd83e38bc3",
+  "updated_at": "2026-02-26 17:28:27"
+}

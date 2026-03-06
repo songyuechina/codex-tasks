@@ -1,0 +1,95 @@
+{
+  "analysis": {
+    "function": "connect_database_task",
+    "summary": "尝试执行一个超时限制为3秒的数据库连接任务，打印开始信息后进行耗时操作，按代码意图返回连接成功，但实际可能因超时而失败",
+    "inputs": [],
+    "steps": [
+      "进入被超时装饰器包装的函数",
+      "打印开始连接提示",
+      "休眠5秒以模拟耗时操作",
+      "若未超时则返回连接成功字符串"
+    ],
+    "branches": [
+      {
+        "when": "执行耗时超过3秒超时限制",
+        "does": "装饰器中断执行并抛出超时异常",
+        "returns": "无正常返回"
+      },
+      {
+        "when": "执行在3秒内完成",
+        "does": "继续执行并返回连接成功",
+        "returns": "\"连接成功\""
+      }
+    ],
+    "errors": [
+      {
+        "case": "函数执行超过3秒",
+        "symptom": "超时异常被抛出，函数未完成",
+        "handling": "由func_set_timeout装饰器触发超时中断",
+        "returns": "无正常返回"
+      }
+    ],
+    "side_effects": [
+      "向标准输出打印\"开始连接...\"",
+      "线程/进程阻塞休眠5秒（若未被超时打断）"
+    ],
+    "returns": {
+      "shape": "string 或异常",
+      "fields": [
+        {
+          "path": "",
+          "meaning": "成功时的结果字符串",
+          "example": "连接成功"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "connect_database_task()",
+        "expect": "超时异常（因休眠5秒超过3秒限制），无返回值"
+      },
+      {
+        "call": "connect_database_task()",
+        "expect": "若外部修改为短于3秒的耗时操作则返回\"连接成功\""
+      }
+    ]
+  },
+  "contract": {
+    "function": "connect_database_task",
+    "inputs": {
+      "required": [],
+      "optional": {}
+    },
+    "outputs": {
+      "success": {
+        "type": "string 或异常",
+        "fields": [
+          {
+            "path": "",
+            "meaning": "成功时的结果字符串",
+            "example": "连接成功"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "函数执行超过3秒",
+          "returns": "无正常返回",
+          "meaning": "超时异常被抛出，函数未完成"
+        }
+      ]
+    },
+    "side_effects": [
+      "向标准输出打印\"开始连接...\"",
+      "线程/进程阻塞休眠5秒（若未被超时打断）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:connect_database_task",
+  "source_hash": "c7ef7a9671ac2a9781c827589b3c51e372dc1d86b7b641f7ecd34fc897cf1b56",
+  "updated_at": "2026-02-26 17:28:17"
+}

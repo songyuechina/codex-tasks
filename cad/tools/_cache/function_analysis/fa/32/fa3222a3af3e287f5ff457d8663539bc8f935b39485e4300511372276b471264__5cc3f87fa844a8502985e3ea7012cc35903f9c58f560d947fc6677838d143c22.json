@@ -1,0 +1,143 @@
+{
+  "analysis": {
+    "function": "safe_save_cad",
+    "summary": "在10秒超时保护下调用 CAD 文档的 SaveAs 保存文件，成功返回 True，超时或异常返回 False。",
+    "inputs": [
+      {
+        "name": "doc",
+        "type": "object",
+        "meaning": "CAD 文档对象，需提供 SaveAs(filepath) 方法",
+        "default": null
+      },
+      {
+        "name": "filepath",
+        "type": "str",
+        "meaning": "保存路径",
+        "default": null
+      }
+    ],
+    "steps": [
+      "在 try 中调用 func_timeout(10, doc.SaveAs, args=(filepath,))",
+      "如果保存成功，打印“保存成功！”并返回 True",
+      "捕获 FunctionTimedOut，记录超时日志并返回 False",
+      "捕获其他异常，记录错误日志并返回 False"
+    ],
+    "branches": [
+      {
+        "when": "func_timeout 调用成功且无异常",
+        "does": "打印成功信息",
+        "returns": "True"
+      },
+      {
+        "when": "捕获 FunctionTimedOut",
+        "does": "记录超时日志，提示 CAD 可能卡住并跳过文件",
+        "returns": "False"
+      },
+      {
+        "when": "捕获其他 Exception",
+        "does": "记录异常信息",
+        "returns": "False"
+      }
+    ],
+    "errors": [
+      {
+        "case": "doc.SaveAs 执行超过 10 秒",
+        "symptom": "抛出 FunctionTimedOut",
+        "handling": "记录超时日志",
+        "returns": "False"
+      },
+      {
+        "case": "doc.SaveAs 或其他代码抛出异常",
+        "symptom": "捕获 Exception",
+        "handling": "记录错误日志",
+        "returns": "False"
+      }
+    ],
+    "side_effects": [
+      "调用 CAD 对象 SaveAs，写入文件系统",
+      "使用 func_timeout 进行超时控制",
+      "标准输出打印成功信息",
+      "通过 sys_logger.info 记录日志"
+    ],
+    "returns": {
+      "shape": "bool",
+      "fields": [
+        {
+          "path": "",
+          "meaning": "保存是否成功",
+          "example": "True"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "safe_save_cad(doc, 'C:/tmp/a.dwg')",
+        "expect": "成功保存时返回 True，并打印成功信息"
+      },
+      {
+        "call": "safe_save_cad(doc, '/path/slow.dwg')",
+        "expect": "若保存超时返回 False，并记录“保存超时”日志"
+      },
+      {
+        "call": "safe_save_cad(doc, '/path/invalid.dwg')",
+        "expect": "若保存出错返回 False，并记录异常信息"
+      }
+    ]
+  },
+  "contract": {
+    "function": "safe_save_cad",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "doc": {
+          "type": "object",
+          "meaning": "CAD 文档对象，需提供 SaveAs(filepath) 方法",
+          "default": null
+        },
+        "filepath": {
+          "type": "str",
+          "meaning": "保存路径",
+          "default": null
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "bool",
+        "fields": [
+          {
+            "path": "",
+            "meaning": "保存是否成功",
+            "example": "True"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "doc.SaveAs 执行超过 10 秒",
+          "returns": "False",
+          "meaning": "抛出 FunctionTimedOut"
+        },
+        {
+          "when": "doc.SaveAs 或其他代码抛出异常",
+          "returns": "False",
+          "meaning": "捕获 Exception"
+        }
+      ]
+    },
+    "side_effects": [
+      "调用 CAD 对象 SaveAs，写入文件系统",
+      "使用 func_timeout 进行超时控制",
+      "标准输出打印成功信息",
+      "通过 sys_logger.info 记录日志"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:safe_save_cad",
+  "source_hash": "5cc3f87fa844a8502985e3ea7012cc35903f9c58f560d947fc6677838d143c22",
+  "updated_at": "2026-02-26 17:28:18"
+}

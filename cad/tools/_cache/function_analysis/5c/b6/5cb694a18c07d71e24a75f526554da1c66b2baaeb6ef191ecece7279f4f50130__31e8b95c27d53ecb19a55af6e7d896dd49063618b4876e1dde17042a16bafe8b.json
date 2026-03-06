@@ -1,0 +1,106 @@
+{
+  "analysis": {
+    "function": "aci_to_rgb",
+    "summary": "将ACI索引转换为常用RGB近似色，非支持索引或空值返回None",
+    "inputs": [
+      {
+        "name": "ci",
+        "type": "int",
+        "meaning": "ACI颜色索引，可为None",
+        "default": "无"
+      }
+    ],
+    "steps": [
+      "构建常用ACI到RGB的映射表",
+      "判断ci是否为None",
+      "若非None则转为int并查表返回",
+      "若为None直接返回None"
+    ],
+    "branches": [
+      {
+        "when": "ci is None",
+        "does": "跳过转换与查表",
+        "returns": "None"
+      },
+      {
+        "when": "ci is not None",
+        "does": "将ci转为int并用table.get查表",
+        "returns": "(r,g,b)或None"
+      }
+    ],
+    "errors": [
+      {
+        "case": "int(ci)转换失败（如ci为不可转换字符串/对象）",
+        "symptom": "抛出ValueError或TypeError",
+        "handling": "未捕获，向上抛出",
+        "returns": "无"
+      }
+    ],
+    "side_effects": [],
+    "returns": {
+      "shape": "(int,int,int) | None",
+      "fields": [
+        {
+          "path": "return",
+          "meaning": "RGB元组或None",
+          "example": "(255,0,0) 或 None"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "aci_to_rgb(1)",
+        "expect": "return=(255,0,0)"
+      },
+      {
+        "call": "aci_to_rgb(8)",
+        "expect": "return=None"
+      },
+      {
+        "call": "aci_to_rgb(None)",
+        "expect": "return=None"
+      }
+    ]
+  },
+  "contract": {
+    "function": "aci_to_rgb",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "ci": {
+          "type": "int",
+          "meaning": "ACI颜色索引，可为None",
+          "default": "无"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "(int,int,int) | None",
+        "fields": [
+          {
+            "path": "return",
+            "meaning": "RGB元组或None",
+            "example": "(255,0,0) 或 None"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "int(ci)转换失败（如ci为不可转换字符串/对象）",
+          "returns": "无",
+          "meaning": "抛出ValueError或TypeError"
+        }
+      ]
+    },
+    "side_effects": [],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:aci_to_rgb",
+  "source_hash": "31e8b95c27d53ecb19a55af6e7d896dd49063618b4876e1dde17042a16bafe8b",
+  "updated_at": "2026-02-26 17:28:27"
+}

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# CAD_selection.py V2.0 (Refactored)
+# D:/codex-tasks/cad/system/CAD_selection.py 
 # 依赖: CAD_com_utils.py, licad.py
-
+#版本V2.0 (Refactored)
 import sys
 import math
 import time
@@ -638,7 +638,11 @@ def yin_to_xian_xuanze(LB, wait_s=0.6):
 def yin_to_xian_safe(LB, wait_s=0.1):
     """【VIS-002】隐转显 (LISP sssetfirst法)"""
     if not LB: return
-    doc = C.doc
+    # 使用 raw_doc 避免 SendCommand 同步等待导致命令链阻塞
+    try:
+        doc = C.raw_doc if hasattr(C, 'raw_doc') and C.raw_doc else C.doc
+    except Exception:
+        doc = C.doc
     handles = [obj.Handle for obj in LB if getattr(obj, 'Handle', None)]
     if not handles: return
 

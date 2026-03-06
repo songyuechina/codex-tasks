@@ -1,0 +1,172 @@
+{
+  "analysis": {
+    "function": "_cad_safe_print",
+    "summary": "包装内置 print，遇到 GBK 控制台编码/输出错误时自动清洗字符串并降级输出。",
+    "inputs": [
+      {
+        "name": "*args",
+        "type": "tuple",
+        "meaning": "传给 print 的位置参数（任意对象）",
+        "default": "()"
+      },
+      {
+        "name": "**kwargs",
+        "type": "dict",
+        "meaning": "传给 print 的关键字参数（如 sep/end/file/flush）",
+        "default": "{}"
+      }
+    ],
+    "steps": [
+      "尝试直接调用 builtins._orig_print(*args, **kwargs)",
+      "若 UnicodeEncodeError，定义 _sanitize 以 GBK/ASCII 忽略方式清洗字符串",
+      "对 args 逐个清洗得到 safe_args",
+      "尝试用 safe_args 和原 kwargs 打印",
+      "若仍 OSError，尝试只用 safe_args 打印（去掉 kwargs）",
+      "若初次打印遇到 OSError，尝试只用原 args 打印",
+      "若仍异常，返回 None"
+    ],
+    "branches": [
+      {
+        "when": "初次打印成功",
+        "does": "直接返回 builtins._orig_print 的结果",
+        "returns": "print 的返回值（通常为 None）"
+      },
+      {
+        "when": "初次打印抛 UnicodeEncodeError",
+        "does": "清洗字符串后重试打印",
+        "returns": "print 的返回值（通常为 None）"
+      },
+      {
+        "when": "清洗后打印抛 OSError",
+        "does": "移除 kwargs 再打印",
+        "returns": "print 的返回值（通常为 None）"
+      },
+      {
+        "when": "初次打印抛 OSError",
+        "does": "移除 kwargs 再打印",
+        "returns": "print 的返回值（通常为 None）"
+      },
+      {
+        "when": "移除 kwargs 仍异常",
+        "does": "捕获异常并返回 None",
+        "returns": "None"
+      }
+    ],
+    "errors": [
+      {
+        "case": "UnicodeEncodeError（控制台编码不支持）",
+        "symptom": "直接打印失败",
+        "handling": "清洗字符串后重试",
+        "returns": "print 返回值或 None"
+      },
+      {
+        "case": "OSError（输出设备/流错误）",
+        "symptom": "打印失败",
+        "handling": "移除 kwargs 重试；若再次失败返回 None",
+        "returns": "print 返回值或 None"
+      },
+      {
+        "case": "清洗时异常",
+        "symptom": "GBK 编解码失败",
+        "handling": "退回 ASCII 忽略编码",
+        "returns": "清洗后的字符串"
+      },
+      {
+        "case": "二次打印仍抛异常",
+        "symptom": "无法输出",
+        "handling": "吞掉异常",
+        "returns": "None"
+      }
+    ],
+    "side_effects": [
+      "向标准输出或指定 file 流写入文本（I/O）"
+    ],
+    "returns": {
+      "shape": "None 或 print 的返回值",
+      "fields": [
+        {
+          "path": "(return)",
+          "meaning": "print 的返回值（通常 None）或失败时 None",
+          "example": "None"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "_cad_safe_print('hello')",
+        "expect": "控制台输出 hello；返回 None"
+      },
+      {
+        "call": "_cad_safe_print('emoji 😀')",
+        "expect": "若编码不支持，输出过滤后的文本（去掉 emoji）；返回 None"
+      },
+      {
+        "call": "_cad_safe_print('x', file=bad_stream)",
+        "expect": "若 OSError，尝试移除 kwargs 重试；仍失败则返回 None"
+      }
+    ]
+  },
+  "contract": {
+    "function": "_cad_safe_print",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "*args": {
+          "type": "tuple",
+          "meaning": "传给 print 的位置参数（任意对象）",
+          "default": "()"
+        },
+        "**kwargs": {
+          "type": "dict",
+          "meaning": "传给 print 的关键字参数（如 sep/end/file/flush）",
+          "default": "{}"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "None 或 print 的返回值",
+        "fields": [
+          {
+            "path": "(return)",
+            "meaning": "print 的返回值（通常 None）或失败时 None",
+            "example": "None"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "UnicodeEncodeError（控制台编码不支持）",
+          "returns": "print 返回值或 None",
+          "meaning": "直接打印失败"
+        },
+        {
+          "when": "OSError（输出设备/流错误）",
+          "returns": "print 返回值或 None",
+          "meaning": "打印失败"
+        },
+        {
+          "when": "清洗时异常",
+          "returns": "清洗后的字符串",
+          "meaning": "GBK 编解码失败"
+        },
+        {
+          "when": "二次打印仍抛异常",
+          "returns": "None",
+          "meaning": "无法输出"
+        }
+      ]
+    },
+    "side_effects": [
+      "向标准输出或指定 file 流写入文本（I/O）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:_cad_safe_print",
+  "source_hash": "d33f38bbddcb52196989f922875cb2f6a9bb3cbd53eda4a2cb72a4cff2b77c0c",
+  "updated_at": "2026-02-26 17:28:17"
+}

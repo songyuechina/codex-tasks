@@ -1,0 +1,473 @@
+{
+  "meta_version": "1.0",
+  "script": {
+    "name": "common_logger.py",
+    "path": "cad/system/common_logger.py",
+    "encoding": "utf-8",
+    "version": "V3.0"
+  },
+  "procedure": {
+    "usage": "Import shared helpers to control debug/log verbosity, record test outcomes to Excel, and guard critical regions with context manager logging.",
+    "usage_evidence": {
+      "line_start": 22,
+      "line_end": 30
+    },
+    "examples": [
+      "set_debug_mode(mode=0, who=\"AI\", wait_time=0)",
+      "set_debug_mode(mode=1, who=\"AI\", wait_time=30)",
+      "set_debug_mode(mode=1, who=\"AI\", wait_time=0, log_level=\"DEBUG\")"
+    ],
+    "workflow": [
+      {
+        "id": "w1",
+        "step": "Initialize module globals and ensure test directory exists.",
+        "evidence": {
+          "line_start": 37,
+          "line_end": 43
+        }
+      },
+      {
+        "id": "w2",
+        "step": "Configure or refresh CAD_System logger and create module-level sys_logger.",
+        "evidence": {
+          "line_start": 103,
+          "line_end": 141
+        }
+      },
+      {
+        "id": "w3",
+        "step": "Allow runtime debug/log-level updates through set_debug_mode and set_log_level.",
+        "evidence": {
+          "line_start": 59,
+          "line_end": 159
+        }
+      },
+      {
+        "id": "w4",
+        "step": "Persist test/checkpoint records to Excel when openpyxl is available.",
+        "evidence": {
+          "line_start": 165,
+          "line_end": 203
+        }
+      },
+      {
+        "id": "w5",
+        "step": "Use checkpoint and CriticalSection to track execution outcomes and optionally pause for human review.",
+        "evidence": {
+          "line_start": 208,
+          "line_end": 289
+        }
+      }
+    ]
+  },
+  "functions": [
+    {
+      "name": "set_debug_mode",
+      "is_simple": false,
+      "steps": [
+        {
+          "id": "s1",
+          "text": "Normalize input mode/who/wait_time and write values into DEBUG_CONFIG.",
+          "evidence": {
+            "line_start": 65,
+            "line_end": 68
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s2",
+          "text": "Resolve desired log level: WARNING/INFO default by mode unless explicit log_level provided.",
+          "evidence": {
+            "line_start": 71,
+            "line_end": 75
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s3",
+          "text": "Apply computed log level to logger and handlers via set_log_level in guarded try/except.",
+          "evidence": {
+            "line_start": 79,
+            "line_end": 82
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s4",
+          "text": "Emit configuration update log only when sys_logger already exists in globals.",
+          "evidence": {
+            "line_start": 84,
+            "line_end": 85
+          },
+          "confidence": "high"
+        }
+      ],
+      "confidence": {
+        "steps": "high"
+      },
+      "evidence": {
+        "line_start": 59,
+        "line_end": 85
+      }
+    },
+    {
+      "name": "_parse_log_level",
+      "is_simple": true,
+      "steps": [],
+      "confidence": {
+        "steps": "n/a"
+      },
+      "evidence": {
+        "line_start": 92,
+        "line_end": 99
+      }
+    },
+    {
+      "name": "setup_logger",
+      "is_simple": false,
+      "steps": [
+        {
+          "id": "s1",
+          "text": "Get CAD_System logger and set initial level from DEBUG_CONFIG through _parse_log_level.",
+          "evidence": {
+            "line_start": 104,
+            "line_end": 107
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s2",
+          "text": "Build shared formatter for both file and console handlers.",
+          "evidence": {
+            "line_start": 109,
+            "line_end": 112
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s3",
+          "text": "If handlers already exist, synchronize their level/formatter and return immediately.",
+          "evidence": {
+            "line_start": 115,
+            "line_end": 122
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s4",
+          "text": "Attempt to attach rotating file handler under module directory; failures are swallowed.",
+          "evidence": {
+            "line_start": 125,
+            "line_end": 132
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s5",
+          "text": "Attach stdout console handler and return configured logger.",
+          "evidence": {
+            "line_start": 135,
+            "line_end": 140
+          },
+          "confidence": "high"
+        }
+      ],
+      "confidence": {
+        "steps": "high"
+      },
+      "evidence": {
+        "line_start": 103,
+        "line_end": 140
+      }
+    },
+    {
+      "name": "set_log_level",
+      "is_simple": true,
+      "steps": [],
+      "confidence": {
+        "steps": "n/a"
+      },
+      "evidence": {
+        "line_start": 147,
+        "line_end": 159
+      }
+    },
+    {
+      "name": "record_test_result",
+      "is_simple": false,
+      "steps": [
+        {
+          "id": "s1",
+          "text": "Return early when openpyxl dependency is not available.",
+          "evidence": {
+            "line_start": 166,
+            "line_end": 166
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s2",
+          "text": "Infer script/function names from caller frame when missing, with Unknown fallback.",
+          "evidence": {
+            "line_start": 168,
+            "line_end": 178
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s3",
+          "text": "Assemble row payload including timestamp, script, function, variables, and PASS/FAIL result.",
+          "evidence": {
+            "line_start": 180,
+            "line_end": 191
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s4",
+          "text": "Open existing workbook or create a new one depending on TEST_EXCEL_PATH existence.",
+          "evidence": {
+            "line_start": 193,
+            "line_end": 198
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s5",
+          "text": "Append row and save workbook to TEST_EXCEL_PATH.",
+          "evidence": {
+            "line_start": 200,
+            "line_end": 201
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s6",
+          "text": "Log Excel error through sys_logger if persistence fails.",
+          "evidence": {
+            "line_start": 202,
+            "line_end": 203
+          },
+          "confidence": "high"
+        }
+      ],
+      "confidence": {
+        "steps": "high"
+      },
+      "evidence": {
+        "line_start": 165,
+        "line_end": 203
+      }
+    },
+    {
+      "name": "checkpoint",
+      "is_simple": false,
+      "steps": [
+        {
+          "id": "s1",
+          "text": "Infer caller script/function from frame; fall back to Unknown on failure.",
+          "evidence": {
+            "line_start": 209,
+            "line_end": 214
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s2",
+          "text": "Record checkpoint result by delegating to record_test_result.",
+          "evidence": {
+            "line_start": 216,
+            "line_end": 216
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s3",
+          "text": "Gate interactive pause by DEBUG_CONFIG mode/who and WAIT threshold.",
+          "evidence": {
+            "line_start": 218,
+            "line_end": 220
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s4",
+          "text": "Sleep for WAIT seconds and allow Ctrl+C skip in manual review mode.",
+          "evidence": {
+            "line_start": 221,
+            "line_end": 226
+          },
+          "confidence": "high"
+        }
+      ],
+      "confidence": {
+        "steps": "high"
+      },
+      "evidence": {
+        "line_start": 208,
+        "line_end": 226
+      }
+    },
+    {
+      "name": "CriticalSection.__init__",
+      "is_simple": false,
+      "steps": [
+        {
+          "id": "s1",
+          "text": "Store provided description for section reporting.",
+          "evidence": {
+            "line_start": 229,
+            "line_end": 230
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s2",
+          "text": "Infer caller script/function names when not explicitly provided.",
+          "evidence": {
+            "line_start": 233,
+            "line_end": 242
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s3",
+          "text": "Persist resolved caller metadata on the instance.",
+          "evidence": {
+            "line_start": 244,
+            "line_end": 245
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s4",
+          "text": "Read debug mode fields and derive AI/human activity flags.",
+          "evidence": {
+            "line_start": 248,
+            "line_end": 254
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s5",
+          "text": "Initialize metrics container and default pass state.",
+          "evidence": {
+            "line_start": 256,
+            "line_end": 257
+          },
+          "confidence": "high"
+        }
+      ],
+      "confidence": {
+        "steps": "high"
+      },
+      "evidence": {
+        "line_start": 229,
+        "line_end": 257
+      }
+    },
+    {
+      "name": "CriticalSection.record",
+      "is_simple": true,
+      "steps": [],
+      "confidence": {
+        "steps": "n/a"
+      },
+      "evidence": {
+        "line_start": 259,
+        "line_end": 260
+      }
+    },
+    {
+      "name": "CriticalSection.__enter__",
+      "is_simple": true,
+      "steps": [],
+      "confidence": {
+        "steps": "n/a"
+      },
+      "evidence": {
+        "line_start": 262,
+        "line_end": 264
+      }
+    },
+    {
+      "name": "CriticalSection.__exit__",
+      "is_simple": false,
+      "steps": [
+        {
+          "id": "s1",
+          "text": "If an exception is present, mark fail, capture error message, and log section crash.",
+          "evidence": {
+            "line_start": 267,
+            "line_end": 270
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s2",
+          "text": "Without exception, derive pass result from whether metrics contain an error key.",
+          "evidence": {
+            "line_start": 271,
+            "line_end": 272
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s3",
+          "text": "Attempt to persist section record via record_test_result in guarded block.",
+          "evidence": {
+            "line_start": 274,
+            "line_end": 279
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s4",
+          "text": "If human debug mode is active with positive wait_time, print variables and pause.",
+          "evidence": {
+            "line_start": 281,
+            "line_end": 287
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "s5",
+          "text": "Return False to avoid swallowing exceptions from wrapped block.",
+          "evidence": {
+            "line_start": 289,
+            "line_end": 289
+          },
+          "confidence": "high"
+        }
+      ],
+      "confidence": {
+        "steps": "high"
+      },
+      "evidence": {
+        "line_start": 266,
+        "line_end": 289
+      }
+    },
+    {
+      "name": "node",
+      "is_simple": true,
+      "steps": [],
+      "confidence": {
+        "steps": "n/a"
+      },
+      "evidence": {
+        "line_start": 291,
+        "line_end": 295
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "function:setup_logger: confirm whether swallowing file-handler creation exceptions is acceptable in production diagnostics.",
+      "function:record_test_result: validate Excel schema and file lock behavior under concurrent writes.",
+      "function:CriticalSection.__exit__: manually confirm always-return-False policy across all caller expectations.",
+      "module:some complex behavior is inferred from code because several functions lack formal docstrings."
+    ],
+    "function_count": 11
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "analysis": {
+    "function": "get_acad_process_id",
+    "summary": "在当前系统进程列表中查找名称包含指定字符串的进程，返回首个匹配进程的PID，否则返回None。",
+    "inputs": [
+      {
+        "name": "ming",
+        "type": "any",
+        "meaning": "要匹配的进程名称子串（会被转成字符串，与进程名小写比较）",
+        "default": "无"
+      }
+    ],
+    "steps": [
+      "遍历系统进程列表（pid与name）",
+      "将输入转换为字符串并在进程名小写中做包含判断",
+      "找到首个匹配即返回对应PID",
+      "遍历结束未匹配则返回None"
+    ],
+    "branches": [
+      {
+        "when": "存在某进程名小写包含str(ming)",
+        "does": "立即返回该进程pid",
+        "returns": "匹配进程pid(int)"
+      },
+      {
+        "when": "遍历完无匹配",
+        "does": "返回None",
+        "returns": "None"
+      }
+    ],
+    "errors": [
+      {
+        "case": "psutil.process_iter在枚举或访问进程信息时抛出异常（如AccessDenied/NoSuchProcess）",
+        "symptom": "函数中未捕获异常而中断",
+        "handling": "无处理，异常向上抛出",
+        "returns": "无（异常终止）"
+      }
+    ],
+    "side_effects": [
+      "读取操作系统进程表（依赖psutil与系统进程信息）"
+    ],
+    "returns": {
+      "shape": "int | None",
+      "fields": [
+        {
+          "path": "value",
+          "meaning": "匹配到的进程ID或None",
+          "example": 1234
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "get_acad_process_id('acad')",
+        "expect": "{value: 1234}（若存在名称含'acad'的进程）"
+      },
+      {
+        "call": "get_acad_process_id('notexist')",
+        "expect": "{value: null}（无匹配进程时）"
+      },
+      {
+        "call": "get_acad_process_id(123)",
+        "expect": "{value: 5678}（当进程名包含'123'时）"
+      }
+    ]
+  },
+  "contract": {
+    "function": "get_acad_process_id",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "ming": {
+          "type": "any",
+          "meaning": "要匹配的进程名称子串（会被转成字符串，与进程名小写比较）",
+          "default": "无"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "int | None",
+        "fields": [
+          {
+            "path": "value",
+            "meaning": "匹配到的进程ID或None",
+            "example": 1234
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "psutil.process_iter在枚举或访问进程信息时抛出异常（如AccessDenied/NoSuchProcess）",
+          "returns": "无（异常终止）",
+          "meaning": "函数中未捕获异常而中断"
+        }
+      ]
+    },
+    "side_effects": [
+      "读取操作系统进程表（依赖psutil与系统进程信息）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:get_acad_process_id",
+  "source_hash": "8b737df468549ed1e049a239438ffb58acefbc0cef291f39c8f8eca5a2e4623f",
+  "updated_at": "2026-02-26 17:28:25"
+}

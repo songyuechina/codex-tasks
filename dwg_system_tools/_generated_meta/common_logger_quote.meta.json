@@ -1,0 +1,521 @@
+{
+  "meta_version": "1.0",
+  "script": {
+    "name": "common_logger.py",
+    "path": "cad/system/common_logger.py",
+    "encoding": "utf-8",
+    "version": "V3.0"
+  },
+  "quote": {
+    "goal": "Provide shared logging, debug-mode control, test-result persistence, and checkpoint/context-manager helpers for CAD scripts.",
+    "goal_evidence": {
+      "line_start": 22,
+      "line_end": 299
+    },
+    "sections": [
+      {
+        "title": "Module Header And Imports",
+        "line_start": 1,
+        "line_end": 33
+      },
+      {
+        "title": "Global Config",
+        "line_start": 34,
+        "line_end": 57
+      },
+      {
+        "title": "Debug Mode Control",
+        "line_start": 59,
+        "line_end": 86
+      },
+      {
+        "title": "Logging System",
+        "line_start": 87,
+        "line_end": 160
+      },
+      {
+        "title": "Excel Recording",
+        "line_start": 162,
+        "line_end": 204
+      },
+      {
+        "title": "Core Utilities",
+        "line_start": 205,
+        "line_end": 299
+      }
+    ],
+    "public_api": [
+      "set_debug_mode",
+      "setup_logger",
+      "set_log_level",
+      "record_test_result",
+      "checkpoint",
+      "CriticalSection",
+      "node"
+    ],
+    "notes": [
+      "openpyxl is optional; when import fails, Excel recording short-circuits.",
+      "Logger is initialized at import time via sys_logger = setup_logger()."
+    ],
+    "confidence": {
+      "goal": "high"
+    }
+  },
+  "functions": [
+    {
+      "name": "set_debug_mode",
+      "signature": "def set_debug_mode(mode=1, who=\"AI\", wait_time=30, log_level=None):",
+      "inputs": [
+        "mode",
+        "who",
+        "wait_time",
+        "log_level"
+      ],
+      "outputs": [
+        "return_implicit: None"
+      ],
+      "returns": [
+        {
+          "id": "return_implicit",
+          "condition": "otherwise",
+          "value_repr": "None",
+          "branch_logic": "Function updates DEBUG_CONFIG, attempts set_log_level in try/except, optionally logs via sys_logger, then falls through.",
+          "evidence": {
+            "line_start": 59,
+            "line_end": 85
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Update global debug flags and desired log level, then apply the level to current logger handlers.",
+      "evidence": {
+        "line_start": 59,
+        "line_end": 85
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "_parse_log_level",
+      "signature": "def _parse_log_level(level) -> int:",
+      "inputs": [
+        "level"
+      ],
+      "outputs": [
+        "return_none_default: logging.INFO",
+        "return_int_passthrough: level",
+        "return_attr_lookup: getattr(logging, s, logging.INFO)"
+      ],
+      "returns": [
+        {
+          "id": "return_none_default",
+          "condition": "level is None",
+          "value_repr": "logging.INFO",
+          "branch_logic": "When caller does not provide level, default INFO is returned.",
+          "evidence": {
+            "line_start": 94,
+            "line_end": 95
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "return_int_passthrough",
+          "condition": "isinstance(level, int)",
+          "value_repr": "level",
+          "branch_logic": "Existing integer logging level is accepted directly.",
+          "evidence": {
+            "line_start": 96,
+            "line_end": 97
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "return_attr_lookup",
+          "condition": "otherwise",
+          "value_repr": "getattr(logging, s, logging.INFO)",
+          "branch_logic": "Non-int input is uppercased and resolved against logging module constants with INFO fallback.",
+          "evidence": {
+            "line_start": 98,
+            "line_end": 99
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Normalize user input into a numeric logging level.",
+      "evidence": {
+        "line_start": 92,
+        "line_end": 99
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "setup_logger",
+      "signature": "def setup_logger(log_file=\"system_run.log\"):",
+      "inputs": [
+        "log_file"
+      ],
+      "outputs": [
+        "return_existing_logger: logger",
+        "return_initialized_logger: logger"
+      ],
+      "returns": [
+        {
+          "id": "return_existing_logger",
+          "condition": "logger.handlers",
+          "value_repr": "logger",
+          "branch_logic": "If handlers already exist, synchronize formatter/levels and return immediately to avoid duplicate handlers.",
+          "evidence": {
+            "line_start": 115,
+            "line_end": 122
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "return_initialized_logger",
+          "condition": "NOT(logger.handlers)",
+          "value_repr": "logger",
+          "branch_logic": "Create file handler (best effort) and console handler, then return configured logger.",
+          "evidence": {
+            "line_start": 124,
+            "line_end": 140
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Create or refresh the CAD_System logger with rotating file and console handlers.",
+      "evidence": {
+        "line_start": 103,
+        "line_end": 140
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "set_log_level",
+      "signature": "def set_log_level(level=\"INFO\", *, apply_to_console=True, apply_to_file=True):",
+      "inputs": [
+        "level",
+        "apply_to_console",
+        "apply_to_file"
+      ],
+      "outputs": [
+        "return_implicit: None"
+      ],
+      "returns": [
+        {
+          "id": "return_implicit",
+          "condition": "otherwise",
+          "value_repr": "None",
+          "branch_logic": "Updates logger level and selected handlers, then exits without explicit return.",
+          "evidence": {
+            "line_start": 147,
+            "line_end": 159
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Apply a new logging level to the root CAD logger and optionally to console/file handlers.",
+      "evidence": {
+        "line_start": 147,
+        "line_end": 159
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "record_test_result",
+      "signature": "def record_test_result(script_name=None, func_name=None, is_pass=False, **variables):",
+      "inputs": [
+        "script_name",
+        "func_name",
+        "is_pass",
+        "**variables"
+      ],
+      "outputs": [
+        "return_no_openpyxl: None",
+        "return_implicit: None"
+      ],
+      "returns": [
+        {
+          "id": "return_no_openpyxl",
+          "condition": "not openpyxl",
+          "value_repr": "None",
+          "branch_logic": "Guard return when optional openpyxl dependency is unavailable.",
+          "evidence": {
+            "line_start": 166,
+            "line_end": 166
+          },
+          "confidence": "high"
+        },
+        {
+          "id": "return_implicit",
+          "condition": "otherwise",
+          "value_repr": "None",
+          "branch_logic": "Build row data, append to workbook, save file, and fall through; errors are logged in except block.",
+          "evidence": {
+            "line_start": 180,
+            "line_end": 203
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Persist a single test/checkpoint result row to testfunc.xlsx with auto-detected caller metadata.",
+      "evidence": {
+        "line_start": 165,
+        "line_end": 203
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "checkpoint",
+      "signature": "def checkpoint(desc, is_pass=True, **variables):",
+      "inputs": [
+        "desc",
+        "is_pass",
+        "**variables"
+      ],
+      "outputs": [
+        "return_implicit: None"
+      ],
+      "returns": [
+        {
+          "id": "return_implicit",
+          "condition": "otherwise",
+          "value_repr": "None",
+          "branch_logic": "Infers caller names, records result, and optionally waits for manual review in human debug mode.",
+          "evidence": {
+            "line_start": 208,
+            "line_end": 226
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Record a checkpoint event and optionally pause for human inspection based on DEBUG_CONFIG.",
+      "evidence": {
+        "line_start": 208,
+        "line_end": 226
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "CriticalSection.__init__",
+      "signature": "def __init__(self, description=\"关键操作\", script_name=None, func_name=None):",
+      "inputs": [
+        "self",
+        "description",
+        "script_name",
+        "func_name"
+      ],
+      "outputs": [
+        "return_implicit: None"
+      ],
+      "returns": [
+        {
+          "id": "return_implicit",
+          "condition": "otherwise",
+          "value_repr": "None",
+          "branch_logic": "Initializes caller metadata, mode flags, runtime metrics container, and pass status.",
+          "evidence": {
+            "line_start": 229,
+            "line_end": 257
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Prepare context-manager state for critical operation tracking.",
+      "evidence": {
+        "line_start": 229,
+        "line_end": 257
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "CriticalSection.record",
+      "signature": "def record(self, **kwargs):",
+      "inputs": [
+        "self",
+        "**kwargs"
+      ],
+      "outputs": [
+        "return_implicit: None"
+      ],
+      "returns": [
+        {
+          "id": "return_implicit",
+          "condition": "otherwise",
+          "value_repr": "None",
+          "branch_logic": "Merges provided key/value pairs into metrics dict and exits.",
+          "evidence": {
+            "line_start": 259,
+            "line_end": 260
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Attach runtime metrics that will be persisted when the context exits.",
+      "evidence": {
+        "line_start": 259,
+        "line_end": 260
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "CriticalSection.__enter__",
+      "signature": "def __enter__(self):",
+      "inputs": [
+        "self"
+      ],
+      "outputs": [
+        "return_self: self"
+      ],
+      "returns": [
+        {
+          "id": "return_self",
+          "condition": "otherwise",
+          "value_repr": "self",
+          "branch_logic": "Logs section entry and returns context object for 'as' binding.",
+          "evidence": {
+            "line_start": 262,
+            "line_end": 264
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Start context-manager section and expose object to caller.",
+      "evidence": {
+        "line_start": 262,
+        "line_end": 264
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "CriticalSection.__exit__",
+      "signature": "def __exit__(self, exc_type, exc_val, exc_tb):",
+      "inputs": [
+        "self",
+        "exc_type",
+        "exc_val",
+        "exc_tb"
+      ],
+      "outputs": [
+        "return_no_swallow: False"
+      ],
+      "returns": [
+        {
+          "id": "return_no_swallow",
+          "condition": "otherwise",
+          "value_repr": "False",
+          "branch_logic": "After pass/fail accounting, result recording, and optional human wait, always returns False so exceptions are not suppressed.",
+          "evidence": {
+            "line_start": 266,
+            "line_end": 289
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Finalize critical section, record outcome, and keep exception propagation behavior.",
+      "evidence": {
+        "line_start": 266,
+        "line_end": 289
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    },
+    {
+      "name": "node",
+      "signature": "def node(msg, *args, **kwargs):",
+      "inputs": [
+        "msg",
+        "*args",
+        "**kwargs"
+      ],
+      "outputs": [
+        "return_implicit: None"
+      ],
+      "returns": [
+        {
+          "id": "return_implicit",
+          "condition": "otherwise",
+          "value_repr": "None",
+          "branch_logic": "Optionally formats message with args/kwargs in a guarded block and logs via sys_logger.info.",
+          "evidence": {
+            "line_start": 291,
+            "line_end": 295
+          },
+          "confidence": "high"
+        }
+      ],
+      "description": "Convenience wrapper for formatted info logging.",
+      "evidence": {
+        "line_start": 291,
+        "line_end": 295
+      },
+      "confidence": {
+        "description": "high",
+        "returns": "high"
+      }
+    }
+  ],
+  "dependencies": {
+    "imports": [
+      "os",
+      "sys",
+      "logging",
+      "time",
+      "datetime",
+      "inspect",
+      "pathlib.Path",
+      "logging.handlers.RotatingFileHandler",
+      "openpyxl",
+      "openpyxl.Workbook",
+      "openpyxl.load_workbook",
+      "traceback"
+    ],
+    "globals": [
+      "CURRENT_FILE",
+      "TESTS_DIR",
+      "TEST_EXCEL_PATH",
+      "DEBUG_CONFIG",
+      "sys_logger"
+    ],
+    "files_guess": [
+      "cad/system/system_run.log",
+      "cad/tests/testfunc.xlsx"
+    ]
+  },
+  "quality": {
+    "todo": [
+      "function:setup_logger: verify whether bare except for file handler creation should emit warning for observability.",
+      "function:record_test_result: confirm expected behavior when TEST_EXCEL_PATH write fails or workbook schema changes.",
+      "function:CriticalSection.__exit__: manually verify return False is always desired for exception propagation policy.",
+      "module:multiple functions rely on inferred behavior without explicit docstrings (setup_logger, record_test_result, checkpoint, class methods)."
+    ],
+    "function_count": 11
+  }
+}

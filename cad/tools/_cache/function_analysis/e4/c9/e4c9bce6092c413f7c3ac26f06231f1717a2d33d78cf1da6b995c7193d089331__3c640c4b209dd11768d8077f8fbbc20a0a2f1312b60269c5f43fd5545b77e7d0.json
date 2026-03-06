@@ -1,0 +1,157 @@
+{
+  "analysis": {
+    "function": "chongfu_caozuo",
+    "summary": "无法完整分析：仅提供函数签名，缺少函数体源码",
+    "inputs": [
+      {
+        "name": "Fx",
+        "type": "unknown",
+        "meaning": "待执行的函数或方法（具体语义需函数体确认）",
+        "default": "required"
+      },
+      {
+        "name": "dwg_instance",
+        "type": "unknown",
+        "meaning": "可能的实例或上下文对象（需函数体确认）",
+        "default": "None"
+      },
+      {
+        "name": "args",
+        "type": "tuple",
+        "meaning": "位置参数集合",
+        "default": "()"
+      },
+      {
+        "name": "kwargs",
+        "type": "dict",
+        "meaning": "关键字参数集合",
+        "default": "None"
+      },
+      {
+        "name": "max_retries",
+        "type": "int",
+        "meaning": "最大重试次数（需函数体确认）",
+        "default": "3"
+      },
+      {
+        "name": "failure_value",
+        "type": "unknown",
+        "meaning": "失败时返回的默认值（需函数体确认）",
+        "default": "None"
+      }
+    ],
+    "steps": [
+      "函数体缺失，无法确定流程步骤"
+    ],
+    "branches": [
+      {
+        "when": "函数体缺失",
+        "does": "无法确定分支逻辑",
+        "returns": "unknown"
+      }
+    ],
+    "errors": [
+      {
+        "case": "源码不完整",
+        "symptom": "无法识别异常/失败分支",
+        "handling": "需要完整函数体",
+        "returns": "unknown"
+      }
+    ],
+    "side_effects": [
+      "unknown（函数体缺失，无法确认是否调用外部系统）"
+    ],
+    "returns": {
+      "shape": "unknown（函数体缺失）",
+      "fields": [
+        {
+          "path": "(unknown)",
+          "meaning": "无法确定返回结构",
+          "example": "unknown"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "call": "chongfu_caozuo(Fx)",
+        "expect": "unknown（函数体缺失）"
+      },
+      {
+        "call": "chongfu_caozuo(Fx, args=(1,2), kwargs={\"a\":1})",
+        "expect": "unknown（函数体缺失）"
+      },
+      {
+        "call": "chongfu_caozuo(Fx, max_retries=5, failure_value=None)",
+        "expect": "unknown（函数体缺失）"
+      }
+    ]
+  },
+  "contract": {
+    "function": "chongfu_caozuo",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "Fx": {
+          "type": "unknown",
+          "meaning": "待执行的函数或方法（具体语义需函数体确认）",
+          "default": "required"
+        },
+        "dwg_instance": {
+          "type": "unknown",
+          "meaning": "可能的实例或上下文对象（需函数体确认）",
+          "default": "None"
+        },
+        "args": {
+          "type": "tuple",
+          "meaning": "位置参数集合",
+          "default": "()"
+        },
+        "kwargs": {
+          "type": "dict",
+          "meaning": "关键字参数集合",
+          "default": "None"
+        },
+        "max_retries": {
+          "type": "int",
+          "meaning": "最大重试次数（需函数体确认）",
+          "default": "3"
+        },
+        "failure_value": {
+          "type": "unknown",
+          "meaning": "失败时返回的默认值（需函数体确认）",
+          "default": "None"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "unknown（函数体缺失）",
+        "fields": [
+          {
+            "path": "(unknown)",
+            "meaning": "无法确定返回结构",
+            "example": "unknown"
+          }
+        ],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "源码不完整",
+          "returns": "unknown",
+          "meaning": "无法识别异常/失败分支"
+        }
+      ]
+    },
+    "side_effects": [
+      "unknown（函数体缺失，无法确认是否调用外部系统）"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:chongfu_caozuo",
+  "source_hash": "3c640c4b209dd11768d8077f8fbbc20a0a2f1312b60269c5f43fd5545b77e7d0",
+  "updated_at": "2026-02-26 17:28:28"
+}

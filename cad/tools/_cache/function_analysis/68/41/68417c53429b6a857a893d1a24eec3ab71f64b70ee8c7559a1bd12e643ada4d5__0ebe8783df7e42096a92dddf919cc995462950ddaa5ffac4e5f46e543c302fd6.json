@@ -1,0 +1,121 @@
+{
+  "analysis": {
+    "function": "close_oldest_cad_process",
+    "summary": "查找同名 CAD 进程，若数量超过 1 个则终止最早启动的进程，并记录日志；否则打印提示。",
+    "inputs": [
+      {
+        "name": "process_name",
+        "type": "str",
+        "meaning": "目标进程名称，用于筛选 CAD 进程",
+        "default": "acad.exe"
+      }
+    ],
+    "steps": [
+      "遍历系统进程并筛选名称匹配的进程",
+      "判断匹配进程数量是否大于 1",
+      "若大于 1，按创建时间排序取最早进程并尝试终止",
+      "记录成功或异常日志",
+      "若不足 2 个，打印提示信息"
+    ],
+    "branches": [
+      {
+        "when": "len(cad_processes) > 1 且终止成功",
+        "does": "终止最早启动的进程并记录日志",
+        "returns": "None"
+      },
+      {
+        "when": "len(cad_processes) > 1 且终止失败抛异常",
+        "does": "记录异常日志并忽略异常",
+        "returns": "None"
+      },
+      {
+        "when": "len(cad_processes) <= 1",
+        "does": "打印没有多个 CAD 进程的提示",
+        "returns": "None"
+      }
+    ],
+    "errors": [
+      {
+        "case": "psutil.Process(...).terminate() 抛出异常（权限不足/进程不存在等）",
+        "symptom": "无法终止进程",
+        "handling": "捕获异常并记录日志",
+        "returns": "None"
+      },
+      {
+        "case": "psutil.process_iter 访问进程信息时异常",
+        "symptom": "进程遍历失败",
+        "handling": "未显式处理，可能传播异常",
+        "returns": "异常传播"
+      }
+    ],
+    "side_effects": [
+      "读取系统进程列表（psutil）",
+      "终止系统进程",
+      "写入日志（sys_logger.info）",
+      "向标准输出打印提示"
+    ],
+    "returns": {
+      "shape": "None",
+      "fields": []
+    },
+    "examples": [
+      {
+        "call": "close_oldest_cad_process()",
+        "expect": "若系统中 acad.exe 进程数>1，终止最早进程并记录日志；否则打印提示；返回 None"
+      },
+      {
+        "call": "close_oldest_cad_process('mycad.exe')",
+        "expect": "针对 mycad.exe 筛选并按规则处理；返回 None"
+      },
+      {
+        "call": "close_oldest_cad_process(process_name='acad.exe')",
+        "expect": "与默认行为一致；返回 None"
+      }
+    ]
+  },
+  "contract": {
+    "function": "close_oldest_cad_process",
+    "inputs": {
+      "required": [],
+      "optional": {
+        "process_name": {
+          "type": "str",
+          "meaning": "目标进程名称，用于筛选 CAD 进程",
+          "default": "acad.exe"
+        }
+      }
+    },
+    "outputs": {
+      "success": {
+        "type": "None",
+        "fields": [],
+        "meaning": "函数正常执行时的返回结果"
+      },
+      "failure": [
+        {
+          "when": "psutil.Process(...).terminate() 抛出异常（权限不足/进程不存在等）",
+          "returns": "None",
+          "meaning": "无法终止进程"
+        },
+        {
+          "when": "psutil.process_iter 访问进程信息时异常",
+          "returns": "异常传播",
+          "meaning": "进程遍历失败"
+        }
+      ]
+    },
+    "side_effects": [
+      "读取系统进程列表（psutil）",
+      "终止系统进程",
+      "写入日志（sys_logger.info）",
+      "向标准输出打印提示"
+    ],
+    "safe_usage_notes": []
+  },
+  "ok": true,
+  "model": "gpt-5.2-codex",
+  "base_url": "https://code.newcli.com/codex/v1",
+  "qualified_name": "scripts.CAD_basic:close_oldest_cad_process",
+  "source_hash": "0ebe8783df7e42096a92dddf919cc995462950ddaa5ffac4e5f46e543c302fd6",
+  "updated_at": "2026-02-26 17:28:26"
+}

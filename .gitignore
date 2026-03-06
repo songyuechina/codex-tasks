@@ -1,0 +1,19 @@
+# Local DWG/data workspace lives outside the repo.
+# The local `dwg_cases/` folder mirrors `D:\Mypro\基础服务\用户1` and should not be pushed.
+dwg_cases/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# CAD/runtime artifacts
+*.log
+*.lock
+*.bak
+*.bak_*
+*.dwl
+*.dwl2
+
+# Local tool/cache data
+.accelerate/
+CAD_AUDIT.sqlite
