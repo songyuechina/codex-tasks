@@ -73,3 +73,9 @@
 
 `C:\Users\User` 下的 Codex 仍是跨项目通用总管，  
 但 `D:\codex-tasks` 已经被正式建设为本项目的项目总管工作区。
+
+## GitHub 版本说明
+
+- GitHub 上提交 `baee4bb`（`Add print orchestration and runtime guard framework`）是一个明确的监督版基线。
+- 这里的“监督版”是指：打印编排链已接入 `cad_runtime_guard.py` 与对应的 runtime guard orchestration，用于复杂批量打印任务的运行时监督与稳定性增强。
+- 若后续本地实验回退到“无监督、朴素守护”状态，不应反向覆盖这条说明；应通过新的提交单独标注“朴素版”或“对比实验版”。
