@@ -489,7 +489,7 @@ def close_tarch_CAD_system():
 #&&% 守护天正CAD系统
 def launch_cad_guardians():
     """
-    【功能】: 独立启动 CAD 的守护脚本（弹窗杀手 + 命令监控 + 运行监管）。
+    【功能】: 独立启动 CAD 的守护脚本（弹窗杀手 + 命令监控）。
     【特性】: 支持系统任意移动，路径自动识别。
     """
     # ========================================================
@@ -508,7 +508,6 @@ def launch_cad_guardians():
     scripts_to_launch = [
         "cad_dialog_killer.py",
         "cad_command_monitor.py",
-        "cad_runtime_guard.py",
     ]
 
     sys_logger.info(f"🛡️ [守护] 正在从 [{system_dir.name}] 启动守护进程...")

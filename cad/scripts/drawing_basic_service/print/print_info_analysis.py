@@ -35,7 +35,6 @@ if str(MODULE_DIR) not in sys.path:
 from system.licad import C
 from system.CAD_core import launch_cad_guardians, li, open_file
 from system.CAD_coordination import wait_quiescent
-from system.runtime_guard_bridge import RuntimeGuardTriggered, assert_runtime_guard_ok, render_guard_error
 from system.CAD_selection import get_attr, select_entities_in_window, ss_select
 from system.common_logger import sys_logger
 
@@ -925,7 +924,6 @@ def run_print_info_case(
     report_dwg_path = Path(source_dwg_path) if source_dwg_path else dwg_path
 
     launch_cad_guardians()
-    assert_runtime_guard_ok("print_info_analysis:after_launch_guardians")
 
     need_open = _find_document_by_path(dwg_path) is None
     if need_open:
@@ -934,7 +932,6 @@ def run_print_info_case(
     if not _activate_document_by_path(dwg_path):
         raise RuntimeError(f"未能激活 DWG: {dwg_path}")
     wait_quiescent(min_quiet=0.5, timeout=20.0)
-    assert_runtime_guard_ok("print_info_analysis:after_open_dwg")
 
     content_json_source = content_json_path
 
@@ -968,8 +965,6 @@ def run_print_info_case(
                     ),
                     encoding="utf-8",
                 )
-    assert_runtime_guard_ok("print_info_analysis:before_analyze_jobs")
-
     excluded_handles = _load_excluded_handles(content_json_source)
     jobs_by_space = _filter_jobs_by_requested_handles(jobs_by_space, requested_handles)
     jobs_by_space = _exclude_handles_and_reindex(jobs_by_space, excluded_handles)
@@ -1027,25 +1022,19 @@ def main() -> None:
     else:
         output_path = MODULE_DIR / "cases" / "output" / dwg_path.stem / "print_info_analysis.json"
 
-    try:
-        result = run_print_info_case(
-            dwg_path=dwg_path,
-            output_path=output_path,
-            source_dwg_path=dwg_path,
-            plan_json_path=plan_json_path,
-            content_json_path=content_json_path,
-            mode=args.mode,
-            include_model=not args.no_model,
-            include_layouts=not args.no_layouts,
-            only_layouts=args.layout,
-            requested_handles=set(args.handle or []),
-            keep_open=args.keep_open,
-        )
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-    except RuntimeGuardTriggered as exc:
-        print(json.dumps(render_guard_error(exc), ensure_ascii=False, indent=2))
-        raise SystemExit(2)
-
-
+    result = run_print_info_case(
+        dwg_path=dwg_path,
+        output_path=output_path,
+        source_dwg_path=dwg_path,
+        plan_json_path=plan_json_path,
+        content_json_path=content_json_path,
+        mode=args.mode,
+        include_model=not args.no_model,
+        include_layouts=not args.no_layouts,
+        only_layouts=args.layout,
+        requested_handles=set(args.handle or []),
+        keep_open=args.keep_open,
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 if __name__ == "__main__":
     main()

@@ -29,7 +29,6 @@ from system.common_logger import sys_logger
 from system.CAD_core import launch_cad_guardians, open_file
 from system.CAD_coordination import wait_quiescent
 from system.licad import C
-from system.runtime_guard_bridge import RuntimeGuardTriggered, assert_runtime_guard_ok, render_guard_error
 
 from print_area_content_analysis import analyze_jobs_content
 from print_area_scope_analysis import filter_jobs_by_largest_pseudo_scope, run_scope_analysis_case
@@ -156,7 +155,6 @@ def run_print_case(
     mode = normalize_print_mode(mode)
 
     launch_cad_guardians()
-    assert_runtime_guard_ok("print_runner:after_launch_guardians")
 
     run_root, work_dir, pdf_dir = _make_run_dirs(dwg_path, output_root)
     process_token = _make_process_token(dwg_path)
@@ -169,7 +167,6 @@ def run_print_case(
     if not _activate_document_by_path(work_dwg):
         raise RuntimeError(f"未能激活工作 DWG: {work_dwg}")
     wait_quiescent(min_quiet=0.5, timeout=20.0)
-    assert_runtime_guard_ok("print_runner:after_open_work_dwg")
 
     scope_analysis_payload: dict | None = None
     scope_analysis_path: Path | None = None
@@ -226,7 +223,6 @@ def run_print_case(
             )
 
     plan_json = save_plan_json(plan, run_root / "print_plan.json")
-    assert_runtime_guard_ok("print_runner:before_execute_plan")
 
     summary = {
         "run_root": str(run_root),
@@ -297,23 +293,19 @@ def main() -> None:
     parser.add_argument("--wps-threshold", type=int, default=6, help="close WPS every N successful plots")
     args = parser.parse_args()
 
-    try:
-        result = run_print_case(
-            Path(args.dwg),
-            Path(args.output_root),
-            mode=args.mode,
-            include_model=not args.no_model,
-            include_layouts=not args.no_layouts,
-            only_layouts=args.layout,
-            dry_run=args.dry_run,
-            keep_open=args.keep_open,
-            safety_delay=args.safety_delay,
-            wps_threshold=args.wps_threshold,
-        )
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-    except RuntimeGuardTriggered as exc:
-        print(json.dumps(render_guard_error(exc), ensure_ascii=False, indent=2))
-        raise SystemExit(2)
+    result = run_print_case(
+        Path(args.dwg),
+        Path(args.output_root),
+        mode=args.mode,
+        include_model=not args.no_model,
+        include_layouts=not args.no_layouts,
+        only_layouts=args.layout,
+        dry_run=args.dry_run,
+        keep_open=args.keep_open,
+        safety_delay=args.safety_delay,
+        wps_threshold=args.wps_threshold,
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":

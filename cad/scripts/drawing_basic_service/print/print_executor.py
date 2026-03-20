@@ -31,7 +31,6 @@ from system.common_logger import sys_logger
 from system.licad import C
 from system.CAD_core import set_space_mode, switch_to_layout
 from system.CAD_coordination import wait_quiescent
-from system.runtime_guard_bridge import assert_runtime_guard_ok
 from cad_control import activate_window_by_title, minimize_all_windows
 
 from print_policy import PrintJob, PrintPlan
@@ -372,9 +371,7 @@ def execute_print_plan(plan: PrintPlan, defaults: Optional[PrintDefaults] = None
 
         for batch in (landscapes, portraits):
             batch_name = "landscape" if batch is landscapes else "portrait"
-            assert_runtime_guard_ok(f"print_executor:before_batch:{layout_name}:{batch_name}")
             for job in batch:
-                assert_runtime_guard_ok(f"print_executor:before_job:{layout_name}:{job.handle}")
                 try:
                     ok = _run_job(job, defaults)
                 except Exception as exc:

@@ -40,7 +40,6 @@ if str(MODULE_DIR) not in sys.path:
 from system.licad import C, retry_on_busy
 from system.CAD_core import launch_cad_guardians, open_file
 from system.CAD_coordination import wait_quiescent
-from system.runtime_guard_bridge import RuntimeGuardTriggered, assert_runtime_guard_ok, render_guard_error
 from print_policy import PRINT_MODE_ADAPTIVE, build_print_plan, normalize_print_mode, plan_to_dict
 
 
@@ -552,7 +551,6 @@ def run_content_analysis_case(
         raise FileNotFoundError(dwg_path)
 
     launch_cad_guardians()
-    assert_runtime_guard_ok("print_content_analysis:after_launch_guardians")
 
     need_open = _find_document_by_path(dwg_path) is None
     if need_open:
@@ -561,7 +559,6 @@ def run_content_analysis_case(
     if not _activate_document_by_path(dwg_path):
         raise RuntimeError(f"未能激活 DWG: {dwg_path}")
     wait_quiescent(min_quiet=0.5, timeout=20.0)
-    assert_runtime_guard_ok("print_content_analysis:after_open_dwg")
 
     if plan_json_path and plan_json_path.exists():
         jobs_by_space = _load_jobs_from_plan_json(plan_json_path)
@@ -575,8 +572,6 @@ def run_content_analysis_case(
             only_layouts=only_layouts,
         )
         jobs_by_space = plan_to_dict(plan)["jobs_by_space"]
-    assert_runtime_guard_ok("print_content_analysis:before_analyze_jobs")
-
     analysis = analyze_jobs_content(jobs_by_space)
     result = {
         "dwg_path": str(dwg_path),
@@ -621,22 +616,16 @@ def main() -> None:
     else:
         output_path = MODULE_DIR / "cases" / "output" / dwg_path.stem / "content_analysis.json"
 
-    try:
-        result = run_content_analysis_case(
-            dwg_path=dwg_path,
-            output_path=output_path,
-            plan_json_path=plan_json_path,
-            mode=args.mode,
-            include_model=not args.no_model,
-            include_layouts=not args.no_layouts,
-            only_layouts=args.layout,
-            keep_open=args.keep_open,
-        )
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-    except RuntimeGuardTriggered as exc:
-        print(json.dumps(render_guard_error(exc), ensure_ascii=False, indent=2))
-        raise SystemExit(2)
-
-
+    result = run_content_analysis_case(
+        dwg_path=dwg_path,
+        output_path=output_path,
+        plan_json_path=plan_json_path,
+        mode=args.mode,
+        include_model=not args.no_model,
+        include_layouts=not args.no_layouts,
+        only_layouts=args.layout,
+        keep_open=args.keep_open,
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 if __name__ == "__main__":
     main()

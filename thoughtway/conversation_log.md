@@ -4122,3 +4122,70 @@ Excel 当前包含三张表：
 - 它们并不是 A 类“本质无有效打印区域”
 - 而是 B 类“文档激活链串错 + 守护过早停机”导致的假失败
 - 修正后，这 3 个文件都已成功完成 purified_adaptive 打印闭环
+
+## 2026-03-21 02:45:29 监督版上传尝试与朴素版对比复测
+
+### GitHub 上传状态
+
+- 已将“带监督智能体 / runtime guard 框架”的脚本成果本地提交为：
+  - commit: `baee4bbbc75335896ca0fadafb47fb17beeab6df`
+  - message: `Add print orchestration and runtime guard framework`
+- 已确认 `.gitignore` 不上传 DWG / PDF 成果，只补充忽略智能体运行态产物与 session/runtime 文件。
+- 两次 `git push origin HEAD` 均失败，失败原因为当前机器到 `github.com:443` 网络不可达：
+  - `Recv failure: Connection was reset`
+  - `Could not connect to github.com port 443`
+- 因此，本轮“上传到 GitHub”未完成，原因是网络连接失败，不是仓库内容或鉴权口径失败。
+
+### 本地代码状态切换
+
+- 为执行无监督对比复测，已在本地去掉监督智能体接入，回到“无监督、无 CAD 纯窗口守护”的朴素状态。
+- 具体做法：
+  - `cad/system/CAD_core.py` 中 `launch_cad_guardians()` 不再启动 `cad_runtime_guard.py`
+  - `print_runner.py`
+  - `print_info_analysis.py`
+  - `print_area_scope_analysis.py`
+  - `print_area_content_analysis.py`
+  - `print_executor.py`
+  这些打印链文件已移除 `runtime_guard_bridge` 接入
+- `py_compile` 已通过，说明本地朴素版代码至少语法成立。
+
+### 监督版基线
+
+- 批量目录：
+  - `E:\BaiduSyncdisk\资料\测试备份\湖南利农五倍子加工项目（电气）-CAD\print-agent-output\batch-20260320-140551`
+- 监督版最终结果：
+  - `dwg_count = 4`
+  - `items = 4`
+  - `4/4 success`
+- 逐文件结果：
+  - `五倍子1#、2#厂房（电气施工图）_t3.dwg` -> `10` 张 PDF，成功
+  - `湖南利农五倍子1#办公楼电气施工图_t3.dwg` -> `27` 张 PDF，成功
+  - `湖南利农五倍子厂房总图电气施工图_t3.dwg` -> `8` 张 PDF，成功
+  - `湖南利农五倍子综合2#综合楼加地下室电气施工图_t3.dwg` -> `51` 张 PDF，成功
+
+### 无监督朴素版对比复测
+
+- 批量目录：
+  - `E:\BaiduSyncdisk\资料\测试备份\湖南利农五倍子加工项目（电气）-CAD\print-agent-output\batch-20260321-010959`
+- 执行命令：
+  - `python D:\codex-tasks\cad\scripts\drawing_basic_service\print\print_batch_dispatch.py --input-dir "E:\BaiduSyncdisk\资料\测试备份\湖南利农五倍子加工项目（电气）-CAD" --mode purified_adaptive`
+- 朴素版当前落盘事实：
+  - 前 3 个 DWG 已写入 `batch_summary.json`，且均为 `success`
+  - 第 4 个 DWG `湖南利农五倍子综合2#综合楼加地下室电气施工图_t3.dwg` 未能完成收口
+  - 其运行目录仅产生了 `scope_analysis.json` 与工作副本，`pdf` 目录为空
+  - `batch_summary.json` 最后更新时间停在 `2026-03-21 02:19:24`
+  - 批处理 Python 进程 `PID 20240` 长时间未完成，已于本轮人工停止，避免继续占用环境
+
+### 本轮对比结论
+
+- 在这组 4 个 DWG 的同一批任务上：
+  - 监督版：`4/4 success`
+  - 朴素版：`3/4 success + 1/4 卡住未完成`
+- 三个较小案例在两种模式下表现一致：
+  - `10 / 27 / 8` 张 PDF 全部成功
+- 差异集中出现在最大、最复杂的 `51` 张图纸案例：
+  - 监督版能完整跑通
+  - 朴素版在该案例进入后续阶段时出现长时间停滞，最终未生成 PDF，也未回写最终批次结果
+- 因此，本轮复测支持如下判断：
+  - 监督链在复杂长流程上的稳定性收益是真实存在的
+  - 回退到朴素守护后，系统仍能处理一部分案例，但在复杂案例上的鲁棒性明显下降

@@ -25,7 +25,6 @@ if str(MODULE_DIR) not in sys.path:
 from system.licad import C
 from system.CAD_core import launch_cad_guardians, open_file
 from system.CAD_coordination import wait_quiescent
-from system.runtime_guard_bridge import RuntimeGuardTriggered, assert_runtime_guard_ok, render_guard_error
 
 from print_area_analysis import _bbox_xy, get_pseudo_maximal_polylines
 from print_policy import reindex_jobs_by_space
@@ -198,7 +197,6 @@ def run_scope_analysis_case(
     keep_open: bool = False,
 ) -> dict[str, Any]:
     launch_cad_guardians()
-    assert_runtime_guard_ok("print_scope_analysis:after_launch_guardians")
 
     need_open = _find_document_by_path(dwg_path) is None
     if need_open:
@@ -207,7 +205,6 @@ def run_scope_analysis_case(
     if not _activate_document_by_path(dwg_path):
         raise RuntimeError(f"未能激活 DWG: {dwg_path}")
     wait_quiescent(min_quiet=0.5, timeout=20.0)
-    assert_runtime_guard_ok("print_scope_analysis:after_open_dwg")
 
     result = {
         "dwg_path": str(dwg_path),
@@ -238,17 +235,11 @@ def main() -> None:
     args = parser.parse_args()
 
     output_path = Path(args.output) if args.output else None
-    try:
-        result = run_scope_analysis_case(
-            dwg_path=Path(args.dwg),
-            output_path=output_path,
-            keep_open=args.keep_open,
-        )
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-    except RuntimeGuardTriggered as exc:
-        print(json.dumps(render_guard_error(exc), ensure_ascii=False, indent=2))
-        raise SystemExit(2)
-
-
+    result = run_scope_analysis_case(
+        dwg_path=Path(args.dwg),
+        output_path=output_path,
+        keep_open=args.keep_open,
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
 if __name__ == "__main__":
     main()
