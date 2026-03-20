@@ -1,361 +1,264 @@
 # -*- coding: utf-8 -*-
-# 文件位置: D:/claude-tasks/cad/system/CAD_coordination.py
-# 版本: V3.2 (修复循环引用导致的 NoneType 错误)
+# 文件位置: D:/codex-tasks/cad/system/CAD_coordination.py
+# 版本: V4.0
 """
-CAD运行协同机制模块 (Licad + Logger 集成终极版)
+CAD_coordination.py（收束版）
 
-1. 【连接】深度集成 licad.py，统一使用 C.acad/C.raw_doc。
-2. 【日志】全面接入 common_logger.py。
-3. 【稳健】提供 wait_quiescent 级的高级空闲检测。
-4. 【修复】移除了对 licad 导入错误的掩盖，防止 C 变为 None。
+定位：
+- 基于 licad.C 的高层协同层
+- 负责：等待空闲、事务守卫、文件回滚、安全循环、命令同步
+- 不负责：项目引导、全局日志初始化、CAD 连接主入口
+
+原则：
+1. CAD 连接入口统一由 system.licad 的 C 提供
+2. 本模块只做“协同与保护”
+3. 高风险操作用 sys_logger 记录，失败路径清晰
+4. 尽量避免历史自引用、旧式 sys.path 引导、杂散 import
+
+说明：
+- 本文件不是最终完美版，而是按当前系统规则收束后的稳定骨架版
+- 目标是便于后续 Codex 基于真实案例继续定位与迭代
 """
 
+from __future__ import annotations
 
-
-from system.CAD_com_utils import SafeCOM
-
-
-import time
-import subprocess
-import sys
-import os
-import psutil
 import inspect
-from pathlib import Path
-
-#  引导代码 (确保能找到 system)
 import os
-import sys
+import shutil
+import subprocess
+import time
+from functools import partial
 from pathlib import Path
-current = Path(__file__).resolve()
-while current.name != 'cad':
-    if current.parent == current: raise Exception("找不到根目录")
-    current = current.parent
-sys.path.insert(0, str(current))
-from system.project_setup import PathConfig
+from typing import Any, Callable, Optional
 
-# ================= 2. 核心模块集成 =================
+import psutil
 
-# 接入统一日志
-try:
-    from system.common_logger import sys_logger
-except ImportError:
-    import logging
-    sys_logger = logging.getLogger("Fallback")
-    sys_logger.addHandler(logging.StreamHandler())
-
-# 接入 Licad 连接池
-# 🔥【关键修复】直接导入，不要用 try...except 吞噬错误！
-# 配合 licad.py V2.5 的延迟导入修改，这里的循环引用已被打破。
+from system.common_logger import sys_logger
 from system.licad import C, retry_on_busy
-sys_logger.info("✅ 协同模块已加载 (集成 Licad V2.5+)")
 
-# ================= 3. 核心协同函数 =================
 
+sys_logger.info("✅ 协同模块已加载 (集成 licad)")  # 模块级单条信息，便于排查加载链
+
+
+# =========================================================================
+# 1. 等待 CAD 空闲
+# =========================================================================
 def wait_quiescent(min_quiet: float = 0.5, timeout: float = 60.0) -> bool:
     """
-    【等待空闲】基于 Licad.C 的智能检测
-    使用 C.raw_doc 避免触发 Wrapper 逻辑
+    等待 CAD 真正进入空闲状态。
+
+    判定逻辑：
+    - 使用 C.raw_doc 读取 CMDACTIVE / CMDNAMES
+    - 读取失败视为“忙碌/被 COM 阻塞”，而不是立即判死
+    - 连续静默 min_quiet 秒后视为通过
     """
-    try: caller = inspect.stack()[1].function
-    except: caller = "Unknown"
+    try:
+        caller = inspect.stack()[1].function
+    except Exception:
+        caller = "Unknown"
 
     start_time = time.time()
-    last_busy_time = time.time()
+    last_busy_time = start_time
+    busy_hits = 0
 
-    # 1. 初始连接检查
-    # 如果这里报错 'NoneType' object has no attribute 'raw_doc'
-    # 说明上面的 from licad import C 失败了，或者 licad 内部 C 初始化失败
-    if not C.raw_doc:
+    if not getattr(C, "raw_doc", None):
         sys_logger.warning(f"[{caller}] 等待失败: 无法获取 CAD 文档")
         return False
 
     while True:
-        current_time = time.time()
+        now = time.time()
         is_busy = False
         status_desc = "Idle"
 
         try:
-            # 使用原始对象进行检测
             doc = C.raw_doc
-            
-            if doc:
-                # GetVariable 可能会因为 RPC 忙碌抛错
+            if not doc:
+                is_busy = True
+                status_desc = "NoDoc"
+            else:
                 cmd_active = int(doc.GetVariable("CMDACTIVE"))
                 cmd_names = doc.GetVariable("CMDNAMES")
-                
-                # CMDACTIVE > 0 表示有命令在运行
                 if cmd_active > 0 or (cmd_names and str(cmd_names).strip() != ""):
                     is_busy = True
                     status_desc = f"Active({cmd_active})"
-            else:
-                is_busy = True
-                status_desc = "NoDoc"
-
         except Exception:
-            # RPC 拒绝视为忙碌
             is_busy = True
             status_desc = "COM_Block"
 
-        # --- 判定逻辑 ---
-        if is_busy:
-            last_busy_time = current_time
-            if current_time - start_time > timeout:
-                sys_logger.error(f"[{caller}] 等待超时({timeout}s)! {status_desc}")
-                return False
-        else:
-            if (current_time - last_busy_time) >= min_quiet:
-                return True
-
-        time.sleep(0.1)
-
-#&&% 20260114
-
-def wait_quiescent(min_quiet: float = 0.5, timeout: float = 60.0) -> bool:
-    """
-    【等待空闲】V3.2 稳健版 + 效能报告
-    
-    逻辑：
-    1. 采用 V3.2 的宽容策略（Exception视为忙碌），保证能连上各种状态的 CAD。
-    2. 集成 busy_hits 计数。
-    3. [关键修改] 使用 sys_logger.info 输出报告，配合 GLOBAL_SILENT_MODE 开关控制显隐。
-    """
-    try: caller = inspect.stack()[1].function
-    except: caller = "Unknown"
-
-    start_time = time.time()
-    last_busy_time = time.time()
-    
-    # === 忙碌计数器 ===
-    busy_hits = 0 
-
-    # 1. 初始连接检查
-    if not hasattr(C, 'raw_doc') or not C.raw_doc:
-        # [致命错误] -> warning/error (永远显示)
-        sys_logger.warning(f"[{caller}] 等待失败: 无法获取 CAD 文档")
-        return False
-
-    while True:
-        current_time = time.time()
-        is_busy = False
-        status_desc = "Idle"
-
-        try:
-            # 使用原始对象进行检测
-            doc = C.raw_doc
-            
-            if doc:
-                cmd_active = int(doc.GetVariable("CMDACTIVE"))
-                cmd_names = doc.GetVariable("CMDNAMES")
-                
-                if cmd_active > 0 or (cmd_names and str(cmd_names).strip() != ""):
-                    is_busy = True
-                    status_desc = f"Active({cmd_active})"
-            else:
-                is_busy = True
-                status_desc = "NoDoc"
-
-        except Exception:
-            # [稳健策略] 任何错误都视为忙碌，不轻易报错退出
-            is_busy = True
-            status_desc = "COM_Block"
-
-        # --- 判定逻辑 ---
         if is_busy:
             busy_hits += 1
-            last_busy_time = current_time
-            
-            if current_time - start_time > timeout:
-                # [超时错误] -> error (永远显示)
+            last_busy_time = now
+
+            if now - start_time > timeout:
                 sys_logger.error(f"[{caller}] 等待超时({timeout}s)! {status_desc}")
                 return False
         else:
-            if (current_time - last_busy_time) >= min_quiet:
-                total_cost = current_time - start_time
-                
-                # [关键修改] 全部使用 info 级别
-                # 这样当 GLOBAL_SILENT_MODE = 0 时，你能看到这些信息
-                # 当 GLOBAL_SILENT_MODE = 1 时，LoggerHotSwapper 会自动屏蔽它们
+            if (now - last_busy_time) >= min_quiet:
+                total_cost = now - start_time
                 if busy_hits == 0:
-                    sys_logger.info(f"[{caller}] 🟢 等待通过(无痛): {total_cost:.2f}s | 拦截: 0 (全程空闲)")
+                    sys_logger.info(f"[{caller}] 🟢 等待通过(无痛): {total_cost:.2f}s | 拦截: 0")
                 else:
-                    sys_logger.info(f"[{caller}] 🟡 等待通过(有效): {total_cost:.2f}s | 拦截: {busy_hits} 次 | 状态: {status_desc}")
-
+                    sys_logger.info(
+                        f"[{caller}] 🟡 等待通过(有效): {total_cost:.2f}s | 拦截: {busy_hits} 次 | 状态: {status_desc}"
+                    )
                 return True
 
         time.sleep(0.1)
 
 
-# =================================================================
-# 🌟 CADGuard 上下文管理器V5.0
-# =================================================================
-# 引入静默等待
-try:
-    from system.CAD_coordination import wait_quiescent
-except ImportError:
-    # 防止循环导入，如果 wait_quiescent 就在本文件下方定义，这里不需要
-    pass
-
+# =========================================================================
+# 2. CAD 事务守卫
+# =========================================================================
 class CADGuard:
     """
-    【CAD 事务守卫 V5.0 - 局部回滚增强版】
-    
-    新增参数:
-    independent_undo (bool): 
-        - False (默认): "融合模式"。不创建新的 Undo 标记，与外层共生。
-        - True: "独立模式"。创建独立的 Undo 子组。如果出错，只回滚自己，不影响外层。
+    CAD 事务守卫。
+
+    功能：
+    - 进入前等待
+    - 事务嵌套深度管理
+    - Undo 标记控制
+    - 异常时局部回滚
+    - 根事务结束时刷新/后置等待
     """
-    
+
     _nesting_depth = 0
-    
-    def __init__(self, 
-                 task_name="CAD操作", 
-                 wait_before=True, 
-                 wait_after=True, 
-                 timeout=30.0, 
-                 disable_ui=True,
-                 independent_undo=False): # <--- 新增参数
-        
+
+    def __init__(
+        self,
+        task_name: str = "CAD操作",
+        wait_before: bool = True,
+        wait_after: bool = True,
+        timeout: float = 30.0,
+        disable_ui: bool = True,
+        independent_undo: bool = False,
+    ):
         self.task_name = task_name
         self.wait_before = wait_before
         self.wait_after = wait_after
         self.timeout = timeout
         self.disable_ui = disable_ui
-        self.independent_undo = independent_undo # <--- 记录参数
-        
+        self.independent_undo = independent_undo
+
         self.doc = None
-        self.start_time = 0
+        self.start_time = 0.0
         self.is_root = False
-        self.should_create_mark = False # 内部决策标志
+        self.should_create_mark = False
 
     def __enter__(self):
         self.start_time = time.time()
-        
-        # 1. 深度管理
+
         if CADGuard._nesting_depth == 0:
             self.is_root = True
             sys_logger.info(f"🔰 [主事务开始] {self.task_name}")
         else:
             self.is_root = False
-            # 根据模式显示不同的日志
-            tag = "🔹 [独立子事务]" if self.independent_undo else "  🔻 [融合子事务]"
+            tag = "🔹 [独立子事务]" if self.independent_undo else "🔻 [融合子事务]"
             sys_logger.info(f"{tag} {self.task_name}")
-            
+
         CADGuard._nesting_depth += 1
 
-        # 2. 连接检查
         if not C.li():
             raise RuntimeError("CAD 未连接")
+
         self.doc = C.doc
 
-        # 3. 前置等待 (建议每一层都做，为了安全)
         if self.wait_before:
-            try:
-                from system.CAD_coordination import wait_quiescent
-                wait_quiescent(min_quiet=0.5, timeout=self.timeout)
-            except: pass
+            wait_quiescent(min_quiet=0.5, timeout=self.timeout)
 
-        # 4. 决策：是否开启 Undo 标记？
-        # 规则：如果是根事务，或者用户显式要求独立，则开启
         if self.is_root or self.independent_undo:
             self.should_create_mark = True
-            try: self.doc.StartUndoMark()
-            except: pass
+            try:
+                if self.doc:
+                    self.doc.StartUndoMark()
+            except Exception:
+                pass
         else:
             self.should_create_mark = False
 
-        # 5. UI 控制：依然只有根事务才有权关屏幕 (避免内层乱开)
         if self.is_root and self.disable_ui:
-            try: C.app.Visible = True 
-            except: pass
+            try:
+                if C.app:
+                    C.app.Visible = True
+            except Exception:
+                pass
 
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         duration = time.time() - self.start_time
         CADGuard._nesting_depth -= 1
-        
-        # ============================================
-        # 异常处理 (局部回滚的核心逻辑)
-        # ============================================
+
         if exc_type:
             sys_logger.error(f"❌ 事务异常: {self.task_name} ({exc_val})")
-            
-            # 只有当这是个“有标记”的事务时，我们才执行回滚
+
             if self.should_create_mark:
-                # 先结束标记，形成闭环
-                try: 
-                    if self.doc: self.doc.EndUndoMark()
-                except: pass
-                
-                # 🔥 执行局部回滚！
-                # 发送 "U" 命令，只会撤销最近的一组 Start/End，也就是当前这一层
+                try:
+                    if self.doc:
+                        self.doc.EndUndoMark()
+                except Exception:
+                    pass
+
                 try:
                     sys_logger.warning(f"🔄 正在回滚局部事务: {self.task_name}")
-                    if self.doc: self.doc.SendCommand("_U\n")
-                except: pass
-            
-            # 如果是根节点，需要重置深度并刷新屏幕
+                    if self.doc:
+                        self.doc.SendCommand("_U\n")
+                except Exception:
+                    pass
+
             if self.is_root:
                 CADGuard._nesting_depth = 0
-                try: self.doc.Regen(1)
-                except: pass
-            
-            # 这里有个策略选择：
-            # 如果是独立事务，我们回滚了自己，是否还需要抛出异常打断外层？
-            # 通常：抛出异常让外层知道子任务失败了
-            return False 
-
-        else:
-            # ============================================
-            # 正常结束
-            # ============================================
-            sys_logger.info(f"✅ 完成: {self.task_name}")
-            
-            # 只有创建了标记的，才需要结束标记
-            if self.should_create_mark:
-                try: 
-                    if self.doc: self.doc.EndUndoMark()
-                except: pass
-
-            # 只有根节点负责恢复 UI
-            if self.is_root:
                 try:
-                    if self.disable_ui and self.doc: C.app.Update()
-                except: pass
-                
-                # 后置等待
-                if self.wait_after:
-                    try:
-                        from system.CAD_coordination import wait_quiescent
-                        wait_quiescent(min_quiet=0.5, timeout=self.timeout)
-                    except: pass
-            
-            return True
+                    if self.doc:
+                        self.doc.Regen(1)
+                except Exception:
+                    pass
+
+            return False
+
+        sys_logger.info(f"✅ 完成: {self.task_name} | 耗时 {duration:.2f}s")
+
+        if self.should_create_mark:
+            try:
+                if self.doc:
+                    self.doc.EndUndoMark()
+            except Exception:
+                pass
+
+        if self.is_root:
+            try:
+                if self.disable_ui and self.doc and C.app:
+                    C.app.Update()
+            except Exception:
+                pass
+
+            if self.wait_after:
+                wait_quiescent(min_quiet=0.5, timeout=self.timeout)
+
+        return True
 
 
 # =========================================================================
-# 门神二号：FileGuard (物理/文件级保护)
+# 3. 文件级保护
 # =========================================================================
 class FileGuard:
     """
-    【文件级卫士】
-    负责：物理备份、强杀进程、文件覆盖回滚
+    文件级卫士：
+    - 进入时做物理备份
+    - 失败时尝试关闭 CAD 并回滚原文件
     """
-    def __init__(self, file_path):
+
+    def __init__(self, file_path: str | Path):
         self.file_path = Path(file_path).resolve()
-        # 备份文件名为: 原名.bak_safety
         self.backup_path = self.file_path.with_suffix(self.file_path.suffix + ".bak_safety")
-        self.success = False 
+        self.success = False
 
     def __enter__(self):
         sys_logger.info(f"💾 [文件备份] 创建副本: {self.file_path.name}")
-        
+
         if not self.file_path.exists():
             raise FileNotFoundError(f"原文件不存在: {self.file_path}")
 
         try:
-            # 复制原文件到备份路径
             shutil.copy2(self.file_path, self.backup_path)
         except Exception as e:
             sys_logger.error(f"❌ 备份失败: {e}")
@@ -363,109 +266,81 @@ class FileGuard:
         return self
 
     def set_success(self):
-        """显式标记为成功"""
         self.success = True
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self.success and exc_type is None:
-            # --- 成功：清理备份 ---
             sys_logger.info("✅ [文件安全] 操作成功，清理临时备份。")
             try:
                 if self.backup_path.exists():
                     os.remove(self.backup_path)
-            except: pass
-        else:
-            # --- 失败：执行回滚 ---
-            sys_logger.error(f"❌ [文件回滚] 任务失败/校验未通过 (原因: {exc_val})")
-            sys_logger.warning("🔄 正在执行物理级回滚 (强杀 CAD -> 覆盖文件)...")
+            except Exception:
+                pass
+            return False
 
-            # -------------------------------------------------------
-            # ⚠️ 关键点：延迟导入，防止循环引用
-            # -------------------------------------------------------
-            try:
-                # 假设 close_all_cad_processes 在 scripts.CAD_basic 中
-                from scripts.CAD_basic import close_all_cad_processes
-                close_all_cad_processes()
-            except ImportError:
-                sys_logger.critical("💀 无法导入 close_all_cad_processes，回滚可能因文件占用而失败！")
-            except Exception as e:
-                sys_logger.error(f"关闭 CAD 进程失败: {e}")
+        sys_logger.error(f"❌ [文件回滚] 任务失败/校验未通过 (原因: {exc_val})")
+        sys_logger.warning("🔄 正在执行物理级回滚 (强杀 CAD -> 覆盖文件)...")
 
-            # 等待进程释放锁
-            time.sleep(1.5) 
+        try:
+            from scripts.CAD_basic import close_all_cad_processes
 
-            # 覆盖恢复
-            try:
-                if self.backup_path.exists():
-                    # 使用 move 将备份文件移回原位 (覆盖)
-                    shutil.move(str(self.backup_path), str(self.file_path))
-                    sys_logger.info(f"✅ 已恢复原文件: {self.file_path.name}")
-                else:
-                    sys_logger.critical("💀 灾难！备份文件丢失，无法恢复！")
-            except Exception as e:
-                sys_logger.critical(f"💀 回滚失败 (文件可能仍被占用): {e}")
+            close_all_cad_processes()
+        except ImportError:
+            sys_logger.critical("💀 无法导入 close_all_cad_processes，回滚可能失败！")
+        except Exception as e:
+            sys_logger.error(f"关闭 CAD 进程失败: {e}")
+
+        time.sleep(1.5)
+
+        try:
+            if self.backup_path.exists():
+                shutil.move(str(self.backup_path), str(self.file_path))
+                sys_logger.info(f"✅ 已恢复原文件: {self.file_path.name}")
+            else:
+                sys_logger.critical("💀 灾难！备份文件丢失，无法恢复！")
+        except Exception as e:
+            sys_logger.critical(f"💀 回滚失败 (文件可能仍被占用): {e}")
+
+        return False
+
 
 # =========================================================================
-# 门神三号：安全循环 (把上面两个串起来)
+# 4. 安全执行循环
 # =========================================================================
-def run_safety_loop(target_dwg, action_func, check_func, max_retries=3):
+def run_safety_loop(
+    target_dwg: str | Path,
+    action_func: Callable[[], Any],
+    check_func: Callable[[], bool],
+    max_retries: int = 3,
+) -> bool:
     """
-    【核弹级安全执行循环】
-    自动调度 FileGuard 进行重试
+    备份 -> 打开 -> 执行动作 -> 校验 -> 失败回滚 -> 重试
 
-    from functools import partial # 需导入
-
-    # 1. 准备参数
-    my_polylines = [...] 
-    tpl_path = str(userpath / "dwg文件/标准图签.dwg")
-
-    # 2. 制作“偏函数”
-    # 语法: partial(函数名, 参数1, 参数2...)
-    # 它会返回一个新的函数，这个新函数已经不需要传参了
-    action_wrapper = partial(
-        insert_and_scale_labels_area_any, 
-        coms_dayin=my_polylines, 
-        filepath=tpl_path
-    )
-
-    check_wrapper = partial(verify_blocks_exist, "A3-H")
-
-    # 3. 传入
-    run_safety_loop(
-        target_dwg=work_dwg,
-        action_func=action_wrapper,
-        check_func=check_wrapper,
-        max_retries=3
-    )
-
+    说明：
+    - action_func / check_func 建议由 partial 预先固化参数
+    - 真正打开文件仍委托给脚本层 open_file（历史兼容）
     """
     target_dwg = Path(target_dwg)
-    
-    # 在这里导入打开文件的函数
+
     from scripts.CAD_basic import open_file
-    
+
     for i in range(1, max_retries + 1):
-        sys_logger.info(f"\n🔁 [第 {i}/{max_retries} 次尝试] {target_dwg.name}")
-        
+        sys_logger.info(f"🔁 [第 {i}/{max_retries} 次尝试] {target_dwg.name}")
+
         try:
-            # 1. 物理备份
             with FileGuard(target_dwg) as file_guard:
-                
-                # 2. 确保文件打开 (如果是回滚后的重试，CAD是关着的)
                 open_file(str(target_dwg))
-                
-                # 3. 执行业务 (内部通常有 CADGuard)
+
                 sys_logger.info("▶ 开始执行...")
                 action_func()
-                
-                # 4. 校验
+
                 sys_logger.info("▶ 结果校验...")
                 if check_func():
                     file_guard.set_success()
                     sys_logger.info("✨ 任务完成！")
                     return True
-                else:
-                    raise RuntimeError("结果校验不通过")
+
+                raise RuntimeError("结果校验不通过")
 
         except Exception as e:
             sys_logger.warning(f"⚠️ 尝试 {i} 失败: {e}")
@@ -473,48 +348,51 @@ def run_safety_loop(target_dwg, action_func, check_func, max_retries=3):
                 time.sleep(2)
             else:
                 sys_logger.error("🚫 达到最大重试次数，放弃。")
-    
+
     return False
 
 
-# ================= 3.1 常用功能 =================
-
+# =========================================================================
+# 5. 命令同步与文档等待
+# =========================================================================
 @retry_on_busy
 def send_cmd_with_sync(cmd: str, wait_after: float = 0.3, timeout: float = 30.0) -> bool:
     """
-    【发送命令】带同步等待
-    ⚠️ 必须使用 C.raw_doc 防止死锁
+    发送命令并等待同步完成。
+    必须使用 C.raw_doc，避免 wrapper/同步死锁。
     """
     try:
-        if C.acad and not C.acad.Visible: C.acad.Visible = True
-    except: pass
+        if C.acad and not C.acad.Visible:
+            C.acad.Visible = True
+    except Exception:
+        pass
 
-    # 获取原始对象
-    doc = C.raw_doc 
+    doc = C.raw_doc
     if not doc:
         sys_logger.error(f"发送失败 [{cmd.strip()}]: 无文档")
         return False
 
     try:
         real_cmd = cmd if cmd.endswith("\n") else (cmd + "\n")
-        
-        # 原生发送，不经过 Wrapper
         doc.SendCommand(real_cmd)
-        
         sys_logger.info(f"CMD -> {cmd.strip()}")
     except Exception as e:
         sys_logger.error(f"发送异常: {e}")
-        raise e
+        raise
 
-    if wait_after > 0: time.sleep(wait_after)
+    if wait_after > 0:
+        time.sleep(wait_after)
     return wait_quiescent(timeout=timeout)
 
 
 def wait_document_opened(path: str, timeout: float = 120.0) -> bool:
-    """等待文档加载"""
+    """
+    等待目标文档出现在 CAD Documents 集合中。
+    """
     start_time = time.time()
     target_path = str(Path(path).resolve()).lower()
     target_name = Path(path).name.lower()
+
     sys_logger.info(f"等待文档: {target_name}")
 
     while time.time() - start_time < timeout:
@@ -525,51 +403,88 @@ def wait_document_opened(path: str, timeout: float = 120.0) -> bool:
                     d = app.Documents.Item(i)
                     d_full = str(Path(d.FullName).resolve()).lower()
                     if d_full == target_path or Path(d_full).name.lower() == target_name:
-                        sys_logger.info(f"✅ 文档已就绪")
+                        sys_logger.info("✅ 文档已就绪")
                         return True
-        except: pass
+        except Exception:
+            pass
+
         time.sleep(0.5)
-    
+
     sys_logger.warning(f"等待超时: {target_name}")
     return False
 
-# ================= 4. 进程与启动 =================
 
+# =========================================================================
+# 6. 进程与启动辅助
+# =========================================================================
 def ensure_single_process() -> bool:
-    """进程清理"""
+    """
+    清理多余 CAD 进程，仅保留最早的一个。
+    """
     try:
         targets = ["acad.exe", "zwcad.exe", "gcad.exe"]
         procs = sorted(
-            [p for p in psutil.process_iter(['pid', 'name', 'create_time']) 
-             if p.info['name'].lower() in targets],
-            key=lambda x: x.info['create_time']
+            [
+                p
+                for p in psutil.process_iter(["pid", "name", "create_time"])
+                if p.info.get("name", "").lower() in targets
+            ],
+            key=lambda x: x.info["create_time"],
         )
+
         if len(procs) > 1:
             sys_logger.warning(f"清理多余进程，保留 PID={procs[0].info['pid']}")
             for p in procs[1:]:
-                try: p.terminate()
-                except: pass
+                try:
+                    p.terminate()
+                except Exception:
+                    pass
+
         return True
-    except: return False
+    except Exception as e:
+        sys_logger.warning(f"ensure_single_process 异常: {e}")
+        return False
+
 
 def start_cad_with_dialog_killer() -> bool:
-    """启动 CAD"""
+    """
+    启动 CAD，并等待进入可用状态。
+    说明：
+    - 启动逻辑仍委托给历史脚本 start_applicationV9
+    - 协同层只负责等待与收束
+    """
     try:
-        from CAD_basic import start_applicationV9
+        from scripts.CAD_basic import start_applicationV9
+
         sys_logger.info("启动 CAD...")
         if start_applicationV9():
             return wait_quiescent(timeout=45.0)
         return False
-    except: return False
+    except Exception as e:
+        sys_logger.error(f"启动 CAD 失败: {e}")
+        return False
 
-# ================= 5. 兼容接口 =================
-def wait_command_done(timeout=300.0, poll_interval=None, quiet_time=0.5):
+
+# =========================================================================
+# 7. 兼容接口
+# =========================================================================
+def wait_command_done(timeout: float = 300.0, poll_interval: Any = None, quiet_time: float = 0.5) -> bool:
+    """
+    兼容旧接口，映射到 wait_quiescent。
+    poll_interval 参数保留但不使用。
+    """
+    _ = poll_interval
     return wait_quiescent(min_quiet=quiet_time, timeout=timeout)
 
-if __name__ == "__main__":
-    sys_logger.info("--- 测试协同模块 V3.2 ---")
-    if ensure_single_process() and wait_quiescent(timeout=5):
-        with CADGuard("测试操作"):
-            send_cmd_with_sync("(princ \"System Ready\") ")
-    else:
-        sys_logger.warning("CAD 未就绪")
+
+__all__ = [
+    "wait_quiescent",
+    "CADGuard",
+    "FileGuard",
+    "run_safety_loop",
+    "send_cmd_with_sync",
+    "wait_document_opened",
+    "ensure_single_process",
+    "start_cad_with_dialog_killer",
+    "wait_command_done",
+]

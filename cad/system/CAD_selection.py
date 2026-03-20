@@ -906,28 +906,6 @@ def _resolve_attr_case_insensitive(obj, attr_name):
     except Exception: pass
     return None
 
-def get_attr(obj, name):
-    if obj is None: return None
-    try:
-        obj_name = getattr(obj, "ObjectName", "")
-        # 天正
-        if obj_name in _TARCH_PROPERTY_MAP:
-            mapping = _TARCH_PROPERTY_MAP[obj_name]
-            dispid = mapping.get(name) or mapping.get(name.lower())
-            if dispid:
-                # Invoke 可能会失败，这里如果想更稳，可以用 SafeCOM.call 包装 Invoke
-                # 但考虑到性能，通常直接调用
-                return obj._oleobj_.Invoke(dispid, 0, pythoncom.DISPATCH_PROPERTYGET, True)
-        
-        # 标准
-        real_obj = _maybe_cast(obj)
-        real_name = _resolve_attr_case_insensitive(real_obj, name)
-        if real_name:
-            return getattr(real_obj, real_name)
-    except: pass
-    return None
-
-
 #&&% 20261014
 def get_attr(obj, name, default=None):
     """
@@ -1004,3 +982,4 @@ def brute_dump_tarch_props(ent, max_dispid=64):
 
 if __name__ == '__main__':
     print("CAD Selection Library Loaded.")
+

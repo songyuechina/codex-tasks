@@ -1,90 +1,82 @@
 # -*- coding: utf-8 -*-
-# 文件位置: D:/claude-tasks/cad/system/project_setup.py
-import sys
+# 文件位置: D:/codex-tasks/cad/system/project_setup.py
+# 版本: V2.0
+"""
+project_setup.py（精简版）
+
+定位：
+- 仅保留“纯路径配置”职责
+- 不再负责 sys.path 引导
+- 不再承担项目导入环境构建职责
+
+说明：
+- import 环境统一由入口脚本的 bootstrap 规则负责
+- 库模块禁止在内部修改 sys.path
+- 本文件只提供稳定的路径常量给系统脚本引用
+
+推荐用法：
+    from system.project_setup import PathConfig
+    tests_dir = PathConfig.TESTS
+    logs_dir = PathConfig.LOGS
+"""
+
+from __future__ import annotations
+
 import os
 from pathlib import Path
 
-"""
-#  引导代码 (确保能找到 system)
-import os
-import sys
-from pathlib import Path
-current = Path(__file__).resolve()
-while current.name != 'cad':
-    if current.parent == current: raise Exception("找不到根目录")
-    current = current.parent
-sys.path.insert(0, str(current))
-from system.project_setup import PathConfig
 
-userpath=os.environ.get('USERPATH')
-
-# ================= 2.5 [新增] 核心连接模块导入 =================
-try:
-    from system import licad
-
-    from system.licad import C
-    from   system.CAD_com_utils  import SafeCOM,retry_on_busy ,retry_if_busy 
-
-    from system.common_logger import sys_logger
-
-    from system.CAD_coordination import CADGuard
-
-
-
-"""
 # ==========================================
-# 1. 核心锚点定位 (不管这个文件被谁引用，__file__ 永远指向它自己)
+# 1. 核心锚点定位
 # ==========================================
-# 假设结构是:
-# D:/claude-tasks/cad/  <-- 项目根目录 (Project Root)
-#       ├── system/     <-- 当前文件所在
-#       ├── scripts/
-#       └── tests/
-
 CURRENT_FILE = Path(__file__).resolve()
-SYSTEM_DIR = CURRENT_FILE.parent        # .../cad/system
-PROJECT_ROOT = SYSTEM_DIR.parent        # .../cad  (这就是项目的根节点)
+SYSTEM_DIR = CURRENT_FILE.parent            # .../cad/system
+CAD_ROOT = SYSTEM_DIR.parent                # .../cad
+WORKSPACE_DIR = CAD_ROOT.parent             # .../codex-tasks
 
-# ==========================================
-# 2. 实现“自由导入”的关键魔法
-# ==========================================
-# 将项目根目录添加到 Python 的搜索路径 (sys.path)
-# 这样，你在任何脚本里都可以直接写: from system import common_logger
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
-    # print(f"🚀 已将项目根目录加入搜索路径: {PROJECT_ROOT}")
 
-# ==========================================
-# 3. 导出常用的绝对路径 (供其他脚本直接使用)
-# ==========================================
 class PathConfig:
-    ROOT = PROJECT_ROOT
-    SYSTEM_DIR = SYSTEM_DIR
-    SCRIPTS_DIR = PROJECT_ROOT / "scripts"
-    TESTS = PROJECT_ROOT / "tests"
-    LOGS = SYSTEM_DIR / "logs"
-    CAD_DIR = SCRIPTS_DIR.parent 
-   
+    """
+    统一路径常量配置。
 
-    _user_env = os.environ.get('USERPATH')
-        
+    约定：
+    - ROOT / CAD_DIR 指向 cad 根目录
+    - WORKSPACE_DIR 指向 codex-tasks 根目录
+    - 本类只导出路径，不做导入引导
+    """
+
+    ROOT = CAD_ROOT
+    CAD_DIR = CAD_ROOT
+    SYSTEM_DIR = SYSTEM_DIR
+    SCRIPTS_DIR = CAD_ROOT / "scripts"
+    TESTS = CAD_ROOT / "tests"
+    LOGS = SYSTEM_DIR / "logs"
+    WORKSPACE_DIR = WORKSPACE_DIR
+
+    _user_env = os.environ.get("USERPATH")
     if _user_env:
-        # 必须用 Path() 包裹，否则后面不能用 / 拼接
-        userpath = Path(_user_env) 
+        userpath = Path(_user_env)
     else:
-        # Fallback 默认值 (也要 Path 对象)
         userpath = Path("D:/Mypro/基础服务/用户1")
 
-
-
-    # 甚至可以定义具体的通用文件路径
     TEST_EXCEL = TESTS / "testfunc.xlsx"
     COMMON_LOGGER = SYSTEM_DIR / "common_logger.py"
-    WORKSPACE_DIR = CAD_DIR.parent               # .../claude-tasks
 
 
-
-# 自动创建必要的文件夹
+# ==========================================
+# 2. 目录保障（仅限纯目录创建）
+# ==========================================
 for p in [PathConfig.LOGS, PathConfig.TESTS]:
-    if not p.exists():
+    try:
         p.mkdir(parents=True, exist_ok=True)
+    except Exception:
+        pass
+
+
+__all__ = [
+    "PathConfig",
+    "CURRENT_FILE",
+    "SYSTEM_DIR",
+    "CAD_ROOT",
+    "WORKSPACE_DIR",
+]

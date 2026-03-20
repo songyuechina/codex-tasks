@@ -15,8 +15,8 @@
 
 输出：
 - 提供：
-  1) 严格标准匹配（只匹配288标准值）
-  2) 近似匹配（总能返回最接近的标准）
+  1) 严格标准匹配（只匹配容差内命中的 288 标准值）
+  2) 适配匹配（仅对短边/长边落在 288 标准支持范围内的矩形，返回最近标准）
   3) 打印区域提取（模型空间 + 各布局空间）
 
 注意：
@@ -450,6 +450,7 @@ def build_std288(
 
 
 _STD288_CACHE: Optional[List[Dict[str, Any]]] = None
+_STD288_BOUNDS_CACHE: Optional[tuple[float, float]] = None
 
 
 def get_std288_cached() -> List[Dict[str, Any]]:
@@ -457,6 +458,16 @@ def get_std288_cached() -> List[Dict[str, Any]]:
     if _STD288_CACHE is None:
         _STD288_CACHE = build_std288()
     return _STD288_CACHE
+
+
+def get_std288_bounds() -> tuple[float, float]:
+    global _STD288_BOUNDS_CACHE
+    if _STD288_BOUNDS_CACHE is None:
+        std = get_std288_cached()
+        min_short = min(float(item["w"]) for item in std)
+        max_long = max(float(item["h"]) for item in std)
+        _STD288_BOUNDS_CACHE = (min_short, max_long)
+    return _STD288_BOUNDS_CACHE
 
 
 # -----------------------------------------------------------------------------
@@ -477,6 +488,12 @@ def _match_score(w: float, h: float, ws: float, hs: float) -> float:
     return max(dw / eo, dh / eo, dw / es, dh / es)
 
 
+def _within_supported_bounds(w: float, h: float) -> bool:
+    min_short, max_long = get_std288_bounds()
+    eps = _eps_from_short_side(w)
+    return w >= (min_short - eps) and h <= (max_long + eps)
+
+
 # -----------------------------------------------------------------------------
 # #4: 判断“标准打印多段线”（严格匹配288）
 # -----------------------------------------------------------------------------
@@ -484,7 +501,7 @@ def _match_score(w: float, h: float, ws: float, hs: float) -> float:
 def check_strict_standard_print_polyline(poly: Any) -> Any:
     """如果 poly 的 bbox 属于 288 标准之一（按动态容差/对称判据），返回：
 
-    (plot_name, ratio, paper_code, orient, scale)
+    (plot_name, ratio, paper_code, orient, scale, standard_flag)
 
     - orient: 0横 1竖
     - scale: 1.0/1.1/1.2
@@ -524,19 +541,23 @@ def check_strict_standard_print_polyline(poly: Any) -> Any:
     if best is None:
         return 0
 
-    return (best["plot_name"], best["ratio"], best["paper"], orient, float(best["scale"]))
+    return (best["plot_name"], best["ratio"], best["paper"], orient, float(best["scale"]), 1)
 
 
 # -----------------------------------------------------------------------------
-# #5: 匹配“最接近的标准打印多段线”（总能返回最接近）
+# #5: 适配匹配“最接近的标准打印多段线”
 # -----------------------------------------------------------------------------
 
 def match_nearest_standard_print(poly: Any) -> Any:
-    """对任意矩形多段线，找最接近的 288 标准，返回：
+    """对支持范围内的矩形多段线，找最接近的 288 标准，返回：
 
-    (plot_name, ratio, paper_code, orient, scale)
+    (plot_name, ratio, paper_code, orient, scale, standard_flag)
 
-    若对象无 bbox 则返回 0
+    支持范围：
+    - 短边 >= 288 标准中的最小短边（允许动态容差）
+    - 长边 <= 288 标准中的最长长边（允许动态容差）
+
+    不在支持范围内，或对象无 bbox，则返回 0。
     """
     b = _bbox_xy(poly)
     if b is None:
@@ -546,6 +567,13 @@ def match_nearest_standard_print(poly: Any) -> Any:
     dy = abs(maxy - miny)
     w = min(dx, dy)
     h = max(dx, dy)
+
+    strict = check_strict_standard_print_polyline(poly)
+    if strict != 0:
+        return strict
+
+    if not _within_supported_bounds(w, h):
+        return 0
 
     orient = _orientation_from_bbox(dx, dy)
 
@@ -562,7 +590,21 @@ def match_nearest_standard_print(poly: Any) -> Any:
     if best is None:
         return 0
 
-    return (best["plot_name"], best["ratio"], best["paper"], orient, float(best["scale"]))
+    return (best["plot_name"], best["ratio"], best["paper"], orient, float(best["scale"]), 0)
+
+
+def match_standard_print_by_mode(poly: Any, mode: str = "basic") -> Any:
+    """按模式返回标准打印匹配结果。
+
+    - basic: 只接受严格命中的 288 标准区域
+    - adaptive / purified_adaptive: 使用适配匹配
+    """
+    normalized = str(mode or "basic").strip().lower().replace("-", "_")
+    if normalized == "basic":
+        return check_strict_standard_print_polyline(poly)
+    if normalized in {"adaptive", "purified_adaptive"}:
+        return match_nearest_standard_print(poly)
+    raise ValueError(f"不支持的打印区域匹配模式: {mode}")
 
 
 # -----------------------------------------------------------------------------
@@ -673,6 +715,66 @@ def find_maximal_rect_polylines(rect_polylines: List[Any]) -> List[Any]:
         if not contained:
             maxima.append(a["obj"])
     return maxima
+
+
+def collect_pseudo_maximal_rect_polylines(rect_polylines: List[Any]) -> List[Any]:
+    """非破坏性分析伪极大矩形。
+
+    逻辑与 remove_pseudo_maxima_in_space 保持同源，但不会删除对象。
+    若一个极大矩形内部包含至少一个 scale==1.0 的标准打印框，则认为它是伪极大矩形。
+    为了覆盖“伪极大矩形包裹伪极大矩形”的情况，采用逻辑迭代剥离，直到稳定。
+    """
+    data = []
+    for pl in rect_polylines:
+        b = _bbox_xy(pl)
+        if b is None:
+            continue
+        w, h = _bbox_wh_from_bbox(b)
+        eps = _eps_from_short_side(min(w, h))
+        diag = (w * w + h * h) ** 0.5
+        data.append({"obj": pl, "bbox": b, "eps": eps, "diag": diag})
+
+    pseudo_out: List[Any] = []
+    active = list(data)
+    for _ in range(10):
+        if not active:
+            break
+
+        maxima = []
+        for i, a in enumerate(active):
+            contained = False
+            for j, b in enumerate(active):
+                if i == j:
+                    continue
+                tol = max(a["eps"], b["eps"])
+                if _contains_bbox(b["bbox"], a["bbox"], tol=tol) and (b["diag"] > a["diag"] + tol):
+                    contained = True
+                    break
+            if not contained:
+                maxima.append(a)
+
+        pseudo_round = []
+        for mx in maxima:
+            mb = mx["bbox"]
+            meps = mx["eps"]
+            is_pseudo = False
+            for item in active:
+                if item["obj"] is mx["obj"]:
+                    continue
+                tol = max(meps, item["eps"])
+                if _contains_bbox(mb, item["bbox"], tol=tol) and _is_standard_scale_1(item["obj"]):
+                    is_pseudo = True
+                    break
+            if is_pseudo:
+                pseudo_round.append(mx)
+
+        if not pseudo_round:
+            break
+
+        pseudo_out.extend(item["obj"] for item in pseudo_round)
+        active = [item for item in active if item not in pseudo_round]
+
+    return pseudo_out
 
 
 # -----------------------------------------------------------------------------
@@ -834,6 +936,24 @@ def get_print_area_polylines() -> Dict[str, Any]:
         paper_areas[btr_name] = remove_pseudo_maxima_in_space(lst)
 
     return {"model": model_areas, "papers": paper_areas}
+
+
+def get_pseudo_maximal_polylines() -> Dict[str, Any]:
+    """返回当前激活文件中的伪极大矩形区域，不修改图形数据库。"""
+    all_pls = select_all_polylines(autocast=True)
+    grouped = get_rect_polylines_by_space(all_pls)
+
+    model_rects = grouped["model"]
+    papers: Dict[str, List[Any]] = grouped["papers"]
+
+    model_pseudo = collect_pseudo_maximal_rect_polylines(model_rects)
+    paper_pseudo: Dict[str, List[Any]] = {}
+    for btr_name, lst in papers.items():
+        pseudo = collect_pseudo_maximal_rect_polylines(lst)
+        if pseudo:
+            paper_pseudo[btr_name] = pseudo
+
+    return {"model": model_pseudo, "papers": paper_pseudo}
 
 
 # -----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# D:/claude-tasks/cad/system/cad_command_monitor.py
+# D:/codex-tasks/cad/system/cad_command_monitor.py
 # 版本 V6.0 (生产终极版 - 强制置顶抢焦)
 
 import time

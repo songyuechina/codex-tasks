@@ -1,6 +1,6 @@
 ﻿#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#D:/claude-tasks/cad/system/cad_dialog_killer.py
+#D:/codex-tasks/cad/system/cad_dialog_killer.py
 #版本 V1.0
 import time
 import win32gui, win32con, win32process

@@ -1,0 +1,105 @@
+# AGENTS.md
+
+适用范围：`D:/codex-tasks/cad/scripts/drawing_basic_service/print/`
+
+## 1. 任务总原则
+
+本目录有两条链：
+
+- 打印主链
+- 打印信息分析辅助链
+
+优先级永远是：
+
+1. 先保证打印主链稳定
+2. 再做打印信息分析与扩展
+
+## 2. 打印模式硬规则
+
+当前有效打印模式只有：
+
+- `basic`
+- `adaptive`
+- `purified_adaptive`
+
+禁止：
+
+- 重新引入 `analysis` 打印模式
+- 把辅助分析伪装成打印模式
+
+## 3. 默认判断
+
+- 用户未明确指定打印模式，默认 `basic`
+- 用户未明确指定打印信息分析模式，默认 `basic`
+- `adaptive` 只在确有必要时使用
+- `purified_adaptive` 必须先产出 `content_analysis.json` 再过滤伪区域
+- 若 `purified_adaptive` 同时命中伪区域风险和伪极大外包范围，还必须产出 `scope_analysis.json` 并先做范围收束
+- 打印信息分析默认只分析最终参与分析的打印区域，不附带真实打印
+- 无论由项目总管还是人直接调度，默认判断都不得变化
+
+## 4. 调度与自修复硬规则
+
+1. 打印智能体必须可被项目总管或人直接调度
+2. 调度输入不完整时，应按 `PRINT_DISPATCH_PROTOCOL.md` 的默认规则补全
+3. 若执行过程中暴露脚本缺陷，不得只绕过问题，必须判断是否进入自修复闭环
+4. 自修复必须遵守：先复现，再修补，再回归，再沉淀
+5. 自修复后，必须同步更新本目录文档和 `D:\codex-tasks\thoughtway\conversation_log.md`
+
+## 5. 执行时的强制要求
+
+1. 不要绕过 `print_policy.py` 私自拼打印计划
+2. 不要在打印主链中无故夹带打印信息分析副作用
+3. 不要再维护与 `print_info_analysis.py` 重复职责的旧图签分析主链
+4. 涉及 COM 枚举、包围盒、选择集、文字读取时，必须考虑 busy/retry
+5. 文档口径与代码冲突时，应先修正文档，不要让冲突长期存在
+6. 新案例产生后，应同步更新案例与知识文档
+7. 单文件任务的最终交付必须落在源 DWG 同目录的 `<公共名>pdf / <公共名>analysis / <公共名>prosess`
+8. 暴露新问题的异常 DWG 应同时复制进 `cases/assets/` 作为典型案例
+9. 批量打印时默认每成功 `6` 张后清理一次 WPS 窗口，并在横竖向批次切换后强制再清理一次
+10. 开始任何真实打印前，必须先遵守 `D:\codex-tasks\thoughtway\CAD_RUNTIME_GUARD_RULES.md`
+11. 必须明确本次使用的天正受控入口，以及发现纯 CAD / 非天正环境后的恢复入口
+12. 若运行中怀疑已经偏到纯 CAD，必须立即停止当前打印链，先恢复环境，再继续打印
+
+## 6. 修改策略
+
+优先：
+
+- 收束主链
+- 减少平行入口
+- 保留实测有效经验
+
+避免：
+
+- 为单次案例临时堆一个新脚本
+- 在多个脚本里保存同一职责
+- 让 README、规则、脚本实现三套口径并存
+
+## 7. 输出约束
+
+打印主链至少要留下：
+
+- `print_plan.json`
+- `print_summary.json`
+
+净化适配模式还要留下：
+
+- `content_analysis.json`
+- `scope_analysis.json`（若触发伪极大范围分析）
+
+打印信息分析至少要留下：
+
+- `print_info_analysis.json`
+- `print_info_analysis.xlsx`
+
+## 8. 文档约束
+
+本目录文档分工必须清晰：
+
+- 规则写进 `AGENTS.md`
+- 调度协议写进 `PRINT_DISPATCH_PROTOCOL.md`
+- 流程写进 `PRINT_WORKFLOW.md`
+- 输出标准写进 `PRINT_OUTPUT_SPEC.md`
+- 经验知识写进 `PRINT_KNOWLEDGE.md`
+- 案例索引写进 `cases/CASE_MANIFEST.md`
+
+不要把所有内容继续堆回一个大 README。

@@ -1,0 +1,19 @@
+[planner]
+base_url = "https://your-planner-endpoint/v1"
+api_key = "replace-with-planner-key"
+model = "replace-with-planner-model"
+
+[coder]
+base_url = "https://your-coder-endpoint/v1"
+api_key = "replace-with-coder-key"
+model = "replace-with-coder-model"
+
+[reviewer]
+base_url = "https://your-reviewer-endpoint/v1"
+api_key = "replace-with-reviewer-key"
+model = "replace-with-reviewer-model"
+
+[tester]
+base_url = "https://your-tester-endpoint/v1"
+api_key = "replace-with-tester-key"
+model = "replace-with-tester-model"

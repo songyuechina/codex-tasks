@@ -17,3 +17,14 @@ __pycache__/
 # Local tool/cache data
 .accelerate/
 CAD_AUDIT.sqlite
+dwg_agents_ops/local/
+
+# Agent runtime/session artifacts
+dwg_agents_ops/**/__pycache__/
+dwg_agents_ops/**/memory/state.json
+dwg_agents_ops/**/memory/timeline.jsonl
+dwg_agents_ops/**/sessions/session.jsonl
+dwg_agents_ops/**/outputs/*.md
+dwg_agents_ops/**/**/*.lock
+dwg_agents_ops/agent_control/runtime/*.json
+dwg_agents_ops/agent_control/*.jsonl

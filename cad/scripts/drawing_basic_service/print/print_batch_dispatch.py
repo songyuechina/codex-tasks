@@ -1,0 +1,597 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import re
+import shutil
+import sys
+import time
+from dataclasses import asdict
+from datetime import datetime
+from pathlib import Path
+from typing import Any
+
+import fitz
+
+
+MODULE_DIR = Path(__file__).resolve().parent
+if str(MODULE_DIR) not in sys.path:
+    sys.path.insert(0, str(MODULE_DIR))
+
+current = Path(__file__).resolve()
+while current.name != "cad":
+    if current.parent == current:
+        raise Exception("找不到根目录 cad")
+    current = current.parent
+if str(current) not in sys.path:
+    sys.path.insert(0, str(current))
+SCRIPTS_DIR = current / "scripts"
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
+
+from system.common_logger import sys_logger
+from system.CAD_coordination import wait_quiescent
+from system.CAD_core import close_current_dwg_paradigm, copy_file_content_pywin32, new_file, open_file, save_current_dwg_paradigm
+from system.licad import C
+
+from print_info_analysis import run_print_info_case
+from print_runner import _close_document_by_path, run_print_case
+
+
+BLANK_RATIO_THRESHOLD = 0.002
+
+
+def _is_dispatch_source_dwg(path: Path) -> bool:
+    name = path.name
+    if name.endswith("_打印区域.dwg"):
+        return False
+    if "__blankfix" in name:
+        return False
+    return True
+
+
+def _derive_public_base_name(path: Path) -> str:
+    stem = path.stem.strip()
+    label = re.sub(r"[\(（][^()（）]*(?:版|修改|修订)[^()（）]*[\)）]\s*$", "", stem).strip()
+    label = re.sub(r"[-_－—]?\d+(?:\.\d+)*(?:[_-][A-Za-z0-9]+)*\s*$", "", label).strip()
+    label = label.rstrip("-_－— ").strip()
+    return label or stem
+
+
+def _reset_dir(path: Path) -> None:
+    if path.exists():
+        shutil.rmtree(path, ignore_errors=True)
+    path.mkdir(parents=True, exist_ok=True)
+
+
+def _prepare_public_output_dirs(dwg_path: Path, process_stamp: str) -> dict[str, Path]:
+    base_name = _derive_public_base_name(dwg_path)
+    parent = dwg_path.parent
+    pdf_dir = parent / f"{base_name}pdf"
+    analysis_dir = parent / f"{base_name}analysis"
+    process_base_dir = parent / f"{base_name}prosess"
+    process_run_dir = process_base_dir / process_stamp
+
+    _reset_dir(pdf_dir)
+    _reset_dir(analysis_dir)
+    process_run_dir.mkdir(parents=True, exist_ok=True)
+    return {
+        "base_name": Path(base_name),
+        "pdf_dir": pdf_dir,
+        "analysis_dir": analysis_dir,
+        "process_base_dir": process_base_dir,
+        "process_run_dir": process_run_dir,
+    }
+
+
+def _load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _render_nonwhite_ratio(pdf_path: Path, scale: float = 0.12) -> list[float]:
+    ratios: list[float] = []
+    doc = fitz.open(pdf_path)
+    try:
+        for page in doc:
+            pix = page.get_pixmap(matrix=fitz.Matrix(scale, scale), alpha=False)
+            total = max(pix.width * pix.height, 1)
+            data = pix.samples
+            nonwhite = 0
+            for index in range(0, len(data), 3):
+                if data[index] < 250 or data[index + 1] < 250 or data[index + 2] < 250:
+                    nonwhite += 1
+            ratios.append(nonwhite / total)
+    finally:
+        doc.close()
+    return ratios
+
+
+def detect_blank_pdfs(pdf_paths: list[str], threshold: float = BLANK_RATIO_THRESHOLD) -> list[dict[str, Any]]:
+    suspects: list[dict[str, Any]] = []
+    for item in pdf_paths:
+        pdf_path = Path(item)
+        try:
+            ratios = _render_nonwhite_ratio(pdf_path)
+        except Exception as exc:
+            suspects.append(
+                {
+                    "pdf_path": str(pdf_path),
+                    "reason": "render_failed",
+                    "error": str(exc),
+                }
+            )
+            continue
+        if not ratios:
+            suspects.append(
+                {
+                    "pdf_path": str(pdf_path),
+                    "reason": "no_pages",
+                    "ratios": ratios,
+                }
+            )
+            continue
+        max_ratio = max(ratios)
+        if max_ratio <= threshold:
+            suspects.append(
+                {
+                    "pdf_path": str(pdf_path),
+                    "reason": "visual_blank",
+                    "ratios": ratios,
+                    "threshold": threshold,
+                }
+            )
+    return suspects
+
+
+def _job_index_from_plan(plan_json_path: Path) -> dict[str, dict[str, Any]]:
+    raw = _load_json(plan_json_path)
+    index: dict[str, dict[str, Any]] = {}
+    for jobs in raw.get("jobs_by_space", {}).values():
+        for job in jobs:
+            output_path = str(Path(job["output_path"]))
+            index[output_path] = job
+    return index
+
+
+def _selected_job_rows(plan_json_path: Path, selected_handles: list[str]) -> list[dict[str, Any]]:
+    wanted = {str(item) for item in selected_handles}
+    if not wanted:
+        return []
+    rows: list[dict[str, Any]] = []
+    raw = _load_json(plan_json_path)
+    for jobs in raw.get("jobs_by_space", {}).values():
+        for job in jobs:
+            if str(job.get("handle", "")) in wanted:
+                rows.append(job)
+    return rows
+
+
+def _ratio_to_visual_width(ratio: str) -> int:
+    text = str(ratio or "").strip()
+    match = re.search(r"1\s*:\s*([0-9]+(?:\.[0-9]+)?)", text)
+    if not match:
+        return 100
+    try:
+        denominator = float(match.group(1))
+    except Exception:
+        return 100
+    # 用户给出的口径存在重复示例，这里按两档处理：
+    # 1:1 / 1:1.5 / 1:2.5 / 1:5 这类大比例图，线宽取 1；
+    # 其余常见 1:25 / 1:50 / 1:100 / 1:150 这类缩尺图，线宽取 100。
+    return 1 if denominator <= 5.0 else 100
+
+
+def _set_entity_visual_style(entity: Any, width_value: int) -> None:
+    try:
+        entity.Color = 1
+    except Exception:
+        pass
+    try:
+        entity.Lineweight = int(width_value)
+    except Exception:
+        pass
+
+    obj_name = str(getattr(entity, "ObjectName", "") or "")
+    if obj_name in {"AcDbPolyline", "AcDb2dPolyline", "AcDb3dPolyline", "Polyline"}:
+        for attr_name in ("ConstantWidth", "GlobalWidth"):
+            try:
+                setattr(entity, attr_name, float(width_value))
+                return
+            except Exception:
+                continue
+
+
+def _make_print_area_visual_copy(
+    *,
+    source_dwg: Path,
+    plan_json_path: Path,
+    selected_handles: list[str],
+) -> str:
+    jobs = _selected_job_rows(plan_json_path, selected_handles)
+    if not jobs:
+        return ""
+
+    target_dwg = source_dwg.with_name(f"{source_dwg.stem}_打印区域{source_dwg.suffix}")
+    try:
+        _close_document_by_path(target_dwg, save_changes=False)
+    except Exception:
+        pass
+    shutil.copy2(source_dwg, target_dwg)
+    try:
+        os.chmod(target_dwg, 0o666)
+    except Exception:
+        pass
+
+    if not open_file(str(target_dwg)):
+        raise RuntimeError(f"打开打印区域显示副本失败: {target_dwg}")
+    wait_quiescent(min_quiet=0.5, timeout=20.0)
+
+    doc = C.raw_doc
+    touched = 0
+    for job in jobs:
+        handle = str(job.get("handle", ""))
+        if not handle:
+            continue
+        try:
+            entity = doc.HandleToObject(handle)
+        except Exception:
+            continue
+        width_value = _ratio_to_visual_width(str(job.get("ratio", "")))
+        _set_entity_visual_style(entity, width_value)
+        touched += 1
+
+    try:
+        doc.Regen(1)
+    except Exception:
+        pass
+    save_current_dwg_paradigm()
+    _close_document_by_path(target_dwg, save_changes=False)
+    sys_logger.info(f"打印区域显示副本已生成: {target_dwg} touched={touched}")
+    return str(target_dwg)
+
+
+def _make_blank_fix_copy(source_dwg: Path, repaired_dwg: Path) -> bool:
+    repaired_dwg.parent.mkdir(parents=True, exist_ok=True)
+    sys_logger.info(f"开始创建空白补救副本: {repaired_dwg}")
+    if not new_file(str(repaired_dwg), close_after=False):
+        return False
+    wait_quiescent(min_quiet=0.5, timeout=20.0)
+    if not copy_file_content_pywin32(str(source_dwg), str(repaired_dwg), explode=True):
+        return False
+    wait_quiescent(min_quiet=0.5, timeout=20.0)
+    try:
+        close_current_dwg_paradigm("save")
+    except Exception:
+        pass
+    time.sleep(1.0)
+    return repaired_dwg.exists()
+
+
+def _copy_final_outputs(
+    *,
+    source_dwg: Path,
+    output_dir: Path,
+    original_job_index: dict[str, dict[str, Any]],
+    original_existing: list[str],
+    blank_pdf_paths: set[str],
+    repaired_summary: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    copied: list[str] = []
+    selected_handles: list[str] = []
+    unresolved: list[dict[str, Any]] = []
+
+    repaired_job_index: dict[tuple[str, int], dict[str, Any]] = {}
+    repaired_existing: set[str] = set()
+    if repaired_summary:
+        repaired_plan_json = Path(repaired_summary["plan_json"])
+        repaired_job_index = {
+            (str(job["layout_name"]), int(job["sequence_no"])): job
+            for job in _job_index_from_plan(repaired_plan_json).values()
+        }
+        repaired_existing = set(
+            repaired_summary.get("verification", {}).get("existing", [])
+            or repaired_summary.get("execution", {}).get("generated_files", [])
+            or []
+        )
+
+    for original_pdf in original_existing:
+        original_key = str(Path(original_pdf))
+        job = original_job_index.get(original_key)
+        if not job:
+            continue
+
+        chosen_pdf = original_key
+        if original_key in blank_pdf_paths:
+            repaired_job = repaired_job_index.get((str(job["layout_name"]), int(job["sequence_no"])))
+            repaired_pdf = None
+            if repaired_job:
+                candidate = str(Path(repaired_job["output_path"]))
+                if candidate in repaired_existing and Path(candidate).exists():
+                    repaired_pdf = candidate
+            if repaired_pdf:
+                chosen_pdf = repaired_pdf
+            else:
+                unresolved.append(
+                    {
+                        "layout_name": job["layout_name"],
+                        "sequence_no": int(job["sequence_no"]),
+                        "original_output_path": original_key,
+                        "reason": "blank_pdf_not_replaced",
+                    }
+                )
+                continue
+
+        target_name = f"{source_dwg.stem}-{job['layout_name']}-{int(job['sequence_no']):02d}.pdf"
+        target_path = output_dir / target_name
+        shutil.copy2(chosen_pdf, target_path)
+        copied.append(str(target_path))
+        selected_handles.append(str(job["handle"]))
+
+    return {
+        "copied_count": len(copied),
+        "final_output_paths": copied,
+        "selected_handles": selected_handles,
+        "unresolved_outputs": unresolved,
+    }
+
+
+def run_directory_dispatch(
+    *,
+    dwg_files: list[Path],
+    summary_root: Path,
+    output_root: Path,
+    mode: str,
+) -> dict[str, Any]:
+    batch_stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
+    batch_root = output_root / f"batch-{batch_stamp}"
+    batch_root.mkdir(parents=True, exist_ok=True)
+
+    summary_rows: list[dict[str, Any]] = []
+    for dwg_path in dwg_files:
+        sys_logger.info(f"开始处理: {dwg_path}")
+        primary_work_dwg: Path | None = None
+        try:
+            public_dirs = _prepare_public_output_dirs(dwg_path, batch_stamp)
+            runs_root = public_dirs["process_run_dir"] / "runs"
+            analysis_output = public_dirs["analysis_dir"] / "print_info_analysis.json"
+            row: dict[str, Any] = {
+                "dwg_path": str(dwg_path),
+                "mode": mode,
+                "final_pdf_dir": str(public_dirs["pdf_dir"]),
+                "analysis_dir": str(public_dirs["analysis_dir"]),
+                "process_dir": str(public_dirs["process_run_dir"]),
+            }
+            print_summary = run_print_case(
+                dwg_path,
+                runs_root,
+                mode=mode,
+                keep_open=True,
+            )
+            primary_work_dwg = Path(print_summary["work_dwg"])
+            row["initial_run_root"] = print_summary["run_root"]
+            row["initial_print_summary"] = str(Path(print_summary["summary_path"]))
+            row["initial_total_jobs"] = int((print_summary.get("plan") or {}).get("total_jobs", 0) or 0)
+            verification = print_summary.get("verification") or {}
+            existing = verification.get("existing", []) or []
+            row["initial_existing_count"] = int(verification.get("existing_count", 0) or 0)
+            row["initial_failure_count"] = int((print_summary.get("execution") or {}).get("failure_count", 0) or 0)
+            row["initial_zero_size_count"] = int(verification.get("zero_size_count", 0) or 0)
+            row["initial_page_mismatch_count"] = int(
+                ((verification.get("page_verification") or {}).get("page_size_mismatch_count", 0) or 0)
+            )
+
+            blank_suspects = detect_blank_pdfs(existing)
+            row["blank_pdf_count"] = len(blank_suspects)
+            row["blank_pdf_suspects"] = blank_suspects
+
+            repaired_summary: dict[str, Any] | None = None
+            if blank_suspects:
+                repaired_dir = public_dirs["process_run_dir"] / "blank-fix"
+                repaired_dwg = repaired_dir / f"{dwg_path.stem}__blankfix.dwg"
+                row["blank_fix_applied"] = True
+                row["repaired_dwg_path"] = str(repaired_dwg)
+                row["blank_fix_created"] = _make_blank_fix_copy(dwg_path, repaired_dwg)
+                if row["blank_fix_created"]:
+                    repaired_summary = run_print_case(
+                        repaired_dwg,
+                        runs_root,
+                        mode=mode,
+                        include_layouts=False,
+                    )
+                    row["repaired_run_root"] = repaired_summary["run_root"]
+                    row["repaired_print_summary"] = str(Path(repaired_summary["summary_path"]))
+                else:
+                    row["repaired_run_root"] = ""
+                    row["repaired_print_summary"] = ""
+            else:
+                row["blank_fix_applied"] = False
+
+            plan_json_path = Path(print_summary["plan_json"])
+            content_json_raw = print_summary.get("content_analysis_json", "")
+            content_json_path = Path(content_json_raw) if content_json_raw else None
+            analysis = run_print_info_case(
+                dwg_path=Path(print_summary["work_dwg"]),
+                output_path=analysis_output,
+                source_dwg_path=dwg_path,
+                plan_json_path=plan_json_path,
+                content_json_path=content_json_path,
+                mode=mode,
+            )
+            row["analysis_json"] = str(analysis_output)
+            row["analysis_excel"] = str(Path(analysis["excel_path"]))
+            row["analysis_total_jobs"] = int(analysis["total_jobs"])
+            row["analysis_with_title_count"] = int(analysis["with_title_count"])
+            row["analysis_with_drawing_no_count"] = int(analysis["with_drawing_no_count"])
+            row["analysis_with_project_count"] = int(analysis["with_project_count"])
+
+            final_copy = _copy_final_outputs(
+                source_dwg=dwg_path,
+                output_dir=public_dirs["pdf_dir"],
+                original_job_index=_job_index_from_plan(plan_json_path),
+                original_existing=existing,
+                blank_pdf_paths={str(Path(item["pdf_path"])) for item in blank_suspects},
+                repaired_summary=repaired_summary,
+            )
+            final_blank_suspects = detect_blank_pdfs(final_copy["final_output_paths"])
+            if final_blank_suspects:
+                blank_names = {Path(item["pdf_path"]).name for item in final_blank_suspects}
+                kept_paths: list[str] = []
+                kept_handles: list[str] = []
+                for pdf_path, handle in zip(final_copy["final_output_paths"], final_copy["selected_handles"]):
+                    if Path(pdf_path).name in blank_names:
+                        try:
+                            Path(pdf_path).unlink(missing_ok=True)
+                        except Exception:
+                            pass
+                        continue
+                    kept_paths.append(pdf_path)
+                    kept_handles.append(handle)
+                final_copy["final_blank_filtered"] = final_blank_suspects
+                final_copy["final_blank_filtered_count"] = len(final_blank_suspects)
+                final_copy["final_output_paths"] = kept_paths
+                final_copy["selected_handles"] = kept_handles
+                final_copy["copied_count"] = len(kept_paths)
+            else:
+                final_copy["final_blank_filtered"] = []
+                final_copy["final_blank_filtered_count"] = 0
+            row.update(final_copy)
+
+            row["print_area_visual_dwg"] = _make_print_area_visual_copy(
+                source_dwg=dwg_path,
+                plan_json_path=plan_json_path,
+                selected_handles=row["selected_handles"],
+            )
+
+            if row["final_blank_filtered_count"] > 0 and row["selected_handles"]:
+                analysis = run_print_info_case(
+                    dwg_path=Path(print_summary["work_dwg"]),
+                    output_path=analysis_output,
+                    source_dwg_path=dwg_path,
+                    plan_json_path=plan_json_path,
+                    content_json_path=content_json_path,
+                    mode=mode,
+                    requested_handles=set(row["selected_handles"]),
+                )
+                row["analysis_total_jobs"] = int(analysis["total_jobs"])
+                row["analysis_with_title_count"] = int(analysis["with_title_count"])
+                row["analysis_with_drawing_no_count"] = int(analysis["with_drawing_no_count"])
+                row["analysis_with_project_count"] = int(analysis["with_project_count"])
+
+            if row["initial_total_jobs"] == 0 and row["analysis_total_jobs"] == 0:
+                row["status"] = "completed_no_valid_print_areas"
+                row["no_valid_print_areas"] = True
+                row["completion_reason"] = "purified_adaptive 下未识别到有效打印区域"
+            elif row["initial_total_jobs"] > 0 and row["copied_count"] == 0:
+                row["status"] = "failed"
+                row["no_valid_print_areas"] = False
+                row["completion_reason"] = "已生成打印计划，但未形成最终可交付 PDF"
+            else:
+                row["status"] = "success"
+                row["no_valid_print_areas"] = False
+                row["completion_reason"] = ""
+            summary_rows.append(row)
+
+            batch_summary_path = batch_root / "batch_summary.json"
+            batch_summary_path.write_text(
+                json.dumps(
+                    {
+                        "input_dir": str(summary_root),
+                        "output_root": str(batch_root),
+                        "mode": mode,
+                        "dwg_count": len(dwg_files),
+                        "items": summary_rows,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+        except Exception as exc:
+            row = {
+                "dwg_path": str(dwg_path),
+                "mode": mode,
+                "status": "failed",
+                "error": str(exc),
+                "final_pdf_dir": "",
+                "analysis_dir": "",
+                "process_dir": "",
+            }
+            summary_rows.append(row)
+            batch_summary_path = batch_root / "batch_summary.json"
+            batch_summary_path.write_text(
+                json.dumps(
+                    {
+                        "input_dir": str(summary_root),
+                        "output_root": str(batch_root),
+                        "mode": mode,
+                        "dwg_count": len(dwg_files),
+                        "items": summary_rows,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+            sys_logger.error(f"批量任务单文件失败: dwg={dwg_path} err={exc}")
+        finally:
+            if primary_work_dwg:
+                try:
+                    _close_document_by_path(primary_work_dwg, save_changes=False)
+                except Exception:
+                    pass
+
+    return {
+        "input_dir": str(summary_root),
+        "output_root": str(batch_root),
+        "mode": mode,
+        "dwg_count": len(dwg_files),
+        "items": summary_rows,
+        "summary_json": str(batch_root / "batch_summary.json"),
+    }
+
+
+def main() -> None:
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name, None)
+        if hasattr(stream, "reconfigure"):
+            try:
+                stream.reconfigure(encoding="utf-8")
+            except Exception:
+                pass
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input-dir", default="", help="directory containing dwg files")
+    parser.add_argument("--dwg", default="", help="single dwg file path")
+    parser.add_argument("--output-root", default="", help="batch output root")
+    parser.add_argument("--mode", default="purified_adaptive", help="print mode")
+    args = parser.parse_args()
+
+    if bool(args.input_dir) == bool(args.dwg):
+        raise SystemExit("必须且只能提供 --input-dir 或 --dwg 之一")
+
+    if args.dwg:
+        dwg_path = Path(args.dwg)
+        dwg_files = [dwg_path]
+        summary_root = dwg_path.parent
+    else:
+        input_dir = Path(args.input_dir)
+        dwg_files = sorted(path for path in input_dir.glob("*.dwg") if _is_dispatch_source_dwg(path))
+        summary_root = input_dir
+
+    output_root = Path(args.output_root) if args.output_root else summary_root / "print-agent-output"
+    result = run_directory_dispatch(
+        dwg_files=dwg_files,
+        summary_root=summary_root,
+        output_root=output_root,
+        mode=args.mode,
+    )
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()

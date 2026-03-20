@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -6,6 +6,15 @@ CAD核心功能模块
 
 提供CAD系统控制、文件操作、状态管理等核心功能
 从 CAD_file_operations.py 拆分而来
+"""
+
+"""
+本文件已按系统日志规则进行第二轮收束：
+- 业务模块统一使用 system.common_logger.sys_logger
+- 流程节点优先 info
+- 降级/可恢复问题优先 warning
+- 失败路径优先 error
+- 本轮重点是日志规范化与切断旧依赖，不主动扩大功能改动面
 """
 #D:/claude-tasks/cad/system/CAD_core.py
 
@@ -20,7 +29,7 @@ import math
 from pathlib import Path
 
 import win32api
-
+import win32process
 
 
 # --- COM 相关库 ---
@@ -36,7 +45,8 @@ sys.path.insert(0, str(current))
 
 from system.project_setup import PathConfig
 
-
+from system.common_logger import sys_logger
+from system.licad import C
 
 # 定义资源目录
 XITONG_DIR = PathConfig.CAD_DIR / "xitongwenjian"
@@ -53,7 +63,7 @@ userpath=os.environ.get('USERPATH')
 try:
     from system.CAD_com_utils import retry_on_busy, retry_if_busy,SafeCOM
 except ImportError as e:
-    print(f"[严重错误] 无法导入 CAD_com_utils: {e}")
+    sys_logger.critical(f"无法导入 CAD_com_utils: {e}")
     # 这里不raise，后续可能会定义假的 retry_on_busy 兜底
 
 # 3.2 导入 CAD 基础功能 (CAD_basic)
@@ -75,26 +85,314 @@ try:
         
     )
 except ImportError as e:
-    print(f"[严重错误] 无法导入 CAD_basic: {e}")
+    sys_logger.error(f"[严重错误] 无法导入 CAD_basic: {e}")
     raise e
 
-# 3.3 导入 CAD 操作范式 (CAD_basic_operations)
-try:
-    from system.CAD_basic_operations import (
-        open_dwg_paradigm,
-        new_dwg_enhanced,
-        save_current_dwg_paradigm,
-        save_as_dwg_paradigm,
-        close_current_dwg_paradigm,
-        close_all_dwg_paradigm
-    )
+# 3.3 CAD 基础文档操作（内生化，替代 CAD_basic_operations 依赖）
+def _core_get_short_path(path_str: str) -> str:
+    try:
+        return win32api.GetShortPathName(str(path_str))
+    except Exception:
+        return str(path_str)
 
+def _core_get_acad():
+    try:
+        if 'C' in globals() and getattr(C, 'acad', None):
+            return C.acad
+    except Exception:
+        pass
+    try:
+        return win32com.client.GetActiveObject("AutoCAD.Application")
+    except Exception:
+        return win32com.client.Dispatch("AutoCAD.Application")
 
-except ImportError as e:
-    print(f"[警告] CAD_basic_operations 导入失败: {e}")
-    # 定义临时替代函数
-    def open_dwg_paradigm(*args, **kwargs):
-        print("[错误] open_dwg_paradigm 功能不可用")
+def _core_get_active_doc():
+    try:
+        if 'C' in globals() and getattr(C, 'doc', None):
+            return C.doc
+    except Exception:
+        pass
+    acad = _core_get_acad()
+    return acad.ActiveDocument
+
+def _core_wait_document_opened(path: str, timeout: float = 120.0) -> bool:
+    target_path = str(Path(path).resolve()).lower()
+    target_name = Path(path).name.lower()
+    name_only = Path(path).name.lower() == str(path).lower()
+    t0 = time.time()
+    while time.time() - t0 < timeout:
+        try:
+            app = _core_get_acad()
+            for i in range(app.Documents.Count):
+                d = app.Documents.Item(i)
+                try:
+                    d_full = str(Path(d.FullName).resolve()).lower()
+                except Exception:
+                    d_full = ''
+                if d_full == target_path or (name_only and (Path(d_full).name.lower() == target_name or d.Name.lower() == target_name)):
+                    try:
+                        d.Activate()
+                    except Exception:
+                        pass
+                    return True
+        except Exception:
+            pass
+        time.sleep(0.5)
+    return False
+
+def _core_is_file_opened(file_path: str) -> bool:
+    target_path = str(Path(file_path).resolve()).lower()
+    try:
+        acad = _core_get_acad()
+        for doc in acad.Documents:
+            try:
+                if str(Path(doc.FullName).resolve()).lower() == target_path:
+                    return True
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return False
+
+def _core_is_file_opened_by_name(name: str) -> bool:
+    low = str(name).lower()
+    try:
+        acad = _core_get_acad()
+        for doc in acad.Documents:
+            try:
+                if doc.Name.lower() == low:
+                    return True
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return False
+
+def _core_activate_document(file_path_or_name: str) -> bool:
+    target = str(file_path_or_name)
+    target_name = Path(target).name.lower()
+    name_only = Path(target).name.lower() == target.lower()
+    try:
+        acad = _core_get_acad()
+        for doc in acad.Documents:
+            try:
+                full_name = str(Path(doc.FullName).resolve()).lower()
+            except Exception:
+                full_name = ''
+            try:
+                if full_name == str(Path(target).resolve()).lower() or (name_only and doc.Name.lower() == target_name):
+                    doc.Activate()
+                    return True
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return False
+
+def _core_get_open_file_count() -> int:
+    try:
+        return _core_get_acad().Documents.Count
+    except Exception:
+        return 0
+
+def _core_ensure_single_process() -> bool:
+    try:
+        if jingchengshu_wenjian() > 1:
+            sys_logger.warning('检测到多个 CAD 进程，执行清理后重连')
+            close_all_cad_processes()
+            time.sleep(1.0)
+            return bool(litz())
+        return True
+    except Exception as e:
+        sys_logger.warning(f'单进程检查失败: {e}')
+        return False
+
+def new_dwg_enhanced(output_path=None):
+    """内生化新建 DWG：确保环境、创建文档、按需保存。"""
+    try:
+        _core_ensure_single_process()
+        try:
+            wait_quiescent(min_quiet=0.5, timeout=15.0)
+        except Exception:
+            pass
+
+        if output_path and Path(output_path).exists():
+            sys_logger.info(f'目标文件已存在，直接打开: {output_path}')
+            return open_dwg_paradigm(output_path)
+
+        acad = _core_get_acad()
+        doc = acad.Documents.Add()
+        time.sleep(1.0)
+
+        if output_path:
+            out = Path(output_path)
+            out.parent.mkdir(parents=True, exist_ok=True)
+            doc.SaveAs(str(out))
+            try:
+                wait_quiescent(min_quiet=0.8, timeout=15.0)
+            except Exception:
+                pass
+            sys_logger.info(f'新建并保存成功: {out}')
+        else:
+            sys_logger.info('已创建未保存新图纸')
+        return True
+    except Exception as e:
+        sys_logger.error(f'新建文件失败: {e}')
+        return False
+
+def open_dwg_paradigm(file_path):
+    """内生化打开 DWG：路径幂等 + 单进程 + 等待文档加入集合。"""
+    try:
+        target = Path(file_path)
+        if not target.exists():
+            sys_logger.error(f'文件不存在: {file_path}')
+            return False
+
+        process_count = jingchengshu_wenjian()
+        if process_count == 0:
+            sys_logger.info('CAD 未运行，尝试启动')
+            if not start_applicationV9(PTH=r"C:\Tangent\TArchT20V9", max_retries=3, retry_delay=2.0):
+                return False
+        elif process_count > 1:
+            _core_ensure_single_process()
+
+        try:
+            wait_quiescent(min_quiet=0.3, timeout=15.0)
+        except Exception:
+            pass
+
+        if _core_is_file_opened(str(target)):
+            _core_activate_document(str(target))
+            sys_logger.info(f'文件已打开，直接激活: {target.name}')
+            return True
+
+        if _core_is_file_opened_by_name(target.name):
+            sys_logger.warning(f'检测到同名文件已打开但路径不同，继续按目标路径打开: {target}')
+
+        acad = _core_get_acad()
+        short_path = _core_get_short_path(str(target))
+        acad.Documents.Open(short_path)
+
+        if _core_wait_document_opened(str(target), timeout=120.0):
+            try:
+                wait_quiescent(min_quiet=0.5, timeout=30.0)
+            except Exception:
+                pass
+            sys_logger.info(f'文件打开成功: {target.name}')
+            return True
+
+        sys_logger.error(f'文件打开超时: {target.name}')
+        return False
+    except Exception as e:
+        sys_logger.error(f'打开文件异常: {e}')
+        return False
+
+def save_as_dwg_paradigm(output_path):
+    """内生化另存为：优先 SaveAs，失败时尝试短路径。"""
+    try:
+        doc = _core_get_active_doc()
+        out = Path(output_path)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            doc.SaveAs(str(out))
+        except Exception:
+            doc.SaveAs(_core_get_short_path(str(out)))
+        try:
+            wait_quiescent(min_quiet=0.5, timeout=15.0)
+        except Exception:
+            pass
+        sys_logger.info(f'另存为成功: {out}')
+        return True
+    except Exception as e:
+        sys_logger.error(f'另存为失败: {e}')
+        return False
+
+def save_current_dwg_paradigm():
+    """内生化保存：COM Save -> _qsave -> SaveAs Overwrite。"""
+    try:
+        doc = _core_get_active_doc()
+        name = getattr(doc, 'Name', 'Unknown')
+        full_name = getattr(doc, 'FullName', '')
+
+        try:
+            if getattr(doc, 'ReadOnly', False):
+                sys_logger.warning(f'当前文件只读，无法保存: {name}')
+                return False
+        except Exception:
+            pass
+
+        if not full_name:
+            sys_logger.warning(f'未命名文件无法直接保存: {name}')
+            return False
+
+        try:
+            doc.Saved = False
+        except Exception:
+            pass
+
+        try:
+            doc.Save()
+            if getattr(doc, 'Saved', False):
+                sys_logger.info(f'COM Save 成功: {name}')
+                return True
+        except Exception as e:
+            sys_logger.warning(f'COM Save 失败，准备降级: {e}')
+
+        try:
+            doc.SendCommand('_qsave\n')
+            try:
+                wait_quiescent(min_quiet=0.5, timeout=10.0)
+            except Exception:
+                time.sleep(2.0)
+            if getattr(doc, 'Saved', False):
+                sys_logger.info(f'_qsave 成功: {name}')
+                return True
+        except Exception as e:
+            sys_logger.warning(f'_qsave 失败，继续降级: {e}')
+
+        return save_as_dwg_paradigm(full_name)
+    except Exception as e:
+        sys_logger.error(f'保存当前文件失败: {e}')
+        return False
+
+def close_current_dwg_paradigm(save_option="prompt"):
+    """内生化关闭当前文档。"""
+    try:
+        acad = _core_get_acad()
+        if acad.Documents.Count == 0:
+            return True
+        doc = acad.ActiveDocument
+        name = getattr(doc, 'Name', 'Unknown')
+
+        if save_option == 'auto_save':
+            doc.Close(True)
+        elif save_option == 'no_save':
+            doc.Close(False)
+        else:
+            try:
+                need_save = not bool(doc.Saved)
+            except Exception:
+                need_save = False
+            doc.Close(bool(need_save))
+        sys_logger.info(f'关闭当前文件成功: {name}')
+        return True
+    except Exception as e:
+        sys_logger.error(f'关闭当前文件失败: {e}')
+        return False
+
+def close_all_dwg_paradigm():
+    """内生化关闭全部文档。"""
+    try:
+        total = _core_get_open_file_count()
+        success = 0
+        for _ in range(total):
+            if close_current_dwg_paradigm(save_option='no_save'):
+                success += 1
+            time.sleep(0.3)
+        sys_logger.info(f'关闭全部文档完成: {success}/{total}')
+        return success == total
+    except Exception as e:
+        sys_logger.error(f'关闭全部文档失败: {e}')
         return False
 
 # 3.4 导入 选择模块 (CAD_selection)
@@ -103,11 +401,7 @@ try:
 
 
 except ImportError as e:
-    print(f"[警告] CAD_selection 导入失败: {e}")
-
-
-
-
+    sys_logger.error(f"[警告] CAD_selection 导入失败: {e}")
 
 
 # ==============================================================================
@@ -128,7 +422,7 @@ try:
     if 'retry_on_busy' not in globals():
         from licad import retry_on_busy
     
-    print("[初始化] 成功加载 licad 核心模块")
+    sys_logger.info("[初始化] 成功加载 licad 核心模块")
 
     def li():
         """
@@ -150,7 +444,7 @@ try:
 
 except ImportError:
     # --- 方案 B: 回退使用老核心 CAD_basic ---
-    print("[注意] 未找到 licad，回退使用 CAD_basic (cb) 模式")
+    sys_logger.info("[注意] 未找到 licad，回退使用 CAD_basic (cb) 模式")
     
     # 兜底装饰器 (如果 CAD_com_utils 也没导入成功)
     if 'retry_on_busy' not in globals():
@@ -195,7 +489,7 @@ def close_tarch_CAD_system():
 #&&% 守护天正CAD系统
 def launch_cad_guardians():
     """
-    【功能】: 独立启动 CAD 的两个守护脚本（弹窗杀手 + 命令监控）。
+    【功能】: 独立启动 CAD 的守护脚本（弹窗杀手 + 命令监控 + 运行监管）。
     【特性】: 支持系统任意移动，路径自动识别。
     """
     # ========================================================
@@ -213,10 +507,11 @@ def launch_cad_guardians():
 
     scripts_to_launch = [
         "cad_dialog_killer.py",
-        "cad_command_monitor.py"
+        "cad_command_monitor.py",
+        "cad_runtime_guard.py",
     ]
 
-    print(f"🛡️ [守护] 正在从 [{system_dir.name}] 启动守护进程...")
+    sys_logger.info(f"🛡️ [守护] 正在从 [{system_dir.name}] 启动守护进程...")
     
     success_count = 0
 
@@ -225,7 +520,7 @@ def launch_cad_guardians():
         script_path = system_dir / script_name
         
         if not script_path.exists():
-            print(f"❌ [错误] 找不到脚本: {script_path}")
+            sys_logger.error(f"❌ [错误] 找不到脚本: {script_path}")
             continue
 
         try:
@@ -241,17 +536,153 @@ def launch_cad_guardians():
             time.sleep(0.5)
             
             if proc.poll() is None:
-                print(f"✅ [启动] {script_name} 成功 (PID: {proc.pid})")
+                sys_logger.info(f"✅ [启动] {script_name} 成功 (PID: {proc.pid})")
                 success_count += 1
             else:
-                print(f"ℹ️ [跳过] {script_name} 已在运行中。")
+                sys_logger.info(f"ℹ️ [跳过] {script_name} 已在运行中。")
                 success_count += 1
                 
         except Exception as e:
-            print(f"❌ [异常] 无法启动 {script_name}: {e}")
+            sys_logger.error(f"❌ [异常] 无法启动 {script_name}: {e}")
 
     return success_count == len(scripts_to_launch)
 
+
+def inspect_cad_runtime(*, allow_process_probe: bool = True) -> dict:
+    """
+    被动检查当前 CAD 运行态，不主动启动新 CAD。
+
+    说明：
+    - 不调用 C.li()，避免把观察者变成干预者。
+    - 不依赖窗口标题。
+    - 主要依据 COM 可达性 + 当前活动进程来源元数据判断：
+      是否带有 TArch/Tangent/TGStart 等天正来源线索。
+    """
+
+    payload = {
+        "status": "unknown",
+        "severity": "info",
+        "reason": "",
+        "process_hint": "unknown",
+        "process_name": "",
+        "process_exe": "",
+        "process_cmdline": "",
+        "parent_name": "",
+        "parent_exe": "",
+        "pid": 0,
+        "hwnd": 0,
+        "doc_name": "",
+        "doc_full_name": "",
+        "modelspace_ready": 0,
+        "paperspace_ready": 0,
+        "com_ready": 0,
+    }
+
+    def _has_tarch_markers(values: list[str]) -> bool:
+        joined = " | ".join(str(v or "").lower() for v in values)
+        return any(mark in joined for mark in ("tarch", "tangent", "tgstart"))
+
+    def _join_cmdline(parts) -> str:
+        if not parts:
+            return ""
+        if isinstance(parts, (list, tuple)):
+            return " ".join(str(p) for p in parts)
+        return str(parts)
+
+    try:
+        pythoncom.CoInitialize()
+    except Exception:
+        pass
+
+    try:
+        acad = win32com.client.GetActiveObject("AutoCAD.Application")
+    except Exception as exc:
+        payload["status"] = "no_active_cad"
+        payload["severity"] = "info"
+        payload["reason"] = f"GetActiveObject 未取得活动 CAD: {exc}"
+        return payload
+
+    try:
+        hwnd = int(getattr(acad, "HWND", 0) or 0)
+    except Exception:
+        hwnd = 0
+    payload["hwnd"] = hwnd
+
+    pid = 0
+    proc_name = ""
+    proc_exe = ""
+    proc_cmdline = ""
+    parent_name = ""
+    parent_exe = ""
+    if allow_process_probe and hwnd:
+        try:
+            _, pid = win32process.GetWindowThreadProcessId(hwnd)
+            if pid:
+                proc = psutil.Process(pid)
+                proc_name = str(proc.name() or "")
+                proc_exe = str(proc.exe() or "")
+                proc_cmdline = _join_cmdline(proc.cmdline())
+                try:
+                    parent = proc.parent()
+                except Exception:
+                    parent = None
+                if parent is not None:
+                    parent_name = str(parent.name() or "")
+                    try:
+                        parent_exe = str(parent.exe() or "")
+                    except Exception:
+                        parent_exe = ""
+        except Exception as exc:
+            payload["reason"] = f"进程探测失败: {exc}"
+
+    payload["pid"] = pid
+    payload["process_name"] = proc_name
+    payload["process_exe"] = proc_exe
+    payload["process_cmdline"] = proc_cmdline
+    payload["parent_name"] = parent_name
+    payload["parent_exe"] = parent_exe
+
+    try:
+        doc = acad.ActiveDocument
+        payload["doc_name"] = str(getattr(doc, "Name", "") or "")
+        payload["doc_full_name"] = str(getattr(doc, "FullName", "") or "")
+        _ = doc.ModelSpace
+        payload["modelspace_ready"] = 1
+        _ = doc.PaperSpace
+        payload["paperspace_ready"] = 1
+        payload["com_ready"] = 1
+    except pythoncom.com_error as exc:
+        payload["status"] = "cad_busy"
+        payload["severity"] = "warning"
+        payload["reason"] = f"COM busy/rejected: {exc}"
+        return payload
+    except Exception as exc:
+        payload["status"] = "cad_doc_unavailable"
+        payload["severity"] = "warning"
+        payload["reason"] = f"活动文档不可用: {exc}"
+        return payload
+
+    values = [proc_name, proc_exe, proc_cmdline, parent_name, parent_exe]
+    has_tarch = _has_tarch_markers(values)
+    proc_name_low = proc_name.lower()
+
+    if has_tarch:
+        payload["process_hint"] = "tarch_source"
+        payload["status"] = "healthy_tarch"
+        payload["severity"] = "info"
+        payload["reason"] = "活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。"
+    elif proc_name_low == "acad.exe":
+        payload["process_hint"] = "plain_acad_source"
+        payload["status"] = "suspected_plain_cad"
+        payload["severity"] = "warning"
+        payload["reason"] = "活动 CAD 进程仅表现为 acad.exe，未发现天正来源线索。"
+    else:
+        payload["process_hint"] = "unknown_source"
+        payload["status"] = "runtime_uncertain"
+        payload["severity"] = "info"
+        payload["reason"] = "活动 CAD 可访问，文档上下文正常，但进程来源暂时无法确认。"
+
+    return payload
 
 
 #&&% 连接天正CAD系统
@@ -275,7 +706,7 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
     # from system.licad import C 
     
     # ========= 第一阶段：常规检查 (利用 C.li) =========
-    print("[litz] 开始环境健康检查...")
+    sys_logger.info("[litz] 开始环境健康检查...")
     is_connected = False
     try:
         if C.li():
@@ -298,30 +729,30 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
                 if obj: safe_delete(obj)
             except: pass
             
-            print(f"[litz] 环境检测正常，复用现有进程: {C.doc.Name}")
+            sys_logger.info(f"[litz] 环境检测正常，复用现有进程: {C.doc.Name}")
             return True
         else:
-            print("[litz] 连接正常但探针检测失败（疑似非天正环境），准备重建...")
+            sys_logger.error("[litz] 连接正常但探针检测失败（疑似非天正环境），准备重建...")
     else:
-        print("[litz] 基础连接 C.li() 失败，准备重建...")
+        sys_logger.error("[litz] 基础连接 C.li() 失败，准备重建...")
 
     # ========= 第二阶段：环境重置 (Kill & Restart) =========
-    print("[litz] 执行环境重置...")
+    sys_logger.info("[litz] 执行环境重置...")
     try:
         # 调用 CAD_basic 中的关闭进程函数
         close_all_cad_processes()
     except Exception as e:
-        print(f"[litz] 关闭进程警告: {e}")
+        sys_logger.warning(f"[litz] 关闭进程警告: {e}")
 
     try:
         # 启动天正 (调用本模块或 CAD_basic 的启动函数)
         start_applicationV9(PTH=r"C:\Tangent\TArchT20V9", max_retries=3, retry_delay=2.0)
     except Exception as e:
-        print(f"[litz] 启动天正失败: {e}")
+        sys_logger.error(f"[litz] 启动天正失败: {e}")
         return False
 
     # ========= 第三阶段：等待并刷新 C 类 =========
-    print("[litz] 正在等待 CAD 初始化并刷新 C 类连接...")
+    sys_logger.info("[litz] 正在等待 CAD 初始化并刷新 C 类连接...")
     
     success = False
     
@@ -331,7 +762,7 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
     
     for round_idx in range(1, max_connect_rounds + 1):
         if round_idx > 1:
-            print(f"[litz] 第 {round_idx} 轮重试...")
+            sys_logger.info(f"[litz] 第 {round_idx} 轮重试...")
             time.sleep(wait_between_rounds)
         
         # 尝试刷新连接
@@ -353,12 +784,11 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
         time.sleep(1.0) # 短暂冷却
 
     if success:
-        print(f"[litz] 连接重建完成，C 类已同步。当前激活文档: {C.doc.Name}")
+        sys_logger.info(f"[litz] 连接重建完成，C 类已同步。当前激活文档: {C.doc.Name}")
         return True
     else:
-        print("[litz] 严重错误：重启后 C.li() 无法建立有效连接。")
+        sys_logger.error("[litz] 严重错误：重启后 C.li() 无法建立有效连接。")
         return False
-
 
 
 #&&&% CAD状态控制
@@ -382,26 +812,26 @@ def activate_document_by_name(filename):
     normalized = {Path(name).name.lower(): name for name in open_docs}
 
     if target not in normalized:
-        print(f"[错误] 文件 {filename} 未在当前 CAD 会话中打开")
+        sys_logger.error(f"[错误] 文件 {filename} 未在当前 CAD 会话中打开")
         return False
 
     actual_name = normalized[target]
     doc = get_doc_by_name(actual_name)
     if doc is None:
-        print(f"[错误] 无法获取文件 {actual_name} 的文档对象")
+        sys_logger.error(f"[错误] 无法获取文件 {actual_name} 的文档对象")
         return False
 
     try:
         set_active_doc(doc)
     except Exception as exc:
-        print(f"[错误] 激活文件 {actual_name} 失败: {exc}")
+        sys_logger.error(f"[错误] 激活文件 {actual_name} 失败: {exc}")
         return False
 
     if not C.li():
-        print("[警告] li() 连接失败，当前控制对象未确定")
+        sys_logger.error("[警告] li() 连接失败，当前控制对象未确定")
         return False
 
-    print(f"[成功] 已激活文件: {actual_name}")
+    sys_logger.info(f"[成功] 已激活文件: {actual_name}")
     return True
 
 #&&% 状态归零
@@ -459,13 +889,13 @@ def cad_zt_oneb():
         try:
             open_paths = get_all_open_dwg_paths()
         except Exception as exc:
-            print(f"[cad_zt_oneb] 获取打开文件失败：{exc}")
+            sys_logger.error(f"[cad_zt_oneb] 获取打开文件失败：{exc}")
             open_paths = []
 
-        print(f"[cad_zt_oneb] 当前打开文件列表: {open_paths}")
+        sys_logger.info(f"[cad_zt_oneb] 当前打开文件列表: {open_paths}")
 
         if _is_default_session(open_paths):
-            print("[cad_zt_oneb] 检测到天正默认空白 DWG，保持现状。")
+            sys_logger.info("[cad_zt_oneb] 检测到天正默认空白 DWG，保持现状。")
             return True
 
         close_all_cad_processes()
@@ -632,7 +1062,7 @@ def cad_zt_xin_1(status_file=None):
         from system.licad import C
         from scripts.CAD_basic import get_all_open_dwg_paths, current_dwg_folder
     except ImportError as e:
-        print(f"[错误] 模块导入失败: {e}")
+        sys_logger.error(f"[错误] 模块导入失败: {e}")
         return None
 
     # ================= 2. 路径处理 =================
@@ -649,7 +1079,7 @@ def cad_zt_xin_1(status_file=None):
     try:
         # 刷新连接，如果彻底连不上则放弃
         if not C.li():
-            print("[cad_zt_xin_1] li() 连接失败，无法记录当前会话。")
+            sys_logger.error("[cad_zt_xin_1] li() 连接失败，无法记录当前会话。")
             return None
     except Exception:
         return None
@@ -714,12 +1144,11 @@ def cad_zt_xin_1(status_file=None):
 
     try:
         status_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-        print(f"[cad_zt_xin_1] 已写入 CAD 状态信息到 {status_path}")
+        sys_logger.info(f"[cad_zt_xin_1] 已写入 CAD 状态信息到 {status_path}")
         return payload
     except Exception as e:
-        print(f"[错误] 写入状态文件失败: {e}")
+        sys_logger.error(f"[错误] 写入状态文件失败: {e}")
         return None
-
 
 
 #&&% 恢复记录状态
@@ -752,15 +1181,15 @@ def cad_zt_xin_2(status_file=None):
     
     status_path = Path(status_file)
     if not status_path.exists():
-        print(f"[cad_zt_xin_2] ❌ 状态文件不存在: {status_path}")
+        sys_logger.error(f"[cad_zt_xin_2] ❌ 状态文件不存在: {status_path}")
         return False
 
     # 3. 读取并解析配置
     try:
         payload = json.loads(status_path.read_text(encoding="utf-8"))
-        print(f"[cad_zt_xin_2] 成功读取状态记录 (时间: {payload.get('timestamp')})")
+        sys_logger.info(f"[cad_zt_xin_2] 成功读取状态记录 (时间: {payload.get('timestamp')})")
     except Exception as e:
-        print(f"[cad_zt_xin_2] ❌ 解析 JSON 失败: {e}")
+        sys_logger.error(f"[cad_zt_xin_2] ❌ 解析 JSON 失败: {e}")
         return False
 
     raw_open_files = payload.get("open_files") or []
@@ -783,7 +1212,7 @@ def cad_zt_xin_2(status_file=None):
         try:
             p_obj = Path(f)
             if not p_obj.exists():
-                print(f"[跳过] 文件不存在: {f}")
+                sys_logger.info(f"[跳过] 文件不存在: {f}")
                 continue
             
             # 归一化：转为绝对路径字符串并小写，用于去重和比对
@@ -802,7 +1231,7 @@ def cad_zt_xin_2(status_file=None):
             continue
 
     # 5. 重置环境 (Kill & Start)
-    print("[cad_zt_xin_2] 正在重置 CAD 环境...")
+    sys_logger.info("[cad_zt_xin_2] 正在重置 CAD 环境...")
     close_all_cad_processes() # 使用标准清理函数
     
     # 双重保险清理
@@ -811,7 +1240,7 @@ def cad_zt_xin_2(status_file=None):
     start_applicationV9(PTH=r"C:\Tangent\TArchT20V9", max_retries=3, retry_delay=2.0)
     
     # 等待启动稳定 (这里可以复用 cad_zt_oneb 的检测逻辑，或者简单等待)
-    print("[cad_zt_xin_2] 等待 CAD 启动就绪...")
+    sys_logger.info("[cad_zt_xin_2] 等待 CAD 启动就绪...")
     wait_quiescent(min_quiet=2.0, timeout=30.0)
     
     # 6. 执行打开 (The Rhythm Strategy)
@@ -820,23 +1249,23 @@ def cad_zt_xin_2(status_file=None):
     # 6.1 先打开所有背景文件
     for f_path in background_files:
         try:
-            print(f"[恢复] 打开背景文件: {Path(f_path).name}")
+            sys_logger.info(f"[恢复] 打开背景文件: {Path(f_path).name}")
             open_file(f_path)
             reopened_count += 1
             # 💤 节奏控制：防止 COM 忙碌
             time.sleep(1.5) 
         except Exception as e:
-            print(f"[警告] 打开失败 {f_path}: {e}")
+            sys_logger.error(f"[警告] 打开失败 {f_path}: {e}")
 
     # 6.2 最后打开目标激活文件 (这样它自然就是激活状态)
     if target_active_file and Path(target_active_file).exists():
         try:
-            print(f"[恢复] 打开并激活目标文件: {Path(target_active_file).name}")
+            sys_logger.info(f"[恢复] 打开并激活目标文件: {Path(target_active_file).name}")
             open_file(target_active_file)
             reopened_count += 1
             time.sleep(1.5)
         except Exception as e:
-            print(f"[严重] 无法打开目标文件: {e}")
+            sys_logger.info(f"[严重] 无法打开目标文件: {e}")
     
     # 7. 最终状态确认
     # 虽然最后打开的通常是激活的，但为了稳健，我们再次检查
@@ -848,19 +1277,18 @@ def cad_zt_xin_2(status_file=None):
             current_doc = getattr(C.doc, "Name", "")
             
             if current_doc.lower() != target_name.lower():
-                print(f"[校准] 当前激活的是 {current_doc}，正在强制切换回 {target_name}...")
+                sys_logger.info(f"[校准] 当前激活的是 {current_doc}，正在强制切换回 {target_name}...")
                 doc_obj = get_doc_by_name(target_name)
                 if doc_obj:
                     set_active_doc(doc_obj)
             else:
-                print(f"[确认] 当前已正确激活: {target_name}")
+                sys_logger.info(f"[确认] 当前已正确激活: {target_name}")
                 
         except Exception as e:
-            print(f"[警告] 激活状态校验失败: {e}")
+            sys_logger.error(f"[警告] 激活状态校验失败: {e}")
 
-    print(f"[cad_zt_xin_2] 恢复完成。共打开 {reopened_count} 个文件。")
+    sys_logger.info(f"[cad_zt_xin_2] 恢复完成。共打开 {reopened_count} 个文件。")
     return True
-
 
 
 #&&&% 单文档操作
@@ -890,12 +1318,12 @@ def new_file(output_path=None, close_after=False):
         """Close the active file when requested and ignore close errors."""
         if result and close_after:
             try:
-                print("[信息] close_after=True，正在关闭新建的文件...")
+                sys_logger.info("[信息] close_after=True，正在关闭新建的文件...")
                 # 调用只关闭当前文档的函数，而不是重启整个CAD
                 close_current_dwg_paradigm("no_save")
-                print("[成功] 新建的文件已关闭。")
+                sys_logger.info("[成功] 新建的文件已关闭。")
             except Exception as exc:
-                print(f"[警告] 关闭新建文件失败: {exc}")
+                sys_logger.error(f"[警告] 关闭新建文件失败: {exc}")
         return result
 
     if output_path:
@@ -908,20 +1336,20 @@ def new_file(output_path=None, close_after=False):
             target_path_str = str(target.resolve()).lower()
 
             if target_path_str in normalized_open_paths:
-                print(f"[信息] 目标文件 '{target.name}' 已在CAD中打开，将直接激活它。")
+                sys_logger.info(f"[信息] 目标文件 '{target.name}' 已在CAD中打开，将直接激活它。")
                 activate_document_by_name(target.name)
                 # 因为文件已存在并激活，所以不执行关闭逻辑，直接返回成功
                 return True
         except Exception as e:
-            print(f"[警告] 检查已打开文件时出错: {e}")
+            sys_logger.warning(f"[警告] 检查已打开文件时出错: {e}")
         # --- 新增逻辑结束 ---
 
         if target.exists():
             try:
                 target.unlink()
-                print(f"[信息] 已删除同名文件: {target}")
+                sys_logger.info(f"[信息] 已删除同名文件: {target}")
             except Exception as exc:
-                print(f"[错误] 无法删除已存在文件 {target}: {exc}")
+                sys_logger.error(f"[错误] 无法删除已存在文件 {target}: {exc}")
                 return False
 
     def _limit_open_documents():
@@ -929,7 +1357,7 @@ def new_file(output_path=None, close_after=False):
         try:
             names = get_open_document_names()
         except Exception as exc:
-            print(f"[警告] 获取已打开文件失败: {exc}")
+            sys_logger.error(f"[警告] 获取已打开文件失败: {exc}")
             return False, None
 
         if len(names) <= 3:
@@ -943,7 +1371,7 @@ def new_file(output_path=None, close_after=False):
 
         keep = active_name if active_name in names else names[-1]
         remaining = names.copy()
-        print(f"[信息] 当前打开 {len(names)} 个文件，保留 {keep}，关闭部分文件以压缩到 3 个以内")
+        sys_logger.info(f"[信息] 当前打开 {len(names)} 个文件，保留 {keep}，关闭部分文件以压缩到 3 个以内")
         ok = True
         for name in names:
             if len(remaining) <= 3:
@@ -955,7 +1383,7 @@ def new_file(output_path=None, close_after=False):
                 remaining.remove(name)
             except Exception as exc:
                 ok = False
-                print(f"[警告] 关闭文件 {name} 失败: {exc}")
+                sys_logger.error(f"[警告] 关闭文件 {name} 失败: {exc}")
 
         time.sleep(0.5)
         try:
@@ -964,17 +1392,17 @@ def new_file(output_path=None, close_after=False):
             remaining = []
 
         if len(remaining) <= 3:
-            print(f"[信息] 已将打开文件数压缩到 {len(remaining)} 个")
+            sys_logger.info(f"[信息] 已将打开文件数压缩到 {len(remaining)} 个")
             return ok, len(remaining)
 
-        print(f"[警告] 仍有 {len(remaining)} 个文件未关闭")
+        sys_logger.warning(f"[警告] 仍有 {len(remaining)} 个文件未关闭")
         return False, len(remaining)
 
     shu_1 = jingchengshu_wenjian()
     tarch_ready = False
 
     if shu_1 == 1:
-        print("[信息] 检测到 1 个 CAD 进程，进行天正墙自检...")
+        sys_logger.info("[信息] 检测到 1 个 CAD 进程，进行天正墙自检...")
         wall_obj = None
         try:
             connected = C.li()
@@ -996,18 +1424,18 @@ def new_file(output_path=None, close_after=False):
                         handle = None
 
                     if handle and handle != prev_handle:
-                        print(f"[成功] 天正墙自检通过 (Handle={handle})")
+                        sys_logger.info(f"[成功] 天正墙自检通过 (Handle={handle})")
                         tarch_ready = True
                     elif handle == prev_handle and handle is not None:
-                        print("[警告] last_obj 结果与自检前一致，可能未生成天正墙")
+                        sys_logger.warning("[警告] last_obj 结果与自检前一致，可能未生成天正墙")
                     else:
-                        print("[警告] 天正墙未返回 Handle，准备重新初始化 CAD")
+                        sys_logger.warning("[警告] 天正墙未返回 Handle，准备重新初始化 CAD")
                 else:
-                    print("[警告] 绘制天正墙失败，准备重新初始化 CAD")
+                    sys_logger.error("[警告] 绘制天正墙失败，准备重新初始化 CAD")
             else:
-                print("[警告] li() 连接失败，准备重新初始化 CAD")
+                sys_logger.error("[警告] li() 连接失败，准备重新初始化 CAD")
         except Exception as exc:
-            print(f"[警告] 天正墙自检异常: {exc}")
+            sys_logger.error(f"[警告] 天正墙自检异常: {exc}")
         finally:
             if wall_obj is not None:
                 try:
@@ -1019,19 +1447,18 @@ def new_file(output_path=None, close_after=False):
                         pass
 
     if not tarch_ready:
-        print("[信息] 执行 cad_zt_zero() + cad_zt_oneb() 重新准备天正环境...")
+        sys_logger.info("[信息] 执行 cad_zt_zero() + cad_zt_oneb() 重新准备天正环境...")
         cad_zt_zero()
         cad_zt_oneb()
 
     doc_ok, doc_count = _limit_open_documents()
     if doc_count and doc_count > 2 and not doc_ok:
-        print("[信息] 关闭多余文件失败，重启 CAD 环境...")
+        sys_logger.error("[信息] 关闭多余文件失败，重启 CAD 环境...")
         cad_zt_zero()
         cad_zt_oneb()
 
     result = new_dwg_enhanced(output_path)
     return _close_new_file(result)
-
 
 
 #&&% 打开dwg文件
@@ -1083,7 +1510,7 @@ def open_file(file_path):
     if not li_ok:
         litz()
     else:
-        print("[open_file] 复用现有 CAD 连接。")
+        sys_logger.info("[open_file] 复用现有 CAD 连接。")
 
     # --------------------------------------------------------
     # 3. 定义内部辅助函数 (使用全局导入的工具函数)
@@ -1094,7 +1521,7 @@ def open_file(file_path):
     def _ensure_single_process():
         # 使用全局导入的 jingchengshu_wenjian
         if jingchengshu_wenjian() > 1:
-            print("[警告] 检测到多个 CAD 进程，执行重置...")
+            sys_logger.warning("[警告] 检测到多个 CAD 进程，执行重置...")
             # 替换原有的 cad_zt_zero/oneb 为标准函数，防止报错
             close_all_cad_processes() 
             litz()
@@ -1104,7 +1531,7 @@ def open_file(file_path):
             # 使用全局导入的 get_open_document_names
             names = get_open_document_names()
         except Exception as exc:
-            print(f"[警告] 获取已打开文件失败: {exc}")
+            sys_logger.error(f"[警告] 获取已打开文件失败: {exc}")
             return True
 
         if len(names) <= 3:
@@ -1119,7 +1546,7 @@ def open_file(file_path):
 
         keep = active_name if active_name in names else names[-1]
         remaining = names.copy()
-        print(f"[信息] 当前打开 {len(names)} 个文件，保留 {keep}，关闭部分文件以压缩到 3 个以内")
+        sys_logger.info(f"[信息] 当前打开 {len(names)} 个文件，保留 {keep}，关闭部分文件以压缩到 3 个以内")
         
         for name in names:
             if len(remaining) <= 3:
@@ -1137,7 +1564,7 @@ def open_file(file_path):
             remaining = []
             
         if len(remaining) > 3:
-            print("[警告] 仍有多余文件未关闭，重置 CAD 环境")
+            sys_logger.warning("[警告] 仍有多余文件未关闭，重置 CAD 环境")
             return False
 
         return True
@@ -1151,7 +1578,7 @@ def open_file(file_path):
     try:
         acad = _get_acad()
     except:
-        print("[信息] CAD未启动，正在启动天正...")
+        sys_logger.info("[信息] CAD未启动，正在启动天正...")
         # 使用全局导入的 start_applicationV9
         start_applicationV9(PTH=r"C:\Tangent\TArchT20V9", max_retries=3, retry_delay=2.0)
         acad = _get_acad()
@@ -1162,7 +1589,7 @@ def open_file(file_path):
         target_name = Path(file_path).name
         ensure_max_open_documents(keep_filename=target_name, max_count=3)
     except Exception as e:
-        print(f"[警告] 启动前清理环境失败: {e}")
+        sys_logger.error(f"[警告] 启动前清理环境失败: {e}")
     # ==================== 👆 修改位置结束 👆 ====================
 
     # 规范化路径 (Path 已在头部导入)
@@ -1174,7 +1601,7 @@ def open_file(file_path):
         for doc in acad.Documents:
             try:
                 if str(Path(doc.FullName).resolve()).lower() == target_path:
-                    print(f"[信息] 文件已打开: {file_path}")
+                    sys_logger.info(f"[信息] 文件已打开: {file_path}")
                     try:
                         doc.Activate()
                     except:
@@ -1183,7 +1610,7 @@ def open_file(file_path):
             except:
                 continue
     except Exception as e:
-        print(f"[警告] 检查已打开文档时出错: {e}")
+        sys_logger.warning(f"[警告] 检查已打开文档时出错: {e}")
 
     # 使用全局导入的 open_dwg_paradigm
     return open_dwg_paradigm(file_path)
@@ -1212,7 +1639,7 @@ def copy_file_with_increment(filepath):
     try:
         source = Path(filepath)
         if not source.exists():
-            print(f"[错误] 源文件不存在: {filepath}")
+            sys_logger.error(f"[错误] 源文件不存在: {filepath}")
             return None
             
         # 分离文件名和扩展名
@@ -1231,11 +1658,11 @@ def copy_file_with_increment(filepath):
             
         # 复制文件
         shutil.copy2(str(source), str(new_path))
-        print(f"[成功] 已复制文件: {new_path}")
+        sys_logger.info(f"[成功] 已复制文件: {new_path}")
         return str(new_path)
         
     except Exception as e:
-        print(f"[错误] 复制文件失败: {e}")
+        sys_logger.error(f"[错误] 复制文件失败: {e}")
         return None
 
 # ============================================================================
@@ -1318,12 +1745,12 @@ def close_file(save_option="auto_save"):
                     if file_path and Path(file_path).exists():
                         open_file(file_path)
                 except Exception as exc:
-                    print(f"[警告] 重新打开 {file_path} 失败: {exc}")
+                    sys_logger.error(f"[警告] 重新打开 {file_path} 失败: {exc}")
             return True
         else:
             return close_current_dwg_paradigm(save_option)
     except Exception as exc:
-        print(f"[错误] 关闭文件失败: {exc}")
+        sys_logger.error(f"[错误] 关闭文件失败: {exc}")
         return False
 
 
@@ -1350,10 +1777,10 @@ def purge_file(deep_purge=True):
             # 某些顽固垃圾可能需要两遍
             doc.PurgeAll()
             
-        print("[成功] 文件清理完成")
+        sys_logger.info("[成功] 文件清理完成")
         return True
     except Exception as e:
-        print(f"[警告] 清理文件失败: {e}")
+        sys_logger.error(f"[警告] 清理文件失败: {e}")
         return False
 
 #&&% 检查文件是否被锁定
@@ -1403,7 +1830,6 @@ def is_read_only():
         return False
 
 
-
 #&&&% 跨文件操作
 
 #&&% 插入并炸开
@@ -1426,7 +1852,7 @@ def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0,
         real_path = str(Path(source_file).resolve())
         block_name = Path(real_path).stem
     except:
-        print(f"❌ 路径错误: {source_file}")
+        sys_logger.error(f"❌ 路径错误: {source_file}")
         return False
 
     if not os.path.exists(real_path):
@@ -1442,7 +1868,7 @@ def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0,
         # 逻辑：如果基点是 (X,Y)，插入后图形会偏到 (-X,-Y)，所以我们要移 (+X,+Y)
         if abs(base_pt[0]) > 1e-6 or abs(base_pt[1]) > 1e-6:
             move_vec = base_pt
-            print(f"🔍 [纠偏] 检测到环境 INSBASE={base_pt}，将对插入对象执行自动归位。")
+            sys_logger.info(f"🔍 [纠偏] 检测到环境 INSBASE={base_pt}，将对插入对象执行自动归位。")
     except:
         pass
 
@@ -1467,11 +1893,11 @@ def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0,
 
         # 7. 插入块
         pt = win32com.client.VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, (float(x), float(y), float(z)))
-        print(f"  -> [底层] 正在插入: {block_name}")
+        sys_logger.info(f"  -> [底层] 正在插入: {block_name}")
         block_ref = dest_space.InsertBlock(pt, real_path, scale, scale, scale, 0.0)
 
         # 8. 炸开并捕获新对象 (核心优化)
-        print(f"  -> [底层] 正在炸开...")
+        sys_logger.info(f"  -> [底层] 正在炸开...")
         # Explode() 返回一个 Variant 数组，里面直接包含了炸开后的所有新对象！
         # 这比“记录句柄往前推”更直接、更稳定。
         ##exploded_objects = block_ref.Explode()
@@ -1480,16 +1906,12 @@ def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0,
         exploded_objects = cb.safe_explode(block_ref)
 
 
-
-
-
-
         # 9. 删除块引用
         block_ref.Delete()
 
         # 10. 执行纠偏移动 (如果需要)
         if move_vec != (0.0, 0.0, 0.0):
-            print(f"  -> [纠偏] 正在移动 {len(exploded_objects)} 个实体归位...")
+            sys_logger.info(f"  -> [纠偏] 正在移动 {len(exploded_objects)} 个实体归位...")
             
             # 构造起点(0,0,0) 和 终点(move_vec)
             p1 = win32com.client.VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, (0.0, 0.0, 0.0))
@@ -1509,15 +1931,13 @@ def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0,
         return True
 
     except Exception as e:
-        print(f"❌ [insert_file_exploded] 失败: {e}")
+        sys_logger.error(f"❌ [insert_file_exploded] 失败: {e}")
         return False
         
     finally:
         # 恢复单位
         try: target_doc.SetVariable("INSUNITS", old_units)
         except: pass
-
-
 
 
 #&&% 拷贝文件内容_20260118
@@ -1560,12 +1980,12 @@ def copy_file_content_pywin32(
     import shutil
     from pathlib import Path
 
-    print(f"🚀 [Full-Transfer-V2] 启动全图合并...")
+    sys_logger.info(f"🚀 [Full-Transfer-V2] 启动全图合并...")
     
     # 1. 路径检查
     src_path = Path(source_file)
     if not src_path.exists():
-        print(f"❌ 源文件不存在: {source_file}")
+        sys_logger.error(f"❌ 源文件不存在: {source_file}")
         return False
 
     # 2. 创建临时副本 (关键步骤：防止源文件被占用导致 Insert 失败)
@@ -1575,9 +1995,9 @@ def copy_file_content_pywin32(
     
     try:
         shutil.copy2(src_path, temp_copy_path)
-        print(f"  📄 创建临时副本: {temp_copy_path.name}")
+        sys_logger.info(f"  📄 创建临时副本: {temp_copy_path.name}")
     except Exception as e:
-        print(f"❌ 创建副本失败: {e}")
+        sys_logger.error(f"❌ 创建副本失败: {e}")
         return False
 
     # ==========================================
@@ -1585,7 +2005,7 @@ def copy_file_content_pywin32(
     # ==========================================
     try:
         # 1. 打开/激活目标文件
-        print(f"  📂 准备目标: {Path(target_file).name}")
+        sys_logger.info(f"  📂 准备目标: {Path(target_file).name}")
         if not open_file(target_file): 
             return False
         
@@ -1597,7 +2017,7 @@ def copy_file_content_pywin32(
                 doc_tgt.ActiveLayout = doc_tgt.Layouts.Item(target_layout)
                 dest_space = doc_tgt.ActiveLayout.Block
             except: 
-                print(f"  ⚠️ 布局 {target_layout} 不存在，转为模型。")
+                sys_logger.warning(f"  ⚠️ 布局 {target_layout} 不存在，转为模型。")
                 dest_space = doc_tgt.ModelSpace
         else:
             doc_tgt.SetVariable("TILEMODE", 1) # 切换到模型
@@ -1611,11 +2031,11 @@ def copy_file_content_pywin32(
         block_name = temp_copy_path.stem
         try: 
             doc_tgt.Blocks.Item(block_name).Delete()
-            print("  🧹 清理了旧的同名块定义")
+            sys_logger.info("  🧹 清理了旧的同名块定义")
         except: pass
         
         # 5. 执行插入 (InsertBlock)
-        print(f"  🔄 正在插入全图... (Pos: {target_x}, {target_y})")
+        sys_logger.info(f"  🔄 正在插入全图... (Pos: {target_x}, {target_y})")
         # 参数: 插入点, 文件路径, X比例, Y比例, Z比例, 旋转
         block_ref = dest_space.InsertBlock(pt, str(temp_copy_path), scale, scale, scale, rotation)
         
@@ -1623,26 +2043,26 @@ def copy_file_content_pywin32(
         time.sleep(1.0)
         
         if not explode:
-            print("  ✨ 插入完成 (保留为块引用)")
+            sys_logger.info("  ✨ 插入完成 (保留为块引用)")
             doc_tgt.Save()
             return True
 
         # 7. 炸开逻辑 (Retry Loop)
-        print("  💥 正在炸开合并...")
+        sys_logger.info("  💥 正在炸开合并...")
         exploded = False
         for i in range(5):
             try:
                 block_ref.Explode()
                 exploded = True
-                print(f"     ✅ 成功 (Attempt {i+1})")
+                sys_logger.info(f"     ✅ 成功 (Attempt {i+1})")
                 break
             except Exception as e:
                 if "rejected" in str(e) or "busy" in str(e):
-                    print(f"     ⏳ CAD忙碌，重试炸开 ({i+1}/5)...")
+                    sys_logger.info(f"     ⏳ CAD忙碌，重试炸开 ({i+1}/5)...")
                     time.sleep(0.5 + i * 0.5)
                 else:
                     # 某些特殊块无法炸开 (如非统一比例)，虽然这里我们设的都是 scale
-                    print(f"     ⚠️ 炸开遇到非忙碌错误: {e}")
+                    sys_logger.error(f"     ⚠️ 炸开遇到非忙碌错误: {e}")
                     time.sleep(1.0)
         
         # 8. 收尾清理
@@ -1660,23 +2080,21 @@ def copy_file_content_pywin32(
             except: pass
             
             doc_tgt.Save()
-            print("  ✨ 全图合并完成")
+            sys_logger.info("  ✨ 全图合并完成")
             return True
         else:
-            print("  ⚠️ 炸开失败，保留原块。")
+            sys_logger.error("  ⚠️ 炸开失败，保留原块。")
             doc_tgt.Save()
             try: temp_copy_path.unlink()
             except: pass
             return True
 
     except Exception as e:
-        print(f"❌ 全图插入失败: {e}")
+        sys_logger.error(f"❌ 全图插入失败: {e}")
         # 失败也要尝试清理临时文件
         try: temp_copy_path.unlink()
         except: pass
         return False
-
-
 
 
 #&&% 跨文件插入区域_20260116
@@ -1717,7 +2135,7 @@ def insert_region_v2(
     import tempfile
     from pathlib import Path
 
-    print(f"🚀 [Region-V2] 启动跨文件传输...")
+    sys_logger.info(f"🚀 [Region-V2] 启动跨文件传输...")
     
     # 坐标规范化
     x_min, x_max = min(x1, x2), max(x1, x2)
@@ -1734,7 +2152,7 @@ def insert_region_v2(
     # ==========================================
     try:
         # 1. 打开源文件 (不做任何修改，安全)
-        print(f"  📖 读取源: {Path(src_dwg).name}")
+        sys_logger.info(f"  📖 读取源: {Path(src_dwg).name}")
         if not open_file(src_dwg): return False
         
         doc_src = C.doc
@@ -1752,13 +2170,13 @@ def insert_region_v2(
         ss.Select(1, p1, p2) 
         
         if ss.Count == 0:
-            print("  ⚠️ 选区为空，取消操作。")
+            sys_logger.warning("  ⚠️ 选区为空，取消操作。")
             return False
             
         # 3. 执行 WBlock (写块到磁盘)
         # 注意: WBlock 导出的文件，保持原坐标系！这正是我们想要的。
         # 对象在 (100,100)，导出的文件里它还在 (100,100)。
-        print(f"  💾 WBlock 导出 {ss.Count} 个对象...")
+        sys_logger.info(f"  💾 WBlock 导出 {ss.Count} 个对象...")
         doc_src.Wblock(str(temp_wblock_path), ss)
         
         # 4. 关闭源文件 (释放锁)
@@ -1767,7 +2185,7 @@ def insert_region_v2(
         time.sleep(0.5) # 冷却
         
     except Exception as e:
-        print(f"❌ 导出阶段失败: {e}")
+        sys_logger.error(f"❌ 导出阶段失败: {e}")
         return False
 
     # ==========================================
@@ -1775,7 +2193,7 @@ def insert_region_v2(
     # ==========================================
     try:
         # 1. 打开目标文件
-        print(f"  📂 打开目标: {Path(target_dwg).name}")
+        sys_logger.info(f"  📂 打开目标: {Path(target_dwg).name}")
         if not open_file(target_dwg): return False
         
         doc_tgt = C.doc
@@ -1786,7 +2204,7 @@ def insert_region_v2(
                 doc_tgt.ActiveLayout = doc_tgt.Layouts.Item(target_layout)
                 dest_space = doc_tgt.ActiveLayout.Block
             except: 
-                print(f"  ⚠️ 布局 {target_layout} 不存在，转为模型。")
+                sys_logger.warning(f"  ⚠️ 布局 {target_layout} 不存在，转为模型。")
                 dest_space = doc_tgt.ModelSpace
         else:
             doc_tgt.SetVariable("TILEMODE", 1)
@@ -1799,7 +2217,7 @@ def insert_region_v2(
         ins_x = target_x - x_min
         ins_y = target_y - y_min
         
-        print(f"  🧮 坐标映射: Src({x_min:.1f}) -> Tgt({target_x:.1f}) | Offset=({ins_x:.1f}, {ins_y:.1f})")
+        sys_logger.debug(f"  🧮 坐标映射: Src({x_min:.1f}) -> Tgt({target_x:.1f}) | Offset=({ins_x:.1f}, {ins_y:.1f})")
         
         # 4. 插入块
         pt = win32com.client.VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, (ins_x, ins_y, 0))
@@ -1809,20 +2227,20 @@ def insert_region_v2(
         try: doc_tgt.Blocks.Item(block_name).Delete()
         except: pass
         
-        print("  🔄 正在插入...")
+        sys_logger.info("  🔄 正在插入...")
         block_ref = dest_space.InsertBlock(pt, str(temp_wblock_path), 1.0, 1.0, 1.0, 0.0)
         
         # 5. 强制冷却 (防 Call Rejected)
         time.sleep(1.0)
         
         # 6. 抗干扰炸开 (Retry Loop)
-        print("  💥 正在炸开...")
+        sys_logger.info("  💥 正在炸开...")
         exploded = False
         for i in range(5):
             try:
                 block_ref.Explode()
                 exploded = True
-                print(f"     ✅ 成功 (Attempt {i+1})")
+                sys_logger.info(f"     ✅ 成功 (Attempt {i+1})")
                 break
             except Exception as e:
                 if "rejected" in str(e) or "busy" in str(e):
@@ -1844,15 +2262,15 @@ def insert_region_v2(
             except: pass
             
             doc_tgt.Save()
-            print("  ✨ 传输完成")
+            sys_logger.info("  ✨ 传输完成")
             return True
         else:
-            print("  ⚠️ 炸开失败，保留原块。")
+            sys_logger.error("  ⚠️ 炸开失败，保留原块。")
             doc_tgt.Save()
             return True
 
     except Exception as e:
-        print(f"❌ 插入阶段失败: {e}")
+        sys_logger.error(f"❌ 插入阶段失败: {e}")
         import traceback; traceback.print_exc()
         return False
 
@@ -1868,10 +2286,10 @@ def set_active_doc(doc):
     try:
         doc.Activate()
         time.sleep(0.3)  # [物理避让] 稍作延时，确保激活生效
-        print("[OK] 当前激活文档：", doc.Name)
+        sys_logger.info("[OK] 当前激活文档：", doc.Name)
         return True
     except Exception as e:
-        print("[错误] 激活文档失败：", e)
+        sys_logger.error("[错误] 激活文档失败：", e)
         return False
 
 #&&% 按名称获取文档
@@ -1911,7 +2329,7 @@ def close_current_drawing_safely():
     try:
         Name1 = doc.Name
     except:
-        print("[警告]️ 当前 doc 无法获取名称，可能未连接。")
+        sys_logger.warning("[警告]️ 当前 doc 无法获取名称，可能未连接。")
 
         doc=C.doc
 
@@ -1932,10 +2350,9 @@ def close_current_drawing_safely():
             doc=C.doc  # 再执行一次，确保变量正确
             return
         else:
-            print("[警告]️ 文件仍未关闭，继续尝试...")
+            sys_logger.warning("[警告]️ 文件仍未关闭，继续尝试...")
 
     sys_logger.info(f"[错误] 多次尝试仍未成功关闭 '{Name1}'，请手动检查。")
-
 
 
 #&&% 关闭除当前激活文档外的所有 DWG 文件
@@ -1965,7 +2382,6 @@ def close_all_except_active_safe():
         sys_logger.info(f"[错误] 安全关闭失败：{e}")
 
 
-
 #&&% 按名称关闭DWG
 @retry_if_busy(max_retries=5, delay=1.0)
 def close_dwg_by_name(Name):
@@ -1982,16 +2398,11 @@ def close_dwg_by_name(Name):
         
         if doc:
             doc.Close(False)  # 关闭文件，不提示保存
-            print(f"[OK] 文件 '{Name}' 已关闭")
+            sys_logger.info(f"[OK] 文件 '{Name}' 已关闭")
         else:
-            print(f"[错误] 未找到名为 '{Name}' 的文件")
+            sys_logger.error(f"[错误] 未找到名为 '{Name}' 的文件")
     except Exception as e:
-        print(f"[错误] 关闭文件 '{Name}' 失败: {e}")
-
-
-
-
-
+        sys_logger.error(f"[错误] 关闭文件 '{Name}' 失败: {e}")
 
 
 #&&% 关闭所有文件
@@ -2017,7 +2428,7 @@ def close_all_files(save_option="auto_save"):
                 if file_path and Path(file_path).exists():
                     open_file(file_path)
             except Exception as exc:
-                print(f"[警告] 重新打开 {file_path} 失败: {exc}")
+                sys_logger.error(f"[警告] 重新打开 {file_path} 失败: {exc}")
         return True
 
     try:
@@ -2062,7 +2473,7 @@ def ensure_max_open_documents(keep_filename, max_count=3):
         if current_count <= max_count:
             return
 
-        print(f"[清理] 当前打开 {current_count} 个文件，尝试压缩至 {max_count} 个...")
+        sys_logger.info(f"[清理] 当前打开 {current_count} 个文件，尝试压缩至 {max_count} 个...")
 
         # 1. 先建立“黑名单” (只记录名字，不直接操作对象)
         #    我们要保留 keep_filename，其他的列入关闭计划
@@ -2100,10 +2511,10 @@ def ensure_max_open_documents(keep_filename, max_count=3):
                 target = docs.Item(name)
                 # Close(False) 表示不保存直接关闭
                 target.Close(False)
-                print(f"  [OK] 已关闭冗余文件: {name}")
+                sys_logger.info(f"  [OK] 已关闭冗余文件: {name}")
                 closed_count += 1
             except Exception as e:
-                print(f"  [跳过] 关闭 {name} 失败: {e}")
+                sys_logger.error(f"  [跳过] 关闭 {name} 失败: {e}")
 
         # 3. 如果还是太多，最后尝试动一下 ActiveDocument (除了 keep_file)
         if docs.Count > max_count and active_name.lower() != keep_filename.lower():
@@ -2112,7 +2523,7 @@ def ensure_max_open_documents(keep_filename, max_count=3):
              except: pass
 
     except Exception as e:
-        print(f"[警告] 文件清理过程异常: {e}")
+        sys_logger.error(f"[警告] 文件清理过程异常: {e}")
 
 
 #&&&% 空间操作
@@ -2159,8 +2570,6 @@ def set_space_mode(mode_val):
         doc.MSpace = False 
         
     return True
-
-
 
 
 #&&% 布局切换
@@ -2248,10 +2657,8 @@ def get_layout_names(exclude_model=False):
         # 这里简单返回列表
         return layouts
     except Exception as e:
-        print(f"[错误] 获取布局列表失败: {e}")
+        sys_logger.error(f"[错误] 获取布局列表失败: {e}")
         return []
-
-
 
 
 #&&&% 获取文件路径
@@ -2326,9 +2733,3 @@ def get_long_path(path_str):
     except Exception:
         # 如果转换失败（比如文件还是内存临时态），返回原清洗后的路径
         return os.path.normpath(clean_path)
-
-
-
-
-
-

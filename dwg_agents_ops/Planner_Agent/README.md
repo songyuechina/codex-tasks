@@ -1,29 +1,11 @@
 # Planner Agent
 
-Independent role agent for `D:/codex-tasks/cad`.
+负责为 `D:/codex-tasks` 中的复杂 DWG / CAD 自动化任务做任务级规划、阶段拆分、依赖识别与执行顺序建议。
 
-## Run
+## 启动
+
 ```powershell
-python D:\codex-tasks\cad\Planner_Agent\agent_cli.py
+python D:\codex-tasks\dwg_agents_ops\Planner_Agent\agent_cli.py
+python D:\codex-tasks\dwg_agents_ops\Planner_Agent\agent_cli.py --print-config
+python D:\codex-tasks\dwg_agents_ops\Planner_Agent\agent_cli.py --once "基于 @file cad/scripts/drawing_basic_service/print/README.md 给出打印任务三阶段执行计划"
 ```
-
-Single prompt mode:
-```powershell
-python D:\codex-tasks\cad\Planner_Agent\agent_cli.py --once "your request"
-```
-
-## Folder layout
-- `docs/lv1`: quick role notes
-- `docs/lv2`: structured working artifacts
-- `docs/lv3`: advanced governance/risk/handover docs
-- `sessions/session.jsonl`: conversation memory
-- `outputs/*.md`: generated responses
-
-## Unified control
-All role actions must follow `D:/codex-tasks/cad/agent_control/UNIFIED_CONTROL.md` and check `D:/codex-tasks/cad/agent_control/task_board.json` before starting work.
-
-## Resume and status
-- Auto resume sources: `memory/state.json`, `memory/rolling_summary.md`, `sessions/session.jsonl`
-- In interactive mode commands: `/progress`, `/tasks`, `/set <task_id> <status>`, `/refresh`, `/exit`
-- Runtime heartbeat: `D:/codex-tasks/cad/agent_control/runtime/<role>.json`
-- Planner extra command: `/activate <plan_version>`
