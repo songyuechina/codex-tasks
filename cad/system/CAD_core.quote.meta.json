@@ -1,0 +1,124 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "CAD_core",
+  "file_path": "D:/codex-tasks/cad/system/CAD_core.py",
+  "script_role": "CAD 基础控制与文件操作核心脚本",
+  "core_problem": "提供 CAD 系统控制、基础文档操作、状态归一、跨文件操作、空间操作、路径获取等核心能力，并逐步吸收历史脚本中的有效能力。",
+  "system_position": {
+    "layer_name": "基础控制与文件操作层",
+    "main_entry_note": "CAD 主连接入口仍然由 system.licad 的 C 提供；本模块建立在连接层之上",
+    "works_with": [
+      "system.licad.py",
+      "system.CAD_coordination.py",
+      "system.CAD_com_utils.py",
+      "system.CAD_selection.py",
+      "system.common_logger.py",
+      "scripts.CAD_basic"
+    ]
+  },
+  "core_functions": [
+    {
+      "name": "new_file / new_dwg_enhanced",
+      "role": "新建 DWG 与新建环境自检",
+      "input_shape": "output_path=None, close_after=False",
+      "output_shape": "bool"
+    },
+    {
+      "name": "open_file / open_dwg_paradigm",
+      "role": "安全打开 DWG、幂等激活已打开文件",
+      "input_shape": "file_path",
+      "output_shape": "bool"
+    },
+    {
+      "name": "save_file / save_current_dwg_paradigm",
+      "role": "保存当前文档，包含 COM Save / _qsave / SaveAs 降级链",
+      "input_shape": "无",
+      "output_shape": "bool"
+    },
+    {
+      "name": "save_file_as / save_as_dwg_paradigm",
+      "role": "另存为当前文档",
+      "input_shape": "output_path",
+      "output_shape": "bool"
+    },
+    {
+      "name": "close_file / close_current_dwg_paradigm / close_all_files / close_all_dwg_paradigm",
+      "role": "关闭当前或全部文档，并处理保存策略",
+      "input_shape": "save_option 等",
+      "output_shape": "bool"
+    },
+    {
+      "name": "litz",
+      "role": "天正 CAD 环境重建与智能重连",
+      "input_shape": "max_connect_rounds, wait_between_rounds",
+      "output_shape": "bool"
+    },
+    {
+      "name": "cad_zt_zero / cad_zt_oneb / cad_zt_oned / cad_zt_two / cad_zt_much",
+      "role": "CAD 进程与文档数量状态归一",
+      "input_shape": "可选文件路径",
+      "output_shape": "bool"
+    },
+    {
+      "name": "cad_zt_xin_1 / cad_zt_xin_2",
+      "role": "记录并恢复当前 CAD 会话状态",
+      "input_shape": "status_file=None",
+      "output_shape": "payload 或 bool"
+    },
+    {
+      "name": "insert_file_exploded / copy_file_content_pywin32 / insert_region_v2",
+      "role": "跨文件插入、炸开、全图与区域传输",
+      "input_shape": "源文件、目标文件、坐标、布局等",
+      "output_shape": "bool"
+    },
+    {
+      "name": "activate_document_by_name / set_active_doc / get_doc_by_name / get_open_document_names",
+      "role": "多文档选择、激活、查询控制",
+      "input_shape": "名称或文档对象",
+      "output_shape": "bool / doc / list"
+    },
+    {
+      "name": "ensure_max_open_documents",
+      "role": "限制当前会话打开文件数量，清理冗余文档",
+      "input_shape": "keep_filename, max_count=3",
+      "output_shape": "无显式返回或控制副作用"
+    },
+    {
+      "name": "get_obj_loc / set_space_mode / switch_to_layout / get_layout_names",
+      "role": "空间识别与空间/布局切换",
+      "input_shape": "对象、模式值、布局名等",
+      "output_shape": "int / bool / list"
+    },
+    {
+      "name": "get_current_dwg_path / get_all_open_dwg_paths / get_long_path",
+      "role": "当前文件与打开文件路径获取及长路径修复",
+      "input_shape": "可选路径字符串",
+      "output_shape": "str / list / None"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "模块内部仍保留旧式 sys.path 引导，这是历史过渡痕迹",
+    "大量能力依赖 scripts.CAD_basic 提供的历史函数",
+    "会直接启动/关闭 CAD 进程，会打开/关闭/保存 DWG 文件",
+    "会修改当前会话中的打开文件数量与激活文档",
+    "跨文件操作会创建临时文件、插入块、炸开对象并保存目标文档"
+  ],
+  "must_keep_experience": [
+    "打开文件前要检查 CAD 进程数、必要时重建环境并等待空闲",
+    "保存当前文档采用 COM Save -> _qsave -> SaveAs 的降级链",
+    "新建/打开/关闭过程中要控制同一会话打开文档数量，避免内存/状态失控",
+    "环境自检可通过绘制天正墙探针判定是否为有效天正环境",
+    "跨文件传输时使用临时副本、WBlock、插入后炸开、再清理块定义",
+    "路径处理必须考虑 Windows 短路径/长路径修复"
+  ],
+  "known_limits": [
+    "本模块仍然是过渡性核心脚本，内部保留了历史兼容桥接与部分旧式引导",
+    "与 scripts.CAD_basic、CAD_selection、CAD_coordination 有较强耦合",
+    "职责较重，包含环境控制、文件操作、跨文件传输、状态归一、多文档与空间操作"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续拆分和收束实现，但不得丢失基础文件操作、环境重连、状态归一与跨文件传输这些已被实践验证有效的核心经验。"
+  }
+}

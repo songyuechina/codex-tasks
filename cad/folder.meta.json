@@ -1,0 +1,61 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad",
+  "role": "cad-execution-kernel",
+  "summary": "CAD/DWG 执行内核目录。system 提供统一连接与守护能力，library 提供高层业务函数，tools 提供代码压缩/索引工具，scripts 负责具体业务链。",
+  "entry_docs": [
+    "system/README.md",
+    "system/AGENTS.md",
+    "scripts/drawing_basic_service/print/README.md",
+    "scripts/drawing_basic_service/print/PRINT_AGENT_SPEC.md"
+  ],
+  "children": [
+    {
+      "path": "system",
+      "role": "runtime-kernel",
+      "priority": "highest",
+      "summary": "统一连接、选择、文件控制、协调、日志、内容分析与守护脚本。"
+    },
+    {
+      "path": "library",
+      "role": "business-function-library",
+      "priority": "high",
+      "summary": "建立在 system 之上的图块、标注、几何、对象、数据库与天正建筑函数库。"
+    },
+    {
+      "path": "tools",
+      "role": "knowledge-compression-and-analysis",
+      "priority": "high",
+      "summary": "函数分析、调用图、spec/virtual 生成与一致性检查工具。"
+    },
+    {
+      "path": "scripts/drawing_basic_service/print",
+      "role": "current-primary-domain",
+      "priority": "highest",
+      "summary": "当前第一优先级的打印领域工作区。"
+    }
+  ],
+  "stable_core": [
+    "system/licad.py",
+    "system/CAD_selection.py"
+  ],
+  "core_modules": [
+    "system/CAD_core.py",
+    "system/CAD_coordination.py",
+    "system/CAD_com_utils.py",
+    "system/common_logger.py",
+    "system/content_analysis_dwg_file.py",
+    "system/cad_runtime_guard.py"
+  ],
+  "do_not_assume": [
+    "不要把 library 看成 system 的替代品",
+    "不要跳过 licad.py 在业务层直接分散连接 CAD",
+    "不要把 tools 生成的虚资产当成源码替身"
+  ],
+  "refresh_rules": [
+    "system 脚本职责变化后，同步更新四层 meta",
+    "新增高层业务能力时，优先进 library，而不是继续堆进 CAD_core.py",
+    "print 主链变化后，更新 print 目录文档与 folder.meta.json"
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_verifier.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_verifier.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "quote": {
+    "goal": "读取计划中的页面尺寸与生成 PDF 的实际页面尺寸，输出验证结果并标记异常页面。",
+    "public_api": [
+      "verify_generated_pdfs"
+    ],
+    "script_role": "PDF 打印结果校验脚本",
+    "system_position": {
+      "layer_name": "打印校验层",
+      "works_with": [
+        "print_policy.py",
+        "print_executor.py",
+        "fitz"
+      ],
+      "main_entry_note": "print_verifier.py 主要通过 verify_generated_pdfs 等入口服务打印主链。"
+    },
+    "must_keep_experience": [
+      "计划尺寸和 PDF 实际尺寸必须逐页对齐比较，不能只看总页数。"
+    ],
+    "known_limits": [
+      "当前聚焦页面尺寸，不覆盖更深层的内容质量校验。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_job_value",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_parse_media_size_mm",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_read_pdf_page_sizes_mm",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_verify_page_sizes",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "verify_generated_pdfs",
+      "role": "对生成结果执行校验，并输出通过/失败信息。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "pdf",
+      "verification"
+    ],
+    "script_focus": "PDF 打印结果校验脚本"
+  },
+  "quality": {
+    "todo": [
+      "当前脚本级 meta 已覆盖主角色与 public_api，后续如职责明显变化应同步刷新。",
+      "函数级语义摘要主要由 AST 与命名规则生成，复杂分支后续可按案例继续细化。"
+    ],
+    "function_count": 5,
+    "public_api_count": 1
+  }
+}

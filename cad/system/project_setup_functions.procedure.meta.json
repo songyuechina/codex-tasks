@@ -1,0 +1,24 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "project_setup.py",
+    "path": "D:/codex-tasks/cad/system/project_setup.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "提供纯路径常量与最小目录保障，不承担 bootstrap 或 CAD 连接职责。",
+    "step_style": "graded",
+    "public_api": []
+  },
+  "functions": [],
+  "quality": {
+    "todo": [
+      "该脚本无显式函数定义，函数级 meta 以空覆盖记录现状。"
+    ],
+    "function_count": 0,
+    "public_api_count": 0,
+    "core_function_count": 0
+  }
+}

@@ -1,0 +1,2234 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_core.py",
+    "path": "D:/codex-tasks/cad/system/CAD_core.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "承接 CAD 基础控制、文件生命周期、多文档状态与跨文件插入等核心操作。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "new_file",
+      "open_file",
+      "save_file",
+      "save_file_as",
+      "close_file",
+      "close_all_files",
+      "insert_file_exploded",
+      "copy_file_content_pywin32",
+      "insert_region_v2",
+      "set_active_doc",
+      "switch_to_layout",
+      "get_current_dwg_path",
+      "get_all_open_dwg_paths",
+      "litz"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_core_get_short_path",
+      "symbol": "_core_get_short_path",
+      "qualname": "_core_get_short_path",
+      "level": "utility",
+      "signature": "def _core_get_short_path(path_str: str) -> str:",
+      "purpose": "在 CAD_core 中承接 `_core_get_short_path` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "path_str",
+          "raw": "path_str: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 90,
+        "line_end": 95
+      }
+    },
+    {
+      "name": "_core_get_acad",
+      "symbol": "_core_get_acad",
+      "qualname": "_core_get_acad",
+      "level": "utility",
+      "signature": "def _core_get_acad():",
+      "purpose": "在 CAD_core 中承接 `_core_get_acad` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 96,
+        "line_end": 106
+      }
+    },
+    {
+      "name": "_core_get_active_doc",
+      "symbol": "_core_get_active_doc",
+      "qualname": "_core_get_active_doc",
+      "level": "utility",
+      "signature": "def _core_get_active_doc():",
+      "purpose": "在 CAD_core 中承接 `_core_get_active_doc` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 107,
+        "line_end": 115
+      }
+    },
+    {
+      "name": "_core_wait_document_opened",
+      "symbol": "_core_wait_document_opened",
+      "qualname": "_core_wait_document_opened",
+      "level": "utility",
+      "signature": "def _core_wait_document_opened(path: str, timeout: float = 120.0) -> bool:",
+      "purpose": "在 CAD_core 中承接 `_core_wait_document_opened` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: str",
+          "required": true
+        },
+        {
+          "name": "timeout",
+          "raw": "timeout: float = 120.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "time",
+        "Path"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 116,
+        "line_end": 139
+      }
+    },
+    {
+      "name": "_core_is_file_opened",
+      "symbol": "_core_is_file_opened",
+      "qualname": "_core_is_file_opened",
+      "level": "utility",
+      "signature": "def _core_is_file_opened(file_path: str) -> bool:",
+      "purpose": "在 CAD_core 中承接 `_core_is_file_opened` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "file_path",
+          "raw": "file_path: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 140,
+        "line_end": 153
+      }
+    },
+    {
+      "name": "_core_is_file_opened_by_name",
+      "symbol": "_core_is_file_opened_by_name",
+      "qualname": "_core_is_file_opened_by_name",
+      "level": "utility",
+      "signature": "def _core_is_file_opened_by_name(name: str) -> bool:",
+      "purpose": "在 CAD_core 中承接 `_core_is_file_opened_by_name` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "name",
+          "raw": "name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 154,
+        "line_end": 167
+      }
+    },
+    {
+      "name": "_core_activate_document",
+      "symbol": "_core_activate_document",
+      "qualname": "_core_activate_document",
+      "level": "utility",
+      "signature": "def _core_activate_document(file_path_or_name: str) -> bool:",
+      "purpose": "在 CAD_core 中承接 `_core_activate_document` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "file_path_or_name",
+          "raw": "file_path_or_name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 168,
+        "line_end": 187
+      }
+    },
+    {
+      "name": "_core_get_open_file_count",
+      "symbol": "_core_get_open_file_count",
+      "qualname": "_core_get_open_file_count",
+      "level": "utility",
+      "signature": "def _core_get_open_file_count() -> int:",
+      "purpose": "在 CAD_core 中承接 `_core_get_open_file_count` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 188,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "_core_ensure_single_process",
+      "symbol": "_core_ensure_single_process",
+      "qualname": "_core_ensure_single_process",
+      "level": "utility",
+      "signature": "def _core_ensure_single_process() -> bool:",
+      "purpose": "在 CAD_core 中承接 `_core_ensure_single_process` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 194,
+        "line_end": 205
+      }
+    },
+    {
+      "name": "new_dwg_enhanced",
+      "symbol": "new_dwg_enhanced",
+      "qualname": "new_dwg_enhanced",
+      "level": "core",
+      "signature": "def new_dwg_enhanced(output_path=None):",
+      "purpose": "在 CAD_core 中承接 `new_dwg_enhanced` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "output_path",
+          "raw": "output_path=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "time",
+        "Path"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 206,
+        "line_end": 238
+      }
+    },
+    {
+      "name": "open_dwg_paradigm",
+      "symbol": "open_dwg_paradigm",
+      "qualname": "open_dwg_paradigm",
+      "level": "core",
+      "signature": "def open_dwg_paradigm(file_path):",
+      "purpose": "打开目标文档或激活既有文档。",
+      "inputs": [
+        {
+          "name": "file_path",
+          "raw": "file_path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time",
+        "Path"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 239,
+        "line_end": 287
+      }
+    },
+    {
+      "name": "save_as_dwg_paradigm",
+      "symbol": "save_as_dwg_paradigm",
+      "qualname": "save_as_dwg_paradigm",
+      "level": "core",
+      "signature": "def save_as_dwg_paradigm(output_path):",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [
+        {
+          "name": "output_path",
+          "raw": "output_path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "time",
+        "Path"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 288,
+        "line_end": 307
+      }
+    },
+    {
+      "name": "save_current_dwg_paradigm",
+      "symbol": "save_current_dwg_paradigm",
+      "qualname": "save_current_dwg_paradigm",
+      "level": "core",
+      "signature": "def save_current_dwg_paradigm():",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 308,
+        "line_end": 355
+      }
+    },
+    {
+      "name": "close_current_dwg_paradigm",
+      "symbol": "close_current_dwg_paradigm",
+      "qualname": "close_current_dwg_paradigm",
+      "level": "core",
+      "signature": "def close_current_dwg_paradigm(save_option=\"prompt\"):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "save_option",
+          "raw": "save_option=\"prompt\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 356,
+        "line_end": 380
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm",
+      "symbol": "close_all_dwg_paradigm",
+      "qualname": "close_all_dwg_paradigm",
+      "level": "core",
+      "signature": "def close_all_dwg_paradigm():",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 381,
+        "line_end": 474
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm.li@L425",
+      "symbol": "li",
+      "qualname": "close_all_dwg_paradigm.li",
+      "level": "utility",
+      "signature": "def li():",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "retry_on_busy"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 425,
+        "line_end": 450
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm.li.retry_on_busy",
+      "symbol": "retry_on_busy",
+      "qualname": "close_all_dwg_paradigm.li.retry_on_busy",
+      "level": "utility",
+      "signature": "def retry_on_busy(func):",
+      "purpose": "对目标调用施加 busy/rejected 容错重试策略。",
+      "inputs": [
+        {
+          "name": "func",
+          "raw": "func",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "retry_on_busy"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 449,
+        "line_end": 450
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm.li@L451",
+      "symbol": "li",
+      "qualname": "close_all_dwg_paradigm.li",
+      "level": "utility",
+      "signature": "def li():",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 451,
+        "line_end": 474
+      }
+    },
+    {
+      "name": "launch_tarch_CAD_system",
+      "symbol": "launch_tarch_CAD_system",
+      "qualname": "launch_tarch_CAD_system",
+      "level": "core",
+      "signature": "def launch_tarch_CAD_system():",
+      "purpose": "在 CAD_core 中承接 `launch_tarch_CAD_system` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 475,
+        "line_end": 481
+      }
+    },
+    {
+      "name": "close_tarch_CAD_system",
+      "symbol": "close_tarch_CAD_system",
+      "qualname": "close_tarch_CAD_system",
+      "level": "core",
+      "signature": "def close_tarch_CAD_system():",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 482,
+        "line_end": 487
+      }
+    },
+    {
+      "name": "launch_cad_guardians",
+      "symbol": "launch_cad_guardians",
+      "qualname": "launch_cad_guardians",
+      "level": "core",
+      "signature": "def launch_cad_guardians():",
+      "purpose": "在 CAD_core 中承接 `launch_cad_guardians` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "subprocess",
+        "time",
+        "Path"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 488,
+        "line_end": 548
+      }
+    },
+    {
+      "name": "litz",
+      "symbol": "litz",
+      "qualname": "litz",
+      "level": "core",
+      "signature": "def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):",
+      "purpose": "在 CAD_core 中承接 `litz` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "max_connect_rounds",
+          "raw": "max_connect_rounds: int = 3",
+          "required": false
+        },
+        {
+          "name": "wait_between_rounds",
+          "raw": "wait_between_rounds: float = 2.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 549,
+        "line_end": 657
+      }
+    },
+    {
+      "name": "activate_document_by_name",
+      "symbol": "activate_document_by_name",
+      "qualname": "activate_document_by_name",
+      "level": "normal",
+      "signature": "def activate_document_by_name(filename):",
+      "purpose": "激活目标文档、窗口或对象。",
+      "inputs": [
+        {
+          "name": "filename",
+          "raw": "filename",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 658,
+        "line_end": 698
+      }
+    },
+    {
+      "name": "cad_zt_zero",
+      "symbol": "cad_zt_zero",
+      "qualname": "cad_zt_zero",
+      "level": "utility",
+      "signature": "def cad_zt_zero():",
+      "purpose": "在 CAD_core 中承接 `cad_zt_zero` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os",
+        "Path"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 699,
+        "line_end": 713
+      }
+    },
+    {
+      "name": "cad_zt_oneb",
+      "symbol": "cad_zt_oneb",
+      "qualname": "cad_zt_oneb",
+      "level": "normal",
+      "signature": "def cad_zt_oneb():",
+      "purpose": "在 CAD_core 中承接 `cad_zt_oneb` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 714,
+        "line_end": 773
+      }
+    },
+    {
+      "name": "cad_zt_oneb._is_default_session",
+      "symbol": "_is_default_session",
+      "qualname": "cad_zt_oneb._is_default_session",
+      "level": "normal",
+      "signature": "def _is_default_session(paths):",
+      "purpose": "在 CAD_core 中承接 `cad_zt_oneb._is_default_session` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "paths",
+          "raw": "paths",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 733,
+        "line_end": 773
+      }
+    },
+    {
+      "name": "cad_zt_oned",
+      "symbol": "cad_zt_oned",
+      "qualname": "cad_zt_oned",
+      "level": "normal",
+      "signature": "def cad_zt_oned(file_path=str(XITONG_DIR / \"0.dwg\")):",
+      "purpose": "在 CAD_core 中承接 `cad_zt_oned` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "file_path",
+          "raw": "file_path=str(XITONG_DIR / \"0.dwg\")",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "os",
+        "time",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 774,
+        "line_end": 806
+      }
+    },
+    {
+      "name": "cad_zt_two",
+      "symbol": "cad_zt_two",
+      "qualname": "cad_zt_two",
+      "level": "normal",
+      "signature": "def cad_zt_two(file1=str(XITONG_DIR / \"0.dwg\"), file2=str(XITONG_DIR / \"1.dwg\")):",
+      "purpose": "在 CAD_core 中承接 `cad_zt_two` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "file1",
+          "raw": "file1=str(XITONG_DIR / \"0.dwg\")",
+          "required": false
+        },
+        {
+          "name": "file2",
+          "raw": "file2=str(XITONG_DIR / \"1.dwg\")",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "os",
+        "time",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 807,
+        "line_end": 853
+      }
+    },
+    {
+      "name": "cad_zt_much",
+      "symbol": "cad_zt_much",
+      "qualname": "cad_zt_much",
+      "level": "normal",
+      "signature": "def cad_zt_much( file1=str(XITONG_DIR / \"0.dwg\"), file2=str(XITONG_DIR / \"1.dwg\"), file3=str(XITONG_DIR / \"2.dwg\") ): \"\"\" 确保CAD状态为：1个进程+多个文件（>2个文件）  Args:",
+      "purpose": "在 CAD_core 中承接 `cad_zt_much` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "file1",
+          "raw": "file1=str(XITONG_DIR / \"0.dwg\")",
+          "required": false
+        },
+        {
+          "name": "file2",
+          "raw": "file2=str(XITONG_DIR / \"1.dwg\")",
+          "required": false
+        },
+        {
+          "name": "file3",
+          "raw": "file3=str(XITONG_DIR / \"2.dwg\")",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "os",
+        "time",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 854,
+        "line_end": 903
+      }
+    },
+    {
+      "name": "cad_zt_xin_1",
+      "symbol": "cad_zt_xin_1",
+      "qualname": "cad_zt_xin_1",
+      "level": "normal",
+      "signature": "def cad_zt_xin_1(status_file=None):",
+      "purpose": "在 CAD_core 中承接 `cad_zt_xin_1` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "status_file",
+          "raw": "status_file=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "PathConfig",
+        "os",
+        "time",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 904,
+        "line_end": 1015
+      }
+    },
+    {
+      "name": "cad_zt_xin_2",
+      "symbol": "cad_zt_xin_2",
+      "qualname": "cad_zt_xin_2",
+      "level": "normal",
+      "signature": "def cad_zt_xin_2(status_file=None):",
+      "purpose": "在 CAD_core 中承接 `cad_zt_xin_2` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "status_file",
+          "raw": "status_file=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "PathConfig",
+        "os",
+        "time",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1016,
+        "line_end": 1158
+      }
+    },
+    {
+      "name": "new_file",
+      "symbol": "new_file",
+      "qualname": "new_file",
+      "level": "core",
+      "signature": "def new_file(output_path=None, close_after=False):",
+      "purpose": "在 CAD_core 中承接 `new_file` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "output_path",
+          "raw": "output_path=None",
+          "required": false
+        },
+        {
+          "name": "close_after",
+          "raw": "close_after=False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time",
+        "Path"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 1159,
+        "line_end": 1325
+      }
+    },
+    {
+      "name": "new_file._close_new_file",
+      "symbol": "_close_new_file",
+      "qualname": "new_file._close_new_file",
+      "level": "normal",
+      "signature": "def _close_new_file(result: bool) -> bool:",
+      "purpose": "在 CAD_core 中承接 `new_file._close_new_file` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "result",
+          "raw": "result: bool",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1177,
+        "line_end": 1214
+      }
+    },
+    {
+      "name": "new_file._limit_open_documents",
+      "symbol": "_limit_open_documents",
+      "qualname": "new_file._limit_open_documents",
+      "level": "normal",
+      "signature": "def _limit_open_documents():",
+      "purpose": "在 CAD_core 中承接 `new_file._limit_open_documents` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1215,
+        "line_end": 1325
+      }
+    },
+    {
+      "name": "open_file",
+      "symbol": "open_file",
+      "qualname": "open_file",
+      "level": "core",
+      "signature": "def open_file(file_path):",
+      "purpose": "打开目标文档或激活既有文档。",
+      "inputs": [
+        {
+          "name": "file_path",
+          "raw": "file_path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "win32com",
+        "os",
+        "time",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 1326,
+        "line_end": 1478
+      }
+    },
+    {
+      "name": "open_file._get_acad",
+      "symbol": "_get_acad",
+      "qualname": "open_file._get_acad",
+      "level": "utility",
+      "signature": "def _get_acad():",
+      "purpose": "打开目标文档或激活既有文档。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 1378,
+        "line_end": 1380
+      }
+    },
+    {
+      "name": "open_file._ensure_single_process",
+      "symbol": "_ensure_single_process",
+      "qualname": "open_file._ensure_single_process",
+      "level": "utility",
+      "signature": "def _ensure_single_process():",
+      "purpose": "打开目标文档或激活既有文档。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 1381,
+        "line_end": 1388
+      }
+    },
+    {
+      "name": "open_file._ensure_active_only",
+      "symbol": "_ensure_active_only",
+      "qualname": "open_file._ensure_active_only",
+      "level": "normal",
+      "signature": "def _ensure_active_only():",
+      "purpose": "打开目标文档或激活既有文档。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1389,
+        "line_end": 1478
+      }
+    },
+    {
+      "name": "copy_file_with_increment",
+      "symbol": "copy_file_with_increment",
+      "qualname": "copy_file_with_increment",
+      "level": "core",
+      "signature": "def copy_file_with_increment(filepath):",
+      "purpose": "在 CAD_core 中承接 `copy_file_with_increment` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "filepath",
+          "raw": "filepath",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "shutil",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1479,
+        "line_end": 1532
+      }
+    },
+    {
+      "name": "save_file",
+      "symbol": "save_file",
+      "qualname": "save_file",
+      "level": "core",
+      "signature": "def save_file():",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1533,
+        "line_end": 1543
+      }
+    },
+    {
+      "name": "save_file_as",
+      "symbol": "save_file_as",
+      "qualname": "save_file_as",
+      "level": "core",
+      "signature": "def save_file_as(output_path):",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [
+        {
+          "name": "output_path",
+          "raw": "output_path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1544,
+        "line_end": 1561
+      }
+    },
+    {
+      "name": "close_file",
+      "symbol": "close_file",
+      "qualname": "close_file",
+      "level": "core",
+      "signature": "def close_file(save_option=\"auto_save\"):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "save_option",
+          "raw": "save_option=\"auto_save\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "win32com",
+        "os",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 1562,
+        "line_end": 1617
+      }
+    },
+    {
+      "name": "purge_file",
+      "symbol": "purge_file",
+      "qualname": "purge_file",
+      "level": "core",
+      "signature": "def purge_file(deep_purge=True):",
+      "purpose": "在 CAD_core 中承接 `purge_file` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "deep_purge",
+          "raw": "deep_purge=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "retry_if_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 1618,
+        "line_end": 1646
+      }
+    },
+    {
+      "name": "check_file_locked",
+      "symbol": "check_file_locked",
+      "qualname": "check_file_locked",
+      "level": "normal",
+      "signature": "def check_file_locked(filepath):",
+      "purpose": "在 CAD_core 中承接 `check_file_locked` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "filepath",
+          "raw": "filepath",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1647,
+        "line_end": 1680
+      }
+    },
+    {
+      "name": "is_read_only",
+      "symbol": "is_read_only",
+      "qualname": "is_read_only",
+      "level": "utility",
+      "signature": "def is_read_only():",
+      "purpose": "在 CAD_core 中承接 `is_read_only` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 1681,
+        "line_end": 1695
+      }
+    },
+    {
+      "name": "insert_file_exploded",
+      "symbol": "insert_file_exploded",
+      "qualname": "insert_file_exploded",
+      "level": "core",
+      "signature": "def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0, target_layout=None):",
+      "purpose": "在 CAD_core 中承接 `insert_file_exploded` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "source_file",
+          "raw": "source_file",
+          "required": true
+        },
+        {
+          "name": "target_doc",
+          "raw": "target_doc=None",
+          "required": false
+        },
+        {
+          "name": "x",
+          "raw": "x=0",
+          "required": false
+        },
+        {
+          "name": "y",
+          "raw": "y=0",
+          "required": false
+        },
+        {
+          "name": "z",
+          "raw": "z=0",
+          "required": false
+        },
+        {
+          "name": "scale",
+          "raw": "scale=1.0",
+          "required": false
+        },
+        {
+          "name": "target_layout",
+          "raw": "target_layout=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "pythoncom",
+        "win32com",
+        "os",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 1696,
+        "line_end": 1803
+      }
+    },
+    {
+      "name": "copy_file_content_pywin32",
+      "symbol": "copy_file_content_pywin32",
+      "qualname": "copy_file_content_pywin32",
+      "level": "core",
+      "signature": "def copy_file_content_pywin32( source_file, target_file, target_x=0, target_y=0, scale=1.0, rotation=0.0, target_layout=None, explode=True ): \"\"\" 【函数编号】:",
+      "purpose": "在 CAD_core 中承接 `copy_file_content_pywin32` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "source_file",
+          "raw": "source_file",
+          "required": true
+        },
+        {
+          "name": "target_file",
+          "raw": "target_file",
+          "required": true
+        },
+        {
+          "name": "target_x",
+          "raw": "target_x=0",
+          "required": false
+        },
+        {
+          "name": "target_y",
+          "raw": "target_y=0",
+          "required": false
+        },
+        {
+          "name": "scale",
+          "raw": "scale=1.0",
+          "required": false
+        },
+        {
+          "name": "rotation",
+          "raw": "rotation=0.0",
+          "required": false
+        },
+        {
+          "name": "target_layout",
+          "raw": "target_layout=None",
+          "required": false
+        },
+        {
+          "name": "explode",
+          "raw": "explode=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "pythoncom",
+        "win32com",
+        "shutil",
+        "os",
+        "time",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 1804,
+        "line_end": 1961
+      }
+    },
+    {
+      "name": "insert_region_v2",
+      "symbol": "insert_region_v2",
+      "qualname": "insert_region_v2",
+      "level": "core",
+      "signature": "def insert_region_v2( src_dwg, target_dwg, x1, y1, x2, y2, target_x, target_y, target_layout=None ): \"\"\" 【函数编号】:",
+      "purpose": "在 CAD_core 中承接 `insert_region_v2` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "src_dwg",
+          "raw": "src_dwg",
+          "required": true
+        },
+        {
+          "name": "target_dwg",
+          "raw": "target_dwg",
+          "required": true
+        },
+        {
+          "name": "x1",
+          "raw": "x1",
+          "required": true
+        },
+        {
+          "name": "y1",
+          "raw": "y1",
+          "required": true
+        },
+        {
+          "name": "x2",
+          "raw": "x2",
+          "required": true
+        },
+        {
+          "name": "y2",
+          "raw": "y2",
+          "required": true
+        },
+        {
+          "name": "target_x",
+          "raw": "target_x",
+          "required": true
+        },
+        {
+          "name": "target_y",
+          "raw": "target_y",
+          "required": true
+        },
+        {
+          "name": "target_layout",
+          "raw": "target_layout=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "pythoncom",
+        "win32com",
+        "os",
+        "time",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 1962,
+        "line_end": 2139
+      }
+    },
+    {
+      "name": "set_active_doc",
+      "symbol": "set_active_doc",
+      "qualname": "set_active_doc",
+      "level": "core",
+      "signature": "def set_active_doc(doc):",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [
+        {
+          "name": "doc",
+          "raw": "doc",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "time",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2140,
+        "line_end": 2155
+      }
+    },
+    {
+      "name": "get_doc_by_name",
+      "symbol": "get_doc_by_name",
+      "qualname": "get_doc_by_name",
+      "level": "normal",
+      "signature": "def get_doc_by_name(name):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "name",
+          "raw": "name",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。",
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2156,
+        "line_end": 2169
+      }
+    },
+    {
+      "name": "get_open_document_names",
+      "symbol": "get_open_document_names",
+      "qualname": "get_open_document_names",
+      "level": "normal",
+      "signature": "def get_open_document_names():",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2170,
+        "line_end": 2182
+      }
+    },
+    {
+      "name": "close_current_drawing_safely",
+      "symbol": "close_current_drawing_safely",
+      "qualname": "close_current_drawing_safely",
+      "level": "core",
+      "signature": "def close_current_drawing_safely():",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2183,
+        "line_end": 2219
+      }
+    },
+    {
+      "name": "close_all_except_active_safe",
+      "symbol": "close_all_except_active_safe",
+      "qualname": "close_all_except_active_safe",
+      "level": "core",
+      "signature": "def close_all_except_active_safe():",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 2220,
+        "line_end": 2245
+      }
+    },
+    {
+      "name": "close_dwg_by_name",
+      "symbol": "close_dwg_by_name",
+      "qualname": "close_dwg_by_name",
+      "level": "core",
+      "signature": "def close_dwg_by_name(Name):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "Name",
+          "raw": "Name",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "win32com",
+        "os",
+        "retry_if_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 2246,
+        "line_end": 2268
+      }
+    },
+    {
+      "name": "close_all_files",
+      "symbol": "close_all_files",
+      "qualname": "close_all_files",
+      "level": "core",
+      "signature": "def close_all_files(save_option=\"auto_save\"):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "save_option",
+          "raw": "save_option=\"auto_save\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "Path",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2269,
+        "line_end": 2319
+      }
+    },
+    {
+      "name": "ensure_max_open_documents",
+      "symbol": "ensure_max_open_documents",
+      "qualname": "ensure_max_open_documents",
+      "level": "core",
+      "signature": "def ensure_max_open_documents(keep_filename, max_count=3):",
+      "purpose": "检查条件并在必要时补齐环境或约束。",
+      "inputs": [
+        {
+          "name": "keep_filename",
+          "raw": "keep_filename",
+          "required": true
+        },
+        {
+          "name": "max_count",
+          "raw": "max_count=3",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 2320,
+        "line_end": 2391
+      }
+    },
+    {
+      "name": "get_obj_loc",
+      "symbol": "get_obj_loc",
+      "qualname": "get_obj_loc",
+      "level": "normal",
+      "signature": "def get_obj_loc(obj):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2392,
+        "line_end": 2414
+      }
+    },
+    {
+      "name": "set_space_mode",
+      "symbol": "set_space_mode",
+      "qualname": "set_space_mode",
+      "level": "core",
+      "signature": "def set_space_mode(mode_val):",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [
+        {
+          "name": "mode_val",
+          "raw": "mode_val",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2415,
+        "line_end": 2437
+      }
+    },
+    {
+      "name": "switch_to_layout",
+      "symbol": "switch_to_layout",
+      "qualname": "switch_to_layout",
+      "level": "core",
+      "signature": "def switch_to_layout(layout_name, retry=10, delay=0.5):",
+      "purpose": "切换当前 CAD 的布局、空间或活动对象。",
+      "inputs": [
+        {
+          "name": "layout_name",
+          "raw": "layout_name",
+          "required": true
+        },
+        {
+          "name": "retry",
+          "raw": "retry=10",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay=0.5",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time",
+        "retry_on_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 2438,
+        "line_end": 2503
+      }
+    },
+    {
+      "name": "get_layout_names",
+      "symbol": "get_layout_names",
+      "qualname": "get_layout_names",
+      "level": "normal",
+      "signature": "def get_layout_names(exclude_model=False):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "exclude_model",
+          "raw": "exclude_model=False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2504,
+        "line_end": 2526
+      }
+    },
+    {
+      "name": "get_current_dwg_path",
+      "symbol": "get_current_dwg_path",
+      "qualname": "get_current_dwg_path",
+      "level": "core",
+      "signature": "def get_current_dwg_path():",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。",
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2527,
+        "line_end": 2551
+      }
+    },
+    {
+      "name": "get_all_open_dwg_paths",
+      "symbol": "get_all_open_dwg_paths",
+      "qualname": "get_all_open_dwg_paths",
+      "level": "core",
+      "signature": "def get_all_open_dwg_paths():",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_if_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2552,
+        "line_end": 2576
+      }
+    },
+    {
+      "name": "get_long_path",
+      "symbol": "get_long_path",
+      "qualname": "get_long_path",
+      "level": "normal",
+      "signature": "def get_long_path(path_str):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "path_str",
+          "raw": "path_str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。",
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 2577,
+        "line_end": 2597
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "承接 CAD 基础控制、文件生命周期、多文档状态与跨文件插入等核心操作。"
+  },
+  "quality": {
+    "todo": [
+      "CAD_core.py 含历史兼容代码与转义异常片段，本次对函数边界采用容错解析。",
+      "部分跨文件/跨进程操作返回值依赖 CAD 现场，meta 以静态分支概括为主。",
+      "若后续重构，应优先收束旧桥接而不是改动已验证的文件控制经验。",
+      "存在重名定义：close_all_dwg_paradigm.li。"
+    ],
+    "function_count": 63,
+    "public_api_count": 14,
+    "core_function_count": 30
+  }
+}

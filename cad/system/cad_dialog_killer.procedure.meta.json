@@ -1,0 +1,74 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "cad_dialog_killer",
+  "file_path": "D:/codex-tasks/cad/system/cad_dialog_killer.py",
+  "applicable_scenarios": [
+    "CAD 自动化运行中经常被标准对话框弹窗阻塞",
+    "需要无人值守地持续关闭特定 CAD 弹窗",
+    "需要根据外部控制文件动态调整关闭延迟"
+  ],
+  "preconditions": [
+    "系统中已有 CAD 进程在运行",
+    "允许守护脚本扫描窗口并发送 ESC",
+    "CONTROL_FILE 可读，或允许读取失败后使用 0 秒延迟"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "单实例检查",
+      "detail": "通过 lock 文件确认当前没有其他 cad_dialog_killer 实例在运行。"
+    },
+    {
+      "step": 2,
+      "name": "读取延迟阈值",
+      "detail": "从 CONTROL_FILE 读取 delay 秒数；读取失败时记录 warning 并使用 0 秒。"
+    },
+    {
+      "step": 3,
+      "name": "识别 CAD 进程",
+      "detail": "扫描进程列表，提取 CAD_PROCESS_NAMES 对应的 PID 集合。"
+    },
+    {
+      "step": 4,
+      "name": "枚举窗口并过滤",
+      "detail": "只处理可见窗口、类名为 #32770、且属于 CAD PID 的标准对话框。"
+    },
+    {
+      "step": 5,
+      "name": "延迟关闭",
+      "detail": "首次发现窗口只记录时间；若存在时长达到 delay，则发送 ESC 关闭。"
+    },
+    {
+      "step": 6,
+      "name": "循环守护",
+      "detail": "按 INTERVAL_SEC 周期重复扫描；CAD 退出时清空 _first_seen 记录。"
+    }
+  ],
+  "success_criteria": [
+    "符合条件的 CAD 标准对话框能够在 delay 到期后自动关闭",
+    "不会误关非 CAD 进程的对话框",
+    "同一时刻只有一个守护实例在运行"
+  ],
+  "failure_criteria": [
+    "把本脚本当作普通业务模块 import 并频繁调用",
+    "重写时丢失 _first_seen 延迟判断机制",
+    "重写时丢失 PID 过滤，导致误伤其他程序窗口",
+    "重写时破坏 lock 文件单实例机制"
+  ],
+  "do_not_use_for": [
+    "不要把它当作 CAD 主连接入口",
+    "不要把它当作通用窗口管理库",
+    "不要在未确认 CONTROL_FILE 路径的环境中直接部署而不检查"
+  ],
+  "integration_with_other_modules": {
+    "licad.py": "它不是 licad 的替代品，而是独立守护补充机制",
+    "cad_command_monitor.py": "两者都属于守护层；一个处理命令卡死，一个处理弹窗阻塞",
+    "common_logger.py": "当前脚本使用独立 logging，而不是 common_logger；这是守护脚本现状，不代表未来必须如此"
+  },
+  "rewrite_constraints": [
+    "允许调整控制文件位置与配置方式",
+    "允许优化窗口过滤与日志结构",
+    "不得丢失延迟关闭、PID 过滤与单实例守护三组核心经验"
+  ]
+}

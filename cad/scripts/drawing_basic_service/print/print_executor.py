@@ -31,6 +31,7 @@ from system.common_logger import sys_logger
 from system.licad import C
 from system.CAD_core import set_space_mode, switch_to_layout
 from system.CAD_coordination import wait_quiescent
+from system.runtime_guard_bridge import assert_runtime_guard_ok
 from cad_control import activate_window_by_title, minimize_all_windows
 
 from print_policy import PrintJob, PrintPlan
@@ -52,6 +53,10 @@ class PrintExecutionSummary:
     failure_count: int
     generated_files: list[str]
     failures: list[dict[str, str]]
+
+
+WPS_WINDOW_KEYWORDS = ("WPS OFFICE", "WPS PDF")
+WPS_PROCESS_IMAGES = ("wps.exe", "wpspdf.exe")
 
 
 def _wait_for_pdf_ready(pdf_path: str | Path, timeout: float = 90.0) -> bool:
@@ -262,6 +267,64 @@ def export_layout_window_lisp_fit(
     return ok
 
 
+def _is_wps_window_title(title: str) -> bool:
+    title_upper = str(title or "").upper()
+    return any(keyword in title_upper for keyword in WPS_WINDOW_KEYWORDS)
+
+
+def _enumerate_wps_windows() -> list[dict[str, int | str]]:
+    try:
+        import win32gui
+        import win32process
+    except ImportError:
+        return []
+
+    windows: list[dict[str, int | str]] = []
+
+    def callback(hwnd, _extra):
+        try:
+            if not win32gui.IsWindowVisible(hwnd):
+                return
+            title = str(win32gui.GetWindowText(hwnd) or "").strip()
+            if not title or not _is_wps_window_title(title):
+                return
+            _thread_id, pid = win32process.GetWindowThreadProcessId(hwnd)
+            windows.append({"hwnd": int(hwnd), "pid": int(pid or 0), "title": title})
+        except Exception:
+            return
+
+    win32gui.EnumWindows(callback, None)
+    return windows
+
+
+def _kill_process_tree(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    try:
+        result = subprocess.run(
+            ["taskkill", "/F", "/PID", str(pid), "/T"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except Exception:
+        return False
+    return result.returncode == 0
+
+
+def _kill_process_by_image(image_name: str) -> bool:
+    try:
+        result = subprocess.run(
+            ["taskkill", "/F", "/IM", image_name, "/T"],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except Exception:
+        return False
+    return result.returncode == 0
+
+
 def cleanup_wps_windows() -> None:
     try:
         import win32con
@@ -269,54 +332,66 @@ def cleanup_wps_windows() -> None:
     except ImportError:
         return
 
-    remaining_found = False
-    for _ in range(3):
-        found = False
-
-        def callback(hwnd, _extra):
-            nonlocal found
-            title = win32gui.GetWindowText(hwnd)
-            if not win32gui.IsWindowVisible(hwnd):
-                return
-            title_upper = title.upper()
-            if "WPS OFFICE" not in title_upper and "WPS PDF" not in title_upper:
-                return
-            found = True
+    observed_windows: list[dict[str, int | str]] = []
+    for attempt in range(3):
+        current_windows = _enumerate_wps_windows()
+        if not current_windows:
+            break
+        observed_windows = current_windows
+        try:
+            minimize_all_windows()
+            time.sleep(0.4)
+        except Exception:
+            pass
+        for window in current_windows:
             try:
-                minimize_all_windows()
-                time.sleep(0.5)
-                activate_window_by_title("WPS Office", click_titlebar=True)
-                time.sleep(0.5)
+                hwnd = int(window["hwnd"])
+                if win32gui.IsIconic(hwnd):
+                    win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+                    time.sleep(0.2)
                 win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
+                time.sleep(0.2)
                 win32gui.PostMessage(hwnd, win32con.WM_CLOSE, 0, 0)
             except Exception:
                 pass
+        sys_logger.info(
+            f"WPS 清理轮次 {attempt + 1}/3: windows={len(current_windows)}"
+        )
+        time.sleep(0.8)
 
-        win32gui.EnumWindows(callback, None)
-        if not found:
-            remaining_found = False
-            break
-        remaining_found = True
-        time.sleep(0.5)
+    residual_windows = _enumerate_wps_windows()
+    candidate_pids = {
+        int(window["pid"])
+        for window in [*observed_windows, *residual_windows]
+        if int(window.get("pid", 0) or 0) > 0
+    }
+    killed_pids: list[int] = []
+    if candidate_pids:
+        for pid in sorted(candidate_pids):
+            if _kill_process_tree(pid):
+                killed_pids.append(pid)
+        time.sleep(0.8)
+    if observed_windows or residual_windows:
+        for image_name in WPS_PROCESS_IMAGES:
+            _kill_process_by_image(image_name)
+        time.sleep(0.8)
+        residual_windows = _enumerate_wps_windows()
 
-    if remaining_found:
-        for image_name in ("wpspdf.exe",):
-            try:
-                subprocess.run(
-                    ["taskkill", "/F", "/IM", image_name, "/T"],
-                    check=False,
-                    capture_output=True,
-                    text=True,
-                )
-            except Exception:
-                pass
-        time.sleep(0.5)
+    if observed_windows or residual_windows or killed_pids:
+        sys_logger.info(
+            "WPS 清理结果: "
+            f"observed={len(observed_windows)} "
+            f"killed_pids={len(killed_pids)} "
+            f"remaining={len(residual_windows)}"
+        )
 
-    try:
-        activate_window_by_title("AutoCAD", click_titlebar=False)
-        time.sleep(1.0)
-    except Exception:
-        pass
+    for title in ("AutoCAD", "天正"):
+        try:
+            if activate_window_by_title(title, click_titlebar=False):
+                time.sleep(1.0)
+                break
+        except Exception:
+            continue
 
 
 def _cleanup_wps_if_needed(success_count: int, defaults: PrintDefaults, *, force: bool = False) -> None:
@@ -371,7 +446,9 @@ def execute_print_plan(plan: PrintPlan, defaults: Optional[PrintDefaults] = None
 
         for batch in (landscapes, portraits):
             batch_name = "landscape" if batch is landscapes else "portrait"
+            assert_runtime_guard_ok(f"print_executor:before_batch:{layout_name}:{batch_name}")
             for job in batch:
+                assert_runtime_guard_ok(f"print_executor:before_job:{layout_name}:{job.handle}")
                 try:
                     ok = _run_job(job, defaults)
                 except Exception as exc:

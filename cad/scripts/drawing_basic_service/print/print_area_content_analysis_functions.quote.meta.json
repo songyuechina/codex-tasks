@@ -1,0 +1,1125 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_area_content_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "对候选打印区域内部内容做实体密度、文字、块与边框信息分析，识别伪打印区域，为 purified_adaptive 模式提供过滤依据。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "collect_area_content_metrics",
+      "classify_pseudo_print_area_candidates",
+      "analyze_jobs_content",
+      "run_content_analysis_case",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_safe_handle",
+      "symbol": "_safe_handle",
+      "qualname": "_safe_handle",
+      "level": "utility",
+      "signature": "def _safe_handle(obj: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "id",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 82,
+        "line_end": 86
+      }
+    },
+    {
+      "name": "_bbox_xy",
+      "symbol": "_bbox_xy",
+      "qualname": "_bbox_xy",
+      "level": "utility",
+      "signature": "def _bbox_xy(ent: Any) -> tuple[float, float, float, float] | None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_get_entity_bbox_points",
+        "float",
+        "max",
+        "min"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 89,
+        "line_end": 98
+      }
+    },
+    {
+      "name": "_contains_bbox",
+      "symbol": "_contains_bbox",
+      "qualname": "_contains_bbox",
+      "level": "utility",
+      "signature": "def _contains_bbox(outer: tuple[float, float, float, float], inner: tuple[float, float, float, float], tol: float) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "outer",
+          "raw": "outer: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "inner",
+          "raw": "inner: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 101,
+        "line_end": 111
+      }
+    },
+    {
+      "name": "_get_entity_bbox_points",
+      "symbol": "_get_entity_bbox_points",
+      "qualname": "_get_entity_bbox_points",
+      "level": "utility",
+      "signature": "def _get_entity_bbox_points(ent: Any):",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "ent.GetBoundingBox",
+        "retry_on_busy"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 115,
+        "line_end": 116
+      }
+    },
+    {
+      "name": "_get_collection_count",
+      "symbol": "_get_collection_count",
+      "qualname": "_get_collection_count",
+      "level": "utility",
+      "signature": "def _get_collection_count(collection: Any) -> int:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "collection",
+          "raw": "collection: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "int",
+        "retry_on_busy"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 120,
+        "line_end": 121
+      }
+    },
+    {
+      "name": "_get_collection_item",
+      "symbol": "_get_collection_item",
+      "qualname": "_get_collection_item",
+      "level": "utility",
+      "signature": "def _get_collection_item(collection: Any, index: int) -> Any:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "collection",
+          "raw": "collection: Any",
+          "required": true
+        },
+        {
+          "name": "index",
+          "raw": "index: int",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "collection.Item",
+        "retry_on_busy"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 125,
+        "line_end": 126
+      }
+    },
+    {
+      "name": "_get_layout_block_name",
+      "symbol": "_get_layout_block_name",
+      "qualname": "_get_layout_block_name",
+      "level": "utility",
+      "signature": "def _get_layout_block_name(layout: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "layout",
+          "raw": "layout: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "retry_on_busy",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 130,
+        "line_end": 131
+      }
+    },
+    {
+      "name": "_get_entity_object_name",
+      "symbol": "_get_entity_object_name",
+      "qualname": "_get_entity_object_name",
+      "level": "utility",
+      "signature": "def _get_entity_object_name(ent: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "getattr",
+        "retry_on_busy",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 135,
+        "line_end": 136
+      }
+    },
+    {
+      "name": "_get_entity_layer",
+      "symbol": "_get_entity_layer",
+      "qualname": "_get_entity_layer",
+      "level": "utility",
+      "signature": "def _get_entity_layer(ent: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "retry_on_busy",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 140,
+        "line_end": 141
+      }
+    },
+    {
+      "name": "_get_text_string",
+      "symbol": "_get_text_string",
+      "qualname": "_get_text_string",
+      "level": "utility",
+      "signature": "def _get_text_string(ent: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "retry_on_busy",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 145,
+        "line_end": 146
+      }
+    },
+    {
+      "name": "_iter_collection_entities",
+      "symbol": "_iter_collection_entities",
+      "qualname": "_iter_collection_entities",
+      "level": "utility",
+      "signature": "def _iter_collection_entities(collection: Any) -> Iterable[Any]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "collection",
+          "raw": "collection: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_get_collection_count",
+        "_get_collection_item",
+        "range"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 149,
+        "line_end": 155
+      }
+    },
+    {
+      "name": "_iter_space_entities",
+      "symbol": "_iter_space_entities",
+      "qualname": "_iter_space_entities",
+      "level": "utility",
+      "signature": "def _iter_space_entities(owner_btr_name: str) -> Iterable[Any]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "主要通过副作用更新运行状态、当前文档或外部文件。"
+      ],
+      "returns": [
+        "无显式业务返回值，主要依赖副作用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_get_layout_block_name",
+        "_iter_collection_entities",
+        "wait_quiescent"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 158,
+        "line_end": 173
+      }
+    },
+    {
+      "name": "collect_space_entity_snapshots",
+      "symbol": "collect_space_entity_snapshots",
+      "qualname": "collect_space_entity_snapshots",
+      "level": "normal",
+      "signature": "def collect_space_entity_snapshots(owner_btr_name: str) -> list[EntitySnapshot]:",
+      "purpose": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "inputs": [
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "EntitySnapshot",
+        "_bbox_xy",
+        "_get_entity_layer",
+        "_get_entity_object_name",
+        "_get_text_string",
+        "_iter_space_entities",
+        "_safe_handle",
+        "len"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 176,
+        "line_end": 206
+      }
+    },
+    {
+      "name": "_iter_candidate_snapshots",
+      "symbol": "_iter_candidate_snapshots",
+      "qualname": "_iter_candidate_snapshots",
+      "level": "utility",
+      "signature": "def _iter_candidate_snapshots(snapshots: list[EntitySnapshot], area_bbox: tuple[float, float, float, float], area_handle: str, tol: float) -> Iterable[EntitySnapshot]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "snapshots",
+          "raw": "snapshots: list[EntitySnapshot]",
+          "required": true
+        },
+        {
+          "name": "area_bbox",
+          "raw": "area_bbox: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "area_handle",
+          "raw": "area_handle: str",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_contains_bbox"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 209,
+        "line_end": 222
+      }
+    },
+    {
+      "name": "collect_area_content_metrics_from_bbox",
+      "symbol": "collect_area_content_metrics_from_bbox",
+      "qualname": "collect_area_content_metrics_from_bbox",
+      "level": "normal",
+      "signature": "def collect_area_content_metrics_from_bbox(area_bbox: tuple[float, float, float, float], *, owner_btr_name: str, area_handle: str='', tol_factor: float=0.0005, snapshots: list[EntitySnapshot] | None=None) -> AreaContentMetrics | None:",
+      "purpose": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "inputs": [
+        {
+          "name": "area_bbox",
+          "raw": "area_bbox: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        },
+        {
+          "name": "area_handle",
+          "raw": "area_handle: str = ''",
+          "required": false
+        },
+        {
+          "name": "tol_factor",
+          "raw": "tol_factor: float = 0.0005",
+          "required": false
+        },
+        {
+          "name": "snapshots",
+          "raw": "snapshots: list[EntitySnapshot] | None = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "AreaContentMetrics",
+        "_iter_candidate_snapshots",
+        "collect_space_entity_snapshots",
+        "layers.add",
+        "len",
+        "max",
+        "min",
+        "round"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 225,
+        "line_end": 288
+      }
+    },
+    {
+      "name": "collect_area_content_metrics",
+      "symbol": "collect_area_content_metrics",
+      "qualname": "collect_area_content_metrics",
+      "level": "core",
+      "signature": "def collect_area_content_metrics(area_obj: Any, *, owner_btr_name: str, tol_factor: float=0.0005) -> AreaContentMetrics | None:",
+      "purpose": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "inputs": [
+        {
+          "name": "area_obj",
+          "raw": "area_obj: Any",
+          "required": true
+        },
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        },
+        {
+          "name": "tol_factor",
+          "raw": "tol_factor: float = 0.0005",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_xy",
+        "_safe_handle",
+        "collect_area_content_metrics_from_bbox"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 291,
+        "line_end": 305
+      }
+    },
+    {
+      "name": "classify_pseudo_print_area_candidates",
+      "symbol": "classify_pseudo_print_area_candidates",
+      "qualname": "classify_pseudo_print_area_candidates",
+      "level": "core",
+      "signature": "def classify_pseudo_print_area_candidates(metrics_list: list[AreaContentMetrics]) -> list[dict[str, Any]]:",
+      "purpose": "基于复杂度、中值基线、实体数量和填充率，把候选区域判定为 pseudo candidate 或 valid area。",
+      "inputs": [
+        {
+          "name": "metrics_list",
+          "raw": "metrics_list: list[AreaContentMetrics]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回带 pseudo_candidate 和 reasons 的指标列表。"
+      ],
+      "returns": [
+        "列表；每项都补充 baselines、reasons 和 pseudo_candidate 标记。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "asdict",
+        "int",
+        "max",
+        "median",
+        "out.append",
+        "reason.append"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 308,
+        "line_end": 358
+      },
+      "steps": [
+        "先计算 complexity/entity 的中位数基线。",
+        "逐候选计算 very_low_complexity、very_few_entities、simple_content_only、low_fill 等条件。",
+        "综合条件给出 pseudo_candidate 标记和 reasons。"
+      ],
+      "must_keep_experience": [
+        "伪区域判断要基于相对基线，而不是只用固定绝对阈值。"
+      ]
+    },
+    {
+      "name": "analyze_job_content_candidates",
+      "symbol": "analyze_job_content_candidates",
+      "qualname": "analyze_job_content_candidates",
+      "level": "normal",
+      "signature": "def analyze_job_content_candidates(jobs: list[dict[str, Any]], *, owner_btr_name: str, snapshots: list[EntitySnapshot] | None=None) -> list[dict[str, Any]]:",
+      "purpose": "围绕输入对象执行分析流程，并输出结构化结果。",
+      "inputs": [
+        {
+          "name": "jobs",
+          "raw": "jobs: list[dict[str, Any]]",
+          "required": true
+        },
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        },
+        {
+          "name": "snapshots",
+          "raw": "snapshots: list[EntitySnapshot] | None = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "asdict",
+        "classify_pseudo_print_area_candidates",
+        "collect_area_content_metrics_from_bbox",
+        "collect_space_entity_snapshots",
+        "int",
+        "job.get",
+        "metric_objs.append",
+        "rows.append"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 361,
+        "line_end": 401
+      }
+    },
+    {
+      "name": "_job_get",
+      "symbol": "_job_get",
+      "qualname": "_job_get",
+      "level": "utility",
+      "signature": "def _job_get(job: Any, name: str, default: Any=None) -> Any:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "job",
+          "raw": "job: Any",
+          "required": true
+        },
+        {
+          "name": "name",
+          "raw": "name: str",
+          "required": true
+        },
+        {
+          "name": "default",
+          "raw": "default: Any = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "getattr",
+        "isinstance",
+        "job.get"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 404,
+        "line_end": 407
+      }
+    },
+    {
+      "name": "analyze_jobs_content",
+      "symbol": "analyze_jobs_content",
+      "qualname": "analyze_jobs_content",
+      "level": "core",
+      "signature": "def analyze_jobs_content(jobs_by_space: dict[str, list[Any]]) -> dict[str, Any]:",
+      "purpose": "按空间批量分析 job 的内容复杂度，并输出 pseudo candidates、lowest12_by_complexity 和 rows_by_space。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[Any]]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回 content analysis 总结果字典。"
+      ],
+      "returns": [
+        "字典，包含 snapshot_count、total_areas、pseudo_candidates、jobs_by_space 等。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_job_get",
+        "all_rows.append",
+        "analyze_job_content_candidates",
+        "collect_space_entity_snapshots",
+        "int",
+        "item.get",
+        "jobs_by_space.items",
+        "len"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 410,
+        "line_end": 467
+      },
+      "steps": [
+        "逐空间收集实体快照并转换 job 字典。",
+        "调用 analyze_job_content_candidates 生成每个 job 的内容指标。",
+        "汇总 all_rows，并筛出 pseudo_candidates 与最低复杂度样本。"
+      ],
+      "must_keep_experience": [
+        "content analysis 输出必须保留 pseudo_candidates 和按空间 rows，供后续过滤与调试。"
+      ]
+    },
+    {
+      "name": "_normalize_path",
+      "symbol": "_normalize_path",
+      "qualname": "_normalize_path",
+      "level": "utility",
+      "signature": "def _normalize_path(path: str | Path) -> str:",
+      "purpose": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "lower",
+        "resolve",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 470,
+        "line_end": 471
+      }
+    },
+    {
+      "name": "_is_name_only_target",
+      "symbol": "_is_name_only_target",
+      "qualname": "_is_name_only_target",
+      "level": "utility",
+      "signature": "def _is_name_only_target(target_path: str | Path) -> bool:",
+      "purpose": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "name.lower",
+        "raw.lower",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 474,
+        "line_end": 476
+      }
+    },
+    {
+      "name": "_find_document_by_path",
+      "symbol": "_find_document_by_path",
+      "qualname": "_find_document_by_path",
+      "level": "utility",
+      "signature": "def _find_document_by_path(target_path: str | Path):",
+      "purpose": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "getattr",
+        "lower",
+        "name.lower",
+        "str"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 479,
+        "line_end": 493
+      }
+    },
+    {
+      "name": "_activate_document_by_path",
+      "symbol": "_activate_document_by_path",
+      "qualname": "_activate_document_by_path",
+      "level": "utility",
+      "signature": "def _activate_document_by_path(target_path: str | Path, retries: int=8, delay: float=0.5) -> bool:",
+      "purpose": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries: int = 8",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay: float = 0.5",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_find_document_by_path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "doc.Activate",
+        "getattr",
+        "lower",
+        "name.lower"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 496,
+        "line_end": 521
+      }
+    },
+    {
+      "name": "_close_document_by_path",
+      "symbol": "_close_document_by_path",
+      "qualname": "_close_document_by_path",
+      "level": "utility",
+      "signature": "def _close_document_by_path(target_path: str | Path, save_changes: bool=False) -> bool:",
+      "purpose": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "save_changes",
+          "raw": "save_changes: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_find_document_by_path",
+        "bool",
+        "doc.Close"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 524,
+        "line_end": 532
+      }
+    },
+    {
+      "name": "_load_jobs_from_plan_json",
+      "symbol": "_load_jobs_from_plan_json",
+      "qualname": "_load_jobs_from_plan_json",
+      "level": "utility",
+      "signature": "def _load_jobs_from_plan_json(plan_json_path: Path) -> dict[str, list[dict[str, Any]]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "plan_json_path",
+          "raw": "plan_json_path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "json.loads",
+        "plan_json_path.read_text"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 535,
+        "line_end": 537
+      }
+    },
+    {
+      "name": "run_content_analysis_case",
+      "symbol": "run_content_analysis_case",
+      "qualname": "run_content_analysis_case",
+      "level": "core",
+      "signature": "def run_content_analysis_case(*, dwg_path: Path, output_path: Path, plan_json_path: Path | None=None, mode: str=PRINT_MODE_ADAPTIVE, include_model: bool=True, include_layouts: bool=True, only_layouts: list[str] | None=None, keep_open: bool=False) -> dict[str, Any]:",
+      "purpose": "围绕单个 DWG 执行内容分析闭环，必要时临时构建打印计划，并写出 content_analysis.json。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: Path",
+          "required": true
+        },
+        {
+          "name": "output_path",
+          "raw": "output_path: Path",
+          "required": true
+        },
+        {
+          "name": "plan_json_path",
+          "raw": "plan_json_path: Path | None = None",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str = PRINT_MODE_ADAPTIVE",
+          "required": false
+        },
+        {
+          "name": "include_model",
+          "raw": "include_model: bool = True",
+          "required": false
+        },
+        {
+          "name": "include_layouts",
+          "raw": "include_layouts: bool = True",
+          "required": false
+        },
+        {
+          "name": "only_layouts",
+          "raw": "only_layouts: list[str] | None = None",
+          "required": false
+        },
+        {
+          "name": "keep_open",
+          "raw": "keep_open: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回 content analysis 结果字典，并写出 output_path。"
+      ],
+      "returns": [
+        "字典。"
+      ],
+      "side_effects": [
+        "改变当前 CAD 文档、外部进程窗口或导出状态。"
+      ],
+      "dependencies": [
+        "FileNotFoundError",
+        "RuntimeError",
+        "_activate_document_by_path",
+        "_close_document_by_path",
+        "_find_document_by_path",
+        "_load_jobs_from_plan_json",
+        "analyze_jobs_content",
+        "assert_runtime_guard_ok"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 540,
+        "line_end": 592
+      },
+      "steps": [
+        "确保 DWG 已打开激活，并通过 runtime guard 检查。",
+        "优先读取现有 plan_json；否则临时构建打印计划。",
+        "调用 analyze_jobs_content 生成分析结果。",
+        "写出 output_path，并按 need_open/keep_open 决定是否关图。"
+      ],
+      "must_keep_experience": [
+        "内容分析既能消费现有 plan.json，也能在独立模式下自己补建临时计划。"
+      ]
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main() -> None:",
+      "purpose": "提供命令行入口，解析参数后调用主流程。",
+      "inputs": [],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [
+        "解析命令行参数并触发 CLI 输出。"
+      ],
+      "dependencies": [
+        "Path",
+        "SystemExit",
+        "argparse.ArgumentParser",
+        "getattr",
+        "hasattr",
+        "json.dumps",
+        "parser.add_argument",
+        "parser.parse_args"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 595,
+        "line_end": 638
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "content-analysis",
+      "print-analysis"
+    ],
+    "script_focus": "打印区域内容净化分析脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 28,
+    "public_api_count": 5,
+    "core_function_count": 5
+  }
+}

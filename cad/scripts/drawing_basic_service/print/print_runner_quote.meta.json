@@ -1,0 +1,124 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_runner.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "quote": {
+    "goal": "围绕单个 DWG 组织 run 目录、构建打印计划、执行打印、校验结果并输出过程产物。",
+    "public_api": [
+      "run_print_case",
+      "main"
+    ],
+    "script_role": "单文件打印主链脚本",
+    "system_position": {
+      "layer_name": "单文件打印编排层",
+      "works_with": [
+        "print_policy.py",
+        "print_executor.py",
+        "print_verifier.py",
+        "system.CAD_core"
+      ],
+      "main_entry_note": "print_runner.py 主要通过 run_print_case, main 等入口服务打印主链。"
+    },
+    "must_keep_experience": [
+      "run 目录组织和过程文件落盘是后续回归分析的重要依据。",
+      "单文件主链不能省略 plan、execute、verify 这三段。"
+    ],
+    "known_limits": [
+      "对外仍主要服务单 DWG 场景，目录级批量调度应由 print_batch_dispatch.py 负责。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_make_process_token",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_make_run_dirs",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_normalize_path",
+      "role": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_is_name_only_target",
+      "role": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_find_document_by_path",
+      "role": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_activate_document_by_path",
+      "role": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_close_document_by_path",
+      "role": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_write_json",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "run_print_case",
+      "role": "执行单次 case 或主链流程，并把结果写入结构化产物。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "main",
+      "role": "提供命令行入口，解析参数后调用主流程。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "pdf",
+      "orchestration"
+    ],
+    "script_focus": "单文件打印主链脚本"
+  },
+  "quality": {
+    "todo": [
+      "当前脚本级 meta 已覆盖主角色与 public_api，后续如职责明显变化应同步刷新。",
+      "函数级语义摘要主要由 AST 与命名规则生成，复杂分支后续可按案例继续细化。"
+    ],
+    "function_count": 10,
+    "public_api_count": 2
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "cad_dialog_killer.py",
+    "path": "D:/codex-tasks/cad/system/cad_dialog_killer.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "作为独立守护脚本巡检并关闭阻塞 CAD 的标准对话框。",
+    "step_style": "graded",
+    "public_api": [
+      "read_delay",
+      "get_cad_pids",
+      "enum_and_maybe_close",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "read_delay",
+      "symbol": "read_delay",
+      "qualname": "read_delay",
+      "level": "utility",
+      "signature": "def read_delay() -> int:",
+      "role": "在 cad_dialog_killer 中承接 `read_delay` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 39,
+        "line_end": 49
+      }
+    },
+    {
+      "name": "get_cad_pids",
+      "symbol": "get_cad_pids",
+      "qualname": "get_cad_pids",
+      "level": "core",
+      "signature": "def get_cad_pids() -> set[int]:",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留单实例锁与延迟关闭配置。",
+        "保留按 CAD 进程过滤窗口，避免误杀无关对话框。"
+      ],
+      "evidence": {
+        "line_start": 50,
+        "line_end": 58
+      }
+    },
+    {
+      "name": "enum_and_maybe_close",
+      "symbol": "enum_and_maybe_close",
+      "qualname": "enum_and_maybe_close",
+      "level": "core",
+      "signature": "def enum_and_maybe_close(hwnd, cad_pids, delay, now):",
+      "role": "在 cad_dialog_killer 中承接 `enum_and_maybe_close` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留单实例锁与延迟关闭配置。",
+        "保留按 CAD 进程过滤窗口，避免误杀无关对话框。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 59,
+        "line_end": 87
+      }
+    },
+    {
+      "name": "is_already_running",
+      "symbol": "is_already_running",
+      "qualname": "is_already_running",
+      "level": "utility",
+      "signature": "def is_already_running():",
+      "role": "在 cad_dialog_killer 中承接 `is_already_running` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 88,
+        "line_end": 106
+      }
+    },
+    {
+      "name": "create_lock",
+      "symbol": "create_lock",
+      "qualname": "create_lock",
+      "level": "utility",
+      "signature": "def create_lock():",
+      "role": "在 cad_dialog_killer 中承接 `create_lock` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 107,
+        "line_end": 110
+      }
+    },
+    {
+      "name": "remove_lock",
+      "symbol": "remove_lock",
+      "qualname": "remove_lock",
+      "level": "utility",
+      "signature": "def remove_lock():",
+      "role": "在 cad_dialog_killer 中承接 `remove_lock` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 111,
+        "line_end": 114
+      }
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main():",
+      "role": "作为脚本主入口协调守护循环或批处理流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "准备锁文件、配置或运行环境。",
+        "进入主循环并检测 CAD/窗口/命令状态。",
+        "触发守护动作并在退出前释放资源。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留单实例锁与延迟关闭配置。",
+        "保留按 CAD 进程过滤窗口，避免误杀无关对话框。"
+      ],
+      "evidence": {
+        "line_start": 115,
+        "line_end": 163
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "窗口标题与类名匹配策略需要在真实桌面环境复核。"
+    ],
+    "function_count": 7,
+    "public_api_count": 4,
+    "core_function_count": 3
+  }
+}

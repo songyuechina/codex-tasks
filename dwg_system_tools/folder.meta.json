@@ -1,0 +1,28 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/dwg_system_tools",
+  "role": "knowledge-compression-tooling",
+  "summary": "面向项目记忆压缩、meta 生成与校验的控制工具目录。它不直接执行业务，而是为智能体提供更快的项目理解入口。",
+  "entry_docs": [
+    "meta_gen/META_RULES.md",
+    "meta_gen/TASK_TEMPLATE_PLAIN.md"
+  ],
+  "key_modules": [
+    "meta_gen/meta_pipeline.py",
+    "meta_gen/meta_validator.py",
+    "build_project_memory.py"
+  ],
+  "capabilities": [
+    "为脚本选择并校验四层 meta",
+    "为项目生成可刷新的项目地图",
+    "支撑智能体先看压缩层，再按需下钻源码"
+  ],
+  "known_gap": [
+    "当前侧重 meta 与项目地图，尚未形成统一 registry / state_diff 子系统"
+  ],
+  "refresh_rules": [
+    "meta 规则变化时，先更新 META_RULES.md 与 validator/schema",
+    "项目记忆入口变化时，更新 build_project_memory.py 与相关 folder.meta.json"
+  ]
+}

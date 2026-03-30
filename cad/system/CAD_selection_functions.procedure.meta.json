@@ -1,0 +1,1502 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_selection.py",
+    "path": "D:/codex-tasks/cad/system/CAD_selection.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "提供 CAD / 天正对象选择、空间过滤、实体类型转换与属性访问的高价值稳定核心。",
+    "step_style": "graded",
+    "public_api": [
+      "cast_object",
+      "ss_select",
+      "select_entities_through_point",
+      "select_objects_in_window_area",
+      "select_paperspace_objects_in_window",
+      "pmxz",
+      "get_last_n_objects",
+      "last_obj",
+      "select_tuceng",
+      "select_all_texts_mixed",
+      "select_pub_text_entities",
+      "select_group_entities",
+      "yin_to_xian_xuanze",
+      "yin_to_xian_safe",
+      "xian_to_yin_pickfirst",
+      "select_entities_in_window",
+      "highlight_entities_in_window",
+      "highlight_entity_by_bbox",
+      "isolate_modelspace_area",
+      "unhide_all",
+      "get_attr",
+      "set_attr",
+      "get_object_property",
+      "set_object_property",
+      "brute_dump_tarch_props"
+    ]
+  },
+  "functions": [
+    {
+      "name": "cast_object",
+      "symbol": "cast_object",
+      "qualname": "cast_object",
+      "level": "core",
+      "signature": "def cast_object(obj):",
+      "role": "把原始 COM 图元转换为更适合后续处理的对象。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 279,
+        "line_end": 281
+      }
+    },
+    {
+      "name": "_maybe_cast",
+      "symbol": "_maybe_cast",
+      "qualname": "_maybe_cast",
+      "level": "core",
+      "signature": "def _maybe_cast(ent):",
+      "role": "在 CAD_selection 中承接 `_maybe_cast` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 282,
+        "line_end": 310
+      }
+    },
+    {
+      "name": "to_vt_int",
+      "symbol": "to_vt_int",
+      "qualname": "to_vt_int",
+      "level": "utility",
+      "signature": "def to_vt_int(seq):",
+      "role": "把 Python 数据转换成 COM 需要的 VARIANT 结构。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 311,
+        "line_end": 313
+      }
+    },
+    {
+      "name": "to_vt_variant",
+      "symbol": "to_vt_variant",
+      "qualname": "to_vt_variant",
+      "level": "utility",
+      "signature": "def to_vt_variant(seq):",
+      "role": "把 Python 数据转换成 COM 需要的 VARIANT 结构。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 314,
+        "line_end": 316
+      }
+    },
+    {
+      "name": "_to_vt_point",
+      "symbol": "_to_vt_point",
+      "qualname": "_to_vt_point",
+      "level": "utility",
+      "signature": "def _to_vt_point(pt_tuple):",
+      "role": "在 CAD_selection 中承接 `_to_vt_point` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 317,
+        "line_end": 320
+      }
+    },
+    {
+      "name": "pt3",
+      "symbol": "pt3",
+      "qualname": "pt3",
+      "level": "utility",
+      "signature": "def pt3(x, y, z=0):",
+      "role": "构造标准三维点元组。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 321,
+        "line_end": 323
+      }
+    },
+    {
+      "name": "normalize_rect",
+      "symbol": "normalize_rect",
+      "qualname": "normalize_rect",
+      "level": "utility",
+      "signature": "def normalize_rect(x1, y1, x2, y2):",
+      "role": "规范化输入数据的顺序或格式。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 324,
+        "line_end": 328
+      }
+    },
+    {
+      "name": "expand_rectangle",
+      "symbol": "expand_rectangle",
+      "qualname": "expand_rectangle",
+      "level": "utility",
+      "signature": "def expand_rectangle(p1, p2, offset):",
+      "role": "基于已有几何范围扩展新的区域。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 329,
+        "line_end": 334
+      }
+    },
+    {
+      "name": "com_retry",
+      "symbol": "com_retry",
+      "qualname": "com_retry",
+      "level": "utility",
+      "signature": "def com_retry(fn, retries=30, delay=0.05):",
+      "role": "在 CAD_selection 中承接 `com_retry` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 335,
+        "line_end": 347
+      }
+    },
+    {
+      "name": "current_space_only",
+      "symbol": "current_space_only",
+      "qualname": "current_space_only",
+      "level": "core",
+      "signature": "def current_space_only(func):",
+      "role": "在 CAD_selection 中承接 `current_space_only` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 348,
+        "line_end": 392
+      }
+    },
+    {
+      "name": "current_space_only.wrapper",
+      "symbol": "wrapper",
+      "qualname": "current_space_only.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args, **kwargs):",
+      "role": "为外层装饰器链补充包装逻辑。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 356,
+        "line_end": 392
+      }
+    },
+    {
+      "name": "ss_select",
+      "symbol": "ss_select",
+      "qualname": "ss_select",
+      "level": "core",
+      "signature": "def ss_select(mode=\"all\", p1=None, p2=None, filter_types=None, filter_data=None, autocast=True, prompt=None):",
+      "role": "在 CAD_selection 中承接 `ss_select` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 393,
+        "line_end": 447
+      }
+    },
+    {
+      "name": "select_entities_through_point",
+      "symbol": "select_entities_through_point",
+      "qualname": "select_entities_through_point",
+      "level": "normal",
+      "signature": "def select_entities_through_point(p, tol=0.1):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 448,
+        "line_end": 466
+      }
+    },
+    {
+      "name": "select_objects_in_window_area",
+      "symbol": "select_objects_in_window_area",
+      "qualname": "select_objects_in_window_area",
+      "level": "normal",
+      "signature": "def select_objects_in_window_area(x1, y1, x2, y2):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 467,
+        "line_end": 489
+      }
+    },
+    {
+      "name": "select_paperspace_objects_in_window",
+      "symbol": "select_paperspace_objects_in_window",
+      "qualname": "select_paperspace_objects_in_window",
+      "level": "normal",
+      "signature": "def select_paperspace_objects_in_window(x1, y1, x2, y2):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 490,
+        "line_end": 519
+      }
+    },
+    {
+      "name": "select_paperspace_objects_in_window.intersects",
+      "symbol": "intersects",
+      "qualname": "select_paperspace_objects_in_window.intersects",
+      "level": "utility",
+      "signature": "def intersects(a1, a2, b1, b2):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 506,
+        "line_end": 519
+      }
+    },
+    {
+      "name": "pmxz",
+      "symbol": "pmxz",
+      "qualname": "pmxz",
+      "level": "core",
+      "signature": "def pmxz(prompt=\"\\n请在屏幕拾取图元，以Enter键结束：\", autocast=True):",
+      "role": "在 CAD_selection 中承接 `pmxz` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 520,
+        "line_end": 522
+      }
+    },
+    {
+      "name": "get_last_n_objects",
+      "symbol": "get_last_n_objects",
+      "qualname": "get_last_n_objects",
+      "level": "core",
+      "signature": "def get_last_n_objects(n=1, autocast=True):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 523,
+        "line_end": 541
+      }
+    },
+    {
+      "name": "last_obj",
+      "symbol": "last_obj",
+      "qualname": "last_obj",
+      "level": "utility",
+      "signature": "def last_obj():",
+      "role": "在 CAD_selection 中承接 `last_obj` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 542,
+        "line_end": 553
+      }
+    },
+    {
+      "name": "select_tuceng",
+      "symbol": "select_tuceng",
+      "qualname": "select_tuceng",
+      "level": "core",
+      "signature": "def select_tuceng(layer_names, delay=0.5, autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 554,
+        "line_end": 559
+      }
+    },
+    {
+      "name": "stc",
+      "symbol": "stc",
+      "qualname": "stc",
+      "level": "utility",
+      "signature": "def stc(layer_names, **kwargs):",
+      "role": "在 CAD_selection 中承接 `stc` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 560,
+        "line_end": 563
+      }
+    },
+    {
+      "name": "select_kuai",
+      "symbol": "select_kuai",
+      "qualname": "select_kuai",
+      "level": "normal",
+      "signature": "def select_kuai(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 564,
+        "line_end": 565
+      }
+    },
+    {
+      "name": "select_text",
+      "symbol": "select_text",
+      "qualname": "select_text",
+      "level": "normal",
+      "signature": "def select_text(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 566,
+        "line_end": 567
+      }
+    },
+    {
+      "name": "select_mtext",
+      "symbol": "select_mtext",
+      "qualname": "select_mtext",
+      "level": "normal",
+      "signature": "def select_mtext(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 568,
+        "line_end": 569
+      }
+    },
+    {
+      "name": "select_line",
+      "symbol": "select_line",
+      "qualname": "select_line",
+      "level": "normal",
+      "signature": "def select_line(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 570,
+        "line_end": 571
+      }
+    },
+    {
+      "name": "select_circle",
+      "symbol": "select_circle",
+      "qualname": "select_circle",
+      "level": "normal",
+      "signature": "def select_circle(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 572,
+        "line_end": 573
+      }
+    },
+    {
+      "name": "select_ellipse",
+      "symbol": "select_ellipse",
+      "qualname": "select_ellipse",
+      "level": "normal",
+      "signature": "def select_ellipse(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 574,
+        "line_end": 575
+      }
+    },
+    {
+      "name": "select_spline",
+      "symbol": "select_spline",
+      "qualname": "select_spline",
+      "level": "normal",
+      "signature": "def select_spline(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 576,
+        "line_end": 577
+      }
+    },
+    {
+      "name": "select_polyline",
+      "symbol": "select_polyline",
+      "qualname": "select_polyline",
+      "level": "normal",
+      "signature": "def select_polyline(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 578,
+        "line_end": 579
+      }
+    },
+    {
+      "name": "select_polyline_chuantong",
+      "symbol": "select_polyline_chuantong",
+      "qualname": "select_polyline_chuantong",
+      "level": "normal",
+      "signature": "def select_polyline_chuantong(autocast=True):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 580,
+        "line_end": 582
+      }
+    },
+    {
+      "name": "select_all_texts_mixed",
+      "symbol": "select_all_texts_mixed",
+      "qualname": "select_all_texts_mixed",
+      "level": "core",
+      "signature": "def select_all_texts_mixed(target_space=\"Model\"):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 583,
+        "line_end": 590
+      }
+    },
+    {
+      "name": "select_pub_text_entities",
+      "symbol": "select_pub_text_entities",
+      "qualname": "select_pub_text_entities",
+      "level": "core",
+      "signature": "def select_pub_text_entities():",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 591,
+        "line_end": 599
+      }
+    },
+    {
+      "name": "select_group_entities",
+      "symbol": "select_group_entities",
+      "qualname": "select_group_entities",
+      "level": "core",
+      "signature": "def select_group_entities(group_obj):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 600,
+        "line_end": 620
+      }
+    },
+    {
+      "name": "yin_to_xian_xuanze",
+      "symbol": "yin_to_xian_xuanze",
+      "qualname": "yin_to_xian_xuanze",
+      "level": "core",
+      "signature": "def yin_to_xian_xuanze(LB, wait_s=0.6):",
+      "role": "在 CAD_selection 中承接 `yin_to_xian_xuanze` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 621,
+        "line_end": 636
+      }
+    },
+    {
+      "name": "yin_to_xian_safe",
+      "symbol": "yin_to_xian_safe",
+      "qualname": "yin_to_xian_safe",
+      "level": "core",
+      "signature": "def yin_to_xian_safe(LB, wait_s=0.1):",
+      "role": "在 CAD_selection 中承接 `yin_to_xian_safe` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 637,
+        "line_end": 662
+      }
+    },
+    {
+      "name": "xian_to_yin_pickfirst",
+      "symbol": "xian_to_yin_pickfirst",
+      "qualname": "xian_to_yin_pickfirst",
+      "level": "core",
+      "signature": "def xian_to_yin_pickfirst(clear_grips=True, autocast=True):",
+      "role": "在 CAD_selection 中承接 `xian_to_yin_pickfirst` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 663,
+        "line_end": 673
+      }
+    },
+    {
+      "name": "select_entities_in_window",
+      "symbol": "select_entities_in_window",
+      "qualname": "select_entities_in_window",
+      "level": "core",
+      "signature": "def select_entities_in_window(x1, y1, x2, y2, ty=1.0, select_mode=\"_W\"):",
+      "role": "构造选择条件并返回 CAD 图元集合。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 674,
+        "line_end": 689
+      }
+    },
+    {
+      "name": "highlight_entities_in_window",
+      "symbol": "highlight_entities_in_window",
+      "qualname": "highlight_entities_in_window",
+      "level": "utility",
+      "signature": "def highlight_entities_in_window(x1, y1, x2, y2):",
+      "role": "对目标图元执行高亮显示相关操作。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 690,
+        "line_end": 692
+      }
+    },
+    {
+      "name": "highlight_entity_by_bbox",
+      "symbol": "highlight_entity_by_bbox",
+      "qualname": "highlight_entity_by_bbox",
+      "level": "utility",
+      "signature": "def highlight_entity_by_bbox(entity):",
+      "role": "对目标图元执行高亮显示相关操作。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 693,
+        "line_end": 702
+      }
+    },
+    {
+      "name": "set_entity_grip_state_precise",
+      "symbol": "set_entity_grip_state_precise",
+      "qualname": "set_entity_grip_state_precise",
+      "level": "normal",
+      "signature": "def set_entity_grip_state_precise(ent):",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 703,
+        "line_end": 712
+      }
+    },
+    {
+      "name": "isolate_modelspace_area",
+      "symbol": "isolate_modelspace_area",
+      "qualname": "isolate_modelspace_area",
+      "level": "core",
+      "signature": "def isolate_modelspace_area(x1, y1, x2, y2):",
+      "role": "在 CAD_selection 中承接 `isolate_modelspace_area` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 713,
+        "line_end": 720
+      }
+    },
+    {
+      "name": "unhide_all",
+      "symbol": "unhide_all",
+      "qualname": "unhide_all",
+      "level": "core",
+      "signature": "def unhide_all(space=None, filter_names=None, highlight=False):",
+      "role": "在 CAD_selection 中承接 `unhide_all` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "构造选择范围、过滤条件或交互上下文。",
+        "调用 CAD 选择/显示接口并按需转换对象。",
+        "返回图元结果或更新可视状态。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 721,
+        "line_end": 885
+      }
+    },
+    {
+      "name": "_resolve_attr_case_insensitive",
+      "symbol": "_resolve_attr_case_insensitive",
+      "qualname": "_resolve_attr_case_insensitive",
+      "level": "core",
+      "signature": "def _resolve_attr_case_insensitive(obj, attr_name):",
+      "role": "在 CAD_selection 中承接 `_resolve_attr_case_insensitive` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 886,
+        "line_end": 909
+      }
+    },
+    {
+      "name": "get_attr",
+      "symbol": "get_attr",
+      "qualname": "get_attr",
+      "level": "core",
+      "signature": "def get_attr(obj, name, default=None):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。"
+      ],
+      "evidence": {
+        "line_start": 910,
+        "line_end": 948
+      }
+    },
+    {
+      "name": "set_attr",
+      "symbol": "set_attr",
+      "qualname": "set_attr",
+      "level": "core",
+      "signature": "def set_attr(obj, name, value):",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 949,
+        "line_end": 969
+      }
+    },
+    {
+      "name": "get_object_property",
+      "symbol": "get_object_property",
+      "qualname": "get_object_property",
+      "level": "normal",
+      "signature": "def get_object_property(obj, property_name):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 970,
+        "line_end": 970
+      }
+    },
+    {
+      "name": "set_object_property",
+      "symbol": "set_object_property",
+      "qualname": "set_object_property",
+      "level": "normal",
+      "signature": "def set_object_property(obj, property_name, value):",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 971,
+        "line_end": 972
+      }
+    },
+    {
+      "name": "brute_dump_tarch_props",
+      "symbol": "brute_dump_tarch_props",
+      "qualname": "brute_dump_tarch_props",
+      "level": "core",
+      "signature": "def brute_dump_tarch_props(ent, max_dispid=64):",
+      "role": "在 CAD_selection 中承接 `brute_dump_tarch_props` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留当前空间过滤、天正对象 cast 与属性回退经验。",
+        "保留图元选择与高亮相关的 COM 重试和容错策略。"
+      ],
+      "evidence": {
+        "line_start": 973,
+        "line_end": 984
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "部分天正 DISPID 访问逻辑依赖运行时对象类型，meta 以静态分支概括。"
+    ],
+    "function_count": 48,
+    "public_api_count": 25,
+    "core_function_count": 20
+  }
+}

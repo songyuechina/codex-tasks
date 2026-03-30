@@ -1,34 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-第四部分 一般对象
-一般对象操作函数
+CAD一般对象操作函数库
 
-从 CAD_basic.py 拆分而来
+本模块提供CAD图形对象的一般操作功能，包括：
+- 列表处理工具
+- 实体排序功能
+- 组操作
+- Handle和标签管理
+- 文字操作
+- 图层管理
+
+依赖: system.licad.C
+
+作者: CAD开发团队
+版本: 2.0.0
 """
 
-# 路径引导
-import sys
-from pathlib import Path
-current = Path(__file__).resolve()
-while current.name != 'cad':
-    if current.parent == current: raise Exception("找不到根目录")
-    current = current.parent
-sys.path.insert(0, str(current))
+__meta__ = {
+    "module": "cad_objects",
+    "version": "2.0.0",
+    "dependencies": ["system.licad", "system.CAD_com_utils"],
+    "category": "cad_library"
+}
 
-# 导入系统模块
-from system.project_setup import PathConfig
 from system.licad import C
 from system.CAD_com_utils import sys_logger, alias, retry_on_busy, SafeCOM
-from system.common_logger import checkpoint
 
-# 获取常用对象
 acad = C.acad
 doc = C.doc
 mp = C.mp
 sp = C.sp
-
-#&&&&%% 第四部分 一般对象
 
 
 def ensure_list(input_data):
@@ -39,6 +41,16 @@ def ensure_list(input_data):
     - 自动解包：如果输入是元组且第一个元素是列表（例如 (polylist, dict, ...)），
       则自动提取第一个元素返回，消除数据结构混乱。
     - 兼容 COM：支持 SelectionSet 等 COM 集合。
+    
+    Args:
+        input_data: 任意类型的输入数据
+        
+    Returns:
+        list: 统一转换为列表的结果
+    
+    Meta:
+        category: utility
+        version: 2.0.0
     """
     # 1. 处理 None
     if input_data is None:
@@ -99,12 +111,23 @@ def ensure_list(input_data):
 
 #&&&%  排序
 #&&% 元组排序
-def sort_tuples(lst,cha_Y =2000):#对列表按插入点xy坐标排序
-    
+def sort_tuples(lst, cha_Y=2000):
     """
-    这是很有用的一个双值排序函数，对于COM对象，可以先将其转换为元组，即可使用这个函数
-
-    它的价值在于，很容易拓展到n值排序
+    对列表按插入点xy坐标排序。
+    
+    对COM对象可以先将其转换为元组，然后使用此函数进行双值排序。
+    容易拓展到n值排序。
+    
+    Args:
+        lst: 需要排序的元组列表
+        cha_Y: Y方向容差，默认2000
+        
+    Returns:
+        list: 排序后的列表（原地修改）
+    
+    Meta:
+        category: sorting
+        version: 2.0.0
     """
     
     # 先按照m[1]降序排序
@@ -125,18 +148,21 @@ def sort_tuples(lst,cha_Y =2000):#对列表按插入点xy坐标排序
 
     return lst
 
-#&&% 多维容差排序
-def multi_dim_tolerance_sort(lst, key_index=2, tolerances=[10000, 1000, 0]):#高维排序
+def multi_dim_tolerance_sort(lst, key_index=2, tolerances=[10000, 1000, 0]):
     """
-    对 lst 列表中的元组按多维坐标字段排序，考虑每个维度的容差进行逐层排序。
-
-    参数：
-        lst: [(id, name, (x, y, z)), ...]
-        key_index: 坐标在元组中的索引（默认是第3项，即元组[2]）
-        tolerances: 每个维度允许的容差，例如 [Z差, Y差, X差]
-
-    返回：
-        排好序的新列表
+    对列表中的元组按多维坐标字段排序，考虑每个维度的容差进行逐层排序。
+    
+    Args:
+        lst: 元组列表，格式如 [(id, name, (x, y, z)), ...]
+        key_index: 坐标在元组中的索引，默认第3项
+        tolerances: 每个维度允许的容差，如 [Z差, Y差, X差]
+        
+    Returns:
+        list: 排好序的新列表
+    
+    Meta:
+        category: sorting
+        version: 2.0.0
     """
     # 最外层排序：按最高维降序排（Z从上往下）
     dim = len(tolerances)
@@ -160,47 +186,71 @@ def multi_dim_tolerance_sort(lst, key_index=2, tolerances=[10000, 1000, 0]):#高
     return recursive_sort(lst, 0)
 
 
-def get_ll_pt(ent):#提取函数，对象左下角点
+def get_ll_pt(ent):
+    """
+    提取对象的左下角点坐标。
+    
+    Args:
+        ent: COM实体对象
+        
+    Returns:
+        tuple: (x, y, 0) 坐标元组
+    
+    Meta:
+        category: extraction
+        version: 2.0.0
+    """
     minpt, _ = ent.GetBoundingBox()
     return minpt[0], minpt[1],0
 
-def get_center(ent):#提取函数，中心点
+def get_center(ent):
+    """
+    提取对象的中心点坐标。
+    
+    Args:
+        ent: COM实体对象
+        
+    Returns:
+        tuple: (x, y) 中心点坐标
+    
+    Meta:
+        category: extraction
+        version: 2.0.0
+    """
     minpt, maxpt = ent.GetBoundingBox()
     return ((minpt[0]+maxpt[0])/2, (minpt[1]+maxpt[1])/2)
 
 #&&% 实体位置排序
-def sort_entities_by_position( entity_list, extract_func, cha_Y=2000):#对com对象按提取坐标分别沿y,x方向排序
-        """
-        对实体列表根据其坐标（通过 extract_func 获取）进行排序：
-        - 先按 Y 值降序（从上到下）
-        - Y 值接近（差值 < cha_Y）者再按 X 值升序（从左到右）
-
-        参数：
-            entity_list: COM 实体对象列表
-            extract_func: 提取坐标函数，返回 (x, y) 元组的函数即可
-            cha_Y: 同一行判定的 Y 方向容差
-
-        返回：按坐标顺序排列的新实体对象列表
-
-        调用示例
-
-        sorted_objs = sort_entities_by_position(LB, extract_func=get_ll_pt)
+def sort_entities_by_position(entity_list, extract_func, cha_Y=2000):
+    """
+    对实体列表根据其坐标进行排序：先按Y值降序，Y值接近者再按X值升序。
+    
+    Args:
+        entity_list: COM实体对象列表
+        extract_func: 提取坐标函数，返回 (x, y) 元组
+        cha_Y: 同一行判定的Y方向容差
         
-        """
-        triples = [(ent, *extract_func(ent)) for ent in entity_list]
+    Returns:
+        list: 按坐标顺序排列的新实体对象列表
+    
+    Meta:
+        category: sorting
+        version: 2.0.0
+    """
+    triples = [(ent, *extract_func(ent)) for ent in entity_list]
 
-        # 按 Y 值降序排列
-        triples.sort(key=lambda t: -t[2])
+    # 按 Y 值降序排列
+    triples.sort(key=lambda t: -t[2])
 
-        i = 0
-        while i < len(triples) - 1:
-            j = i + 1
-            while j < len(triples) and abs(triples[i][2] - triples[j][2]) < cha_Y:
-                j += 1
-            triples[i:j] = sorted(triples[i:j], key=lambda t: t[1])  # 按 X 升序
-            i = j
+    i = 0
+    while i < len(triples) - 1:
+        j = i + 1
+        while j < len(triples) and abs(triples[i][2] - triples[j][2]) < cha_Y:
+            j += 1
+        triples[i:j] = sorted(triples[i:j], key=lambda t: t[1])  # 按 X 升序
+        i = j
 
-        return [t[0] for t in triples]
+    return [t[0] for t in triples]
 
 def get_line_start(ent):
     """
@@ -514,14 +564,19 @@ group3.AppendItems(vtobj(all_entities))
  get_boundingbox_from_objects(objs)
 """
 
-# 建立全部列表com对象的最小边界框
-#&&&% 边界框
-
-#&&% 获取对象群包围盒
-def get_boundingbox_from_objects(objs):#从列表com对象建立最小边界框
+def get_boundingbox_from_objects(objs):
     """
-    从一组图形对象（如 LB）中获取整体包围盒
-    返回值：(min_x, min_y, min_z), (max_x, max_y, max_z)
+    从一组图形对象获取整体包围盒。
+    
+    Args:
+        objs: COM对象列表
+        
+    Returns:
+        tuple: ((min_x, min_y, min_z), (max_x, max_y, max_z))
+    
+    Meta:
+        category: boundingbox
+        version: 2.0.0
     """
     min_point, max_point = None, None
 
@@ -589,14 +644,20 @@ def get_all_groups():
 
 
 
-#将多个com对象对象加入名为group_name的组
-#&&% 添加对象到组
 def add_objects_to_group(group_name, obj_list):
-
     """
-    将 obj_list 中的所有图形对象加入名为 group_name 的组中
-    如果组已存在，使用原组；否则新建
-    返回：Group 对象
+    将对象列表添加到指定名称的组中。
+    
+    Args:
+        group_name: 组名称
+        obj_list: COM对象列表
+        
+    Returns:
+        Group: 组对象
+    
+    Meta:
+        category: group
+        version: 2.0.0
     """
     groups = doc.Groups
     try:
@@ -1011,13 +1072,19 @@ LB[1].Label
 
 # 将列表对象按分类将其handle身份标识存入字典
 
-@alias("h")
-#&&% 句柄转对象
-def HandleToObject(ZF):#从Handle身份信息值回溯com对象
-
+def HandleToObject(ZF):
     """
-    对连接在墙上的门窗测试无效
-
+    从Handle身份信息值回溯COM对象。
+    
+    Args:
+        ZF: Handle字符串
+        
+    Returns:
+        COM对象
+    
+    Meta:
+        category: handle
+        version: 2.0.0
     """
 
     obj = doc.HandleToObject(ZF)
@@ -1428,10 +1495,26 @@ def write_cad_text(
     style="Standard",
     layer=None
 ):
-
     """
-    【架构适配版】在指定位置写入 CAD 单行文字。
-
+    在指定位置写入CAD单行文字。
+    
+    Args:
+        p: 插入点坐标
+        text: 文字内容
+        alignment: 对齐方式（左下/左上/右下/右上/中心）
+        height: 文字高度
+        width_factor: 宽度因子
+        rotation: 旋转角度
+        oblique: 倾斜角度
+        style: 文字样式
+        layer: 图层名称
+        
+    Returns:
+        文字对象 或 None
+    
+    Meta:
+        category: text
+        version: 2.0.0
     """
    
 
@@ -2094,9 +2177,23 @@ def scale_tianzheng_text_to_cad(
 
 
 @alias("s1")
-def sc_objs_to_layer(layer_name,cl=256):
+def sc_objs_to_layer(layer_name, cl=256):
+    """
+    将屏幕所选对象移动到指定图层。
+    
+    Args:
+        layer_name: 目标图层名称
+        cl: 颜色索引，默认256（随层）
+        
+    Returns:
+        list: 选中对象的列表
+    
+    Meta:
+        category: layer
+        version: 2.0.0
+    """
 
-    doc=C.doc
+    doc = C.doc
 
     def pmxz_new():
         """
@@ -2144,10 +2241,20 @@ def sc_objs_to_layer(layer_name,cl=256):
 #&&% 删除图层
 def delete_layer(layername: str):
     """
-    删除当前 DWG 文件中名为 layername 的图层。
-    - 如果图层不存在，直接返回。
-    - 如果图层是当前层，则切换到 0 层后再删除。
-    - 删除前会尝试解锁、去掉冻结/打印锁。
+    删除当前DWG文件中名为layername的图层。
+    
+    Args:
+        layername: 图层名称
+        
+    Returns:
+        None
+        
+    Raises:
+        图层不存在时直接返回
+        
+    Meta:
+        category: layer
+        version: 2.0.0
     """
     acad = win32com.client.gencache.EnsureDispatch("AutoCAD.Application")
     doc = acad.ActiveDocument
@@ -2295,10 +2402,19 @@ def dim_by_points(*args):
         return False
 
 
-#&&% 确保图层存在并清空
 def ensure_layer(layer_name="jizhunwall"):
     """
-    确保图层存在并设为当前图层，同时删除该图层上所有对象（最多重试 3 次）。
+    确保图层存在并设为当前图层，同时删除该图层上所有对象。
+    
+    Args:
+        layer_name: 图层名称
+        
+    Returns:
+        None
+    
+    Meta:
+        category: layer
+        version: 2.0.0
     """
     try:
         li()

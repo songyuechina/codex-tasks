@@ -1,0 +1,310 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_runner.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_procedure": {
+    "goal": "描述 print_runner.py 中每个函数在打印主链中的步骤骨架。",
+    "step_style": "graded",
+    "public_api": [
+      "run_print_case",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_make_process_token",
+      "signature": "def _make_process_token(dwg_path: Path) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 53,
+        "line_end": 55
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_make_run_dirs",
+      "signature": "def _make_run_dirs(dwg_path: Path, output_root: Path) -> tuple[Path, Path, Path]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 58,
+        "line_end": 65
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_normalize_path",
+      "signature": "def _normalize_path(path: str | Path) -> str:",
+      "level": "utility",
+      "role": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 68,
+        "line_end": 69
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_is_name_only_target",
+      "signature": "def _is_name_only_target(target_path: str | Path) -> bool:",
+      "level": "utility",
+      "role": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 72,
+        "line_end": 74
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_find_document_by_path",
+      "signature": "def _find_document_by_path(target_path: str | Path):",
+      "level": "utility",
+      "role": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "preconditions": [
+        "当前 CAD 会话应可访问目标文档或文档名。"
+      ],
+      "failure_paths": [
+        "目标文档定位失败时只能返回空值、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 77,
+        "line_end": 91
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_activate_document_by_path",
+      "signature": "def _activate_document_by_path(target_path: str | Path, retries: int=8, delay: float=0.5) -> bool:",
+      "level": "utility",
+      "role": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "preconditions": [
+        "当前 CAD 会话应可访问目标文档或文档名。"
+      ],
+      "failure_paths": [
+        "目标文档定位失败时只能返回空值、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 94,
+        "line_end": 120
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_close_document_by_path",
+      "signature": "def _close_document_by_path(target_path: str | Path, save_changes: bool=False) -> bool:",
+      "level": "utility",
+      "role": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "preconditions": [
+        "当前 CAD 会话应可访问目标文档或文档名。"
+      ],
+      "failure_paths": [
+        "目标文档定位失败时只能返回空值、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 123,
+        "line_end": 132
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_write_json",
+      "signature": "def _write_json(path: Path, payload: dict) -> Path:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输出路径不可写或磁盘文件被占用时写出失败。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 135,
+        "line_end": 138
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "run_print_case",
+      "signature": "def run_print_case(dwg_path: Path, output_root: Path, *, mode: str=PRINT_MODE_BASIC, include_model: bool=True, include_layouts: bool=True, only_layouts: list[str] | None=None, dry_run: bool=False, keep_open: bool=False, safety_delay: int=60, wps_threshold: int=6) -> dict:",
+      "level": "core",
+      "role": "执行单次 case 或主链流程，并把结果写入结构化产物。",
+      "preconditions": [
+        "输入 DWG 路径存在。",
+        "CAD 与 runtime guard 可正常工作。",
+        "输出根目录可写。"
+      ],
+      "failure_paths": [
+        "工作 DWG 不存在、打开失败或无法激活时直接抛错。",
+        "runtime guard 触发时由上层 CLI 转成结构化 guard error。"
+      ],
+      "success_conditions": [
+        "summary 中的 plan、execution、verification 字段可完整支持后续目录级调度和回归分析。"
+      ],
+      "must_keep_experience": [
+        "必须先在工作副本上执行，而不是直接污染源 DWG。",
+        "purified_adaptive 的 scope/content 两段收束必须发生在 execute_print_plan 之前。",
+        "summary 要同时保存 plan_json 路径和展开后的 plan 字典，便于机器和人工双重复用。"
+      ],
+      "evidence": {
+        "line_start": 141,
+        "line_end": 275
+      },
+      "steps": [
+        "归一化打印模式并启动 guardians/runtime guard 检查。",
+        "创建 run_root/work_dir/pdf_dir，把源 DWG 复制成工作副本并打开激活。",
+        "在 purified_adaptive 下先做 scope_analysis，再构建打印计划。",
+        "如为 purified_adaptive，则对计划执行内容分析、按最大伪极大范围和 pseudo handles 二次收束，并重新分配输出路径。",
+        "写出 print_plan.json 并在非 dry_run 且有 job 时执行打印与 PDF 校验。",
+        "把 execution、verification 与过程路径整理进 print_summary.json，必要时关闭工作 DWG。"
+      ],
+      "purpose": "围绕单个 DWG 完成打印主链：准备工作副本、可选 scope/content 分析、构建计划、执行打印、校验 PDF，并落盘 summary。",
+      "outputs": [
+        "返回单文件 print summary，包含 work_dwg、plan_json、content_analysis_json、scope_analysis_json、execution、verification 等信息。"
+      ],
+      "returns": [
+        "字典，作为 print_batch_dispatch 和人工调试的统一单文件结果对象。"
+      ],
+      "side_effects": [
+        "复制源 DWG 到工作目录、打开并激活 CAD 文档、写出 plan/content/scope/summary JSON，并可能生成 PDF。"
+      ],
+      "dependencies": [
+        "launch_cad_guardians",
+        "assert_runtime_guard_ok",
+        "run_scope_analysis_case",
+        "build_print_plan",
+        "analyze_jobs_content",
+        "filter_jobs_by_largest_pseudo_scope",
+        "filter_jobs_by_handles",
+        "execute_print_plan",
+        "verify_generated_pdfs"
+      ],
+      "risk_level": "high"
+    },
+    {
+      "name": "main",
+      "signature": "def main() -> None:",
+      "level": "core",
+      "role": "提供命令行入口，解析参数后调用主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "RuntimeGuardTriggered 时不会返回正常 summary，而是转换为 guard error JSON。"
+      ],
+      "success_conditions": [
+        "CLI 输出可直接被总管或人工消费。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 278,
+        "line_end": 316
+      },
+      "steps": [
+        "配置 utf-8 输出。",
+        "解析 dwg、output-root、mode、layout、dry-run、keep-open 等参数。",
+        "调用 run_print_case。",
+        "正常时打印 summary JSON，guard 触发时打印结构化错误并以退出码 2 结束。"
+      ],
+      "purpose": "提供单文件打印 CLI，负责把命令行参数映射到 run_print_case 并处理 runtime guard 异常输出。"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "pdf",
+      "orchestration"
+    ],
+    "script_focus": "围绕单个 DWG 组织 run 目录、构建打印计划、执行打印、校验结果并输出过程产物。"
+  },
+  "quality": {
+    "todo": [
+      "steps 为静态骨架摘要，未展开每个 CAD/COM 细节分支。",
+      "复杂阈值或外部环境异常处理仍建议结合真实案例进一步人工细化。"
+    ],
+    "function_count": 10,
+    "public_api_count": 2,
+    "core_function_count": 2
+  }
+}

@@ -5,7 +5,30 @@
 本文件用于指导 Codex 等命令行智能体理解并操作整个 `codex-tasks` 项目。  
 目标不是让智能体机械继承旧代码形式，而是让它迅速理解系统骨架、核心经验、稳定核心、重构边界，并在规则约束下完成高质量修改与重构。
 
-本项目当前已经进入“项目总管 + 角色智能体 + 领域智能体”的结构。
+本项目当前已经进入“项目总管 + 四角色智能体能力层 + 领域执行工作区 + 运行监督链”的结构。
+
+## 0. 新智能体首读协议
+
+任何刚进入 `D:/codex-tasks/` 的新智能体，不应直接从源码或局部脚本开始。
+
+必须先读：
+
+1. `folder.meta.json`
+2. `thoughtway/PROJECT_SUPERVISOR_ARCHITECTURE.md`
+3. `thoughtway/CURRENT_STATE.md`
+4. `thoughtway/TERMINOLOGY.md`
+5. 再继续阅读本文件 `AGENTS.md`
+
+目的：
+
+- 先建立项目总图
+- 先知道当前工作进行到哪里、下一步建议做什么
+- 先明确项目总管、四角色能力层、领域执行工作区、运行监督链的关系
+- 避免把 `dwg_agents_ops/` 误判为项目总管本体
+- 避免把 `print/` 误判为孤立脚本集合
+- 避免忽略 `cad_runtime_guard.py + Runtime_Guard_Agent` 的监督链设计
+
+若未完成上述首读，不应直接判定系统架构，也不应直接开始真实 CAD / 打印任务。
 
 含义如下：
 
@@ -17,8 +40,9 @@
 
 - `thoughtway/` 负责沉淀项目级思想、系统知识、治理规则、经验记录
 - `dwg_agents_ops/` 负责角色化协作层
-- 各业务目录可继续建设自己的领域智能体，例如：
-  - `cad/scripts/drawing_basic_service/print/` 作为打印智能体工作区
+- `cad/system/` 负责统一连接、执行内核与运行监督底座
+- 各业务目录可继续建设自己的领域执行工作区，例如：
+  - `cad/scripts/drawing_basic_service/print/` 作为打印执行工作区
 
 ---
 
@@ -61,18 +85,36 @@
 
 进入项目后，优先阅读：
 
-1. `thoughtway/meta_json_principles.md`
-2. `thoughtway/functions_scripting_rules/01_bootstrap_import_rules.md`
-3. `thoughtway/functions_scripting_rules/02_logging_rules.md`
-4. `thoughtway/functions_scripting_rules/03_entry_script_rules.md`
-5. `thoughtway/functions_scripting_rules/04_business_module_rules.md`
-6. `thoughtway/functions_scripting_rules/05_exception_handling_rules.md`
-7. `thoughtway/functions_scripting_rules/06_cad_connection_rules_licad_C.md`
-8. `thoughtway/CAD_RUNTIME_GUARD_RULES.md`
+1. `folder.meta.json`
+2. `thoughtway/PROJECT_SUPERVISOR_ARCHITECTURE.md`
+3. `thoughtway/CURRENT_STATE.md`
+4. `thoughtway/TERMINOLOGY.md`
+
+若只是为了快速接手当前项目，不要先读完整清单，先完成上面 4 个文件即可。
+
+完成最短接手后，再继续扩展阅读：
+
+5. `thoughtway/PROJECT_GOVERNANCE.md`
+6. `thoughtway/SYSTEM_FOUNDATIONS.md`
+7. `thoughtway/PROJECT_MEMORY_SYSTEM.md`
+8. `thoughtway/meta_json_principles.md`
+9. `thoughtway/functions_scripting_rules/01_bootstrap_import_rules_v2.md`
+10. `thoughtway/functions_scripting_rules/02_logging_rules_v2.md`
+11. `thoughtway/functions_scripting_rules/03_entry_script_rules_v2.md`
+12. `thoughtway/functions_scripting_rules/04_business_module_rules_v2.md`
+13. `thoughtway/functions_scripting_rules/05_exception_handling_rules_v2.md`
+14. `thoughtway/functions_scripting_rules/06_cad_connection_rules_licad_C_v2.md`
+15. `thoughtway/CAD_RUNTIME_GUARD_RULES.md`
 
 然后进入：
 
-9. `cad/system/README.md`
+16. `dwg_agents_ops/README.md`
+17. `dwg_agents_ops/agent_control/UNIFIED_CONTROL.md`
+18. `dwg_agents_ops/agent_control/RUNTIME_EVENT_PROTOCOL.md`
+19. `cad/system/folder.meta.json`
+20. `cad/system/README.md`
+21. `cad/scripts/drawing_basic_service/print/folder.meta.json`
+22. `cad/scripts/drawing_basic_service/print/README.md`
 
 之后按 `cad/system/README.md` 的推荐顺序继续阅读：
 
@@ -93,6 +135,12 @@
 2. 若检测到纯 CAD 或疑似非天正环境，将走哪个恢复入口
 
 若这两件事未被明确，不应直接开始操作 DWG。
+
+对于打印任务，还必须再明确第三件事：
+
+3. 当前是否处于“项目总管调度打印主链 + 运行监督链并行监督”的监督版架构下
+
+若当前架构未被明确，不应把打印主链误判为裸执行脚本。
 
 ---
 
@@ -324,6 +372,14 @@ bootstrap / `sys.path` 引导只由入口脚本负责。
 
 ---
 
-# 11. 当前最重要的一句话
+# 11. 新主管进入后必须立即能回答的问题
+
+1. 当前项目总管工作区是不是 `D:/codex-tasks`
+2. `dwg_agents_ops/` 是不是项目总管本体
+3. 当前第一优先级领域是不是 `cad/scripts/drawing_basic_service/print/`
+4. 打印主链是不是在 `cad_runtime_guard.py + Runtime_Guard_Agent` 的监督下推进
+5. 真正进入脚本细节前，是否已经先读完目录级 `folder.meta.json`、架构文档和基础治理文档
+
+# 12. 当前最重要的一句话
 
 > 这个项目的目标不是保存旧代码原样，而是让智能体能够在规则、骨架、函数级概括、案例和经验的支持下，迅速理解系统、迅速定位函数、迅速完成高质量重构。

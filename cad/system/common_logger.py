@@ -184,7 +184,7 @@ def set_debug_mode(
 
     try:
         sys_logger.info(
-            f"🔧 调试配置更新: Mode={DEBUG_CONFIG['MODE']}, "
+            f"[debug] 调试配置更新: Mode={DEBUG_CONFIG['MODE']}, "
             f"Who={DEBUG_CONFIG['WHO']}, "
             f"Wait={DEBUG_CONFIG['WAIT']}s, "
             f"LogLevel={desired}"
@@ -248,7 +248,7 @@ def record_test_result(
         ws.append(row_data)
         wb.save(TEST_EXCEL_PATH)
     except Exception as e:
-        sys_logger.error(f"❌ Excel Error: {e}")
+        sys_logger.error(f"[excel_error] {e}")
 
 
 # ==========================================
@@ -332,7 +332,7 @@ class CriticalSection:
         if exc_type:
             self.is_pass = False
             self.metrics["error"] = str(exc_val)
-            sys_logger.error(f"❌ 区域崩溃: {exc_val}")
+            sys_logger.error(f"[critical_section_crash] {exc_val}")
         else:
             self.is_pass = "error" not in self.metrics
 

@@ -1,0 +1,258 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_area_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "quote": {
+    "goal": "从 CAD 文档中识别候选打印区域，清理伪极大矩形，并与标准图幅、方向和比例规则进行匹配。",
+    "public_api": [
+      "get_print_area_polylines",
+      "get_pseudo_maximal_polylines",
+      "match_standard_print_by_mode",
+      "remove_pseudo_maxima_in_space"
+    ],
+    "script_role": "打印区域识别与标准图幅匹配脚本",
+    "system_position": {
+      "layer_name": "打印区域分析层",
+      "works_with": [
+        "system.licad",
+        "system.CAD_selection",
+        "print_policy.py",
+        "print_batch_dispatch.py"
+      ],
+      "main_entry_note": "print_area_analysis.py 主要通过 get_print_area_polylines, get_pseudo_maximal_polylines, match_standard_print_by_mode 等入口服务打印主链。"
+    },
+    "must_keep_experience": [
+      "矩形识别、标准图幅匹配与伪极大过滤不能割裂处理。",
+      "purified_adaptive 依赖本脚本输出的候选区域和伪极大范围。"
+    ],
+    "known_limits": [
+      "矩形和标准图幅判断包含经验阈值，后续仍需靠案例回归持续收束。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_safe_delete",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_bbox_xy",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_bbox_wh_from_bbox",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_eps_from_short_side",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_cluster_1d",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_cluster_points_2d",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_get_polyline_points",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "is_rectangular_polyline",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "select_all_polylines",
+      "role": "按 CAD 条件选取目标实体集合。",
+      "level": "normal",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "get_rect_polylines_by_space",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "build_std288",
+      "role": "构造中间配置、缓存或计划对象，供主流程复用。",
+      "level": "normal",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "get_std288_cached",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "get_std288_bounds",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_orientation_from_bbox",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_match_score",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_within_supported_bounds",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "check_strict_standard_print_polyline",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "match_nearest_standard_print",
+      "role": "执行匹配、评分或模式归一逻辑。",
+      "level": "normal",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "match_standard_print_by_mode",
+      "role": "执行匹配、评分或模式归一逻辑。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "remove_duplicate_polylines_dynamic",
+      "role": "删除重复、伪候选或不再需要的对象。",
+      "level": "normal",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_contains_bbox",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "find_maximal_rect_polylines",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "collect_pseudo_maximal_rect_polylines",
+      "role": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "level": "normal",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_add_edge_lines_and_delete",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_is_standard_scale_1",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "remove_pseudo_maxima_in_space",
+      "role": "删除重复、伪候选或不再需要的对象。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "get_print_area_polylines",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "get_pseudo_maximal_polylines",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_debug_dump_standard_matches",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "geometry",
+      "print-analysis"
+    ],
+    "script_focus": "打印区域识别与标准图幅匹配脚本"
+  },
+  "quality": {
+    "todo": [
+      "当前脚本级 meta 已覆盖主角色与 public_api，后续如职责明显变化应同步刷新。",
+      "函数级语义摘要主要由 AST 与命名规则生成，复杂分支后续可按案例继续细化。"
+    ],
+    "function_count": 29,
+    "public_api_count": 4
+  }
+}

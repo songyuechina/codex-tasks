@@ -1,0 +1,731 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_area_content_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_procedure": {
+    "goal": "描述 print_area_content_analysis.py 中每个函数在打印主链中的步骤骨架。",
+    "step_style": "graded",
+    "public_api": [
+      "collect_area_content_metrics",
+      "classify_pseudo_print_area_candidates",
+      "analyze_jobs_content",
+      "run_content_analysis_case",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_safe_handle",
+      "signature": "def _safe_handle(obj: Any) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 82,
+        "line_end": 86
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_bbox_xy",
+      "signature": "def _bbox_xy(ent: Any) -> tuple[float, float, float, float] | None:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 89,
+        "line_end": 98
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_contains_bbox",
+      "signature": "def _contains_bbox(outer: tuple[float, float, float, float], inner: tuple[float, float, float, float], tol: float) -> bool:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 101,
+        "line_end": 111
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_entity_bbox_points",
+      "signature": "def _get_entity_bbox_points(ent: Any):",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 115,
+        "line_end": 116
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_collection_count",
+      "signature": "def _get_collection_count(collection: Any) -> int:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 120,
+        "line_end": 121
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_collection_item",
+      "signature": "def _get_collection_item(collection: Any, index: int) -> Any:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 125,
+        "line_end": 126
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_layout_block_name",
+      "signature": "def _get_layout_block_name(layout: Any) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 130,
+        "line_end": 131
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_entity_object_name",
+      "signature": "def _get_entity_object_name(ent: Any) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 135,
+        "line_end": 136
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_entity_layer",
+      "signature": "def _get_entity_layer(ent: Any) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 140,
+        "line_end": 141
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_text_string",
+      "signature": "def _get_text_string(ent: Any) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 145,
+        "line_end": 146
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_iter_collection_entities",
+      "signature": "def _iter_collection_entities(collection: Any) -> Iterable[Any]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 149,
+        "line_end": 155
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_iter_space_entities",
+      "signature": "def _iter_space_entities(owner_btr_name: str) -> Iterable[Any]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 158,
+        "line_end": 173
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "collect_space_entity_snapshots",
+      "signature": "def collect_space_entity_snapshots(owner_btr_name: str) -> list[EntitySnapshot]:",
+      "level": "normal",
+      "role": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "返回结果可被上层流程直接消费。"
+      ],
+      "must_keep_experience": [
+        "返回结构应与上层 plan/job/summary 消费接口保持兼容。"
+      ],
+      "evidence": {
+        "line_start": 176,
+        "line_end": 206
+      },
+      "steps": [
+        "读取输入对象或候选集合。",
+        "执行当前函数负责的分析、匹配或过滤逻辑。",
+        "返回供上层继续消费的结果。"
+      ]
+    },
+    {
+      "name": "_iter_candidate_snapshots",
+      "signature": "def _iter_candidate_snapshots(snapshots: list[EntitySnapshot], area_bbox: tuple[float, float, float, float], area_handle: str, tol: float) -> Iterable[EntitySnapshot]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 209,
+        "line_end": 222
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "collect_area_content_metrics_from_bbox",
+      "signature": "def collect_area_content_metrics_from_bbox(area_bbox: tuple[float, float, float, float], *, owner_btr_name: str, area_handle: str='', tol_factor: float=0.0005, snapshots: list[EntitySnapshot] | None=None) -> AreaContentMetrics | None:",
+      "level": "normal",
+      "role": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "返回结果可被上层流程直接消费。"
+      ],
+      "must_keep_experience": [
+        "返回结构应与上层 plan/job/summary 消费接口保持兼容。"
+      ],
+      "evidence": {
+        "line_start": 225,
+        "line_end": 288
+      },
+      "steps": [
+        "读取输入对象或候选集合。",
+        "执行当前函数负责的分析、匹配或过滤逻辑。",
+        "返回供上层继续消费的结果。"
+      ]
+    },
+    {
+      "name": "collect_area_content_metrics",
+      "signature": "def collect_area_content_metrics(area_obj: Any, *, owner_btr_name: str, tol_factor: float=0.0005) -> AreaContentMetrics | None:",
+      "level": "core",
+      "role": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "返回结果可被上层流程直接消费。"
+      ],
+      "must_keep_experience": [
+        "返回结构应与上层 plan/job/summary 消费接口保持兼容。"
+      ],
+      "evidence": {
+        "line_start": 291,
+        "line_end": 305
+      },
+      "steps": [
+        "读取输入对象或候选集合。",
+        "执行当前函数负责的分析、匹配或过滤逻辑。",
+        "返回供上层继续消费的结果。"
+      ]
+    },
+    {
+      "name": "classify_pseudo_print_area_candidates",
+      "signature": "def classify_pseudo_print_area_candidates(metrics_list: list[AreaContentMetrics]) -> list[dict[str, Any]]:",
+      "level": "core",
+      "role": "按启发式规则对候选对象进行分类或打标签。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [
+        "伪区域判断要基于相对基线，而不是只用固定绝对阈值。"
+      ],
+      "evidence": {
+        "line_start": 308,
+        "line_end": 358
+      },
+      "steps": [
+        "先计算 complexity/entity 的中位数基线。",
+        "逐候选计算 very_low_complexity、very_few_entities、simple_content_only、low_fill 等条件。",
+        "综合条件给出 pseudo_candidate 标记和 reasons。"
+      ],
+      "purpose": "基于复杂度、中值基线、实体数量和填充率，把候选区域判定为 pseudo candidate 或 valid area。",
+      "outputs": [
+        "返回带 pseudo_candidate 和 reasons 的指标列表。"
+      ],
+      "returns": [
+        "列表；每项都补充 baselines、reasons 和 pseudo_candidate 标记。"
+      ],
+      "risk_level": "medium"
+    },
+    {
+      "name": "analyze_job_content_candidates",
+      "signature": "def analyze_job_content_candidates(jobs: list[dict[str, Any]], *, owner_btr_name: str, snapshots: list[EntitySnapshot] | None=None) -> list[dict[str, Any]]:",
+      "level": "normal",
+      "role": "围绕输入对象执行分析流程，并输出结构化结果。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "返回结果可被上层流程直接消费。"
+      ],
+      "must_keep_experience": [
+        "返回结构应与上层 plan/job/summary 消费接口保持兼容。"
+      ],
+      "evidence": {
+        "line_start": 361,
+        "line_end": 401
+      },
+      "steps": [
+        "读取输入对象或候选集合。",
+        "执行当前函数负责的分析、匹配或过滤逻辑。",
+        "返回供上层继续消费的结果。"
+      ]
+    },
+    {
+      "name": "_job_get",
+      "signature": "def _job_get(job: Any, name: str, default: Any=None) -> Any:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 404,
+        "line_end": 407
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "analyze_jobs_content",
+      "signature": "def analyze_jobs_content(jobs_by_space: dict[str, list[Any]]) -> dict[str, Any]:",
+      "level": "core",
+      "role": "围绕输入对象执行分析流程，并输出结构化结果。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "返回结果可被上层流程直接消费。"
+      ],
+      "must_keep_experience": [
+        "content analysis 输出必须保留 pseudo_candidates 和按空间 rows，供后续过滤与调试。"
+      ],
+      "evidence": {
+        "line_start": 410,
+        "line_end": 467
+      },
+      "steps": [
+        "逐空间收集实体快照并转换 job 字典。",
+        "调用 analyze_job_content_candidates 生成每个 job 的内容指标。",
+        "汇总 all_rows，并筛出 pseudo_candidates 与最低复杂度样本。"
+      ],
+      "purpose": "按空间批量分析 job 的内容复杂度，并输出 pseudo candidates、lowest12_by_complexity 和 rows_by_space。",
+      "outputs": [
+        "返回 content analysis 总结果字典。"
+      ],
+      "returns": [
+        "字典，包含 snapshot_count、total_areas、pseudo_candidates、jobs_by_space 等。"
+      ],
+      "risk_level": "high"
+    },
+    {
+      "name": "_normalize_path",
+      "signature": "def _normalize_path(path: str | Path) -> str:",
+      "level": "utility",
+      "role": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 470,
+        "line_end": 471
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_is_name_only_target",
+      "signature": "def _is_name_only_target(target_path: str | Path) -> bool:",
+      "level": "utility",
+      "role": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 474,
+        "line_end": 476
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_find_document_by_path",
+      "signature": "def _find_document_by_path(target_path: str | Path):",
+      "level": "utility",
+      "role": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "preconditions": [
+        "当前 CAD 会话应可访问目标文档或文档名。"
+      ],
+      "failure_paths": [
+        "目标文档定位失败时只能返回空值、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 479,
+        "line_end": 493
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_activate_document_by_path",
+      "signature": "def _activate_document_by_path(target_path: str | Path, retries: int=8, delay: float=0.5) -> bool:",
+      "level": "utility",
+      "role": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "preconditions": [
+        "当前 CAD 会话应可访问目标文档或文档名。"
+      ],
+      "failure_paths": [
+        "目标文档定位失败时只能返回空值、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 496,
+        "line_end": 521
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_close_document_by_path",
+      "signature": "def _close_document_by_path(target_path: str | Path, save_changes: bool=False) -> bool:",
+      "level": "utility",
+      "role": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "preconditions": [
+        "当前 CAD 会话应可访问目标文档或文档名。"
+      ],
+      "failure_paths": [
+        "目标文档定位失败时只能返回空值、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 524,
+        "line_end": 532
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_load_jobs_from_plan_json",
+      "signature": "def _load_jobs_from_plan_json(plan_json_path: Path) -> dict[str, list[dict[str, Any]]]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 535,
+        "line_end": 537
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "run_content_analysis_case",
+      "signature": "def run_content_analysis_case(*, dwg_path: Path, output_path: Path, plan_json_path: Path | None=None, mode: str=PRINT_MODE_ADAPTIVE, include_model: bool=True, include_layouts: bool=True, only_layouts: list[str] | None=None, keep_open: bool=False) -> dict[str, Any]:",
+      "level": "core",
+      "role": "执行单次 case 或主链流程，并把结果写入结构化产物。",
+      "preconditions": [
+        "输入路径、计划或 job 集合应已准备完成。"
+      ],
+      "failure_paths": [
+        "目标文档、计划或外部环境不可用时流程失败。"
+      ],
+      "success_conditions": [
+        "目标产物已生成，且返回 summary、路径或状态对象。"
+      ],
+      "must_keep_experience": [
+        "内容分析既能消费现有 plan.json，也能在独立模式下自己补建临时计划。"
+      ],
+      "evidence": {
+        "line_start": 540,
+        "line_end": 592
+      },
+      "steps": [
+        "确保 DWG 已打开激活，并通过 runtime guard 检查。",
+        "优先读取现有 plan_json；否则临时构建打印计划。",
+        "调用 analyze_jobs_content 生成分析结果。",
+        "写出 output_path，并按 need_open/keep_open 决定是否关图。"
+      ],
+      "purpose": "围绕单个 DWG 执行内容分析闭环，必要时临时构建打印计划，并写出 content_analysis.json。",
+      "outputs": [
+        "返回 content analysis 结果字典，并写出 output_path。"
+      ],
+      "returns": [
+        "字典。"
+      ],
+      "risk_level": "high"
+    },
+    {
+      "name": "main",
+      "signature": "def main() -> None:",
+      "level": "core",
+      "role": "提供命令行入口，解析参数后调用主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 595,
+        "line_end": 638
+      },
+      "steps": [
+        "解析命令行参数。",
+        "把参数整理为主流程所需输入。",
+        "调用主流程函数并输出结果。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "content-analysis",
+      "print-analysis"
+    ],
+    "script_focus": "对候选打印区域内部内容做实体密度、文字、块与边框信息分析，识别伪打印区域，为 purified_adaptive 模式提供过滤依据。"
+  },
+  "quality": {
+    "todo": [
+      "steps 为静态骨架摘要，未展开每个 CAD/COM 细节分支。",
+      "复杂阈值或外部环境异常处理仍建议结合真实案例进一步人工细化。"
+    ],
+    "function_count": 28,
+    "public_api_count": 5,
+    "core_function_count": 5
+  }
+}

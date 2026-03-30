@@ -1,0 +1,79 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "CAD_coordination",
+  "file_path": "D:/codex-tasks/cad/system/CAD_coordination.py",
+  "applicable_scenarios": [
+    "需要在执行 CAD 操作前后等待真正空闲",
+    "需要为一段高风险 CAD 操作提供事务边界与局部回滚",
+    "需要在修改 DWG 文件前先物理备份，失败后恢复",
+    "需要把业务动作包装成可校验、可重试的安全循环",
+    "需要 SendCommand 后同步等待命令真正完成"
+  ],
+  "preconditions": [
+    "应先由 system.licad 的 C 建立 CAD 连接",
+    "日志系统应已由 common_logger.py 提供 sys_logger",
+    "动作函数与校验函数应由调用方准备好；本模块不生成业务动作本身"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "等待空闲",
+      "detail": "用 wait_quiescent 读取 C.raw_doc 的命令状态；读取失败先视为 busy/COM_Block。"
+    },
+    {
+      "step": 2,
+      "name": "建立事务边界",
+      "detail": "用 CADGuard 包裹高风险操作，进入前等待、必要时创建 Undo 标记、退出时做刷新与后置等待。"
+    },
+    {
+      "step": 3,
+      "name": "失败时局部回滚",
+      "detail": "事务异常时记录 error，必要时 EndUndoMark 后发送 '_U' 执行局部回滚。"
+    },
+    {
+      "step": 4,
+      "name": "文件级保护",
+      "detail": "用 FileGuard 在动作前创建物理备份，校验失败或异常时关闭 CAD 并恢复原文件。"
+    },
+    {
+      "step": 5,
+      "name": "安全循环",
+      "detail": "用 run_safety_loop 把备份、打开文件、执行业务动作、结果校验、失败重试串成闭环。"
+    },
+    {
+      "step": 6,
+      "name": "命令同步",
+      "detail": "用 send_cmd_with_sync 基于 C.raw_doc 发送命令并等待 wait_quiescent 通过。"
+    }
+  ],
+  "success_criteria": [
+    "CAD 空闲判定稳定，不会因为短时 COM 阻塞就误判失败",
+    "事务内失败时能执行局部回滚，而不是让状态失控",
+    "文件校验失败时能回滚到原 DWG",
+    "SendCommand 后能等待到命令真正完成"
+  ],
+  "failure_criteria": [
+    "把本模块误用成 CAD 主连接入口",
+    "重写时丢失 CADGuard 的嵌套/Undo/局部回滚经验",
+    "重写时丢失 FileGuard 的备份-恢复闭环",
+    "send_cmd_with_sync 不再基于 C.raw_doc，重新引入同步死锁风险"
+  ],
+  "do_not_use_for": [
+    "不要把本模块当作 CAD 连接入口",
+    "不要把与等待/事务/回滚无关的大量业务逻辑继续塞进本模块",
+    "不要绕过 wait_quiescent 直接假设命令已完成",
+    "不要去掉与 scripts.CAD_basic 的历史兼容前就贸然删除相关脚本"
+  ],
+  "integration_with_other_modules": {
+    "licad.py": "先连接，再由本模块处理等待、事务、回滚与命令同步",
+    "common_logger.py": "统一日志入口；本模块所有关键路径应通过 sys_logger 记录",
+    "CAD_com_utils.py": "retry_on_busy 由 COM 辅助层提供；本模块在 send_cmd_with_sync 上直接复用",
+    "scripts.CAD_basic": "当前仍承担 open_file / start_applicationV9 / close_all_cad_processes 的历史兼容角色"
+  },
+  "rewrite_constraints": [
+    "允许继续拆分成 wait/guard/file/safety/command_sync 子模块",
+    "允许逐步去掉对 scripts.CAD_basic 的历史兼容依赖",
+    "不得丢失等待空闲、事务局部回滚、文件物理回滚与命令同步这四组核心经验"
+  ]
+}

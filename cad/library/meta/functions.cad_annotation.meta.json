@@ -1,0 +1,179 @@
+{
+  "functions": {
+    "write_cad_text": {
+      "level": "core",
+      "description": "在CAD中写入单行文字",
+      "params": {
+        "text_content": "文字内容",
+        "insertion_point": "插入点(x,y,z)",
+        "height": "文字高度，默认250",
+        "rotation": "旋转角度(弧度)，默认0",
+        "style": "文字样式，默认Standard",
+        "layer_name": "图层名称",
+        "color_index": "颜色索引，默认256"
+      },
+      "returns": "文字对象或None"
+    },
+    "write_mtext": {
+      "level": "core",
+      "description": "在CAD中写入多行文字",
+      "params": {
+        "text_content": "文字内容",
+        "insertion_point": "插入点(x,y,z)",
+        "width": "文字框宽度，默认1000",
+        "height": "文字高度，默认250",
+        "attachment_point": "附着点(1-9)",
+        "layer_name": "图层名称"
+      },
+      "returns": "多行文字对象或None"
+    },
+    "add_dim_aligned": {
+      "level": "core",
+      "description": "添加对齐标注",
+      "params": {
+        "p1": "第一个标注点",
+        "p2": "第二个标注点",
+        "p3": "标注线位置点"
+      },
+      "returns": "标注对象或None"
+    },
+    "add_dim_rotated": {
+      "level": "core",
+      "description": "添加旋转标注",
+      "params": {
+        "p1": "第一个标注点",
+        "p2": "第二个标注点",
+        "p3": "标注线位置点",
+        "angle": "旋转角度(弧度)"
+      },
+      "returns": "标注对象或None"
+    },
+    "add_dim_angular": {
+      "level": "normal",
+      "description": "添加角度标注",
+      "params": {
+        "vertex": "角顶点",
+        "p1": "第一条边上的点",
+        "p2": "第二条边上的点",
+        "p3": "标注文字位置"
+      },
+      "returns": "标注对象或None"
+    },
+    "add_dim_radial": {
+      "level": "normal",
+      "description": "添加半径标注",
+      "params": {
+        "center": "圆心",
+        "chord_point": "圆上一点",
+        "leader_length": "引线长度"
+      },
+      "returns": "标注对象或None"
+    },
+    "add_dim_diametric": {
+      "level": "normal",
+      "description": "添加直径标注",
+      "params": {
+        "chord_point": "圆上第一点",
+        "far_chord_point": "圆上对侧点",
+        "leader_length": "引线长度"
+      },
+      "returns": "标注对象或None"
+    },
+    "add_leader": {
+      "level": "normal",
+      "description": "添加引线",
+      "params": {
+        "points": "引线点列表",
+        "annotation": "注释对象(可选)"
+      },
+      "returns": "引线对象或None"
+    },
+    "get_text_content": {
+      "level": "utility",
+      "description": "获取文字对象的内容",
+      "params": {"text_obj": "文字对象"},
+      "returns": "文字内容字符串或None"
+    },
+    "set_text_content": {
+      "level": "utility",
+      "description": "设置文字对象的内容",
+      "params": {
+        "text_obj": "文字对象",
+        "new_content": "新文字内容"
+      },
+      "returns": "True/False"
+    },
+    "get_text_height": {
+      "level": "utility",
+      "description": "获取文字高度",
+      "params": {"text_obj": "文字对象"},
+      "returns": "高度值或None"
+    },
+    "set_text_height": {
+      "level": "utility",
+      "description": "设置文字高度",
+      "params": {
+        "text_obj": "文字对象",
+        "height": "高度值"
+      },
+      "returns": "True/False"
+    },
+    "get_text_rotation": {
+      "level": "utility",
+      "description": "获取文字旋转角度",
+      "params": {"text_obj": "文字对象"},
+      "returns": "旋转角度(弧度)或None"
+    },
+    "set_text_rotation": {
+      "level": "utility",
+      "description": "设置文字旋转角度",
+      "params": {
+        "text_obj": "文字对象",
+        "rotation": "旋转角度(弧度)"
+      },
+      "returns": "True/False"
+    },
+    "batch_modify_text": {
+      "level": "normal",
+      "description": "批量修改文字属性",
+      "params": {
+        "text_objs": "文字对象列表",
+        "**kwargs": "height/rotation/content等"
+      },
+      "returns": "成功修改的数量"
+    },
+    "create_table": {
+      "level": "normal",
+      "description": "创建表格",
+      "params": {
+        "insertion_point": "插入点",
+        "rows": "行数",
+        "cols": "列数",
+        "row_height": "行高",
+        "col_width": "列宽"
+      },
+      "returns": "表格对象或None"
+    },
+    "set_table_cell_text": {
+      "level": "utility",
+      "description": "设置表格单元格文字",
+      "params": {
+        "table_obj": "表格对象",
+        "row": "行号(从0开始)",
+        "col": "列号(从0开始)",
+        "text": "文字内容"
+      },
+      "returns": "True/False"
+    },
+    "get_table_cell_text": {
+      "level": "utility",
+      "description": "获取表格单元格文字",
+      "params": {
+        "table_obj": "表格对象",
+        "row": "行号",
+        "col": "列号"
+      },
+      "returns": "单元格文字内容"
+    }
+  }
+}

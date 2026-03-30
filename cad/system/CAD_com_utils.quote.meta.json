@@ -1,0 +1,72 @@
+{
+  "meta_version": "V2.0",
+  "layer": "quote",
+  "module_name": "CAD_com_utils",
+  "file_path": "D:/codex-tasks/cad/system/CAD_com_utils.py",
+  "script_role": "CAD COM 调用辅助脚本",
+  "core_problem": "在 CAD COM 调用中处理 busy / rejected / temporary block 等高频不稳定问题，并在高频轮询阶段减少 info/debug 日志噪声。",
+  "system_position": {
+    "layer_name": "COM 辅助层",
+    "not_main_entry": true,
+    "main_entry_note": "真正的 CAD 连接主入口仍然是 system.licad.py 的 C 类",
+    "works_with": [
+      "system.licad.py",
+      "system.common_logger.py",
+      "system.CAD_coordination.py"
+    ]
+  },
+  "core_functions": [
+    {
+      "name": "retry_on_busy",
+      "role": "核心重试装饰器",
+      "input_shape": "函数对象，或 max_retries/base_delay 参数",
+      "output_shape": "带 busy 重试能力的包装函数"
+    },
+    {
+      "name": "retry_if_busy",
+      "role": "旧接口兼容包装",
+      "input_shape": "max_retries, delay",
+      "output_shape": "等价于 retry_on_busy 的装饰器"
+    },
+    {
+      "name": "SafeCOM.call",
+      "role": "对单次 COM 调用进行安全包装",
+      "input_shape": "func, *args, **kwargs",
+      "output_shape": "原函数结果或抛异常"
+    },
+    {
+      "name": "SafeCOM.list_selection",
+      "role": "把选择集稳定转换为 list",
+      "input_shape": "selection_set",
+      "output_shape": "list；失败时返回 []"
+    },
+    {
+      "name": "silent_mode",
+      "role": "局部静音 info/debug",
+      "input_shape": "上下文管理器，无显式参数",
+      "output_shape": "上下文期间静音 sys_logger.info/debug"
+    },
+    {
+      "name": "timeit",
+      "role": "记录耗时与异常",
+      "input_shape": "函数对象",
+      "output_shape": "带耗时日志的包装函数"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "silent_mode 会在上下文内临时替换 sys_logger.info/debug",
+    "warning / error / critical 不会被静音",
+    "本模块不负责建立 CAD 连接",
+    "本模块不负责项目引导",
+    "本模块不应 monkey patch common_logger.sys_logger"
+  ],
+  "must_keep_experience": [
+    "busy / rejected 的错误码与字符串判据",
+    "PumpWaitingMessages + 退避等待的重试经验",
+    "轮询阶段仅静音 info/debug、保留 warning/error 的策略"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续瘦身和重组实现，但不能丢失 COM busy 重试经验，也不能把本模块重新扩张为大杂烩辅助脚本。"
+  }
+}

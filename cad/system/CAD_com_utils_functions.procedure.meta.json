@@ -1,0 +1,611 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_com_utils.py",
+    "path": "D:/codex-tasks/cad/system/CAD_com_utils.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "封装 CAD / COM busy、rejected、临时阻塞场景的可复用重试与调试辅助。",
+    "step_style": "graded",
+    "public_api": [
+      "silent_mode",
+      "retry_on_busy",
+      "retry_if_busy",
+      "SafeCOM.call",
+      "SafeCOM.list_selection",
+      "alias",
+      "node",
+      "timeit",
+      "debuggable"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_dummy_func",
+      "symbol": "_dummy_func",
+      "qualname": "_dummy_func",
+      "level": "utility",
+      "signature": "def _dummy_func(*args: Any, **kwargs: Any) -> None:",
+      "role": "在 CAD_com_utils 中承接 `_dummy_func` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 48,
+        "line_end": 52
+      }
+    },
+    {
+      "name": "silent_mode",
+      "symbol": "silent_mode",
+      "qualname": "silent_mode",
+      "level": "normal",
+      "signature": "def silent_mode():",
+      "role": "在 CAD_com_utils 中承接 `silent_mode` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 53,
+        "line_end": 94
+      }
+    },
+    {
+      "name": "_retry_logic",
+      "symbol": "_retry_logic",
+      "qualname": "_retry_logic",
+      "level": "core",
+      "signature": "def _retry_logic( max_retries:",
+      "role": "在 CAD_com_utils 中承接 `_retry_logic` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。",
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 95,
+        "line_end": 157
+      }
+    },
+    {
+      "name": "retry_on_busy",
+      "symbol": "retry_on_busy",
+      "qualname": "retry_on_busy",
+      "level": "core",
+      "signature": "def retry_on_busy( func_or_retries:",
+      "role": "对目标调用施加 busy/rejected 容错重试策略。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。",
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 158,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_on_busy.decorator_factory",
+      "symbol": "decorator_factory",
+      "qualname": "retry_on_busy.decorator_factory",
+      "level": "utility",
+      "signature": "def decorator_factory(final_retries: int, final_delay: float):",
+      "role": "对目标调用施加 busy/rejected 容错重试策略。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 171,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_on_busy.decorator_factory.actual_decorator",
+      "symbol": "actual_decorator",
+      "qualname": "retry_on_busy.decorator_factory.actual_decorator",
+      "level": "utility",
+      "signature": "def actual_decorator(func: Callable[..., Any]):",
+      "role": "为外层装饰器链补充包装逻辑。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 172,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_on_busy.decorator_factory.actual_decorator.wrapper",
+      "symbol": "wrapper",
+      "qualname": "retry_on_busy.decorator_factory.actual_decorator.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args: Any, **kwargs: Any):",
+      "role": "为外层装饰器链补充包装逻辑。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 173,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_if_busy",
+      "symbol": "retry_if_busy",
+      "qualname": "retry_if_busy",
+      "level": "core",
+      "signature": "def retry_if_busy(max_retries: int = 10, delay: float = 0.5):",
+      "role": "对目标调用施加 busy/rejected 容错重试策略。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。",
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 194,
+        "line_end": 204
+      }
+    },
+    {
+      "name": "SafeCOM.call",
+      "symbol": "call",
+      "qualname": "SafeCOM.call",
+      "level": "core",
+      "signature": "def call(func: Callable[..., Any], *args: Any, **kwargs: Any) -> Any:",
+      "role": "在 CAD_com_utils 中承接 `SafeCOM.call` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。"
+      ],
+      "evidence": {
+        "line_start": 210,
+        "line_end": 213
+      }
+    },
+    {
+      "name": "SafeCOM.list_selection",
+      "symbol": "list_selection",
+      "qualname": "SafeCOM.list_selection",
+      "level": "core",
+      "signature": "def list_selection(ss: Any) -> List[Any]:",
+      "role": "在 CAD_com_utils 中承接 `SafeCOM.list_selection` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。",
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 214,
+        "line_end": 237
+      }
+    },
+    {
+      "name": "SafeCOM.list_selection._to_list",
+      "symbol": "_to_list",
+      "qualname": "SafeCOM.list_selection._to_list",
+      "level": "utility",
+      "signature": "def _to_list():",
+      "role": "在 CAD_com_utils 中承接 `SafeCOM.list_selection._to_list` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "成功获得目标图元，或成功改变选择/高亮状态。"
+      ],
+      "must_keep_experience": [
+        "保留经过实测验证的对象转换、属性回退与空间过滤经验。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 221,
+        "line_end": 237
+      }
+    },
+    {
+      "name": "alias",
+      "symbol": "alias",
+      "qualname": "alias",
+      "level": "core",
+      "signature": "def alias(*names: str):",
+      "role": "在 CAD_com_utils 中承接 `alias` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 238,
+        "line_end": 255
+      }
+    },
+    {
+      "name": "alias.foo",
+      "symbol": "foo",
+      "qualname": "alias.foo",
+      "level": "utility",
+      "signature": "def foo(...):",
+      "role": "在 CAD_com_utils 中承接 `alias.foo` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 243,
+        "line_end": 246
+      }
+    },
+    {
+      "name": "alias.decorator",
+      "symbol": "decorator",
+      "qualname": "alias.decorator",
+      "level": "utility",
+      "signature": "def decorator(func: Callable[..., Any]):",
+      "role": "为外层装饰器链补充包装逻辑。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 247,
+        "line_end": 255
+      }
+    },
+    {
+      "name": "node",
+      "symbol": "node",
+      "qualname": "node",
+      "level": "utility",
+      "signature": "def node(msg: str, *args: Any, **kwargs: Any) -> None:",
+      "role": "在 CAD_com_utils 中承接 `node` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 256,
+        "line_end": 268
+      }
+    },
+    {
+      "name": "timeit",
+      "symbol": "timeit",
+      "qualname": "timeit",
+      "level": "core",
+      "signature": "def timeit(func: Callable[..., Any]):",
+      "role": "在 CAD_com_utils 中承接 `timeit` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。"
+      ],
+      "evidence": {
+        "line_start": 269,
+        "line_end": 293
+      }
+    },
+    {
+      "name": "timeit.wrapper",
+      "symbol": "wrapper",
+      "qualname": "timeit.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args: Any, **kwargs: Any):",
+      "role": "为外层装饰器链补充包装逻辑。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 278,
+        "line_end": 293
+      }
+    },
+    {
+      "name": "debuggable",
+      "symbol": "debuggable",
+      "qualname": "debuggable",
+      "level": "core",
+      "signature": "def debuggable(func: Callable[..., Any]):",
+      "role": "在 CAD_com_utils 中承接 `debuggable` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留对 busy / rejected 异常的识别与有限重试。",
+        "保留装饰器与直接调用两种使用方式。"
+      ],
+      "evidence": {
+        "line_start": 294,
+        "line_end": 315
+      }
+    },
+    {
+      "name": "debuggable.wrapper",
+      "symbol": "wrapper",
+      "qualname": "debuggable.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args: Any, **kwargs: Any):",
+      "role": "为外层装饰器链补充包装逻辑。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 299,
+        "line_end": 315
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "部分异常分支依赖 COM 错误文本匹配，语义按源码上下文概括。",
+      "嵌套 decorator/wrapper 的真实闭包返回分支需运行时才能完全确认。"
+    ],
+    "function_count": 19,
+    "public_api_count": 9,
+    "core_function_count": 8
+  }
+}

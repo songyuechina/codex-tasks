@@ -1,0 +1,1815 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_selection.py",
+    "path": "D:/codex-tasks/cad/system/CAD_selection.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "提供 CAD / 天正对象选择、空间过滤、实体类型转换与属性访问的高价值稳定核心。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "cast_object",
+      "ss_select",
+      "select_entities_through_point",
+      "select_objects_in_window_area",
+      "select_paperspace_objects_in_window",
+      "pmxz",
+      "get_last_n_objects",
+      "last_obj",
+      "select_tuceng",
+      "select_all_texts_mixed",
+      "select_pub_text_entities",
+      "select_group_entities",
+      "yin_to_xian_xuanze",
+      "yin_to_xian_safe",
+      "xian_to_yin_pickfirst",
+      "select_entities_in_window",
+      "highlight_entities_in_window",
+      "highlight_entity_by_bbox",
+      "isolate_modelspace_area",
+      "unhide_all",
+      "get_attr",
+      "set_attr",
+      "get_object_property",
+      "set_object_property",
+      "brute_dump_tarch_props"
+    ]
+  },
+  "functions": [
+    {
+      "name": "cast_object",
+      "symbol": "cast_object",
+      "qualname": "cast_object",
+      "level": "core",
+      "signature": "def cast_object(obj):",
+      "purpose": "把原始 COM 图元转换为更适合后续处理的对象。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 279,
+        "line_end": 281
+      }
+    },
+    {
+      "name": "_maybe_cast",
+      "symbol": "_maybe_cast",
+      "qualname": "_maybe_cast",
+      "level": "core",
+      "signature": "def _maybe_cast(ent):",
+      "purpose": "在 CAD_selection 中承接 `_maybe_cast` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 282,
+        "line_end": 310
+      }
+    },
+    {
+      "name": "to_vt_int",
+      "symbol": "to_vt_int",
+      "qualname": "to_vt_int",
+      "level": "utility",
+      "signature": "def to_vt_int(seq):",
+      "purpose": "把 Python 数据转换成 COM 需要的 VARIANT 结构。",
+      "inputs": [
+        {
+          "name": "seq",
+          "raw": "seq",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "pythoncom"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 311,
+        "line_end": 313
+      }
+    },
+    {
+      "name": "to_vt_variant",
+      "symbol": "to_vt_variant",
+      "qualname": "to_vt_variant",
+      "level": "utility",
+      "signature": "def to_vt_variant(seq):",
+      "purpose": "把 Python 数据转换成 COM 需要的 VARIANT 结构。",
+      "inputs": [
+        {
+          "name": "seq",
+          "raw": "seq",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "pythoncom"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 314,
+        "line_end": 316
+      }
+    },
+    {
+      "name": "_to_vt_point",
+      "symbol": "_to_vt_point",
+      "qualname": "_to_vt_point",
+      "level": "utility",
+      "signature": "def _to_vt_point(pt_tuple):",
+      "purpose": "在 CAD_selection 中承接 `_to_vt_point` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "pt_tuple",
+          "raw": "pt_tuple",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "pythoncom"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 317,
+        "line_end": 320
+      }
+    },
+    {
+      "name": "pt3",
+      "symbol": "pt3",
+      "qualname": "pt3",
+      "level": "utility",
+      "signature": "def pt3(x, y, z=0):",
+      "purpose": "构造标准三维点元组。",
+      "inputs": [
+        {
+          "name": "x",
+          "raw": "x",
+          "required": true
+        },
+        {
+          "name": "y",
+          "raw": "y",
+          "required": true
+        },
+        {
+          "name": "z",
+          "raw": "z=0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "pythoncom"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 321,
+        "line_end": 323
+      }
+    },
+    {
+      "name": "normalize_rect",
+      "symbol": "normalize_rect",
+      "qualname": "normalize_rect",
+      "level": "utility",
+      "signature": "def normalize_rect(x1, y1, x2, y2):",
+      "purpose": "规范化输入数据的顺序或格式。",
+      "inputs": [
+        {
+          "name": "x1",
+          "raw": "x1",
+          "required": true
+        },
+        {
+          "name": "y1",
+          "raw": "y1",
+          "required": true
+        },
+        {
+          "name": "x2",
+          "raw": "x2",
+          "required": true
+        },
+        {
+          "name": "y2",
+          "raw": "y2",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 324,
+        "line_end": 328
+      }
+    },
+    {
+      "name": "expand_rectangle",
+      "symbol": "expand_rectangle",
+      "qualname": "expand_rectangle",
+      "level": "utility",
+      "signature": "def expand_rectangle(p1, p2, offset):",
+      "purpose": "基于已有几何范围扩展新的区域。",
+      "inputs": [
+        {
+          "name": "p1",
+          "raw": "p1",
+          "required": true
+        },
+        {
+          "name": "p2",
+          "raw": "p2",
+          "required": true
+        },
+        {
+          "name": "offset",
+          "raw": "offset",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 329,
+        "line_end": 334
+      }
+    },
+    {
+      "name": "com_retry",
+      "symbol": "com_retry",
+      "qualname": "com_retry",
+      "level": "utility",
+      "signature": "def com_retry(fn, retries=30, delay=0.05):",
+      "purpose": "在 CAD_selection 中承接 `com_retry` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "fn",
+          "raw": "fn",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries=30",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay=0.05",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "retry_on_busy"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 335,
+        "line_end": 347
+      }
+    },
+    {
+      "name": "current_space_only",
+      "symbol": "current_space_only",
+      "qualname": "current_space_only",
+      "level": "core",
+      "signature": "def current_space_only(func):",
+      "purpose": "在 CAD_selection 中承接 `current_space_only` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "func",
+          "raw": "func",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 348,
+        "line_end": 392
+      }
+    },
+    {
+      "name": "current_space_only.wrapper",
+      "symbol": "wrapper",
+      "qualname": "current_space_only.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args, **kwargs):",
+      "purpose": "为外层装饰器链补充包装逻辑。",
+      "inputs": [
+        {
+          "name": "*args",
+          "raw": "*args",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 356,
+        "line_end": 392
+      }
+    },
+    {
+      "name": "ss_select",
+      "symbol": "ss_select",
+      "qualname": "ss_select",
+      "level": "core",
+      "signature": "def ss_select(mode=\"all\", p1=None, p2=None, filter_types=None, filter_data=None, autocast=True, prompt=None):",
+      "purpose": "在 CAD_selection 中承接 `ss_select` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "mode",
+          "raw": "mode=\"all\"",
+          "required": false
+        },
+        {
+          "name": "p1",
+          "raw": "p1=None",
+          "required": false
+        },
+        {
+          "name": "p2",
+          "raw": "p2=None",
+          "required": false
+        },
+        {
+          "name": "filter_types",
+          "raw": "filter_types=None",
+          "required": false
+        },
+        {
+          "name": "filter_data",
+          "raw": "filter_data=None",
+          "required": false
+        },
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        },
+        {
+          "name": "prompt",
+          "raw": "prompt=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "os",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 393,
+        "line_end": 447
+      }
+    },
+    {
+      "name": "select_entities_through_point",
+      "symbol": "select_entities_through_point",
+      "qualname": "select_entities_through_point",
+      "level": "normal",
+      "signature": "def select_entities_through_point(p, tol=0.1):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "p",
+          "raw": "p",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol=0.1",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 448,
+        "line_end": 466
+      }
+    },
+    {
+      "name": "select_objects_in_window_area",
+      "symbol": "select_objects_in_window_area",
+      "qualname": "select_objects_in_window_area",
+      "level": "normal",
+      "signature": "def select_objects_in_window_area(x1, y1, x2, y2):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "x1",
+          "raw": "x1",
+          "required": true
+        },
+        {
+          "name": "y1",
+          "raw": "y1",
+          "required": true
+        },
+        {
+          "name": "x2",
+          "raw": "x2",
+          "required": true
+        },
+        {
+          "name": "y2",
+          "raw": "y2",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 467,
+        "line_end": 489
+      }
+    },
+    {
+      "name": "select_paperspace_objects_in_window",
+      "symbol": "select_paperspace_objects_in_window",
+      "qualname": "select_paperspace_objects_in_window",
+      "level": "normal",
+      "signature": "def select_paperspace_objects_in_window(x1, y1, x2, y2):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "x1",
+          "raw": "x1",
+          "required": true
+        },
+        {
+          "name": "y1",
+          "raw": "y1",
+          "required": true
+        },
+        {
+          "name": "x2",
+          "raw": "x2",
+          "required": true
+        },
+        {
+          "name": "y2",
+          "raw": "y2",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 490,
+        "line_end": 519
+      }
+    },
+    {
+      "name": "select_paperspace_objects_in_window.intersects",
+      "symbol": "intersects",
+      "qualname": "select_paperspace_objects_in_window.intersects",
+      "level": "utility",
+      "signature": "def intersects(a1, a2, b1, b2):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "a1",
+          "raw": "a1",
+          "required": true
+        },
+        {
+          "name": "a2",
+          "raw": "a2",
+          "required": true
+        },
+        {
+          "name": "b1",
+          "raw": "b1",
+          "required": true
+        },
+        {
+          "name": "b2",
+          "raw": "b2",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "SafeCOM"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 506,
+        "line_end": 519
+      }
+    },
+    {
+      "name": "pmxz",
+      "symbol": "pmxz",
+      "qualname": "pmxz",
+      "level": "core",
+      "signature": "def pmxz(prompt=\"\\n请在屏幕拾取图元，以Enter键结束：\", autocast=True):",
+      "purpose": "在 CAD_selection 中承接 `pmxz` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "prompt",
+          "raw": "prompt=\"\\n请在屏幕拾取图元，以Enter键结束：\"",
+          "required": false
+        },
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 520,
+        "line_end": 522
+      }
+    },
+    {
+      "name": "get_last_n_objects",
+      "symbol": "get_last_n_objects",
+      "qualname": "get_last_n_objects",
+      "level": "core",
+      "signature": "def get_last_n_objects(n=1, autocast=True):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "n",
+          "raw": "n=1",
+          "required": false
+        },
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 523,
+        "line_end": 541
+      }
+    },
+    {
+      "name": "last_obj",
+      "symbol": "last_obj",
+      "qualname": "last_obj",
+      "level": "utility",
+      "signature": "def last_obj():",
+      "purpose": "在 CAD_selection 中承接 `last_obj` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。",
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "retry_on_busy"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 542,
+        "line_end": 553
+      }
+    },
+    {
+      "name": "select_tuceng",
+      "symbol": "select_tuceng",
+      "qualname": "select_tuceng",
+      "level": "core",
+      "signature": "def select_tuceng(layer_names, delay=0.5, autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "layer_names",
+          "raw": "layer_names",
+          "required": true
+        },
+        {
+          "name": "delay",
+          "raw": "delay=0.5",
+          "required": false
+        },
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 554,
+        "line_end": 559
+      }
+    },
+    {
+      "name": "stc",
+      "symbol": "stc",
+      "qualname": "stc",
+      "level": "utility",
+      "signature": "def stc(layer_names, **kwargs):",
+      "purpose": "在 CAD_selection 中承接 `stc` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "layer_names",
+          "raw": "layer_names",
+          "required": true
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 560,
+        "line_end": 563
+      }
+    },
+    {
+      "name": "select_kuai",
+      "symbol": "select_kuai",
+      "qualname": "select_kuai",
+      "level": "normal",
+      "signature": "def select_kuai(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 564,
+        "line_end": 565
+      }
+    },
+    {
+      "name": "select_text",
+      "symbol": "select_text",
+      "qualname": "select_text",
+      "level": "normal",
+      "signature": "def select_text(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 566,
+        "line_end": 567
+      }
+    },
+    {
+      "name": "select_mtext",
+      "symbol": "select_mtext",
+      "qualname": "select_mtext",
+      "level": "normal",
+      "signature": "def select_mtext(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 568,
+        "line_end": 569
+      }
+    },
+    {
+      "name": "select_line",
+      "symbol": "select_line",
+      "qualname": "select_line",
+      "level": "normal",
+      "signature": "def select_line(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 570,
+        "line_end": 571
+      }
+    },
+    {
+      "name": "select_circle",
+      "symbol": "select_circle",
+      "qualname": "select_circle",
+      "level": "normal",
+      "signature": "def select_circle(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 572,
+        "line_end": 573
+      }
+    },
+    {
+      "name": "select_ellipse",
+      "symbol": "select_ellipse",
+      "qualname": "select_ellipse",
+      "level": "normal",
+      "signature": "def select_ellipse(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 574,
+        "line_end": 575
+      }
+    },
+    {
+      "name": "select_spline",
+      "symbol": "select_spline",
+      "qualname": "select_spline",
+      "level": "normal",
+      "signature": "def select_spline(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 576,
+        "line_end": 577
+      }
+    },
+    {
+      "name": "select_polyline",
+      "symbol": "select_polyline",
+      "qualname": "select_polyline",
+      "level": "normal",
+      "signature": "def select_polyline(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 578,
+        "line_end": 579
+      }
+    },
+    {
+      "name": "select_polyline_chuantong",
+      "symbol": "select_polyline_chuantong",
+      "qualname": "select_polyline_chuantong",
+      "level": "normal",
+      "signature": "def select_polyline_chuantong(autocast=True):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 580,
+        "line_end": 582
+      }
+    },
+    {
+      "name": "select_all_texts_mixed",
+      "symbol": "select_all_texts_mixed",
+      "qualname": "select_all_texts_mixed",
+      "level": "core",
+      "signature": "def select_all_texts_mixed(target_space=\"Model\"):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "target_space",
+          "raw": "target_space=\"Model\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 583,
+        "line_end": 590
+      }
+    },
+    {
+      "name": "select_pub_text_entities",
+      "symbol": "select_pub_text_entities",
+      "qualname": "select_pub_text_entities",
+      "level": "core",
+      "signature": "def select_pub_text_entities():",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 591,
+        "line_end": 599
+      }
+    },
+    {
+      "name": "select_group_entities",
+      "symbol": "select_group_entities",
+      "qualname": "select_group_entities",
+      "level": "core",
+      "signature": "def select_group_entities(group_obj):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "group_obj",
+          "raw": "group_obj",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。",
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 600,
+        "line_end": 620
+      }
+    },
+    {
+      "name": "yin_to_xian_xuanze",
+      "symbol": "yin_to_xian_xuanze",
+      "qualname": "yin_to_xian_xuanze",
+      "level": "core",
+      "signature": "def yin_to_xian_xuanze(LB, wait_s=0.6):",
+      "purpose": "在 CAD_selection 中承接 `yin_to_xian_xuanze` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "LB",
+          "raw": "LB",
+          "required": true
+        },
+        {
+          "name": "wait_s",
+          "raw": "wait_s=0.6",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "time",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 621,
+        "line_end": 636
+      }
+    },
+    {
+      "name": "yin_to_xian_safe",
+      "symbol": "yin_to_xian_safe",
+      "qualname": "yin_to_xian_safe",
+      "level": "core",
+      "signature": "def yin_to_xian_safe(LB, wait_s=0.1):",
+      "purpose": "在 CAD_selection 中承接 `yin_to_xian_safe` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "LB",
+          "raw": "LB",
+          "required": true
+        },
+        {
+          "name": "wait_s",
+          "raw": "wait_s=0.1",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "time",
+        "retry_on_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 637,
+        "line_end": 662
+      }
+    },
+    {
+      "name": "xian_to_yin_pickfirst",
+      "symbol": "xian_to_yin_pickfirst",
+      "qualname": "xian_to_yin_pickfirst",
+      "level": "core",
+      "signature": "def xian_to_yin_pickfirst(clear_grips=True, autocast=True):",
+      "purpose": "在 CAD_selection 中承接 `xian_to_yin_pickfirst` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "clear_grips",
+          "raw": "clear_grips=True",
+          "required": false
+        },
+        {
+          "name": "autocast",
+          "raw": "autocast=True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "SafeCOM"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 663,
+        "line_end": 673
+      }
+    },
+    {
+      "name": "select_entities_in_window",
+      "symbol": "select_entities_in_window",
+      "qualname": "select_entities_in_window",
+      "level": "core",
+      "signature": "def select_entities_in_window(x1, y1, x2, y2, ty=1.0, select_mode=\"_W\"):",
+      "purpose": "构造选择条件并返回 CAD 图元集合。",
+      "inputs": [
+        {
+          "name": "x1",
+          "raw": "x1",
+          "required": true
+        },
+        {
+          "name": "y1",
+          "raw": "y1",
+          "required": true
+        },
+        {
+          "name": "x2",
+          "raw": "x2",
+          "required": true
+        },
+        {
+          "name": "y2",
+          "raw": "y2",
+          "required": true
+        },
+        {
+          "name": "ty",
+          "raw": "ty=1.0",
+          "required": false
+        },
+        {
+          "name": "select_mode",
+          "raw": "select_mode=\"_W\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "time",
+        "SafeCOM"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 674,
+        "line_end": 689
+      }
+    },
+    {
+      "name": "highlight_entities_in_window",
+      "symbol": "highlight_entities_in_window",
+      "qualname": "highlight_entities_in_window",
+      "level": "utility",
+      "signature": "def highlight_entities_in_window(x1, y1, x2, y2):",
+      "purpose": "对目标图元执行高亮显示相关操作。",
+      "inputs": [
+        {
+          "name": "x1",
+          "raw": "x1",
+          "required": true
+        },
+        {
+          "name": "y1",
+          "raw": "y1",
+          "required": true
+        },
+        {
+          "name": "x2",
+          "raw": "x2",
+          "required": true
+        },
+        {
+          "name": "y2",
+          "raw": "y2",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 690,
+        "line_end": 692
+      }
+    },
+    {
+      "name": "highlight_entity_by_bbox",
+      "symbol": "highlight_entity_by_bbox",
+      "qualname": "highlight_entity_by_bbox",
+      "level": "utility",
+      "signature": "def highlight_entity_by_bbox(entity):",
+      "purpose": "对目标图元执行高亮显示相关操作。",
+      "inputs": [
+        {
+          "name": "entity",
+          "raw": "entity",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 693,
+        "line_end": 702
+      }
+    },
+    {
+      "name": "set_entity_grip_state_precise",
+      "symbol": "set_entity_grip_state_precise",
+      "qualname": "set_entity_grip_state_precise",
+      "level": "normal",
+      "signature": "def set_entity_grip_state_precise(ent):",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 703,
+        "line_end": 712
+      }
+    },
+    {
+      "name": "isolate_modelspace_area",
+      "symbol": "isolate_modelspace_area",
+      "qualname": "isolate_modelspace_area",
+      "level": "core",
+      "signature": "def isolate_modelspace_area(x1, y1, x2, y2):",
+      "purpose": "在 CAD_selection 中承接 `isolate_modelspace_area` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "x1",
+          "raw": "x1",
+          "required": true
+        },
+        {
+          "name": "y1",
+          "raw": "y1",
+          "required": true
+        },
+        {
+          "name": "x2",
+          "raw": "x2",
+          "required": true
+        },
+        {
+          "name": "y2",
+          "raw": "y2",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "time"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 713,
+        "line_end": 720
+      }
+    },
+    {
+      "name": "unhide_all",
+      "symbol": "unhide_all",
+      "qualname": "unhide_all",
+      "level": "core",
+      "signature": "def unhide_all(space=None, filter_names=None, highlight=False):",
+      "purpose": "在 CAD_selection 中承接 `unhide_all` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "space",
+          "raw": "space=None",
+          "required": false
+        },
+        {
+          "name": "filter_names",
+          "raw": "filter_names=None",
+          "required": false
+        },
+        {
+          "name": "highlight",
+          "raw": "highlight=False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 721,
+        "line_end": 885
+      }
+    },
+    {
+      "name": "_resolve_attr_case_insensitive",
+      "symbol": "_resolve_attr_case_insensitive",
+      "qualname": "_resolve_attr_case_insensitive",
+      "level": "core",
+      "signature": "def _resolve_attr_case_insensitive(obj, attr_name):",
+      "purpose": "在 CAD_selection 中承接 `_resolve_attr_case_insensitive` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj",
+          "required": true
+        },
+        {
+          "name": "attr_name",
+          "raw": "attr_name",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 886,
+        "line_end": 909
+      }
+    },
+    {
+      "name": "get_attr",
+      "symbol": "get_attr",
+      "qualname": "get_attr",
+      "level": "core",
+      "signature": "def get_attr(obj, name, default=None):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj",
+          "required": true
+        },
+        {
+          "name": "name",
+          "raw": "name",
+          "required": true
+        },
+        {
+          "name": "default",
+          "raw": "default=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "pythoncom",
+        "os"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 910,
+        "line_end": 948
+      }
+    },
+    {
+      "name": "set_attr",
+      "symbol": "set_attr",
+      "qualname": "set_attr",
+      "level": "core",
+      "signature": "def set_attr(obj, name, value):",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj",
+          "required": true
+        },
+        {
+          "name": "name",
+          "raw": "name",
+          "required": true
+        },
+        {
+          "name": "value",
+          "raw": "value",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "pythoncom",
+        "SafeCOM"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 949,
+        "line_end": 969
+      }
+    },
+    {
+      "name": "get_object_property",
+      "symbol": "get_object_property",
+      "qualname": "get_object_property",
+      "level": "normal",
+      "signature": "def get_object_property(obj, property_name):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj",
+          "required": true
+        },
+        {
+          "name": "property_name",
+          "raw": "property_name",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 970,
+        "line_end": 970
+      }
+    },
+    {
+      "name": "set_object_property",
+      "symbol": "set_object_property",
+      "qualname": "set_object_property",
+      "level": "normal",
+      "signature": "def set_object_property(obj, property_name, value):",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj",
+          "required": true
+        },
+        {
+          "name": "property_name",
+          "raw": "property_name",
+          "required": true
+        },
+        {
+          "name": "value",
+          "raw": "value",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 971,
+        "line_end": 972
+      }
+    },
+    {
+      "name": "brute_dump_tarch_props",
+      "symbol": "brute_dump_tarch_props",
+      "qualname": "brute_dump_tarch_props",
+      "level": "core",
+      "signature": "def brute_dump_tarch_props(ent, max_dispid=64):",
+      "purpose": "在 CAD_selection 中承接 `brute_dump_tarch_props` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent",
+          "required": true
+        },
+        {
+          "name": "max_dispid",
+          "raw": "max_dispid=64",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "pythoncom"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 973,
+        "line_end": 984
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "提供 CAD / 天正对象选择、空间过滤、实体类型转换与属性访问的高价值稳定核心。"
+  },
+  "quality": {
+    "todo": [
+      "部分天正 DISPID 访问逻辑依赖运行时对象类型，meta 以静态分支概括。"
+    ],
+    "function_count": 48,
+    "public_api_count": 25,
+    "core_function_count": 20
+  }
+}

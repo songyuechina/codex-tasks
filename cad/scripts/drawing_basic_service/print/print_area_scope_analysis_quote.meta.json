@@ -1,0 +1,130 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_area_scope_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_area_scope_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "quote": {
+    "goal": "在伪极大矩形候选已知的前提下，判断最终保留的最大伪极大范围，并据此过滤打印 job。",
+    "public_api": [
+      "analyze_pseudo_maximal_scopes",
+      "filter_jobs_by_largest_pseudo_scope",
+      "run_scope_analysis_case",
+      "main"
+    ],
+    "script_role": "伪极大打印范围二次收束脚本",
+    "system_position": {
+      "layer_name": "打印范围收束层",
+      "works_with": [
+        "print_area_analysis.py",
+        "print_area_content_analysis.py",
+        "print_policy.py"
+      ],
+      "main_entry_note": "print_area_scope_analysis.py 主要通过 analyze_pseudo_maximal_scopes, filter_jobs_by_largest_pseudo_scope, run_scope_analysis_case 等入口服务打印主链。"
+    },
+    "must_keep_experience": [
+      "范围过滤必须建立在已有 job 集合上，不能重新发明区域识别逻辑。"
+    ],
+    "known_limits": [
+      "当前只做单次最大范围收束，不覆盖更复杂的多片区策略。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_normalize_path",
+      "role": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_is_name_only_target",
+      "role": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_find_document_by_path",
+      "role": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_activate_document_by_path",
+      "role": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_close_document_by_path",
+      "role": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_area_from_bbox",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "analyze_pseudo_maximal_scopes",
+      "role": "围绕输入对象执行分析流程，并输出结构化结果。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_job_inside_scope",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "filter_jobs_by_largest_pseudo_scope",
+      "role": "按范围、handle 或条件过滤已有候选集合。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "run_scope_analysis_case",
+      "role": "执行单次 case 或主链流程，并把结果写入结构化产物。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "main",
+      "role": "提供命令行入口，解析参数后调用主流程。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "scope-analysis",
+      "print-analysis"
+    ],
+    "script_focus": "伪极大打印范围二次收束脚本"
+  },
+  "quality": {
+    "todo": [
+      "当前脚本级 meta 已覆盖主角色与 public_api，后续如职责明显变化应同步刷新。",
+      "函数级语义摘要主要由 AST 与命名规则生成，复杂分支后续可按案例继续细化。"
+    ],
+    "function_count": 11,
+    "public_api_count": 4
+  }
+}

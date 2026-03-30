@@ -1,0 +1,86 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "content_analysis_dwg_file",
+  "file_path": "D:/codex-tasks/cad/system/content_analysis_dwg_file.py",
+  "applicable_scenarios": [
+    "需要对当前或指定 DWG 做对象统计、空间统计与健康检查",
+    "需要把 DWG 的快照结果存入数据库，用于后续复用与比对",
+    "需要快速查看某个图纸的图元类型分布、布局分布与 handle 样本",
+    "需要为函数验证、案例测试、自动化审查提供图纸内容依据"
+  ],
+  "preconditions": [
+    "应保证 system.licad 的 C 可连接到 CAD 文档",
+    "指定 filepath 时，应允许 CAD_core.open_file / close_file 接管文件打开与关闭",
+    "数据库环境应可创建 CAD_AUDIT 数据库与相关表",
+    "若使用 use_db/reuse_db，目标文件应已存在历史快照，或允许回退到重算"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "决定数据来源",
+      "detail": "若 reuse_db/use_db 为真，则优先查数据库；查不到时再重算。默认路径是重算并写库。"
+    },
+    {
+      "step": 2,
+      "name": "打开并连接文档",
+      "detail": "若指定 filepath，则调用 CAD_core.open_file；随后执行 C.li() 刷新当前文档。"
+    },
+    {
+      "step": 3,
+      "name": "执行健康检查",
+      "detail": "采集 doc.Name、FullName、ReadOnly、Saved、ModelSpace.Count、PaperSpace.Count，并推断 recovery_guess。"
+    },
+    {
+      "step": 4,
+      "name": "扫描对象",
+      "detail": "遍历 ModelSpace 与每个 Layout.Block，同时生成 counts_legacy、counts_by_type、counts_by_space、handles_by_type 与 digest。"
+    },
+    {
+      "step": 5,
+      "name": "写入数据库快照",
+      "detail": "将完整 state 写入 dwg_files / cad_snapshots，并返回 snapshot_id。"
+    },
+    {
+      "step": 6,
+      "name": "构造摘要",
+      "detail": "在 get_dwg_graphics_summary 中对 state 做 types 过滤、handle 裁剪，并返回便于程序使用的 summary。"
+    },
+    {
+      "step": 7,
+      "name": "可读打印与收尾",
+      "detail": "verbose=True 时打印人工核验摘要；若文件由本模块打开，则在 finally 中 auto_save 后关闭。"
+    }
+  ],
+  "success_criteria": [
+    "可以稳定获得当前或指定 DWG 的健康状态与对象统计",
+    "数据库中能保存并复用最新快照",
+    "counts_by_space 能清楚反映 Model 与各 Layout 的对象分布",
+    "仅对指定 handle_types 采集 handle，避免性能失控"
+  ],
+  "failure_criteria": [
+    "重写时丢失默认重算+写库的主策略",
+    "重写时只保留全图类型计数而丢失 counts_by_space",
+    "重写时把 handle 采集变成全量默认行为导致性能退化",
+    "省略 finally 关闭逻辑，导致本模块打开的文件不被自己负责关闭"
+  ],
+  "do_not_use_for": [
+    "不要把本模块当作 CAD 主连接入口",
+    "不要把它当作基础文件操作层，打开/关闭文件应尽量交给 CAD_core",
+    "不要只看 counts_by_type 就忽视布局空间统计",
+    "不要在不需要 handle 时默认采集所有对象 handle"
+  ],
+  "integration_with_other_modules": {
+    "licad.py": "负责连接当前文档；本模块在其之上读取 C.raw_doc / C.acad",
+    "CAD_core.py": "指定 filepath 时由 CAD_core.open_file / close_file 负责文件控制",
+    "CAD_selection.py": "通过 get_attr 统一读取对象属性",
+    "common_logger.py": "统一记录数据库、扫描、打开/关闭文件过程中的日志",
+    "library.Databaseoperation": "提供数据库建库、建表、连接与保活能力"
+  },
+  "rewrite_constraints": [
+    "允许继续优化数据库索引与 schema 细节",
+    "允许优化对象扫描性能与摘要展示方式",
+    "允许把数据库层与采集层进一步拆分",
+    "不得丢失默认重算+写库、按空间聚合、按需 handle、digest 对比这四组核心经验"
+  ]
+}

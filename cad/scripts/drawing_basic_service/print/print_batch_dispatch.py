@@ -35,11 +35,18 @@ if str(SCRIPTS_DIR) not in sys.path:
 
 from system.common_logger import sys_logger
 from system.CAD_coordination import wait_quiescent
-from system.CAD_core import close_current_dwg_paradigm, copy_file_content_pywin32, new_file, open_file, save_current_dwg_paradigm
+from system.CAD_core import (
+    cad_zt_oneb,
+    close_current_dwg_paradigm,
+    copy_file_content_pywin32,
+    new_file,
+    open_file,
+    save_current_dwg_paradigm,
+)
 from system.licad import C
 
 from print_info_analysis import run_print_info_case
-from print_runner import _close_document_by_path, run_print_case
+from print_runner import _close_document_by_path, _normalize_path, run_print_case
 
 
 BLANK_RATIO_THRESHOLD = 0.002
@@ -90,6 +97,143 @@ def _prepare_public_output_dirs(dwg_path: Path, process_stamp: str) -> dict[str,
 
 def _load_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _write_batch_summary(
+    *,
+    summary_root: Path,
+    batch_root: Path,
+    mode: str,
+    dwg_files: list[Path],
+    summary_rows: list[dict[str, Any]],
+) -> Path:
+    batch_summary_path = batch_root / "batch_summary.json"
+    batch_summary_path.write_text(
+        json.dumps(
+            {
+                "input_dir": str(summary_root),
+                "output_root": str(batch_root),
+                "mode": mode,
+                "dwg_count": len(dwg_files),
+                "items": summary_rows,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    return batch_summary_path
+
+
+def _close_case_documents(case_paths: set[Path]) -> dict[str, Any]:
+    wanted_paths = {_normalize_path(path) for path in case_paths if path}
+    wanted_names = {Path(path).name.lower() for path in case_paths if path}
+    closed: list[str] = []
+    failed: list[dict[str, str]] = []
+
+    if not wanted_paths and not wanted_names:
+        return {
+            "closed_count": 0,
+            "failed_count": 0,
+            "remaining_count": 0,
+            "closed": closed,
+            "failed": failed,
+            "remaining": [],
+        }
+
+    for _ in range(3):
+        pending: list[tuple[Any, str]] = []
+        try:
+            docs = list(C.acad.Documents)
+        except Exception:
+            docs = []
+
+        for doc in docs:
+            try:
+                full_name = _normalize_path(doc.FullName)
+            except Exception:
+                full_name = ""
+            try:
+                doc_name = str(getattr(doc, "Name", "") or "").lower()
+            except Exception:
+                doc_name = ""
+            if full_name in wanted_paths or doc_name in wanted_names:
+                pending.append((doc, full_name or doc_name))
+
+        if not pending:
+            break
+
+        for doc, label in pending:
+            try:
+                doc.Activate()
+            except Exception:
+                pass
+            try:
+                wait_quiescent(min_quiet=0.2, timeout=5.0)
+            except Exception:
+                pass
+            try:
+                doc.Close(False)
+                closed.append(label)
+            except Exception as exc:
+                failed.append({"target": label, "error": str(exc)})
+        time.sleep(0.5)
+
+    remaining: list[str] = []
+    try:
+        docs = list(C.acad.Documents)
+    except Exception:
+        docs = []
+    for doc in docs:
+        try:
+            full_name = _normalize_path(doc.FullName)
+        except Exception:
+            full_name = ""
+        try:
+            doc_name = str(getattr(doc, "Name", "") or "").lower()
+        except Exception:
+            doc_name = ""
+        if full_name in wanted_paths or doc_name in wanted_names:
+            remaining.append(full_name or doc_name)
+
+    if closed or failed or remaining:
+        sys_logger.info(
+            f"单 DWG 收尾关图: closed={len(closed)} failed={len(failed)} remaining={len(remaining)}"
+        )
+
+    return {
+        "closed_count": len(closed),
+        "failed_count": len(failed),
+        "remaining_count": len(remaining),
+        "closed": closed,
+        "failed": failed,
+        "remaining": remaining,
+    }
+
+
+def _normalize_cad_runtime_after_case() -> dict[str, Any]:
+    try:
+        ok = bool(cad_zt_oneb())
+        payload = {
+            "attempted": True,
+            "ok": ok,
+            "target_state": "one_process_one_blank_tarch",
+            "action": "cad_zt_oneb",
+        }
+        if ok:
+            sys_logger.info("单 DWG 收尾后已执行 CAD 归一：cad_zt_oneb")
+        else:
+            sys_logger.warning("单 DWG 收尾后 CAD 归一返回 False：cad_zt_oneb")
+        return payload
+    except Exception as exc:
+        sys_logger.error(f"单 DWG 收尾后 CAD 归一失败: {exc}")
+        return {
+            "attempted": True,
+            "ok": False,
+            "target_state": "one_process_one_blank_tarch",
+            "action": "cad_zt_oneb",
+            "error": str(exc),
+        }
 
 
 def _render_nonwhite_ratio(pdf_path: Path, scale: float = 0.12) -> list[float]:
@@ -354,12 +498,14 @@ def run_directory_dispatch(
     summary_rows: list[dict[str, Any]] = []
     for dwg_path in dwg_files:
         sys_logger.info(f"开始处理: {dwg_path}")
+        row: dict[str, Any] | None = None
         primary_work_dwg: Path | None = None
+        case_cleanup_paths: set[Path] = {dwg_path}
         try:
             public_dirs = _prepare_public_output_dirs(dwg_path, batch_stamp)
             runs_root = public_dirs["process_run_dir"] / "runs"
             analysis_output = public_dirs["analysis_dir"] / "print_info_analysis.json"
-            row: dict[str, Any] = {
+            row = {
                 "dwg_path": str(dwg_path),
                 "mode": mode,
                 "final_pdf_dir": str(public_dirs["pdf_dir"]),
@@ -370,9 +516,10 @@ def run_directory_dispatch(
                 dwg_path,
                 runs_root,
                 mode=mode,
-                keep_open=True,
+                keep_open=False,
             )
             primary_work_dwg = Path(print_summary["work_dwg"])
+            case_cleanup_paths.add(primary_work_dwg)
             row["initial_run_root"] = print_summary["run_root"]
             row["initial_print_summary"] = str(Path(print_summary["summary_path"]))
             row["initial_total_jobs"] = int((print_summary.get("plan") or {}).get("total_jobs", 0) or 0)
@@ -393,6 +540,7 @@ def run_directory_dispatch(
             if blank_suspects:
                 repaired_dir = public_dirs["process_run_dir"] / "blank-fix"
                 repaired_dwg = repaired_dir / f"{dwg_path.stem}__blankfix.dwg"
+                case_cleanup_paths.add(repaired_dwg)
                 row["blank_fix_applied"] = True
                 row["repaired_dwg_path"] = str(repaired_dwg)
                 row["blank_fix_created"] = _make_blank_fix_copy(dwg_path, repaired_dwg)
@@ -403,6 +551,7 @@ def run_directory_dispatch(
                         mode=mode,
                         include_layouts=False,
                     )
+                    case_cleanup_paths.add(Path(repaired_summary["work_dwg"]))
                     row["repaired_run_root"] = repaired_summary["run_root"]
                     row["repaired_print_summary"] = str(Path(repaired_summary["summary_path"]))
                 else:
@@ -466,6 +615,8 @@ def run_directory_dispatch(
                 plan_json_path=plan_json_path,
                 selected_handles=row["selected_handles"],
             )
+            if row["print_area_visual_dwg"]:
+                case_cleanup_paths.add(Path(row["print_area_visual_dwg"]))
 
             if row["final_blank_filtered_count"] > 0 and row["selected_handles"]:
                 analysis = run_print_info_case(
@@ -496,21 +647,6 @@ def run_directory_dispatch(
                 row["completion_reason"] = ""
             summary_rows.append(row)
 
-            batch_summary_path = batch_root / "batch_summary.json"
-            batch_summary_path.write_text(
-                json.dumps(
-                    {
-                        "input_dir": str(summary_root),
-                        "output_root": str(batch_root),
-                        "mode": mode,
-                        "dwg_count": len(dwg_files),
-                        "items": summary_rows,
-                    },
-                    ensure_ascii=False,
-                    indent=2,
-                ),
-                encoding="utf-8",
-            )
         except Exception as exc:
             row = {
                 "dwg_path": str(dwg_path),
@@ -522,21 +658,6 @@ def run_directory_dispatch(
                 "process_dir": "",
             }
             summary_rows.append(row)
-            batch_summary_path = batch_root / "batch_summary.json"
-            batch_summary_path.write_text(
-                json.dumps(
-                    {
-                        "input_dir": str(summary_root),
-                        "output_root": str(batch_root),
-                        "mode": mode,
-                        "dwg_count": len(dwg_files),
-                        "items": summary_rows,
-                    },
-                    ensure_ascii=False,
-                    indent=2,
-                ),
-                encoding="utf-8",
-            )
             sys_logger.error(f"批量任务单文件失败: dwg={dwg_path} err={exc}")
         finally:
             if primary_work_dwg:
@@ -544,6 +665,21 @@ def run_directory_dispatch(
                     _close_document_by_path(primary_work_dwg, save_changes=False)
                 except Exception:
                     pass
+            cleanup = _close_case_documents(case_cleanup_paths)
+            if row is not None:
+                row["cleanup_closed_count"] = cleanup["closed_count"]
+                row["cleanup_failed_count"] = cleanup["failed_count"]
+                row["cleanup_remaining_count"] = cleanup["remaining_count"]
+                row["post_case_runtime_reset"] = _normalize_cad_runtime_after_case()
+            else:
+                _normalize_cad_runtime_after_case()
+            _write_batch_summary(
+                summary_root=summary_root,
+                batch_root=batch_root,
+                mode=mode,
+                dwg_files=dwg_files,
+                summary_rows=summary_rows,
+            )
 
     return {
         "input_dir": str(summary_root),
@@ -551,7 +687,15 @@ def run_directory_dispatch(
         "mode": mode,
         "dwg_count": len(dwg_files),
         "items": summary_rows,
-        "summary_json": str(batch_root / "batch_summary.json"),
+        "summary_json": str(
+            _write_batch_summary(
+                summary_root=summary_root,
+                batch_root=batch_root,
+                mode=mode,
+                dwg_files=dwg_files,
+                summary_rows=summary_rows,
+            )
+        ),
     }
 
 

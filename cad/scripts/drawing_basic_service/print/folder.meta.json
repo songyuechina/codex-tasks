@@ -1,0 +1,45 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/scripts/drawing_basic_service/print",
+  "role": "primary-domain-print-execution-workspace",
+  "summary": "当前第一优先级的领域执行工作区，目标是稳定完成 DWG 打印，并把新案例与新规则沉淀回脚本与文档。",
+  "entry_docs": [
+    "README.md",
+    "AGENTS.md",
+    "PRINT_DISPATCH_PROTOCOL.md",
+    "PRINT_AGENT_SPEC.md",
+    "PRINT_WORKFLOW.md",
+    "PRINT_OUTPUT_SPEC.md",
+    "PRINT_KNOWLEDGE.md",
+    "cases/CASE_MANIFEST.md"
+  ],
+  "main_chain": [
+    "print_batch_dispatch.py",
+    "print_policy.py",
+    "print_runner.py",
+    "print_executor.py",
+    "print_verifier.py"
+  ],
+  "supporting_analysis": [
+    "print_area_analysis.py",
+    "print_area_content_analysis.py",
+    "print_area_scope_analysis.py",
+    "print_info_analysis.py"
+  ],
+  "default_mode_rules": [
+    "用户未明确指定时，打印模式默认 basic",
+    "print_info_analysis 是辅助能力，不等于打印模式",
+    "新问题先服务当前打印主任务，再决定是否扩展能力边界"
+  ],
+  "volatile_or_excluded": [
+    "cases/assets/**：真实输入资产",
+    "cases/output/**：过程与最终输出",
+    "*pdf/、*analysis/、*prosess/：DWG 同目录输出产物"
+  ],
+  "refresh_rules": [
+    "打印主链变化时，同时更新 README / AGENTS / protocol/spec/output/workflow",
+    "新案例进入后，同步更新 cases/CASE_MANIFEST.md",
+    "目录内规则冲突时，以 AGENTS.md 和 dispatch/workflow/output 规范为准"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/library",
+  "role": "high-level-business-function-library",
+  "summary": "建立在 cad/system 之上的高层业务函数库，负责块、文字、几何、对象、控制和数据库等复用能力。它承接业务实现，但不替代 system 层的统一连接与协调原则。",
+  "entry_docs": [
+    "../system/README.md",
+    "meta/cad_annotation.meta.json",
+    "meta/cad_geometry.meta.json"
+  ],
+  "main_modules": [
+    "cad_blocks.py：图块与属性相关能力",
+    "cad_annotation.py：文字与标注相关能力",
+    "cad_geometry_*：几何绘制、折线、线段处理能力",
+    "cad_objects.py：对象级通用辅助",
+    "cad_control.py：进程、缓存和外围控制工具",
+    "Databaseoperation.py：数据库访问工具"
+  ],
+  "usage_rules": [
+    "优先把高层业务能力沉淀在这里，而不是塞回 system 层",
+    "调用 library 时仍应遵守 system 层连接、日志和协调规则",
+    "新增公共业务函数后，应补充相应 meta 或说明文档"
+  ]
+}

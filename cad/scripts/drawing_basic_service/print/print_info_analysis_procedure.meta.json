@@ -1,0 +1,396 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_info_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "procedure": {
+    "goal": "说明 print_info_analysis.py 在打印主链中的整体工作流。",
+    "workflow": [
+      "先激活目标文档和空间上下文。",
+      "再提取图签块、内框与文字候选。",
+      "随后按 job 生成页面级信息结果。",
+      "最后写出 JSON 与 Excel。"
+    ],
+    "applicable_scenarios": [
+      "需要为打印区域生成结构化页面信息",
+      "需要输出可读 Excel 供人工复查",
+      "需要配合目录级调度批量分析 plan.json 中的 job"
+    ],
+    "resource_boundary": [
+      "仅负责当前脚本所属阶段，不替代上游目录级治理文档。",
+      "涉及 CAD 真机执行时仍需复用 system.licad、CAD_coordination 与打印主链其它模块。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_safe_handle",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_bbox_xy",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_normalize_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_is_name_only_target",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_find_document_by_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_activate_document_by_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_close_document_by_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_find_layout_by_owner_btr",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_activate_space_for_owner",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_contains_bbox",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_area_of_bbox",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_dynamic_tol_from_bbox",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_contains_chinese",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_looks_like_drawing_no_text",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_clean_text",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_clean_attr_value",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_extract_attribute_fields",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "TDbMText_content",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_extract_text_string",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_match_field_from_attrs",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_resolve_owner_btr_name",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_collect_rectangles_by_owner",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "collect_space_block_snapshots",
+      "level": "normal",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "select_texts_in_bbox",
+      "level": "normal",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_choose_inner_frame",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_choose_corner_block",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_classify_text_candidates",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_make_page_key",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "analyze_print_job_info",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "analyze_print_info_jobs",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_load_jobs_from_plan_json",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_load_excluded_handles",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_stringify_excel_value",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "write_print_info_excel",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_filter_jobs_by_requested_handles",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_reindex_job_dicts_by_space",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_exclude_handles_and_reindex",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "run_print_info_case",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "main",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "excel",
+      "content-analysis"
+    ],
+    "script_focus": "围绕打印区域提取图签块、文字、内框等页面信息，并输出 JSON 与 Excel 结果供人工复查和后续治理使用。"
+  },
+  "quality": {
+    "todo": [
+      "workflow 已覆盖主流程骨架，局部阈值、启发式参数仍需结合案例回归细化。"
+    ],
+    "function_count": 39,
+    "public_api_count": 5
+  }
+}

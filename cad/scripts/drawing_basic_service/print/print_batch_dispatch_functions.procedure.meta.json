@@ -1,0 +1,477 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_batch_dispatch.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_batch_dispatch.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_procedure": {
+    "goal": "描述 print_batch_dispatch.py 中每个函数在打印主链中的步骤骨架。",
+    "step_style": "graded",
+    "public_api": [
+      "detect_blank_pdfs",
+      "run_directory_dispatch",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_is_dispatch_source_dwg",
+      "signature": "def _is_dispatch_source_dwg(path: Path) -> bool:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 48,
+        "line_end": 54
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_derive_public_base_name",
+      "signature": "def _derive_public_base_name(path: Path) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 57,
+        "line_end": 62
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_reset_dir",
+      "signature": "def _reset_dir(path: Path) -> None:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 65,
+        "line_end": 68
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_prepare_public_output_dirs",
+      "signature": "def _prepare_public_output_dirs(dwg_path: Path, process_stamp: str) -> dict[str, Path]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 71,
+        "line_end": 88
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_load_json",
+      "signature": "def _load_json(path: Path) -> dict[str, Any]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 91,
+        "line_end": 92
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_close_case_documents",
+      "signature": "def _close_case_documents(case_paths: set[Path]) -> dict[str, Any]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [
+        "当前 CAD 会话应可访问目标文档或文档名。"
+      ],
+      "failure_paths": [
+        "目标文档定位失败时只能返回空值、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 95,
+        "line_end": 178
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_render_nonwhite_ratio",
+      "signature": "def _render_nonwhite_ratio(pdf_path: Path, scale: float=0.12) -> list[float]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 181,
+        "line_end": 196
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "detect_blank_pdfs",
+      "signature": "def detect_blank_pdfs(pdf_paths: list[str], threshold: float=BLANK_RATIO_THRESHOLD) -> list[dict[str, Any]]:",
+      "level": "core",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "preconditions": [],
+      "failure_paths": [
+        "PDF 无法渲染时返回 render_failed 记录，而不是直接中断整批任务。"
+      ],
+      "success_conditions": [
+        "结果可直接驱动 blank-fix 和最终 PDF 过滤逻辑。"
+      ],
+      "must_keep_experience": [
+        "空白页判断依赖视觉非白比例，而不是只看文件存在或页数。"
+      ],
+      "evidence": {
+        "line_start": 199,
+        "line_end": 233
+      },
+      "steps": [
+        "遍历待检查 PDF 路径。",
+        "逐文件渲染页面并计算非白像素比例。",
+        "把无页、渲染失败或最大非白比例低于阈值的 PDF 标记为嫌疑项。"
+      ],
+      "purpose": "渲染已生成 PDF 的页面像素密度，识别视觉上近似空白的 PDF，供 blank-fix 补救链使用。",
+      "outputs": [
+        "返回疑似空白 PDF 列表，每项包含 pdf_path、reason、ratios 等证据。"
+      ],
+      "returns": [
+        "列表；为空表示当前 PDF 集合未发现空白页嫌疑。"
+      ],
+      "risk_level": "medium"
+    },
+    {
+      "name": "_job_index_from_plan",
+      "signature": "def _job_index_from_plan(plan_json_path: Path) -> dict[str, dict[str, Any]]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 236,
+        "line_end": 243
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_selected_job_rows",
+      "signature": "def _selected_job_rows(plan_json_path: Path, selected_handles: list[str]) -> list[dict[str, Any]]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 246,
+        "line_end": 256
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_ratio_to_visual_width",
+      "signature": "def _ratio_to_visual_width(ratio: str) -> int:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 259,
+        "line_end": 271
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_set_entity_visual_style",
+      "signature": "def _set_entity_visual_style(entity: Any, width_value: int) -> None:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 274,
+        "line_end": 291
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_make_print_area_visual_copy",
+      "signature": "def _make_print_area_visual_copy(*, source_dwg: Path, plan_json_path: Path, selected_handles: list[str]) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 294,
+        "line_end": 340
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_make_blank_fix_copy",
+      "signature": "def _make_blank_fix_copy(source_dwg: Path, repaired_dwg: Path) -> bool:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 343,
+        "line_end": 357
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_copy_final_outputs",
+      "signature": "def _copy_final_outputs(*, source_dwg: Path, output_dir: Path, original_job_index: dict[str, dict[str, Any]], original_existing: list[str], blank_pdf_paths: set[str], repaired_summary: dict[str, Any] | None=None) -> dict[str, Any]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 360,
+        "line_end": 426
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "run_directory_dispatch",
+      "signature": "def run_directory_dispatch(*, dwg_files: list[Path], summary_root: Path, output_root: Path, mode: str) -> dict[str, Any]:",
+      "level": "core",
+      "role": "执行单次 case 或主链流程，并把结果写入结构化产物。",
+      "preconditions": [
+        "dwg_files 已经筛成有效 DWG 列表。",
+        "output_root 所在磁盘路径可写。",
+        "CAD 环境可被单文件主链接管。"
+      ],
+      "failure_paths": [
+        "任一 DWG 处理出错时，当前行会写成 failed，但不会中断整个批次。",
+        "若已有打印计划但最终没有可交付 PDF，则标记 failed。"
+      ],
+      "success_conditions": [
+        "每个 DWG 都形成清晰的状态行，并且 batch_summary.json 可用于后续回归或人工复查。"
+      ],
+      "must_keep_experience": [
+        "目录级调度必须复用 run_print_case 单文件主链，而不是另写一套打印实现。",
+        "blank-fix、最终空白过滤和 print info 分析都应围绕同一批次过程目录组织。",
+        "即使单文件失败，也要继续落 summary 并做收尾关图。"
+      ],
+      "evidence": {
+        "line_start": 429,
+        "line_end": 653
+      },
+      "steps": [
+        "逐 DWG 准备公共输出目录并调用 run_print_case 执行初次打印。",
+        "对已生成 PDF 做空白检测，必要时生成 blankfix 副本并重跑打印主链。",
+        "基于 print_plan 和 content_analysis 调用 run_print_info_case 生成结构化页面信息。",
+        "复制最终可交付 PDF，过滤最终仍为空白的结果，并生成打印区域可视化 DWG。",
+        "按最终交付情况判定 success、failed 或 completed_no_valid_print_areas，并持续刷新 batch_summary.json。",
+        "在 finally 中关闭工作 DWG 和案例 DWG，记录 cleanup 结果。"
+      ],
+      "purpose": "围绕目录或单文件输入组织完整批量打印闭环：初次打印、空白修补、print info 分析、最终复制、再过滤和清理。",
+      "outputs": [
+        "返回 batch_summary 结构，包含每个 DWG 的状态、过程路径、分析结果和最终交付路径。"
+      ],
+      "returns": [
+        "字典，至少包含 input_dir、output_root、mode、items、summary_json。"
+      ],
+      "side_effects": [
+        "创建批次输出目录、process 目录、公共 PDF/analysis 目录，并可能打开/关闭多个 CAD 文档。",
+        "写出 batch_summary.json 与各单 DWG 过程文件。"
+      ],
+      "dependencies": [
+        "run_print_case",
+        "run_print_info_case",
+        "_copy_final_outputs",
+        "_make_blank_fix_copy",
+        "_make_print_area_visual_copy",
+        "detect_blank_pdfs"
+      ],
+      "risk_level": "high"
+    },
+    {
+      "name": "main",
+      "signature": "def main() -> None:",
+      "level": "core",
+      "role": "提供命令行入口，解析参数后调用主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入参数非法时直接 SystemExit。"
+      ],
+      "success_conditions": [
+        "CLI 输出的 JSON 与 batch_summary.json 一致并可直接复用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 656,
+        "line_end": 691
+      },
+      "steps": [
+        "配置 stdout/stderr 为 utf-8。",
+        "解析输入目录、单文件路径、输出根目录和模式参数。",
+        "校验 --input-dir 与 --dwg 只能二选一。",
+        "构造 dwg_files 与 summary_root 后调用 run_directory_dispatch。",
+        "把返回结果打印为 JSON。"
+      ],
+      "purpose": "提供目录级调度 CLI，统一接收 --input-dir 或 --dwg，并打印最终 batch 结果 JSON。"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "pdf",
+      "dispatch"
+    ],
+    "script_focus": "对单文件或目录任务统一组织打印计划、执行、空白页修补、打印信息分析与最终结果汇总。"
+  },
+  "quality": {
+    "todo": [
+      "steps 为静态骨架摘要，未展开每个 CAD/COM 细节分支。",
+      "复杂阈值或外部环境异常处理仍建议结合真实案例进一步人工细化。"
+    ],
+    "function_count": 17,
+    "public_api_count": 3,
+    "core_function_count": 3
+  }
+}

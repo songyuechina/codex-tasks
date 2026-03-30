@@ -1,0 +1,496 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_runner.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "围绕单个 DWG 组织 run 目录、构建打印计划、执行打印、校验结果并输出过程产物。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "run_print_case",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_make_process_token",
+      "symbol": "_make_process_token",
+      "qualname": "_make_process_token",
+      "level": "utility",
+      "signature": "def _make_process_token(dwg_path: Path) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "encode",
+        "hashlib.md5",
+        "hexdigest",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 53,
+        "line_end": 55
+      }
+    },
+    {
+      "name": "_make_run_dirs",
+      "symbol": "_make_run_dirs",
+      "qualname": "_make_run_dirs",
+      "level": "utility",
+      "signature": "def _make_run_dirs(dwg_path: Path, output_root: Path) -> tuple[Path, Path, Path]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: Path",
+          "required": true
+        },
+        {
+          "name": "output_root",
+          "raw": "output_root: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_make_process_token",
+        "datetime.now",
+        "pdf_dir.mkdir",
+        "strftime",
+        "work_dir.mkdir"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 58,
+        "line_end": 65
+      }
+    },
+    {
+      "name": "_normalize_path",
+      "symbol": "_normalize_path",
+      "qualname": "_normalize_path",
+      "level": "utility",
+      "signature": "def _normalize_path(path: str | Path) -> str:",
+      "purpose": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "lower",
+        "resolve",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 68,
+        "line_end": 69
+      }
+    },
+    {
+      "name": "_is_name_only_target",
+      "symbol": "_is_name_only_target",
+      "qualname": "_is_name_only_target",
+      "level": "utility",
+      "signature": "def _is_name_only_target(target_path: str | Path) -> bool:",
+      "purpose": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "name.lower",
+        "raw.lower",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 72,
+        "line_end": 74
+      }
+    },
+    {
+      "name": "_find_document_by_path",
+      "symbol": "_find_document_by_path",
+      "qualname": "_find_document_by_path",
+      "level": "utility",
+      "signature": "def _find_document_by_path(target_path: str | Path):",
+      "purpose": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "getattr",
+        "lower",
+        "name.lower",
+        "str"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 77,
+        "line_end": 91
+      }
+    },
+    {
+      "name": "_activate_document_by_path",
+      "symbol": "_activate_document_by_path",
+      "qualname": "_activate_document_by_path",
+      "level": "utility",
+      "signature": "def _activate_document_by_path(target_path: str | Path, retries: int=8, delay: float=0.5) -> bool:",
+      "purpose": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries: int = 8",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay: float = 0.5",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_find_document_by_path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "doc.Activate",
+        "getattr",
+        "lower",
+        "name.lower"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 94,
+        "line_end": 120
+      }
+    },
+    {
+      "name": "_close_document_by_path",
+      "symbol": "_close_document_by_path",
+      "qualname": "_close_document_by_path",
+      "level": "utility",
+      "signature": "def _close_document_by_path(target_path: str | Path, save_changes: bool=False) -> bool:",
+      "purpose": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "save_changes",
+          "raw": "save_changes: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_find_document_by_path",
+        "bool",
+        "doc.Close",
+        "sys_logger.warning"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 123,
+        "line_end": 132
+      }
+    },
+    {
+      "name": "_write_json",
+      "symbol": "_write_json",
+      "qualname": "_write_json",
+      "level": "utility",
+      "signature": "def _write_json(path: Path, payload: dict) -> Path:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: Path",
+          "required": true
+        },
+        {
+          "name": "payload",
+          "raw": "payload: dict",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [
+        "写入磁盘文件。"
+      ],
+      "dependencies": [
+        "json.dumps",
+        "path.parent.mkdir",
+        "path.write_text"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 135,
+        "line_end": 138
+      }
+    },
+    {
+      "name": "run_print_case",
+      "symbol": "run_print_case",
+      "qualname": "run_print_case",
+      "level": "core",
+      "signature": "def run_print_case(dwg_path: Path, output_root: Path, *, mode: str=PRINT_MODE_BASIC, include_model: bool=True, include_layouts: bool=True, only_layouts: list[str] | None=None, dry_run: bool=False, keep_open: bool=False, safety_delay: int=60, wps_threshold: int=6) -> dict:",
+      "purpose": "围绕单个 DWG 完成打印主链：准备工作副本、可选 scope/content 分析、构建计划、执行打印、校验 PDF，并落盘 summary。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: Path",
+          "required": true
+        },
+        {
+          "name": "output_root",
+          "raw": "output_root: Path",
+          "required": true
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str = PRINT_MODE_BASIC",
+          "required": false
+        },
+        {
+          "name": "include_model",
+          "raw": "include_model: bool = True",
+          "required": false
+        },
+        {
+          "name": "include_layouts",
+          "raw": "include_layouts: bool = True",
+          "required": false
+        },
+        {
+          "name": "only_layouts",
+          "raw": "only_layouts: list[str] | None = None",
+          "required": false
+        },
+        {
+          "name": "dry_run",
+          "raw": "dry_run: bool = False",
+          "required": false
+        },
+        {
+          "name": "keep_open",
+          "raw": "keep_open: bool = False",
+          "required": false
+        },
+        {
+          "name": "safety_delay",
+          "raw": "safety_delay: int = 60",
+          "required": false
+        },
+        {
+          "name": "wps_threshold",
+          "raw": "wps_threshold: int = 6",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回单文件 print summary，包含 work_dwg、plan_json、content_analysis_json、scope_analysis_json、execution、verification 等信息。"
+      ],
+      "returns": [
+        "字典，作为 print_batch_dispatch 和人工调试的统一单文件结果对象。"
+      ],
+      "side_effects": [
+        "复制源 DWG 到工作目录、打开并激活 CAD 文档、写出 plan/content/scope/summary JSON，并可能生成 PDF。"
+      ],
+      "dependencies": [
+        "launch_cad_guardians",
+        "assert_runtime_guard_ok",
+        "run_scope_analysis_case",
+        "build_print_plan",
+        "analyze_jobs_content",
+        "filter_jobs_by_largest_pseudo_scope",
+        "filter_jobs_by_handles",
+        "execute_print_plan",
+        "verify_generated_pdfs"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 141,
+        "line_end": 275
+      },
+      "preconditions": [
+        "输入 DWG 路径存在。",
+        "CAD 与 runtime guard 可正常工作。",
+        "输出根目录可写。"
+      ],
+      "steps": [
+        "归一化打印模式并启动 guardians/runtime guard 检查。",
+        "创建 run_root/work_dir/pdf_dir，把源 DWG 复制成工作副本并打开激活。",
+        "在 purified_adaptive 下先做 scope_analysis，再构建打印计划。",
+        "如为 purified_adaptive，则对计划执行内容分析、按最大伪极大范围和 pseudo handles 二次收束，并重新分配输出路径。",
+        "写出 print_plan.json 并在非 dry_run 且有 job 时执行打印与 PDF 校验。",
+        "把 execution、verification 与过程路径整理进 print_summary.json，必要时关闭工作 DWG。"
+      ],
+      "failure_paths": [
+        "工作 DWG 不存在、打开失败或无法激活时直接抛错。",
+        "runtime guard 触发时由上层 CLI 转成结构化 guard error。"
+      ],
+      "success_conditions": [
+        "summary 中的 plan、execution、verification 字段可完整支持后续目录级调度和回归分析。"
+      ],
+      "must_keep_experience": [
+        "必须先在工作副本上执行，而不是直接污染源 DWG。",
+        "purified_adaptive 的 scope/content 两段收束必须发生在 execute_print_plan 之前。",
+        "summary 要同时保存 plan_json 路径和展开后的 plan 字典，便于机器和人工双重复用。"
+      ]
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main() -> None:",
+      "purpose": "提供单文件打印 CLI，负责把命令行参数映射到 run_print_case 并处理 runtime guard 异常输出。",
+      "inputs": [],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [
+        "解析命令行参数并触发 CLI 输出。"
+      ],
+      "dependencies": [
+        "Path",
+        "SystemExit",
+        "argparse.ArgumentParser",
+        "getattr",
+        "hasattr",
+        "json.dumps",
+        "parser.add_argument",
+        "parser.parse_args"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 278,
+        "line_end": 316
+      },
+      "steps": [
+        "配置 utf-8 输出。",
+        "解析 dwg、output-root、mode、layout、dry-run、keep-open 等参数。",
+        "调用 run_print_case。",
+        "正常时打印 summary JSON，guard 触发时打印结构化错误并以退出码 2 结束。"
+      ],
+      "failure_paths": [
+        "RuntimeGuardTriggered 时不会返回正常 summary，而是转换为 guard error JSON。"
+      ],
+      "success_conditions": [
+        "CLI 输出可直接被总管或人工消费。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "pdf",
+      "orchestration"
+    ],
+    "script_focus": "单文件打印主链脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 10,
+    "public_api_count": 2,
+    "core_function_count": 2
+  }
+}

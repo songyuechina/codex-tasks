@@ -1,0 +1,306 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_area_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "procedure": {
+    "goal": "说明 print_area_analysis.py 在打印主链中的整体工作流。",
+    "workflow": [
+      "先收集多段线并筛选矩形候选。",
+      "再计算标准图幅缓存、方向与比例匹配分数。",
+      "随后去重并剔除伪极大矩形。",
+      "最后输出打印区域与伪极大区域供后续策略层消费。"
+    ],
+    "applicable_scenarios": [
+      "需要从模型空间或布局空间抽取矩形打印框",
+      "需要按 basic/adaptive/purified_adaptive 模式做图幅匹配",
+      "需要识别伪极大外包矩形并为后续净化链提供候选区域"
+    ],
+    "resource_boundary": [
+      "仅负责当前脚本所属阶段，不替代上游目录级治理文档。",
+      "涉及 CAD 真机执行时仍需复用 system.licad、CAD_coordination 与打印主链其它模块。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_safe_delete",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_bbox_xy",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_bbox_wh_from_bbox",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_eps_from_short_side",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_cluster_1d",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_cluster_points_2d",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_get_polyline_points",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "is_rectangular_polyline",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "select_all_polylines",
+      "level": "normal",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "get_rect_polylines_by_space",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "build_std288",
+      "level": "normal",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "get_std288_cached",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "get_std288_bounds",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_orientation_from_bbox",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_match_score",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_within_supported_bounds",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "check_strict_standard_print_polyline",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "match_nearest_standard_print",
+      "level": "normal",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "match_standard_print_by_mode",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "remove_duplicate_polylines_dynamic",
+      "level": "normal",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_contains_bbox",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "find_maximal_rect_polylines",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "collect_pseudo_maximal_rect_polylines",
+      "level": "normal",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_add_edge_lines_and_delete",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_is_standard_scale_1",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "remove_pseudo_maxima_in_space",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "get_print_area_polylines",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "get_pseudo_maximal_polylines",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_debug_dump_standard_matches",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "geometry",
+      "print-analysis"
+    ],
+    "script_focus": "从 CAD 文档中识别候选打印区域，清理伪极大矩形，并与标准图幅、方向和比例规则进行匹配。"
+  },
+  "quality": {
+    "todo": [
+      "workflow 已覆盖主流程骨架，局部阈值、启发式参数仍需结合案例回归细化。"
+    ],
+    "function_count": 29,
+    "public_api_count": 4
+  }
+}

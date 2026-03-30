@@ -19,11 +19,54 @@ while current.name != 'cad':
 sys.path.insert(0, str(current))
 
 from system.project_setup import PathConfig
-from system.licad import C
+from system.licad import C, get_acad_doc
 from system.CAD_com_utils import retry_on_busy, retry_if_busy, sys_logger, SafeCOM
 from system.CAD_coordination import send_cmd_with_sync, wait_quiescent
+from system.CAD_selection import (
+    get_object_property,
+    last_obj,
+    normalize_rect,
+    select_entities_in_window,
+    select_objects_in_window_area,
+    set_object_property,
+    stc,
+)
+from library.cad_control import transfer_props_by_matchprop
+from library.cad_objects import dim_by_points as _cad_dim_by_points
+from system.CAD_core import copy_file_content_pywin32
 import time
 import subprocess
+
+
+XITONG_DIR = PathConfig.CAD_DIR / "xitongwenjian"
+LOGS_DIR = PathConfig.CAD_DIR / "logs"
+
+
+class _CompatNamespace:
+    @property
+    def acad(self):
+        try:
+            return C.acad
+        except Exception:
+            return None
+
+    @property
+    def doc(self):
+        try:
+            return C.raw_doc
+        except Exception:
+            return None
+
+    @staticmethod
+    def normalize_rect(*args, **kwargs):
+        return normalize_rect(*args, **kwargs)
+
+    @staticmethod
+    def select_entities_in_window(*args, **kwargs):
+        return select_entities_in_window(*args, **kwargs)
+
+
+cb = _CompatNamespace()
 
 
 def dim_by_points(p1, p2, p3):
@@ -41,8 +84,7 @@ def dim_by_points(p1, p2, p3):
     C.li()
 
 
-    from CAD_basic import dim_by_points as _dim_by_points
-    return _dim_by_points(p1, p2, p3)
+    return _cad_dim_by_points(p1, p2, p3)
 
 
 #&&% 绘制天正墙
@@ -59,10 +101,7 @@ def draw_tarch_wall(p1, p2, thickness=240):
         bool: 成功返回True
     """
     C.li()
-    import sys, time
-    sys.path.append(str(Path(__file__).parent))
-    from CAD_basic import last_obj, set_object_property
-    from system.CAD_coordination import send_cmd_with_sync, wait_quiescent
+    import time
 
     try:
         # 发送天正墙命令
@@ -121,11 +160,7 @@ def insert_tarch_door(p, width=None, height=None):
     Returns:
         dict: {'success': bool, 'door': 门对象, 'width': 实际宽度, 'height': 实际高度}
     """
-    import sys
     import time
-    sys.path.append(str(Path(__file__).parent))
-    from CAD_basic import  get_acad_doc, get_object_property, set_object_property
-    from system.CAD_coordination import send_cmd_with_sync, wait_quiescent
 
     
     try:
@@ -164,7 +199,6 @@ def insert_tarch_door(p, width=None, height=None):
                 except Exception:
                     continue
         if door is None:
-            from CAD_basic import last_obj
             for _ in range(3):
                 try:
                     candidate = last_obj()
@@ -230,12 +264,6 @@ def insert_tarch_window(p, width=600, height=1000, window_type="jz-pingchuang", 
     import time
     import logging
     from pathlib import Path as PathLib
-    import sys
-    sys.path.append(str(Path(__file__).parent))
-    from CAD_basic import (
-        get_object_property, set_object_property,
-        transfer_props_by_matchprop
-    )
     
 
     # 配置日志
@@ -647,15 +675,6 @@ def TDb_single_line_variable_wall(x1: float, y1: float, x2: float, y2: float, wi
     """
     from system.CAD_coordination import wait_quiescent
 
-    from CAD_basic import (
-        lines_daduan, get_acad_doc,
-        set_object_property, normalize_rect, 
-    )
-    import CAD_basic as CAD_basic_module
-    
-
-
-
     C.li()
 
 
@@ -1023,7 +1042,6 @@ def get_wall_thickness(wall_obj):
         float: 墙体厚度（Thickness + Thickness2）
     """
     try:
-        from CAD_basic import get_object_property
         t1 = get_object_property(wall_obj, "Thickness") or 0
         t2 = get_object_property(wall_obj, "Thickness2") or 0
         sys_logger.info(f"[成功] 获取墙体厚度: {t1 + t2}")
@@ -1044,7 +1062,6 @@ def get_wall_length(wall_obj):
         float: 墙体长度
     """
     try:
-        from CAD_basic import get_object_property
         length = get_object_property(wall_obj, "Length")
         sys_logger.info(f"[成功] 获取墙体长度: {length}")
         return length
@@ -1064,7 +1081,6 @@ def get_wall_height(wall_obj):
         float: 墙体高度
     """
     try:
-        from CAD_basic import get_object_property
         height = get_object_property(wall_obj, "Height")
         sys_logger.info(f"[成功] 获取墙体高度: {height}")
         return height
@@ -1086,7 +1102,6 @@ def modify_wall_thickness(wall_obj, thickness):
         bool: 成功返回True
     """
     try:
-        from CAD_basic import set_object_property
         half = thickness / 2
         set_object_property(wall_obj, "Thickness", half)
         set_object_property(wall_obj, "Thickness2", half)
@@ -1109,7 +1124,6 @@ def modify_wall_height(wall_obj, height):
         bool: 成功返回True
     """
     try:
-        from CAD_basic import set_object_property
         set_object_property(wall_obj, "Height", height)
         sys_logger.info(f"[成功] 修改墙体高度为: {height}")
         return True
@@ -1132,7 +1146,6 @@ def modify_door_size(door_obj, width, height):
         bool: 成功返回True
     """
     try:
-        from CAD_basic import set_object_property
         set_object_property(door_obj, "Width", width)
         set_object_property(door_obj, "Height", height)
         sys_logger.info(f"[成功] 修改门尺寸为: 宽{width}, 高{height}")
@@ -1155,7 +1168,6 @@ def modify_window_size(window_obj, width, height):
         bool: 成功返回True
     """
     try:
-        from CAD_basic import set_object_property
         set_object_property(window_obj, "Width", width)
         set_object_property(window_obj, "Height", height)
         sys_logger.info(f"[成功] 修改窗尺寸为: 宽{width}, 高{height}")
@@ -1219,7 +1231,6 @@ def insert_tarch_column(p, width, height, column_type="矩形柱"):
     """
     try:
         from system.CAD_coordination import send_cmd_with_sync, wait_quiescent
-        from CAD_basic import last_obj
 
         cmd = f"TColumn\\n{p[0]},{p[1]}\\n{width}\\n{height}\\n\\n"
         send_cmd_with_sync(cmd, wait_after=1.0)
@@ -1246,7 +1257,6 @@ def modify_column_size(column_obj, width, height):
         bool: 成功返回True
     """
     try:
-        from CAD_basic import set_object_property
         set_object_property(column_obj, "Width", width)
         set_object_property(column_obj, "Height", height)
         sys_logger.info(f"[成功] 修改柱子尺寸为: 宽{width}, 高{height}")
@@ -1271,7 +1281,6 @@ def insert_tarch_stair(p1, p2, stair_type="直跑楼梯"):
     """
     try:
         from system.CAD_coordination import send_cmd_with_sync, wait_quiescent
-        from CAD_basic import last_obj
 
         cmd = f"TStair\\n{p1[0]},{p1[1]}\\n{p2[0]},{p2[1]}\\n\\n"
         send_cmd_with_sync(cmd, wait_after=1.0)
@@ -1297,7 +1306,6 @@ def modify_stair_params(stair_obj, **params):
         bool: 成功返回True
     """
     try:
-        from CAD_basic import set_object_property
         for key, value in params.items():
             set_object_property(stair_obj, key, value)
         sys_logger.info(f"[成功] 修改楼梯参数: {params}")

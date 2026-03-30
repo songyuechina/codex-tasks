@@ -1,0 +1,91 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "CAD_selection",
+  "file_path": "D:/codex-tasks/cad/system/CAD_selection.py",
+  "script_role": "CAD 选择、对象类型转换、可视化选中与属性访问核心脚本",
+  "core_problem": "为 CAD / 天正对象提供稳定的选择引擎、对象类型转换、当前空间过滤、可视化选中、以及标准对象与天正对象的统一属性读写能力。",
+  "system_position": {
+    "layer_name": "选择与对象研究层",
+    "high_value_stable_core": true,
+    "works_with": [
+      "system.licad.py",
+      "system.CAD_com_utils.py",
+      "system.project_setup.py"
+    ],
+    "main_entry_note": "本模块建立在 licad.C 连接之上，不负责 CAD 主连接。"
+  },
+  "core_functions": [
+    {
+      "name": "ss_select",
+      "role": "通用选择集构造器，是整个选择系统的核心入口",
+      "input_shape": "mode, p1, p2, filter_types, filter_data, autocast, prompt",
+      "output_shape": "对象列表"
+    },
+    {
+      "name": "cast_object / _maybe_cast",
+      "role": "将通用 IAcadEntity 智能转换为具体对象接口或动态封装",
+      "input_shape": "单个 CAD/天正对象",
+      "output_shape": "已转换对象"
+    },
+    {
+      "name": "current_space_only",
+      "role": "限定当前激活空间的选择结果过滤装饰器",
+      "input_shape": "返回对象列表的函数",
+      "output_shape": "仅保留当前空间对象的包装函数"
+    },
+    {
+      "name": "select_entities_through_point / select_objects_in_window_area / select_paperspace_objects_in_window / pmxz",
+      "role": "几何与交互选择核心族",
+      "input_shape": "点、窗口、提示语等",
+      "output_shape": "对象列表"
+    },
+    {
+      "name": "select_tuceng / stc / select_kuai / select_text / select_mtext / select_line / select_circle / select_ellipse / select_polyline / select_polyline_chuantong / select_spline",
+      "role": "按图层、类型、对象种类选择",
+      "input_shape": "图层名或无参快捷调用",
+      "output_shape": "对象列表"
+    },
+    {
+      "name": "yin_to_xian_xuanze / yin_to_xian_safe / xian_to_yin_pickfirst / select_entities_in_window / highlight_entities_in_window / highlight_entity_by_bbox / set_entity_grip_state_precise / isolate_modelspace_area / unhide_all",
+      "role": "可视化选中、夹点控制、隔离显示与取消隐藏",
+      "input_shape": "对象、窗口范围、空间对象等",
+      "output_shape": "高亮/选中副作用或对象列表"
+    },
+    {
+      "name": "get_attr / set_attr / get_object_property / set_object_property",
+      "role": "标准 CAD 对象与天正对象统一属性读写接口",
+      "input_shape": "obj, name, value/default",
+      "output_shape": "属性值 / bool"
+    },
+    {
+      "name": "brute_dump_tarch_props",
+      "role": "暴力扫描天正对象属性 DISPID 的调试工具",
+      "input_shape": "ent, max_dispid",
+      "output_shape": "控制台调试输出"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "模块内部仍保留旧式 sys.path 引导，这是历史兼容痕迹",
+    "大量函数直接操作当前 PickfirstSelectionSet、SelectionSets、视图缩放与 SendCommand",
+    "可视化函数会修改当前编辑器选中状态、夹点状态、隔离显示状态",
+    "属性读写对天正对象会直接走 _oleobj_.Invoke(DISPID)",
+    "本模块依赖 licad.C 和 CAD_com_utils 提供的连接与 retry/SafeCOM 能力"
+  ],
+  "must_keep_experience": [
+    "选择结果必须优先过滤到当前激活空间，避免模型/布局空间混淆",
+    "对象类型转换要同时兼顾 CastTo、动态封装、以及天正对象兼容",
+    "选择集提取应结合 SafeCOM.list_selection 提高稳定性",
+    "天正对象属性访问要通过 ObjectName -> DISPID 映射表进行统一访问",
+    "窗口选择、布局空间选择、可视化高亮与 Pickfirst 恢复等交互经验不能丢"
+  ],
+  "known_limits": [
+    "本模块仍包含历史 print 调试输出与旧式引导，不是完全收束版",
+    "职责很重，既包含选择引擎，也包含属性系统与可视化控制",
+    "天正属性映射字典依赖长期实测积累，重构时不能轻率删除或改名"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": false,
+    "guidance": "这是高价值稳定核心。允许局部修补、补充映射、修复日志与兼容问题，但不应轻率整体重写。"
+  }
+}

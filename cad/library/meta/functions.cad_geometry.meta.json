@@ -1,0 +1,460 @@
+{
+  "functions": {
+    "compute_line_angle": {
+      "level": "core",
+      "description": "计算直线的方向角（0-360度）",
+      "params": {"line": "CAD直线对象"},
+      "returns": "角度值(度)或None"
+    },
+    "draw_point": {
+      "level": "core",
+      "description": "在模型空间绘制AutoCAD点实体",
+      "params": {"pt": "(x, y, z)三维坐标"},
+      "returns": "Point对象或None"
+    },
+    "draw_line": {
+      "level": "core",
+      "description": "在模型空间绘制直线段",
+      "params": {"p1": "起点", "p2": "终点"},
+      "returns": "Line对象或None"
+    },
+    "draw_circle": {
+      "level": "core",
+      "description": "绘制圆",
+      "params": {"center": "圆心", "radius": "半径"},
+      "returns": "Circle对象或None"
+    },
+    "draw_regular_polygon": {
+      "level": "normal",
+      "description": "绘制正多边形",
+      "params": {"center": "圆心", "radius": "外接圆半径", "sides": "边数≥3"},
+      "returns": "Polyline对象或None"
+    },
+    "prioritize_horizontal": {
+      "level": "utility",
+      "description": "将水平直线段排在列表前面",
+      "params": {"lines": "直线列表", "tol": "容差"},
+      "returns": "(水平列表, 非水平列表)"
+    },
+    "get_spline_length_by_conversion": {
+      "level": "normal",
+      "description": "将样条曲线转换为多段线后获取长度",
+      "params": {"spline_entity": "样条曲线对象"},
+      "returns": "长度值或None"
+    },
+    "estimate_ellipse_length": {
+      "level": "utility",
+      "description": "使用Ramanujan公式估算椭圆周长",
+      "params": {"ellipse": "椭圆对象"},
+      "returns": "估算周长或None"
+    },
+    "get_entity_geometry_info": {
+      "level": "core",
+      "description": "获取实体的关键几何信息",
+      "params": {"obj": "CAD实体对象"},
+      "returns": "几何信息字典"
+    },
+    "points_on_line_at_distance_3d": {
+      "level": "normal",
+      "description": "在直线上获取距离参考点指定距离的点",
+      "params": {"p1": "起点", "p2": "终点", "px": "参考点", "distance": "距离"},
+      "returns": "[正向点, 反向点]"
+    },
+    "find_fake_intersection_regions": {
+      "level": "normal",
+      "description": "查找伪相交区域并绘制标记",
+      "params": {"lines": "线段列表", "tol": "容差"},
+      "returns": "None"
+    },
+    "lines_daduan": {
+      "level": "normal",
+      "description": "使用天正命令打断直线",
+      "params": {"start_point": "起点", "end_point": "终点"},
+      "returns": "None"
+    },
+    "delete_duplicate_lines": {
+      "level": "normal",
+      "description": "删除重复的直线段",
+      "params": {"lines": "线段列表", "tol": "容差"},
+      "returns": "保留的线段列表"
+    },
+    "delete_redundant_lines": {
+      "level": "normal",
+      "description": "删除完全或局部重复的线段",
+      "params": {"lines": "线段列表", "tol": "容差"},
+      "returns": "None"
+    },
+    "find_isolated_intersections": {
+      "level": "normal",
+      "description": "找出孤立线段并计算与其他线段的交点",
+      "params": {"LB": "线段列表", "tol": "容差"},
+      "returns": "交点列表"
+    },
+    "get_inner_point_of_polygon": {
+      "level": "utility",
+      "description": "获取Polygon内部的一个保证点",
+      "params": {"polygon": "shapely Polygon对象"},
+      "returns": "(x, y)元组"
+    },
+    "get_room_outline_from_point": {
+      "level": "normal",
+      "description": "使用天正TSpOutline命令获取房间轮廓",
+      "params": {"x": "X坐标", "y": "Y坐标", "z": "Z坐标"},
+      "returns": "None"
+    },
+    "connect_lines_to_polyline_if_closed": {
+      "level": "normal",
+      "description": "判断线段是否构成封闭多边形并绘制PL",
+      "params": {"lines": "线段列表", "tol": "容差"},
+      "returns": "Polyline对象或None"
+    },
+    "is_closed_polygon_from_lines": {
+      "level": "utility",
+      "description": "判断线段是否构成封闭多边形",
+      "params": {"lines": "线段列表", "tol": "容差"},
+      "returns": "True/False"
+    },
+    "same_point": {
+      "level": "utility",
+      "description": "判断两点是否在容差范围内相同",
+      "params": {"p1": "点1", "p2": "点2", "tol": "容差"},
+      "returns": "True/False"
+    },
+    "same_line": {
+      "level": "utility",
+      "description": "判断两条线段是否相同",
+      "params": {"ln1": "线1", "ln2": "线2", "tol": "容差"},
+      "returns": "True/False"
+    },
+    "calculate_absolute_angle": {
+      "level": "utility",
+      "description": "计算线段从指定点出发的绝对角度",
+      "params": {"line": "线段", "P": "参考点", "tol": "容差"},
+      "returns": "角度值(0-360)"
+    },
+    "calculate_relative_angle": {
+      "level": "utility",
+      "description": "计算两线段之间的相对角度",
+      "params": {"line": "候选线段", "P": "共点", "current_line": "参考线段", "tol": "容差"},
+      "returns": "角度差(0-360)"
+    },
+    "find_lines_angle": {
+      "level": "normal",
+      "description": "查找与点P共端的线段并按绝对角度排序",
+      "params": {"lines": "线段列表", "P": "共点", "tol": "容差"},
+      "returns": "排序后的线段列表"
+    },
+    "find_lines_sharing_point": {
+      "level": "normal",
+      "description": "查找与点P共端的线段并按相对角度排序",
+      "params": {"lines": "线段列表", "P": "共点", "current_line": "参考线", "tol": "容差"},
+      "returns": "排序后的线段列表"
+    },
+    "find_successor_line_max": {
+      "level": "normal",
+      "description": "查找转角最大的后继线段",
+      "params": {"current_line": "当前线", "lines": "线段列表", "P": "共点", "tol": "容差"},
+      "returns": "(后继线段, 新共点)"
+    },
+    "find_rightbottom_point": {
+      "level": "normal",
+      "description": "找出所有端点中最右下角的点",
+      "params": {"lines": "线段列表", "tol": "容差"},
+      "returns": "(x, y, z)元组"
+    },
+    "find_rightbottom_closed_polygon": {
+      "level": "core",
+      "description": "从线段组构造封闭多边形",
+      "params": {"lines": "线段列表", "tol": "容差", "max_steps": "最大步数"},
+      "returns": "顶点列表或None"
+    },
+    "draw_polygon_as_polyline": {
+      "level": "core",
+      "description": "将多边形顶点绘制为PL多段线",
+      "params": {"polygon": "顶点列表或线段列表", "layer_name": "图层名", "tol": "容差"},
+      "returns": "Polyline对象或None"
+    },
+    "is_nearly_equal": {
+      "level": "utility",
+      "description": "判断两点是否近似相等",
+      "params": {"p1": "点1", "p2": "点2", "tol": "容差"},
+      "returns": "True/False"
+    },
+    "find_successor_line_min": {
+      "level": "normal",
+      "description": "查找转角最小的后继线段",
+      "params": {"current_line": "当前线", "lines": "线段列表", "P": "共点", "tol": "容差"},
+      "returns": "(后继线段, 新共点)"
+    },
+    "get_outer_contour": {
+      "level": "core",
+      "description": "获取线段组的外轮廓线",
+      "params": {"lines": "线段列表", "tol": "容差", "max_steps": "最大步数"},
+      "returns": "外轮廓线段列表"
+    },
+    "deduplicate_vertices": {
+      "level": "utility",
+      "description": "去除顶点列表中相邻重复的顶点",
+      "params": {"vertices": "顶点列表", "tol": "容差"},
+      "returns": "去重后的顶点列表"
+    },
+    "analyze_polygon_branches": {
+      "level": "normal",
+      "description": "分析多边形的分支情况",
+      "params": {"PL": "多边形顶点", "lines": "线段列表", "p1": "右下角点", "tol": "容差"},
+      "returns": "分支顶点列表或None"
+    },
+    "remove_lines_in_LBv": {
+      "level": "normal",
+      "description": "移除两端点都在指定顶点列表中的线段",
+      "params": {"lines": "线段列表", "LB_v": "顶点列表", "tol": "容差"},
+      "returns": "剩余线段列表"
+    },
+    "process_polygons": {
+      "level": "core",
+      "description": "递归提取并绘制所有封闭多边形",
+      "params": {"lines": "线段列表", "tol": "容差", "max_steps": "最大步数", "layer_name": "图层名"},
+      "returns": "(多边形列表, PL对象列表, 辅助PL列表)"
+    },
+    "extract_polygon_from_lines": {
+      "level": "normal",
+      "description": "将线段列表转换为有序顶点列表",
+      "params": {"lines": "线段列表", "tol": "容差"},
+      "returns": "顶点列表或None"
+    },
+    "explode_polylines": {
+      "level": "utility",
+      "description": "将多段线炸开为线段列表",
+      "params": {"LB": "多段线列表"},
+      "returns": "线段列表"
+    },
+    "subtract_line_sets": {
+      "level": "utility",
+      "description": "线段集减法运算",
+      "params": {"lines1": "被减集合", "lines2": "减数集合", "tol": "容差"},
+      "returns": "结果列表"
+    },
+    "process_final": {
+      "level": "core",
+      "description": "最终处理：提取并绘制所有多边形",
+      "params": {"lines": "线段列表", "tol": "容差", "max_steps": "最大步数", "layer_name": "图层名"},
+      "returns": "(多边形列表, PL列表, 辅助PL列表)"
+    },
+    "draw_lwpolyline": {
+      "level": "core",
+      "description": "绘制轻量级多段线",
+      "params": {"coords3d": "坐标列表", "layer_name": "图层", "width": "宽度", "color": "颜色", "closed": "是否闭合"},
+      "returns": "Polyline对象"
+    },
+    "get_unique_vertices_from_pl_com": {
+      "level": "utility",
+      "description": "提取多段线的唯一顶点列表",
+      "params": {"pl_com": "Polyline COM对象"},
+      "returns": "顶点列表"
+    },
+    "convert_lines_to_points": {
+      "level": "utility",
+      "description": "将线段列表转换为顶点对列表",
+      "params": {"segments": "线段列表"},
+      "returns": "[[起点,终点],...]"
+    },
+    "merge_segments_new": {
+      "level": "normal",
+      "description": "合并连接的线段",
+      "params": {"LB": "线段列表", "tol": "容差"},
+      "returns": "合并后的线段列表"
+    },
+    "draw_polyline": {
+      "level": "core",
+      "description": "绘制轻量多段线（支持Model/Layout自适应）",
+      "params": {"vertices": "顶点列表", "layer_name": "图层", "tol": "容差", "width": "宽度", "color": "颜色", "target_space": "目标空间"},
+      "returns": "Polyline对象或None"
+    },
+    "lines_to_polylines": {
+      "level": "core",
+      "description": "将直线段合并为多段线",
+      "params": {"Lc": "线段列表", "tol": "容差", "layer_name": "图层", "width": "宽度", "color": "颜色"},
+      "returns": "Polyline对象列表"
+    },
+    "find_min_point": {
+      "level": "utility",
+      "description": "获取对象左下角坐标",
+      "params": {"obj": "CAD对象"},
+      "returns": "(min_x, min_y)"
+    },
+    "find_max_point": {
+      "level": "utility",
+      "description": "获取对象右上角坐标",
+      "params": {"obj": "CAD对象"},
+      "returns": "(max_x, max_y)"
+    },
+    "distance": {
+      "level": "utility",
+      "description": "计算两点之间的距离",
+      "params": {"point1": "点1", "point2": "点2"},
+      "returns": "距离值"
+    },
+    "define_rectangle_by_diagonal": {
+      "level": "utility",
+      "description": "用对角点定义矩形",
+      "params": {"p1": "对角点1", "p2": "对角点2"},
+      "returns": "(四顶点, 长, 宽)"
+    },
+    "define_rectangle_by_diagonal_x": {
+      "level": "utility",
+      "description": "用对角点定义矩形（简化版）",
+      "params": {"p1": "对角点1", "p2": "对角点2"},
+      "returns": "扁平顶点列表"
+    },
+    "expand_rectangle": {
+      "level": "utility",
+      "description": "扩展矩形框",
+      "params": {"p1": "角点1", "p2": "角点2", "offset": "扩展距离"},
+      "returns": "(新角点1, 新角点2)"
+    },
+    "parse_rectangle_points": {
+      "level": "utility",
+      "description": "解析多种格式的矩形坐标输入",
+      "params": {"*args": "坐标参数"},
+      "returns": "(左下, 右上, 左上, 右下)"
+    },
+    "get_rectangular_polylines": {
+      "level": "normal",
+      "description": "筛选矩形多段线",
+      "params": {"min_side": "最小边长", "area_tolerance": "面积容差"},
+      "returns": "矩形多段线列表"
+    },
+    "get_layout_rectangular_polylines_coords": {
+      "level": "normal",
+      "description": "在布局空间筛选矩形多段线",
+      "params": {"layout_name": "布局名", "min_side": "最小边长"},
+      "returns": "矩形多段线列表"
+    },
+    "generate_name_and_ratio_from_com": {
+      "level": "normal",
+      "description": "识别图框尺寸和比例",
+      "params": {"comobj": "多段线对象", "A3dy": "A3模式", "Fandy": "固定参数", "tol": "容差"},
+      "returns": "(图纸名, 比例, 图号, 方向)"
+    },
+    "check_strict_standard_size": {
+      "level": "normal",
+      "description": "严格检查是否符合标准图框",
+      "params": {"comobj": "对象", "tol": "容差"},
+      "returns": "匹配结果或0"
+    },
+    "polyline_sort": {
+      "level": "utility",
+      "description": "按规则排序多段线",
+      "params": {"polyline_list": "多段线列表"},
+      "returns": "排序后的列表"
+    },
+    "plcom_to_coor": {
+      "level": "utility",
+      "description": "多段线转坐标列表",
+      "params": {"plines": "多段线列表"},
+      "returns": "[(坐标列表, 闭合标志),...]"
+    },
+    "plcoor_to_com": {
+      "level": "normal",
+      "description": "坐标列表转多段线",
+      "params": {"coord_info": "坐标信息", "layer_name": "图层", "width": "宽度", "color": "颜色"},
+      "returns": "Polyline对象列表"
+    },
+    "panduan_shuxiangkuang": {
+      "level": "utility",
+      "description": "判断是否竖向框",
+      "params": {"polyline": "多段线对象"},
+      "returns": "True/False"
+    },
+    "tongyi_tufu": {
+      "level": "utility",
+      "description": "统一图幅",
+      "params": {"LB": "图框列表", "TFname": "图纸名"},
+      "returns": "图纸名列表"
+    },
+    "simplify_polygon": {
+      "level": "utility",
+      "description": "简化多边形顶点",
+      "params": {"poly": "顶点列表", "tol": "容差"},
+      "returns": "简化后的顶点列表"
+    },
+    "normalize_polygon": {
+      "level": "utility",
+      "description": "标准化多边形顶点列表",
+      "params": {"polygon": "顶点列表"},
+      "returns": "去重后的顶点列表"
+    },
+    "get_adjacent_points": {
+      "level": "utility",
+      "description": "获取顶点的相邻点",
+      "params": {"polygon": "多边形", "p": "目标点"},
+      "returns": "(前一点, 后一点)"
+    },
+    "point_in_polygon": {
+      "level": "utility",
+      "description": "判断点是否在多边形内",
+      "params": {"pt": "点", "polygon": "多边形"},
+      "returns": "True/False"
+    },
+    "line_segment_intersection_2d": {
+      "level": "utility",
+      "description": "计算线段交点",
+      "params": {"p": "射线起点", "d": "射线方向", "a": "线段端点1", "b": "线段端点2", "tol": "容差"},
+      "returns": "(x, y, t)或None"
+    },
+    "get_auxiliary_point": {
+      "level": "utility",
+      "description": "获取多边形内部的辅助点",
+      "params": {"p": "顶点", "p_prev": "前一点", "p_next": "后一点", "polygon": "多边形", "tol": "容差"},
+      "returns": "辅助点"
+    },
+    "concavity_measure": {
+      "level": "utility",
+      "description": "计算凹凸度量角",
+      "params": {"p": "顶点", "p_prev": "前一点", "p_next": "后一点", "q": "辅助点"},
+      "returns": "角度值"
+    },
+    "concavity_angle": {
+      "level": "utility",
+      "description": "直接计算多边形顶点的凹凸角",
+      "params": {"p": "顶点", "polygon": "多边形"},
+      "returns": "角度值"
+    },
+    "split_orthogonal_hexagon": {
+      "level": "normal",
+      "description": "水平分割正交六边形",
+      "params": {"polygon": "六边形顶点", "tol": "容差"},
+      "returns": "(矩形1, 矩形2)"
+    },
+    "split_orthogonal_hexagon_vertical": {
+      "level": "normal",
+      "description": "竖向分割正交六边形",
+      "params": {"polygon": "六边形顶点", "tol": "容差"},
+      "returns": "(矩形1, 矩形2)"
+    },
+    "area_of": {
+      "level": "utility",
+      "description": "计算多边形面积",
+      "params": {"verts": "顶点列表"},
+      "returns": "面积值"
+    },
+    "split_hexagon_combined": {
+      "level": "normal",
+      "description": "综合分割正交六边形",
+      "params": {"polygon": "多段线或顶点", "tol": "容差", "simplify_tol": "简化容差"},
+      "returns": "[矩形1, 配对1, 矩形2, 配对2]"
+    },
+    "get_bbox_edge_segments": {
+      "level": "utility",
+      "description": "获取包围盒四条边",
+      "params": {"pl": "对象", "tol": "容差"},
+      "returns": "(上边, 下边, 左边, 右边)"
+    },
+    "get_texts_in_polyline": {
+      "level": "normal",
+      "description": "获取多段线内的文字",
+      "params": {"com_pl": "多段线", "tol": "容差"},
+      "returns": "(文字对象列表, 内容列表)"
+    }
+  }
+}

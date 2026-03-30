@@ -1,0 +1,413 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "common_logger.py",
+    "path": "D:/codex-tasks/cad/system/common_logger.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "提供 cad/system 统一日志、测试记录、调试开关与关键区段记录。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "setup_logger",
+      "set_log_level",
+      "set_debug_mode",
+      "record_test_result",
+      "checkpoint",
+      "CriticalSection.__enter__",
+      "CriticalSection.__exit__",
+      "node"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_parse_log_level",
+      "symbol": "_parse_log_level",
+      "qualname": "_parse_log_level",
+      "level": "utility",
+      "signature": "def _parse_log_level(level: Any) -> int:",
+      "purpose": "在 common_logger 中承接 `_parse_log_level` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "level",
+          "raw": "level: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 70,
+        "line_end": 82
+      }
+    },
+    {
+      "name": "setup_logger",
+      "symbol": "setup_logger",
+      "qualname": "setup_logger",
+      "level": "core",
+      "signature": "def setup_logger(log_file: str = \"system_run.log\") -> logging.Logger:",
+      "purpose": "在 common_logger 中承接 `setup_logger` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "log_file",
+          "raw": "log_file: str = \"system_run.log\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 83,
+        "line_end": 135
+      }
+    },
+    {
+      "name": "set_log_level",
+      "symbol": "set_log_level",
+      "qualname": "set_log_level",
+      "level": "core",
+      "signature": "def set_log_level( level:",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 136,
+        "line_end": 157
+      }
+    },
+    {
+      "name": "set_debug_mode",
+      "symbol": "set_debug_mode",
+      "qualname": "set_debug_mode",
+      "level": "core",
+      "signature": "def set_debug_mode( mode:",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 158,
+        "line_end": 198
+      }
+    },
+    {
+      "name": "record_test_result",
+      "symbol": "record_test_result",
+      "qualname": "record_test_result",
+      "level": "core",
+      "signature": "def record_test_result( script_name:",
+      "purpose": "记录日志、测试结果或状态快照。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 199,
+        "line_end": 256
+      }
+    },
+    {
+      "name": "checkpoint",
+      "symbol": "checkpoint",
+      "qualname": "checkpoint",
+      "level": "core",
+      "signature": "def checkpoint(desc: str, is_pass: bool = True, **variables: Any) -> None:",
+      "purpose": "在 common_logger 中承接 `checkpoint` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "desc",
+          "raw": "desc: str",
+          "required": true
+        },
+        {
+          "name": "is_pass",
+          "raw": "is_pass: bool = True",
+          "required": false
+        },
+        {
+          "name": "**variables",
+          "raw": "**variables: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 257,
+        "line_end": 282
+      }
+    },
+    {
+      "name": "CriticalSection.__init__",
+      "symbol": "__init__",
+      "qualname": "CriticalSection.__init__",
+      "level": "utility",
+      "signature": "def __init__( self, description:",
+      "purpose": "初始化所属类的运行时状态、缓存或配置。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os",
+        "time"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 292,
+        "line_end": 323
+      }
+    },
+    {
+      "name": "CriticalSection.record",
+      "symbol": "record",
+      "qualname": "CriticalSection.record",
+      "level": "utility",
+      "signature": "def record(self, **kwargs: Any) -> None:",
+      "purpose": "记录日志、测试结果或状态快照。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 324,
+        "line_end": 326
+      }
+    },
+    {
+      "name": "CriticalSection.__enter__",
+      "symbol": "__enter__",
+      "qualname": "CriticalSection.__enter__",
+      "level": "core",
+      "signature": "def __enter__(self):",
+      "purpose": "进入上下文并准备保护性资源或事务状态。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "sys_logger"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 327,
+        "line_end": 330
+      }
+    },
+    {
+      "name": "CriticalSection.__exit__",
+      "symbol": "__exit__",
+      "qualname": "CriticalSection.__exit__",
+      "level": "core",
+      "signature": "def __exit__(self, exc_type, exc_val, exc_tb):",
+      "purpose": "退出上下文，执行清理、回滚或异常后处理。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "exc_type",
+          "raw": "exc_type",
+          "required": true
+        },
+        {
+          "name": "exc_val",
+          "raw": "exc_val",
+          "required": true
+        },
+        {
+          "name": "exc_tb",
+          "raw": "exc_tb",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 331,
+        "line_end": 363
+      }
+    },
+    {
+      "name": "node",
+      "symbol": "node",
+      "qualname": "node",
+      "level": "utility",
+      "signature": "def node(msg: str, *args: Any, **kwargs: Any) -> None:",
+      "purpose": "在 common_logger 中承接 `node` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "msg",
+          "raw": "msg: str",
+          "required": true
+        },
+        {
+          "name": "*args",
+          "raw": "*args: Any",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 364,
+        "line_end": 385
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "提供 cad/system 统一日志、测试记录、调试开关与关键区段记录。"
+  },
+  "quality": {
+    "todo": [
+      "日志落盘与测试记录路径依赖 PathConfig，本次只静态总结调用关系。"
+    ],
+    "function_count": 11,
+    "public_api_count": 8,
+    "core_function_count": 7
+  }
+}

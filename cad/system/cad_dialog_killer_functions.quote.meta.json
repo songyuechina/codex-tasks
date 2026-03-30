@@ -1,0 +1,249 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "cad_dialog_killer.py",
+    "path": "D:/codex-tasks/cad/system/cad_dialog_killer.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "作为独立守护脚本巡检并关闭阻塞 CAD 的标准对话框。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "read_delay",
+      "get_cad_pids",
+      "enum_and_maybe_close",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "read_delay",
+      "symbol": "read_delay",
+      "qualname": "read_delay",
+      "level": "utility",
+      "signature": "def read_delay() -> int:",
+      "purpose": "在 cad_dialog_killer 中承接 `read_delay` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 39,
+        "line_end": 49
+      }
+    },
+    {
+      "name": "get_cad_pids",
+      "symbol": "get_cad_pids",
+      "qualname": "get_cad_pids",
+      "level": "core",
+      "signature": "def get_cad_pids() -> set[int]:",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "psutil"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 50,
+        "line_end": 58
+      }
+    },
+    {
+      "name": "enum_and_maybe_close",
+      "symbol": "enum_and_maybe_close",
+      "qualname": "enum_and_maybe_close",
+      "level": "core",
+      "signature": "def enum_and_maybe_close(hwnd, cad_pids, delay, now):",
+      "purpose": "在 cad_dialog_killer 中承接 `enum_and_maybe_close` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "hwnd",
+          "raw": "hwnd",
+          "required": true
+        },
+        {
+          "name": "cad_pids",
+          "raw": "cad_pids",
+          "required": true
+        },
+        {
+          "name": "delay",
+          "raw": "delay",
+          "required": true
+        },
+        {
+          "name": "now",
+          "raw": "now",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 59,
+        "line_end": 87
+      }
+    },
+    {
+      "name": "is_already_running",
+      "symbol": "is_already_running",
+      "qualname": "is_already_running",
+      "level": "utility",
+      "signature": "def is_already_running():",
+      "purpose": "在 cad_dialog_killer 中承接 `is_already_running` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "psutil"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 88,
+        "line_end": 106
+      }
+    },
+    {
+      "name": "create_lock",
+      "symbol": "create_lock",
+      "qualname": "create_lock",
+      "level": "utility",
+      "signature": "def create_lock():",
+      "purpose": "在 cad_dialog_killer 中承接 `create_lock` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "os"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 107,
+        "line_end": 110
+      }
+    },
+    {
+      "name": "remove_lock",
+      "symbol": "remove_lock",
+      "qualname": "remove_lock",
+      "level": "utility",
+      "signature": "def remove_lock():",
+      "purpose": "在 cad_dialog_killer 中承接 `remove_lock` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 111,
+        "line_end": 114
+      }
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main():",
+      "purpose": "作为脚本主入口协调守护循环或批处理流程。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 115,
+        "line_end": 163
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "作为独立守护脚本巡检并关闭阻塞 CAD 的标准对话框。"
+  },
+  "quality": {
+    "todo": [
+      "窗口标题与类名匹配策略需要在真实桌面环境复核。"
+    ],
+    "function_count": 7,
+    "public_api_count": 4,
+    "core_function_count": 3
+  }
+}

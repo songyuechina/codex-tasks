@@ -117,7 +117,8 @@
 
 - 默认每成功 `6` 张后执行一次 WPS 清理
 - 横向批次和竖向批次切换前后再执行强制清理
-- 清理策略优先尝试 GUI 关闭
-- 若仍残留，则回退到 `taskkill /F /IM wpspdf.exe /T`
+- 清理策略先枚举可见 WPS 窗口，逐句柄执行 `SW_RESTORE / SW_MAXIMIZE / WM_CLOSE`
+- 只要本轮观察到过 WPS 窗口，就继续按窗口 PID 执行 `taskkill /F /PID <pid> /T`
+- 之后固定再做一次 `taskkill /F /IM wps.exe /T` 与 `taskkill /F /IM wpspdf.exe /T`，避免只关窗但进程未退出、窗口随后又回弹
 
 若未来能稳定实现“完全不弹出 WPS 窗口”，可以替代上述策略；在此之前，强制清理仍是权威保底方案

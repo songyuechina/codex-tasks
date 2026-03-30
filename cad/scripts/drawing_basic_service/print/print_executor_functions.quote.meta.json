@@ -1,0 +1,695 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_executor.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_executor.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "根据打印计划逐 job 执行模型空间或布局空间导出，处理文档就绪、WPS 清理和 PDF 落盘等待。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "export_model_window_lisp_fit",
+      "export_layout_window_lisp_fit",
+      "cleanup_wps_windows",
+      "execute_print_plan"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_wait_for_pdf_ready",
+      "symbol": "_wait_for_pdf_ready",
+      "qualname": "_wait_for_pdf_ready",
+      "level": "utility",
+      "signature": "def _wait_for_pdf_ready(pdf_path: str | Path, timeout: float=90.0) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "pdf_path",
+          "raw": "pdf_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "timeout",
+          "raw": "timeout: float = 90.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "target.exists",
+        "target.open",
+        "target.stat",
+        "time.sleep",
+        "time.time"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 58,
+        "line_end": 71
+      }
+    },
+    {
+      "name": "_normalize_path",
+      "symbol": "_normalize_path",
+      "qualname": "_normalize_path",
+      "level": "utility",
+      "signature": "def _normalize_path(path: str | Path) -> str:",
+      "purpose": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "lower",
+        "resolve",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 74,
+        "line_end": 75
+      }
+    },
+    {
+      "name": "_is_name_only_target",
+      "symbol": "_is_name_only_target",
+      "qualname": "_is_name_only_target",
+      "level": "utility",
+      "signature": "def _is_name_only_target(target_path: str | Path) -> bool:",
+      "purpose": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "name.lower",
+        "raw.lower",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 78,
+        "line_end": 80
+      }
+    },
+    {
+      "name": "_active_doc_matches",
+      "symbol": "_active_doc_matches",
+      "qualname": "_active_doc_matches",
+      "level": "utility",
+      "signature": "def _active_doc_matches(target_path: str | Path) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "bool",
+        "getattr",
+        "lower",
+        "name.lower",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 83,
+        "line_end": 98
+      }
+    },
+    {
+      "name": "_activate_document_by_path",
+      "symbol": "_activate_document_by_path",
+      "qualname": "_activate_document_by_path",
+      "level": "utility",
+      "signature": "def _activate_document_by_path(target_path: str | Path, retries: int=6, delay: float=0.6) -> bool:",
+      "purpose": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries: int = 6",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay: float = 0.6",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_active_doc_matches",
+        "_is_name_only_target",
+        "_normalize_path",
+        "doc.Activate",
+        "getattr",
+        "lower",
+        "name.lower"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 101,
+        "line_end": 128
+      }
+    },
+    {
+      "name": "_ensure_model_doc_ready",
+      "symbol": "_ensure_model_doc_ready",
+      "qualname": "_ensure_model_doc_ready",
+      "level": "utility",
+      "signature": "def _ensure_model_doc_ready(target_path: str | Path, retries: int=3) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries: int = 3",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_activate_document_by_path",
+        "_active_doc_matches",
+        "range",
+        "set_space_mode",
+        "time.sleep",
+        "wait_quiescent"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 131,
+        "line_end": 148
+      }
+    },
+    {
+      "name": "_ensure_layout_doc_ready",
+      "symbol": "_ensure_layout_doc_ready",
+      "qualname": "_ensure_layout_doc_ready",
+      "level": "utility",
+      "signature": "def _ensure_layout_doc_ready(target_path: str | Path, layout_name: str, retries: int=4) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "layout_name",
+          "raw": "layout_name: str",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries: int = 4",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "RuntimeError",
+        "_activate_document_by_path",
+        "_active_doc_matches",
+        "range",
+        "set_space_mode",
+        "str",
+        "switch_to_layout",
+        "sys_logger.warning"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 151,
+        "line_end": 175
+      }
+    },
+    {
+      "name": "export_model_window_lisp_fit",
+      "symbol": "export_model_window_lisp_fit",
+      "qualname": "export_model_window_lisp_fit",
+      "level": "core",
+      "signature": "def export_model_window_lisp_fit(point_a, point_b, pdf_fullpath: str, dwg_path: str, *, device: str, media: str, ctb: str, rotation: int, xiubukuan: float=25.0) -> bool:",
+      "purpose": "在模型空间中根据窗口点位构造 -plot LISP 命令，导出指定 PDF，并等待落盘完成。",
+      "inputs": [
+        {
+          "name": "point_a",
+          "raw": "point_a",
+          "required": true
+        },
+        {
+          "name": "point_b",
+          "raw": "point_b",
+          "required": true
+        },
+        {
+          "name": "pdf_fullpath",
+          "raw": "pdf_fullpath: str",
+          "required": true
+        },
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: str",
+          "required": true
+        },
+        {
+          "name": "device",
+          "raw": "device: str",
+          "required": true
+        },
+        {
+          "name": "media",
+          "raw": "media: str",
+          "required": true
+        },
+        {
+          "name": "ctb",
+          "raw": "ctb: str",
+          "required": true
+        },
+        {
+          "name": "rotation",
+          "raw": "rotation: int",
+          "required": true
+        },
+        {
+          "name": "xiubukuan",
+          "raw": "xiubukuan: float = 25.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回布尔值，表示模型空间导出是否成功。"
+      ],
+      "returns": [
+        "True 表示 PDF 已成功落盘；False 表示预备失败或等待超时。"
+      ],
+      "side_effects": [
+        "激活模型空间文档、删除已存在 PDF、向 CAD 发送 plot 命令。"
+      ],
+      "dependencies": [
+        "_ensure_model_doc_ready",
+        "C.doc.SendCommand",
+        "_wait_for_pdf_ready"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 178,
+        "line_end": 220
+      },
+      "preconditions": [
+        "dwg_path 指向的工作 DWG 已可被当前 CAD 会话访问。",
+        "point_a/point_b 构成有效窗口范围。"
+      ],
+      "steps": [
+        "归一窗口坐标并推导 Portrait/Landscape 方向。",
+        "确保模型空间文档处于可打印状态。",
+        "删除同名旧 PDF，构造 -plot 命令字符串并发送到 CAD。",
+        "等待 PDF 就绪，失败时记录错误日志。"
+      ],
+      "failure_paths": [
+        "模型空间预备失败或 PDF 就绪超时会返回 False。"
+      ],
+      "success_conditions": [
+        "目标 PDF 文件存在且可被 _wait_for_pdf_ready 判定为稳定。"
+      ],
+      "must_keep_experience": [
+        "发完 plot 命令后必须等待 PDF 稳定，不能立即视为成功。"
+      ]
+    },
+    {
+      "name": "export_layout_window_lisp_fit",
+      "symbol": "export_layout_window_lisp_fit",
+      "qualname": "export_layout_window_lisp_fit",
+      "level": "core",
+      "signature": "def export_layout_window_lisp_fit(point_a, point_b, pdf_fullpath: str, dwg_path: str, layout_name: str, *, device: str, media: str, ctb: str, rotation: int) -> bool:",
+      "purpose": "在指定布局中按窗口范围执行 -plot 命令导出 PDF，并等待结果落盘。",
+      "inputs": [
+        {
+          "name": "point_a",
+          "raw": "point_a",
+          "required": true
+        },
+        {
+          "name": "point_b",
+          "raw": "point_b",
+          "required": true
+        },
+        {
+          "name": "pdf_fullpath",
+          "raw": "pdf_fullpath: str",
+          "required": true
+        },
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: str",
+          "required": true
+        },
+        {
+          "name": "layout_name",
+          "raw": "layout_name: str",
+          "required": true
+        },
+        {
+          "name": "device",
+          "raw": "device: str",
+          "required": true
+        },
+        {
+          "name": "media",
+          "raw": "media: str",
+          "required": true
+        },
+        {
+          "name": "ctb",
+          "raw": "ctb: str",
+          "required": true
+        },
+        {
+          "name": "rotation",
+          "raw": "rotation: int",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回布尔值，表示布局打印是否成功。"
+      ],
+      "returns": [
+        "True 表示布局 PDF 已稳定生成；False 表示布局预备失败或导出失败。"
+      ],
+      "side_effects": [
+        "切换目标布局、删除已存在 PDF、向 CAD 发送布局 plot 命令。"
+      ],
+      "dependencies": [
+        "_ensure_layout_doc_ready",
+        "C.doc.SendCommand",
+        "_wait_for_pdf_ready"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 223,
+        "line_end": 263
+      },
+      "preconditions": [
+        "layout_name 对应布局存在并可被激活。"
+      ],
+      "steps": [
+        "确保目标布局文档已激活且就绪。",
+        "删除同名旧 PDF，构造布局 plot 命令。",
+        "发送命令并等待 PDF 就绪。",
+        "失败时写日志，成功时返回 True。"
+      ],
+      "failure_paths": [
+        "布局预备失败或 PDF 等待失败时返回 False。"
+      ],
+      "success_conditions": [
+        "目标布局的 PDF 文件成功生成且可读。"
+      ],
+      "must_keep_experience": [
+        "布局打印与模型空间打印的命令参数序列不同，不能混用。"
+      ]
+    },
+    {
+      "name": "cleanup_wps_windows",
+      "symbol": "cleanup_wps_windows",
+      "qualname": "cleanup_wps_windows",
+      "level": "core",
+      "signature": "def cleanup_wps_windows() -> None:",
+      "purpose": "清理 WPS Office/WPS PDF 残留窗口，减少批量打印过程中外部窗口对 CAD 焦点和资源的干扰。",
+      "inputs": [],
+      "outputs": [
+        "无显式返回，主要通过副作用清理外部窗口。"
+      ],
+      "returns": [
+        "无显式返回。"
+      ],
+      "side_effects": [
+        "枚举桌面窗口、关闭 WPS 窗口、必要时 taskkill wpspdf.exe，并尝试把焦点切回 AutoCAD。"
+      ],
+      "dependencies": [
+        "activate_window_by_title",
+        "minimize_all_windows",
+        "range",
+        "subprocess.run",
+        "time.sleep",
+        "title.upper",
+        "win32gui.EnumWindows",
+        "win32gui.GetWindowText"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 266,
+        "line_end": 320
+      },
+      "steps": [
+        "枚举窗口，识别 WPS Office/WPS PDF 可见窗口。",
+        "尝试激活并关闭这些窗口。",
+        "若仍残留则强制结束 wpspdf.exe。",
+        "最后尝试把焦点切回 AutoCAD。"
+      ],
+      "failure_paths": [
+        "缺少 win32 模块或窗口关闭失败时静默跳过。"
+      ],
+      "success_conditions": [
+        "WPS 残留窗口数量下降，并尽量恢复 CAD 焦点。"
+      ],
+      "must_keep_experience": [
+        "批量打印期间要周期性清理 WPS，避免窗口堆积干扰后续导出。"
+      ]
+    },
+    {
+      "name": "_cleanup_wps_if_needed",
+      "symbol": "_cleanup_wps_if_needed",
+      "qualname": "_cleanup_wps_if_needed",
+      "level": "utility",
+      "signature": "def _cleanup_wps_if_needed(success_count: int, defaults: PrintDefaults, *, force: bool=False) -> None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "success_count",
+          "raw": "success_count: int",
+          "required": true
+        },
+        {
+          "name": "defaults",
+          "raw": "defaults: PrintDefaults",
+          "required": true
+        },
+        {
+          "name": "force",
+          "raw": "force: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "主要通过副作用更新运行状态、当前文档或外部文件。"
+      ],
+      "returns": [
+        "无显式业务返回值，主要依赖副作用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "cleanup_wps_windows",
+        "time.sleep"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 323,
+        "line_end": 332
+      }
+    },
+    {
+      "name": "_run_job",
+      "symbol": "_run_job",
+      "qualname": "_run_job",
+      "level": "utility",
+      "signature": "def _run_job(job: PrintJob, defaults: PrintDefaults) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "job",
+          "raw": "job: PrintJob",
+          "required": true
+        },
+        {
+          "name": "defaults",
+          "raw": "defaults: PrintDefaults",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "export_layout_window_lisp_fit",
+        "export_model_window_lisp_fit",
+        "output_path.parent.mkdir",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 335,
+        "line_end": 360
+      }
+    },
+    {
+      "name": "execute_print_plan",
+      "symbol": "execute_print_plan",
+      "qualname": "execute_print_plan",
+      "level": "core",
+      "signature": "def execute_print_plan(plan: PrintPlan, defaults: Optional[PrintDefaults]=None) -> PrintExecutionSummary:",
+      "purpose": "按空间和横竖方向批量执行 PrintPlan 中的所有 job，并记录成功、失败与生成文件列表。",
+      "inputs": [
+        {
+          "name": "plan",
+          "raw": "plan: PrintPlan",
+          "required": true
+        },
+        {
+          "name": "defaults",
+          "raw": "defaults: Optional[PrintDefaults] = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回 PrintExecutionSummary，包含 total_jobs、success_count、failure_count、generated_files 和 failures。"
+      ],
+      "returns": [
+        "PrintExecutionSummary 数据类实例。"
+      ],
+      "side_effects": [
+        "逐 job 调用真实打印导出，期间可能等待、清理 WPS、触发 runtime guard 检查。"
+      ],
+      "dependencies": [
+        "_run_job",
+        "_cleanup_wps_if_needed",
+        "assert_runtime_guard_ok",
+        "PrintExecutionSummary"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 363,
+        "line_end": 410
+      },
+      "preconditions": [
+        "plan.jobs_by_space 已完成排序和输出路径分配。"
+      ],
+      "steps": [
+        "按 layout_name 遍历 jobs，并拆成 landscapes 与 portraits 两个批次。",
+        "每个批次开始前执行 runtime guard 检查。",
+        "逐 job 调用 _run_job；成功则累计 generated_files，失败则记录 failures。",
+        "在横向批和竖向批之间强制清理 WPS 并等待 safety_delay。",
+        "每个 layout 完成后再次强制清理 WPS，最后返回执行汇总。"
+      ],
+      "failure_paths": [
+        "_run_job 抛异常时会被捕获并记录为失败项，不中断整个计划。",
+        "runtime guard 触发时由 assert_runtime_guard_ok 向上抛出阻塞执行。"
+      ],
+      "success_conditions": [
+        "返回的 execution summary 能直接被 verify_generated_pdfs 和 print_summary 消费。"
+      ],
+      "must_keep_experience": [
+        "横向和竖向 job 要分批执行，中间插入 WPS 清理和安全延时。",
+        "单 job 失败不能中断整个计划，必须继续处理剩余 job。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "pdf",
+      "process-control"
+    ],
+    "script_focus": "打印计划执行器脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 13,
+    "public_api_count": 4,
+    "core_function_count": 4
+  }
+}

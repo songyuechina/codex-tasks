@@ -1,0 +1,198 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_policy.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_policy.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "quote": {
+    "goal": "把候选打印区域组织成稳定的 PrintPlan，完成模式归一、排序、路径分配与按 handle 过滤。",
+    "public_api": [
+      "normalize_print_mode",
+      "collect_print_jobs",
+      "reindex_jobs_by_space",
+      "assign_output_paths",
+      "filter_jobs_by_handles",
+      "build_print_plan",
+      "plan_to_dict",
+      "save_plan_json"
+    ],
+    "script_role": "打印计划构建与路径分配脚本",
+    "system_position": {
+      "layer_name": "打印策略层",
+      "works_with": [
+        "print_area_analysis.py",
+        "print_executor.py",
+        "print_runner.py"
+      ],
+      "main_entry_note": "print_policy.py 主要通过 normalize_print_mode, collect_print_jobs, reindex_jobs_by_space 等入口服务打印主链。"
+    },
+    "must_keep_experience": [
+      "打印计划必须保持 job handle、空间与输出路径的稳定对应关系。",
+      "模式归一和排序规则是主链稳定性的基础，不能随意漂移。"
+    ],
+    "known_limits": [
+      "当前仍以内存对象和 JSON 为主，后续如拆分仍要保留 PrintPlan 的语义边界。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "PrintPlan.total_jobs",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "PrintPlan.landscape_count",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "PrintPlan.portrait_count",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_safe_handle",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_get_bbox",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_layout_name_map",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_sanitize_name",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_contains_bbox",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "normalize_print_mode",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_area_match_mode",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_make_job",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_collect_layout_viewports",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_sort_jobs",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "collect_print_jobs",
+      "role": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "reindex_jobs_by_space",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "assign_output_paths",
+      "role": "为已有对象分配输出属性、路径或索引。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "filter_jobs_by_handles",
+      "role": "按范围、handle 或条件过滤已有候选集合。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "build_print_plan",
+      "role": "构造中间配置、缓存或计划对象，供主流程复用。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "plan_to_dict",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "save_plan_json",
+      "role": "把结构化结果保存到磁盘文件。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "planning",
+      "filesystem",
+      "print-analysis"
+    ],
+    "script_focus": "打印计划构建与路径分配脚本"
+  },
+  "quality": {
+    "todo": [
+      "当前脚本级 meta 已覆盖主角色与 public_api，后续如职责明显变化应同步刷新。",
+      "函数级语义摘要主要由 AST 与命名规则生成，复杂分支后续可按案例继续细化。"
+    ],
+    "function_count": 20,
+    "public_api_count": 8
+  }
+}

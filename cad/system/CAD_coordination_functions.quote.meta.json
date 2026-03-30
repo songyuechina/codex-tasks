@@ -1,0 +1,566 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_coordination.py",
+    "path": "D:/codex-tasks/cad/system/CAD_coordination.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "在 licad.C 之上提供等待空闲、事务守卫、回滚保护与同步发命令能力。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "wait_quiescent",
+      "CADGuard.__enter__",
+      "CADGuard.__exit__",
+      "FileGuard.__enter__",
+      "FileGuard.__exit__",
+      "run_safety_loop",
+      "send_cmd_with_sync",
+      "wait_document_opened",
+      "ensure_single_process",
+      "start_cad_with_dialog_killer",
+      "wait_command_done"
+    ]
+  },
+  "functions": [
+    {
+      "name": "wait_quiescent",
+      "symbol": "wait_quiescent",
+      "qualname": "wait_quiescent",
+      "level": "core",
+      "signature": "def wait_quiescent(min_quiet: float = 0.5, timeout: float = 60.0) -> bool:",
+      "purpose": "轮询 CAD/进程状态直到满足条件或超时。",
+      "inputs": [
+        {
+          "name": "min_quiet",
+          "raw": "min_quiet: float = 0.5",
+          "required": false
+        },
+        {
+          "name": "timeout",
+          "raw": "timeout: float = 60.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 46,
+        "line_end": 111
+      }
+    },
+    {
+      "name": "CADGuard.__init__",
+      "symbol": "__init__",
+      "qualname": "CADGuard.__init__",
+      "level": "utility",
+      "signature": "def __init__( self, task_name:",
+      "purpose": "初始化所属类的运行时状态、缓存或配置。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "time"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 126,
+        "line_end": 146
+      }
+    },
+    {
+      "name": "CADGuard.__enter__",
+      "symbol": "__enter__",
+      "qualname": "CADGuard.__enter__",
+      "level": "core",
+      "signature": "def __enter__(self):",
+      "purpose": "进入上下文并准备保护性资源或事务状态。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 147,
+        "line_end": 186
+      }
+    },
+    {
+      "name": "CADGuard.__exit__",
+      "symbol": "__exit__",
+      "qualname": "CADGuard.__exit__",
+      "level": "core",
+      "signature": "def __exit__(self, exc_type, exc_val, exc_tb):",
+      "purpose": "退出上下文，执行清理、回滚或异常后处理。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "exc_type",
+          "raw": "exc_type",
+          "required": true
+        },
+        {
+          "name": "exc_val",
+          "raw": "exc_val",
+          "required": true
+        },
+        {
+          "name": "exc_tb",
+          "raw": "exc_tb",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 187,
+        "line_end": 242
+      }
+    },
+    {
+      "name": "FileGuard.__init__",
+      "symbol": "__init__",
+      "qualname": "FileGuard.__init__",
+      "level": "utility",
+      "signature": "def __init__(self, file_path: str | Path):",
+      "purpose": "初始化所属类的运行时状态、缓存或配置。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "file_path",
+          "raw": "file_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 250,
+        "line_end": 254
+      }
+    },
+    {
+      "name": "FileGuard.__enter__",
+      "symbol": "__enter__",
+      "qualname": "FileGuard.__enter__",
+      "level": "core",
+      "signature": "def __enter__(self):",
+      "purpose": "进入上下文并准备保护性资源或事务状态。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "shutil"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 255,
+        "line_end": 267
+      }
+    },
+    {
+      "name": "FileGuard.set_success",
+      "symbol": "set_success",
+      "qualname": "FileGuard.set_success",
+      "level": "normal",
+      "signature": "def set_success(self):",
+      "purpose": "更新目标对象、属性或运行状态。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 268,
+        "line_end": 270
+      }
+    },
+    {
+      "name": "FileGuard.__exit__",
+      "symbol": "__exit__",
+      "qualname": "FileGuard.__exit__",
+      "level": "core",
+      "signature": "def __exit__(self, exc_type, exc_val, exc_tb):",
+      "purpose": "退出上下文，执行清理、回滚或异常后处理。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "exc_type",
+          "raw": "exc_type",
+          "required": true
+        },
+        {
+          "name": "exc_val",
+          "raw": "exc_val",
+          "required": true
+        },
+        {
+          "name": "exc_tb",
+          "raw": "exc_tb",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "shutil",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 271,
+        "line_end": 309
+      }
+    },
+    {
+      "name": "run_safety_loop",
+      "symbol": "run_safety_loop",
+      "qualname": "run_safety_loop",
+      "level": "core",
+      "signature": "def run_safety_loop( target_dwg:",
+      "purpose": "在 CAD_coordination 中承接 `run_safety_loop` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 310,
+        "line_end": 357
+      }
+    },
+    {
+      "name": "send_cmd_with_sync",
+      "symbol": "send_cmd_with_sync",
+      "qualname": "send_cmd_with_sync",
+      "level": "core",
+      "signature": "def send_cmd_with_sync(cmd: str, wait_after: float = 0.3, timeout: float = 30.0) -> bool:",
+      "purpose": "在 CAD_coordination 中承接 `send_cmd_with_sync` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "cmd",
+          "raw": "cmd: str",
+          "required": true
+        },
+        {
+          "name": "wait_after",
+          "raw": "wait_after: float = 0.3",
+          "required": false
+        },
+        {
+          "name": "timeout",
+          "raw": "timeout: float = 30.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time",
+        "retry_on_busy",
+        "send_cmd_with_sync"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 358,
+        "line_end": 387
+      }
+    },
+    {
+      "name": "wait_document_opened",
+      "symbol": "wait_document_opened",
+      "qualname": "wait_document_opened",
+      "level": "core",
+      "signature": "def wait_document_opened(path: str, timeout: float = 120.0) -> bool:",
+      "purpose": "轮询 CAD/进程状态直到满足条件或超时。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: str",
+          "required": true
+        },
+        {
+          "name": "timeout",
+          "raw": "timeout: float = 120.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 388,
+        "line_end": 419
+      }
+    },
+    {
+      "name": "ensure_single_process",
+      "symbol": "ensure_single_process",
+      "qualname": "ensure_single_process",
+      "level": "core",
+      "signature": "def ensure_single_process() -> bool:",
+      "purpose": "检查条件并在必要时补齐环境或约束。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "psutil",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 420,
+        "line_end": 448
+      }
+    },
+    {
+      "name": "start_cad_with_dialog_killer",
+      "symbol": "start_cad_with_dialog_killer",
+      "qualname": "start_cad_with_dialog_killer",
+      "level": "core",
+      "signature": "def start_cad_with_dialog_killer() -> bool:",
+      "purpose": "在 CAD_coordination 中承接 `start_cad_with_dialog_killer` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 449,
+        "line_end": 470
+      }
+    },
+    {
+      "name": "wait_command_done",
+      "symbol": "wait_command_done",
+      "qualname": "wait_command_done",
+      "level": "core",
+      "signature": "def wait_command_done(timeout: float = 300.0, poll_interval: Any = None, quiet_time: float = 0.5) -> bool:",
+      "purpose": "轮询 CAD/进程状态直到满足条件或超时。",
+      "inputs": [
+        {
+          "name": "timeout",
+          "raw": "timeout: float = 300.0",
+          "required": false
+        },
+        {
+          "name": "poll_interval",
+          "raw": "poll_interval: Any = None",
+          "required": false
+        },
+        {
+          "name": "quiet_time",
+          "raw": "quiet_time: float = 0.5",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "time",
+        "send_cmd_with_sync"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 471,
+        "line_end": 490
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "在 licad.C 之上提供等待空闲、事务守卫、回滚保护与同步发命令能力。"
+  },
+  "quality": {
+    "todo": [
+      "上下文管理器对异常吞吐策略需结合真实 CAD 会话复核。"
+    ],
+    "function_count": 14,
+    "public_api_count": 11,
+    "core_function_count": 11
+  }
+}

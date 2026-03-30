@@ -1,0 +1,69 @@
+{
+  "meta_version": "V2.0",
+  "layer": "procedure",
+  "module_name": "CAD_com_utils",
+  "file_path": "D:/codex-tasks/cad/system/CAD_com_utils.py",
+  "applicable_scenarios": [
+    "COM 调用频繁出现 Call was rejected / busy / temporary block",
+    "高频轮询 CAD 状态时 info/debug 日志过多",
+    "历史代码需要兼容 retry_if_busy / SafeCOM / timeit"
+  ],
+  "preconditions": [
+    "应先由 system.licad.py 的 C 建立 CAD 连接",
+    "日志系统应已由 common_logger.py 提供 sys_logger",
+    "业务层不应把本模块当作 CAD 主连接入口"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "包裹 COM 调用",
+      "detail": "使用 retry_on_busy 装饰函数，或用 SafeCOM.call 包裹单次调用。"
+    },
+    {
+      "step": 2,
+      "name": "判定 busy / rejected",
+      "detail": "根据错误码与字符串判据识别临时阻塞。"
+    },
+    {
+      "step": 3,
+      "name": "执行退避重试",
+      "detail": "写 warning，调用 PumpWaitingMessages，按 base_delay 退避等待后重试。"
+    },
+    {
+      "step": 4,
+      "name": "处理不可恢复错误",
+      "detail": "掉线/崩溃类异常写 error 并抛出；其他逻辑错误直接抛出。"
+    },
+    {
+      "step": 5,
+      "name": "控制轮询噪声",
+      "detail": "必要时将大量状态读取放入 silent_mode，只静音 info/debug。"
+    }
+  ],
+  "success_criteria": [
+    "临时 busy/rejected 不会立即把业务流程打断",
+    "warning/error 在 silent_mode 下仍可见",
+    "高频轮询日志明显减少，但失败路径仍清晰"
+  ],
+  "failure_criteria": [
+    "业务层把本模块误用成 CAD 连接入口",
+    "重写时丢失 busy 判据或 PumpWaitingMessages 经验",
+    "继续把项目引导、logger monkey patch、局部调试系统塞回本模块"
+  ],
+  "do_not_use_for": [
+    "不要用它建立 CAD 连接",
+    "不要把事务保护、文件回滚、命令同步职责塞进本模块",
+    "不要依赖 node/debuggable 作为新系统主调试机制"
+  ],
+  "integration_with_other_modules": {
+    "licad.py": "先连接，再调用本模块进行 busy/retry 辅助",
+    "CAD_coordination.py": "高层等待、事务、同步由协调层负责；本模块不替代这些职责",
+    "common_logger.py": "统一日志入口，本模块直接复用 sys_logger"
+  },
+  "rewrite_constraints": [
+    "允许继续精简兼容接口",
+    "允许优化 retry 实现细节",
+    "不得破坏 retry_on_busy / SafeCOM 的核心接口骨架",
+    "不得丢失已经被实践证明有效的重试经验"
+  ]
+}

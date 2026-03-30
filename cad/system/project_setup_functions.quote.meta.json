@@ -1,0 +1,37 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "project_setup.py",
+    "path": "D:/codex-tasks/cad/system/project_setup.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "提供纯路径常量与最小目录保障，不承担 bootstrap 或 CAD 连接职责。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": []
+  },
+  "functions": [],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "提供纯路径常量与最小目录保障，不承担 bootstrap 或 CAD 连接职责。"
+  },
+  "quality": {
+    "todo": [
+      "该脚本无显式函数定义，函数级 meta 以空覆盖记录现状。"
+    ],
+    "function_count": 0,
+    "public_api_count": 0,
+    "core_function_count": 0
+  }
+}

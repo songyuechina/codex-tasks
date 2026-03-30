@@ -1,0 +1,453 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_area_scope_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_area_scope_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "在伪极大矩形候选已知的前提下，判断最终保留的最大伪极大范围，并据此过滤打印 job。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "analyze_pseudo_maximal_scopes",
+      "filter_jobs_by_largest_pseudo_scope",
+      "run_scope_analysis_case",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_normalize_path",
+      "symbol": "_normalize_path",
+      "qualname": "_normalize_path",
+      "level": "utility",
+      "signature": "def _normalize_path(path: str | Path) -> str:",
+      "purpose": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "lower",
+        "resolve",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 34,
+        "line_end": 35
+      }
+    },
+    {
+      "name": "_is_name_only_target",
+      "symbol": "_is_name_only_target",
+      "qualname": "_is_name_only_target",
+      "level": "utility",
+      "signature": "def _is_name_only_target(target_path: str | Path) -> bool:",
+      "purpose": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "name.lower",
+        "raw.lower",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 38,
+        "line_end": 40
+      }
+    },
+    {
+      "name": "_find_document_by_path",
+      "symbol": "_find_document_by_path",
+      "qualname": "_find_document_by_path",
+      "level": "utility",
+      "signature": "def _find_document_by_path(target_path: str | Path):",
+      "purpose": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "getattr",
+        "lower",
+        "name.lower",
+        "str"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 43,
+        "line_end": 57
+      }
+    },
+    {
+      "name": "_activate_document_by_path",
+      "symbol": "_activate_document_by_path",
+      "qualname": "_activate_document_by_path",
+      "level": "utility",
+      "signature": "def _activate_document_by_path(target_path: str | Path, retries: int=8, delay: float=0.5) -> bool:",
+      "purpose": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries: int = 8",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay: float = 0.5",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_find_document_by_path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "doc.Activate",
+        "getattr",
+        "lower",
+        "name.lower"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 60,
+        "line_end": 85
+      }
+    },
+    {
+      "name": "_close_document_by_path",
+      "symbol": "_close_document_by_path",
+      "qualname": "_close_document_by_path",
+      "level": "utility",
+      "signature": "def _close_document_by_path(target_path: str | Path, save_changes: bool=False) -> bool:",
+      "purpose": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "save_changes",
+          "raw": "save_changes: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_find_document_by_path",
+        "bool",
+        "doc.Close"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 88,
+        "line_end": 96
+      }
+    },
+    {
+      "name": "_area_from_bbox",
+      "symbol": "_area_from_bbox",
+      "qualname": "_area_from_bbox",
+      "level": "utility",
+      "signature": "def _area_from_bbox(bbox: tuple[float, float, float, float]) -> float:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "bbox",
+          "raw": "bbox: tuple[float, float, float, float]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "max"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 99,
+        "line_end": 100
+      }
+    },
+    {
+      "name": "analyze_pseudo_maximal_scopes",
+      "symbol": "analyze_pseudo_maximal_scopes",
+      "qualname": "analyze_pseudo_maximal_scopes",
+      "level": "core",
+      "signature": "def analyze_pseudo_maximal_scopes() -> dict[str, Any]:",
+      "purpose": "围绕输入对象执行分析流程，并输出结构化结果。",
+      "inputs": [],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_append",
+        "_area_from_bbox",
+        "_bbox_xy",
+        "all_rows.append",
+        "get_pseudo_maximal_polylines",
+        "getattr",
+        "grouped.get",
+        "items"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 103,
+        "line_end": 137
+      }
+    },
+    {
+      "name": "_job_inside_scope",
+      "symbol": "_job_inside_scope",
+      "qualname": "_job_inside_scope",
+      "level": "utility",
+      "signature": "def _job_inside_scope(job: Any, scope_bbox: tuple[float, float, float, float], tol: float=1.0) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "job",
+          "raw": "job: Any",
+          "required": true
+        },
+        {
+          "name": "scope_bbox",
+          "raw": "scope_bbox: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float = 1.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "isinstance"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 140,
+        "line_end": 152
+      }
+    },
+    {
+      "name": "filter_jobs_by_largest_pseudo_scope",
+      "symbol": "filter_jobs_by_largest_pseudo_scope",
+      "qualname": "filter_jobs_by_largest_pseudo_scope",
+      "level": "core",
+      "signature": "def filter_jobs_by_largest_pseudo_scope(jobs_by_space: dict[str, list[Any]], scope_payload: dict[str, Any]) -> dict[str, Any]:",
+      "purpose": "按范围、handle 或条件过滤已有候选集合。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[Any]]",
+          "required": true
+        },
+        {
+          "name": "scope_payload",
+          "raw": "scope_payload: dict[str, Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_job_inside_scope",
+        "jobs_by_space.items",
+        "reindex_jobs_by_space",
+        "scope_payload.get",
+        "str",
+        "tuple"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 155,
+        "line_end": 191
+      }
+    },
+    {
+      "name": "run_scope_analysis_case",
+      "symbol": "run_scope_analysis_case",
+      "qualname": "run_scope_analysis_case",
+      "level": "core",
+      "signature": "def run_scope_analysis_case(*, dwg_path: Path, output_path: Path | None=None, keep_open: bool=False) -> dict[str, Any]:",
+      "purpose": "执行单次 case 或主链流程，并把结果写入结构化产物。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: Path",
+          "required": true
+        },
+        {
+          "name": "output_path",
+          "raw": "output_path: Path | None = None",
+          "required": false
+        },
+        {
+          "name": "keep_open",
+          "raw": "keep_open: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "产出执行结果、PDF 文件或结构化 summary。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [
+        "改变当前 CAD 文档、外部进程窗口或导出状态。"
+      ],
+      "dependencies": [
+        "RuntimeError",
+        "_activate_document_by_path",
+        "_close_document_by_path",
+        "_find_document_by_path",
+        "analyze_pseudo_maximal_scopes",
+        "assert_runtime_guard_ok",
+        "json.dumps",
+        "launch_cad_guardians"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 194,
+        "line_end": 222
+      }
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main() -> None:",
+      "purpose": "提供命令行入口，解析参数后调用主流程。",
+      "inputs": [],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [
+        "解析命令行参数并触发 CLI 输出。"
+      ],
+      "dependencies": [
+        "Path",
+        "SystemExit",
+        "argparse.ArgumentParser",
+        "getattr",
+        "hasattr",
+        "json.dumps",
+        "parser.add_argument",
+        "parser.parse_args"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 225,
+        "line_end": 250
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "scope-analysis",
+      "print-analysis"
+    ],
+    "script_focus": "伪极大打印范围二次收束脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 11,
+    "public_api_count": 4,
+    "core_function_count": 4
+  }
+}

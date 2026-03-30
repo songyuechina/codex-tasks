@@ -1,6 +1,5 @@
-# Typical DWG case files belong in the repo.
-# Real user/project working files stay outside the repo, e.g. under:
-# D:\Mypro\基础服务\用户1
+# Source code, docs, and meta files belong in the repo.
+# Large CAD assets, generated process artifacts, and exported PDFs do not.
 
 # Python cache
 __pycache__/
@@ -13,6 +12,15 @@ __pycache__/
 *.bak_*
 *.dwl
 *.dwl2
+*.dwg
+*.pdf
+
+# Generated CAD cases / print process outputs
+cad/scripts/drawing_basic_service/print/cases/assets/
+cad/scripts/drawing_basic_service/print/cases/output/
+dwg_agents_ops/agent_control/supervision/
+cad/tools/_dump/*.jsonl
+cad/system/logs/
 
 # Local tool/cache data
 .accelerate/

@@ -1,0 +1,986 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "licad.py",
+    "path": "D:/codex-tasks/cad/system/licad.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "作为统一 CAD 连接入口导出 C 代理、文档包装和安全文件操作。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "AutoCadProxy.li",
+      "AutoCadProxy.acad",
+      "AutoCadProxy.doc",
+      "AutoCadProxy.raw_doc",
+      "AutoCadProxy.save_file",
+      "AutoCadProxy.save_file_as",
+      "AutoCadProxy.open_file",
+      "AutoCadProxy.close_file",
+      "AutoCadProxy.close_dwg_by_name",
+      "li",
+      "save_file",
+      "save_file_as",
+      "open_file",
+      "close_file",
+      "close_dwg_by_name",
+      "resolve_doc",
+      "retry_on_busy"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_coinit_once",
+      "symbol": "_coinit_once",
+      "qualname": "_coinit_once",
+      "level": "utility",
+      "signature": "def _coinit_once():",
+      "purpose": "在 licad 中承接 `_coinit_once` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "pythoncom"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 31,
+        "line_end": 39
+      }
+    },
+    {
+      "name": "get_acad_doc",
+      "symbol": "get_acad_doc",
+      "qualname": "get_acad_doc",
+      "level": "core",
+      "signature": "def get_acad_doc(max_wait=15.0):",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [
+        {
+          "name": "max_wait",
+          "raw": "max_wait=15.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。",
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com",
+        "shutil",
+        "os",
+        "time",
+        "Path"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 40,
+        "line_end": 170
+      }
+    },
+    {
+      "name": "get_acad_doc._is_acad_process_running",
+      "symbol": "_is_acad_process_running",
+      "qualname": "get_acad_doc._is_acad_process_running",
+      "level": "utility",
+      "signature": "def _is_acad_process_running():",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。",
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "win32com"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 52,
+        "line_end": 62
+      }
+    },
+    {
+      "name": "get_acad_doc._auto_fix_com_cache",
+      "symbol": "_auto_fix_com_cache",
+      "qualname": "get_acad_doc._auto_fix_com_cache",
+      "level": "normal",
+      "signature": "def _auto_fix_com_cache():",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com",
+        "shutil",
+        "os",
+        "time",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 63,
+        "line_end": 170
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.__init__",
+      "symbol": "__init__",
+      "qualname": "SafeDocumentWrapper.__init__",
+      "level": "utility",
+      "signature": "def __init__(self, real_com_doc):",
+      "purpose": "初始化所属类的运行时状态、缓存或配置。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "real_com_doc",
+          "raw": "real_com_doc",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 173,
+        "line_end": 175
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.SendCommand",
+      "symbol": "SendCommand",
+      "qualname": "SafeDocumentWrapper.SendCommand",
+      "level": "core",
+      "signature": "def SendCommand(self, cmd: str):",
+      "purpose": "拦截 SendCommand 并尽量走同步安全发送路径。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "cmd",
+          "raw": "cmd: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "time",
+        "send_cmd_with_sync"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 176,
+        "line_end": 186
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.__getattr__",
+      "symbol": "__getattr__",
+      "qualname": "SafeDocumentWrapper.__getattr__",
+      "level": "utility",
+      "signature": "def __getattr__(self, name):",
+      "purpose": "在 licad 中承接 `SafeDocumentWrapper.__getattr__` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "name",
+          "raw": "name",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 187,
+        "line_end": 189
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.__dir__",
+      "symbol": "__dir__",
+      "qualname": "SafeDocumentWrapper.__dir__",
+      "level": "utility",
+      "signature": "def __dir__(self):",
+      "purpose": "在 licad 中承接 `SafeDocumentWrapper.__dir__` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 190,
+        "line_end": 196
+      }
+    },
+    {
+      "name": "AutoCadProxy.__init__",
+      "symbol": "__init__",
+      "qualname": "AutoCadProxy.__init__",
+      "level": "utility",
+      "signature": "def __init__(self):",
+      "purpose": "初始化所属类的运行时状态、缓存或配置。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 198,
+        "line_end": 203
+      }
+    },
+    {
+      "name": "AutoCadProxy.li",
+      "symbol": "li",
+      "qualname": "AutoCadProxy.li",
+      "level": "core",
+      "signature": "def li(self):",
+      "purpose": "在 licad 中承接 `AutoCadProxy.li` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。",
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "pythoncom",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 204,
+        "line_end": 236
+      }
+    },
+    {
+      "name": "AutoCadProxy.acad",
+      "symbol": "acad",
+      "qualname": "AutoCadProxy.acad",
+      "level": "core",
+      "signature": "def acad(self):",
+      "purpose": "在 licad 中承接 `AutoCadProxy.acad` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 237,
+        "line_end": 239
+      }
+    },
+    {
+      "name": "AutoCadProxy.doc",
+      "symbol": "doc",
+      "qualname": "AutoCadProxy.doc",
+      "level": "core",
+      "signature": "def doc(self):",
+      "purpose": "在 licad 中承接 `AutoCadProxy.doc` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 240,
+        "line_end": 245
+      }
+    },
+    {
+      "name": "AutoCadProxy.raw_doc",
+      "symbol": "raw_doc",
+      "qualname": "AutoCadProxy.raw_doc",
+      "level": "core",
+      "signature": "def raw_doc(self):",
+      "purpose": "在 licad 中承接 `AutoCadProxy.raw_doc` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 246,
+        "line_end": 251
+      }
+    },
+    {
+      "name": "AutoCadProxy.mp",
+      "symbol": "mp",
+      "qualname": "AutoCadProxy.mp",
+      "level": "utility",
+      "signature": "def mp(self):",
+      "purpose": "在 licad 中承接 `AutoCadProxy.mp` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 252,
+        "line_end": 254
+      }
+    },
+    {
+      "name": "AutoCadProxy.sp",
+      "symbol": "sp",
+      "qualname": "AutoCadProxy.sp",
+      "level": "utility",
+      "signature": "def sp(self):",
+      "purpose": "在 licad 中承接 `AutoCadProxy.sp` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 255,
+        "line_end": 257
+      }
+    },
+    {
+      "name": "AutoCadProxy.msp",
+      "symbol": "msp",
+      "qualname": "AutoCadProxy.msp",
+      "level": "utility",
+      "signature": "def msp(self):",
+      "purpose": "在 licad 中承接 `AutoCadProxy.msp` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 258,
+        "line_end": 262
+      }
+    },
+    {
+      "name": "AutoCadProxy.save_file",
+      "symbol": "save_file",
+      "qualname": "AutoCadProxy.save_file",
+      "level": "core",
+      "signature": "def save_file(self):",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "retry_on_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 263,
+        "line_end": 272
+      }
+    },
+    {
+      "name": "AutoCadProxy.save_file_as",
+      "symbol": "save_file_as",
+      "qualname": "AutoCadProxy.save_file_as",
+      "level": "core",
+      "signature": "def save_file_as(self, path):",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "path",
+          "raw": "path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "Path",
+        "retry_on_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 273,
+        "line_end": 285
+      }
+    },
+    {
+      "name": "AutoCadProxy.open_file",
+      "symbol": "open_file",
+      "qualname": "AutoCadProxy.open_file",
+      "level": "core",
+      "signature": "def open_file(self, path):",
+      "purpose": "打开目标文档或激活既有文档。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "path",
+          "raw": "path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "os",
+        "Path",
+        "retry_on_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 286,
+        "line_end": 302
+      }
+    },
+    {
+      "name": "AutoCadProxy.close_file",
+      "symbol": "close_file",
+      "qualname": "AutoCadProxy.close_file",
+      "level": "core",
+      "signature": "def close_file(self, opt=\"auto_save\"):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "opt",
+          "raw": "opt=\"auto_save\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。",
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "retry_on_busy"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 303,
+        "line_end": 315
+      }
+    },
+    {
+      "name": "AutoCadProxy.close_dwg_by_name",
+      "symbol": "close_dwg_by_name",
+      "qualname": "AutoCadProxy.close_dwg_by_name",
+      "level": "core",
+      "signature": "def close_dwg_by_name(self, name):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        },
+        {
+          "name": "name",
+          "raw": "name",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。",
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "win32com",
+        "os"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 316,
+        "line_end": 327
+      }
+    },
+    {
+      "name": "li",
+      "symbol": "li",
+      "qualname": "li",
+      "level": "utility",
+      "signature": "def li():",
+      "purpose": "在 licad 中承接 `li` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 328,
+        "line_end": 328
+      }
+    },
+    {
+      "name": "save_file",
+      "symbol": "save_file",
+      "qualname": "save_file",
+      "level": "normal",
+      "signature": "def save_file():",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 329,
+        "line_end": 329
+      }
+    },
+    {
+      "name": "save_file_as",
+      "symbol": "save_file_as",
+      "qualname": "save_file_as",
+      "level": "normal",
+      "signature": "def save_file_as(p):",
+      "purpose": "把当前状态保存到 CAD 文档或目标路径。",
+      "inputs": [
+        {
+          "name": "p",
+          "raw": "p",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 330,
+        "line_end": 330
+      }
+    },
+    {
+      "name": "open_file",
+      "symbol": "open_file",
+      "qualname": "open_file",
+      "level": "normal",
+      "signature": "def open_file(p):",
+      "purpose": "打开目标文档或激活既有文档。",
+      "inputs": [
+        {
+          "name": "p",
+          "raw": "p",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 331,
+        "line_end": 331
+      }
+    },
+    {
+      "name": "close_file",
+      "symbol": "close_file",
+      "qualname": "close_file",
+      "level": "normal",
+      "signature": "def close_file(o=\"auto_save\"):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "o",
+          "raw": "o=\"auto_save\"",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 332,
+        "line_end": 332
+      }
+    },
+    {
+      "name": "close_dwg_by_name",
+      "symbol": "close_dwg_by_name",
+      "qualname": "close_dwg_by_name",
+      "level": "normal",
+      "signature": "def close_dwg_by_name(n):",
+      "purpose": "关闭目标文档、进程或守护资源。",
+      "inputs": [
+        {
+          "name": "n",
+          "raw": "n",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "os"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 333,
+        "line_end": 335
+      }
+    },
+    {
+      "name": "resolve_doc",
+      "symbol": "resolve_doc",
+      "qualname": "resolve_doc",
+      "level": "core",
+      "signature": "def resolve_doc(docname=None):",
+      "purpose": "按名称/路径解析运行时对象并返回结果。",
+      "inputs": [
+        {
+          "name": "docname",
+          "raw": "docname=None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。",
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "Path"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 336,
+        "line_end": 384
+      }
+    },
+    {
+      "name": "retry_on_busy",
+      "symbol": "retry_on_busy",
+      "qualname": "retry_on_busy",
+      "level": "core",
+      "signature": "def retry_on_busy(func_or_args=None, **kwargs):",
+      "purpose": "对目标调用施加 busy/rejected 容错重试策略。",
+      "inputs": [
+        {
+          "name": "func_or_args",
+          "raw": "func_or_args=None",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 385,
+        "line_end": 392
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "作为统一 CAD 连接入口导出 C 代理、文档包装和安全文件操作。"
+  },
+  "quality": {
+    "todo": [
+      "部分 COM 修复逻辑通过局部 helper 和异常兜底实现，返回细节按静态上下文概括。"
+    ],
+    "function_count": 29,
+    "public_api_count": 17,
+    "core_function_count": 13
+  }
+}

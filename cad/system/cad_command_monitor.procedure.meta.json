@@ -1,0 +1,75 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "cad_command_monitor",
+  "file_path": "D:/codex-tasks/cad/system/cad_command_monitor.py",
+  "applicable_scenarios": [
+    "SendCommand 后命令行长时间卡住、停在等待输入状态",
+    "生产运行中需要自动监控 CAD 命令是否超时",
+    "需要在无人值守场景下尽量自动把卡死命令打断"
+  ],
+  "preconditions": [
+    "系统中已有可通过 GetActiveObject('AutoCAD.Application') 获取的 CAD 实例",
+    "允许守护脚本抢焦点并发送 ESC",
+    "该脚本应以独立进程方式启动，而不是作为普通业务函数频繁调用"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "单实例检查",
+      "detail": "通过 lock 文件确认当前没有其他 cad_command_monitor 实例在运行。"
+    },
+    {
+      "step": 2,
+      "name": "连接活动 CAD",
+      "detail": "循环尝试获取 AutoCAD.Application；断开时记录 warning 并等待。"
+    },
+    {
+      "step": 3,
+      "name": "分析命令状态",
+      "detail": "使用 CMDACTIVE、CMDNAMES、LASTPROMPT 联合判定当前是否卡在等待输入。"
+    },
+    {
+      "step": 4,
+      "name": "记录占用时长",
+      "detail": "对同一窗口句柄记录开始时间与命令名，持续统计等待秒数。"
+    },
+    {
+      "step": 5,
+      "name": "超时强制取消",
+      "detail": "一旦超过 TIMEOUT_THRESHOLD，执行抢焦点 + 物理 ESC + 消息层 ESC + 逻辑层 ESC。"
+    },
+    {
+      "step": 6,
+      "name": "释放与心跳",
+      "detail": "命令恢复空闲时记录释放；周期性输出服务运行心跳。"
+    }
+  ],
+  "success_criteria": [
+    "卡在命令行的等待状态能被识别出来",
+    "超时后可以自动尝试打断命令并恢复监控循环",
+    "同一时刻只有一个监控实例在工作"
+  ],
+  "failure_criteria": [
+    "脚本被当作普通业务模块 import 并频繁调用",
+    "重写时丢失锁文件单实例机制",
+    "重写时丢失抢焦点后再发 ESC 的关键步骤",
+    "把它强行塞进普通日志/业务层而忽视其守护脚本性质"
+  ],
+  "do_not_use_for": [
+    "不要把它当作 CAD 主连接入口",
+    "不要把它当作普通库函数在业务代码里直接调用",
+    "不要在严格禁止抢焦点的桌面环境中无说明常驻运行"
+  ],
+  "integration_with_other_modules": {
+    "licad.py": "它不是 licad 的替代品，而是独立守护补充机制",
+    "CAD_coordination.py": "它不负责事务与同步等待，只负责外部监控与卡死打断",
+    "common_logger.py": "当前脚本使用独立 logging，而不是 common_logger；这是守护脚本的现状，不代表未来必须如此"
+  },
+  "rewrite_constraints": [
+    "允许整理日志系统与模块结构",
+    "允许将状态分析与窗口控制拆分成子函数/子模块",
+    "不得丢失状态判定逻辑与多层 ESC 取消经验",
+    "不得破坏单实例守护机制"
+  ]
+}

@@ -54,50 +54,49 @@ from system.CAD_selection import (
     set_attr,
 )
 
-# CAD_file_operations 提供的空间/布局辅助（若导入失败则启用本地实现）
-try:
-    from scripts.CAD_file_operations import get_obj_loc, set_space_mode, switch_to_layout, get_layout_names
-except Exception:  # pragma: no cover
+# 空间/布局辅助内生化，避免再依赖遗留 CAD_file_operations.py
+def get_obj_loc(obj: Any) -> int:
+    """1=模型空间,0=图纸空间,-1=其他"""
+    doc = C.doc
+    owner_btr = doc.ObjectIdToObject(obj.OwnerID)
+    btr_name = owner_btr.Name
+    if str(btr_name).upper() == "*MODEL_SPACE":
+        return 1
+    if str(btr_name).upper().startswith("*PAPER_SPACE"):
+        return 0
+    return -1
 
-    def get_obj_loc(obj: Any) -> int:
-        """1=模型空间,0=图纸空间,-1=其他"""
-        doc = C.doc
-        owner_btr = doc.ObjectIdToObject(obj.OwnerID)
-        btr_name = owner_btr.Name
-        if str(btr_name).upper() == "*MODEL_SPACE":
-            return 1
-        if str(btr_name).upper().startswith("*PAPER_SPACE"):
-            return 0
-        return -1
 
-    def set_space_mode(mode_val: int) -> bool:
-        doc = C.doc
-        doc.SetVariable("TILEMODE", mode_val)
-        if mode_val == 0:
-            doc.MSpace = False
-        return True
+def set_space_mode(mode_val: int) -> bool:
+    doc = C.doc
+    doc.SetVariable("TILEMODE", mode_val)
+    if mode_val == 0:
+        doc.MSpace = False
+    return True
 
-    def switch_to_layout(layout_name: str, retry: int = 10, delay: float = 0.5) -> bool:
-        doc = C.doc
-        for i in range(retry):
-            try:
-                lay = doc.Layouts.Item(layout_name)
-                doc.ActiveLayout = lay
-                C.acad.ActiveDocument = doc
-                return True
-            except Exception:
-                time.sleep(delay)
-        return False
 
-    def get_layout_names(exclude_model: bool = False) -> List[str]:
-        doc = C.doc
-        out = []
-        for layout in doc.Layouts:
-            name = layout.Name
-            if exclude_model and name == "Model":
-                continue
-            out.append(name)
-        return out
+def switch_to_layout(layout_name: str, retry: int = 10, delay: float = 0.5) -> bool:
+    doc = C.doc
+    for _ in range(retry):
+        try:
+            lay = doc.Layouts.Item(layout_name)
+            doc.ActiveLayout = lay
+            C.acad.ActiveDocument = doc
+            return True
+        except Exception:
+            time.sleep(delay)
+    return False
+
+
+def get_layout_names(exclude_model: bool = False) -> List[str]:
+    doc = C.doc
+    out = []
+    for layout in doc.Layouts:
+        name = layout.Name
+        if exclude_model and name == "Model":
+            continue
+        out.append(name)
+    return out
 
 
 # -----------------------------------------------------------------------------

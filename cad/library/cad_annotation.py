@@ -1,36 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
 CAD注释与文字函数库
-从CAD_basic.py中提取的注释、文字、标注相关函数
 """
 
-# ================= 路径引导 =================
-import sys
-from pathlib import Path
-current = Path(__file__).resolve()
-while current.name != 'cad':
-    if current.parent == current: raise Exception("找不到根目录")
-    current = current.parent
-sys.path.insert(0, str(current))
-
-# ================= 导入系统模块 =================
-from system.project_setup import PathConfig
 from system.licad import C
 from system.CAD_com_utils import sys_logger, retry_on_busy, SafeCOM
 import win32com.client
 import pythoncom
 from win32com.client import VARIANT
 
-# ================= 辅助函数 =================
+
 def vtpnt(x, y, z):
     """将三维坐标转换为VARIANT类型"""
     return win32com.client.VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, [x, y, z])
 
-#&&&&%% 注释文字模块
-
-#&&&% 单行文字操作
 
 def write_cad_text(
     text_content,
@@ -78,7 +62,6 @@ def write_cad_text(
         sys_logger.info(f"[错误] 无法写入文字: {e}")
         return None
 
-#&&&% 多行文字操作
 
 def write_mtext(
     text_content,
@@ -119,9 +102,7 @@ def write_mtext(
         sys_logger.info(f"[错误] 无法写入多行文字: {e}")
         return None
 
-#&&&% 标注操作
 
-#&&% 对齐标注
 def add_dim_aligned(p1, p2, p3):
     """
     添加对齐标注
@@ -145,7 +126,6 @@ def add_dim_aligned(p1, p2, p3):
         sys_logger.info(f"[错误] 无法添加对齐标注: {e}")
         return None
 
-#&&% 旋转标注
 def add_dim_rotated(p1, p2, p3, angle=0):
     """
     添加旋转标注
@@ -171,7 +151,6 @@ def add_dim_rotated(p1, p2, p3, angle=0):
         sys_logger.info(f"[错误] 无法添加旋转标注: {e}")
         return None
 
-#&&% 角度标注
 def add_dim_angular(vertex, p1, p2, p3):
     """
     【新增】添加角度标注
@@ -197,7 +176,6 @@ def add_dim_angular(vertex, p1, p2, p3):
         sys_logger.error(f"[错误] add_dim_angular 失败: {e}")
         return None
 
-#&&% 半径标注
 def add_dim_radial(center, chord_point, leader_length=None):
     """
     【新增】添加半径标注
@@ -221,7 +199,6 @@ def add_dim_radial(center, chord_point, leader_length=None):
         sys_logger.error(f"[错误] add_dim_radial 失败: {e}")
         return None
 
-#&&% 直径标注
 def add_dim_diametric(chord_point, far_chord_point, leader_length=None):
     """
     【新增】添加直径标注
@@ -245,9 +222,7 @@ def add_dim_diametric(chord_point, far_chord_point, leader_length=None):
         sys_logger.error(f"[错误] add_dim_diametric 失败: {e}")
         return None
 
-#&&&% 引线操作
 
-#&&% 添加引线
 def add_leader(points, annotation=None):
     """
     添加引线
@@ -358,9 +333,7 @@ def set_text_height(text_obj, height):
         sys_logger.info(f"[错误] 无法设置文字高度: {e}")
         return False
 
-#&&&% 文字查询与修改
 
-#&&% 获取文字旋转角度
 def get_text_rotation(text_obj):
     """
     【新增】获取文字旋转角度
@@ -377,7 +350,6 @@ def get_text_rotation(text_obj):
         sys_logger.error(f"[错误] get_text_rotation 失败: {e}")
         return None
 
-#&&% 设置文字旋转角度
 def set_text_rotation(text_obj, rotation):
     """
     【新增】设置文字旋转角度
@@ -396,7 +368,6 @@ def set_text_rotation(text_obj, rotation):
         sys_logger.error(f"[错误] set_text_rotation 失败: {e}")
         return False
 
-#&&% 批量修改文字
 def batch_modify_text(text_objs, **kwargs):
     """
     【新增】批量修改文字属性
@@ -422,9 +393,7 @@ def batch_modify_text(text_objs, **kwargs):
             sys_logger.error(f"[错误] 修改文字失败: {e}")
     return count
 
-#&&&% 表格操作
 
-#&&% 创建表格
 def create_table(insertion_point, rows, cols, row_height=300, col_width=1000):
     """
     【新增】创建表格
@@ -452,7 +421,6 @@ def create_table(insertion_point, rows, cols, row_height=300, col_width=1000):
         sys_logger.error(f"[错误] create_table 失败: {e}")
         return None
 
-#&&% 设置表格单元格文字
 def set_table_cell_text(table_obj, row, col, text):
     """
     【新增】设置表格单元格文字
@@ -473,7 +441,6 @@ def set_table_cell_text(table_obj, row, col, text):
         sys_logger.error(f"[错误] set_table_cell_text 失败: {e}")
         return False
 
-#&&% 获取表格单元格文字
 def get_table_cell_text(table_obj, row, col):
     """
     【新增】获取表格单元格文字
@@ -493,14 +460,14 @@ def get_table_cell_text(table_obj, row, col):
         return None
 
 if __name__ == "__main__":
-    print("CAD注释与文字函数库")
-    print("包含函数:")
-    print("  - write_cad_text: 写入单行文字")
-    print("  - write_mtext: 写入多行文字")
-    print("  - add_dim_aligned: 添加对齐标注")
-    print("  - add_dim_rotated: 添加旋转标注")
-    print("  - add_leader: 添加引线")
-    print("  - get_text_content: 获取文字内容")
-    print("  - set_text_content: 设置文字内容")
-    print("  - get_text_height: 获取文字高度")
-    print("  - set_text_height: 设置文字高度")
+    sys_logger.info("CAD注释与文字函数库")
+    sys_logger.info("包含函数:")
+    sys_logger.info("  - write_cad_text: 写入单行文字")
+    sys_logger.info("  - write_mtext: 写入多行文字")
+    sys_logger.info("  - add_dim_aligned: 添加对齐标注")
+    sys_logger.info("  - add_dim_rotated: 添加旋转标注")
+    sys_logger.info("  - add_leader: 添加引线")
+    sys_logger.info("  - get_text_content: 获取文字内容")
+    sys_logger.info("  - set_text_content: 设置文字内容")
+    sys_logger.info("  - get_text_height: 获取文字高度")
+    sys_logger.info("  - set_text_height: 设置文字高度")

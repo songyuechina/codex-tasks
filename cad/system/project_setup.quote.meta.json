@@ -1,0 +1,60 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "project_setup",
+  "file_path": "D:/codex-tasks/cad/system/project_setup.py",
+  "script_role": "项目纯路径配置脚本",
+  "core_problem": "为 cad/system 提供稳定、可迁移的路径常量配置，避免各脚本重复手写路径拼接，同时明确本模块不再承担 sys.path 引导与导入环境构建职责。",
+  "system_position": {
+    "layer_name": "纯路径配置层",
+    "foundational_module": true,
+    "works_with": [
+      "整个 cad/system"
+    ],
+    "main_entry_note": "本模块只导出路径常量，不负责 bootstrap，不负责导入环境构建。"
+  },
+  "core_functions": [
+    {
+      "name": "PathConfig",
+      "role": "统一导出 cad 根目录、system、scripts、tests、logs、workspace 等路径常量",
+      "input_shape": "无",
+      "output_shape": "路径常量类"
+    }
+  ],
+  "core_constants": [
+    "CURRENT_FILE",
+    "SYSTEM_DIR",
+    "CAD_ROOT",
+    "WORKSPACE_DIR",
+    "PathConfig.ROOT",
+    "PathConfig.CAD_DIR",
+    "PathConfig.SYSTEM_DIR",
+    "PathConfig.SCRIPTS_DIR",
+    "PathConfig.TESTS",
+    "PathConfig.LOGS",
+    "PathConfig.WORKSPACE_DIR",
+    "PathConfig.userpath",
+    "PathConfig.TEST_EXCEL",
+    "PathConfig.COMMON_LOGGER"
+  ],
+  "side_effects_and_boundaries": [
+    "模块导入时会尝试创建 PathConfig.LOGS 与 PathConfig.TESTS 目录",
+    "本模块不修改 sys.path",
+    "本模块不承担项目引导职责",
+    "本模块不负责建立 CAD 连接"
+  ],
+  "must_keep_experience": [
+    "路径配置层必须保持纯净，只提供路径常量，不再混入 bootstrap 逻辑",
+    "ROOT / CAD_DIR / WORKSPACE_DIR 的锚点关系必须稳定",
+    "USERPATH 可以由环境变量覆盖，否则使用默认兜底目录",
+    "目录保障只限于必要目录创建，不应扩张为导入环境控制"
+  ],
+  "known_limits": [
+    "目前仍在导入时创建少量目录，因此不是绝对零副作用模块",
+    "若未来项目目录结构变化，本模块需要同步调整锚点推导逻辑"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续精简实现与调整路径常量命名，但不得把 sys.path 引导或导入环境构建职责重新塞回本模块。"
+  }
+}

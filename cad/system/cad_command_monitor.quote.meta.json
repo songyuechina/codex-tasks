@@ -1,0 +1,83 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "cad_command_monitor",
+  "file_path": "D:/codex-tasks/cad/system/cad_command_monitor.py",
+  "script_role": "CAD 命令卡死监控守护脚本",
+  "core_problem": "解决 SendCommand 或命令交互过程中，天正/AutoCAD 卡在命令行等待输入、长时间不动的问题。",
+  "system_position": {
+    "layer_name": "独立守护层",
+    "is_guard_daemon": true,
+    "not_business_module": true,
+    "works_with": [
+      "AutoCAD.Application",
+      "命令行交互状态",
+      "窗口焦点与 ESC 取消机制"
+    ]
+  },
+  "core_functions": [
+    {
+      "name": "force_bring_to_front",
+      "role": "强制将 CAD 窗口置顶并抢占焦点",
+      "input_shape": "hwnd",
+      "output_shape": "bool"
+    },
+    {
+      "name": "send_nuclear_esc",
+      "role": "执行抢焦点 + 物理 ESC + 消息层 ESC + SendCommand ESC 的组合取消",
+      "input_shape": "hwnd, acad_doc",
+      "output_shape": "bool"
+    },
+    {
+      "name": "get_active_cad_app",
+      "role": "获取当前活动 AutoCAD.Application",
+      "input_shape": "无",
+      "output_shape": "acad app 或 None"
+    },
+    {
+      "name": "analyze_state",
+      "role": "分析当前 CAD 是否处于等待输入 / busy / 异常状态",
+      "input_shape": "acad app",
+      "output_shape": "(status, cmd_name, hwnd, doc)"
+    },
+    {
+      "name": "is_already_running / create_lock / remove_lock",
+      "role": "守护脚本单实例锁管理",
+      "input_shape": "无",
+      "output_shape": "bool 或 lock 文件副作用"
+    },
+    {
+      "name": "main",
+      "role": "主监控循环",
+      "input_shape": "无",
+      "output_shape": "长循环守护直到手动中断"
+    }
+  ],
+  "status_contract": {
+    "0": "空闲/未等待输入",
+    "1": "等待输入或 busy",
+    "2": "异常状态"
+  },
+  "side_effects_and_boundaries": [
+    "会持续创建/使用 cad_command_monitor.log 日志文件",
+    "会持续创建/使用 cad_command_monitor.lock 锁文件",
+    "会在控制台持续输出状态与心跳",
+    "超时后会强制抢占 CAD 窗口焦点",
+    "会发送物理 ESC、窗口消息 ESC、逻辑层 SendCommand ESC"
+  ],
+  "must_keep_experience": [
+    "通过 CMDACTIVE / CMDNAMES / LASTPROMPT 联合判定命令是否卡住",
+    "遇到 Call Rejected 时不直接判死，而是视作 BUSY",
+    "抢焦点后再发 ESC，解决后台窗口无法接收物理按键的问题",
+    "使用锁文件防止多实例监控互相干扰"
+  ],
+  "known_limits": [
+    "这是独立守护脚本，不适合作为普通业务模块 import 使用",
+    "会抢焦点并干预前台窗口，对用户桌面操作具有侵入性",
+    "依赖 AutoCAD.Application；若未来支持其他 CAD，需再抽象"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续优化状态判定、日志与守护结构，但不得丢失抢焦点 + 多层 ESC 取消这一核心经验。"
+  }
+}

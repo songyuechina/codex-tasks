@@ -1,0 +1,73 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "cad_dialog_killer",
+  "file_path": "D:/codex-tasks/cad/system/cad_dialog_killer.py",
+  "script_role": "CAD 弹窗关闭守护脚本",
+  "core_problem": "解决天正/AutoCAD 运行过程中出现标准对话框弹窗，长期停留阻塞自动化流程的问题。",
+  "system_position": {
+    "layer_name": "独立守护层",
+    "is_guard_daemon": true,
+    "not_business_module": true,
+    "works_with": [
+      "CAD 进程窗口",
+      "标准对话框类 #32770",
+      "控制文件延迟阈值"
+    ]
+  },
+  "core_functions": [
+    {
+      "name": "read_delay",
+      "role": "从控制文件读取当前弹窗关闭延迟秒数",
+      "input_shape": "无",
+      "output_shape": "int"
+    },
+    {
+      "name": "get_cad_pids",
+      "role": "获取所有正在运行的 CAD 进程 PID",
+      "input_shape": "无",
+      "output_shape": "set[int]"
+    },
+    {
+      "name": "enum_and_maybe_close",
+      "role": "枚举窗口并判断是否需要向弹窗发送 ESC 关闭",
+      "input_shape": "hwnd, cad_pids, delay, now",
+      "output_shape": "无显式返回，产生关闭弹窗副作用"
+    },
+    {
+      "name": "is_already_running / create_lock / remove_lock",
+      "role": "守护脚本单实例锁管理",
+      "input_shape": "无",
+      "output_shape": "bool 或 lock 文件副作用"
+    },
+    {
+      "name": "main",
+      "role": "主守护循环",
+      "input_shape": "无",
+      "output_shape": "长循环守护直到手动中断"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "会持续创建/使用 cad_dialog_killer.log 日志文件",
+    "会持续创建/使用 cad_dialog_killer.lock 锁文件",
+    "会周期性扫描所有可见窗口",
+    "对满足条件的 CAD 标准对话框发送 ESC 关闭",
+    "依赖外部 CONTROL_FILE 决定延迟阈值"
+  ],
+  "must_keep_experience": [
+    "只处理可见窗口且类名为 #32770 的标准对话框",
+    "只处理属于 CAD 进程 PID 的窗口，避免误伤非 CAD 程序",
+    "通过 _first_seen 记录首次出现时间，超过 delay 后再关闭，避免过早误关",
+    "允许通过控制文件动态调整 delay，而无需改代码重启",
+    "使用锁文件保证单实例守护"
+  ],
+  "known_limits": [
+    "这是独立守护脚本，不适合作为普通业务模块 import 使用",
+    "只针对标准对话框类 #32770；特殊窗口类型不一定能处理",
+    "依赖固定 CONTROL_FILE 路径，环境迁移时需同步检查"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续优化日志、控制文件机制与窗口过滤结构，但不得丢失“延迟关闭 + 只关闭 CAD 对话框 + 单实例守护”这三组核心经验。"
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "licad",
+  "file_path": "D:/codex-tasks/cad/system/licad.py",
+  "script_role": "CAD / DWG 统一连接入口脚本",
+  "core_problem": "为整个系统提供统一、可恢复、可包装的 AutoCAD / 天正 CAD 连接入口，避免业务层直接分散使用 GetActiveObject / Dispatch / SendCommand。",
+  "system_position": {
+    "layer_name": "统一连接入口层",
+    "high_value_stable_core": true,
+    "works_with": [
+      "system.CAD_com_utils.py",
+      "system.common_logger.py",
+      "system.CAD_coordination.py"
+    ],
+    "main_entry_note": "所有 CAD 连接原则上都应经由本模块的 C 代理对象，而不应由业务层直接建立 COM 连接。"
+  },
+  "core_functions": [
+    {
+      "name": "get_acad_doc",
+      "role": "底层连接原语：获取或启动 AutoCAD 应用与文档",
+      "input_shape": "max_wait=15.0",
+      "output_shape": "(app, doc)"
+    },
+    {
+      "name": "SafeDocumentWrapper",
+      "role": "包装文档对象，劫持 SendCommand 并转为同步安全调用",
+      "input_shape": "real_com_doc",
+      "output_shape": "安全文档包装对象"
+    },
+    {
+      "name": "AutoCadProxy.li",
+      "role": "三层验证智能连接：缓存检查、重连、ModelSpace 探针",
+      "input_shape": "无",
+      "output_shape": "bool"
+    },
+    {
+      "name": "AutoCadProxy.acad / doc / raw_doc / mp / sp / msp",
+      "role": "统一暴露当前 CAD 应用、包装文档、原始文档与空间对象",
+      "input_shape": "无",
+      "output_shape": "当前连接对象"
+    },
+    {
+      "name": "AutoCadProxy.save_file / save_file_as / open_file / close_file / close_dwg_by_name",
+      "role": "基于统一连接代理的基础文件操作接口",
+      "input_shape": "路径或选项参数",
+      "output_shape": "bool"
+    },
+    {
+      "name": "resolve_doc",
+      "role": "按名称/路径/文件干名解析并激活文档",
+      "input_shape": "docname=None",
+      "output_shape": "安全文档对象或 None"
+    },
+    {
+      "name": "C",
+      "role": "全局 AutoCadProxy 单例，是全系统统一连接入口",
+      "input_shape": "无",
+      "output_shape": "AutoCadProxy 实例"
+    },
+    {
+      "name": "retry_on_busy",
+      "role": "转发给 CAD_com_utils 的兼容装饰器接口",
+      "input_shape": "func_or_args, **kwargs",
+      "output_shape": "装饰器或包装函数"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "模块内部仍保留旧式 sys.path 引导，这是历史兼容痕迹",
+    "连接失败时可能尝试通过 COM 启动新 CAD 实例",
+    "严重连接超时时会尝试清理 win32com gen_py 缓存",
+    "doc 属性返回 SafeDocumentWrapper，而 raw_doc 返回原始 COM 文档对象",
+    "SafeDocumentWrapper 会劫持 SendCommand，优先转发到 CAD_coordination.send_cmd_with_sync"
+  ],
+  "must_keep_experience": [
+    "检测到 CAD 进程存在但 COM 未就绪时，应优先等待而不是轻率新建新进程",
+    "连接严重异常时允许触发 gen_py 缓存自愈清理",
+    "li() 不能只检查缓存引用，还要做 ActiveDocument 对比与 ModelSpace 探针验证",
+    "业务层默认应拿到包装后的 doc，而高层协调层在必要时拿 raw_doc",
+    "SendCommand 必须优先走同步安全包装，不能直接把异步原始行为扩散到业务层"
+  ],
+  "known_limits": [
+    "仍带有部分 print 输出与历史兼容变量 acad/doc",
+    "依赖 CAD_coordination 进行命令同步包装，因此需要注意循环引用边界"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": false,
+    "guidance": "这是高价值稳定核心。允许局部修补、去重历史定义、清理日志与兼容变量，但不应轻率整体重写连接策略。"
+  }
+}

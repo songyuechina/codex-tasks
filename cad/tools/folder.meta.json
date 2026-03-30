@@ -1,0 +1,26 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/tools",
+  "role": "analysis-index-and-spec-toolbox",
+  "summary": "面向源码理解、静态索引、spec 转换与导航注册的工具目录。它不是业务执行主链，但对智能体快速理解项目、定位调用关系和压缩代码骨架有明确价值。",
+  "entry_docs": [
+    "ReadMe.md"
+  ],
+  "core_tools": [
+    "basic_graph_analyzer.py：构建脚本/函数关系图与调用索引",
+    "function_analyzer.py：函数级静态分析核心",
+    "code_to_spec.py：从代码提取结构化 spec",
+    "spec_to_text.py / spec_to_mermaid.py / spec_to_stub.py：把 spec 转为可读或可执行中间形态",
+    "script_navigator_registry.json：脚本导航注册表"
+  ],
+  "recommended_uses": [
+    "新主管快速建立代码地图时优先使用",
+    "脚本重构前先做结构扫描与函数定位",
+    "需要批量抽取调用关系时使用，而不是手工全文阅读"
+  ],
+  "non_goals": [
+    "不直接承担打印、绘图或 CAD 执行职责",
+    "不是运行时状态目录，也不是案例资产目录"
+  ]
+}

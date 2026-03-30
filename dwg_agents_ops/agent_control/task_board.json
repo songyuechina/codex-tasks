@@ -1,0 +1,54 @@
+{
+  "active_plan_version": "2026-03-21-handoff-and-architecture-clarification",
+  "plans": [
+    {
+      "version": "2026-03-21-handoff-and-architecture-clarification",
+      "title": "加固新窗口项目交接入口与当前任务态",
+      "status": "active",
+      "owner": "project_supervisor",
+      "updated_at": "2026-03-21T22:30:00+08:00",
+      "summary": "本轮重点是让新窗口先明白项目总图，再迅速知道当前工作已经推进到哪里。"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "OPS-20260321-01",
+      "title": "固化新窗口最短首读路径与当前状态入口",
+      "domain": "governance",
+      "status": "test_passed",
+      "priority": "a",
+      "owner": "tester",
+      "updated_at": "2026-03-21T22:30:00+08:00",
+      "summary": "已补充 CURRENT_STATE.md，并把它挂入根入口文档、架构文档和记忆系统文档。",
+      "next": "在新窗口按最短路径做一次实际理解验证。"
+    },
+    {
+      "task_id": "OPS-20260321-02",
+      "title": "验证新窗口项目总管能否快速理解体系并续接工作",
+      "domain": "handoff-validation",
+      "status": "ready_for_planning",
+      "priority": "a",
+      "owner": "planner",
+      "updated_at": "2026-03-21T22:30:00+08:00",
+      "summary": "下一步建议直接新开窗口，验证其是否能回答总图、当前优先级、最近变更与下一步动作。",
+      "next": "Planner 输出最短验证步骤与通过标准。"
+    },
+    {
+      "task_id": "PRINT-20260321-03",
+      "title": "继续观察打印执行链与运行监督链在真实案例中的配合问题",
+      "domain": "print-runtime",
+      "status": "backlog",
+      "priority": "b",
+      "owner": "project_supervisor",
+      "updated_at": "2026-03-21T22:30:00+08:00",
+      "summary": "重点关注每 DWG 收尾归一、纯 CAD 偏航告警、规则前置监督与知识前置监督。",
+      "next": "选择新的真实案例继续做监督版验证。"
+    }
+  ],
+  "waiting_queues": {
+    "planner": "ready_for_OPS-20260321-02",
+    "coder": "waiting_on_planning_or_bugfix_task",
+    "reviewer": "waiting_on_code_or_protocol_change",
+    "tester": "waiting_on_validation_target"
+  }
+}

@@ -1,0 +1,762 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_batch_dispatch.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_batch_dispatch.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "对单文件或目录任务统一组织打印计划、执行、空白页修补、打印信息分析与最终结果汇总。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "detect_blank_pdfs",
+      "run_directory_dispatch",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_is_dispatch_source_dwg",
+      "symbol": "_is_dispatch_source_dwg",
+      "qualname": "_is_dispatch_source_dwg",
+      "level": "utility",
+      "signature": "def _is_dispatch_source_dwg(path: Path) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "name.endswith"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 48,
+        "line_end": 54
+      }
+    },
+    {
+      "name": "_derive_public_base_name",
+      "symbol": "_derive_public_base_name",
+      "qualname": "_derive_public_base_name",
+      "level": "utility",
+      "signature": "def _derive_public_base_name(path: Path) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "label.rstrip",
+        "path.stem.strip",
+        "re.sub",
+        "strip"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 57,
+        "line_end": 62
+      }
+    },
+    {
+      "name": "_reset_dir",
+      "symbol": "_reset_dir",
+      "qualname": "_reset_dir",
+      "level": "utility",
+      "signature": "def _reset_dir(path: Path) -> None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "path.exists",
+        "path.mkdir",
+        "shutil.rmtree"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 65,
+        "line_end": 68
+      }
+    },
+    {
+      "name": "_prepare_public_output_dirs",
+      "symbol": "_prepare_public_output_dirs",
+      "qualname": "_prepare_public_output_dirs",
+      "level": "utility",
+      "signature": "def _prepare_public_output_dirs(dwg_path: Path, process_stamp: str) -> dict[str, Path]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: Path",
+          "required": true
+        },
+        {
+          "name": "process_stamp",
+          "raw": "process_stamp: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_derive_public_base_name",
+        "_reset_dir",
+        "process_run_dir.mkdir"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 71,
+        "line_end": 88
+      }
+    },
+    {
+      "name": "_load_json",
+      "symbol": "_load_json",
+      "qualname": "_load_json",
+      "level": "utility",
+      "signature": "def _load_json(path: Path) -> dict[str, Any]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "json.loads",
+        "path.read_text"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 91,
+        "line_end": 92
+      }
+    },
+    {
+      "name": "_close_case_documents",
+      "symbol": "_close_case_documents",
+      "qualname": "_close_case_documents",
+      "level": "utility",
+      "signature": "def _close_case_documents(case_paths: set[Path]) -> dict[str, Any]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "case_paths",
+          "raw": "case_paths: set[Path]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_normalize_path",
+        "closed.append",
+        "doc.Activate",
+        "doc.Close",
+        "failed.append",
+        "getattr",
+        "len"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 95,
+        "line_end": 178
+      }
+    },
+    {
+      "name": "_render_nonwhite_ratio",
+      "symbol": "_render_nonwhite_ratio",
+      "qualname": "_render_nonwhite_ratio",
+      "level": "utility",
+      "signature": "def _render_nonwhite_ratio(pdf_path: Path, scale: float=0.12) -> list[float]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "pdf_path",
+          "raw": "pdf_path: Path",
+          "required": true
+        },
+        {
+          "name": "scale",
+          "raw": "scale: float = 0.12",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "doc.close",
+        "fitz.Matrix",
+        "fitz.open",
+        "len",
+        "max",
+        "page.get_pixmap",
+        "range",
+        "ratios.append"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 181,
+        "line_end": 196
+      }
+    },
+    {
+      "name": "detect_blank_pdfs",
+      "symbol": "detect_blank_pdfs",
+      "qualname": "detect_blank_pdfs",
+      "level": "core",
+      "signature": "def detect_blank_pdfs(pdf_paths: list[str], threshold: float=BLANK_RATIO_THRESHOLD) -> list[dict[str, Any]]:",
+      "purpose": "渲染已生成 PDF 的页面像素密度，识别视觉上近似空白的 PDF，供 blank-fix 补救链使用。",
+      "inputs": [
+        {
+          "name": "pdf_paths",
+          "raw": "pdf_paths: list[str]",
+          "required": true
+        },
+        {
+          "name": "threshold",
+          "raw": "threshold: float = BLANK_RATIO_THRESHOLD",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回疑似空白 PDF 列表，每项包含 pdf_path、reason、ratios 等证据。"
+      ],
+      "returns": [
+        "列表；为空表示当前 PDF 集合未发现空白页嫌疑。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_render_nonwhite_ratio",
+        "max",
+        "str",
+        "suspects.append"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 199,
+        "line_end": 233
+      },
+      "steps": [
+        "遍历待检查 PDF 路径。",
+        "逐文件渲染页面并计算非白像素比例。",
+        "把无页、渲染失败或最大非白比例低于阈值的 PDF 标记为嫌疑项。"
+      ],
+      "failure_paths": [
+        "PDF 无法渲染时返回 render_failed 记录，而不是直接中断整批任务。"
+      ],
+      "success_conditions": [
+        "结果可直接驱动 blank-fix 和最终 PDF 过滤逻辑。"
+      ],
+      "must_keep_experience": [
+        "空白页判断依赖视觉非白比例，而不是只看文件存在或页数。"
+      ]
+    },
+    {
+      "name": "_job_index_from_plan",
+      "symbol": "_job_index_from_plan",
+      "qualname": "_job_index_from_plan",
+      "level": "utility",
+      "signature": "def _job_index_from_plan(plan_json_path: Path) -> dict[str, dict[str, Any]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "plan_json_path",
+          "raw": "plan_json_path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_load_json",
+        "raw.get",
+        "str",
+        "values"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 236,
+        "line_end": 243
+      }
+    },
+    {
+      "name": "_selected_job_rows",
+      "symbol": "_selected_job_rows",
+      "qualname": "_selected_job_rows",
+      "level": "utility",
+      "signature": "def _selected_job_rows(plan_json_path: Path, selected_handles: list[str]) -> list[dict[str, Any]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "plan_json_path",
+          "raw": "plan_json_path: Path",
+          "required": true
+        },
+        {
+          "name": "selected_handles",
+          "raw": "selected_handles: list[str]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_load_json",
+        "job.get",
+        "raw.get",
+        "rows.append",
+        "str",
+        "values"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 246,
+        "line_end": 256
+      }
+    },
+    {
+      "name": "_ratio_to_visual_width",
+      "symbol": "_ratio_to_visual_width",
+      "qualname": "_ratio_to_visual_width",
+      "level": "utility",
+      "signature": "def _ratio_to_visual_width(ratio: str) -> int:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ratio",
+          "raw": "ratio: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "float",
+        "match.group",
+        "re.search",
+        "str",
+        "strip"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 259,
+        "line_end": 271
+      }
+    },
+    {
+      "name": "_set_entity_visual_style",
+      "symbol": "_set_entity_visual_style",
+      "qualname": "_set_entity_visual_style",
+      "level": "utility",
+      "signature": "def _set_entity_visual_style(entity: Any, width_value: int) -> None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "entity",
+          "raw": "entity: Any",
+          "required": true
+        },
+        {
+          "name": "width_value",
+          "raw": "width_value: int",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "主要通过副作用更新运行状态、当前文档或外部文件。"
+      ],
+      "returns": [
+        "无显式业务返回值，主要依赖副作用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "float",
+        "getattr",
+        "int",
+        "setattr",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 274,
+        "line_end": 291
+      }
+    },
+    {
+      "name": "_make_print_area_visual_copy",
+      "symbol": "_make_print_area_visual_copy",
+      "qualname": "_make_print_area_visual_copy",
+      "level": "utility",
+      "signature": "def _make_print_area_visual_copy(*, source_dwg: Path, plan_json_path: Path, selected_handles: list[str]) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "source_dwg",
+          "raw": "source_dwg: Path",
+          "required": true
+        },
+        {
+          "name": "plan_json_path",
+          "raw": "plan_json_path: Path",
+          "required": true
+        },
+        {
+          "name": "selected_handles",
+          "raw": "selected_handles: list[str]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "RuntimeError",
+        "_close_document_by_path",
+        "_ratio_to_visual_width",
+        "_selected_job_rows",
+        "_set_entity_visual_style",
+        "doc.HandleToObject",
+        "doc.Regen",
+        "job.get"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 294,
+        "line_end": 340
+      }
+    },
+    {
+      "name": "_make_blank_fix_copy",
+      "symbol": "_make_blank_fix_copy",
+      "qualname": "_make_blank_fix_copy",
+      "level": "utility",
+      "signature": "def _make_blank_fix_copy(source_dwg: Path, repaired_dwg: Path) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "source_dwg",
+          "raw": "source_dwg: Path",
+          "required": true
+        },
+        {
+          "name": "repaired_dwg",
+          "raw": "repaired_dwg: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "close_current_dwg_paradigm",
+        "copy_file_content_pywin32",
+        "new_file",
+        "repaired_dwg.exists",
+        "repaired_dwg.parent.mkdir",
+        "str",
+        "sys_logger.info",
+        "time.sleep"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 343,
+        "line_end": 357
+      }
+    },
+    {
+      "name": "_copy_final_outputs",
+      "symbol": "_copy_final_outputs",
+      "qualname": "_copy_final_outputs",
+      "level": "utility",
+      "signature": "def _copy_final_outputs(*, source_dwg: Path, output_dir: Path, original_job_index: dict[str, dict[str, Any]], original_existing: list[str], blank_pdf_paths: set[str], repaired_summary: dict[str, Any] | None=None) -> dict[str, Any]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "source_dwg",
+          "raw": "source_dwg: Path",
+          "required": true
+        },
+        {
+          "name": "output_dir",
+          "raw": "output_dir: Path",
+          "required": true
+        },
+        {
+          "name": "original_job_index",
+          "raw": "original_job_index: dict[str, dict[str, Any]]",
+          "required": true
+        },
+        {
+          "name": "original_existing",
+          "raw": "original_existing: list[str]",
+          "required": true
+        },
+        {
+          "name": "blank_pdf_paths",
+          "raw": "blank_pdf_paths: set[str]",
+          "required": true
+        },
+        {
+          "name": "repaired_summary",
+          "raw": "repaired_summary: dict[str, Any] | None = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_job_index_from_plan",
+        "copied.append",
+        "exists",
+        "get",
+        "int",
+        "len",
+        "original_job_index.get"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 360,
+        "line_end": 426
+      }
+    },
+    {
+      "name": "run_directory_dispatch",
+      "symbol": "run_directory_dispatch",
+      "qualname": "run_directory_dispatch",
+      "level": "core",
+      "signature": "def run_directory_dispatch(*, dwg_files: list[Path], summary_root: Path, output_root: Path, mode: str) -> dict[str, Any]:",
+      "purpose": "围绕目录或单文件输入组织完整批量打印闭环：初次打印、空白修补、print info 分析、最终复制、再过滤和清理。",
+      "inputs": [
+        {
+          "name": "dwg_files",
+          "raw": "dwg_files: list[Path]",
+          "required": true
+        },
+        {
+          "name": "summary_root",
+          "raw": "summary_root: Path",
+          "required": true
+        },
+        {
+          "name": "output_root",
+          "raw": "output_root: Path",
+          "required": true
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回 batch_summary 结构，包含每个 DWG 的状态、过程路径、分析结果和最终交付路径。"
+      ],
+      "returns": [
+        "字典，至少包含 input_dir、output_root、mode、items、summary_json。"
+      ],
+      "side_effects": [
+        "创建批次输出目录、process 目录、公共 PDF/analysis 目录，并可能打开/关闭多个 CAD 文档。",
+        "写出 batch_summary.json 与各单 DWG 过程文件。"
+      ],
+      "dependencies": [
+        "run_print_case",
+        "run_print_info_case",
+        "_copy_final_outputs",
+        "_make_blank_fix_copy",
+        "_make_print_area_visual_copy",
+        "detect_blank_pdfs"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 429,
+        "line_end": 653
+      },
+      "preconditions": [
+        "dwg_files 已经筛成有效 DWG 列表。",
+        "output_root 所在磁盘路径可写。",
+        "CAD 环境可被单文件主链接管。"
+      ],
+      "steps": [
+        "逐 DWG 准备公共输出目录并调用 run_print_case 执行初次打印。",
+        "对已生成 PDF 做空白检测，必要时生成 blankfix 副本并重跑打印主链。",
+        "基于 print_plan 和 content_analysis 调用 run_print_info_case 生成结构化页面信息。",
+        "复制最终可交付 PDF，过滤最终仍为空白的结果，并生成打印区域可视化 DWG。",
+        "按最终交付情况判定 success、failed 或 completed_no_valid_print_areas，并持续刷新 batch_summary.json。",
+        "在 finally 中关闭工作 DWG 和案例 DWG，记录 cleanup 结果。"
+      ],
+      "failure_paths": [
+        "任一 DWG 处理出错时，当前行会写成 failed，但不会中断整个批次。",
+        "若已有打印计划但最终没有可交付 PDF，则标记 failed。"
+      ],
+      "success_conditions": [
+        "每个 DWG 都形成清晰的状态行，并且 batch_summary.json 可用于后续回归或人工复查。"
+      ],
+      "must_keep_experience": [
+        "目录级调度必须复用 run_print_case 单文件主链，而不是另写一套打印实现。",
+        "blank-fix、最终空白过滤和 print info 分析都应围绕同一批次过程目录组织。",
+        "即使单文件失败，也要继续落 summary 并做收尾关图。"
+      ]
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main() -> None:",
+      "purpose": "提供目录级调度 CLI，统一接收 --input-dir 或 --dwg，并打印最终 batch 结果 JSON。",
+      "inputs": [],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [
+        "解析命令行参数并触发 CLI 输出。"
+      ],
+      "dependencies": [
+        "Path",
+        "SystemExit",
+        "_is_dispatch_source_dwg",
+        "argparse.ArgumentParser",
+        "bool",
+        "getattr",
+        "hasattr",
+        "input_dir.glob"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 656,
+        "line_end": 691
+      },
+      "steps": [
+        "配置 stdout/stderr 为 utf-8。",
+        "解析输入目录、单文件路径、输出根目录和模式参数。",
+        "校验 --input-dir 与 --dwg 只能二选一。",
+        "构造 dwg_files 与 summary_root 后调用 run_directory_dispatch。",
+        "把返回结果打印为 JSON。"
+      ],
+      "failure_paths": [
+        "输入参数非法时直接 SystemExit。"
+      ],
+      "success_conditions": [
+        "CLI 输出的 JSON 与 batch_summary.json 一致并可直接复用。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "pdf",
+      "dispatch"
+    ],
+    "script_focus": "打印目录级统一调度脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 17,
+    "public_api_count": 3,
+    "core_function_count": 3
+  }
+}

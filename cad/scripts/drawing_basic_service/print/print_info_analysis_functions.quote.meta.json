@@ -1,0 +1,1572 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_info_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "围绕打印区域提取图签块、文字、内框等页面信息，并输出 JSON 与 Excel 结果供人工复查和后续治理使用。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "analyze_print_job_info",
+      "analyze_print_info_jobs",
+      "write_print_info_excel",
+      "run_print_info_case",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_safe_handle",
+      "symbol": "_safe_handle",
+      "qualname": "_safe_handle",
+      "level": "utility",
+      "signature": "def _safe_handle(obj: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "get_attr",
+        "getattr",
+        "id",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 126,
+        "line_end": 130
+      }
+    },
+    {
+      "name": "_bbox_xy",
+      "symbol": "_bbox_xy",
+      "qualname": "_bbox_xy",
+      "level": "utility",
+      "signature": "def _bbox_xy(ent: Any) -> tuple[float, float, float, float] | None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "ent.GetBoundingBox",
+        "float",
+        "max",
+        "min"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 133,
+        "line_end": 142
+      }
+    },
+    {
+      "name": "_normalize_path",
+      "symbol": "_normalize_path",
+      "qualname": "_normalize_path",
+      "level": "utility",
+      "signature": "def _normalize_path(path: str | Path) -> str:",
+      "purpose": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "inputs": [
+        {
+          "name": "path",
+          "raw": "path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "lower",
+        "resolve",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 145,
+        "line_end": 146
+      }
+    },
+    {
+      "name": "_is_name_only_target",
+      "symbol": "_is_name_only_target",
+      "qualname": "_is_name_only_target",
+      "level": "utility",
+      "signature": "def _is_name_only_target(target_path: str | Path) -> bool:",
+      "purpose": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "name.lower",
+        "raw.lower",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 149,
+        "line_end": 151
+      }
+    },
+    {
+      "name": "_find_document_by_path",
+      "symbol": "_find_document_by_path",
+      "qualname": "_find_document_by_path",
+      "level": "utility",
+      "signature": "def _find_document_by_path(target_path: str | Path):",
+      "purpose": "按路径或名称在当前 CAD 会话中定位目标文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "getattr",
+        "lower",
+        "name.lower",
+        "str"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 154,
+        "line_end": 168
+      }
+    },
+    {
+      "name": "_activate_document_by_path",
+      "symbol": "_activate_document_by_path",
+      "qualname": "_activate_document_by_path",
+      "level": "utility",
+      "signature": "def _activate_document_by_path(target_path: str | Path, retries: int=8, delay: float=0.5) -> bool:",
+      "purpose": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "retries",
+          "raw": "retries: int = 8",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay: float = 0.5",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_find_document_by_path",
+        "_is_name_only_target",
+        "_normalize_path",
+        "doc.Activate",
+        "getattr",
+        "lower",
+        "name.lower"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 171,
+        "line_end": 196
+      }
+    },
+    {
+      "name": "_close_document_by_path",
+      "symbol": "_close_document_by_path",
+      "qualname": "_close_document_by_path",
+      "level": "utility",
+      "signature": "def _close_document_by_path(target_path: str | Path, save_changes: bool=False) -> bool:",
+      "purpose": "按路径关闭目标文档，减少后续调度对会话的干扰。",
+      "inputs": [
+        {
+          "name": "target_path",
+          "raw": "target_path: str | Path",
+          "required": true
+        },
+        {
+          "name": "save_changes",
+          "raw": "save_changes: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_find_document_by_path",
+        "bool",
+        "doc.Close"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 199,
+        "line_end": 207
+      }
+    },
+    {
+      "name": "_find_layout_by_owner_btr",
+      "symbol": "_find_layout_by_owner_btr",
+      "qualname": "_find_layout_by_owner_btr",
+      "level": "utility",
+      "signature": "def _find_layout_by_owner_btr(owner_btr_name: str):",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C.doc.Layouts.Item",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 210,
+        "line_end": 222
+      }
+    },
+    {
+      "name": "_activate_space_for_owner",
+      "symbol": "_activate_space_for_owner",
+      "qualname": "_activate_space_for_owner",
+      "level": "utility",
+      "signature": "def _activate_space_for_owner(owner_btr_name: str) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_find_layout_by_owner_btr",
+        "time.sleep"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 225,
+        "line_end": 238
+      }
+    },
+    {
+      "name": "_contains_bbox",
+      "symbol": "_contains_bbox",
+      "qualname": "_contains_bbox",
+      "level": "utility",
+      "signature": "def _contains_bbox(outer: tuple[float, float, float, float], inner: tuple[float, float, float, float], tol: float) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "outer",
+          "raw": "outer: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "inner",
+          "raw": "inner: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 241,
+        "line_end": 251
+      }
+    },
+    {
+      "name": "_area_of_bbox",
+      "symbol": "_area_of_bbox",
+      "qualname": "_area_of_bbox",
+      "level": "utility",
+      "signature": "def _area_of_bbox(bbox: tuple[float, float, float, float]) -> float:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "bbox",
+          "raw": "bbox: tuple[float, float, float, float]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "max"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 254,
+        "line_end": 255
+      }
+    },
+    {
+      "name": "_dynamic_tol_from_bbox",
+      "symbol": "_dynamic_tol_from_bbox",
+      "qualname": "_dynamic_tol_from_bbox",
+      "level": "utility",
+      "signature": "def _dynamic_tol_from_bbox(bbox: tuple[float, float, float, float]) -> float:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "bbox",
+          "raw": "bbox: tuple[float, float, float, float]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_eps_from_short_side",
+        "max",
+        "min"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 258,
+        "line_end": 260
+      }
+    },
+    {
+      "name": "_contains_chinese",
+      "symbol": "_contains_chinese",
+      "qualname": "_contains_chinese",
+      "level": "utility",
+      "signature": "def _contains_chinese(text: str) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "text",
+          "raw": "text: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "bool",
+        "re.search"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 263,
+        "line_end": 264
+      }
+    },
+    {
+      "name": "_looks_like_drawing_no_text",
+      "symbol": "_looks_like_drawing_no_text",
+      "qualname": "_looks_like_drawing_no_text",
+      "level": "utility",
+      "signature": "def _looks_like_drawing_no_text(text: str) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "text",
+          "raw": "text: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "DRAWING_NO_TOKEN_RE.search",
+        "_clean_text",
+        "_contains_chinese",
+        "bool"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 267,
+        "line_end": 271
+      }
+    },
+    {
+      "name": "_clean_text",
+      "symbol": "_clean_text",
+      "qualname": "_clean_text",
+      "level": "utility",
+      "signature": "def _clean_text(text: str) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "text",
+          "raw": "text: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "isinstance",
+        "re.sub",
+        "replace",
+        "text.replace",
+        "text.strip"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 274,
+        "line_end": 279
+      }
+    },
+    {
+      "name": "_clean_attr_value",
+      "symbol": "_clean_attr_value",
+      "qualname": "_clean_attr_value",
+      "level": "utility",
+      "signature": "def _clean_attr_value(value: str) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "value",
+          "raw": "value: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_clean_text",
+        "right.strip",
+        "text.split",
+        "text.startswith"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 282,
+        "line_end": 287
+      }
+    },
+    {
+      "name": "_extract_attribute_fields",
+      "symbol": "_extract_attribute_fields",
+      "qualname": "_extract_attribute_fields",
+      "level": "utility",
+      "signature": "def _extract_attribute_fields(block_ref: Any) -> dict[str, str]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "block_ref",
+          "raw": "block_ref: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_clean_attr_value",
+        "block_ref.GetAttributes",
+        "bool",
+        "get_attr",
+        "str",
+        "strip"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 290,
+        "line_end": 302
+      }
+    },
+    {
+      "name": "TDbMText_content",
+      "symbol": "TDbMText_content",
+      "qualname": "TDbMText_content",
+      "level": "utility",
+      "signature": "def TDbMText_content(comobj: Any, separator: str='\\n') -> str:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "comobj",
+          "raw": "comobj: Any",
+          "required": true
+        },
+        {
+          "name": "separator",
+          "raw": "separator: str = '\\n'",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_xy",
+        "_clean_text",
+        "abs",
+        "comobj.Copy",
+        "copy_ent.Delete",
+        "copy_ent.Explode",
+        "frag.Delete",
+        "get_attr"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 305,
+        "line_end": 368
+      }
+    },
+    {
+      "name": "_extract_text_string",
+      "symbol": "_extract_text_string",
+      "qualname": "_extract_text_string",
+      "level": "utility",
+      "signature": "def _extract_text_string(ent: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "TDbMText_content",
+        "_clean_text",
+        "get_attr",
+        "getattr",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 371,
+        "line_end": 390
+      }
+    },
+    {
+      "name": "_match_field_from_attrs",
+      "symbol": "_match_field_from_attrs",
+      "qualname": "_match_field_from_attrs",
+      "level": "utility",
+      "signature": "def _match_field_from_attrs(fields: dict[str, str], hints: tuple[str, ...]) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "fields",
+          "raw": "fields: dict[str, str]",
+          "required": true
+        },
+        {
+          "name": "hints",
+          "raw": "hints: tuple[str, ...]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "fields.items",
+        "hint.upper",
+        "max",
+        "tag.upper"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 393,
+        "line_end": 410
+      }
+    },
+    {
+      "name": "_resolve_owner_btr_name",
+      "symbol": "_resolve_owner_btr_name",
+      "qualname": "_resolve_owner_btr_name",
+      "level": "utility",
+      "signature": "def _resolve_owner_btr_name(job: dict[str, Any]) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "job",
+          "raw": "job: dict[str, Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C.doc.Layouts.Item",
+        "job.get",
+        "owner_btr.split",
+        "owner_btr.startswith",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 413,
+        "line_end": 422
+      }
+    },
+    {
+      "name": "_collect_rectangles_by_owner",
+      "symbol": "_collect_rectangles_by_owner",
+      "qualname": "_collect_rectangles_by_owner",
+      "level": "utility",
+      "signature": "def _collect_rectangles_by_owner() -> dict[str, list[Any]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "get_rect_polylines_by_space",
+        "grouped.get",
+        "items",
+        "select_all_polylines",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 425,
+        "line_end": 430
+      }
+    },
+    {
+      "name": "collect_space_block_snapshots",
+      "symbol": "collect_space_block_snapshots",
+      "qualname": "collect_space_block_snapshots",
+      "level": "normal",
+      "signature": "def collect_space_block_snapshots(owner_btr_name: str) -> list[BlockSnapshot]:",
+      "purpose": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "inputs": [
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "BlockSnapshot",
+        "_activate_space_for_owner",
+        "_bbox_xy",
+        "_extract_attribute_fields",
+        "_safe_handle",
+        "bool",
+        "get_attr",
+        "getattr"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 433,
+        "line_end": 467
+      }
+    },
+    {
+      "name": "select_texts_in_bbox",
+      "symbol": "select_texts_in_bbox",
+      "qualname": "select_texts_in_bbox",
+      "level": "normal",
+      "signature": "def select_texts_in_bbox(owner_btr_name: str, bbox: tuple[float, float, float, float]) -> list[TextRecord]:",
+      "purpose": "按 CAD 条件选取目标实体集合。",
+      "inputs": [
+        {
+          "name": "owner_btr_name",
+          "raw": "owner_btr_name: str",
+          "required": true
+        },
+        {
+          "name": "bbox",
+          "raw": "bbox: tuple[float, float, float, float]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "TextRecord",
+        "_activate_space_for_owner",
+        "_bbox_xy",
+        "_extract_text_string",
+        "_safe_handle",
+        "get_attr",
+        "getattr",
+        "out.append"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 470,
+        "line_end": 512
+      }
+    },
+    {
+      "name": "_choose_inner_frame",
+      "symbol": "_choose_inner_frame",
+      "qualname": "_choose_inner_frame",
+      "level": "utility",
+      "signature": "def _choose_inner_frame(print_job: dict[str, Any], owner_rects: list[Any]) -> tuple[str, tuple[float, float, float, float] | None]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "print_job",
+          "raw": "print_job: dict[str, Any]",
+          "required": true
+        },
+        {
+          "name": "owner_rects",
+          "raw": "owner_rects: list[Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_area_of_bbox",
+        "_bbox_xy",
+        "_contains_bbox",
+        "_dynamic_tol_from_bbox",
+        "_safe_handle",
+        "print_job.get",
+        "str",
+        "tuple"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 515,
+        "line_end": 543
+      }
+    },
+    {
+      "name": "_choose_corner_block",
+      "symbol": "_choose_corner_block",
+      "qualname": "_choose_corner_block",
+      "level": "utility",
+      "signature": "def _choose_corner_block(inner_bbox: tuple[float, float, float, float], block_snapshots: list[BlockSnapshot]) -> BlockSnapshot | None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "inner_bbox",
+          "raw": "inner_bbox: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "block_snapshots",
+          "raw": "block_snapshots: list[BlockSnapshot]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_dynamic_tol_from_bbox",
+        "abs"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 546,
+        "line_end": 565
+      }
+    },
+    {
+      "name": "_classify_text_candidates",
+      "symbol": "_classify_text_candidates",
+      "qualname": "_classify_text_candidates",
+      "level": "utility",
+      "signature": "def _classify_text_candidates(records: list[TextRecord]) -> tuple[list[str], list[str]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "records",
+          "raw": "records: list[TextRecord]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_clean_text",
+        "_contains_chinese",
+        "_looks_like_drawing_no_text",
+        "drawing_no_candidates.append",
+        "drawing_title_candidates.append",
+        "seen_no.add",
+        "seen_title.add",
+        "set"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 568,
+        "line_end": 586
+      }
+    },
+    {
+      "name": "_make_page_key",
+      "symbol": "_make_page_key",
+      "qualname": "_make_page_key",
+      "level": "utility",
+      "signature": "def _make_page_key(job: dict[str, Any]) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "job",
+          "raw": "job: dict[str, Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "int"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 589,
+        "line_end": 590
+      }
+    },
+    {
+      "name": "analyze_print_job_info",
+      "symbol": "analyze_print_job_info",
+      "qualname": "analyze_print_job_info",
+      "level": "core",
+      "signature": "def analyze_print_job_info(job: dict[str, Any], *, owner_rects: list[Any], block_snapshots: list[BlockSnapshot]) -> dict[str, Any]:",
+      "purpose": "围绕单个打印 job 提取内框、右下角图签块、属性字段和文字候选，形成页面级结构化信息。",
+      "inputs": [
+        {
+          "name": "job",
+          "raw": "job: dict[str, Any]",
+          "required": true
+        },
+        {
+          "name": "owner_rects",
+          "raw": "owner_rects: list[Any]",
+          "required": true
+        },
+        {
+          "name": "block_snapshots",
+          "raw": "block_snapshots: list[BlockSnapshot]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回单页分析字典，包含 drawing_title、drawing_no、project_name、title_block_*、inner_frame_* 等字段。"
+      ],
+      "returns": [
+        "字典；即使未找到内框或图签，也会返回 stop_reason 说明停在何处。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_make_page_key",
+        "_choose_inner_frame",
+        "_choose_corner_block",
+        "_match_field_from_attrs",
+        "select_texts_in_bbox",
+        "_classify_text_candidates"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 593,
+        "line_end": 686
+      },
+      "steps": [
+        "先计算 page_key，并选择最合适的 inner frame。",
+        "若找到 inner frame，则继续在右下角区域选择图签块。",
+        "若图签块是属性块，则直接按 tag hints 读取标题、图号和项目名。",
+        "若图签块是普通块，则在其 bbox 内提取文字并分类。",
+        "把候选结果、stop_reason 和页面基础信息整合成单页记录。"
+      ],
+      "failure_paths": [
+        "未找到 inner frame 时 stop_reason=no_inner_frame。",
+        "找到 inner frame 但未找到角部图签块时 stop_reason=no_corner_block。"
+      ],
+      "success_conditions": [
+        "返回结果可直接汇总到 print_info_dict、Excel 和后续统计。"
+      ],
+      "must_keep_experience": [
+        "页面分析必须先找 inner frame，再找角部图签块，不能颠倒顺序。",
+        "属性块和普通块必须走不同提取分支。"
+      ]
+    },
+    {
+      "name": "analyze_print_info_jobs",
+      "symbol": "analyze_print_info_jobs",
+      "qualname": "analyze_print_info_jobs",
+      "level": "core",
+      "signature": "def analyze_print_info_jobs(jobs_by_space: dict[str, list[dict[str, Any]]], *, excluded_handles: set[str] | None=None) -> dict[str, Any]:",
+      "purpose": "按空间批量分析多个打印 job，复用矩形和块快照缓存，并生成 print_info_dict/page_info_dict 等总结果。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[dict[str, Any]]]",
+          "required": true
+        },
+        {
+          "name": "excluded_handles",
+          "raw": "excluded_handles: set[str] | None = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回总统计、rows_by_space、print_info_dict、print_info_dict_by_space 和 page_info_dict。"
+      ],
+      "returns": [
+        "字典，供 JSON 输出、Excel 写入和目录级调度复用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_collect_rectangles_by_owner",
+        "collect_space_block_snapshots",
+        "analyze_print_job_info",
+        "_resolve_owner_btr_name"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 689,
+        "line_end": 744
+      },
+      "steps": [
+        "先按 owner_btr 收集矩形集合，并建立 blocks_cache。",
+        "逐空间遍历 jobs，为同一 owner_btr 复用 block snapshots。",
+        "调用 analyze_print_job_info 生成单页记录，并同步构建 info_rows/page_info_dict。",
+        "最后计算总页数、找到内框/图签/标题/图号/项目名的统计计数。"
+      ],
+      "failure_paths": [
+        "某页局部信息不足时仍保留该页记录，只通过 stop_reason 表达缺失。"
+      ],
+      "success_conditions": [
+        "统计结果与分页字典可同时服务机器复用和人工复查。"
+      ],
+      "must_keep_experience": [
+        "同一空间的 block snapshots 应缓存复用，避免重复遍历 CAD 实体。"
+      ]
+    },
+    {
+      "name": "_load_jobs_from_plan_json",
+      "symbol": "_load_jobs_from_plan_json",
+      "qualname": "_load_jobs_from_plan_json",
+      "level": "utility",
+      "signature": "def _load_jobs_from_plan_json(plan_json_path: Path) -> dict[str, list[dict[str, Any]]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "plan_json_path",
+          "raw": "plan_json_path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "json.loads",
+        "plan_json_path.read_text"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 747,
+        "line_end": 749
+      }
+    },
+    {
+      "name": "_load_excluded_handles",
+      "symbol": "_load_excluded_handles",
+      "qualname": "_load_excluded_handles",
+      "level": "utility",
+      "signature": "def _load_excluded_handles(content_json_path: Path | None) -> set[str]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "content_json_path",
+          "raw": "content_json_path: Path | None",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "content_json_path.exists",
+        "content_json_path.read_text",
+        "json.loads",
+        "raw.get",
+        "set",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 752,
+        "line_end": 756
+      }
+    },
+    {
+      "name": "_stringify_excel_value",
+      "symbol": "_stringify_excel_value",
+      "qualname": "_stringify_excel_value",
+      "level": "utility",
+      "signature": "def _stringify_excel_value(value: Any) -> Any:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "value",
+          "raw": "value: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "all",
+        "isinstance",
+        "join",
+        "json.dumps",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 759,
+        "line_end": 770
+      }
+    },
+    {
+      "name": "write_print_info_excel",
+      "symbol": "write_print_info_excel",
+      "qualname": "write_print_info_excel",
+      "level": "core",
+      "signature": "def write_print_info_excel(result: dict[str, Any], output_path: Path) -> Path:",
+      "purpose": "把 print info 分析结果写成 summary、print_info、text_records 三个工作表，供人工复查。",
+      "inputs": [
+        {
+          "name": "result",
+          "raw": "result: dict[str, Any]",
+          "required": true
+        },
+        {
+          "name": "output_path",
+          "raw": "output_path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回已保存的 Excel 路径。"
+      ],
+      "returns": [
+        "Path，指向生成的 xlsx 文件。"
+      ],
+      "side_effects": [
+        "创建工作簿并写出 Excel 文件。"
+      ],
+      "dependencies": [
+        "Alignment",
+        "Font",
+        "Workbook",
+        "_stringify_excel_value",
+        "detail_ws.cell",
+        "enumerate",
+        "int",
+        "item.get"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 773,
+        "line_end": 850
+      },
+      "steps": [
+        "创建 workbook，并写入 summary 页的总体统计。",
+        "写入 print_info 明细页，按 sequence_no/page_key 排序页面记录。",
+        "写入 text_records 页，展开每页采集到的文字记录。",
+        "统一设置冻结窗格、列宽和自动换行，最后保存文件。"
+      ],
+      "failure_paths": [
+        "openpyxl 不可用或输出路径不可写时会抛异常给上层。"
+      ],
+      "success_conditions": [
+        "Excel 可直接用于人工核对页面信息。"
+      ],
+      "must_keep_experience": [
+        "JSON 结果和 Excel 结果必须保持同一批数据口径。"
+      ]
+    },
+    {
+      "name": "_filter_jobs_by_requested_handles",
+      "symbol": "_filter_jobs_by_requested_handles",
+      "qualname": "_filter_jobs_by_requested_handles",
+      "level": "utility",
+      "signature": "def _filter_jobs_by_requested_handles(jobs_by_space: dict[str, list[dict[str, Any]]], requested_handles: set[str] | None) -> dict[str, list[dict[str, Any]]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[dict[str, Any]]]",
+          "required": true
+        },
+        {
+          "name": "requested_handles",
+          "raw": "requested_handles: set[str] | None",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_reindex_job_dicts_by_space",
+        "job.get",
+        "jobs_by_space.items",
+        "set",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 853,
+        "line_end": 866
+      }
+    },
+    {
+      "name": "_reindex_job_dicts_by_space",
+      "symbol": "_reindex_job_dicts_by_space",
+      "qualname": "_reindex_job_dicts_by_space",
+      "level": "utility",
+      "signature": "def _reindex_job_dicts_by_space(jobs_by_space: dict[str, list[dict[str, Any]]]) -> dict[str, list[dict[str, Any]]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[dict[str, Any]]]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "PrintJob",
+        "items",
+        "items.append",
+        "jobs_by_space.items",
+        "list",
+        "reindex_jobs_by_space"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 869,
+        "line_end": 890
+      }
+    },
+    {
+      "name": "_exclude_handles_and_reindex",
+      "symbol": "_exclude_handles_and_reindex",
+      "qualname": "_exclude_handles_and_reindex",
+      "level": "utility",
+      "signature": "def _exclude_handles_and_reindex(jobs_by_space: dict[str, list[dict[str, Any]]], excluded_handles: set[str] | None) -> dict[str, list[dict[str, Any]]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[dict[str, Any]]]",
+          "required": true
+        },
+        {
+          "name": "excluded_handles",
+          "raw": "excluded_handles: set[str] | None",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_reindex_job_dicts_by_space",
+        "job.get",
+        "jobs_by_space.items",
+        "set",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 893,
+        "line_end": 906
+      }
+    },
+    {
+      "name": "run_print_info_case",
+      "symbol": "run_print_info_case",
+      "qualname": "run_print_info_case",
+      "level": "core",
+      "signature": "def run_print_info_case(*, dwg_path: Path, output_path: Path, source_dwg_path: Path | None=None, plan_json_path: Path | None=None, content_json_path: Path | None=None, mode: str=PRINT_MODE_BASIC, include_model: bool=True, include_layouts: bool=True, only_layouts: list[str] | None=None, requested_handles: set[str] | None=None, keep_open: bool=False) -> dict[str, Any]:",
+      "purpose": "围绕单个 DWG 组织 print info 分析闭环：准备文档、获取 jobs、处理 pseudo 区域排除、输出 JSON 和 Excel。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: Path",
+          "required": true
+        },
+        {
+          "name": "output_path",
+          "raw": "output_path: Path",
+          "required": true
+        },
+        {
+          "name": "source_dwg_path",
+          "raw": "source_dwg_path: Path | None = None",
+          "required": false
+        },
+        {
+          "name": "plan_json_path",
+          "raw": "plan_json_path: Path | None = None",
+          "required": false
+        },
+        {
+          "name": "content_json_path",
+          "raw": "content_json_path: Path | None = None",
+          "required": false
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str = PRINT_MODE_BASIC",
+          "required": false
+        },
+        {
+          "name": "include_model",
+          "raw": "include_model: bool = True",
+          "required": false
+        },
+        {
+          "name": "include_layouts",
+          "raw": "include_layouts: bool = True",
+          "required": false
+        },
+        {
+          "name": "only_layouts",
+          "raw": "only_layouts: list[str] | None = None",
+          "required": false
+        },
+        {
+          "name": "requested_handles",
+          "raw": "requested_handles: set[str] | None = None",
+          "required": false
+        },
+        {
+          "name": "keep_open",
+          "raw": "keep_open: bool = False",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回完整 print info 结果字典，并在磁盘上生成 print_info_analysis.json 与同名 xlsx。"
+      ],
+      "returns": [
+        "字典，包含 print_mode、requested_handles、excluded_handle_count、excel_path 和分析统计。"
+      ],
+      "side_effects": [
+        "可能打开/激活/关闭 DWG，可能补建 content_analysis.json，并写出 JSON/Excel。"
+      ],
+      "dependencies": [
+        "launch_cad_guardians",
+        "assert_runtime_guard_ok",
+        "build_print_plan",
+        "analyze_jobs_content",
+        "_load_excluded_handles",
+        "_filter_jobs_by_requested_handles",
+        "_exclude_handles_and_reindex",
+        "analyze_print_info_jobs",
+        "write_print_info_excel"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 909,
+        "line_end": 995
+      },
+      "preconditions": [
+        "dwg_path 存在。",
+        "输出路径可写。",
+        "若提供 plan_json_path，应与目标 DWG 匹配。"
+      ],
+      "steps": [
+        "启动 guardians 并确保目标 DWG 已打开激活。",
+        "优先从现有 plan_json 读取 jobs；若没有则临时构建打印计划。",
+        "在 purified_adaptive 且缺少 content_json 时，补做 content analysis 以获得 pseudo handles。",
+        "读取 excluded handles，并按 requested_handles 和 pseudo handles 过滤、重排 jobs。",
+        "调用 analyze_print_info_jobs 生成结构化结果，随后写出 JSON 和 Excel。",
+        "若本次是临时打开文档且 keep_open=False，则在结束时关闭 DWG。"
+      ],
+      "failure_paths": [
+        "DWG 打开或激活失败时直接抛错。",
+        "runtime guard 触发时由 CLI 分支转换为 guard error JSON。"
+      ],
+      "success_conditions": [
+        "结果 JSON 与 Excel 同时生成，且统计字段能支撑目录级汇总。"
+      ],
+      "must_keep_experience": [
+        "print info 分析必须与 plan/jobs 保持同一 handle 与 sequence 口径。",
+        "requested_handles 过滤和 pseudo handles 排除都必须在 reindex 之后保持稳定序号。"
+      ]
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main() -> None:",
+      "purpose": "提供 print info CLI，接收 dwg/plan/content/output/mode/handle 参数并输出结构化 JSON。",
+      "inputs": [],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [
+        "解析命令行参数并触发 CLI 输出。"
+      ],
+      "dependencies": [
+        "Path",
+        "SystemExit",
+        "argparse.ArgumentParser",
+        "getattr",
+        "hasattr",
+        "json.dumps",
+        "parser.add_argument",
+        "parser.parse_args"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 998,
+        "line_end": 1047
+      },
+      "steps": [
+        "配置 utf-8 输出。",
+        "解析 dwg、plan-json、content-json、output、layout、handle 等参数。",
+        "推导默认 output_path 并调用 run_print_info_case。",
+        "正常时打印结果 JSON，guard 触发时打印 guard error 并退出码 2。"
+      ],
+      "failure_paths": [
+        "RuntimeGuardTriggered 时改走 guard error 输出。"
+      ],
+      "success_conditions": [
+        "CLI 输出与落盘 JSON 口径一致。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "excel",
+      "content-analysis"
+    ],
+    "script_focus": "打印信息结构化分析脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 39,
+    "public_api_count": 5,
+    "core_function_count": 5
+  }
+}

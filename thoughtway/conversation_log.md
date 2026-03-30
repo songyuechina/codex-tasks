@@ -4189,3 +4189,335 @@ Excel 当前包含三张表：
 - 因此，本轮复测支持如下判断：
   - 监督链在复杂长流程上的稳定性收益是真实存在的
   - 回退到朴素守护后，系统仍能处理一部分案例，但在复杂案例上的鲁棒性明显下降
+
+## 2026-03-21 术语体系澄清与 Planner 配置调整
+
+### 本轮目标
+
+- 澄清当前项目中“智能体角色”和“打印任务链”的概念边界
+- 避免后续文档继续把执行链、监督链误写为“智能体角色”
+- 同步修正 `Planner` 的本地接口配置
+
+### 当前确认的概念边界
+
+当前项目中，明确属于智能体角色能力层的只有四个：
+
+- `Planner_Agent`
+- `Coder_Agent`
+- `Reviewer_Agent`
+- `Tester_Agent`
+
+它们主要面向：
+
+- 规划
+- 编码
+- 审查
+- 测试
+
+它们属于体系建设层，不直接等于打印任务中的执行者或监督者。
+
+### 打印体系当前的正确口径
+
+当前打印子系统不应再默认表述为：
+
+- 打印智能体
+- 监督智能体
+- 执行智能体
+
+更准确的表述应是：
+
+- 打印执行工作区
+- 打印执行链
+- 运行监督链
+- 本地监督对象
+
+其中：
+
+- `print_batch_dispatch.py` 是主管脚本/调度器
+- `print_runner.py`、`print_info_analysis.py`、`print_executor.py` 等组成打印执行链
+- `cad_runtime_guard.py`、`cad_dialog_killer.py`、`cad_command_monitor.py` 等组成运行监督链
+- `Runtime_Guard_Agent/` 当前保留为历史目录名，但概念上应理解为“本地监督对象 / 监督入口”，不属于四角色智能体
+
+### 本轮文档修正
+
+已新增：
+
+- `D:\codex-tasks\thoughtway\TERMINOLOGY.md`
+
+并已修正以下关键文档的术语口径：
+
+- `D:\codex-tasks\README.md`
+- `D:\codex-tasks\AGENTS.md`
+- `D:\codex-tasks\folder.meta.json`
+- `D:\codex-tasks\thoughtway\PROJECT_SUPERVISOR_ARCHITECTURE.md`
+- `D:\codex-tasks\thoughtway\PROJECT_GOVERNANCE.md`
+- `D:\codex-tasks\thoughtway\SYSTEM_FOUNDATIONS.md`
+- `D:\codex-tasks\thoughtway\CAD_RUNTIME_GUARD_RULES.md`
+- `D:\codex-tasks\dwg_agents_ops\README.md`
+- `D:\codex-tasks\dwg_agents_ops\Runtime_Guard_Agent\README.md`
+- `D:\codex-tasks\dwg_agents_ops\agent_control\SUPERVISION.md`
+- `D:\codex-tasks\dwg_agents_ops\agent_control\RUNTIME_EVENT_PROTOCOL.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\README.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\AGENTS.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\PRINT_AGENT_SPEC.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\PRINT_DISPATCH_PROTOCOL.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\cases\CASE_MANIFEST.md`
+- `D:\codex-tasks\cad\system\CAD_RUNTIME_GUARD_PROTOCOL.md`
+
+原则是：
+
+- 文件名若已被广泛引用，则先保留历史命名
+- 但正文必须明确写清当前真实概念
+
+### Planner 配置调整
+
+已将：
+
+- `D:\codex-tasks\dwg_agents_ops\local\agents.local.toml`
+
+中的 `planner` 配置改为：
+
+- `base_url = https://cc.ioasis.xyz/v1`
+- `api_key = sk-8iU0lM6eKBxETqTssT7ctknrYItuSc0EcYrs5hMu0JgkpIbz`
+- `model = gpt-5.4`
+
+### 当前一句话共识
+
+当前项目的真实工作形态应表述为：
+
+- `项目总管 + 四角色智能体能力层 + 打印执行链 + 运行监督链`
+
+而不是：
+
+- `项目总管 + 打印智能体 + 监督智能体`
+
+## 2026-03-21 21:46:39 当前架构澄清与给排水案例补测
+
+### 用户当前偏好
+
+- 用户明确表示：
+  - 不追求过于复杂的多 LLM 智能体架构
+  - 只要工作机制能稳定运行，脚本化的执行者/监督者更符合工程需要
+
+### 本轮补测对象
+
+- 目录：
+  - `E:\BaiduSyncdisk\资料\测试备份\湖南利农五倍子加工项目（给排水）-CAD`
+- 既有批次：
+  - `E:\BaiduSyncdisk\资料\测试备份\湖南利农五倍子加工项目（给排水）-CAD\print-agent-output\batch-20260321-185558`
+- 单文件补测批次：
+  - `E:\BaiduSyncdisk\资料\测试备份\湖南利农五倍子加工项目（给排水）-CAD\print-agent-output\batch-20260321-193120`
+
+### 失败文件的真实原因
+
+- 失败文件：
+  - `湖南利农五倍子1#综合楼及地下室【给排水】.dwg`
+- 用户进一步核查后确认：
+  - 其打印区域仍然是默认的矩形多段线，不是“仅块型打印区域导致识别失败”
+- 旧批次中的直接失败点为：
+  - `print_info_analysis:after_launch_guardians`
+  - `status = cad_busy`
+  - runtime guard 报“无法获取 Document 对象”
+- 结论：
+  - 失败主因是分析阶段进入时 CAD 运行环境尚未恢复稳定
+  - 不是打印区域类型导致
+
+### 成功的直接原因
+
+- 已在：
+  - `D:\codex-tasks\cad\scripts\drawing_basic_service\print\print_info_analysis.py`
+  中补入与打印执行阶段一致的启动恢复链：
+  - `launch_cad_guardians()`
+  - `litz()`
+  - `assert_runtime_guard_ok(...)`
+- 同时修正：
+  - `D:\codex-tasks\cad\system\CAD_core.py`
+  内多处 `from CAD_basic import ...` 为 `from scripts.CAD_basic import ...`
+  以保证 `cad_zt_oneb()` 等状态归一函数在不同入口下都稳定可用
+- 单文件补测结果：
+  - 该 DWG 成功生成 `21` 个 PDF
+  - 成功生成 `analysis` 结果
+  - 成功生成 `_打印区域.dwg`
+- 因此，本轮把原先的 `4/5` 修补为实际 `5/5`
+
+### 对当前调度架构的澄清
+
+- `print_batch_dispatch.py` 的实际职责已明确：
+  - 它是“脚本级项目主管/调度器”
+  - 负责串联打印执行、分析、可视化副本输出、关图清理、批次汇总、每 DWG 后的 `cad_zt_oneb()` 归一
+- 当前运行形态不是“多个 LLM 智能体真的并行协作”，而是：
+  - 调度脚本：`print_batch_dispatch.py`
+  - 执行链：`print_runner.py`、`print_info_analysis.py`
+  - 监督链：`cad_runtime_guard.py`、`cad_dialog_killer.py`、`cad_command_monitor.py`
+- 因此当前最准确的架构口径是：
+  - “主管脚本 + 执行链 + 监督守护链”
+  - 而不是“项目主管 LLM + 打印 LLM + 监督 LLM”完整三智能体协作
+
+### 关于“之前失败时是否有监督、后来成功时是否绕过监督”的结论
+
+- 结论已经核清：
+  - 失败时，监督守护在场
+  - 成功时，监督守护也在场
+  - 成功不是靠绕过监督得到的
+- 真正的区别仅在于：
+  - 失败时分析阶段没有先做 `litz()` 恢复，监督守护正常把不稳定状态拦下
+  - 成功时分析阶段先恢复环境，再在监督守护继续运行的情况下完成任务
+
+### 当前工程判断
+
+- 从工程角度，当前项目更适合继续强化：
+  - 脚本化主管
+  - 脚本化执行链
+  - 守护型监督链
+- 不必为了形式完整而强行升级为更复杂的多 LLM 智能体体系
+- 后续若需要“项目主管”快速理解项目，应优先让其读取：
+  - `D:\codex-tasks\folder.meta.json`
+  - `D:\codex-tasks\thoughtway\PROJECT_SUPERVISOR_ARCHITECTURE.md`
+  - `D:\codex-tasks\AGENTS.md`
+
+## 2026-03-21 快速交接层加固
+
+本轮继续处理“新窗口如何快速接手项目”的问题，不再单纯增加长文档，而是补齐一个真正可执行的快速交接层。
+
+### 本轮判断
+
+- 当前项目入口文档已经足以让新窗口建立总体架构理解；
+- 但此前仍缺一个专门承接“当前工作态”的正式入口；
+- `conversation_log.md` 只能作为背景，不适合作为新窗口的首要交接入口；
+- `task_board.json` 与四角色 `rolling_summary.md` 之前基本停留在旧状态，不能真实表达当前任务态。
+
+### 本轮新增与修正
+
+已新增：
+
+- `D:\codex-tasks\thoughtway\CURRENT_STATE.md`
+
+其职责被明确为：
+
+- 新窗口快速接手当前项目的入口
+- 说明当前总图、最近关键变更、当前优先级与下一步建议
+- 作为架构文档和真实任务态之间的桥梁
+
+已同步把它挂入：
+
+- `D:\codex-tasks\folder.meta.json`
+- `D:\codex-tasks\README.md`
+- `D:\codex-tasks\AGENTS.md`
+- `D:\codex-tasks\thoughtway\PROJECT_SUPERVISOR_ARCHITECTURE.md`
+- `D:\codex-tasks\thoughtway\PROJECT_MEMORY_SYSTEM.md`
+- `D:\codex-tasks\thoughtway\folder.meta.json`
+
+### 任务态修复
+
+已不再让 `task_board.json` 为空，而是写入当前更真实的任务态：
+
+- `OPS-20260321-01`
+  - 固化新窗口最短首读路径与当前状态入口
+- `OPS-20260321-02`
+  - 验证新窗口项目总管能否快速理解体系并续接工作
+- `PRINT-20260321-03`
+  - 继续观察打印执行链与运行监督链在真实案例中的配合问题
+
+同时已更新：
+
+- 四角色 `rolling_summary.md`
+- 四角色 `memory/state.json`
+- `agent_control/runtime/*.json`
+
+使其不再停留在 3 月 15 日到 3 月 17 日的过期状态。
+
+### 其他收口
+
+- 已将：
+  - `D:\codex-tasks\cad\scripts\drawing_basic_service\print\folder.meta.json`
+  中的 `role`
+  从带有 `print-agent` 色彩的命名改为：
+  - `primary-domain-print-execution-workspace`
+
+避免 JSON 层继续误导新窗口把打印工作区理解成额外智能体。
+
+### 项目快照刷新
+
+已在项目根目录重跑：
+
+- `D:\codex-tasks\dwg_system_tools\build_project_memory.py`
+
+并确认：
+
+- `thoughtway/project_memory/PROJECT_MAP.md`
+- `thoughtway/project_memory/PROJECT_MAP.json`
+
+已经纳入：
+
+- `thoughtway/CURRENT_STATE.md`
+- `primary-domain-print-execution-workspace`
+
+### 当前结果
+
+本轮之后，新窗口的推荐最短接手路径已经收束为：
+
+1. `folder.meta.json`
+2. `thoughtway/PROJECT_SUPERVISOR_ARCHITECTURE.md`
+3. `thoughtway/CURRENT_STATE.md`
+4. `thoughtway/TERMINOLOGY.md`
+5. `AGENTS.md`
+
+也就是说：
+
+- 新窗口现在不仅更容易明白“项目是什么”
+- 也更容易知道“项目最近做到哪里、下一步该干什么”
+
+## 2026-03-21 五倍子综合2#综合楼 WPS 进程级清理修补
+
+### 本轮目标
+
+- 解决批量打印中“PDF 已生成，但 WPS 窗口默认不断累积”的硬问题
+- 把清理策略从“尽量关窗”收束为“6 张后固定做窗口级 + 进程级重置”
+
+### 本轮修补
+
+已在：
+
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\print_executor.py`
+
+中将 `cleanup_wps_windows()` 收束为：
+
+- 先枚举可见 `WPS Office / WPS PDF` 窗口
+- 对每个窗口执行 `SW_RESTORE / SW_MAXIMIZE / WM_CLOSE`
+- 收集窗口 PID，并执行 `taskkill /F /PID <pid> /T`
+- 之后固定再执行：
+  - `taskkill /F /IM wps.exe /T`
+  - `taskkill /F /IM wpspdf.exe /T`
+- 最后尝试把焦点切回 `AutoCAD / 天正`
+
+### 本轮专项验证
+
+新增案例：
+
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\cases\assets\湖南利农五倍子综合2#综合楼加地下室电气施工图_t3.dwg`
+
+验证目录：
+
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\cases\output\wps-threshold-validation\case-08bc8da2bd\20260321-230354`
+
+验证方式：
+
+- 先对该案例做 `purified_adaptive` dry-run，确认总计划 `51` 个 job
+- 再截取前 `20` 个 job 做真实打印长跑验证
+- 保持 `wps_close_threshold = 6`
+
+验证结果：
+
+- `20/20` 成功
+- `missing = 0`
+- `zero_size = 0`
+- `page_size_mismatch = 0`
+- 日志显示共触发 `4` 次 WPS 清理
+- 每次清理都记录到 `windows=1`
+- 每次清理后都记录到 `remaining=0`
+- 验证完成后未再残留可见 WPS 窗口
+
+结论：
+
+- 之前的问题不是“阈值没设”，而是“只关窗、不真正退出 WPS 进程”
+- 当前这轮修补已经把该问题压到可接受状态，可作为后续继续跑 51 张完整案例的基线

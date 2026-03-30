@@ -1,0 +1,1964 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_core.py",
+    "path": "D:/codex-tasks/cad/system/CAD_core.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "承接 CAD 基础控制、文件生命周期、多文档状态与跨文件插入等核心操作。",
+    "step_style": "graded",
+    "public_api": [
+      "new_file",
+      "open_file",
+      "save_file",
+      "save_file_as",
+      "close_file",
+      "close_all_files",
+      "insert_file_exploded",
+      "copy_file_content_pywin32",
+      "insert_region_v2",
+      "set_active_doc",
+      "switch_to_layout",
+      "get_current_dwg_path",
+      "get_all_open_dwg_paths",
+      "litz"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_core_get_short_path",
+      "symbol": "_core_get_short_path",
+      "qualname": "_core_get_short_path",
+      "level": "utility",
+      "signature": "def _core_get_short_path(path_str: str) -> str:",
+      "role": "在 CAD_core 中承接 `_core_get_short_path` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 90,
+        "line_end": 95
+      }
+    },
+    {
+      "name": "_core_get_acad",
+      "symbol": "_core_get_acad",
+      "qualname": "_core_get_acad",
+      "level": "utility",
+      "signature": "def _core_get_acad():",
+      "role": "在 CAD_core 中承接 `_core_get_acad` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 96,
+        "line_end": 106
+      }
+    },
+    {
+      "name": "_core_get_active_doc",
+      "symbol": "_core_get_active_doc",
+      "qualname": "_core_get_active_doc",
+      "level": "utility",
+      "signature": "def _core_get_active_doc():",
+      "role": "在 CAD_core 中承接 `_core_get_active_doc` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 107,
+        "line_end": 115
+      }
+    },
+    {
+      "name": "_core_wait_document_opened",
+      "symbol": "_core_wait_document_opened",
+      "qualname": "_core_wait_document_opened",
+      "level": "utility",
+      "signature": "def _core_wait_document_opened(path: str, timeout: float = 120.0) -> bool:",
+      "role": "在 CAD_core 中承接 `_core_wait_document_opened` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "重试/轮询必须有明确超时与退避边界。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 116,
+        "line_end": 139
+      }
+    },
+    {
+      "name": "_core_is_file_opened",
+      "symbol": "_core_is_file_opened",
+      "qualname": "_core_is_file_opened",
+      "level": "utility",
+      "signature": "def _core_is_file_opened(file_path: str) -> bool:",
+      "role": "在 CAD_core 中承接 `_core_is_file_opened` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 140,
+        "line_end": 153
+      }
+    },
+    {
+      "name": "_core_is_file_opened_by_name",
+      "symbol": "_core_is_file_opened_by_name",
+      "qualname": "_core_is_file_opened_by_name",
+      "level": "utility",
+      "signature": "def _core_is_file_opened_by_name(name: str) -> bool:",
+      "role": "在 CAD_core 中承接 `_core_is_file_opened_by_name` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 154,
+        "line_end": 167
+      }
+    },
+    {
+      "name": "_core_activate_document",
+      "symbol": "_core_activate_document",
+      "qualname": "_core_activate_document",
+      "level": "utility",
+      "signature": "def _core_activate_document(file_path_or_name: str) -> bool:",
+      "role": "在 CAD_core 中承接 `_core_activate_document` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 168,
+        "line_end": 187
+      }
+    },
+    {
+      "name": "_core_get_open_file_count",
+      "symbol": "_core_get_open_file_count",
+      "qualname": "_core_get_open_file_count",
+      "level": "utility",
+      "signature": "def _core_get_open_file_count() -> int:",
+      "role": "在 CAD_core 中承接 `_core_get_open_file_count` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 188,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "_core_ensure_single_process",
+      "symbol": "_core_ensure_single_process",
+      "qualname": "_core_ensure_single_process",
+      "level": "utility",
+      "signature": "def _core_ensure_single_process() -> bool:",
+      "role": "在 CAD_core 中承接 `_core_ensure_single_process` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 194,
+        "line_end": 205
+      }
+    },
+    {
+      "name": "new_dwg_enhanced",
+      "symbol": "new_dwg_enhanced",
+      "qualname": "new_dwg_enhanced",
+      "level": "core",
+      "signature": "def new_dwg_enhanced(output_path=None):",
+      "role": "在 CAD_core 中承接 `new_dwg_enhanced` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 206,
+        "line_end": 238
+      }
+    },
+    {
+      "name": "open_dwg_paradigm",
+      "symbol": "open_dwg_paradigm",
+      "qualname": "open_dwg_paradigm",
+      "level": "core",
+      "signature": "def open_dwg_paradigm(file_path):",
+      "role": "打开目标文档或激活既有文档。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 239,
+        "line_end": 287
+      }
+    },
+    {
+      "name": "save_as_dwg_paradigm",
+      "symbol": "save_as_dwg_paradigm",
+      "qualname": "save_as_dwg_paradigm",
+      "level": "core",
+      "signature": "def save_as_dwg_paradigm(output_path):",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 288,
+        "line_end": 307
+      }
+    },
+    {
+      "name": "save_current_dwg_paradigm",
+      "symbol": "save_current_dwg_paradigm",
+      "qualname": "save_current_dwg_paradigm",
+      "level": "core",
+      "signature": "def save_current_dwg_paradigm():",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 308,
+        "line_end": 355
+      }
+    },
+    {
+      "name": "close_current_dwg_paradigm",
+      "symbol": "close_current_dwg_paradigm",
+      "qualname": "close_current_dwg_paradigm",
+      "level": "core",
+      "signature": "def close_current_dwg_paradigm(save_option=\"prompt\"):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 356,
+        "line_end": 380
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm",
+      "symbol": "close_all_dwg_paradigm",
+      "qualname": "close_all_dwg_paradigm",
+      "level": "core",
+      "signature": "def close_all_dwg_paradigm():",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 381,
+        "line_end": 474
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm.li@L425",
+      "symbol": "li",
+      "qualname": "close_all_dwg_paradigm.li",
+      "level": "utility",
+      "signature": "def li():",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 425,
+        "line_end": 450
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm.li.retry_on_busy",
+      "symbol": "retry_on_busy",
+      "qualname": "close_all_dwg_paradigm.li.retry_on_busy",
+      "level": "utility",
+      "signature": "def retry_on_busy(func):",
+      "role": "对目标调用施加 busy/rejected 容错重试策略。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "重试/轮询必须有明确超时与退避边界。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 449,
+        "line_end": 450
+      }
+    },
+    {
+      "name": "close_all_dwg_paradigm.li@L451",
+      "symbol": "li",
+      "qualname": "close_all_dwg_paradigm.li",
+      "level": "utility",
+      "signature": "def li():",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 451,
+        "line_end": 474
+      }
+    },
+    {
+      "name": "launch_tarch_CAD_system",
+      "symbol": "launch_tarch_CAD_system",
+      "qualname": "launch_tarch_CAD_system",
+      "level": "core",
+      "signature": "def launch_tarch_CAD_system():",
+      "role": "在 CAD_core 中承接 `launch_tarch_CAD_system` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 475,
+        "line_end": 481
+      }
+    },
+    {
+      "name": "close_tarch_CAD_system",
+      "symbol": "close_tarch_CAD_system",
+      "qualname": "close_tarch_CAD_system",
+      "level": "core",
+      "signature": "def close_tarch_CAD_system():",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 482,
+        "line_end": 487
+      }
+    },
+    {
+      "name": "launch_cad_guardians",
+      "symbol": "launch_cad_guardians",
+      "qualname": "launch_cad_guardians",
+      "level": "core",
+      "signature": "def launch_cad_guardians():",
+      "role": "在 CAD_core 中承接 `launch_cad_guardians` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 488,
+        "line_end": 548
+      }
+    },
+    {
+      "name": "litz",
+      "symbol": "litz",
+      "qualname": "litz",
+      "level": "core",
+      "signature": "def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):",
+      "role": "在 CAD_core 中承接 `litz` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 549,
+        "line_end": 657
+      }
+    },
+    {
+      "name": "activate_document_by_name",
+      "symbol": "activate_document_by_name",
+      "qualname": "activate_document_by_name",
+      "level": "normal",
+      "signature": "def activate_document_by_name(filename):",
+      "role": "激活目标文档、窗口或对象。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 658,
+        "line_end": 698
+      }
+    },
+    {
+      "name": "cad_zt_zero",
+      "symbol": "cad_zt_zero",
+      "qualname": "cad_zt_zero",
+      "level": "utility",
+      "signature": "def cad_zt_zero():",
+      "role": "在 CAD_core 中承接 `cad_zt_zero` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 699,
+        "line_end": 713
+      }
+    },
+    {
+      "name": "cad_zt_oneb",
+      "symbol": "cad_zt_oneb",
+      "qualname": "cad_zt_oneb",
+      "level": "normal",
+      "signature": "def cad_zt_oneb():",
+      "role": "在 CAD_core 中承接 `cad_zt_oneb` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 714,
+        "line_end": 773
+      }
+    },
+    {
+      "name": "cad_zt_oneb._is_default_session",
+      "symbol": "_is_default_session",
+      "qualname": "cad_zt_oneb._is_default_session",
+      "level": "normal",
+      "signature": "def _is_default_session(paths):",
+      "role": "在 CAD_core 中承接 `cad_zt_oneb._is_default_session` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 733,
+        "line_end": 773
+      }
+    },
+    {
+      "name": "cad_zt_oned",
+      "symbol": "cad_zt_oned",
+      "qualname": "cad_zt_oned",
+      "level": "normal",
+      "signature": "def cad_zt_oned(file_path=str(XITONG_DIR / \"0.dwg\")):",
+      "role": "在 CAD_core 中承接 `cad_zt_oned` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 774,
+        "line_end": 806
+      }
+    },
+    {
+      "name": "cad_zt_two",
+      "symbol": "cad_zt_two",
+      "qualname": "cad_zt_two",
+      "level": "normal",
+      "signature": "def cad_zt_two(file1=str(XITONG_DIR / \"0.dwg\"), file2=str(XITONG_DIR / \"1.dwg\")):",
+      "role": "在 CAD_core 中承接 `cad_zt_two` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 807,
+        "line_end": 853
+      }
+    },
+    {
+      "name": "cad_zt_much",
+      "symbol": "cad_zt_much",
+      "qualname": "cad_zt_much",
+      "level": "normal",
+      "signature": "def cad_zt_much( file1=str(XITONG_DIR / \"0.dwg\"), file2=str(XITONG_DIR / \"1.dwg\"), file3=str(XITONG_DIR / \"2.dwg\") ): \"\"\" 确保CAD状态为：1个进程+多个文件（>2个文件）  Args:",
+      "role": "在 CAD_core 中承接 `cad_zt_much` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 854,
+        "line_end": 903
+      }
+    },
+    {
+      "name": "cad_zt_xin_1",
+      "symbol": "cad_zt_xin_1",
+      "qualname": "cad_zt_xin_1",
+      "level": "normal",
+      "signature": "def cad_zt_xin_1(status_file=None):",
+      "role": "在 CAD_core 中承接 `cad_zt_xin_1` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 904,
+        "line_end": 1015
+      }
+    },
+    {
+      "name": "cad_zt_xin_2",
+      "symbol": "cad_zt_xin_2",
+      "qualname": "cad_zt_xin_2",
+      "level": "normal",
+      "signature": "def cad_zt_xin_2(status_file=None):",
+      "role": "在 CAD_core 中承接 `cad_zt_xin_2` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 1016,
+        "line_end": 1158
+      }
+    },
+    {
+      "name": "new_file",
+      "symbol": "new_file",
+      "qualname": "new_file",
+      "level": "core",
+      "signature": "def new_file(output_path=None, close_after=False):",
+      "role": "在 CAD_core 中承接 `new_file` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 1159,
+        "line_end": 1325
+      }
+    },
+    {
+      "name": "new_file._close_new_file",
+      "symbol": "_close_new_file",
+      "qualname": "new_file._close_new_file",
+      "level": "normal",
+      "signature": "def _close_new_file(result: bool) -> bool:",
+      "role": "在 CAD_core 中承接 `new_file._close_new_file` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1177,
+        "line_end": 1214
+      }
+    },
+    {
+      "name": "new_file._limit_open_documents",
+      "symbol": "_limit_open_documents",
+      "qualname": "new_file._limit_open_documents",
+      "level": "normal",
+      "signature": "def _limit_open_documents():",
+      "role": "在 CAD_core 中承接 `new_file._limit_open_documents` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1215,
+        "line_end": 1325
+      }
+    },
+    {
+      "name": "open_file",
+      "symbol": "open_file",
+      "qualname": "open_file",
+      "level": "core",
+      "signature": "def open_file(file_path):",
+      "role": "打开目标文档或激活既有文档。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1326,
+        "line_end": 1478
+      }
+    },
+    {
+      "name": "open_file._get_acad",
+      "symbol": "_get_acad",
+      "qualname": "open_file._get_acad",
+      "level": "utility",
+      "signature": "def _get_acad():",
+      "role": "打开目标文档或激活既有文档。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1378,
+        "line_end": 1380
+      }
+    },
+    {
+      "name": "open_file._ensure_single_process",
+      "symbol": "_ensure_single_process",
+      "qualname": "open_file._ensure_single_process",
+      "level": "utility",
+      "signature": "def _ensure_single_process():",
+      "role": "打开目标文档或激活既有文档。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1381,
+        "line_end": 1388
+      }
+    },
+    {
+      "name": "open_file._ensure_active_only",
+      "symbol": "_ensure_active_only",
+      "qualname": "open_file._ensure_active_only",
+      "level": "normal",
+      "signature": "def _ensure_active_only():",
+      "role": "打开目标文档或激活既有文档。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1389,
+        "line_end": 1478
+      }
+    },
+    {
+      "name": "copy_file_with_increment",
+      "symbol": "copy_file_with_increment",
+      "qualname": "copy_file_with_increment",
+      "level": "core",
+      "signature": "def copy_file_with_increment(filepath):",
+      "role": "在 CAD_core 中承接 `copy_file_with_increment` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 1479,
+        "line_end": 1532
+      }
+    },
+    {
+      "name": "save_file",
+      "symbol": "save_file",
+      "qualname": "save_file",
+      "level": "core",
+      "signature": "def save_file():",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1533,
+        "line_end": 1543
+      }
+    },
+    {
+      "name": "save_file_as",
+      "symbol": "save_file_as",
+      "qualname": "save_file_as",
+      "level": "core",
+      "signature": "def save_file_as(output_path):",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1544,
+        "line_end": 1561
+      }
+    },
+    {
+      "name": "close_file",
+      "symbol": "close_file",
+      "qualname": "close_file",
+      "level": "core",
+      "signature": "def close_file(save_option=\"auto_save\"):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 1562,
+        "line_end": 1617
+      }
+    },
+    {
+      "name": "purge_file",
+      "symbol": "purge_file",
+      "qualname": "purge_file",
+      "level": "core",
+      "signature": "def purge_file(deep_purge=True):",
+      "role": "在 CAD_core 中承接 `purge_file` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 1618,
+        "line_end": 1646
+      }
+    },
+    {
+      "name": "check_file_locked",
+      "symbol": "check_file_locked",
+      "qualname": "check_file_locked",
+      "level": "normal",
+      "signature": "def check_file_locked(filepath):",
+      "role": "在 CAD_core 中承接 `check_file_locked` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 1647,
+        "line_end": 1680
+      }
+    },
+    {
+      "name": "is_read_only",
+      "symbol": "is_read_only",
+      "qualname": "is_read_only",
+      "level": "utility",
+      "signature": "def is_read_only():",
+      "role": "在 CAD_core 中承接 `is_read_only` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 1681,
+        "line_end": 1695
+      }
+    },
+    {
+      "name": "insert_file_exploded",
+      "symbol": "insert_file_exploded",
+      "qualname": "insert_file_exploded",
+      "level": "core",
+      "signature": "def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0, target_layout=None):",
+      "role": "在 CAD_core 中承接 `insert_file_exploded` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 1696,
+        "line_end": 1803
+      }
+    },
+    {
+      "name": "copy_file_content_pywin32",
+      "symbol": "copy_file_content_pywin32",
+      "qualname": "copy_file_content_pywin32",
+      "level": "core",
+      "signature": "def copy_file_content_pywin32( source_file, target_file, target_x=0, target_y=0, scale=1.0, rotation=0.0, target_layout=None, explode=True ): \"\"\" 【函数编号】:",
+      "role": "在 CAD_core 中承接 `copy_file_content_pywin32` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 1804,
+        "line_end": 1961
+      }
+    },
+    {
+      "name": "insert_region_v2",
+      "symbol": "insert_region_v2",
+      "qualname": "insert_region_v2",
+      "level": "core",
+      "signature": "def insert_region_v2( src_dwg, target_dwg, x1, y1, x2, y2, target_x, target_y, target_layout=None ): \"\"\" 【函数编号】:",
+      "role": "在 CAD_core 中承接 `insert_region_v2` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 1962,
+        "line_end": 2139
+      }
+    },
+    {
+      "name": "set_active_doc",
+      "symbol": "set_active_doc",
+      "qualname": "set_active_doc",
+      "level": "core",
+      "signature": "def set_active_doc(doc):",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 2140,
+        "line_end": 2155
+      }
+    },
+    {
+      "name": "get_doc_by_name",
+      "symbol": "get_doc_by_name",
+      "qualname": "get_doc_by_name",
+      "level": "normal",
+      "signature": "def get_doc_by_name(name):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 2156,
+        "line_end": 2169
+      }
+    },
+    {
+      "name": "get_open_document_names",
+      "symbol": "get_open_document_names",
+      "qualname": "get_open_document_names",
+      "level": "normal",
+      "signature": "def get_open_document_names():",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 2170,
+        "line_end": 2182
+      }
+    },
+    {
+      "name": "close_current_drawing_safely",
+      "symbol": "close_current_drawing_safely",
+      "qualname": "close_current_drawing_safely",
+      "level": "core",
+      "signature": "def close_current_drawing_safely():",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 2183,
+        "line_end": 2219
+      }
+    },
+    {
+      "name": "close_all_except_active_safe",
+      "symbol": "close_all_except_active_safe",
+      "qualname": "close_all_except_active_safe",
+      "level": "core",
+      "signature": "def close_all_except_active_safe():",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 2220,
+        "line_end": 2245
+      }
+    },
+    {
+      "name": "close_dwg_by_name",
+      "symbol": "close_dwg_by_name",
+      "qualname": "close_dwg_by_name",
+      "level": "core",
+      "signature": "def close_dwg_by_name(Name):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 2246,
+        "line_end": 2268
+      }
+    },
+    {
+      "name": "close_all_files",
+      "symbol": "close_all_files",
+      "qualname": "close_all_files",
+      "level": "core",
+      "signature": "def close_all_files(save_option=\"auto_save\"):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 2269,
+        "line_end": 2319
+      }
+    },
+    {
+      "name": "ensure_max_open_documents",
+      "symbol": "ensure_max_open_documents",
+      "qualname": "ensure_max_open_documents",
+      "level": "core",
+      "signature": "def ensure_max_open_documents(keep_filename, max_count=3):",
+      "role": "检查条件并在必要时补齐环境或约束。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 2320,
+        "line_end": 2391
+      }
+    },
+    {
+      "name": "get_obj_loc",
+      "symbol": "get_obj_loc",
+      "qualname": "get_obj_loc",
+      "level": "normal",
+      "signature": "def get_obj_loc(obj):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 2392,
+        "line_end": 2414
+      }
+    },
+    {
+      "name": "set_space_mode",
+      "symbol": "set_space_mode",
+      "qualname": "set_space_mode",
+      "level": "core",
+      "signature": "def set_space_mode(mode_val):",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 2415,
+        "line_end": 2437
+      }
+    },
+    {
+      "name": "switch_to_layout",
+      "symbol": "switch_to_layout",
+      "qualname": "switch_to_layout",
+      "level": "core",
+      "signature": "def switch_to_layout(layout_name, retry=10, delay=0.5):",
+      "role": "切换当前 CAD 的布局、空间或活动对象。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 2438,
+        "line_end": 2503
+      }
+    },
+    {
+      "name": "get_layout_names",
+      "symbol": "get_layout_names",
+      "qualname": "get_layout_names",
+      "level": "normal",
+      "signature": "def get_layout_names(exclude_model=False):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 2504,
+        "line_end": 2526
+      }
+    },
+    {
+      "name": "get_current_dwg_path",
+      "symbol": "get_current_dwg_path",
+      "qualname": "get_current_dwg_path",
+      "level": "core",
+      "signature": "def get_current_dwg_path():",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。"
+      ],
+      "evidence": {
+        "line_start": 2527,
+        "line_end": 2551
+      }
+    },
+    {
+      "name": "get_all_open_dwg_paths",
+      "symbol": "get_all_open_dwg_paths",
+      "qualname": "get_all_open_dwg_paths",
+      "level": "core",
+      "signature": "def get_all_open_dwg_paths():",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留多文档环境重建与状态归一经验，特别是 litz()。",
+        "保留文件开关、插入、关闭后的文档激活与路径修复逻辑。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 2552,
+        "line_end": 2576
+      }
+    },
+    {
+      "name": "get_long_path",
+      "symbol": "get_long_path",
+      "qualname": "get_long_path",
+      "level": "normal",
+      "signature": "def get_long_path(path_str):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 2577,
+        "line_end": 2597
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "CAD_core.py 含历史兼容代码与转义异常片段，本次对函数边界采用容错解析。",
+      "部分跨文件/跨进程操作返回值依赖 CAD 现场，meta 以静态分支概括为主。",
+      "若后续重构，应优先收束旧桥接而不是改动已验证的文件控制经验。",
+      "存在重名定义：close_all_dwg_paradigm.li。"
+    ],
+    "function_count": 63,
+    "public_api_count": 14,
+    "core_function_count": 30
+  }
+}

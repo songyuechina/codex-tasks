@@ -1,0 +1,62 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "project_setup",
+  "file_path": "D:/codex-tasks/cad/system/project_setup.py",
+  "applicable_scenarios": [
+    "系统脚本需要获取 cad/system/scripts/tests/logs/workspace 等稳定路径",
+    "脚本需要引用 USERPATH 或测试文件、日志文件的默认位置",
+    "项目迁移后仍希望通过固定锚点自动推导路径"
+  ],
+  "preconditions": [
+    "当前文件位于 codex-tasks/cad/system 体系内",
+    "项目目录结构仍保持 system -> cad -> codex-tasks 这一层级关系"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "定位锚点",
+      "detail": "通过 CURRENT_FILE 推导 SYSTEM_DIR、CAD_ROOT、WORKSPACE_DIR 三个核心锚点。"
+    },
+    {
+      "step": 2,
+      "name": "构造路径常量",
+      "detail": "在 PathConfig 中统一暴露 ROOT/CAD_DIR/SYSTEM_DIR/SCRIPTS_DIR/TESTS/LOGS/WORKSPACE_DIR 等常量。"
+    },
+    {
+      "step": 3,
+      "name": "处理 USERPATH",
+      "detail": "优先读取环境变量 USERPATH；若不存在则使用默认兜底目录。"
+    },
+    {
+      "step": 4,
+      "name": "目录保障",
+      "detail": "导入时只尝试创建 LOGS 与 TESTS 目录，保证后续日志与测试记录可落盘。"
+    }
+  ],
+  "success_criteria": [
+    "其他脚本可稳定通过 PathConfig 获取统一路径",
+    "项目迁移后路径推导仍成立",
+    "本模块不再承担 sys.path 引导职责"
+  ],
+  "failure_criteria": [
+    "重写时把 bootstrap/import 环境职责重新塞回本模块",
+    "破坏 CAD_ROOT 与 WORKSPACE_DIR 的锚点推导关系",
+    "去掉必要目录保障后导致日志或测试记录无法写入"
+  ],
+  "do_not_use_for": [
+    "不要在本模块中添加 sys.path 修改逻辑",
+    "不要把 CAD 连接、日志初始化、业务逻辑放进本模块",
+    "不要把它重新扩张成项目引导脚本"
+  ],
+  "integration_with_other_modules": {
+    "common_logger.py": "可通过 PathConfig 提供 tests/logs/common_logger.py 路径相关常量",
+    "CAD_core.py": "可通过 PathConfig 获取 xitongwenjian、logs、tests 等路径基准",
+    "整个 cad/system": "统一复用 PathConfig，避免各自手写路径拼接"
+  },
+  "rewrite_constraints": [
+    "允许继续纯化实现",
+    "允许局部调整常量命名或默认 userpath",
+    "不得把导入引导职责重新放回本模块"
+  ]
+}

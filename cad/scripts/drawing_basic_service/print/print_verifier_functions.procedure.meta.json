@@ -1,0 +1,150 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_verifier.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_verifier.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_procedure": {
+    "goal": "描述 print_verifier.py 中每个函数在打印主链中的步骤骨架。",
+    "step_style": "graded",
+    "public_api": [
+      "verify_generated_pdfs"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_job_value",
+      "signature": "def _job_value(job: Any, key: str, default: Any=None) -> Any:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 21,
+        "line_end": 24
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_parse_media_size_mm",
+      "signature": "def _parse_media_size_mm(media: str) -> tuple[float, float] | None:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 27,
+        "line_end": 36
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_read_pdf_page_sizes_mm",
+      "signature": "def _read_pdf_page_sizes_mm(pdf_path: Path) -> list[tuple[float, float]] | None:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 39,
+        "line_end": 51
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_verify_page_sizes",
+      "signature": "def _verify_page_sizes(existing_paths: list[str], jobs: list[Any], size_tol_mm: float) -> dict:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 54,
+        "line_end": 135
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "verify_generated_pdfs",
+      "signature": "def verify_generated_pdfs(output_paths: list[str], jobs: list[Any] | None=None, size_tol_mm: float=1.0) -> dict:",
+      "level": "core",
+      "role": "对生成结果执行校验，并输出通过/失败信息。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "返回结果可被上层流程直接消费。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 138,
+        "line_end": 165
+      },
+      "steps": [
+        "读取输入对象或候选集合。",
+        "执行当前函数负责的分析、匹配或过滤逻辑。",
+        "返回供上层继续消费的结果。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "pdf",
+      "verification"
+    ],
+    "script_focus": "读取计划中的页面尺寸与生成 PDF 的实际页面尺寸，输出验证结果并标记异常页面。"
+  },
+  "quality": {
+    "todo": [
+      "steps 为静态骨架摘要，未展开每个 CAD/COM 细节分支。",
+      "复杂阈值或外部环境异常处理仍建议结合真实案例进一步人工细化。"
+    ],
+    "function_count": 5,
+    "public_api_count": 1,
+    "core_function_count": 1
+  }
+}

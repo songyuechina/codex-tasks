@@ -1,0 +1,738 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "content_analysis_dwg_file.py",
+    "path": "D:/codex-tasks/cad/system/content_analysis_dwg_file.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "采集 DWG 内容快照并持久化到数据库，支撑快照比较、摘要查询与案例验证。",
+    "step_style": "graded",
+    "public_api": [
+      "ensure_cad_audit_schema",
+      "persist_cad_state",
+      "load_latest_state_from_db",
+      "get_cad_state",
+      "get_cad_state_from_db",
+      "get_dwg_graphics_summary"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_now_str",
+      "symbol": "_now_str",
+      "qualname": "_now_str",
+      "level": "utility",
+      "signature": "def _now_str():",
+      "role": "在 content_analysis_dwg_file 中承接 `_now_str` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 52,
+        "line_end": 54
+      }
+    },
+    {
+      "name": "_sha1_text",
+      "symbol": "_sha1_text",
+      "qualname": "_sha1_text",
+      "level": "utility",
+      "signature": "def _sha1_text(s: str) -> str:",
+      "role": "在 content_analysis_dwg_file 中承接 `_sha1_text` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 55,
+        "line_end": 57
+      }
+    },
+    {
+      "name": "_norm_path",
+      "symbol": "_norm_path",
+      "qualname": "_norm_path",
+      "level": "utility",
+      "signature": "def _norm_path(s: str) -> str:",
+      "role": "在 content_analysis_dwg_file 中承接 `_norm_path` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 58,
+        "line_end": 62
+      }
+    },
+    {
+      "name": "_safe_json",
+      "symbol": "_safe_json",
+      "qualname": "_safe_json",
+      "level": "utility",
+      "signature": "def _safe_json(obj):",
+      "role": "在 content_analysis_dwg_file 中承接 `_safe_json` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 63,
+        "line_end": 68
+      }
+    },
+    {
+      "name": "_try",
+      "symbol": "_try",
+      "qualname": "_try",
+      "level": "utility",
+      "signature": "def _try(fn, default=None):",
+      "role": "在 content_analysis_dwg_file 中承接 `_try` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 69,
+        "line_end": 74
+      }
+    },
+    {
+      "name": "_parse_identifier",
+      "symbol": "_parse_identifier",
+      "qualname": "_parse_identifier",
+      "level": "utility",
+      "signature": "def _parse_identifier(identifier: str) -> dict:",
+      "role": "在 content_analysis_dwg_file 中承接 `_parse_identifier` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 75,
+        "line_end": 98
+      }
+    },
+    {
+      "name": "ensure_cad_audit_schema",
+      "symbol": "ensure_cad_audit_schema",
+      "qualname": "ensure_cad_audit_schema",
+      "level": "core",
+      "signature": "def ensure_cad_audit_schema():",
+      "role": "检查条件并在必要时补齐环境或约束。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。"
+      ],
+      "evidence": {
+        "line_start": 99,
+        "line_end": 167
+      }
+    },
+    {
+      "name": "_upsert_dwg_file_record",
+      "symbol": "_upsert_dwg_file_record",
+      "qualname": "_upsert_dwg_file_record",
+      "level": "core",
+      "signature": "def _upsert_dwg_file_record(fullname: str, basename: str) -> int | None:",
+      "role": "在 content_analysis_dwg_file 中承接 `_upsert_dwg_file_record` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。"
+      ],
+      "evidence": {
+        "line_start": 168,
+        "line_end": 255
+      }
+    },
+    {
+      "name": "persist_cad_state",
+      "symbol": "persist_cad_state",
+      "qualname": "persist_cad_state",
+      "level": "core",
+      "signature": "def persist_cad_state(state: dict) -> int | None:",
+      "role": "把采集到的状态写入持久化存储。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "整理待持久化的数据结构。",
+        "写入日志、数据库或结果文件。",
+        "返回记录结果或主键引用。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。",
+        "快照字段与数据库键设计应保持兼容，避免破坏历史数据。"
+      ],
+      "evidence": {
+        "line_start": 256,
+        "line_end": 328
+      }
+    },
+    {
+      "name": "load_latest_state_from_db",
+      "symbol": "load_latest_state_from_db",
+      "qualname": "load_latest_state_from_db",
+      "level": "core",
+      "signature": "def load_latest_state_from_db(identifier: str) -> dict | None:",
+      "role": "从外部存储加载并返回结构化数据。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。",
+        "快照字段与数据库键设计应保持兼容，避免破坏历史数据。"
+      ],
+      "evidence": {
+        "line_start": 329,
+        "line_end": 394
+      }
+    },
+    {
+      "name": "_check_doc_health",
+      "symbol": "_check_doc_health",
+      "qualname": "_check_doc_health",
+      "level": "core",
+      "signature": "def _check_doc_health(doc) -> dict:",
+      "role": "在 content_analysis_dwg_file 中承接 `_check_doc_health` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。"
+      ],
+      "evidence": {
+        "line_start": 395,
+        "line_end": 434
+      }
+    },
+    {
+      "name": "_check_doc_health.t",
+      "symbol": "t",
+      "qualname": "_check_doc_health.t",
+      "level": "utility",
+      "signature": "def t(name, fn):",
+      "role": "在 content_analysis_dwg_file 中承接 `_check_doc_health.t` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 398,
+        "line_end": 434
+      }
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest",
+      "symbol": "_snapshot_obj_counts_handles_and_digest",
+      "qualname": "_snapshot_obj_counts_handles_and_digest",
+      "level": "core",
+      "signature": "def _snapshot_obj_counts_handles_and_digest( doc, *, max_entities:",
+      "role": "在 content_analysis_dwg_file 中承接 `_snapshot_obj_counts_handles_and_digest` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。"
+      ],
+      "evidence": {
+        "line_start": 435,
+        "line_end": 622
+      }
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest.inc_flat",
+      "symbol": "inc_flat",
+      "qualname": "_snapshot_obj_counts_handles_and_digest.inc_flat",
+      "level": "utility",
+      "signature": "def inc_flat(d: dict[str, int], k: str):",
+      "role": "在 content_analysis_dwg_file 中承接 `_snapshot_obj_counts_handles_and_digest.inc_flat` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 477,
+        "line_end": 479
+      }
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest.inc_space",
+      "symbol": "inc_space",
+      "qualname": "_snapshot_obj_counts_handles_and_digest.inc_space",
+      "level": "utility",
+      "signature": "def inc_space(space: str, objtype: str):",
+      "role": "在 content_analysis_dwg_file 中承接 `_snapshot_obj_counts_handles_and_digest.inc_space` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 480,
+        "line_end": 484
+      }
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest.inc_type",
+      "symbol": "inc_type",
+      "qualname": "_snapshot_obj_counts_handles_and_digest.inc_type",
+      "level": "utility",
+      "signature": "def inc_type(objtype: str):",
+      "role": "在 content_analysis_dwg_file 中承接 `_snapshot_obj_counts_handles_and_digest.inc_type` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 485,
+        "line_end": 487
+      }
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest._get_objname",
+      "symbol": "_get_objname",
+      "qualname": "_snapshot_obj_counts_handles_and_digest._get_objname",
+      "level": "utility",
+      "signature": "def _get_objname(ent) -> str:",
+      "role": "在 content_analysis_dwg_file 中承接 `_snapshot_obj_counts_handles_and_digest._get_objname` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 488,
+        "line_end": 494
+      }
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest._get_handle",
+      "symbol": "_get_handle",
+      "qualname": "_snapshot_obj_counts_handles_and_digest._get_handle",
+      "level": "utility",
+      "signature": "def _get_handle(ent) -> str:",
+      "role": "在 content_analysis_dwg_file 中承接 `_snapshot_obj_counts_handles_and_digest._get_handle` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 495,
+        "line_end": 501
+      }
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest.enum_container",
+      "symbol": "enum_container",
+      "qualname": "_snapshot_obj_counts_handles_and_digest.enum_container",
+      "level": "normal",
+      "signature": "def enum_container(space_label: str, container_obj):",
+      "role": "在 content_analysis_dwg_file 中承接 `_snapshot_obj_counts_handles_and_digest.enum_container` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 502,
+        "line_end": 622
+      }
+    },
+    {
+      "name": "get_cad_state",
+      "symbol": "get_cad_state",
+      "qualname": "get_cad_state",
+      "level": "core",
+      "signature": "def get_cad_state( filepath:",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。",
+        "快照字段与数据库键设计应保持兼容，避免破坏历史数据。"
+      ],
+      "evidence": {
+        "line_start": 623,
+        "line_end": 838
+      }
+    },
+    {
+      "name": "get_cad_state_from_db",
+      "symbol": "get_cad_state_from_db",
+      "qualname": "get_cad_state_from_db",
+      "level": "core",
+      "signature": "def get_cad_state_from_db(identifier: str) -> dict:",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。",
+        "快照字段与数据库键设计应保持兼容，避免破坏历史数据。"
+      ],
+      "evidence": {
+        "line_start": 839,
+        "line_end": 850
+      }
+    },
+    {
+      "name": "get_dwg_graphics_summary",
+      "symbol": "get_dwg_graphics_summary",
+      "qualname": "get_dwg_graphics_summary",
+      "level": "core",
+      "signature": "def get_dwg_graphics_summary( filepath:",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 counts、digest、handle 采集之间的分层设计。",
+        "保留数据库 upsert 与快照读取的兼容路径。"
+      ],
+      "evidence": {
+        "line_start": 851,
+        "line_end": 1144
+      }
+    },
+    {
+      "name": "get_dwg_graphics_summary._clip_handles",
+      "symbol": "_clip_handles",
+      "qualname": "get_dwg_graphics_summary._clip_handles",
+      "level": "normal",
+      "signature": "def _clip_handles(lst):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 882,
+        "line_end": 948
+      }
+    },
+    {
+      "name": "get_dwg_graphics_summary._group_counts_legacy_by_space",
+      "symbol": "_group_counts_legacy_by_space",
+      "qualname": "get_dwg_graphics_summary._group_counts_legacy_by_space",
+      "level": "normal",
+      "signature": "def _group_counts_legacy_by_space(counts_legacy: dict) -> dict:",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 949,
+        "line_end": 1144
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "数据库 schema 与持久化字段较多，meta 对 SQL 列仅做概要说明。",
+      "局部嵌套 helper 仅按静态流程总结，不展开运行时对象内容。"
+    ],
+    "function_count": 24,
+    "public_api_count": 6,
+    "core_function_count": 9
+  }
+}

@@ -31,6 +31,13 @@
 - 用途：
   净化适配异常案例，验证伪极大打印范围收束、单文件同目录交付、WPS 清理与打印信息分析联动。
 
+### 2.4 湖南利农五倍子综合2#综合楼加地下室电气施工图_t3
+
+- 路径：
+  `D:\codex-tasks\cad\scripts\drawing_basic_service\print\cases\assets\湖南利农五倍子综合2#综合楼加地下室电气施工图_t3.dwg`
+- 用途：
+  长流程打印稳定性案例，用于验证 `purified_adaptive` 大批量作业下的 WPS 进程级清理是否真的生效。
+
 ## 3. 当前权威回归结果
 
 ### 3.1 打印模式回归
@@ -100,7 +107,7 @@
 
 ### 4.2 当前默认回归清单
 
-后续若要验证打印智能体是否仍符合当前治理体系，优先对本案例执行以下检查：
+后续若要验证打印执行链是否仍符合当前治理体系，优先对本案例执行以下检查：
 
 1. 基本打印回归
    - 入口：`print_runner.py --mode basic`
@@ -147,6 +154,29 @@
 - `drawing_title = 9`
 - `drawing_no = 9`
 - `project_name = 0`
+
+### 4.4 2026-03-21 WPS 进程级清理验证
+
+目录：
+
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\cases\output\wps-threshold-validation\case-08bc8da2bd\20260321-230354`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\cases\output\wps-threshold-validation\case-08bc8da2bd\20260321-230354\validation-20-summary.json`
+
+说明：
+
+- 这是针对“五倍子综合2#综合楼”新增的 WPS 专项验证
+- 属于 `validation`，用于证明“每成功 6 张后执行 GUI 关窗 + PID/进程级重置”已经能压住 WPS 窗口累积
+
+本轮验证结论：
+
+- 基于 `purified_adaptive` dry-run 生成的工作副本与计划，截取前 `20` 个 job 做真实打印
+- `20/20` 成功
+- `missing = 0`
+- `zero_size = 0`
+- `page_size_mismatch = 0`
+- 日志中共触发 `4` 次 WPS 清理，其中每次都观测到 `windows=1`
+- 每次清理后都得到 `remaining=0`
+- 验证完成后系统中未再残留可见 WPS 窗口
 
 ## 5. 案例维护规则
 

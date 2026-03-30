@@ -1,0 +1,101 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks",
+  "role": "project-governor-workspace",
+  "summary": "DWG/CAD 自动化项目总管工作区。项目采用项目总管 + 四角色智能体能力层 + 领域执行工作区 + 运行监督链的架构，当前第一优先级领域是打印子系统。",
+  "system_goal": [
+    "为本地运行的智能体和脚本执行链建立稳定、可修改、可验证的 DWG/CAD 操作系统",
+    "把项目知识沉淀为可检索、可压缩、可持续刷新的项目记忆层",
+    "避免每次任务都从头全文阅读整个仓库",
+    "让打印执行链在 runtime guard 监督链保护下稳定推进"
+  ],
+  "entry_docs": [
+    "thoughtway/PROJECT_SUPERVISOR_ARCHITECTURE.md",
+    "thoughtway/CURRENT_STATE.md",
+    "thoughtway/TERMINOLOGY.md",
+    "AGENTS.md",
+    "README.md",
+    "thoughtway/PROJECT_GOVERNANCE.md",
+    "thoughtway/SYSTEM_FOUNDATIONS.md",
+    "thoughtway/PROJECT_MEMORY_SYSTEM.md"
+  ],
+  "priority_paths": [
+    "cad/system",
+    "cad/tools",
+    "cad/library",
+    "cad/scripts/drawing_basic_service/print",
+    "dwg_agents_ops",
+    "dwg_system_tools",
+    "thoughtway"
+  ],
+  "children": [
+    {
+      "path": "cad",
+      "role": "execution-kernel",
+      "priority": "highest",
+      "summary": "CAD/DWG 执行内核与业务脚本集合，包含 system、library、tools 和当前关键业务 print。"
+    },
+    {
+      "path": "dwg_agents_ops",
+      "role": "role-agent-ops",
+      "priority": "high",
+      "summary": "Planner/Coder/Reviewer/Tester 四角色智能体协作层，并保留 Runtime Guard 的本地监督入口。"
+    },
+    {
+      "path": "dwg_system_tools",
+      "role": "knowledge-compression-tools",
+      "priority": "high",
+      "summary": "meta 生成、校验、项目索引等知识压缩与控制工具。"
+    },
+    {
+      "path": "thoughtway",
+      "role": "governance-and-method",
+      "priority": "high",
+      "summary": "项目级治理、方法论、系统基础知识与长期记忆规则。"
+    },
+    {
+      "path": "dwg_cases",
+      "role": "case-assets",
+      "priority": "medium",
+      "summary": "DWG 案例资产层，本轮项目理解默认不从原始 DWG/PDF 输入输出入手。"
+    }
+  ],
+  "stable_memory_assets": [
+    "README.md / AGENTS.md：项目入口与硬规则",
+    "thoughtway/*.md：治理、系统基础、规则与长期方法",
+    "folder.meta.json：目录级语义地图",
+    "cad/system/folder.meta.json / cad/tools/folder.meta.json / cad/library/folder.meta.json：关键执行层目录语义地图",
+    "cad/system/*_quote.meta.json 与 *_procedure.meta.json：脚本级压缩骨架",
+    "cad/system/*_functions.quote.meta.json 与 *_functions.procedure.meta.json：函数级压缩骨架",
+    "cad/tools/basic_graph_analyzer.py 与 function_analyzer.py：静态索引与语义分析工具",
+    "cad/scripts/drawing_basic_service/print/cases/CASE_MANIFEST.md：领域案例索引"
+  ],
+  "volatile_or_excluded": [
+    "dwg_cases/**：原始案例 DWG/PDF 资产",
+    "thoughtway/参考/**：参考脚本与参考材料，不纳入正式 meta 覆盖范围",
+    "thoughtway/*.txt：思想指导文本，不纳入脚本级 meta 覆盖范围",
+    "cad/scripts/drawing_basic_service/print/cases/assets/**：真实输入资产",
+    "cad/scripts/drawing_basic_service/print/cases/output/**：运行输出",
+    "dwg_agents_ops/**/outputs/**：角色输出",
+    "dwg_agents_ops/**/sessions/**：会话日志",
+    "dwg_agents_ops/**/memory/state.json 与 timeline.jsonl：运行时状态",
+    "dwg_agents_ops/agent_control/supervision/**：监督执行记录",
+    "cad/tools/_cache/** 与 cad/system/logs/**：缓存与运行时日志"
+  ],
+  "agent_read_protocol": [
+    "先读本文件确定项目层结构与优先路径",
+    "再读 thoughtway/PROJECT_SUPERVISOR_ARCHITECTURE.md 建立项目总管视角的总图",
+    "再读 thoughtway/PROJECT_GOVERNANCE.md、thoughtway/SYSTEM_FOUNDATIONS.md 与 thoughtway/PROJECT_MEMORY_SYSTEM.md",
+    "按任务进入具体目录的 folder.meta.json",
+    "再进入该目录的 README / AGENTS / 协议文档",
+    "需要控制到脚本或函数时再读四层 meta 与源码"
+  ],
+  "refresh_rules": [
+    "目录职责变化时，先更新对应 folder.meta.json",
+    "系统共识变化时，更新 thoughtway/*.md 与 README/AGENTS",
+    "脚本职责变化时，补齐相应 README 与四层 meta",
+    "统计 meta 覆盖范围前，先排除参考脚本、思想文本和运行产物",
+    "项目结构发生显著变化后，运行 dwg_system_tools/build_project_memory.py 刷新项目地图"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/system",
+  "role": "cad-runtime-kernel",
+  "summary": "CAD/DWG 执行内核目录。这里定义统一连接、文件控制、对象选择、COM busy 重试、命令协调、运行守护与运行时桥接，是整个项目最不应被绕开的系统骨架。",
+  "entry_docs": [
+    "README.md",
+    "AGENTS.md",
+    "CAD_RUNTIME_GUARD_PROTOCOL.md"
+  ],
+  "stable_assets": [
+    "licad.py：统一 CAD / 天正连接入口",
+    "CAD_core.py：文件级控制与基础操作",
+    "CAD_selection.py：选择集与对象访问",
+    "CAD_com_utils.py：COM busy / rejected 重试与包装",
+    "CAD_coordination.py：命令同步、等待空闲与事务保护",
+    "cad_runtime_guard.py：运行环境守护与事件产出",
+    "runtime_guard_bridge.py：主执行链读取监督状态的桥接层",
+    "content_analysis_dwg_file.py：DWG 内容分析与前后对比"
+  ],
+  "do_not_bypass": [
+    "默认通过 from system.licad import C 建立连接",
+    "真实打印或 CAD 执行前，先明确 runtime guard 监督是否已接入",
+    "业务层不要长期分散持有 GetActiveObject / Dispatch / 裸 SendCommand"
+  ],
+  "change_rules": [
+    "修改统一连接、选择或协调逻辑前，先阅读 README.md 与对应四层 meta",
+    "对 licad.py 与 CAD_selection.py 只做有依据的局部修补，不轻率整体重写",
+    "守护链协议变化时，同时更新 CAD_RUNTIME_GUARD_PROTOCOL.md 与上层治理文档"
+  ]
+}

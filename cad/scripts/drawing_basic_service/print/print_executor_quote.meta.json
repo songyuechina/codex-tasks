@@ -1,0 +1,146 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_executor.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_executor.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "quote": {
+    "goal": "根据打印计划逐 job 执行模型空间或布局空间导出，处理文档就绪、WPS 清理和 PDF 落盘等待。",
+    "public_api": [
+      "export_model_window_lisp_fit",
+      "export_layout_window_lisp_fit",
+      "cleanup_wps_windows",
+      "execute_print_plan"
+    ],
+    "script_role": "打印计划执行器脚本",
+    "system_position": {
+      "layer_name": "打印执行层",
+      "works_with": [
+        "print_policy.py",
+        "print_verifier.py",
+        "system.CAD_coordination",
+        "system.licad"
+      ],
+      "main_entry_note": "print_executor.py 主要通过 export_model_window_lisp_fit, export_layout_window_lisp_fit, cleanup_wps_windows 等入口服务打印主链。"
+    },
+    "must_keep_experience": [
+      "模型空间和布局空间的导出分支不能混淆。",
+      "打印执行必须包含外部 PDF 稳定等待，而不是只发命令就认为完成。"
+    ],
+    "known_limits": [
+      "直接依赖本地 CAD/WPS 环境，真实执行仍需串行独占。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_wait_for_pdf_ready",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_normalize_path",
+      "role": "归一化路径字符串，保证文档匹配、打开和关闭逻辑使用统一格式。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_is_name_only_target",
+      "role": "判断输入目标是否只有文件名，用于兼容仅按文档名定位的场景。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_active_doc_matches",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_activate_document_by_path",
+      "role": "按路径激活目标文档，并在必要时等待文档成为当前活动文档。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_ensure_model_doc_ready",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_ensure_layout_doc_ready",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "export_model_window_lisp_fit",
+      "role": "向外部文件导出 PDF 或布局结果。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "export_layout_window_lisp_fit",
+      "role": "向外部文件导出 PDF 或布局结果。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "cleanup_wps_windows",
+      "role": "清理外部窗口、临时对象或残留状态。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_cleanup_wps_if_needed",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "_run_job",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "level": "utility",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    },
+    {
+      "name": "execute_print_plan",
+      "role": "遍历计划并执行真实打印或导出动作。",
+      "level": "core",
+      "input_shape": "见源码签名与函数级 meta",
+      "output_shape": "返回结构化结果、状态或通过副作用服务主链"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "pdf",
+      "process-control"
+    ],
+    "script_focus": "打印计划执行器脚本"
+  },
+  "quality": {
+    "todo": [
+      "当前脚本级 meta 已覆盖主角色与 public_api，后续如职责明显变化应同步刷新。",
+      "函数级语义摘要主要由 AST 与命名规则生成，复杂分支后续可按案例继续细化。"
+    ],
+    "function_count": 13,
+    "public_api_count": 4
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "cad_command_monitor.py",
+    "path": "D:/codex-tasks/cad/system/cad_command_monitor.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "作为独立守护脚本监控 CAD 命令停滞并在必要时抢焦点发送 ESC。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "force_bring_to_front",
+      "send_nuclear_esc",
+      "get_active_cad_app",
+      "analyze_state",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "force_bring_to_front",
+      "symbol": "force_bring_to_front",
+      "qualname": "force_bring_to_front",
+      "level": "core",
+      "signature": "def force_bring_to_front(hwnd):",
+      "purpose": "在 cad_command_monitor 中承接 `force_bring_to_front` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "hwnd",
+          "raw": "hwnd",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 40,
+        "line_end": 66
+      }
+    },
+    {
+      "name": "send_nuclear_esc",
+      "symbol": "send_nuclear_esc",
+      "qualname": "send_nuclear_esc",
+      "level": "core",
+      "signature": "def send_nuclear_esc(hwnd, acad_doc):",
+      "purpose": "在 cad_command_monitor 中承接 `send_nuclear_esc` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "hwnd",
+          "raw": "hwnd",
+          "required": true
+        },
+        {
+          "name": "acad_doc",
+          "raw": "acad_doc",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "os",
+        "time"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 67,
+        "line_end": 102
+      }
+    },
+    {
+      "name": "get_active_cad_app",
+      "symbol": "get_active_cad_app",
+      "qualname": "get_active_cad_app",
+      "level": "normal",
+      "signature": "def get_active_cad_app():",
+      "purpose": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。",
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "调用 CAD / COM 接口并改变会话状态。"
+      ],
+      "dependencies": [
+        "C",
+        "pythoncom",
+        "win32com"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 103,
+        "line_end": 110
+      }
+    },
+    {
+      "name": "analyze_state",
+      "symbol": "analyze_state",
+      "qualname": "analyze_state",
+      "level": "core",
+      "signature": "def analyze_state(acad):",
+      "purpose": "汇总当前状态并输出诊断结论。",
+      "inputs": [
+        {
+          "name": "acad",
+          "raw": "acad",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "目标对象、状态字典、路径或其它读取结果。"
+      ],
+      "side_effects": [
+        "改变 CAD 当前选择集、显示状态或临时图元。"
+      ],
+      "dependencies": [
+        "C",
+        "pythoncom"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 111,
+        "line_end": 153
+      }
+    },
+    {
+      "name": "is_already_running",
+      "symbol": "is_already_running",
+      "qualname": "is_already_running",
+      "level": "utility",
+      "signature": "def is_already_running():",
+      "purpose": "在 cad_command_monitor 中承接 `is_already_running` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "布尔值，表示成功/失败、条件满足与否或守护判断结果。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。",
+        "启动、监控或终止外部进程。"
+      ],
+      "dependencies": [
+        "C",
+        "psutil"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 154,
+        "line_end": 165
+      }
+    },
+    {
+      "name": "create_lock",
+      "symbol": "create_lock",
+      "qualname": "create_lock",
+      "level": "utility",
+      "signature": "def create_lock():",
+      "purpose": "在 cad_command_monitor 中承接 `create_lock` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回操作结果，同时修改文件、数据库或 CAD 文档状态。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C",
+        "os"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 166,
+        "line_end": 166
+      }
+    },
+    {
+      "name": "remove_lock",
+      "symbol": "remove_lock",
+      "qualname": "remove_lock",
+      "level": "utility",
+      "signature": "def remove_lock():",
+      "purpose": "在 cad_command_monitor 中承接 `remove_lock` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "修改本地文件或 CAD 文档。"
+      ],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 167,
+        "line_end": 169
+      }
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main():",
+      "purpose": "作为脚本主入口协调守护循环或批处理流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 170,
+        "line_end": 264
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "作为独立守护脚本监控 CAD 命令停滞并在必要时抢焦点发送 ESC。"
+  },
+  "quality": {
+    "todo": [
+      "窗口状态与焦点判断依赖 Win32 环境，meta 仅按静态逻辑概括。"
+    ],
+    "function_count": 8,
+    "public_api_count": 5,
+    "core_function_count": 4
+  }
+}

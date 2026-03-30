@@ -1,0 +1,33 @@
+{
+  "name": "cad_annotation",
+  "role": "文字与标注操作",
+  "public_api": [
+    "write_cad_text",
+    "write_mtext",
+    "add_dim_aligned",
+    "add_dim_rotated",
+    "add_dim_angular",
+    "add_dim_radial",
+    "add_dim_diametric",
+    "add_leader",
+    "get_text_content",
+    "set_text_content",
+    "get_text_height",
+    "set_text_height",
+    "get_text_rotation",
+    "set_text_rotation",
+    "batch_modify_text",
+    "create_table",
+    "set_table_cell_text",
+    "get_table_cell_text"
+  ],
+  "dependencies": [
+    "system.licad",
+    "system.CAD_com_utils"
+  ],
+  "quality": {
+    "status": "refactored",
+    "todo": [],
+    "notes": "第1批基础设施层重构完成"
+  }
+}

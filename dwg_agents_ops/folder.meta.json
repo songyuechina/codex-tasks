@@ -1,0 +1,70 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/dwg_agents_ops",
+  "role": "role-agent-collaboration-layer",
+  "summary": "项目总管可调度的角色能力层，不直接替代 CAD 内核，而是围绕 task_board、运行时状态与监督协议推进规划、编码、审查、测试。",
+  "entry_docs": [
+    "README.md",
+    "PROJECT_RESEARCH.md",
+    "agent_control/UNIFIED_CONTROL.md",
+    "agent_control/SUPERVISION.md",
+    "agent_control/RUNTIME_EVENT_PROTOCOL.md"
+  ],
+  "key_runtime_files": [
+    "shared/runtime.py",
+    "agent_control/supervisor_cli.py",
+    "agent_control/monitor_cli.py",
+    "agent_control/task_board.json"
+  ],
+  "children": [
+    {
+      "path": "Planner_Agent",
+      "role": "planning",
+      "summary": "基于共享运行时执行任务分解、阶段计划与依赖识别。"
+    },
+    {
+      "path": "Coder_Agent",
+      "role": "implementation",
+      "summary": "基于共享运行时执行实现。"
+    },
+    {
+      "path": "Reviewer_Agent",
+      "role": "review",
+      "summary": "基于共享运行时执行 findings-first 审查。"
+    },
+    {
+      "path": "Tester_Agent",
+      "role": "verification",
+      "summary": "基于共享运行时执行验证。"
+    },
+    {
+      "path": "Runtime_Guard_Agent",
+      "role": "event-driven-guard",
+      "summary": "消费 cad_runtime_guard 产生的运行事件，形成监督结论。"
+    },
+    {
+      "path": "agent_control",
+      "role": "coordination-and-supervision",
+      "summary": "任务板、监督投递、runtime 状态与监控工具。"
+    }
+  ],
+  "stable_memory_assets": [
+    "每个角色目录中的 role.toml 与 README.md",
+    "shared/runtime.py 定义的 state/summary/task_board 语义",
+    "Planner_Agent/memory/rolling_summary.md 等 rolling summary 模板",
+    "agent_control/task_board.json 的任务状态流"
+  ],
+  "volatile_or_excluded": [
+    "**/outputs/**：角色单次输出",
+    "**/sessions/**：对话会话日志",
+    "**/memory/state.json 与 timeline.jsonl：运行时状态快照",
+    "agent_control/supervision/**：单次监督记录",
+    "agent_control/runtime/**：瞬时运行监控状态"
+  ],
+  "refresh_rules": [
+    "角色职责变化时，更新 role.toml、README.md 与本文件",
+    "监督协议变化时，优先更新 agent_control/*.md",
+    "rolling_summary/state/task_board 只保留当前任务态，不承担长期架构说明职责"
+  ]
+}

@@ -1,22 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-meta_validator.py
+D:/codex-tasks/dwg_system_tools/meta_gen/meta_validator.py
 
-用途（DWG System Tools / meta_gen）
-- 校验 *_quote.meta.json / *_procedure.meta.json 是否符合 META_SCHEMA_V1.json 的基本结构
-- 输出人类可读的校验报告（stdout）与可选的 JSON 报告文件
-
-说明
-- 优先使用 jsonschema 库（若已安装）进行严格校验
-- 若 jsonschema 不可用，则使用内置的“最小校验器”进行关键字段校验（保证不阻塞）
-- 语义正确性（例如 branch_logic 是否合理）不在 schema 里强校验，仍依赖 META_RULES_V1 的 evidence/todo 规则
-
-CLI 示例：
-  python meta_validator.py --schema D:/codex-tasks/dwg_system_tools/meta_gen/META_SCHEMA_V1.json ^
-    --files D:/codex-tasks/dwg_system_tools/_generated_meta/common_logger_quote.meta.json
-
-  python meta_validator.py --schema ... --dir D:/codex-tasks/dwg_system_tools/_generated_meta --glob "*_quote.meta.json"
+用途
+- 校验脚本级 meta 与函数级 meta 是否符合 META_SCHEMA.json 的基本结构
+- 输出人类可读报告（stdout）与可选 JSON 报告
 """
 
 from __future__ import annotations
@@ -30,13 +19,36 @@ from typing import Any, Dict, List, Optional, Tuple
 
 @dataclass
 class Issue:
-    level: str  # "ERROR" | "WARN"
-    path: str   # json pointer-ish path
+    level: str
+    path: str
     message: str
 
 
 def _load_json(p: Path) -> Any:
     return json.loads(p.read_text(encoding="utf-8"))
+
+
+def _detect_meta_kind(file_path: Path, data: Dict[str, Any]) -> str:
+    name = file_path.name
+    if name.endswith("_functions.quote.meta.json"):
+        return "functions.quote"
+    if name.endswith("_functions.procedure.meta.json"):
+        return "functions.procedure"
+    if name.endswith("_quote.meta.json"):
+        return "quote"
+    if name.endswith("_procedure.meta.json"):
+        return "procedure"
+
+    if isinstance(data, dict):
+        if "quote" in data and data.get("meta_scope") == "functions":
+            return "functions.quote"
+        if "procedure" in data and data.get("meta_scope") == "functions":
+            return "functions.procedure"
+        if "quote" in data:
+            return "quote"
+        if "procedure" in data:
+            return "procedure"
+    return "unknown"
 
 
 def _try_jsonschema_validate(schema: Dict[str, Any], data: Any) -> Tuple[bool, List[Issue]]:
@@ -59,10 +71,7 @@ def _try_jsonschema_validate(schema: Dict[str, Any], data: Any) -> Tuple[bool, L
     return True, issues
 
 
-def _min_validate(schema: Dict[str, Any], data: Any) -> List[Issue]:
-    """
-    兜底最小校验：只检查 META_SCHEMA_V1.json 中的关键 required 字段与基础类型。
-    """
+def _min_validate_script_meta(data: Dict[str, Any], kind: str) -> List[Issue]:
     issues: List[Issue] = []
 
     def req(obj: Any, key: str, jpath: str):
@@ -74,12 +83,13 @@ def _min_validate(schema: Dict[str, Any], data: Any) -> List[Issue]:
             return None
         return obj[key]
 
-    if not isinstance(data, dict):
-        return [Issue("ERROR", "$", f"root must be object, got {type(data).__name__}")]
-
     mv = req(data, "meta_version", "$")
     if mv is not None and not isinstance(mv, str):
         issues.append(Issue("ERROR", "$.meta_version", "must be string"))
+
+    scope = req(data, "meta_scope", "$")
+    if scope is not None and scope != "script":
+        issues.append(Issue("ERROR", "$.meta_scope", "must be 'script' for script-level meta"))
 
     script = req(data, "script", "$")
     if isinstance(script, dict):
@@ -88,11 +98,24 @@ def _min_validate(schema: Dict[str, Any], data: Any) -> List[Issue]:
             if v is not None and not isinstance(v, str):
                 issues.append(Issue("ERROR", f"$.script.{k}", "must be string"))
 
-    # functions 若存在必须为 array
-    if "functions" in data and not isinstance(data["functions"], list):
-        issues.append(Issue("ERROR", "$.functions", "must be array"))
+    if kind == "quote":
+        q = req(data, "quote", "$")
+        if isinstance(q, dict):
+            if not isinstance(q.get("goal", ""), str):
+                issues.append(Issue("ERROR", "$.quote.goal", "must be string"))
+            if not isinstance(q.get("public_api", []), list):
+                issues.append(Issue("ERROR", "$.quote.public_api", "must be array"))
+        if "functions" in data and not isinstance(data["functions"], list):
+            issues.append(Issue("ERROR", "$.functions", "must be array"))
 
-    # quality.todo 若存在必须为 array
+    if kind == "procedure":
+        p = req(data, "procedure", "$")
+        if isinstance(p, dict):
+            if "workflow" in p and not isinstance(p["workflow"], list):
+                issues.append(Issue("ERROR", "$.procedure.workflow", "must be array"))
+        if "functions" in data and not isinstance(data["functions"], list):
+            issues.append(Issue("ERROR", "$.functions", "must be array"))
+
     if "quality" in data:
         q = data["quality"]
         if not isinstance(q, dict):
@@ -106,11 +129,81 @@ def _min_validate(schema: Dict[str, Any], data: Any) -> List[Issue]:
     return issues
 
 
+def _min_validate_functions_meta(data: Dict[str, Any], kind: str) -> List[Issue]:
+    issues: List[Issue] = []
+
+    def req(obj: Any, key: str, jpath: str):
+        if not isinstance(obj, dict):
+            issues.append(Issue("ERROR", jpath, f"expected object, got {type(obj).__name__}"))
+            return None
+        if key not in obj:
+            issues.append(Issue("ERROR", f"{jpath}.{key}", "missing required field"))
+            return None
+        return obj[key]
+
+    mv = req(data, "meta_version", "$")
+    if mv is not None and not isinstance(mv, str):
+        issues.append(Issue("ERROR", "$.meta_version", "must be string"))
+
+    scope = req(data, "meta_scope", "$")
+    if scope is not None and scope != "functions":
+        issues.append(Issue("ERROR", "$.meta_scope", "must be 'functions' for function-level meta"))
+
+    script = req(data, "script", "$")
+    if isinstance(script, dict):
+        for k in ("name", "path", "encoding", "version"):
+            v = req(script, k, "$.script")
+            if v is not None and not isinstance(v, str):
+                issues.append(Issue("ERROR", f"$.script.{k}", "must be string"))
+
+    fx = req(data, "functions", "$")
+    if fx is not None and not isinstance(fx, list):
+        issues.append(Issue("ERROR", "$.functions", "must be array"))
+        fx = []
+
+    if kind == "functions.quote" and "functions_quote" not in data:
+        issues.append(Issue("ERROR", "$.functions_quote", "missing required field"))
+    if kind == "functions.procedure" and "functions_procedure" not in data:
+        issues.append(Issue("ERROR", "$.functions_procedure", "missing required field"))
+
+    if isinstance(fx, list):
+        for i, f in enumerate(fx):
+            if not isinstance(f, dict):
+                issues.append(Issue("ERROR", f"$.functions[{i}]", "must be object"))
+                continue
+            if not isinstance(f.get("name"), str):
+                issues.append(Issue("ERROR", f"$.functions[{i}].name", "must be string"))
+            if not isinstance(f.get("signature", ""), str):
+                issues.append(Issue("ERROR", f"$.functions[{i}].signature", "must be string"))
+
+            if kind == "functions.quote":
+                for k in ("purpose", "inputs", "outputs"):
+                    if k not in f:
+                        issues.append(Issue("ERROR", f"$.functions[{i}].{k}", "missing required field"))
+                if "inputs" in f and not isinstance(f["inputs"], list):
+                    issues.append(Issue("ERROR", f"$.functions[{i}].inputs", "must be array"))
+                if "outputs" in f and not isinstance(f["outputs"], list):
+                    issues.append(Issue("ERROR", f"$.functions[{i}].outputs", "must be array"))
+                if "returns" in f and not isinstance(f["returns"], list):
+                    issues.append(Issue("ERROR", f"$.functions[{i}].returns", "must be array"))
+
+            if kind == "functions.procedure":
+                if "level" not in f:
+                    issues.append(Issue("ERROR", f"$.functions[{i}].level", "missing required field"))
+                if "steps" in f and not isinstance(f["steps"], list):
+                    issues.append(Issue("ERROR", f"$.functions[{i}].steps", "must be array"))
+                if "brief_flow" in f and not isinstance(f["brief_flow"], list):
+                    issues.append(Issue("ERROR", f"$.functions[{i}].brief_flow", "must be array"))
+
+    return issues
+
+
 def validate_file(schema: Dict[str, Any], file_path: Path) -> Dict[str, Any]:
     result: Dict[str, Any] = {
         "file": str(file_path),
         "ok": True,
         "used": "min",
+        "meta_kind": "unknown",
         "errors": [],
         "warnings": [],
     }
@@ -122,33 +215,48 @@ def validate_file(schema: Dict[str, Any], file_path: Path) -> Dict[str, Any]:
         result["errors"].append({"path": "$", "message": f"failed to parse json: {e}"})
         return result
 
+    kind = _detect_meta_kind(file_path, data if isinstance(data, dict) else {})
+    result["meta_kind"] = kind
+
     used_jsonschema, js_issues = _try_jsonschema_validate(schema, data)
     if used_jsonschema:
         result["used"] = "jsonschema"
         issues = js_issues
     else:
-        issues = _min_validate(schema, data)
+        if not isinstance(data, dict):
+            issues = [Issue("ERROR", "$", f"root must be object, got {type(data).__name__}")]
+        elif kind in ("quote", "procedure"):
+            issues = _min_validate_script_meta(data, kind)
+        elif kind in ("functions.quote", "functions.procedure"):
+            issues = _min_validate_functions_meta(data, kind)
+        else:
+            issues = [Issue("ERROR", "$", "cannot detect meta kind from filename/content")]
 
-    # extra pragmatic warnings (not schema-enforced)
     def warn(path: str, msg: str):
         result["warnings"].append({"path": path, "message": msg})
 
-    # If quote/procedure exists, suggest todo presence when confidence low-ish (can't enforce)
     if isinstance(data, dict):
-        if "quote" in data and isinstance(data["quote"], dict):
-            conf = data["quote"].get("confidence", {})
-            if isinstance(conf, dict) and conf.get("goal") in ("low", "medium"):
-                warn("$.quote.confidence.goal", "goal confidence is not high; ensure evidence/todo are present per META_RULES_V1")
-        if "functions" in data and isinstance(data["functions"], list):
-            # check returns evidence presence lightly
-            for i, f in enumerate(data["functions"]):
-                if not isinstance(f, dict):
-                    continue
-                if "returns" in f and isinstance(f["returns"], list):
-                    for j, r in enumerate(f["returns"]):
-                        if isinstance(r, dict):
-                            if "evidence" not in r:
-                                warn(f"$.functions[{i}].returns[{j}].evidence", "missing evidence; META_RULES_V1 requires evidence for each return branch")
+        if kind == "quote":
+            public_api = ((data.get("quote") or {}).get("public_api") or [])
+            functions = data.get("functions") or []
+            if isinstance(public_api, list) and isinstance(functions, list):
+                fn_names = {f.get("name") for f in functions if isinstance(f, dict)}
+                for api in public_api:
+                    if api not in fn_names:
+                        warn("$.functions", f"public_api '{api}' missing in script-level functions[]")
+        if kind == "functions.quote":
+            fq = data.get("functions_quote") or {}
+            if isinstance(fq, dict) and fq.get("coverage") not in ("all", "graded-all"):
+                warn("$.functions_quote.coverage", "recommended value is 'all' or 'graded-all'")
+        if kind == "functions.procedure":
+            fp = data.get("functions_procedure") or {}
+            if isinstance(fp, dict) and "step_style" not in fp:
+                warn("$.functions_procedure.step_style", "missing step_style")
+        if "quality" in data:
+            q = data.get("quality") or {}
+            if isinstance(q, dict) and "function_count" in q and isinstance(data.get("functions"), list):
+                if q["function_count"] != len(data["functions"]):
+                    warn("$.quality.function_count", "function_count does not match len(functions)")
 
     for iss in issues:
         if iss.level == "ERROR":
@@ -163,10 +271,10 @@ def validate_file(schema: Dict[str, Any], file_path: Path) -> Dict[str, Any]:
 
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--schema", required=True, help="Path to META_SCHEMA_V1.json")
+    ap.add_argument("--schema", required=True, help="Path to META_SCHEMA.json")
     ap.add_argument("--files", nargs="*", default=[], help="One or more meta json files to validate")
     ap.add_argument("--dir", default="", help="Directory to scan for meta json files")
-    ap.add_argument("--glob", default="*.meta.json", help="Glob pattern when using --dir (default: *.meta.json)")
+    ap.add_argument("--glob", default="*.meta.json", help="Glob pattern when using --dir")
     ap.add_argument("--report", default="", help="Optional output report json path")
     args = ap.parse_args(argv)
 
@@ -178,7 +286,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         d = Path(args.dir).resolve()
         targets.extend(sorted(d.glob(args.glob)))
 
-    # unique
     seen = set()
     uniq: List[Path] = []
     for p in targets:
@@ -198,9 +305,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         results.append(res)
         if res["ok"]:
             ok_count += 1
-            print(f"[OK]   {fp}  (used={res['used']})")
+            print(f"[OK]   {fp}  (used={res['used']}, kind={res['meta_kind']})")
         else:
-            print(f"[FAIL] {fp}  (used={res['used']})")
+            print(f"[FAIL] {fp}  (used={res['used']}, kind={res['meta_kind']})")
             for e in res["errors"]:
                 print(f"       - ERROR {e['path']}: {e['message']}")
         for w in res["warnings"]:

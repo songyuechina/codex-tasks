@@ -1,0 +1,681 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_com_utils.py",
+    "path": "D:/codex-tasks/cad/system/CAD_com_utils.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_quote": {
+    "goal": "封装 CAD / COM busy、rejected、临时阻塞场景的可复用重试与调试辅助。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、高风险控制函数、关键上下文方法与核心持久化/连接逻辑。",
+      "normal": "一般业务辅助函数、读取/选择/切换流程与中等风险的内部函数。",
+      "utility": "局部转换、小型 helper、装饰器闭包与轻量代理方法。"
+    },
+    "public_api": [
+      "silent_mode",
+      "retry_on_busy",
+      "retry_if_busy",
+      "SafeCOM.call",
+      "SafeCOM.list_selection",
+      "alias",
+      "node",
+      "timeit",
+      "debuggable"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_dummy_func",
+      "symbol": "_dummy_func",
+      "qualname": "_dummy_func",
+      "level": "utility",
+      "signature": "def _dummy_func(*args: Any, **kwargs: Any) -> None:",
+      "purpose": "在 CAD_com_utils 中承接 `_dummy_func` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "*args",
+          "raw": "*args: Any",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "失败、未命中或无结果时可能返回 None。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 48,
+        "line_end": 52
+      }
+    },
+    {
+      "name": "silent_mode",
+      "symbol": "silent_mode",
+      "qualname": "silent_mode",
+      "level": "normal",
+      "signature": "def silent_mode():",
+      "purpose": "在 CAD_com_utils 中承接 `silent_mode` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 53,
+        "line_end": 94
+      }
+    },
+    {
+      "name": "_retry_logic",
+      "symbol": "_retry_logic",
+      "qualname": "_retry_logic",
+      "level": "core",
+      "signature": "def _retry_logic( max_retries:",
+      "purpose": "在 CAD_com_utils 中承接 `_retry_logic` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "pythoncom",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 95,
+        "line_end": 157
+      }
+    },
+    {
+      "name": "retry_on_busy",
+      "symbol": "retry_on_busy",
+      "qualname": "retry_on_busy",
+      "level": "core",
+      "signature": "def retry_on_busy( func_or_retries:",
+      "purpose": "对目标调用施加 busy/rejected 容错重试策略。",
+      "inputs": [],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 158,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_on_busy.decorator_factory",
+      "symbol": "decorator_factory",
+      "qualname": "retry_on_busy.decorator_factory",
+      "level": "utility",
+      "signature": "def decorator_factory(final_retries: int, final_delay: float):",
+      "purpose": "对目标调用施加 busy/rejected 容错重试策略。",
+      "inputs": [
+        {
+          "name": "final_retries",
+          "raw": "final_retries: int",
+          "required": true
+        },
+        {
+          "name": "final_delay",
+          "raw": "final_delay: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 171,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_on_busy.decorator_factory.actual_decorator",
+      "symbol": "actual_decorator",
+      "qualname": "retry_on_busy.decorator_factory.actual_decorator",
+      "level": "utility",
+      "signature": "def actual_decorator(func: Callable[..., Any]):",
+      "purpose": "为外层装饰器链补充包装逻辑。",
+      "inputs": [
+        {
+          "name": "func",
+          "raw": "func: Callable[..., Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 172,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_on_busy.decorator_factory.actual_decorator.wrapper",
+      "symbol": "wrapper",
+      "qualname": "retry_on_busy.decorator_factory.actual_decorator.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args: Any, **kwargs: Any):",
+      "purpose": "为外层装饰器链补充包装逻辑。",
+      "inputs": [
+        {
+          "name": "*args",
+          "raw": "*args: Any",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 173,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "retry_if_busy",
+      "symbol": "retry_if_busy",
+      "qualname": "retry_if_busy",
+      "level": "core",
+      "signature": "def retry_if_busy(max_retries: int = 10, delay: float = 0.5):",
+      "purpose": "对目标调用施加 busy/rejected 容错重试策略。",
+      "inputs": [
+        {
+          "name": "max_retries",
+          "raw": "max_retries: int = 10",
+          "required": false
+        },
+        {
+          "name": "delay",
+          "raw": "delay: float = 0.5",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy",
+        "retry_if_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 194,
+        "line_end": 204
+      }
+    },
+    {
+      "name": "SafeCOM.call",
+      "symbol": "call",
+      "qualname": "SafeCOM.call",
+      "level": "core",
+      "signature": "def call(func: Callable[..., Any], *args: Any, **kwargs: Any) -> Any:",
+      "purpose": "在 CAD_com_utils 中承接 `SafeCOM.call` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "func",
+          "raw": "func: Callable[..., Any]",
+          "required": true
+        },
+        {
+          "name": "*args",
+          "raw": "*args: Any",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "retry_on_busy"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 210,
+        "line_end": 213
+      }
+    },
+    {
+      "name": "SafeCOM.list_selection",
+      "symbol": "list_selection",
+      "qualname": "SafeCOM.list_selection",
+      "level": "core",
+      "signature": "def list_selection(ss: Any) -> List[Any]:",
+      "purpose": "在 CAD_com_utils 中承接 `SafeCOM.list_selection` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "ss",
+          "raw": "ss: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 214,
+        "line_end": 237
+      }
+    },
+    {
+      "name": "SafeCOM.list_selection._to_list",
+      "symbol": "_to_list",
+      "qualname": "SafeCOM.list_selection._to_list",
+      "level": "utility",
+      "signature": "def _to_list():",
+      "purpose": "在 CAD_com_utils 中承接 `SafeCOM.list_selection._to_list` 这一段局部流程。",
+      "inputs": [],
+      "outputs": [
+        "选中的图元集合，或对当前选择集/高亮状态产生影响。"
+      ],
+      "returns": [
+        "图元列表、单个图元或与选择相关的结果。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "retry_on_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 221,
+        "line_end": 237
+      }
+    },
+    {
+      "name": "alias",
+      "symbol": "alias",
+      "qualname": "alias",
+      "level": "core",
+      "signature": "def alias(*names: str):",
+      "purpose": "在 CAD_com_utils 中承接 `alias` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "*names",
+          "raw": "*names: str",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 238,
+        "line_end": 255
+      }
+    },
+    {
+      "name": "alias.foo",
+      "symbol": "foo",
+      "qualname": "alias.foo",
+      "level": "utility",
+      "signature": "def foo(...):",
+      "purpose": "在 CAD_com_utils 中承接 `alias.foo` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "...",
+          "raw": "...",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 243,
+        "line_end": 246
+      }
+    },
+    {
+      "name": "alias.decorator",
+      "symbol": "decorator",
+      "qualname": "alias.decorator",
+      "level": "utility",
+      "signature": "def decorator(func: Callable[..., Any]):",
+      "purpose": "为外层装饰器链补充包装逻辑。",
+      "inputs": [
+        {
+          "name": "func",
+          "raw": "func: Callable[..., Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 247,
+        "line_end": 255
+      }
+    },
+    {
+      "name": "node",
+      "symbol": "node",
+      "qualname": "node",
+      "level": "utility",
+      "signature": "def node(msg: str, *args: Any, **kwargs: Any) -> None:",
+      "purpose": "在 CAD_com_utils 中承接 `node` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "msg",
+          "raw": "msg: str",
+          "required": true
+        },
+        {
+          "name": "*args",
+          "raw": "*args: Any",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "以轻量返回值或副作用形式支撑上层流程。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "sys_logger"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 256,
+        "line_end": 268
+      }
+    },
+    {
+      "name": "timeit",
+      "symbol": "timeit",
+      "qualname": "timeit",
+      "level": "core",
+      "signature": "def timeit(func: Callable[..., Any]):",
+      "purpose": "在 CAD_com_utils 中承接 `timeit` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "func",
+          "raw": "func: Callable[..., Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "C",
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 269,
+        "line_end": 293
+      }
+    },
+    {
+      "name": "timeit.wrapper",
+      "symbol": "wrapper",
+      "qualname": "timeit.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args: Any, **kwargs: Any):",
+      "purpose": "为外层装饰器链补充包装逻辑。",
+      "inputs": [
+        {
+          "name": "*args",
+          "raw": "*args: Any",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [
+        "记录日志或控制台输出。"
+      ],
+      "dependencies": [
+        "sys_logger",
+        "os",
+        "time"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 278,
+        "line_end": 293
+      }
+    },
+    {
+      "name": "debuggable",
+      "symbol": "debuggable",
+      "qualname": "debuggable",
+      "level": "core",
+      "signature": "def debuggable(func: Callable[..., Any]):",
+      "purpose": "在 CAD_com_utils 中承接 `debuggable` 这一段局部流程。",
+      "inputs": [
+        {
+          "name": "func",
+          "raw": "func: Callable[..., Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "time",
+        "retry_on_busy",
+        "retry_if_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 294,
+        "line_end": 315
+      }
+    },
+    {
+      "name": "debuggable.wrapper",
+      "symbol": "wrapper",
+      "qualname": "debuggable.wrapper",
+      "level": "utility",
+      "signature": "def wrapper(*args: Any, **kwargs: Any):",
+      "purpose": "为外层装饰器链补充包装逻辑。",
+      "inputs": [
+        {
+          "name": "*args",
+          "raw": "*args: Any",
+          "required": false
+        },
+        {
+          "name": "**kwargs",
+          "raw": "**kwargs: Any",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回读取到的值、状态字典或解析结果。"
+      ],
+      "returns": [
+        "返回值依函数分支而定，通常是状态标记、对象引用或无显式返回。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C",
+        "time",
+        "retry_on_busy",
+        "retry_if_busy",
+        "SafeCOM"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 299,
+        "line_end": 315
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "logging"
+    ],
+    "script_focus": "封装 CAD / COM busy、rejected、临时阻塞场景的可复用重试与调试辅助。"
+  },
+  "quality": {
+    "todo": [
+      "部分异常分支依赖 COM 错误文本匹配，语义按源码上下文概括。",
+      "嵌套 decorator/wrapper 的真实闭包返回分支需运行时才能完全确认。"
+    ],
+    "function_count": 19,
+    "public_api_count": 9,
+    "core_function_count": 8
+  }
+}

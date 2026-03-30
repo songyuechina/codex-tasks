@@ -1,0 +1,1060 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_area_analysis.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "从 CAD 文档中识别候选打印区域，清理伪极大矩形，并与标准图幅、方向和比例规则进行匹配。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "get_print_area_polylines",
+      "get_pseudo_maximal_polylines",
+      "match_standard_print_by_mode",
+      "remove_pseudo_maxima_in_space"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_safe_delete",
+      "symbol": "_safe_delete",
+      "qualname": "_safe_delete",
+      "level": "utility",
+      "signature": "def _safe_delete(ent: Any) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "ent.Delete"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 160,
+        "line_end": 165
+      }
+    },
+    {
+      "name": "_bbox_xy",
+      "symbol": "_bbox_xy",
+      "qualname": "_bbox_xy",
+      "level": "utility",
+      "signature": "def _bbox_xy(ent: Any) -> Optional[Tuple[float, float, float, float]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "ent.GetBoundingBox",
+        "float"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 168,
+        "line_end": 180
+      }
+    },
+    {
+      "name": "_bbox_wh_from_bbox",
+      "symbol": "_bbox_wh_from_bbox",
+      "qualname": "_bbox_wh_from_bbox",
+      "level": "utility",
+      "signature": "def _bbox_wh_from_bbox(b: Tuple[float, float, float, float]) -> Tuple[float, float]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "b",
+          "raw": "b: Tuple[float, float, float, float]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "abs",
+        "max",
+        "min"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 183,
+        "line_end": 189
+      }
+    },
+    {
+      "name": "_eps_from_short_side",
+      "symbol": "_eps_from_short_side",
+      "qualname": "_eps_from_short_side",
+      "level": "utility",
+      "signature": "def _eps_from_short_side(short_side: float) -> float:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "short_side",
+          "raw": "short_side: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "float",
+        "max"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 192,
+        "line_end": 193
+      }
+    },
+    {
+      "name": "_cluster_1d",
+      "symbol": "_cluster_1d",
+      "qualname": "_cluster_1d",
+      "level": "utility",
+      "signature": "def _cluster_1d(values: List[float], tol: float) -> List[float]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "values",
+          "raw": "values: List[float]",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "abs",
+        "append",
+        "clusters.append",
+        "len",
+        "sorted",
+        "sum"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 196,
+        "line_end": 208
+      }
+    },
+    {
+      "name": "_cluster_points_2d",
+      "symbol": "_cluster_points_2d",
+      "qualname": "_cluster_points_2d",
+      "level": "utility",
+      "signature": "def _cluster_points_2d(points: List[Tuple[float, float]], tol: float) -> List[Tuple[float, float]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "points",
+          "raw": "points: List[Tuple[float, float]]",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "abs",
+        "append",
+        "buckets.append",
+        "enumerate",
+        "len",
+        "reps.append",
+        "sum"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 211,
+        "line_end": 229
+      }
+    },
+    {
+      "name": "_get_polyline_points",
+      "symbol": "_get_polyline_points",
+      "qualname": "_get_polyline_points",
+      "level": "utility",
+      "signature": "def _get_polyline_points(poly: Any) -> List[Tuple[float, float]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "float",
+        "get_attr",
+        "int",
+        "len",
+        "list",
+        "poly.GetPointAt",
+        "pts.append",
+        "range"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 236,
+        "line_end": 274
+      }
+    },
+    {
+      "name": "is_rectangular_polyline",
+      "symbol": "is_rectangular_polyline",
+      "qualname": "is_rectangular_polyline",
+      "level": "utility",
+      "signature": "def is_rectangular_polyline(poly: Any) -> Tuple[bool, Dict[str, Any]]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_wh_from_bbox",
+        "_bbox_xy",
+        "_cluster_1d",
+        "_cluster_points_2d",
+        "_eps_from_short_side",
+        "_get_polyline_points",
+        "len",
+        "min"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 281,
+        "line_end": 347
+      }
+    },
+    {
+      "name": "select_all_polylines",
+      "symbol": "select_all_polylines",
+      "qualname": "select_all_polylines",
+      "level": "normal",
+      "signature": "def select_all_polylines(autocast: bool=True) -> List[Any]:",
+      "purpose": "按 CAD 条件选取目标实体集合。",
+      "inputs": [
+        {
+          "name": "autocast",
+          "raw": "autocast: bool = True",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "list",
+        "select_polyline",
+        "select_polyline_chuantong"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 354,
+        "line_end": 358
+      }
+    },
+    {
+      "name": "get_rect_polylines_by_space",
+      "symbol": "get_rect_polylines_by_space",
+      "qualname": "get_rect_polylines_by_space",
+      "level": "utility",
+      "signature": "def get_rect_polylines_by_space(polylines: List[Any]) -> Dict[str, Any]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "polylines",
+          "raw": "polylines: List[Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "append",
+        "btr_name.upper",
+        "doc.ObjectIdToObject",
+        "get_attr",
+        "id",
+        "is_rectangular_polyline",
+        "out_model.append",
+        "out_other.append"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 365,
+        "line_end": 407
+      }
+    },
+    {
+      "name": "build_std288",
+      "symbol": "build_std288",
+      "qualname": "build_std288",
+      "level": "normal",
+      "signature": "def build_std288(scales: Tuple[float, ...]=(1.0, 1.1, 1.2), real_scales: Tuple[float, ...]=(1.0, 0.01)) -> List[Dict[str, Any]]:",
+      "purpose": "构造中间配置、缓存或计划对象，供主流程复用。",
+      "inputs": [
+        {
+          "name": "scales",
+          "raw": "scales: Tuple[float, ...] = (1.0, 1.1, 1.2)",
+          "required": false
+        },
+        {
+          "name": "real_scales",
+          "raw": "real_scales: Tuple[float, ...] = (1.0, 0.01)",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "enumerate",
+        "float",
+        "int",
+        "max",
+        "min",
+        "std.append",
+        "std.sort"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 414,
+        "line_end": 449
+      }
+    },
+    {
+      "name": "get_std288_cached",
+      "symbol": "get_std288_cached",
+      "qualname": "get_std288_cached",
+      "level": "utility",
+      "signature": "def get_std288_cached() -> List[Dict[str, Any]]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "build_std288"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 456,
+        "line_end": 460
+      }
+    },
+    {
+      "name": "get_std288_bounds",
+      "symbol": "get_std288_bounds",
+      "qualname": "get_std288_bounds",
+      "level": "utility",
+      "signature": "def get_std288_bounds() -> tuple[float, float]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "float",
+        "get_std288_cached",
+        "max",
+        "min"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 463,
+        "line_end": 470
+      }
+    },
+    {
+      "name": "_orientation_from_bbox",
+      "symbol": "_orientation_from_bbox",
+      "qualname": "_orientation_from_bbox",
+      "level": "utility",
+      "signature": "def _orientation_from_bbox(dx: float, dy: float) -> int:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "dx",
+          "raw": "dx: float",
+          "required": true
+        },
+        {
+          "name": "dy",
+          "raw": "dy: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 477,
+        "line_end": 479
+      }
+    },
+    {
+      "name": "_match_score",
+      "symbol": "_match_score",
+      "qualname": "_match_score",
+      "level": "utility",
+      "signature": "def _match_score(w: float, h: float, ws: float, hs: float) -> float:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "w",
+          "raw": "w: float",
+          "required": true
+        },
+        {
+          "name": "h",
+          "raw": "h: float",
+          "required": true
+        },
+        {
+          "name": "ws",
+          "raw": "ws: float",
+          "required": true
+        },
+        {
+          "name": "hs",
+          "raw": "hs: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_eps_from_short_side",
+        "abs",
+        "max"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 482,
+        "line_end": 488
+      }
+    },
+    {
+      "name": "_within_supported_bounds",
+      "symbol": "_within_supported_bounds",
+      "qualname": "_within_supported_bounds",
+      "level": "utility",
+      "signature": "def _within_supported_bounds(w: float, h: float) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "w",
+          "raw": "w: float",
+          "required": true
+        },
+        {
+          "name": "h",
+          "raw": "h: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_eps_from_short_side",
+        "get_std288_bounds"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 491,
+        "line_end": 494
+      }
+    },
+    {
+      "name": "check_strict_standard_print_polyline",
+      "symbol": "check_strict_standard_print_polyline",
+      "qualname": "check_strict_standard_print_polyline",
+      "level": "utility",
+      "signature": "def check_strict_standard_print_polyline(poly: Any) -> Any:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_xy",
+        "_eps_from_short_side",
+        "_match_score",
+        "_orientation_from_bbox",
+        "abs",
+        "float",
+        "get_std288_cached",
+        "max"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 501,
+        "line_end": 544
+      }
+    },
+    {
+      "name": "match_nearest_standard_print",
+      "symbol": "match_nearest_standard_print",
+      "qualname": "match_nearest_standard_print",
+      "level": "normal",
+      "signature": "def match_nearest_standard_print(poly: Any) -> Any:",
+      "purpose": "执行匹配、评分或模式归一逻辑。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_xy",
+        "_match_score",
+        "_orientation_from_bbox",
+        "_within_supported_bounds",
+        "abs",
+        "check_strict_standard_print_polyline",
+        "float",
+        "get_std288_cached"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 551,
+        "line_end": 593
+      }
+    },
+    {
+      "name": "match_standard_print_by_mode",
+      "symbol": "match_standard_print_by_mode",
+      "qualname": "match_standard_print_by_mode",
+      "level": "core",
+      "signature": "def match_standard_print_by_mode(poly: Any, mode: str='basic') -> Any:",
+      "purpose": "执行匹配、评分或模式归一逻辑。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str = 'basic'",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "ValueError",
+        "check_strict_standard_print_polyline",
+        "lower",
+        "match_nearest_standard_print",
+        "replace",
+        "str",
+        "strip"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 596,
+        "line_end": 607
+      }
+    },
+    {
+      "name": "remove_duplicate_polylines_dynamic",
+      "symbol": "remove_duplicate_polylines_dynamic",
+      "qualname": "remove_duplicate_polylines_dynamic",
+      "level": "normal",
+      "signature": "def remove_duplicate_polylines_dynamic(polylines: List[Any], priority_layer: str='dy_zhuanyong') -> List[Any]:",
+      "purpose": "删除重复、伪候选或不再需要的对象。",
+      "inputs": [
+        {
+          "name": "polylines",
+          "raw": "polylines: List[Any]",
+          "required": true
+        },
+        {
+          "name": "priority_layer",
+          "raw": "priority_layer: str = 'dy_zhuanyong'",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_wh_from_bbox",
+        "_bbox_xy",
+        "_eps_from_short_side",
+        "_safe_delete",
+        "abs",
+        "cached.append",
+        "cached.sort",
+        "get_attr"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 614,
+        "line_end": 680
+      }
+    },
+    {
+      "name": "_contains_bbox",
+      "symbol": "_contains_bbox",
+      "qualname": "_contains_bbox",
+      "level": "utility",
+      "signature": "def _contains_bbox(outer: Tuple[float, float, float, float], inner: Tuple[float, float, float, float], tol: float) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "outer",
+          "raw": "outer: Tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "inner",
+          "raw": "inner: Tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 687,
+        "line_end": 690
+      }
+    },
+    {
+      "name": "find_maximal_rect_polylines",
+      "symbol": "find_maximal_rect_polylines",
+      "qualname": "find_maximal_rect_polylines",
+      "level": "utility",
+      "signature": "def find_maximal_rect_polylines(rect_polylines: List[Any]) -> List[Any]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "rect_polylines",
+          "raw": "rect_polylines: List[Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_wh_from_bbox",
+        "_bbox_xy",
+        "_contains_bbox",
+        "_eps_from_short_side",
+        "data.append",
+        "enumerate",
+        "max",
+        "maxima.append"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 693,
+        "line_end": 717
+      }
+    },
+    {
+      "name": "collect_pseudo_maximal_rect_polylines",
+      "symbol": "collect_pseudo_maximal_rect_polylines",
+      "qualname": "collect_pseudo_maximal_rect_polylines",
+      "level": "normal",
+      "signature": "def collect_pseudo_maximal_rect_polylines(rect_polylines: List[Any]) -> List[Any]:",
+      "purpose": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "inputs": [
+        {
+          "name": "rect_polylines",
+          "raw": "rect_polylines: List[Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_wh_from_bbox",
+        "_bbox_xy",
+        "_contains_bbox",
+        "_eps_from_short_side",
+        "_is_standard_scale_1",
+        "data.append",
+        "enumerate",
+        "list"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 720,
+        "line_end": 777
+      }
+    },
+    {
+      "name": "_add_edge_lines_and_delete",
+      "symbol": "_add_edge_lines_and_delete",
+      "qualname": "_add_edge_lines_and_delete",
+      "level": "utility",
+      "signature": "def _add_edge_lines_and_delete(ent: Any) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "ent",
+          "raw": "ent: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_bbox_xy",
+        "_safe_delete",
+        "add_line",
+        "doc.ObjectIdToObject",
+        "owner_btr.AddLine"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 786,
+        "line_end": 811
+      }
+    },
+    {
+      "name": "_is_standard_scale_1",
+      "symbol": "_is_standard_scale_1",
+      "qualname": "_is_standard_scale_1",
+      "level": "utility",
+      "signature": "def _is_standard_scale_1(poly: Any) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "abs",
+        "check_strict_standard_print_polyline",
+        "float"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 814,
+        "line_end": 823
+      }
+    },
+    {
+      "name": "remove_pseudo_maxima_in_space",
+      "symbol": "remove_pseudo_maxima_in_space",
+      "qualname": "remove_pseudo_maxima_in_space",
+      "level": "core",
+      "signature": "def remove_pseudo_maxima_in_space(rects: List[Any]) -> List[Any]:",
+      "purpose": "删除重复、伪候选或不再需要的对象。",
+      "inputs": [
+        {
+          "name": "rects",
+          "raw": "rects: List[Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_add_edge_lines_and_delete",
+        "_bbox_wh_from_bbox",
+        "_bbox_xy",
+        "_contains_bbox",
+        "_eps_from_short_side",
+        "_is_standard_scale_1",
+        "alive.append",
+        "doc.Regen"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 826,
+        "line_end": 896
+      }
+    },
+    {
+      "name": "get_print_area_polylines",
+      "symbol": "get_print_area_polylines",
+      "qualname": "get_print_area_polylines",
+      "level": "core",
+      "signature": "def get_print_area_polylines() -> Dict[str, Any]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "get_rect_polylines_by_space",
+        "papers.items",
+        "remove_pseudo_maxima_in_space",
+        "select_all_polylines"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 903,
+        "line_end": 938
+      }
+    },
+    {
+      "name": "get_pseudo_maximal_polylines",
+      "symbol": "get_pseudo_maximal_polylines",
+      "qualname": "get_pseudo_maximal_polylines",
+      "level": "core",
+      "signature": "def get_pseudo_maximal_polylines() -> Dict[str, Any]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "collect_pseudo_maximal_rect_polylines",
+        "get_rect_polylines_by_space",
+        "papers.items",
+        "select_all_polylines"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 941,
+        "line_end": 956
+      }
+    },
+    {
+      "name": "_debug_dump_standard_matches",
+      "symbol": "_debug_dump_standard_matches",
+      "qualname": "_debug_dump_standard_matches",
+      "level": "utility",
+      "signature": "def _debug_dump_standard_matches(rects: List[Any]) -> None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "rects",
+          "raw": "rects: List[Any]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "为同脚本主流程提供轻量辅助结果或副作用。"
+      ],
+      "returns": [
+        "可能无显式返回，或由上层通过副作用感知结果。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "check_strict_standard_print_polyline",
+        "get_attr",
+        "match_nearest_standard_print",
+        "print",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 963,
+        "line_end": 972
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "geometry",
+      "print-analysis"
+    ],
+    "script_focus": "打印区域识别与标准图幅匹配脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 29,
+    "public_api_count": 4,
+    "core_function_count": 4
+  }
+}

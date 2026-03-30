@@ -1,0 +1,269 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "cad_command_monitor.py",
+    "path": "D:/codex-tasks/cad/system/cad_command_monitor.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "作为独立守护脚本监控 CAD 命令停滞并在必要时抢焦点发送 ESC。",
+    "step_style": "graded",
+    "public_api": [
+      "force_bring_to_front",
+      "send_nuclear_esc",
+      "get_active_cad_app",
+      "analyze_state",
+      "main"
+    ]
+  },
+  "functions": [
+    {
+      "name": "force_bring_to_front",
+      "symbol": "force_bring_to_front",
+      "qualname": "force_bring_to_front",
+      "level": "core",
+      "signature": "def force_bring_to_front(hwnd):",
+      "role": "在 cad_command_monitor 中承接 `force_bring_to_front` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留单实例锁，避免多个守护进程互相抢焦点。",
+        "保留只在确认卡死/等待输入时才发送 ESC 的谨慎策略。"
+      ],
+      "evidence": {
+        "line_start": 40,
+        "line_end": 66
+      }
+    },
+    {
+      "name": "send_nuclear_esc",
+      "symbol": "send_nuclear_esc",
+      "qualname": "send_nuclear_esc",
+      "level": "core",
+      "signature": "def send_nuclear_esc(hwnd, acad_doc):",
+      "role": "在 cad_command_monitor 中承接 `send_nuclear_esc` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留单实例锁，避免多个守护进程互相抢焦点。",
+        "保留只在确认卡死/等待输入时才发送 ESC 的谨慎策略。"
+      ],
+      "evidence": {
+        "line_start": 67,
+        "line_end": 102
+      }
+    },
+    {
+      "name": "get_active_cad_app",
+      "symbol": "get_active_cad_app",
+      "qualname": "get_active_cad_app",
+      "level": "normal",
+      "signature": "def get_active_cad_app():",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 103,
+        "line_end": 110
+      }
+    },
+    {
+      "name": "analyze_state",
+      "symbol": "analyze_state",
+      "qualname": "analyze_state",
+      "level": "core",
+      "signature": "def analyze_state(acad):",
+      "role": "汇总当前状态并输出诊断结论。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留单实例锁，避免多个守护进程互相抢焦点。",
+        "保留只在确认卡死/等待输入时才发送 ESC 的谨慎策略。"
+      ],
+      "evidence": {
+        "line_start": 111,
+        "line_end": 153
+      }
+    },
+    {
+      "name": "is_already_running",
+      "symbol": "is_already_running",
+      "qualname": "is_already_running",
+      "level": "utility",
+      "signature": "def is_already_running():",
+      "role": "在 cad_command_monitor 中承接 `is_already_running` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 154,
+        "line_end": 165
+      }
+    },
+    {
+      "name": "create_lock",
+      "symbol": "create_lock",
+      "qualname": "create_lock",
+      "level": "utility",
+      "signature": "def create_lock():",
+      "role": "在 cad_command_monitor 中承接 `create_lock` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 166,
+        "line_end": 166
+      }
+    },
+    {
+      "name": "remove_lock",
+      "symbol": "remove_lock",
+      "qualname": "remove_lock",
+      "level": "utility",
+      "signature": "def remove_lock():",
+      "role": "在 cad_command_monitor 中承接 `remove_lock` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 167,
+        "line_end": 169
+      }
+    },
+    {
+      "name": "main",
+      "symbol": "main",
+      "qualname": "main",
+      "level": "core",
+      "signature": "def main():",
+      "role": "作为脚本主入口协调守护循环或批处理流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "准备锁文件、配置或运行环境。",
+        "进入主循环并检测 CAD/窗口/命令状态。",
+        "触发守护动作并在退出前释放资源。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留单实例锁，避免多个守护进程互相抢焦点。",
+        "保留只在确认卡死/等待输入时才发送 ESC 的谨慎策略。"
+      ],
+      "evidence": {
+        "line_start": 170,
+        "line_end": 264
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "窗口状态与焦点判断依赖 Win32 环境，meta 仅按静态逻辑概括。"
+    ],
+    "function_count": 8,
+    "public_api_count": 5,
+    "core_function_count": 4
+  }
+}

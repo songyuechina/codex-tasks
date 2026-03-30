@@ -1,0 +1,579 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_policy.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_policy.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_procedure": {
+    "goal": "描述 print_policy.py 中每个函数在打印主链中的步骤骨架。",
+    "step_style": "graded",
+    "public_api": [
+      "normalize_print_mode",
+      "collect_print_jobs",
+      "reindex_jobs_by_space",
+      "assign_output_paths",
+      "filter_jobs_by_handles",
+      "build_print_plan",
+      "plan_to_dict",
+      "save_plan_json"
+    ]
+  },
+  "functions": [
+    {
+      "name": "PrintPlan.total_jobs",
+      "signature": "def total_jobs(self) -> int:",
+      "level": "utility",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 76,
+        "line_end": 77
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "PrintPlan.landscape_count",
+      "signature": "def landscape_count(self) -> int:",
+      "level": "utility",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 80,
+        "line_end": 81
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "PrintPlan.portrait_count",
+      "signature": "def portrait_count(self) -> int:",
+      "level": "utility",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 84,
+        "line_end": 85
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_safe_handle",
+      "signature": "def _safe_handle(obj: Any) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 88,
+        "line_end": 92
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_get_bbox",
+      "signature": "def _get_bbox(poly: Any) -> Optional[tuple[float, float, float, float]]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 95,
+        "line_end": 105
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_layout_name_map",
+      "signature": "def _layout_name_map() -> dict[str, str]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 108,
+        "line_end": 118
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_sanitize_name",
+      "signature": "def _sanitize_name(name: str) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 121,
+        "line_end": 123
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_contains_bbox",
+      "signature": "def _contains_bbox(outer: tuple[float, float, float, float], inner: tuple[float, float, float, float], tol: float=1e-06) -> bool:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 126,
+        "line_end": 136
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "normalize_print_mode",
+      "signature": "def normalize_print_mode(mode: str | None) -> str:",
+      "level": "core",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "preconditions": [],
+      "failure_paths": [
+        "模式不在 PRINT_MODES 中时抛 ValueError。"
+      ],
+      "success_conditions": [
+        "后续所有策略与执行模块都使用统一模式值。"
+      ],
+      "must_keep_experience": [
+        "打印主链只允许三种模式，不能再引入旧 analysis 模式。"
+      ],
+      "evidence": {
+        "line_start": 139,
+        "line_end": 143
+      },
+      "steps": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ],
+      "purpose": "把用户输入的打印模式统一成 basic/adaptive/purified_adaptive 三种受支持值，并拒绝非法模式。",
+      "outputs": [
+        "返回规范化后的模式字符串。"
+      ],
+      "returns": [
+        "字符串；非法模式时抛 ValueError。"
+      ]
+    },
+    {
+      "name": "_area_match_mode",
+      "signature": "def _area_match_mode(mode: str) -> str:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 146,
+        "line_end": 150
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_make_job",
+      "signature": "def _make_job(poly: Any, dwg_path: str, space_kind: str, layout_name: str, owner_btr: str, *, mode: str) -> Optional[PrintJob]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 153,
+        "line_end": 190
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_collect_layout_viewports",
+      "signature": "def _collect_layout_viewports(layout_name: str) -> list[Any]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 193,
+        "line_end": 226
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "_sort_jobs",
+      "signature": "def _sort_jobs(jobs: list[PrintJob]) -> list[PrintJob]:",
+      "level": "utility",
+      "role": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 229,
+        "line_end": 257
+      },
+      "brief_flow": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "collect_print_jobs",
+      "signature": "def collect_print_jobs(dwg_path: str, *, mode: str=PRINT_MODE_BASIC, include_model: bool=True, include_layouts: bool=True, only_layouts: Optional[list[str]]=None) -> dict[str, list[PrintJob]]:",
+      "level": "core",
+      "role": "收集候选对象、空间数据或指标，并返回给上层流程。",
+      "preconditions": [],
+      "failure_paths": [
+        "某个候选区域无法匹配标准图幅时会跳过并记 warning。"
+      ],
+      "success_conditions": [
+        "返回的 jobs_by_space 已完成基本排序，可直接进入路径分配。"
+      ],
+      "must_keep_experience": [
+        "模型空间和布局空间都可能输出，不应默认二选一。",
+        "布局 jobs 要同时考虑纸空间打印框和布局视口候选。"
+      ],
+      "evidence": {
+        "line_start": 260,
+        "line_end": 326
+      },
+      "steps": [
+        "归一 mode，并读取打印区域与布局映射。",
+        "在 include_model 下从模型空间候选区域生成 model jobs。",
+        "在 include_layouts 下，先从纸空间候选区域生成布局 jobs，再补充布局视口 jobs。",
+        "按布局顺序和行列规则排序，并为每个 job 赋 sequence_no。"
+      ],
+      "purpose": "从模型空间和布局空间收集打印区域，生成按空间分组且已排序的 PrintJob 列表。",
+      "outputs": [
+        "返回 jobs_by_space 字典，key 为 layout 名，value 为 PrintJob 列表。"
+      ],
+      "returns": [
+        "字典；空字典表示未收集到可打印区域。"
+      ],
+      "dependencies": [
+        "get_print_area_polylines",
+        "_layout_name_map",
+        "_make_job",
+        "_collect_layout_viewports",
+        "_sort_jobs",
+        "get_layout_names"
+      ],
+      "risk_level": "high"
+    },
+    {
+      "name": "reindex_jobs_by_space",
+      "signature": "def reindex_jobs_by_space(jobs_by_space: dict[str, list[PrintJob]]) -> dict[str, list[PrintJob]]:",
+      "level": "core",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 329,
+        "line_end": 337
+      },
+      "steps": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "assign_output_paths",
+      "signature": "def assign_output_paths(jobs_by_space: dict[str, list[PrintJob]], *, output_root: str | Path, source_stem: str) -> None:",
+      "level": "core",
+      "role": "为已有对象分配输出属性、路径或索引。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "所有 job 都获得稳定、可预测的输出路径。"
+      ],
+      "must_keep_experience": [
+        "输出命名必须稳定，便于目录级调度复制和后续校验。"
+      ],
+      "evidence": {
+        "line_start": 340,
+        "line_end": 351
+      },
+      "steps": [
+        "按 layout_name 构造布局目录名。",
+        "按 source_stem、layout_name、sequence_no 生成文件名。",
+        "回写到每个 job.output_path。"
+      ],
+      "purpose": "按 layout 名和 sequence_no 为每个 PrintJob 分配稳定的 PDF 输出路径。",
+      "outputs": [
+        "无显式返回，直接更新各 job.output_path。"
+      ],
+      "returns": [
+        "无显式返回。"
+      ],
+      "side_effects": [
+        "修改 PrintJob.output_path。"
+      ],
+      "risk_level": "medium"
+    },
+    {
+      "name": "filter_jobs_by_handles",
+      "signature": "def filter_jobs_by_handles(jobs_by_space: dict[str, list[PrintJob]], excluded_handles: set[str] | None=None) -> dict[str, list[PrintJob]]:",
+      "level": "core",
+      "role": "按范围、handle 或条件过滤已有候选集合。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "返回结果可被上层流程直接消费。"
+      ],
+      "must_keep_experience": [
+        "返回结构应与上层 plan/job/summary 消费接口保持兼容。"
+      ],
+      "evidence": {
+        "line_start": 354,
+        "line_end": 364
+      },
+      "steps": [
+        "读取输入对象或候选集合。",
+        "执行当前函数负责的分析、匹配或过滤逻辑。",
+        "返回供上层继续消费的结果。"
+      ]
+    },
+    {
+      "name": "build_print_plan",
+      "signature": "def build_print_plan(dwg_path: str, output_root: str | Path, *, mode: str=PRINT_MODE_BASIC, source_stem: str | None=None, include_model: bool=True, include_layouts: bool=True, only_layouts: Optional[list[str]]=None) -> PrintPlan:",
+      "level": "core",
+      "role": "构造中间配置、缓存或计划对象，供主流程复用。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "PrintPlan 可直接被 execute_print_plan、plan_to_dict 和 print info 分析复用。"
+      ],
+      "must_keep_experience": [
+        "计划层和执行层要通过 PrintPlan 解耦，不能在执行器里重新发明计划逻辑。"
+      ],
+      "evidence": {
+        "line_start": 367,
+        "line_end": 400
+      },
+      "steps": [
+        "归一输入路径、输出根目录和模式。",
+        "调用 collect_print_jobs 收集并排序 jobs。",
+        "调用 assign_output_paths 为所有 jobs 分配 PDF 路径。",
+        "返回包含 dwg_path/output_root/source_stem/mode/jobs_by_space 的 PrintPlan。"
+      ],
+      "purpose": "把 DWG 路径、模式和输出根目录整理成完整 PrintPlan 对象，是执行器和分析器的统一输入。",
+      "outputs": [
+        "返回 PrintPlan 数据类实例。"
+      ],
+      "returns": [
+        "PrintPlan。"
+      ],
+      "dependencies": [
+        "normalize_print_mode",
+        "collect_print_jobs",
+        "assign_output_paths",
+        "PrintPlan"
+      ],
+      "risk_level": "high"
+    },
+    {
+      "name": "plan_to_dict",
+      "signature": "def plan_to_dict(plan: PrintPlan) -> dict[str, Any]:",
+      "level": "core",
+      "role": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "preconditions": [],
+      "failure_paths": [
+        "输入形态不满足预期时返回空结果、False 或抛出异常。"
+      ],
+      "success_conditions": [
+        "局部结果可被同脚本主流程继续使用。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 403,
+        "line_end": 416
+      },
+      "steps": [
+        "读取局部输入。",
+        "执行当前 helper 逻辑。",
+        "返回局部结果或通过副作用服务主流程。"
+      ]
+    },
+    {
+      "name": "save_plan_json",
+      "signature": "def save_plan_json(plan: PrintPlan, path: str | Path) -> Path:",
+      "level": "core",
+      "role": "把结构化结果保存到磁盘文件。",
+      "preconditions": [
+        "目标输出路径应可写。"
+      ],
+      "failure_paths": [
+        "输出路径不可写或磁盘文件被占用时写出失败。"
+      ],
+      "success_conditions": [
+        "plan.json 可被 print_runner、print_batch_dispatch 和 print_info_analysis 复用。"
+      ],
+      "must_keep_experience": [
+        "plan.json 是主链的重要中间契约文件，不应省略。"
+      ],
+      "evidence": {
+        "line_start": 419,
+        "line_end": 423
+      },
+      "steps": [
+        "确保目标目录存在。",
+        "把 PrintPlan 转成可序列化字典。",
+        "写出 JSON 并返回路径。"
+      ],
+      "purpose": "把 PrintPlan 以结构化 JSON 落盘，作为后续执行、分析和回归的权威计划文件。",
+      "outputs": [
+        "返回 plan.json 路径。"
+      ],
+      "returns": [
+        "Path。"
+      ],
+      "side_effects": [
+        "写入磁盘 JSON 文件。"
+      ],
+      "risk_level": "medium"
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "planning",
+      "filesystem",
+      "print-analysis"
+    ],
+    "script_focus": "把候选打印区域组织成稳定的 PrintPlan，完成模式归一、排序、路径分配与按 handle 过滤。"
+  },
+  "quality": {
+    "todo": [
+      "steps 为静态骨架摘要，未展开每个 CAD/COM 细节分支。",
+      "复杂阈值或外部环境异常处理仍建议结合真实案例进一步人工细化。"
+    ],
+    "function_count": 20,
+    "public_api_count": 8,
+    "core_function_count": 8
+  }
+}

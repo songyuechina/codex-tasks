@@ -1,0 +1,95 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "CAD_coordination",
+  "file_path": "D:/codex-tasks/cad/system/CAD_coordination.py",
+  "script_role": "基于 licad.C 的高层协同与保护脚本",
+  "core_problem": "解决 CAD 操作中的同步协调、等待空闲、事务保护、文件级回滚、安全重试循环与命令同步问题。",
+  "system_position": {
+    "layer_name": "协同与保护层",
+    "main_entry_note": "CAD 连接主入口仍然是 system.licad 的 C；本模块不负责建立主连接",
+    "works_with": [
+      "system.licad.py",
+      "system.common_logger.py",
+      "scripts.CAD_basic"
+    ]
+  },
+  "core_functions": [
+    {
+      "name": "wait_quiescent",
+      "role": "等待 CAD 真正空闲",
+      "input_shape": "min_quiet, timeout",
+      "output_shape": "bool"
+    },
+    {
+      "name": "CADGuard",
+      "role": "CAD 事务守卫上下文管理器",
+      "input_shape": "task_name, wait_before, wait_after, timeout, disable_ui, independent_undo",
+      "output_shape": "事务保护上下文"
+    },
+    {
+      "name": "FileGuard",
+      "role": "文件级备份与失败回滚卫士",
+      "input_shape": "file_path",
+      "output_shape": "文件保护上下文"
+    },
+    {
+      "name": "run_safety_loop",
+      "role": "备份-执行-校验-失败回滚-重试 的安全循环",
+      "input_shape": "target_dwg, action_func, check_func, max_retries",
+      "output_shape": "bool"
+    },
+    {
+      "name": "send_cmd_with_sync",
+      "role": "发送命令并等待同步完成",
+      "input_shape": "cmd, wait_after, timeout",
+      "output_shape": "bool"
+    },
+    {
+      "name": "wait_document_opened",
+      "role": "等待目标文档进入 CAD Documents 集合",
+      "input_shape": "path, timeout",
+      "output_shape": "bool"
+    },
+    {
+      "name": "ensure_single_process",
+      "role": "清理多余 CAD 进程，仅保留一个",
+      "input_shape": "无",
+      "output_shape": "bool"
+    },
+    {
+      "name": "start_cad_with_dialog_killer",
+      "role": "启动 CAD 并等待进入可用状态",
+      "input_shape": "无",
+      "output_shape": "bool"
+    },
+    {
+      "name": "wait_command_done",
+      "role": "兼容旧接口，映射到 wait_quiescent",
+      "input_shape": "timeout, poll_interval, quiet_time",
+      "output_shape": "bool"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "wait_quiescent 会持续轮询 C.raw_doc 的 CMDACTIVE / CMDNAMES",
+    "CADGuard 可能调用 StartUndoMark / EndUndoMark / SendCommand('_U') / Regen / Update",
+    "FileGuard 会创建 .bak_safety 备份文件，并在失败时尝试关闭 CAD 再回滚",
+    "run_safety_loop 会调用 scripts.CAD_basic.open_file",
+    "start_cad_with_dialog_killer 会调用 scripts.CAD_basic.start_applicationV9"
+  ],
+  "must_keep_experience": [
+    "读取失败时把 CAD 视为 busy / COM_Block，而不是轻易判死",
+    "事务守卫支持嵌套深度、局部回滚与根事务收尾",
+    "文件级保护要先备份，再执行，再校验，失败时物理回滚",
+    "命令同步必须基于 C.raw_doc，避免 wrapper/同步死锁"
+  ],
+  "known_limits": [
+    "本模块不是 CAD 主连接入口，不能替代 licad.C",
+    "仍与 scripts.CAD_basic 存在历史兼容耦合",
+    "职责较重，但当前已经收束为等待/事务/回滚/同步的高层骨架"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续拆分实现和减少历史兼容耦合，但不得丢失等待空闲、事务回滚、文件回滚与命令同步的核心经验。"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "CAD_selection",
+  "file_path": "D:/codex-tasks/cad/system/CAD_selection.py",
+  "applicable_scenarios": [
+    "需要稳定地从模型空间或布局空间选择对象",
+    "需要把通用 COM 对象转换为更具体的实体接口",
+    "需要按图层、图元类型、窗口区域、点选、交互方式筛选对象",
+    "需要高亮对象、控制夹点、隔离显示或恢复隐藏对象",
+    "需要统一读取或设置标准 CAD 对象与天正对象属性"
+  ],
+  "preconditions": [
+    "应先由 system.licad 的 C 建立 CAD 连接",
+    "system.CAD_com_utils 的 retry_on_busy / SafeCOM 应可用",
+    "调用者应理解当前激活空间（模型/布局）会影响选择结果",
+    "涉及 SendCommand、Pickfirst、Zoom 的函数应接受其交互副作用"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "建立选择上下文",
+      "detail": "通过 licad.C 获取 doc/mp/sp，并由 ss_select 创建临时选择集。"
+    },
+    {
+      "step": 2,
+      "name": "执行基础选择",
+      "detail": "根据 mode 选择 all/window/crossing/onscreen，并可附加 DXF 组码过滤。"
+    },
+    {
+      "step": 3,
+      "name": "提取与转换对象",
+      "detail": "使用 SafeCOM.list_selection 获取稳定列表，再用 _maybe_cast / cast_object 转换对象类型。"
+    },
+    {
+      "step": 4,
+      "name": "过滤当前空间",
+      "detail": "对关键选择函数应用 current_space_only，确保只保留当前激活空间对象。"
+    },
+    {
+      "step": 5,
+      "name": "必要时做可视化反馈",
+      "detail": "通过 Pickfirst、LISP sssetfirst、ZoomWindow、Highlight、IsolateObjects 等机制高亮或隔离目标对象。"
+    },
+    {
+      "step": 6,
+      "name": "统一属性访问",
+      "detail": "标准对象先尝试大小写智能属性解析；天正对象则根据 ObjectName 和 DISPID 映射进行 Invoke 读写。"
+    }
+  ],
+  "success_criteria": [
+    "选择结果稳定，且不会把非当前空间对象混入结果",
+    "对象转换后可直接访问更具体的几何/属性接口",
+    "天正对象属性能够通过统一接口读写",
+    "高亮、夹点、隔离显示等可视化辅助能准确反映当前对象"
+  ],
+  "failure_criteria": [
+    "重写时丢失 current_space_only 空间过滤机制",
+    "重写时丢失 _CAST_MAP 与天正 DISPID 映射体系",
+    "把 SafeCOM / retry_on_busy 保护去掉，导致选择与属性访问重新变得脆弱",
+    "轻率整体重写导致历史积累的天正对象兼容经验丢失"
+  ],
+  "do_not_use_for": [
+    "不要把本模块当作 CAD 主连接入口",
+    "不要轻率精简 ObjectName -> DISPID 映射字典",
+    "不要在不了解 Pickfirst / SendCommand 副作用的情况下随意改写可视化函数",
+    "不要把当前空间过滤机制拿掉后还假设结果正确"
+  ],
+  "integration_with_other_modules": {
+    "licad.py": "先连接，再用 C.doc / C.mp / C.sp 执行选择与对象访问",
+    "CAD_com_utils.py": "retry_on_busy / SafeCOM 是本模块稳定运行的重要底座",
+    "common_logger.py": "本模块当前通过 CAD_com_utils 间接使用 sys_logger，但日志体系仍可继续收束",
+    "CAD_core.py": "基础文件与环境控制由 CAD_core 层承担，本模块聚焦对象与选择"
+  },
+  "rewrite_constraints": [
+    "允许补充新的对象类型映射与属性映射",
+    "允许局部修复 print 与旧式引导",
+    "允许把个别辅助函数拆出去",
+    "不得轻率整体重写选择引擎、类型转换系统、天正属性映射系统"
+  ]
+}

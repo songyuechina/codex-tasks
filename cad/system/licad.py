@@ -3,6 +3,7 @@
 import time
 import os
 import sys
+import subprocess
 import pythoncom
 import win32com.client
 from pathlib import Path
@@ -31,6 +32,20 @@ except ImportError as e:
 def _coinit_once():
     try: pythoncom.CoInitialize()
     except: pass
+
+
+def _launch_tarch_bootstrap(pth: str = r"C:\Tangent\TArchT20V9") -> bool:
+    exe = Path(pth) / "TGStart.exe"
+    if not exe.exists():
+        print(f"[licad] ❌ 天正启动程序不存在: {exe}")
+        return False
+    try:
+        subprocess.Popen([str(exe)], cwd=str(exe.parent))
+        print(f"[licad] 已通过 TGStart.exe 发起天正启动: {exe}")
+        return True
+    except Exception as exc:
+        print(f"[licad] ❌ 发起天正启动失败: {exc}")
+        return False
 
 # =================================================================
 # 2. 核心连接函数
@@ -128,14 +143,13 @@ def get_acad_doc(max_wait=15.0): # 增加默认等待时间，天正启动很慢
                 continue # 跳过本次循环，重新尝试 GetActiveObject
             
             else:
-                # C. 如果确实没有进程，这才允许新建
-                print("\n[licad] 未检测到 CAD 进程，正在通过 COM 启动新实例...")
-                try:
-                    app = gencache.EnsureDispatch("AutoCAD.Application")
-                except Exception as e:
-                    # 如果新建也失败，也尝试修一下缓存
+                # C. 当前没有活动 CAD 时，优先走受控天正启动，而不是直接 COM 新建裸 acad。
+                print("\n[licad] 未检测到 CAD 进程，正在通过天正受控入口启动...")
+                if not _launch_tarch_bootstrap():
                     _auto_fix_com_cache()
-                    raise RuntimeError(f"启动新 CAD 实例失败: {e}")
+                    raise RuntimeError("天正受控启动失败，无法建立 CAD 连接。")
+                time.sleep(2.0)
+                continue
 
         # 2. 获取 Document (这一部分保持原样，但也加了防错)
         try:

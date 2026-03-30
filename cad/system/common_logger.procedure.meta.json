@@ -1,35 +1,72 @@
 {
-  "name": "common_logger",
-  "path": "cad/system/common_logger.py",
+  "meta_version": "V1.0",
   "layer": "procedure",
-  "usage_rules": [
-    "Business scripts: replace all print() with sys_logger.<level>().",
-    "Entry/test/agent startup: call set_debug_mode() once to control verbosity.",
-    "Levels: debug=details; info=milestones; warning=recoverable; error=fail+raise; critical=fatal."
+  "module_name": "common_logger",
+  "file_path": "D:/codex-tasks/cad/system/common_logger.py",
+  "applicable_scenarios": [
+    "业务脚本需要统一输出 debug/info/warning/error/critical 日志",
+    "入口脚本、测试脚本或 agent 启动脚本需要统一设置调试模式",
+    "测试或关键路径需要把结果记录到 Excel",
+    "高风险操作需要进入关键区段并记录度量与异常"
   ],
-  "quick_start": {
-    "business_script": [
-      "from system.common_logger import sys_logger",
-      "sys_logger.info('stage start')",
-      "sys_logger.debug(f'x={x}')",
-      "sys_logger.warning('fallback used')"
-    ],
-    "entry_script": [
-      "from system.common_logger import set_debug_mode",
-      "set_debug_mode(mode=0)  # quiet (WARNING)",
-      "set_debug_mode(mode=1)  # debug (INFO)",
-      "set_debug_mode(mode=1, log_level='DEBUG')  # deep"
-    ],
-    "risky_section": [
-      "from system.common_logger import CriticalSection",
-      "with CriticalSection('pywin32 CAD call') as cs:",
-      "    cs.record(filepath=path)",
-      "    # do risky ops"
-    ]
+  "preconditions": [
+    "业务模块只应导入 sys_logger，不应在模块内部自行设定 debug mode",
+    "若需要 Excel 记录，应允许 openpyxl 可用；若不可用则本模块会自动跳过",
+    "人工暂停仅在 DEBUG_CONFIG 为 HUMAN + WAIT>0 时触发"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "初始化统一 logger",
+      "detail": "导入模块时通过 setup_logger 构造或复用 CAD_System logger，并配置 console + rotating file handlers。"
+    },
+    {
+      "step": 2,
+      "name": "统一调试开关",
+      "detail": "入口/测试脚本调用 set_debug_mode，集中设置 MODE / WHO / WAIT / LOG_LEVEL，并同步到所有 handlers。"
+    },
+    {
+      "step": 3,
+      "name": "业务日志输出",
+      "detail": "业务模块直接使用 sys_logger 输出各级日志，不再自行 print 或初始化独立 logger。"
+    },
+    {
+      "step": 4,
+      "name": "测试与检查点记录",
+      "detail": "需要时调用 record_test_result 或 checkpoint，把脚本名、函数名、变量与 PASS/FAIL 写入 Excel。"
+    },
+    {
+      "step": 5,
+      "name": "关键区段保护",
+      "detail": "对高风险区段使用 with CriticalSection(...) as cs: cs.record(...)，进入时记录 info，失败时记录 error，退出时写 Excel。"
+    }
+  ],
+  "success_criteria": [
+    "整个系统的业务日志统一通过 sys_logger 输出",
+    "调试级别调整后，console 与 file handler 同步生效",
+    "Excel 记录在 openpyxl 可用时正常写入，不可用时不影响主流程",
+    "CriticalSection 能记录关键路径并且不吞异常"
+  ],
+  "failure_criteria": [
+    "业务模块重新各自创建 logger 或大量使用 print 替代 sys_logger",
+    "set_debug_mode 被分散到多个业务模块调用",
+    "CriticalSection 重写后开始吞异常",
+    "Excel 记录失败导致主业务流程被阻断"
+  ],
+  "do_not_use_for": [
+    "不要在普通业务模块中调用 set_debug_mode",
+    "不要把 checkpoint / CriticalSection 的人工暂停 print 机制扩散成普通业务输出方式",
+    "不要绕开 sys_logger 自行建立新的全局日志标准"
+  ],
+  "integration_with_other_modules": {
+    "CAD_core.py": "基础控制层应统一复用 sys_logger，不应自行初始化 logger",
+    "CAD_coordination.py": "协同与保护层的关键路径应通过 sys_logger 记录",
+    "CAD_com_utils.py": "COM 辅助层应直接复用 sys_logger，避免 monkey patch logger",
+    "入口/测试/agent脚本": "这些脚本可以调用 set_debug_mode 决定当前运行模式"
   },
-  "pitfalls": [
-    "INFO not shown when log level is WARNING (filtered, not missing).",
-    "Excel not written if openpyxl missing or xlsx locked by Excel.",
-    "Do not call set_debug_mode() in many modules (inconsistent behavior)."
+  "rewrite_constraints": [
+    "允许拆分内部实现，例如把 Excel 记录逻辑进一步独立",
+    "允许优化 logger 初始化细节",
+    "不得破坏统一日志入口、统一调试开关、关键区段不吞异常这三条基本原则"
   ]
 }

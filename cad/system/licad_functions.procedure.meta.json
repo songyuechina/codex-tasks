@@ -1,0 +1,918 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "licad.py",
+    "path": "D:/codex-tasks/cad/system/licad.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "作为统一 CAD 连接入口导出 C 代理、文档包装和安全文件操作。",
+    "step_style": "graded",
+    "public_api": [
+      "AutoCadProxy.li",
+      "AutoCadProxy.acad",
+      "AutoCadProxy.doc",
+      "AutoCadProxy.raw_doc",
+      "AutoCadProxy.save_file",
+      "AutoCadProxy.save_file_as",
+      "AutoCadProxy.open_file",
+      "AutoCadProxy.close_file",
+      "AutoCadProxy.close_dwg_by_name",
+      "li",
+      "save_file",
+      "save_file_as",
+      "open_file",
+      "close_file",
+      "close_dwg_by_name",
+      "resolve_doc",
+      "retry_on_busy"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_coinit_once",
+      "symbol": "_coinit_once",
+      "qualname": "_coinit_once",
+      "level": "utility",
+      "signature": "def _coinit_once():",
+      "role": "在 licad 中承接 `_coinit_once` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 31,
+        "line_end": 39
+      }
+    },
+    {
+      "name": "get_acad_doc",
+      "symbol": "get_acad_doc",
+      "qualname": "get_acad_doc",
+      "level": "core",
+      "signature": "def get_acad_doc(max_wait=15.0):",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。"
+      ],
+      "evidence": {
+        "line_start": 40,
+        "line_end": 170
+      }
+    },
+    {
+      "name": "get_acad_doc._is_acad_process_running",
+      "symbol": "_is_acad_process_running",
+      "qualname": "get_acad_doc._is_acad_process_running",
+      "level": "utility",
+      "signature": "def _is_acad_process_running():",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 52,
+        "line_end": 62
+      }
+    },
+    {
+      "name": "get_acad_doc._auto_fix_com_cache",
+      "symbol": "_auto_fix_com_cache",
+      "qualname": "get_acad_doc._auto_fix_com_cache",
+      "level": "normal",
+      "signature": "def _auto_fix_com_cache():",
+      "role": "读取并返回当前 CAD / 文件 / 数据库状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 63,
+        "line_end": 170
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.__init__",
+      "symbol": "__init__",
+      "qualname": "SafeDocumentWrapper.__init__",
+      "level": "utility",
+      "signature": "def __init__(self, real_com_doc):",
+      "role": "初始化所属类的运行时状态、缓存或配置。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 173,
+        "line_end": 175
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.SendCommand",
+      "symbol": "SendCommand",
+      "qualname": "SafeDocumentWrapper.SendCommand",
+      "level": "core",
+      "signature": "def SendCommand(self, cmd: str):",
+      "role": "拦截 SendCommand 并尽量走同步安全发送路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。"
+      ],
+      "evidence": {
+        "line_start": 176,
+        "line_end": 186
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.__getattr__",
+      "symbol": "__getattr__",
+      "qualname": "SafeDocumentWrapper.__getattr__",
+      "level": "utility",
+      "signature": "def __getattr__(self, name):",
+      "role": "在 licad 中承接 `SafeDocumentWrapper.__getattr__` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 187,
+        "line_end": 189
+      }
+    },
+    {
+      "name": "SafeDocumentWrapper.__dir__",
+      "symbol": "__dir__",
+      "qualname": "SafeDocumentWrapper.__dir__",
+      "level": "utility",
+      "signature": "def __dir__(self):",
+      "role": "在 licad 中承接 `SafeDocumentWrapper.__dir__` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 190,
+        "line_end": 196
+      }
+    },
+    {
+      "name": "AutoCadProxy.__init__",
+      "symbol": "__init__",
+      "qualname": "AutoCadProxy.__init__",
+      "level": "utility",
+      "signature": "def __init__(self):",
+      "role": "初始化所属类的运行时状态、缓存或配置。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 198,
+        "line_end": 203
+      }
+    },
+    {
+      "name": "AutoCadProxy.li",
+      "symbol": "li",
+      "qualname": "AutoCadProxy.li",
+      "level": "core",
+      "signature": "def li(self):",
+      "role": "在 licad 中承接 `AutoCadProxy.li` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 204,
+        "line_end": 236
+      }
+    },
+    {
+      "name": "AutoCadProxy.acad",
+      "symbol": "acad",
+      "qualname": "AutoCadProxy.acad",
+      "level": "core",
+      "signature": "def acad(self):",
+      "role": "在 licad 中承接 `AutoCadProxy.acad` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。"
+      ],
+      "evidence": {
+        "line_start": 237,
+        "line_end": 239
+      }
+    },
+    {
+      "name": "AutoCadProxy.doc",
+      "symbol": "doc",
+      "qualname": "AutoCadProxy.doc",
+      "level": "core",
+      "signature": "def doc(self):",
+      "role": "在 licad 中承接 `AutoCadProxy.doc` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。"
+      ],
+      "evidence": {
+        "line_start": 240,
+        "line_end": 245
+      }
+    },
+    {
+      "name": "AutoCadProxy.raw_doc",
+      "symbol": "raw_doc",
+      "qualname": "AutoCadProxy.raw_doc",
+      "level": "core",
+      "signature": "def raw_doc(self):",
+      "role": "在 licad 中承接 `AutoCadProxy.raw_doc` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。"
+      ],
+      "evidence": {
+        "line_start": 246,
+        "line_end": 251
+      }
+    },
+    {
+      "name": "AutoCadProxy.mp",
+      "symbol": "mp",
+      "qualname": "AutoCadProxy.mp",
+      "level": "utility",
+      "signature": "def mp(self):",
+      "role": "在 licad 中承接 `AutoCadProxy.mp` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 252,
+        "line_end": 254
+      }
+    },
+    {
+      "name": "AutoCadProxy.sp",
+      "symbol": "sp",
+      "qualname": "AutoCadProxy.sp",
+      "level": "utility",
+      "signature": "def sp(self):",
+      "role": "在 licad 中承接 `AutoCadProxy.sp` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 255,
+        "line_end": 257
+      }
+    },
+    {
+      "name": "AutoCadProxy.msp",
+      "symbol": "msp",
+      "qualname": "AutoCadProxy.msp",
+      "level": "utility",
+      "signature": "def msp(self):",
+      "role": "在 licad 中承接 `AutoCadProxy.msp` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 258,
+        "line_end": 262
+      }
+    },
+    {
+      "name": "AutoCadProxy.save_file",
+      "symbol": "save_file",
+      "qualname": "AutoCadProxy.save_file",
+      "level": "core",
+      "signature": "def save_file(self):",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 263,
+        "line_end": 272
+      }
+    },
+    {
+      "name": "AutoCadProxy.save_file_as",
+      "symbol": "save_file_as",
+      "qualname": "AutoCadProxy.save_file_as",
+      "level": "core",
+      "signature": "def save_file_as(self, path):",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 273,
+        "line_end": 285
+      }
+    },
+    {
+      "name": "AutoCadProxy.open_file",
+      "symbol": "open_file",
+      "qualname": "AutoCadProxy.open_file",
+      "level": "core",
+      "signature": "def open_file(self, path):",
+      "role": "打开目标文档或激活既有文档。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 286,
+        "line_end": 302
+      }
+    },
+    {
+      "name": "AutoCadProxy.close_file",
+      "symbol": "close_file",
+      "qualname": "AutoCadProxy.close_file",
+      "level": "core",
+      "signature": "def close_file(self, opt=\"auto_save\"):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 303,
+        "line_end": 315
+      }
+    },
+    {
+      "name": "AutoCadProxy.close_dwg_by_name",
+      "symbol": "close_dwg_by_name",
+      "qualname": "AutoCadProxy.close_dwg_by_name",
+      "level": "core",
+      "signature": "def close_dwg_by_name(self, name):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 316,
+        "line_end": 327
+      }
+    },
+    {
+      "name": "li",
+      "symbol": "li",
+      "qualname": "li",
+      "level": "utility",
+      "signature": "def li():",
+      "role": "在 licad 中承接 `li` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 328,
+        "line_end": 328
+      }
+    },
+    {
+      "name": "save_file",
+      "symbol": "save_file",
+      "qualname": "save_file",
+      "level": "normal",
+      "signature": "def save_file():",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 329,
+        "line_end": 329
+      }
+    },
+    {
+      "name": "save_file_as",
+      "symbol": "save_file_as",
+      "qualname": "save_file_as",
+      "level": "normal",
+      "signature": "def save_file_as(p):",
+      "role": "把当前状态保存到 CAD 文档或目标路径。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 330,
+        "line_end": 330
+      }
+    },
+    {
+      "name": "open_file",
+      "symbol": "open_file",
+      "qualname": "open_file",
+      "level": "normal",
+      "signature": "def open_file(p):",
+      "role": "打开目标文档或激活既有文档。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 331,
+        "line_end": 331
+      }
+    },
+    {
+      "name": "close_file",
+      "symbol": "close_file",
+      "qualname": "close_file",
+      "level": "normal",
+      "signature": "def close_file(o=\"auto_save\"):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 332,
+        "line_end": 332
+      }
+    },
+    {
+      "name": "close_dwg_by_name",
+      "symbol": "close_dwg_by_name",
+      "qualname": "close_dwg_by_name",
+      "level": "normal",
+      "signature": "def close_dwg_by_name(n):",
+      "role": "关闭目标文档、进程或守护资源。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 333,
+        "line_end": 335
+      }
+    },
+    {
+      "name": "resolve_doc",
+      "symbol": "resolve_doc",
+      "qualname": "resolve_doc",
+      "level": "core",
+      "signature": "def resolve_doc(docname=None):",
+      "role": "按名称/路径解析运行时对象并返回结果。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析输入标识、上下文或目标对象。",
+        "读取 CAD、文件或数据库中的当前状态。",
+        "整理后返回结构化结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 336,
+        "line_end": 384
+      }
+    },
+    {
+      "name": "retry_on_busy",
+      "symbol": "retry_on_busy",
+      "qualname": "retry_on_busy",
+      "level": "core",
+      "signature": "def retry_on_busy(func_or_args=None, **kwargs):",
+      "role": "对目标调用施加 busy/rejected 容错重试策略。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "接收目标可调用对象或装饰器参数。",
+        "识别 busy/rejected 类型异常并执行有限重试。",
+        "返回底层调用结果或在超限时抛出异常。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 li() 的连接刷新、自愈与可见性修正经验。",
+        "保留 doc/raw_doc 分层及 SafeDocumentWrapper 对 SendCommand 的同步封装。",
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 385,
+        "line_end": 392
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "部分 COM 修复逻辑通过局部 helper 和异常兜底实现，返回细节按静态上下文概括。"
+    ],
+    "function_count": 29,
+    "public_api_count": 17,
+    "core_function_count": 13
+  }
+}

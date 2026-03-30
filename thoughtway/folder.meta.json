@@ -1,0 +1,37 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/thoughtway",
+  "role": "governance-method-and-long-term-memory",
+  "summary": "项目级治理、系统基础、规则与长期方法目录。这里应沉淀稳定共识，而不是只保存临时对话痕迹。",
+  "entry_docs": [
+    "PROJECT_SUPERVISOR_ARCHITECTURE.md",
+    "CURRENT_STATE.md",
+    "PROJECT_GOVERNANCE.md",
+    "SYSTEM_FOUNDATIONS.md",
+    "PROJECT_MEMORY_SYSTEM.md",
+    "meta_json_principles.md",
+    "CAD_RUNTIME_GUARD_RULES.md"
+  ],
+  "subtopics": [
+    {
+      "path": "functions_scripting_rules",
+      "role": "coding-rules",
+      "summary": "脚本引导、日志、入口、业务模块、异常与 CAD 连接规则。"
+    }
+  ],
+  "document_roles": [
+    "PROJECT_SUPERVISOR_ARCHITECTURE.md：项目主管进入系统后的总调度架构入口",
+    "CURRENT_STATE.md：新窗口快速接手当前工作态、近期变化与下一步建议的入口",
+    "PROJECT_GOVERNANCE.md：定义项目总管、角色能力层、领域执行层",
+    "SYSTEM_FOUNDATIONS.md：定义系统基础知识与默认连接/控制共识",
+    "PROJECT_MEMORY_SYSTEM.md：定义长期项目记忆层与刷新协议",
+    "meta_json_principles.md：定义 meta 的压缩哲学",
+    "conversation_log.md：历史记录，仅作背景参考，不是权威规则源"
+  ],
+  "refresh_rules": [
+    "形成新系统共识时，优先更新本目录文档而不是只留在聊天里",
+    "conversation_log.md 可以保留过程，但必须把稳定结论回写到正式文档",
+    "规则文档与 folder.meta.json 变化后，应刷新项目地图"
+  ]
+}

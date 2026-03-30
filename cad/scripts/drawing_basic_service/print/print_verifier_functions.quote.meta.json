@@ -1,0 +1,244 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_verifier.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_verifier.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "读取计划中的页面尺寸与生成 PDF 的实际页面尺寸，输出验证结果并标记异常页面。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "verify_generated_pdfs"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_job_value",
+      "symbol": "_job_value",
+      "qualname": "_job_value",
+      "level": "utility",
+      "signature": "def _job_value(job: Any, key: str, default: Any=None) -> Any:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "job",
+          "raw": "job: Any",
+          "required": true
+        },
+        {
+          "name": "key",
+          "raw": "key: str",
+          "required": true
+        },
+        {
+          "name": "default",
+          "raw": "default: Any = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "getattr",
+        "isinstance",
+        "job.get"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 21,
+        "line_end": 24
+      }
+    },
+    {
+      "name": "_parse_media_size_mm",
+      "symbol": "_parse_media_size_mm",
+      "qualname": "_parse_media_size_mm",
+      "level": "utility",
+      "signature": "def _parse_media_size_mm(media: str) -> tuple[float, float] | None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "media",
+          "raw": "media: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "float",
+        "iso_match.group",
+        "re.search",
+        "user_defined_match.group"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 27,
+        "line_end": 36
+      }
+    },
+    {
+      "name": "_read_pdf_page_sizes_mm",
+      "symbol": "_read_pdf_page_sizes_mm",
+      "qualname": "_read_pdf_page_sizes_mm",
+      "level": "utility",
+      "signature": "def _read_pdf_page_sizes_mm(pdf_path: Path) -> list[tuple[float, float]] | None:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "pdf_path",
+          "raw": "pdf_path: Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "PdfReader",
+        "float",
+        "max",
+        "min",
+        "sizes.append",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 39,
+        "line_end": 51
+      }
+    },
+    {
+      "name": "_verify_page_sizes",
+      "symbol": "_verify_page_sizes",
+      "qualname": "_verify_page_sizes",
+      "level": "utility",
+      "signature": "def _verify_page_sizes(existing_paths: list[str], jobs: list[Any], size_tol_mm: float) -> dict:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "existing_paths",
+          "raw": "existing_paths: list[str]",
+          "required": true
+        },
+        {
+          "name": "jobs",
+          "raw": "jobs: list[Any]",
+          "required": true
+        },
+        {
+          "name": "size_tol_mm",
+          "raw": "size_tol_mm: float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Counter",
+        "Path",
+        "_job_value",
+        "_parse_media_size_mm",
+        "_read_pdf_page_sizes_mm",
+        "abs",
+        "enumerate",
+        "float"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 54,
+        "line_end": 135
+      }
+    },
+    {
+      "name": "verify_generated_pdfs",
+      "symbol": "verify_generated_pdfs",
+      "qualname": "verify_generated_pdfs",
+      "level": "core",
+      "signature": "def verify_generated_pdfs(output_paths: list[str], jobs: list[Any] | None=None, size_tol_mm: float=1.0) -> dict:",
+      "purpose": "对生成结果执行校验，并输出通过/失败信息。",
+      "inputs": [
+        {
+          "name": "output_paths",
+          "raw": "output_paths: list[str]",
+          "required": true
+        },
+        {
+          "name": "jobs",
+          "raw": "jobs: list[Any] | None = None",
+          "required": false
+        },
+        {
+          "name": "size_tol_mm",
+          "raw": "size_tol_mm: float = 1.0",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "Path",
+        "_verify_page_sizes",
+        "existing.append",
+        "len",
+        "missing.append",
+        "path.exists",
+        "path.stat",
+        "str"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 138,
+        "line_end": 165
+      }
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "pdf",
+      "verification"
+    ],
+    "script_focus": "PDF 打印结果校验脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 5,
+    "public_api_count": 1,
+    "core_function_count": 1
+  }
+}

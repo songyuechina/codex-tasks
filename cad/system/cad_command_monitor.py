@@ -64,38 +64,55 @@ def force_bring_to_front(hwnd):
         logger.error(f"抢占焦点失败: {e}")
         return False
 
+def has_valid_cad_window(hwnd):
+    """
+    仅当拿到真实 CAD 窗口句柄时，才允许做前台窗口操作。
+    hwnd=0 / None 或句柄失效时，一律视为无效。
+    """
+    return bool(hwnd) and win32gui.IsWindow(hwnd)
+
 def send_nuclear_esc(hwnd, acad_doc):
     """
     先抢焦点，再按 ESC
     """
     logger.warning("☢️ [动作] 准备执行强制取消...")
-    
-    # 步骤 1: 抢焦点 (这是 V6.0 的核心)
-    if hwnd:
-        logger.info("   [1/4] 正在将 CAD 窗口置顶...")
-        force_bring_to_front(hwnd)
-    
+
+    valid_hwnd = has_valid_cad_window(hwnd)
+    if not valid_hwnd and acad_doc is None:
+        logger.warning("   [安全保护] 未拿到有效 CAD 窗口/文档，跳过强制取消，避免误伤前台窗口。")
+        return False
+
     try:
-        # 步骤 2: 物理层 ESC (现在 CAD 是活动窗口了，这招必中)
-        logger.info("   [2/4] 发送物理 ESC 连击...")
-        for _ in range(3):
-            ctypes.windll.user32.keybd_event(0x1B, 0, 0, 0) # ESC Down
-            time.sleep(0.05)
-            ctypes.windll.user32.keybd_event(0x1B, 0, 2, 0) # ESC Up
-            time.sleep(0.1)
-        
+        # 步骤 1: 抢焦点 + 物理 ESC，仅在确认 CAD 主窗口有效时执行
+        if valid_hwnd:
+            logger.info("   [1/4] 正在将 CAD 窗口置顶...")
+            brought = force_bring_to_front(hwnd)
+            if brought:
+                logger.info("   [2/4] 发送物理 ESC 连击...")
+                for _ in range(3):
+                    ctypes.windll.user32.keybd_event(0x1B, 0, 0, 0) # ESC Down
+                    time.sleep(0.05)
+                    ctypes.windll.user32.keybd_event(0x1B, 0, 2, 0) # ESC Up
+                    time.sleep(0.1)
+            else:
+                logger.warning("   [安全保护] CAD 窗口置顶失败，跳过物理 ESC。")
+
+        else:
+            logger.warning("   [安全保护] CAD 窗口句柄无效，跳过物理 ESC / PostMessage。")
+
         # 步骤 3: 消息层 (兜底)
-        if hwnd:
+        if valid_hwnd:
             win32gui.PostMessage(hwnd, win32con.WM_KEYDOWN, win32con.VK_ESCAPE, 0)
             win32gui.PostMessage(hwnd, win32con.WM_KEYUP, win32con.VK_ESCAPE, 0)
-        
+
         # 步骤 4: 逻辑层 (如果 COM 还活着)
         if acad_doc:
             try:
-                acad_doc.SendCommand(chr(27)) 
-            except: pass
-            
-        return True
+                acad_doc.SendCommand(chr(27))
+            except Exception as exc:
+                logger.warning(f"   [逻辑层] SendCommand 发送 ESC 失败: {exc}")
+
+        return valid_hwnd or acad_doc is not None
     except Exception as e:
         logger.error(f"发送失败: {e}")
         return False
@@ -228,9 +245,12 @@ def main():
                     else:
                         print("") 
                         logger.warning(f"⏰ [超时] '{record['cmd']}' 卡顿 {int(elapsed)}s")
-                        
-                        # 执行 V6.0 核心：抢焦点 -> 按 ESC
-                        send_nuclear_esc(hwnd, doc)
+
+                        if not has_valid_cad_window(hwnd) and doc is None:
+                            logger.warning("🛑 [安全保护] 当前仅检测到 CAD_BUSY_NO_DOC，未拿到可操作目标，跳过取消动作。")
+                        else:
+                            # 执行 V6.0 核心：抢焦点 -> 按 ESC
+                            send_nuclear_esc(hwnd, doc)
                         
                         logger.info("✨ 暂停监控 3 秒...")
                         _stuck_record.pop(key, None)
@@ -262,3 +282,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

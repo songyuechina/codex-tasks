@@ -1,6 +1,6 @@
 # DWG Agents Ops
 
-`dwg_agents_ops/` 是面向 `D:/codex-tasks` 的多智能体协作层。
+`dwg_agents_ops/` 是面向 `D:/codex-tasks` 的四角色智能体协作层。
 
 它不是项目总管本身，而是项目总管可调用的“角色能力层”。
 
@@ -21,7 +21,7 @@
 - `cad/library/`：建立在 `cad/system/` 之上的业务函数库。
 - `dwg_system_tools/`：meta 生成、校验、扫描工具链。
 - `dwg_cases/`：样例 DWG / DXE 资产。
-- `dwg_agents_ops/`：角色化智能体协作层。
+- `dwg_agents_ops/`：四角色智能体协作层。
 
 项目治理关系见：
 
@@ -69,7 +69,7 @@
 - `Tester_Agent/`
   测试子智能体。
 - `Runtime_Guard_Agent/`
-  运行守护监督对象，消费 `cad_runtime_guard.py` 产出的事件并形成结构化监督结论。
+  历史目录名保留；概念上属于本地监督对象/监督入口，不属于四角色智能体，负责消费 `cad_runtime_guard.py` 产出的事件并形成结构化监督结论。
 - `agent_control/`
   任务板、运行时状态、监控工具与统一协作约定。
 - `agents.example.toml`
@@ -141,3 +141,7 @@ python D:\codex-tasks\dwg_agents_ops\agent_control\monitor_cli.py
 - 本目录只负责“协作层”，不会替代 `cad/system` 的统一连接规则。
 - 涉及 CAD 真机操作时，仍应优先复用 `system.licad.C`、`CAD_selection.py`、`CAD_coordination.py`、`content_analysis_dwg_file.py`。
 - `Runtime_Guard_Agent` 当前阶段默认采用本地事件驱动，不应被设计为每几秒调用一次远程模型的高耗轮询器。
+- 当任务进入真实 CAD / 打印执行时，`Runtime_Guard_Agent` 的合理职责不应只限于环境报警，还应督导：
+  - 每 DWG 收尾后的环境归一
+  - 执行者是否明确受控入口与恢复入口
+  - 执行者是否遵守关键规则与输出契约

@@ -1,0 +1,82 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "CAD_core",
+  "file_path": "D:/codex-tasks/cad/system/CAD_core.py",
+  "applicable_scenarios": [
+    "需要新建、打开、保存、关闭 DWG 文件",
+    "需要在异常状态下重建天正 CAD 环境并恢复连接",
+    "需要把 CAD 进程数、打开文档数、当前会话状态归一到标准形态",
+    "需要进行跨文件插入、区域复制、整体合并、炸开等操作",
+    "需要进行多文档激活、关闭、路径查询与空间/布局控制"
+  ],
+  "preconditions": [
+    "优先通过 system.licad 的 C 建立基础连接；若连接异常，本模块内部可触发 litz 重建",
+    "日志系统应已由 common_logger.py 提供 sys_logger",
+    "部分能力依赖 scripts.CAD_basic 的历史函数存在",
+    "部分高风险命令同步依赖 CAD_coordination.wait_quiescent / send_cmd_with_sync 等协同能力"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "环境检查与重连",
+      "detail": "调用 C.li() 检查当前环境；如失败则用 litz() 执行关闭进程、启动天正、等待连接、探针验证与重建。"
+    },
+    {
+      "step": 2,
+      "name": "基础文档操作",
+      "detail": "新建、打开、保存、另存为、关闭等能力优先走本模块内生化函数，并在打开前后控制会话中文档数量。"
+    },
+    {
+      "step": 3,
+      "name": "状态归一",
+      "detail": "通过 cad_zt_zero / oneb / oned / two / much 等函数把 CAD 环境收束到固定进程数与文件数。"
+    },
+    {
+      "step": 4,
+      "name": "会话记录与恢复",
+      "detail": "用 cad_zt_xin_1 记录当前打开文件与激活文件；用 cad_zt_xin_2 重启后按节奏重新打开并恢复激活状态。"
+    },
+    {
+      "step": 5,
+      "name": "跨文件操作",
+      "detail": "对跨文件传输使用临时副本 / WBlock / InsertBlock / 炸开 / 清理块定义等流程，避免直接修改源文件。"
+    },
+    {
+      "step": 6,
+      "name": "多文档与空间控制",
+      "detail": "通过激活文档、关闭指定文档、限制打开文件数量、切换空间/布局等函数维持会话稳定。"
+    }
+  ],
+  "success_criteria": [
+    "新建/打开/保存/关闭操作在单进程和有限文档数前提下稳定完成",
+    "连接失效时可以通过 litz 恢复到有效天正环境",
+    "会话状态可以记录并在重启后较稳定地恢复",
+    "跨文件插入与区域传输能完成并正确保存目标文件"
+  ],
+  "failure_criteria": [
+    "重写时丢失环境重连与天正墙探针自检经验",
+    "重写时丢失保存降级链与文档数量控制",
+    "把本模块继续无限扩张而不区分基础控制与高层协同边界",
+    "在去掉历史兼容前贸然删除 scripts.CAD_basic 相关依赖"
+  ],
+  "do_not_use_for": [
+    "不要把本模块当作 CAD 连接主入口；主入口仍是 licad.C",
+    "不要绕过协同层就假设 SendCommand 已经完成",
+    "不要忽视本模块仍处于过渡重构状态而随意删除历史兼容依赖",
+    "不要把新职责继续无边界堆进本模块"
+  ],
+  "integration_with_other_modules": {
+    "licad.py": "提供基础连接与 C 代理；本模块建立在其上进行控制与文件操作",
+    "CAD_coordination.py": "提供等待空闲、命令同步、安全循环等高层协同；本模块需复用这些能力",
+    "CAD_com_utils.py": "retry_on_busy / retry_if_busy / SafeCOM 由 COM 辅助层提供",
+    "CAD_selection.py": "选择与对象研究能力由选择层提供，本模块通过导入使用",
+    "scripts.CAD_basic": "当前仍承担大量历史兼容基础函数，是本模块的重要过渡依赖"
+  },
+  "rewrite_constraints": [
+    "允许继续把功能拆分到更清晰的子层",
+    "允许逐步切断 scripts.CAD_basic 的历史兼容依赖",
+    "允许去除旧式 sys.path 引导",
+    "不得丢失环境重连、文件保存降级链、状态归一、跨文件传输与路径修复这五组核心经验"
+  ]
+}

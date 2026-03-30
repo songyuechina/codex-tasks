@@ -1,0 +1,474 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "CAD_coordination.py",
+    "path": "D:/codex-tasks/cad/system/CAD_coordination.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "在 licad.C 之上提供等待空闲、事务守卫、回滚保护与同步发命令能力。",
+    "step_style": "graded",
+    "public_api": [
+      "wait_quiescent",
+      "CADGuard.__enter__",
+      "CADGuard.__exit__",
+      "FileGuard.__enter__",
+      "FileGuard.__exit__",
+      "run_safety_loop",
+      "send_cmd_with_sync",
+      "wait_document_opened",
+      "ensure_single_process",
+      "start_cad_with_dialog_killer",
+      "wait_command_done"
+    ]
+  },
+  "functions": [
+    {
+      "name": "wait_quiescent",
+      "symbol": "wait_quiescent",
+      "qualname": "wait_quiescent",
+      "level": "core",
+      "signature": "def wait_quiescent(min_quiet: float = 0.5, timeout: float = 60.0) -> bool:",
+      "role": "轮询 CAD/进程状态直到满足条件或超时。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "标准化 timeout、quiet_time 等等待参数。",
+        "轮询目标状态并持续判断完成条件。",
+        "在成功或超时时返回布尔结果并记录必要日志。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。",
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 46,
+        "line_end": 111
+      }
+    },
+    {
+      "name": "CADGuard.__init__",
+      "symbol": "__init__",
+      "qualname": "CADGuard.__init__",
+      "level": "utility",
+      "signature": "def __init__( self, task_name:",
+      "role": "初始化所属类的运行时状态、缓存或配置。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 126,
+        "line_end": 146
+      }
+    },
+    {
+      "name": "CADGuard.__enter__",
+      "symbol": "__enter__",
+      "qualname": "CADGuard.__enter__",
+      "level": "core",
+      "signature": "def __enter__(self):",
+      "role": "进入上下文并准备保护性资源或事务状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取当前上下文参数与目标资源。",
+        "缓存进入前状态并建立保护边界。",
+        "返回可供 with 代码块继续使用的对象。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 147,
+        "line_end": 186
+      }
+    },
+    {
+      "name": "CADGuard.__exit__",
+      "symbol": "__exit__",
+      "qualname": "CADGuard.__exit__",
+      "level": "core",
+      "signature": "def __exit__(self, exc_type, exc_val, exc_tb):",
+      "role": "退出上下文，执行清理、回滚或异常后处理。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取异常信息与上下文状态。",
+        "按成功/失败分支执行清理、回滚或收尾。",
+        "返回约定的异常处理结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 187,
+        "line_end": 242
+      }
+    },
+    {
+      "name": "FileGuard.__init__",
+      "symbol": "__init__",
+      "qualname": "FileGuard.__init__",
+      "level": "utility",
+      "signature": "def __init__(self, file_path: str | Path):",
+      "role": "初始化所属类的运行时状态、缓存或配置。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 250,
+        "line_end": 254
+      }
+    },
+    {
+      "name": "FileGuard.__enter__",
+      "symbol": "__enter__",
+      "qualname": "FileGuard.__enter__",
+      "level": "core",
+      "signature": "def __enter__(self):",
+      "role": "进入上下文并准备保护性资源或事务状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取当前上下文参数与目标资源。",
+        "缓存进入前状态并建立保护边界。",
+        "返回可供 with 代码块继续使用的对象。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 255,
+        "line_end": 267
+      }
+    },
+    {
+      "name": "FileGuard.set_success",
+      "symbol": "set_success",
+      "qualname": "FileGuard.set_success",
+      "level": "normal",
+      "signature": "def set_success(self):",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 268,
+        "line_end": 270
+      }
+    },
+    {
+      "name": "FileGuard.__exit__",
+      "symbol": "__exit__",
+      "qualname": "FileGuard.__exit__",
+      "level": "core",
+      "signature": "def __exit__(self, exc_type, exc_val, exc_tb):",
+      "role": "退出上下文，执行清理、回滚或异常后处理。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取异常信息与上下文状态。",
+        "按成功/失败分支执行清理、回滚或收尾。",
+        "返回约定的异常处理结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "输入路径、文档或对象不存在时提前失败。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 271,
+        "line_end": 309
+      }
+    },
+    {
+      "name": "run_safety_loop",
+      "symbol": "run_safety_loop",
+      "qualname": "run_safety_loop",
+      "level": "core",
+      "signature": "def run_safety_loop( target_dwg:",
+      "role": "在 CAD_coordination 中承接 `run_safety_loop` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 310,
+        "line_end": 357
+      }
+    },
+    {
+      "name": "send_cmd_with_sync",
+      "symbol": "send_cmd_with_sync",
+      "qualname": "send_cmd_with_sync",
+      "level": "core",
+      "signature": "def send_cmd_with_sync(cmd: str, wait_after: float = 0.3, timeout: float = 30.0) -> bool:",
+      "role": "在 CAD_coordination 中承接 `send_cmd_with_sync` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 358,
+        "line_end": 387
+      }
+    },
+    {
+      "name": "wait_document_opened",
+      "symbol": "wait_document_opened",
+      "qualname": "wait_document_opened",
+      "level": "core",
+      "signature": "def wait_document_opened(path: str, timeout: float = 120.0) -> bool:",
+      "role": "轮询 CAD/进程状态直到满足条件或超时。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "标准化 timeout、quiet_time 等等待参数。",
+        "轮询目标状态并持续判断完成条件。",
+        "在成功或超时时返回布尔结果并记录必要日志。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。",
+        "重试/轮询必须有明确超时与退避边界。",
+        "文档状态变化后要及时刷新当前文档/连接缓存。"
+      ],
+      "evidence": {
+        "line_start": 388,
+        "line_end": 419
+      }
+    },
+    {
+      "name": "ensure_single_process",
+      "symbol": "ensure_single_process",
+      "qualname": "ensure_single_process",
+      "level": "core",
+      "signature": "def ensure_single_process() -> bool:",
+      "role": "检查条件并在必要时补齐环境或约束。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 420,
+        "line_end": 448
+      }
+    },
+    {
+      "name": "start_cad_with_dialog_killer",
+      "symbol": "start_cad_with_dialog_killer",
+      "qualname": "start_cad_with_dialog_killer",
+      "level": "core",
+      "signature": "def start_cad_with_dialog_killer() -> bool:",
+      "role": "在 CAD_coordination 中承接 `start_cad_with_dialog_killer` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标路径、文档或进程上下文。",
+        "调用 CAD/系统接口执行生命周期操作。",
+        "刷新状态并返回操作结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。",
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。"
+      ],
+      "evidence": {
+        "line_start": 449,
+        "line_end": 470
+      }
+    },
+    {
+      "name": "wait_command_done",
+      "symbol": "wait_command_done",
+      "qualname": "wait_command_done",
+      "level": "core",
+      "signature": "def wait_command_done(timeout: float = 300.0, poll_interval: Any = None, quiet_time: float = 0.5) -> bool:",
+      "role": "轮询 CAD/进程状态直到满足条件或超时。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "标准化 timeout、quiet_time 等等待参数。",
+        "轮询目标状态并持续判断完成条件。",
+        "在成功或超时时返回布尔结果并记录必要日志。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "等待类函数在超时后返回失败状态。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 quiet-time / timeout 双重等待策略。",
+        "保留失败时的文件回滚与上下文退出清理。",
+        "重试/轮询必须有明确超时与退避边界。"
+      ],
+      "evidence": {
+        "line_start": 471,
+        "line_end": 490
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "上下文管理器对异常吞吐策略需结合真实 CAD 会话复核。"
+    ],
+    "function_count": 14,
+    "public_api_count": 11,
+    "core_function_count": 11
+  }
+}

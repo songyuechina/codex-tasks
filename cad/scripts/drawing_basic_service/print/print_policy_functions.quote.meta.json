@@ -1,0 +1,865 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "print_policy.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_policy.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "把候选打印区域组织成稳定的 PrintPlan，完成模式归一、排序、路径分配与按 handle 过滤。",
+    "coverage": "graded-all",
+    "grading": {
+      "core": "公共入口、真实打印/分析执行函数、关键导出与主链编排函数。",
+      "normal": "主要业务辅助函数、候选收集与计划/分析组织函数。",
+      "utility": "局部 helper、路径归一、轻量转换与兼容性函数。"
+    },
+    "public_api": [
+      "normalize_print_mode",
+      "collect_print_jobs",
+      "reindex_jobs_by_space",
+      "assign_output_paths",
+      "filter_jobs_by_handles",
+      "build_print_plan",
+      "plan_to_dict",
+      "save_plan_json"
+    ]
+  },
+  "functions": [
+    {
+      "name": "PrintPlan.total_jobs",
+      "symbol": "total_jobs",
+      "qualname": "PrintPlan.total_jobs",
+      "level": "utility",
+      "signature": "def total_jobs(self) -> int:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "len",
+        "self.jobs_by_space.values",
+        "sum"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 76,
+        "line_end": 77
+      }
+    },
+    {
+      "name": "PrintPlan.landscape_count",
+      "symbol": "landscape_count",
+      "qualname": "PrintPlan.landscape_count",
+      "level": "utility",
+      "signature": "def landscape_count(self) -> int:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "self.jobs_by_space.values",
+        "sum"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 80,
+        "line_end": 81
+      }
+    },
+    {
+      "name": "PrintPlan.portrait_count",
+      "symbol": "portrait_count",
+      "qualname": "PrintPlan.portrait_count",
+      "level": "utility",
+      "signature": "def portrait_count(self) -> int:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "self",
+          "raw": "self",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "self.jobs_by_space.values",
+        "sum"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 84,
+        "line_end": 85
+      }
+    },
+    {
+      "name": "_safe_handle",
+      "symbol": "_safe_handle",
+      "qualname": "_safe_handle",
+      "level": "utility",
+      "signature": "def _safe_handle(obj: Any) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "obj",
+          "raw": "obj: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "id",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 88,
+        "line_end": 92
+      }
+    },
+    {
+      "name": "_get_bbox",
+      "symbol": "_get_bbox",
+      "qualname": "_get_bbox",
+      "level": "utility",
+      "signature": "def _get_bbox(poly: Any) -> Optional[tuple[float, float, float, float]]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_safe_handle",
+        "float",
+        "max",
+        "min",
+        "poly.GetBoundingBox",
+        "sys_logger.warning"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 95,
+        "line_end": 105
+      }
+    },
+    {
+      "name": "_layout_name_map",
+      "symbol": "_layout_name_map",
+      "qualname": "_layout_name_map",
+      "level": "utility",
+      "signature": "def _layout_name_map() -> dict[str, str]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "str",
+        "sys_logger.warning"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 108,
+        "line_end": 118
+      }
+    },
+    {
+      "name": "_sanitize_name",
+      "symbol": "_sanitize_name",
+      "qualname": "_sanitize_name",
+      "level": "utility",
+      "signature": "def _sanitize_name(name: str) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "name",
+          "raw": "name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "join",
+        "name.strip"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 121,
+        "line_end": 123
+      }
+    },
+    {
+      "name": "_contains_bbox",
+      "symbol": "_contains_bbox",
+      "qualname": "_contains_bbox",
+      "level": "utility",
+      "signature": "def _contains_bbox(outer: tuple[float, float, float, float], inner: tuple[float, float, float, float], tol: float=1e-06) -> bool:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "outer",
+          "raw": "outer: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "inner",
+          "raw": "inner: tuple[float, float, float, float]",
+          "required": true
+        },
+        {
+          "name": "tol",
+          "raw": "tol: float = 1e-06",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 126,
+        "line_end": 136
+      }
+    },
+    {
+      "name": "normalize_print_mode",
+      "symbol": "normalize_print_mode",
+      "qualname": "normalize_print_mode",
+      "level": "core",
+      "signature": "def normalize_print_mode(mode: str | None) -> str:",
+      "purpose": "把用户输入的打印模式统一成 basic/adaptive/purified_adaptive 三种受支持值，并拒绝非法模式。",
+      "inputs": [
+        {
+          "name": "mode",
+          "raw": "mode: str | None",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回规范化后的模式字符串。"
+      ],
+      "returns": [
+        "字符串；非法模式时抛 ValueError。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "ValueError",
+        "lower",
+        "replace",
+        "str",
+        "strip"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 139,
+        "line_end": 143
+      },
+      "failure_paths": [
+        "模式不在 PRINT_MODES 中时抛 ValueError。"
+      ],
+      "success_conditions": [
+        "后续所有策略与执行模块都使用统一模式值。"
+      ],
+      "must_keep_experience": [
+        "打印主链只允许三种模式，不能再引入旧 analysis 模式。"
+      ]
+    },
+    {
+      "name": "_area_match_mode",
+      "symbol": "_area_match_mode",
+      "qualname": "_area_match_mode",
+      "level": "utility",
+      "signature": "def _area_match_mode(mode: str) -> str:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "mode",
+          "raw": "mode: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "normalize_print_mode"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 146,
+        "line_end": 150
+      }
+    },
+    {
+      "name": "_make_job",
+      "symbol": "_make_job",
+      "qualname": "_make_job",
+      "level": "utility",
+      "signature": "def _make_job(poly: Any, dwg_path: str, space_kind: str, layout_name: str, owner_btr: str, *, mode: str) -> Optional[PrintJob]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "poly",
+          "raw": "poly: Any",
+          "required": true
+        },
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: str",
+          "required": true
+        },
+        {
+          "name": "space_kind",
+          "raw": "space_kind: str",
+          "required": true
+        },
+        {
+          "name": "layout_name",
+          "raw": "layout_name: str",
+          "required": true
+        },
+        {
+          "name": "owner_btr",
+          "raw": "owner_btr: str",
+          "required": true
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "PrintJob",
+        "_area_match_mode",
+        "_get_bbox",
+        "_safe_handle",
+        "abs",
+        "float",
+        "int",
+        "match_standard_print_by_mode"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 153,
+        "line_end": 190
+      }
+    },
+    {
+      "name": "_collect_layout_viewports",
+      "symbol": "_collect_layout_viewports",
+      "qualname": "_collect_layout_viewports",
+      "level": "utility",
+      "signature": "def _collect_layout_viewports(layout_name: str) -> list[Any]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "layout_name",
+          "raw": "layout_name: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "C.doc.Layouts.Item",
+        "_contains_bbox",
+        "_get_bbox",
+        "_safe_handle",
+        "abs",
+        "candidates.append",
+        "filtered.append",
+        "getattr"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 193,
+        "line_end": 226
+      }
+    },
+    {
+      "name": "_sort_jobs",
+      "symbol": "_sort_jobs",
+      "qualname": "_sort_jobs",
+      "level": "utility",
+      "signature": "def _sort_jobs(jobs: list[PrintJob]) -> list[PrintJob]:",
+      "purpose": "提供局部辅助步骤、转换或兼容逻辑，服务同脚本主流程。",
+      "inputs": [
+        {
+          "name": "jobs",
+          "raw": "jobs: list[PrintJob]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "abs",
+        "append",
+        "min",
+        "result.extend",
+        "rows.append",
+        "sorted"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 229,
+        "line_end": 257
+      }
+    },
+    {
+      "name": "collect_print_jobs",
+      "symbol": "collect_print_jobs",
+      "qualname": "collect_print_jobs",
+      "level": "core",
+      "signature": "def collect_print_jobs(dwg_path: str, *, mode: str=PRINT_MODE_BASIC, include_model: bool=True, include_layouts: bool=True, only_layouts: Optional[list[str]]=None) -> dict[str, list[PrintJob]]:",
+      "purpose": "从模型空间和布局空间收集打印区域，生成按空间分组且已排序的 PrintJob 列表。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: str",
+          "required": true
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str = PRINT_MODE_BASIC",
+          "required": false
+        },
+        {
+          "name": "include_model",
+          "raw": "include_model: bool = True",
+          "required": false
+        },
+        {
+          "name": "include_layouts",
+          "raw": "include_layouts: bool = True",
+          "required": false
+        },
+        {
+          "name": "only_layouts",
+          "raw": "only_layouts: Optional[list[str]] = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回 jobs_by_space 字典，key 为 layout 名，value 为 PrintJob 列表。"
+      ],
+      "returns": [
+        "字典；空字典表示未收集到可打印区域。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "get_print_area_polylines",
+        "_layout_name_map",
+        "_make_job",
+        "_collect_layout_viewports",
+        "_sort_jobs",
+        "get_layout_names"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 260,
+        "line_end": 326
+      },
+      "steps": [
+        "归一 mode，并读取打印区域与布局映射。",
+        "在 include_model 下从模型空间候选区域生成 model jobs。",
+        "在 include_layouts 下，先从纸空间候选区域生成布局 jobs，再补充布局视口 jobs。",
+        "按布局顺序和行列规则排序，并为每个 job 赋 sequence_no。"
+      ],
+      "failure_paths": [
+        "某个候选区域无法匹配标准图幅时会跳过并记 warning。"
+      ],
+      "success_conditions": [
+        "返回的 jobs_by_space 已完成基本排序，可直接进入路径分配。"
+      ],
+      "must_keep_experience": [
+        "模型空间和布局空间都可能输出，不应默认二选一。",
+        "布局 jobs 要同时考虑纸空间打印框和布局视口候选。"
+      ]
+    },
+    {
+      "name": "reindex_jobs_by_space",
+      "symbol": "reindex_jobs_by_space",
+      "qualname": "reindex_jobs_by_space",
+      "level": "core",
+      "signature": "def reindex_jobs_by_space(jobs_by_space: dict[str, list[PrintJob]]) -> dict[str, list[PrintJob]]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[PrintJob]]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "_sort_jobs",
+        "enumerate",
+        "jobs_by_space.items",
+        "list"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 329,
+        "line_end": 337
+      }
+    },
+    {
+      "name": "assign_output_paths",
+      "symbol": "assign_output_paths",
+      "qualname": "assign_output_paths",
+      "level": "core",
+      "signature": "def assign_output_paths(jobs_by_space: dict[str, list[PrintJob]], *, output_root: str | Path, source_stem: str) -> None:",
+      "purpose": "按 layout 名和 sequence_no 为每个 PrintJob 分配稳定的 PDF 输出路径。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[PrintJob]]",
+          "required": true
+        },
+        {
+          "name": "output_root",
+          "raw": "output_root: str | Path",
+          "required": true
+        },
+        {
+          "name": "source_stem",
+          "raw": "source_stem: str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "无显式返回，直接更新各 job.output_path。"
+      ],
+      "returns": [
+        "无显式返回。"
+      ],
+      "side_effects": [
+        "修改 PrintJob.output_path。"
+      ],
+      "dependencies": [
+        "Path",
+        "_sanitize_name",
+        "jobs_by_space.items",
+        "str"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 340,
+        "line_end": 351
+      },
+      "steps": [
+        "按 layout_name 构造布局目录名。",
+        "按 source_stem、layout_name、sequence_no 生成文件名。",
+        "回写到每个 job.output_path。"
+      ],
+      "success_conditions": [
+        "所有 job 都获得稳定、可预测的输出路径。"
+      ],
+      "must_keep_experience": [
+        "输出命名必须稳定，便于目录级调度复制和后续校验。"
+      ]
+    },
+    {
+      "name": "filter_jobs_by_handles",
+      "symbol": "filter_jobs_by_handles",
+      "qualname": "filter_jobs_by_handles",
+      "level": "core",
+      "signature": "def filter_jobs_by_handles(jobs_by_space: dict[str, list[PrintJob]], excluded_handles: set[str] | None=None) -> dict[str, list[PrintJob]]:",
+      "purpose": "按范围、handle 或条件过滤已有候选集合。",
+      "inputs": [
+        {
+          "name": "jobs_by_space",
+          "raw": "jobs_by_space: dict[str, list[PrintJob]]",
+          "required": true
+        },
+        {
+          "name": "excluded_handles",
+          "raw": "excluded_handles: set[str] | None = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回供上层流程继续消费的集合、字典、计划或校验结果。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "jobs_by_space.items",
+        "reindex_jobs_by_space",
+        "set",
+        "str"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 354,
+        "line_end": 364
+      }
+    },
+    {
+      "name": "build_print_plan",
+      "symbol": "build_print_plan",
+      "qualname": "build_print_plan",
+      "level": "core",
+      "signature": "def build_print_plan(dwg_path: str, output_root: str | Path, *, mode: str=PRINT_MODE_BASIC, source_stem: str | None=None, include_model: bool=True, include_layouts: bool=True, only_layouts: Optional[list[str]]=None) -> PrintPlan:",
+      "purpose": "把 DWG 路径、模式和输出根目录整理成完整 PrintPlan 对象，是执行器和分析器的统一输入。",
+      "inputs": [
+        {
+          "name": "dwg_path",
+          "raw": "dwg_path: str",
+          "required": true
+        },
+        {
+          "name": "output_root",
+          "raw": "output_root: str | Path",
+          "required": true
+        },
+        {
+          "name": "mode",
+          "raw": "mode: str = PRINT_MODE_BASIC",
+          "required": false
+        },
+        {
+          "name": "source_stem",
+          "raw": "source_stem: str | None = None",
+          "required": false
+        },
+        {
+          "name": "include_model",
+          "raw": "include_model: bool = True",
+          "required": false
+        },
+        {
+          "name": "include_layouts",
+          "raw": "include_layouts: bool = True",
+          "required": false
+        },
+        {
+          "name": "only_layouts",
+          "raw": "only_layouts: Optional[list[str]] = None",
+          "required": false
+        }
+      ],
+      "outputs": [
+        "返回 PrintPlan 数据类实例。"
+      ],
+      "returns": [
+        "PrintPlan。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "normalize_print_mode",
+        "collect_print_jobs",
+        "assign_output_paths",
+        "PrintPlan"
+      ],
+      "risk_level": "high",
+      "evidence": {
+        "line_start": 367,
+        "line_end": 400
+      },
+      "steps": [
+        "归一输入路径、输出根目录和模式。",
+        "调用 collect_print_jobs 收集并排序 jobs。",
+        "调用 assign_output_paths 为所有 jobs 分配 PDF 路径。",
+        "返回包含 dwg_path/output_root/source_stem/mode/jobs_by_space 的 PrintPlan。"
+      ],
+      "success_conditions": [
+        "PrintPlan 可直接被 execute_print_plan、plan_to_dict 和 print info 分析复用。"
+      ],
+      "must_keep_experience": [
+        "计划层和执行层要通过 PrintPlan 解耦，不能在执行器里重新发明计划逻辑。"
+      ]
+    },
+    {
+      "name": "plan_to_dict",
+      "symbol": "plan_to_dict",
+      "qualname": "plan_to_dict",
+      "level": "core",
+      "signature": "def plan_to_dict(plan: PrintPlan) -> dict[str, Any]:",
+      "purpose": "承接脚本中的业务步骤、状态组织或结果转换逻辑。",
+      "inputs": [
+        {
+          "name": "plan",
+          "raw": "plan: PrintPlan",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回局部计算结果、状态对象或结构化数据。"
+      ],
+      "returns": [
+        "按分支返回结构化数据、布尔状态、路径或对象引用。"
+      ],
+      "side_effects": [],
+      "dependencies": [
+        "asdict",
+        "plan.jobs_by_space.items"
+      ],
+      "risk_level": "low",
+      "evidence": {
+        "line_start": 403,
+        "line_end": 416
+      }
+    },
+    {
+      "name": "save_plan_json",
+      "symbol": "save_plan_json",
+      "qualname": "save_plan_json",
+      "level": "core",
+      "signature": "def save_plan_json(plan: PrintPlan, path: str | Path) -> Path:",
+      "purpose": "把 PrintPlan 以结构化 JSON 落盘，作为后续执行、分析和回归的权威计划文件。",
+      "inputs": [
+        {
+          "name": "plan",
+          "raw": "plan: PrintPlan",
+          "required": true
+        },
+        {
+          "name": "path",
+          "raw": "path: str | Path",
+          "required": true
+        }
+      ],
+      "outputs": [
+        "返回 plan.json 路径。"
+      ],
+      "returns": [
+        "Path。"
+      ],
+      "side_effects": [
+        "写入磁盘 JSON 文件。"
+      ],
+      "dependencies": [
+        "Path",
+        "json.dumps",
+        "plan_to_dict",
+        "target.parent.mkdir",
+        "target.write_text"
+      ],
+      "risk_level": "medium",
+      "evidence": {
+        "line_start": 419,
+        "line_end": 423
+      },
+      "steps": [
+        "确保目标目录存在。",
+        "把 PrintPlan 转成可序列化字典。",
+        "写出 JSON 并返回路径。"
+      ],
+      "success_conditions": [
+        "plan.json 可被 print_runner、print_batch_dispatch 和 print_info_analysis 复用。"
+      ],
+      "must_keep_experience": [
+        "plan.json 是主链的重要中间契约文件，不应省略。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "planning",
+      "filesystem",
+      "print-analysis"
+    ],
+    "script_focus": "打印计划构建与路径分配脚本"
+  },
+  "quality": {
+    "todo": [
+      "purpose/outputs/returns 为静态命名与 AST 归纳结果，复杂运行时分支后续可再细化。",
+      "dependencies 仅记录直接调用名，不代表完整跨模块调用图。"
+    ],
+    "function_count": 20,
+    "public_api_count": 8,
+    "core_function_count": 8
+  }
+}

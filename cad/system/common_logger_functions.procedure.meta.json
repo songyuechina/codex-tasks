@@ -1,0 +1,363 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "common_logger.py",
+    "path": "D:/codex-tasks/cad/system/common_logger.py",
+    "encoding": "utf-8",
+    "version": "2026-03-08.functions-meta-v2"
+  },
+  "functions_procedure": {
+    "goal": "提供 cad/system 统一日志、测试记录、调试开关与关键区段记录。",
+    "step_style": "graded",
+    "public_api": [
+      "setup_logger",
+      "set_log_level",
+      "set_debug_mode",
+      "record_test_result",
+      "checkpoint",
+      "CriticalSection.__enter__",
+      "CriticalSection.__exit__",
+      "node"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_parse_log_level",
+      "symbol": "_parse_log_level",
+      "qualname": "_parse_log_level",
+      "level": "utility",
+      "signature": "def _parse_log_level(level: Any) -> int:",
+      "role": "在 common_logger 中承接 `_parse_log_level` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 70,
+        "line_end": 82
+      }
+    },
+    {
+      "name": "setup_logger",
+      "symbol": "setup_logger",
+      "qualname": "setup_logger",
+      "level": "core",
+      "signature": "def setup_logger(log_file: str = \"system_run.log\") -> logging.Logger:",
+      "role": "在 common_logger 中承接 `setup_logger` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 sys_logger 单例和统一日志级别控制。",
+        "CriticalSection 退出时不能无条件吞异常。"
+      ],
+      "evidence": {
+        "line_start": 83,
+        "line_end": 135
+      }
+    },
+    {
+      "name": "set_log_level",
+      "symbol": "set_log_level",
+      "qualname": "set_log_level",
+      "level": "core",
+      "signature": "def set_log_level( level:",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 sys_logger 单例和统一日志级别控制。",
+        "CriticalSection 退出时不能无条件吞异常。"
+      ],
+      "evidence": {
+        "line_start": 136,
+        "line_end": 157
+      }
+    },
+    {
+      "name": "set_debug_mode",
+      "symbol": "set_debug_mode",
+      "qualname": "set_debug_mode",
+      "level": "core",
+      "signature": "def set_debug_mode( mode:",
+      "role": "更新目标对象、属性或运行状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "解析目标对象与待写入参数。",
+        "执行属性更新、切换或激活动作。",
+        "返回成功状态或让异常上抛。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 sys_logger 单例和统一日志级别控制。",
+        "CriticalSection 退出时不能无条件吞异常。"
+      ],
+      "evidence": {
+        "line_start": 158,
+        "line_end": 198
+      }
+    },
+    {
+      "name": "record_test_result",
+      "symbol": "record_test_result",
+      "qualname": "record_test_result",
+      "level": "core",
+      "signature": "def record_test_result( script_name:",
+      "role": "记录日志、测试结果或状态快照。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "整理待持久化的数据结构。",
+        "写入日志、数据库或结果文件。",
+        "返回记录结果或主键引用。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [
+        "保留 sys_logger 单例和统一日志级别控制。",
+        "CriticalSection 退出时不能无条件吞异常。"
+      ],
+      "evidence": {
+        "line_start": 199,
+        "line_end": 256
+      }
+    },
+    {
+      "name": "checkpoint",
+      "symbol": "checkpoint",
+      "qualname": "checkpoint",
+      "level": "core",
+      "signature": "def checkpoint(desc: str, is_pass: bool = True, **variables: Any) -> None:",
+      "role": "在 common_logger 中承接 `checkpoint` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 sys_logger 单例和统一日志级别控制。",
+        "CriticalSection 退出时不能无条件吞异常。"
+      ],
+      "evidence": {
+        "line_start": 257,
+        "line_end": 282
+      }
+    },
+    {
+      "name": "CriticalSection.__init__",
+      "symbol": "__init__",
+      "qualname": "CriticalSection.__init__",
+      "level": "utility",
+      "signature": "def __init__( self, description:",
+      "role": "初始化所属类的运行时状态、缓存或配置。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 292,
+        "line_end": 323
+      }
+    },
+    {
+      "name": "CriticalSection.record",
+      "symbol": "record",
+      "qualname": "CriticalSection.record",
+      "level": "utility",
+      "signature": "def record(self, **kwargs: Any) -> None:",
+      "role": "记录日志、测试结果或状态快照。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "整理待持久化的数据结构。",
+        "写入日志、数据库或结果文件。",
+        "返回记录结果或主键引用。"
+      ],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "目标资源状态完成预期变更，且返回值可供上层继续判断。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 324,
+        "line_end": 326
+      }
+    },
+    {
+      "name": "CriticalSection.__enter__",
+      "symbol": "__enter__",
+      "qualname": "CriticalSection.__enter__",
+      "level": "core",
+      "signature": "def __enter__(self):",
+      "role": "进入上下文并准备保护性资源或事务状态。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取当前上下文参数与目标资源。",
+        "缓存进入前状态并建立保护边界。",
+        "返回可供 with 代码块继续使用的对象。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "主要失败路径取决于参数非法、底层 COM 调用失败或资源不可用。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 sys_logger 单例和统一日志级别控制。",
+        "CriticalSection 退出时不能无条件吞异常。"
+      ],
+      "evidence": {
+        "line_start": 327,
+        "line_end": 330
+      }
+    },
+    {
+      "name": "CriticalSection.__exit__",
+      "symbol": "__exit__",
+      "qualname": "CriticalSection.__exit__",
+      "level": "core",
+      "signature": "def __exit__(self, exc_type, exc_val, exc_tb):",
+      "role": "退出上下文，执行清理、回滚或异常后处理。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [
+        "读取异常信息与上下文状态。",
+        "按成功/失败分支执行清理、回滚或收尾。",
+        "返回约定的异常处理结果。"
+      ],
+      "brief_flow": [],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [
+        "保留 sys_logger 单例和统一日志级别控制。",
+        "CriticalSection 退出时不能无条件吞异常。"
+      ],
+      "evidence": {
+        "line_start": 331,
+        "line_end": 363
+      }
+    },
+    {
+      "name": "node",
+      "symbol": "node",
+      "qualname": "node",
+      "level": "utility",
+      "signature": "def node(msg: str, *args: Any, **kwargs: Any) -> None:",
+      "role": "在 common_logger 中承接 `node` 这一段局部流程。",
+      "preconditions": [
+        "调用方已提供当前函数所需的最小参数与运行环境。"
+      ],
+      "steps": [],
+      "brief_flow": [
+        "读取输入并做最小预处理。",
+        "执行当前函数承担的局部逻辑。",
+        "返回结果或把副作用交给上层流程消费。"
+      ],
+      "failure_paths": [
+        "存在异常捕获分支；失败时通常记录日志、返回 False/None 或继续降级。"
+      ],
+      "success_conditions": [
+        "返回值与副作用满足当前函数预期职责。"
+      ],
+      "must_keep_experience": [],
+      "evidence": {
+        "line_start": 364,
+        "line_end": 385
+      }
+    }
+  ],
+  "quality": {
+    "todo": [
+      "日志落盘与测试记录路径依赖 PathConfig，本次只静态总结调用关系。"
+    ],
+    "function_count": 11,
+    "public_api_count": 8,
+    "core_function_count": 7
+  }
+}

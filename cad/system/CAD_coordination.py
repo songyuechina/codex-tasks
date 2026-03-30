@@ -282,11 +282,8 @@ class FileGuard:
         sys_logger.warning("🔄 正在执行物理级回滚 (强杀 CAD -> 覆盖文件)...")
 
         try:
-            from scripts.CAD_basic import close_all_cad_processes
-
+            from system.CAD_core import close_all_cad_processes
             close_all_cad_processes()
-        except ImportError:
-            sys_logger.critical("💀 无法导入 close_all_cad_processes，回滚可能失败！")
         except Exception as e:
             sys_logger.error(f"关闭 CAD 进程失败: {e}")
 
@@ -322,7 +319,7 @@ def run_safety_loop(
     """
     target_dwg = Path(target_dwg)
 
-    from scripts.CAD_basic import open_file
+    from system.CAD_core import open_file
 
     for i in range(1, max_retries + 1):
         sys_logger.info(f"🔁 [第 {i}/{max_retries} 次尝试] {target_dwg.name}")
@@ -450,11 +447,11 @@ def start_cad_with_dialog_killer() -> bool:
     """
     启动 CAD，并等待进入可用状态。
     说明：
-    - 启动逻辑仍委托给历史脚本 start_applicationV9
+    - 启动逻辑委托给 system.CAD_core.start_applicationV9
     - 协同层只负责等待与收束
     """
     try:
-        from scripts.CAD_basic import start_applicationV9
+        from system.CAD_core import start_applicationV9
 
         sys_logger.info("启动 CAD...")
         if start_applicationV9():

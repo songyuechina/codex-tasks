@@ -1,0 +1,93 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "content_analysis_dwg_file",
+  "file_path": "D:/codex-tasks/cad/system/content_analysis_dwg_file.py",
+  "script_role": "DWG 文件内容分析、快照持久化与摘要查询脚本",
+  "core_problem": "对当前或指定 DWG 的图形内容进行稳定采集与统计，将结果写入 CAD_AUDIT 数据库，并提供按类型、按空间、按 handle 的快速摘要查询能力。",
+  "system_position": {
+    "layer_name": "内容分析与验证层",
+    "works_with": [
+      "system.licad.py",
+      "system.CAD_selection.py",
+      "system.CAD_core.py",
+      "system.common_logger.py",
+      "library.Databaseoperation"
+    ],
+    "main_entry_note": "本模块不负责 CAD 主连接与基础文件控制，而是在连接与文件打开之后执行内容采集、数据库写入与摘要查询。"
+  },
+  "core_functions": [
+    {
+      "name": "ensure_cad_audit_schema",
+      "role": "建立 CAD_AUDIT 数据库及 dwg_files / cad_snapshots 两张核心表",
+      "input_shape": "无",
+      "output_shape": "None"
+    },
+    {
+      "name": "persist_cad_state",
+      "role": "把一次 DWG 采集结果写入数据库快照",
+      "input_shape": "state 字典",
+      "output_shape": "snapshot_id 或 None"
+    },
+    {
+      "name": "load_latest_state_from_db",
+      "role": "按路径/文件名/文件干名等标识从数据库读取最新快照",
+      "input_shape": "identifier",
+      "output_shape": "state 字典或 None"
+    },
+    {
+      "name": "_check_doc_health",
+      "role": "对当前文档执行健康检查，判断 readonly/saved/count/recovery_guess 等",
+      "input_shape": "doc",
+      "output_shape": "health 字典"
+    },
+    {
+      "name": "_snapshot_obj_counts_handles_and_digest",
+      "role": "扫描 ModelSpace 与每个 Layout 的 Block，生成计数、handles 与 digest",
+      "input_shape": "doc, max_entities, handle_types, max_handles_per_type, progress_every",
+      "output_shape": "counts_legacy, counts_by_type, counts_by_space, digest, total_seen, handles_by_type"
+    },
+    {
+      "name": "get_cad_state",
+      "role": "对外唯一核心采集入口：默认重算+写库，可选 reuse_db 复用数据库",
+      "input_shape": "filepath, reuse_db, max_entities, handle_types, max_handles_per_type, progress_every",
+      "output_shape": "完整 state 字典"
+    },
+    {
+      "name": "get_cad_state_from_db",
+      "role": "从数据库直接取回某个 DWG 的最新 state",
+      "input_shape": "identifier",
+      "output_shape": "state 字典"
+    },
+    {
+      "name": "get_dwg_graphics_summary",
+      "role": "便捷摘要入口：返回程序可用 dict，并可打印人类可读摘要",
+      "input_shape": "filepath, types, handle_types, use_db, max_handles_per_type, verbose",
+      "output_shape": "summary 字典"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "模块内部仍保留旧式 sys.path 引导，这是历史兼容痕迹",
+    "会创建/更新 CAD_AUDIT 数据库结构与索引",
+    "会向 dwg_files / cad_snapshots 写入快照数据",
+    "指定 filepath 时会调用 CAD_core.open_file 打开文件，并在 finally 中调用 CAD_core.close_file(auto_save) 关闭",
+    "get_dwg_graphics_summary(verbose=True) 会向控制台打印长摘要"
+  ],
+  "must_keep_experience": [
+    "默认策略应是重算并写库，reuse_db=True 才优先复用数据库快照",
+    "DWG 对象统计必须同时保留 counts_legacy、counts_by_type、counts_by_space 三套视图",
+    "handle 采集应按 handle_types 白名单进行，避免全量 handle 带来性能灾难",
+    "扫描对象时要遍历 ModelSpace 与每个 Layout.Block，而不是只看模型空间",
+    "digest 应基于稳定 token（空间+类型+[handle]）生成，用于后续对比",
+    "数据库标识匹配要兼容完整路径、basename、stem 等多种输入"
+  ],
+  "known_limits": [
+    "依赖 library.Databaseoperation 提供数据库通用能力，环境中必须存在该库",
+    "对非常大的图纸，枚举速度与数据库写入速度都可能成为瓶颈，因此保留 max_entities / progress_every 等限制参数",
+    "verbose 摘要使用 print 输出，这是面向人工核验的展示层，不等价于业务日志体系"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续优化数据库结构、扫描性能与摘要打印，但不得丢失“默认重算+写库、按空间聚合、按需采 handle、digest 对比”这四组核心经验。"
+  }
+}

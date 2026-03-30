@@ -1,0 +1,79 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "licad",
+  "file_path": "D:/codex-tasks/cad/system/licad.py",
+  "applicable_scenarios": [
+    "系统需要建立或刷新当前 CAD / DWG 连接",
+    "业务层需要统一访问当前 app、doc、ModelSpace、PaperSpace",
+    "需要安全发送 SendCommand，并尽量等待命令同步完成",
+    "需要统一进行打开、保存、关闭、解析文档等基础连接相关操作"
+  ],
+  "preconditions": [
+    "系统应运行在可访问 AutoCAD.Application COM 接口的环境中",
+    "system.CAD_com_utils 与 system.common_logger 应可导入",
+    "若要使用 SendCommand 同步包装，CAD_coordination.send_cmd_with_sync 应可用或允许退回原始 SendCommand"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "尝试连接现有实例",
+      "detail": "通过 GetActiveObject('AutoCAD.Application') 获取现有实例，再用 EnsureDispatch 封装。"
+    },
+    {
+      "step": 2,
+      "name": "检测进程与就绪状态",
+      "detail": "若 COM 连接失败但系统里已有 acad.exe 进程，则持续等待；只有确实没有进程时才允许新建实例。"
+    },
+    {
+      "step": 3,
+      "name": "获取或新建文档",
+      "detail": "优先获取 ActiveDocument；若 App 已连上但 Documents.Count==0，则新建空文档。"
+    },
+    {
+      "step": 4,
+      "name": "连接刷新验证",
+      "detail": "AutoCadProxy.li 会检查缓存对象是否仍指向当前 ActiveDocument，再用 ModelSpace 探针验证环境真正可操作。"
+    },
+    {
+      "step": 5,
+      "name": "暴露统一代理",
+      "detail": "通过 C.acad / C.doc / C.raw_doc / C.mp / C.sp 暴露当前连接对象；业务层默认取 C.doc。"
+    },
+    {
+      "step": 6,
+      "name": "安全命令与文件操作",
+      "detail": "通过 SafeDocumentWrapper 包装 SendCommand，并通过 C 的 open/save/close/resolve_doc 等方法进行基础连接相关操作。"
+    }
+  ],
+  "success_criteria": [
+    "已有 CAD 进程时不会因未就绪而误新建第二个实例",
+    "C.li() 能把失效缓存刷新为新的有效连接",
+    "业务层能稳定通过 C.doc / C.raw_doc 区分包装文档与原始文档",
+    "SendCommand 默认能走同步安全包装而不是裸调用"
+  ],
+  "failure_criteria": [
+    "业务层重新分散使用 GetActiveObject / Dispatch 建立连接",
+    "重写时丢失“进程存在但未就绪时等待”的经验",
+    "重写时丢失 gen_py 缓存自愈机制",
+    "doc 与 raw_doc 的语义边界被破坏，导致同步层再次死锁或混乱"
+  ],
+  "do_not_use_for": [
+    "不要把本模块当作高层事务/回滚/安全循环层",
+    "不要让普通业务代码绕过 C 直接长期操作原始 COM 连接",
+    "不要轻率删掉 SafeDocumentWrapper 的 SendCommand 劫持逻辑",
+    "不要在未理解循环引用边界前改写与 CAD_coordination 的集成方式"
+  ],
+  "integration_with_other_modules": {
+    "CAD_com_utils.py": "提供 retry_on_busy 与 SafeCOM；licad 对其做重命名导入避免冲突",
+    "common_logger.py": "提供 sys_logger 统一记录连接与文件操作日志",
+    "CAD_coordination.py": "为 SafeDocumentWrapper.SendCommand 提供同步安全实现",
+    "CAD_core.py": "基础控制层建立在 C 代理之上，而不是替代统一连接入口"
+  },
+  "rewrite_constraints": [
+    "允许继续局部清理历史兼容残留与冗余桥接代码",
+    "允许局部清理 print 与兼容变量 acad/doc",
+    "允许优化内部日志与等待实现",
+    "不得轻率整体重写统一连接策略、包装文档语义与自愈经验"
+  ]
+}

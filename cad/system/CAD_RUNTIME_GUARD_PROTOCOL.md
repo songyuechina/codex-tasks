@@ -12,7 +12,7 @@
 2. 单实例运行
 3. 被动观察当前活动 CAD 运行态
 4. 产出结构化状态与告警
-5. 为后续 `Runtime_Guard_Agent + 执行智能体 + 事件通道` 提供事实基础
+5. 为后续运行监督链入口、打印执行链与事件通道提供事实基础
 
 当前阶段，它**不直接接管恢复**，也**不直接强杀 CAD**。
 
@@ -61,7 +61,7 @@
 
 ### 3.3 进程来源线索
 
-监管脚本进一步读取当前活动 CAD 窗口所属进程的：
+监管脚本会先枚举系统里全部 `acad.exe` 进程，再结合当前活动 CAD 窗口所属进程的：
 
 - `name`
 - `exe`
@@ -79,7 +79,16 @@
 
 - `healthy_tarch`
 
-若当前仅表现为普通 `acad.exe`，且未发现上述线索，则判为：
+若系统里任意 `acad.exe` 仅表现为普通 `acad.exe`，且未发现上述线索，则判为：
+
+- `suspected_plain_cad`
+
+这条规则同样覆盖“混合态”：
+
+- 当前活动实例已经是天正
+- 但系统里仍残留一个或多个纯 CAD `acad.exe`
+
+此时也不会放行成 `healthy_tarch`，而是继续上报：
 
 - `suspected_plain_cad`
 
@@ -106,12 +115,12 @@
 原因：
 
 1. 若监管脚本自己恢复环境，它就从“观察者”变成“执行者”
-2. 后续多智能体体系中，需要由主控或守护智能体决定何时升级到恢复
+2. 后续治理体系中，应由项目总管、监督链或受控执行入口决定何时升级到恢复
 
 因此当前设计是：
 
 - 先记录结构化状态
-- 再由后续守护智能体或执行智能体消费这些状态
+- 再由后续运行监督链或打印执行链消费这些状态
 - 必要时再统一调用 `litz()`
 
 ---
@@ -208,6 +217,15 @@ python D:\codex-tasks\cad\system\cad_runtime_guard.py --once
 - `pid`
 - `process_hint`
 
+当前 `probe` 里还会补充：
+
+- `acad_process_count`
+- `tarch_process_count`
+- `plain_process_count`
+- `tarch_process_pids`
+- `plain_process_pids`
+- `acad_processes`
+
 ---
 
 ## 8. 当前升级规则
@@ -223,6 +241,8 @@ python D:\codex-tasks\cad\system\cad_runtime_guard.py --once
 - 当前只是发出结构化建议
 - 还没有直接接管恢复
 
+但监督入口 `Runtime_Guard_Agent` 已可以在本地消费 `pause_and_recover`，并调用 `litz()` 做恢复闭环。
+
 ---
 
 ## 9. 当前最脆弱的点
@@ -236,8 +256,8 @@ python D:\codex-tasks\cad\system\cad_runtime_guard.py --once
 因此下一阶段最重要的工作是：
 
 1. 为运行监管补一个更可靠的、低侵入的天正能力探针
-2. 让 `Runtime_Guard_Agent` 消费 `runtime_events.jsonl`
-3. 让执行智能体在关键节点主动轮询并响应 `pause_and_verify / pause_and_recover`
+2. 让 `Runtime_Guard_Agent/` 这一本地监督入口消费 `runtime_events.jsonl`
+3. 让打印执行链在关键节点主动轮询并响应 `pause_and_verify / pause_and_recover`
 
 当前这三步中的第 2、3 步已经有首版最小闭环实现：
 
@@ -245,3 +265,42 @@ python D:\codex-tasks\cad\system\cad_runtime_guard.py --once
 - 打印执行链已接入关键节点响应
 - 详细事件字段与响应语义见：
   - `D:/codex-tasks/dwg_agents_ops/agent_control/RUNTIME_EVENT_PROTOCOL.md`
+
+## 11. 实测验证
+
+当前已有专门的实测脚本：
+
+```powershell
+python D:\codex-tasks\cad\system\runtime_guard_recovery_validation.py --mode random --rounds 2 --seed 20260321
+```
+
+作用：
+
+1. 重启 `cad_runtime_guard.py`
+2. 随机用纯 CAD 或天正入口启动一轮
+3. 观察 `cad_runtime_guard.json`
+4. 在需要时调用 `Runtime_Guard_Agent\agent_cli.py --once`
+5. 验证最终是否回到“单一天正进程，无 plain CAD 残留”
+
+实测结果样例：
+
+- `D:/codex-tasks/cad/system/logs/runtime-guard-validation/case-20260321-235550/summary.json`
+- `D:/codex-tasks/cad/system/logs/runtime-guard-validation/case-20260321-235816/summary.json`
+
+## 10. 与执行纪律督导的关系
+
+`cad_runtime_guard.py` 负责“看见环境事实”，但它不直接负责执行纪律本身。
+
+例如下面这些事项：
+
+1. 每完成一个 DWG 后关闭相关工作文档
+2. 每完成一个 DWG 后调用 `CAD_core.cad_zt_oneb()` 回到简化状态
+3. 执行前明确受控入口与恢复入口
+
+这些不应强塞回 `cad_runtime_guard.py` 自己做。
+
+更合理的分工是：
+
+- `cad_runtime_guard.py` 产出环境事实
+- `Runtime_Guard_Agent` 基于事实与规则做监督结论
+- 项目总管和执行链落实具体收尾、归一和恢复动作

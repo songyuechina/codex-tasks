@@ -46,7 +46,8 @@ sys.path.insert(0, str(current))
 from system.project_setup import PathConfig
 
 from system.common_logger import sys_logger
-from system.licad import C
+from system import licad as licad_module
+from system.licad import C, get_acad_doc
 
 # 定义资源目录
 XITONG_DIR = PathConfig.CAD_DIR / "xitongwenjian"
@@ -66,27 +67,140 @@ except ImportError as e:
     sys_logger.critical(f"无法导入 CAD_com_utils: {e}")
     # 这里不raise，后续可能会定义假的 retry_on_busy 兜底
 
-# 3.2 导入 CAD 基础功能 (CAD_basic)
-try:
-    import scripts.CAD_basic as cb
-    from scripts.CAD_basic import (
-        close_all_cad_processes,
-        start_applicationV9,
-        get_acad_doc,
-        jingchengshu_wenjian,
+# 3.2 组合导入：替代对遗留 CAD_basic / CAD_file_operations 的依赖
+from system.CAD_selection import com_retry, get_object_property, last_obj
+from library.cad_blocks import safe_explode
+from library.cad_control import group_bbox_corners, safe_delete
+from library.cad_objects import ensure_list
 
 
-        safe_delete,
-        last_obj,
-        group_bbox_corners,
-        com_retry,
-        get_object_property,
-        ensure_list,
-        
-    )
-except ImportError as e:
-    sys_logger.error(f"[严重错误] 无法导入 CAD_basic: {e}")
-    raise e
+def jingchengshu_wenjian() -> int:
+    """返回当前 acad.exe 进程数量。"""
+    total = 0
+    for process in psutil.process_iter(["name"]):
+        try:
+            if str(process.info.get("name") or "").lower() == "acad.exe":
+                total += 1
+        except Exception:
+            continue
+    return total
+
+
+def close_all_cad_processes(*, max_retries: int = 3, retry_delay: float = 2.0) -> bool:
+    """强制关闭所有 acad.exe，并校验是否真正退出。"""
+    for attempt in range(1, max_retries + 1):
+        process_count = jingchengshu_wenjian()
+        if process_count == 0:
+            sys_logger.info("[close_all_cad_processes] 当前没有 CAD 进程")
+            return True
+
+        sys_logger.info(f"[close_all_cad_processes] 检测到 {process_count} 个 CAD 进程，执行关闭")
+        try:
+            result = subprocess.run(
+                ["taskkill", "/F", "/IM", "acad.exe"],
+                capture_output=True,
+                text=True,
+                timeout=10,
+            )
+        except subprocess.TimeoutExpired:
+            result = None
+            sys_logger.warning(f"[close_all_cad_processes] 第 {attempt} 次 taskkill 超时")
+
+        if result is not None and result.returncode not in {0, 128}:
+            sys_logger.warning(
+                f"[close_all_cad_processes] taskkill 返回码={result.returncode} stdout={result.stdout!r}"
+            )
+
+        time.sleep(max(retry_delay, 0.5))
+        if jingchengshu_wenjian() == 0:
+            sys_logger.info("[close_all_cad_processes] 所有 CAD 进程已退出")
+            return True
+
+    sys_logger.error("[close_all_cad_processes] 多次尝试后仍有 CAD 进程残留")
+    return False
+
+
+def start_applicationV9(
+    PTH: str = r"C:\Tangent\TArchT20V9",
+    max_retries: int = 3,
+    retry_delay: float = 2.0,
+) -> subprocess.Popen | None:
+    """通过 TGStart.exe 启动天正，并挂载守护链。"""
+    exe = Path(PTH) / "TGStart.exe"
+    if not exe.exists():
+        sys_logger.error(f"[start_applicationV9] 天正启动程序不存在: {exe}")
+        return None
+
+    last_error = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            proc = subprocess.Popen([str(exe)], cwd=str(exe.parent))
+            time.sleep(3.0)
+            try:
+                launch_cad_guardians()
+            except Exception as guard_exc:
+                sys_logger.warning(f"[start_applicationV9] 挂载守护链失败: {guard_exc}")
+            sys_logger.info(f"[start_applicationV9] 已启动天正，PID={proc.pid}")
+            return proc
+        except Exception as exc:
+            last_error = exc
+            sys_logger.warning(f"[start_applicationV9] 第 {attempt}/{max_retries} 次启动失败: {exc}")
+            if attempt < max_retries:
+                time.sleep(max(retry_delay, 0.5))
+
+    sys_logger.error(f"[start_applicationV9] 启动天正失败: {last_error}")
+    return None
+
+
+class _LegacyCompat:
+    """仅保留历史属性名，避免再直接依赖 scripts.CAD_basic。"""
+
+    @staticmethod
+    def li():
+        return licad_module.li()
+
+    @property
+    def acad(self):
+        try:
+            return C.acad
+        except Exception:
+            return None
+
+    @property
+    def doc(self):
+        try:
+            return C.raw_doc
+        except Exception:
+            return None
+
+    @property
+    def mp(self):
+        try:
+            return C.mp
+        except Exception:
+            return None
+
+    @property
+    def sp(self):
+        try:
+            return C.sp
+        except Exception:
+            return None
+
+    @staticmethod
+    def st():
+        return start_applicationV9()
+
+    @staticmethod
+    def close_all_cad_processes():
+        return close_all_cad_processes()
+
+    @staticmethod
+    def safe_explode(block_ref):
+        return safe_explode(block_ref)
+
+
+cb = _LegacyCompat()
 
 # 3.3 CAD 基础文档操作（内生化，替代 CAD_basic_operations 依赖）
 def _core_get_short_path(path_str: str) -> str:
@@ -414,82 +528,40 @@ doc = None
 mp = None
 sp = None
 
-try:
-    # --- 方案 A: 尝试使用新核心 licad ---
-    import licad
-    from licad import C
-    # 尝试从 licad 导入 retry_on_busy，如果前面没导入成功的话
-    if 'retry_on_busy' not in globals():
-        from licad import retry_on_busy
-    
-    sys_logger.info("[初始化] 成功加载 licad 核心模块")
+sys_logger.info("[初始化] 成功加载 system.licad 核心模块")
 
-    def li():
-        """
-        【模式 A: 新核心】调用 licad.li() 并同步全局变量
-        """
-        global acad, doc, mp, sp
-        
-        # 1. 调用 licad 的强力连接
-        is_connected = licad.li()
-        
-        if is_connected:
-            # 2. 桥接数据：把 C 的属性注入给本脚本的全局变量
-            acad = C.acad
-            doc = C.doc
-            mp = C.mp
-            sp = C.sp
-            return True
-        return False
 
-except ImportError:
-    # --- 方案 B: 回退使用老核心 CAD_basic ---
-    sys_logger.info("[注意] 未找到 licad，回退使用 CAD_basic (cb) 模式")
-    
-    # 兜底装饰器 (如果 CAD_com_utils 也没导入成功)
-    if 'retry_on_busy' not in globals():
-        def retry_on_busy(func): return func
+def li():
+    """
+    调用 system.licad.li() 并同步模块级全局变量。
+    """
+    global acad, doc, mp, sp
 
-    def li():
-        """
-        【模式 B: 老核心】调用 cb.li() 并同步全局变量
-        """
-        global acad, doc, mp, sp
-        
-        try:
-            # 调用 CAD_basic 的连接
-            result = cb.li()
-        except Exception:
-            result = False
-        
-        if result:
-            # 从 CAD_basic 模块同步变量
-            acad = cb.acad
-            doc = cb.doc
-            mp = cb.mp
-            sp = cb.sp
-            return True
-        else:
-            return False
+    is_connected = licad_module.li()
+    if is_connected:
+        acad = C.acad
+        doc = C.doc
+        mp = C.mp
+        sp = C.sp
+        return True
+    return False
 
 # ================= 5. 初始化完成 =================
 
 def launch_tarch_CAD_system():
-
-    return cb.st()
+    return start_applicationV9()
 
 
 #&&% 关闭天正CAD系统
 
 def close_tarch_CAD_system():
-
-    return cb.close_all_cad_processes()
+    return close_all_cad_processes()
 
 
 #&&% 守护天正CAD系统
 def launch_cad_guardians():
     """
-    【功能】: 独立启动 CAD 的守护脚本（弹窗杀手 + 命令监控）。
+    【功能】: 独立启动 CAD 的守护脚本（弹窗杀手 + 命令监控 + 运行监管）。
     【特性】: 支持系统任意移动，路径自动识别。
     """
     # ========================================================
@@ -508,6 +580,7 @@ def launch_cad_guardians():
     scripts_to_launch = [
         "cad_dialog_killer.py",
         "cad_command_monitor.py",
+        "cad_runtime_guard.py",
     ]
 
     sys_logger.info(f"🛡️ [守护] 正在从 [{system_dir.name}] 启动守护进程...")
@@ -547,6 +620,177 @@ def launch_cad_guardians():
     return success_count == len(scripts_to_launch)
 
 
+def _join_process_cmdline(parts) -> str:
+    if not parts:
+        return ""
+    if isinstance(parts, (list, tuple)):
+        return " ".join(str(p) for p in parts)
+    return str(parts)
+
+
+def _has_tarch_markers(values: list[str]) -> bool:
+    joined = " | ".join(str(v or "").lower() for v in values)
+    return any(mark in joined for mark in ("tarch", "tangent", "tgstart"))
+
+
+def collect_cad_process_inventory() -> list[dict]:
+    """
+    收集所有 acad.exe 进程的来源信息。
+
+    说明：
+    - 不依赖窗口标题。
+    - 主要依据 exe/cmdline/父进程中的 TArch/Tangent/TGStart 线索。
+    """
+    rows = []
+    for proc in psutil.process_iter(["pid", "name", "exe", "cmdline"]):
+        try:
+            name = str(proc.info.get("name") or "")
+            if name.lower() != "acad.exe":
+                continue
+
+            exe = str(proc.info.get("exe") or "")
+            cmdline = _join_process_cmdline(proc.info.get("cmdline"))
+            parent_name = ""
+            parent_exe = ""
+            try:
+                parent = proc.parent()
+            except Exception:
+                parent = None
+            if parent is not None:
+                try:
+                    parent_name = str(parent.name() or "")
+                except Exception:
+                    parent_name = ""
+                try:
+                    parent_exe = str(parent.exe() or "")
+                except Exception:
+                    parent_exe = ""
+
+            is_tarch = _has_tarch_markers([name, exe, cmdline, parent_name, parent_exe])
+            rows.append(
+                {
+                    "pid": int(proc.info.get("pid") or 0),
+                    "process_name": name,
+                    "process_exe": exe,
+                    "process_cmdline": cmdline,
+                    "parent_name": parent_name,
+                    "parent_exe": parent_exe,
+                    "is_tarch_source": int(is_tarch),
+                    "source_hint": "tarch_source" if is_tarch else "plain_acad_source",
+                }
+            )
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+        except Exception as exc:
+            sys_logger.warning(f"[collect_cad_process_inventory] 进程采集异常: {exc}")
+
+    rows.sort(key=lambda row: (row.get("pid", 0), row.get("process_cmdline", "")))
+    return rows
+
+
+def _split_cad_process_inventory(rows: list[dict]) -> tuple[list[dict], list[dict]]:
+    tarch_rows = [row for row in rows if int(row.get("is_tarch_source", 0)) == 1]
+    plain_rows = [row for row in rows if int(row.get("is_tarch_source", 0)) != 1]
+    return tarch_rows, plain_rows
+
+
+def _force_terminate_cad_processes(pids: list[int], *, timeout: float = 15.0) -> bool:
+    target_pids = sorted({int(pid) for pid in pids if int(pid or 0) > 0})
+    if not target_pids:
+        return True
+
+    processes: list[psutil.Process] = []
+    for pid in target_pids:
+        try:
+            proc = psutil.Process(pid)
+            child_list = []
+            try:
+                child_list = proc.children(recursive=True)
+            except Exception:
+                child_list = []
+            processes.extend(child_list)
+            processes.append(proc)
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+
+    unique_processes = []
+    seen = set()
+    for proc in processes:
+        try:
+            pid = int(proc.pid)
+        except Exception:
+            continue
+        if pid in seen:
+            continue
+        seen.add(pid)
+        unique_processes.append(proc)
+
+    for proc in unique_processes:
+        try:
+            proc.terminate()
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+        except Exception as exc:
+            sys_logger.warning(f"[force_terminate_cad_processes] terminate 失败 PID={proc.pid}: {exc}")
+
+    gone, alive = psutil.wait_procs(unique_processes, timeout=max(timeout / 2.0, 1.0))
+    if alive:
+        for proc in alive:
+            try:
+                proc.kill()
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                continue
+            except Exception as exc:
+                sys_logger.warning(f"[force_terminate_cad_processes] kill 失败 PID={proc.pid}: {exc}")
+        psutil.wait_procs(alive, timeout=max(timeout / 2.0, 1.0))
+
+    remaining = []
+    for pid in target_pids:
+        if psutil.pid_exists(pid):
+            remaining.append(pid)
+    return not remaining
+
+
+def _wait_for_no_cad_processes(timeout: float = 15.0, poll_interval: float = 0.5) -> bool:
+    deadline = time.time() + max(timeout, 1.0)
+    while time.time() < deadline:
+        if not collect_cad_process_inventory():
+            return True
+        time.sleep(max(poll_interval, 0.1))
+    return not collect_cad_process_inventory()
+
+
+def _wait_for_healthy_tarch_runtime(timeout: float = 45.0, poll_interval: float = 1.5) -> tuple[bool, dict]:
+    deadline = time.time() + max(timeout, 1.0)
+    snapshot = {}
+    while time.time() < deadline:
+        snapshot = inspect_cad_runtime()
+        if (
+            snapshot.get("status") == "healthy_tarch"
+            and not snapshot.get("plain_process_pids", [])
+        ):
+            return True, snapshot
+        time.sleep(max(poll_interval, 0.3))
+    snapshot = inspect_cad_runtime()
+    return (
+        snapshot.get("status") == "healthy_tarch"
+        and not snapshot.get("plain_process_pids", []),
+        snapshot,
+    )
+
+
+def _reset_cad_proxy_cache() -> None:
+    try:
+        if 'C' in globals() and C is not None:
+            for attr in ("_acad", "_doc", "_mp", "_sp"):
+                try:
+                    setattr(C, attr, None)
+                except Exception:
+                    pass
+    except Exception:
+        pass
+
+
 def inspect_cad_runtime(*, allow_process_probe: bool = True) -> dict:
     """
     被动检查当前 CAD 运行态，不主动启动新 CAD。
@@ -575,18 +819,22 @@ def inspect_cad_runtime(*, allow_process_probe: bool = True) -> dict:
         "modelspace_ready": 0,
         "paperspace_ready": 0,
         "com_ready": 0,
+        "acad_process_count": 0,
+        "tarch_process_count": 0,
+        "plain_process_count": 0,
+        "tarch_process_pids": [],
+        "plain_process_pids": [],
+        "acad_processes": [],
     }
 
-    def _has_tarch_markers(values: list[str]) -> bool:
-        joined = " | ".join(str(v or "").lower() for v in values)
-        return any(mark in joined for mark in ("tarch", "tangent", "tgstart"))
-
-    def _join_cmdline(parts) -> str:
-        if not parts:
-            return ""
-        if isinstance(parts, (list, tuple)):
-            return " ".join(str(p) for p in parts)
-        return str(parts)
+    inventory = collect_cad_process_inventory() if allow_process_probe else []
+    tarch_rows, plain_rows = _split_cad_process_inventory(inventory)
+    payload["acad_process_count"] = len(inventory)
+    payload["tarch_process_count"] = len(tarch_rows)
+    payload["plain_process_count"] = len(plain_rows)
+    payload["tarch_process_pids"] = [int(row.get("pid", 0) or 0) for row in tarch_rows if int(row.get("pid", 0) or 0) > 0]
+    payload["plain_process_pids"] = [int(row.get("pid", 0) or 0) for row in plain_rows if int(row.get("pid", 0) or 0) > 0]
+    payload["acad_processes"] = inventory
 
     try:
         pythoncom.CoInitialize()
@@ -620,7 +868,7 @@ def inspect_cad_runtime(*, allow_process_probe: bool = True) -> dict:
                 proc = psutil.Process(pid)
                 proc_name = str(proc.name() or "")
                 proc_exe = str(proc.exe() or "")
-                proc_cmdline = _join_cmdline(proc.cmdline())
+                proc_cmdline = _join_process_cmdline(proc.cmdline())
                 try:
                     parent = proc.parent()
                 except Exception:
@@ -664,8 +912,31 @@ def inspect_cad_runtime(*, allow_process_probe: bool = True) -> dict:
     values = [proc_name, proc_exe, proc_cmdline, parent_name, parent_exe]
     has_tarch = _has_tarch_markers(values)
     proc_name_low = proc_name.lower()
+    active_row = next((row for row in inventory if int(row.get("pid", 0) or 0) == pid), None)
 
-    if has_tarch:
+    if plain_rows:
+        if active_row and int(active_row.get("is_tarch_source", 0)) == 1:
+            payload["process_hint"] = "mixed_sources"
+            payload["status"] = "suspected_plain_cad"
+            payload["severity"] = "warning"
+            payload["reason"] = (
+                "当前活动 CAD 为天正来源，但系统仍残留纯 CAD 进程，"
+                f"plain_pids={payload['plain_process_pids']}。"
+            )
+        else:
+            payload["process_hint"] = "plain_acad_source"
+            payload["status"] = "suspected_plain_cad"
+            payload["severity"] = "warning"
+            payload["reason"] = (
+                "系统里存在未带天正线索的 acad.exe 进程，"
+                f"plain_pids={payload['plain_process_pids']}。"
+            )
+    elif active_row and int(active_row.get("is_tarch_source", 0)) == 1:
+        payload["process_hint"] = "tarch_source"
+        payload["status"] = "healthy_tarch"
+        payload["severity"] = "info"
+        payload["reason"] = "活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。"
+    elif has_tarch or tarch_rows:
         payload["process_hint"] = "tarch_source"
         payload["status"] = "healthy_tarch"
         payload["severity"] = "info"
@@ -713,6 +984,8 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
     except:
         pass
 
+    current_snapshot = inspect_cad_runtime()
+
     if is_connected:
         # 【探针】画天正墙检测
         try:
@@ -727,13 +1000,39 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
                 obj = last_obj()
                 if obj: safe_delete(obj)
             except: pass
-            
-            sys_logger.info(f"[litz] 环境检测正常，复用现有进程: {C.doc.Name}")
-            return True
+
+            if not current_snapshot.get("plain_process_pids", []):
+                sys_logger.info(f"[litz] 环境检测正常，复用现有进程: {C.doc.Name}")
+                return True
+
+            sys_logger.warning(
+                "[litz] 天正探针通过，但检测到纯 CAD 残留，"
+                f"准备定点清理: {current_snapshot.get('plain_process_pids', [])}"
+            )
         else:
             sys_logger.error("[litz] 连接正常但探针检测失败（疑似非天正环境），准备重建...")
     else:
         sys_logger.error("[litz] 基础连接 C.li() 失败，准备重建...")
+
+    plain_pids = list(current_snapshot.get("plain_process_pids", []) or [])
+    if plain_pids:
+        if _force_terminate_cad_processes(plain_pids, timeout=15.0):
+            time.sleep(2.0)
+            ok_after_kill, snapshot_after_kill = _wait_for_healthy_tarch_runtime(timeout=20.0, poll_interval=1.0)
+            if ok_after_kill:
+                try:
+                    _reset_cad_proxy_cache()
+                    C.li()
+                except Exception:
+                    pass
+                sys_logger.info(
+                    "[litz] 纯 CAD 残留已定点清理，当前环境恢复为 healthy_tarch: "
+                    f"pid={snapshot_after_kill.get('pid', 0)}"
+                )
+                return True
+            current_snapshot = snapshot_after_kill
+        else:
+            sys_logger.warning(f"[litz] 纯 CAD 定点清理后仍有残留: {plain_pids}")
 
     # ========= 第二阶段：环境重置 (Kill & Restart) =========
     sys_logger.info("[litz] 执行环境重置...")
@@ -742,6 +1041,19 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
         close_all_cad_processes()
     except Exception as e:
         sys_logger.warning(f"[litz] 关闭进程警告: {e}")
+
+    remaining_rows = collect_cad_process_inventory()
+    if remaining_rows:
+        remaining_pids = [int(row.get("pid", 0) or 0) for row in remaining_rows if int(row.get("pid", 0) or 0) > 0]
+        sys_logger.warning(f"[litz] taskkill 后仍有 CAD 残留，执行二次强杀: {remaining_pids}")
+        _force_terminate_cad_processes(remaining_pids, timeout=15.0)
+
+    if not _wait_for_no_cad_processes(timeout=20.0, poll_interval=0.5):
+        leftovers = collect_cad_process_inventory()
+        sys_logger.error(f"[litz] 环境重置失败，仍检测到 CAD 残留: {leftovers}")
+        return False
+
+    _reset_cad_proxy_cache()
 
     try:
         # 启动天正 (调用本模块或 CAD_basic 的启动函数)
@@ -763,7 +1075,21 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
         if round_idx > 1:
             sys_logger.info(f"[litz] 第 {round_idx} 轮重试...")
             time.sleep(wait_between_rounds)
-        
+
+        snapshot = inspect_cad_runtime()
+        if (
+            snapshot.get("status") == "healthy_tarch"
+            and not snapshot.get("plain_process_pids", [])
+        ):
+            try:
+                _reset_cad_proxy_cache()
+                if C.li() and C.doc and C.mp:
+                    success = True
+                    current_snapshot = snapshot
+                    break
+            except Exception:
+                pass
+
         # 尝试刷新连接
         if C.li():
             # 再次用探针确认（防止连接到了一个还没加载完插件的空壳 CAD）
@@ -775,18 +1101,39 @@ def litz(max_connect_rounds: int = 3, wait_between_rounds: float = 2.0):
                 
                 # 只有 C.doc 和 C.mp 都就绪才算成功
                 if C.doc and C.mp:
-                    success = True
-                    break
+                    snapshot = inspect_cad_runtime()
+                    if (
+                        snapshot.get("status") == "healthy_tarch"
+                        and not snapshot.get("plain_process_pids", [])
+                    ):
+                        success = True
+                        current_snapshot = snapshot
+                        break
             except:
                 pass
                 
         time.sleep(1.0) # 短暂冷却
 
     if success:
-        sys_logger.info(f"[litz] 连接重建完成，C 类已同步。当前激活文档: {C.doc.Name}")
+        sys_logger.info(
+            "[litz] 连接重建完成，C 类已同步。"
+            f" 当前激活文档: {C.doc.Name}; pid={current_snapshot.get('pid', 0)}"
+        )
         return True
     else:
-        sys_logger.error("[litz] 严重错误：重启后 C.li() 无法建立有效连接。")
+        stable_ok, stable_snapshot = _wait_for_healthy_tarch_runtime(timeout=20.0, poll_interval=1.0)
+        if stable_ok:
+            try:
+                _reset_cad_proxy_cache()
+                C.li()
+            except Exception:
+                pass
+            sys_logger.info(
+                "[litz] 延迟校验通过，环境已恢复到 healthy_tarch。"
+                f" pid={stable_snapshot.get('pid', 0)}"
+            )
+            return True
+        sys_logger.error(f"[litz] 严重错误：重启后未建立有效天正环境。snapshot={stable_snapshot}")
         return False
 
 
@@ -839,10 +1186,6 @@ def cad_zt_zero():
     """
     确保CAD进程数为0（关闭所有CAD）
     """
-    import sys
-    sys.path.append(str(Path(__file__).parent))
-    from CAD_basic import jingchengshu_wenjian, close_all_cad_processes
-
     shu = jingchengshu_wenjian()
     if shu > 0:
         close_all_cad_processes()
@@ -855,13 +1198,6 @@ def cad_zt_oneb():
     确保CAD状态为：1个进程+1个空白文件（单文件不确定状态）
     """
     import time
-    from CAD_basic import (
-        jingchengshu_wenjian,
-        close_all_cad_processes,
-        start_applicationV9,
-        
-        
-    )
     from system.CAD_coordination import wait_quiescent
 
     shu = jingchengshu_wenjian()
@@ -917,11 +1253,7 @@ def cad_zt_oned(file_path=str(XITONG_DIR / "0.dwg")):
     Args:
         file_path: 要打开的文件路径，默认为 cad/xitongwenjian/0.dwg
     """
-    import sys
     import time
-    sys.path.append(str(Path(__file__).parent))
-    from CAD_basic import jingchengshu_wenjian, close_all_cad_processes, start_applicationV9 
-    
     from system.CAD_coordination import wait_quiescent
 
     shu = jingchengshu_wenjian()
@@ -951,11 +1283,7 @@ def cad_zt_two(file1=str(XITONG_DIR / "0.dwg"), file2=str(XITONG_DIR / "1.dwg"))
         file1: 第一个文件路径
         file2: 第二个文件路径
     """
-    import sys
     import time
-    sys.path.append(str(Path(__file__).parent))
-    from CAD_basic import jingchengshu_wenjian, close_all_cad_processes, start_applicationV9
-    
     from system.CAD_coordination import wait_quiescent
 
     shu = jingchengshu_wenjian()
@@ -1003,11 +1331,6 @@ def cad_zt_much(
         file2: 第二个文件路径
         file3: 第三个文件路径
     """
-    import sys
-    sys.path.append(str(Path(__file__).parent))
-    from CAD_basic import jingchengshu_wenjian, close_all_cad_processes, start_applicationV9
-    
-
     shu = jingchengshu_wenjian()
     if shu == 0:
         import time
@@ -1059,7 +1382,6 @@ def cad_zt_xin_1(status_file=None):
     try:
         from system.project_setup import PathConfig
         from system.licad import C
-        from scripts.CAD_basic import get_all_open_dwg_paths, current_dwg_folder
     except ImportError as e:
         sys_logger.error(f"[错误] 模块导入失败: {e}")
         return None
@@ -1165,13 +1487,6 @@ def cad_zt_xin_2(status_file=None):
     # 1. 导入架构组件
     from system.project_setup import PathConfig
     from system.licad import C
-    from scripts.CAD_basic import (
-        close_all_cad_processes, 
-        start_applicationV9, 
-         
-        
-        
-    )
     from system.CAD_coordination import wait_quiescent
 
     # 2. 处理默认路径
@@ -1733,7 +2048,6 @@ def close_file(save_option="auto_save"):
             save_current_dwg_paradigm()
             return close_current_dwg_paradigm("no_save")
         elif save_option == "no_save":
-            from CAD_basic import get_all_open_dwg_paths
             try:
                 open_paths = get_all_open_dwg_paths()
             except Exception:
@@ -1900,9 +2214,7 @@ def insert_file_exploded(source_file, target_doc=None, x=0, y=0, z=0, scale=1.0,
         # Explode() 返回一个 Variant 数组，里面直接包含了炸开后的所有新对象！
         # 这比“记录句柄往前推”更直接、更稳定。
         ##exploded_objects = block_ref.Explode()
-
-
-        exploded_objects = cb.safe_explode(block_ref)
+        exploded_objects = safe_explode(block_ref)
 
 
         # 9. 删除块引用
@@ -1970,7 +2282,6 @@ def copy_file_content_pywin32(
     
     【返回值】: bool 成功/失败
     """
-    from CAD_file_operations import open_file, save_file
     import win32com.client
     import pythoncom
     import os
@@ -2126,7 +2437,6 @@ def insert_region_v2(
     总之，操作后target_dwg不会关闭，src_dwg关闭，不论之前是什么状态，包括多文件状态可能包含源和目标文件。
 
     """
-    from CAD_file_operations import open_file, save_file
     import win32com.client
     import pythoncom
     import os
@@ -2417,7 +2727,6 @@ def close_all_files(save_option="auto_save"):
     """
     if save_option == "no_save":
         try:
-            from CAD_basic import get_all_open_dwg_paths
             open_paths = get_all_open_dwg_paths()
         except Exception:
             open_paths = []
@@ -2711,6 +3020,24 @@ def get_all_open_dwg_paths():
             continue
             
     return paths
+
+
+def current_dwg_folder():
+    """返回当前激活 DWG 所在文件夹；未保存文件返回 None。"""
+    try:
+        doc = C.raw_doc
+    except Exception:
+        doc = None
+    if doc is None:
+        return None
+
+    try:
+        full_name = str(getattr(doc, "FullName", "") or "").strip()
+        if not full_name:
+            return None
+        return str(Path(get_long_path(full_name)).parent)
+    except Exception:
+        return None
 
 
 def get_long_path(path_str):

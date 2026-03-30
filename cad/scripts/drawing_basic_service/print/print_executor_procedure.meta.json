@@ -1,0 +1,162 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_executor.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_executor.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "procedure": {
+    "goal": "说明 print_executor.py 在打印主链中的整体工作流。",
+    "workflow": [
+      "先确保目标文档与空间状态就绪。",
+      "再按 job 类型走模型空间或布局空间导出分支。",
+      "随后做 WPS 清理与 PDF 就绪等待。",
+      "最后汇总执行结果。"
+    ],
+    "applicable_scenarios": [
+      "需要对单个打印计划执行真实导出",
+      "需要区分模型空间窗口打印和布局空间打印",
+      "需要在执行后等待 PDF 文件稳定可读"
+    ],
+    "resource_boundary": [
+      "仅负责当前脚本所属阶段，不替代上游目录级治理文档。",
+      "涉及 CAD 真机执行时仍需复用 system.licad、CAD_coordination 与打印主链其它模块。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_wait_for_pdf_ready",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_normalize_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_is_name_only_target",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_active_doc_matches",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_activate_document_by_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_ensure_model_doc_ready",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_ensure_layout_doc_ready",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "export_model_window_lisp_fit",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "export_layout_window_lisp_fit",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "cleanup_wps_windows",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_cleanup_wps_if_needed",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_run_job",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "execute_print_plan",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "pdf",
+      "process-control"
+    ],
+    "script_focus": "根据打印计划逐 job 执行模型空间或布局空间导出，处理文档就绪、WPS 清理和 PDF 落盘等待。"
+  },
+  "quality": {
+    "todo": [
+      "workflow 已覆盖主流程骨架，局部阈值、启发式参数仍需结合案例回归细化。"
+    ],
+    "function_count": 13,
+    "public_api_count": 4
+  }
+}

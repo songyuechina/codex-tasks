@@ -1,24 +1,90 @@
 {
-  "name": "common_logger",
-  "path": "cad/system/common_logger.py",
+  "meta_version": "V1.0",
   "layer": "quote",
-  "purpose": "Provide a single shared project logger (CAD_System) and optional Excel test recording for checkpoints/critical sections.",
-  "public_api": [
-    "sys_logger : logging.Logger (use .debug/.info/.warning/.error/.critical)",
-    "set_debug_mode(mode=0|1, who='AI'|'HUMAN', wait_time=int, log_level=None) -> None",
-    "set_log_level(level, apply_to_console=True, apply_to_file=True) -> None",
-    "checkpoint(desc:str, is_pass:bool=True, **vars) -> None",
-    "CriticalSection(description='关键操作', script_name=None, func_name=None) (context manager)",
-    "record_test_result(script_name=None, func_name=None, is_pass=False, **vars) -> None",
-    "node(msg:str, *args, **kwargs) -> None  # alias to sys_logger.info"
+  "module_name": "common_logger",
+  "file_path": "D:/codex-tasks/cad/system/common_logger.py",
+  "script_role": "cad 系统统一日志与测试记录脚本",
+  "core_problem": "为整个 cad 系统提供统一 logger、统一调试开关、可选 Excel 测试记录、轻量检查点与关键区段记录能力，并尽量保持库模块导入无副作用。",
+  "system_position": {
+    "layer_name": "日志与记录层",
+    "foundational_module": true,
+    "works_with": [
+      "整个 cad/system",
+      "入口脚本、测试脚本、agent 启动脚本"
+    ],
+    "main_entry_note": "业务模块统一通过 from system.common_logger import sys_logger 使用日志；set_debug_mode 只应在入口/测试/agent 启动脚本调用。"
+  },
+  "core_functions": [
+    {
+      "name": "setup_logger",
+      "role": "构造或复用全局 CAD_System logger",
+      "input_shape": "log_file='system_run.log'",
+      "output_shape": "logging.Logger"
+    },
+    {
+      "name": "sys_logger",
+      "role": "全系统统一日志入口对象",
+      "input_shape": "无",
+      "output_shape": "logging.Logger"
+    },
+    {
+      "name": "set_log_level",
+      "role": "动态调整 logger 与 handler 的日志等级",
+      "input_shape": "level, apply_to_console, apply_to_file",
+      "output_shape": "None"
+    },
+    {
+      "name": "set_debug_mode",
+      "role": "统一设置 MODE / WHO / WAIT / LOG_LEVEL",
+      "input_shape": "mode, who, wait_time, log_level",
+      "output_shape": "None"
+    },
+    {
+      "name": "record_test_result",
+      "role": "把测试/断点记录写入 Excel",
+      "input_shape": "script_name, func_name, is_pass, **variables",
+      "output_shape": "None"
+    },
+    {
+      "name": "checkpoint",
+      "role": "轻量检查点，记录 Excel，并在 HUMAN+WAIT>0 时人工暂停",
+      "input_shape": "desc, is_pass, **variables",
+      "output_shape": "None"
+    },
+    {
+      "name": "CriticalSection",
+      "role": "关键区段上下文管理器，负责 info/error/Excel 记录，不吞异常",
+      "input_shape": "description, script_name, func_name",
+      "output_shape": "上下文对象"
+    },
+    {
+      "name": "node",
+      "role": "兼容旧接口，等价于 sys_logger.info",
+      "input_shape": "msg, *args, **kwargs",
+      "output_shape": "None"
+    }
   ],
-  "side_effects": [
-    "Writes rotating log file: cad/system/system_run.log (if file handler available).",
-    "May write Excel rows: cad/tests/testfunc.xlsx (only if openpyxl installed).",
-    "May pause/print only when MODE=1 and WHO='HUMAN' and WAIT>0."
+  "side_effects_and_boundaries": [
+    "导入模块时会构造 sys_logger，并可能创建 system_run.log 文件",
+    "会尝试创建 cad/tests 目录",
+    "record_test_result 会写入 testfunc.xlsx",
+    "checkpoint 与 CriticalSection 在 HUMAN+WAIT>0 场景下会使用 print 做人工暂停提示",
+    "本模块不吞业务异常；CriticalSection.__exit__ 返回 False"
   ],
-  "constraints": [
-    "Business modules should NOT call set_debug_mode(); call it once in entry/test/agent startup.",
-    "CriticalSection does NOT swallow exceptions (re-raises)."
-  ]
+  "must_keep_experience": [
+    "日志应统一走 sys_logger，而不是各脚本自行创建 logger",
+    "调试模式必须统一管理 MODE / WHO / WAIT / LOG_LEVEL 四项配置",
+    "Excel 记录能力要保持可选，openpyxl 不可用时应静默跳过",
+    "关键区段应记录进入、失败、度量信息，并保留不吞异常的原则",
+    "库模块导入尽量无副作用，只保留必要的 logger 初始化"
+  ],
+  "known_limits": [
+    "checkpoint / CriticalSection 仍保留人工 print 提示，这是人工介入机制的特例",
+    "本模块同时承担 logger、调试开关、Excel 记录三类职责，但它们目前都围绕统一可观测性服务",
+    "如果未来彻底拆分日志与测试记录，需要保持当前对外接口不轻易破坏"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续收束实现和拆分内部职责，但不得破坏 sys_logger、set_debug_mode、CriticalSection、record_test_result 这些核心接口与经验。"
+  }
 }

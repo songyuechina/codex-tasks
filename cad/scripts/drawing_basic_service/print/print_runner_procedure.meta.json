@@ -1,0 +1,135 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "script",
+  "script": {
+    "name": "print_runner.py",
+    "path": "D:/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py",
+    "encoding": "utf-8",
+    "version": "2026-03-21.print-meta-v1"
+  },
+  "procedure": {
+    "goal": "说明 print_runner.py 在打印主链中的整体工作流。",
+    "workflow": [
+      "先生成 process token 与 run 目录。",
+      "再准备并激活目标文档，构建打印计划。",
+      "随后执行打印并校验 PDF。",
+      "最后写出 plan/summary 并收尾关闭文档。"
+    ],
+    "applicable_scenarios": [
+      "需要对单个 DWG 完成完整打印闭环",
+      "需要产出 print_plan.json、print_summary.json 等过程文件"
+    ],
+    "resource_boundary": [
+      "仅负责当前脚本所属阶段，不替代上游目录级治理文档。",
+      "涉及 CAD 真机执行时仍需复用 system.licad、CAD_coordination 与打印主链其它模块。"
+    ]
+  },
+  "functions": [
+    {
+      "name": "_make_process_token",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_make_run_dirs",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_normalize_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_is_name_only_target",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_find_document_by_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_activate_document_by_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_close_document_by_path",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "_write_json",
+      "level": "utility",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "run_print_case",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    },
+    {
+      "name": "main",
+      "level": "core",
+      "steps": [
+        "读取调用输入并校验关键前提。",
+        "执行本脚本负责的核心流程或调用链。",
+        "返回结果或写出当前阶段产物。"
+      ]
+    }
+  ],
+  "dependencies": {
+    "runtime_domains": [
+      "cad-com",
+      "filesystem",
+      "pdf",
+      "orchestration"
+    ],
+    "script_focus": "围绕单个 DWG 组织 run 目录、构建打印计划、执行打印、校验结果并输出过程产物。"
+  },
+  "quality": {
+    "todo": [
+      "workflow 已覆盖主流程骨架，局部阈值、启发式参数仍需结合案例回归细化。"
+    ],
+    "function_count": 10,
+    "public_api_count": 2
+  }
+}
