@@ -1,0 +1,423 @@
+{
+  "index": 1,
+  "mode": "plain",
+  "started_at": "2026-03-21T23:58:20+0800",
+  "cleanup": {
+    "taskkill_returncode": 0,
+    "before": [
+      {
+        "pid": 28596,
+        "process_name": "acad.exe",
+        "process_exe": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe",
+        "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt",
+        "parent_name": "",
+        "parent_exe": "",
+        "is_tarch_source": 1,
+        "source_hint": "tarch_source"
+      }
+    ],
+    "after": [],
+    "extra_killed_pids": []
+  },
+  "launch": {
+    "mode": "plain",
+    "pid": 7100,
+    "command": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+  },
+  "observed_plain": true,
+  "observed_pause_and_recover": true,
+  "agent_invocations": [
+    {
+      "started_at": "2026-03-21T23:59:10+0800",
+      "returncode": 0,
+      "stdout_tail": "(2.4s)\n[licad] 连接成功: Drawing1.dwg\n2026-03-21 23:59:58 - [INFO] - CAD_core.py:1004 - [litz] 第 2 轮重试...\n[licad] 正在尝试连接 CAD COM 接口...\n\n[licad] 连接成功: Drawing1.dwg\n2026-03-22 00:00:01 - [INFO] - licad.py:247 - [li] 连接已刷新: Drawing1.dwg\n2026-03-22 00:00:01 - [INFO] - CAD_core.py:1046 - [litz] 连接重建完成，C 类已同步。 当前激活文档: Drawing1.dwg; pid=24812\n{\n  \"role\": \"runtime_guard_agent\",\n  \"current_status\": \"monitoring\",\n  \"completion\": 100,\n  \"current_task\": \"event_driven_runtime_supervision\",\n  \"pending_count\": 0,\n  \"next_action\": \"continue_monitoring\",\n  \"last_output_file\": \"D:\\\\codex-tasks\\\\dwg_agents_ops\\\\agent_control\\\\runtime_guard_decisions.jsonl\",\n  \"last_seen\": \"2026-03-21T23:59:12+0800\",\n  \"severity\": \"info\",\n  \"recommended_action\": \"resume_allowed\",\n  \"guard_decision\": \"resume_allowed\",\n  \"guard_status\": \"healthy_tarch\",\n  \"manager_notice_required\": 0,\n  \"execution_notice_required\": 0,\n  \"message\": \"检测到 suspected_plain_cad 后已执行本地恢复，当前环境已回到 healthy_tarch。\",\n  \"decision\": {\n    \"checkpoint\": \"runtime_guard_agent:post_recovery_probe\",\n    \"decision\": \"resume_allowed\",\n    \"severity\": \"info\",\n    \"recommended_action\": \"resume_allowed\",\n    \"status\": \"healthy_tarch\",\n    \"message\": \"活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。\",\n    \"state\": {\n      \"role\": \"cad_runtime_guard\",\n      \"current_status\": \"healthy_tarch\",\n      \"completion\": 100,\n      \"current_task\": \"passive_runtime_monitoring\",\n      \"pending_count\": 0,\n      \"next_action\": \"resume_allowed\",\n      \"last_output_file\": \"D:\\\\codex-tasks\\\\dwg_agents_ops\\\\agent_control\\\\runtime_events.jsonl\",\n      \"last_seen\": \"2026-03-22T00:00:02+0800\",\n      \"severity\": \"info\",\n      \"code\": \"RUNTIME_RECOVERED\",\n      \"recommended_action\": \"resume_allowed\",\n      \"suspicious_streak\": 0,\n      \"probe\": {\n        \"status\": \"healthy_tarch\",\n        \"severity\": \"info\",\n        \"reason\": \"活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。\",\n        \"process_hint\": \"tarch_source\",\n        \"process_name\": \"acad.exe\",\n        \"process_exe\": \"C:\\\\Program Files\\\\Autodesk\\\\AutoCAD 2021\\\\acad.exe\",\n        \"process_cmdline\": \"C:\\\\Program Files\\\\Autodesk\\\\AutoCAD 2021\\\\acad.exe /p TArch20V9 /t C:\\\\Tangent\\\\TArchT20V9\\\\sys24x64\\\\acad.dwt\",\n        \"parent_name\": \"\",\n        \"parent_exe\": \"\",\n        \"pid\": 24812,\n        \"hwnd\": 2624514,\n        \"doc_name\": \"Drawing1.dwg\",\n        \"doc_full_name\": \"\",\n        \"modelspace_ready\": 1,\n        \"paperspace_ready\": 1,\n        \"com_ready\": 1,\n        \"acad_process_count\": 1,\n        \"tarch_process_count\": 1,\n        \"plain_process_count\": 0,\n        \"tarch_process_pids\": [\n          24812\n        ],\n        \"plain_process_pids\": [],\n        \"acad_processes\": [\n          {\n            \"pid\": 24812,\n            \"process_name\": \"acad.exe\",\n            \"process_exe\": \"C:\\\\Program Files\\\\Autodesk\\\\AutoCAD 2021\\\\acad.exe\",\n            \"process_cmdline\": \"C:\\\\Program Files\\\\Autodesk\\\\AutoCAD 2021\\\\acad.exe /p TArch20V9 /t C:\\\\Tangent\\\\TArchT20V9\\\\sys24x64\\\\acad.dwt\",\n            \"parent_name\": \"\",\n            \"parent_exe\": \"\",\n            \"is_tarch_source\": 1,\n            \"source_hint\": \"tarch_source\"\n          }\n        ]\n      }\n    },\n    \"event\": {\n      \"timestamp\": \"2026-03-22T00:00:02+0800\",\n      \"source\": \"cad_runtime_guard\",\n      \"target\": \"execution_agents\",\n      \"severity\": \"info\",\n      \"code\": \"RUNTIME_RECOVERED\",\n      \"message\": \"活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。\",\n      \"recommended_action\": \"resume_allowed\",\n      \"status\": \"healthy_tarch\",\n      \"suspicious_streak\": 0,\n      \"doc_name\": \"Drawing1.dwg\",\n      \"pid\": 24812,\n      \"process_hint\": \"tarch_source\"\n    }\n  },\n  \"auto_recovery\": {\n    \"enabled\": 1,\n    \"attempt_count\": 1,\n    \"last_attempt_at\": \"2026-03-21T23:59:13+0800\",\n    \"last_attempt_epoch\": 1774108752.6507215,\n    \"last_result\": \"recovered\",\n    \"last_reason\": \"healthy_tarch_restored\",\n    \"last_before_status\": \"suspected_plain_cad\",\n    \"last_after_status\": \"healthy_tarch\",\n    \"last_recovered_pid\": 24812\n  }\n}\n",
+      "stderr_tail": "",
+      "state_after": {
+        "role": "runtime_guard_agent",
+        "current_status": "monitoring",
+        "completion": 100,
+        "current_task": "event_driven_runtime_supervision",
+        "pending_count": 0,
+        "next_action": "continue_monitoring",
+        "last_output_file": "D:\\codex-tasks\\dwg_agents_ops\\agent_control\\runtime_guard_decisions.jsonl",
+        "last_seen": "2026-03-21T23:59:12+0800",
+        "severity": "info",
+        "recommended_action": "resume_allowed",
+        "guard_decision": "resume_allowed",
+        "guard_status": "healthy_tarch",
+        "manager_notice_required": 0,
+        "execution_notice_required": 0,
+        "message": "检测到 suspected_plain_cad 后已执行本地恢复，当前环境已回到 healthy_tarch。",
+        "decision": {
+          "checkpoint": "runtime_guard_agent:post_recovery_probe",
+          "decision": "resume_allowed",
+          "severity": "info",
+          "recommended_action": "resume_allowed",
+          "status": "healthy_tarch",
+          "message": "活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。",
+          "state": {
+            "role": "cad_runtime_guard",
+            "current_status": "healthy_tarch",
+            "completion": 100,
+            "current_task": "passive_runtime_monitoring",
+            "pending_count": 0,
+            "next_action": "resume_allowed",
+            "last_output_file": "D:\\codex-tasks\\dwg_agents_ops\\agent_control\\runtime_events.jsonl",
+            "last_seen": "2026-03-22T00:00:02+0800",
+            "severity": "info",
+            "code": "RUNTIME_RECOVERED",
+            "recommended_action": "resume_allowed",
+            "suspicious_streak": 0,
+            "probe": {
+              "status": "healthy_tarch",
+              "severity": "info",
+              "reason": "活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。",
+              "process_hint": "tarch_source",
+              "process_name": "acad.exe",
+              "process_exe": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe",
+              "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt",
+              "parent_name": "",
+              "parent_exe": "",
+              "pid": 24812,
+              "hwnd": 2624514,
+              "doc_name": "Drawing1.dwg",
+              "doc_full_name": "",
+              "modelspace_ready": 1,
+              "paperspace_ready": 1,
+              "com_ready": 1,
+              "acad_process_count": 1,
+              "tarch_process_count": 1,
+              "plain_process_count": 0,
+              "tarch_process_pids": [
+                24812
+              ],
+              "plain_process_pids": [],
+              "acad_processes": [
+                {
+                  "pid": 24812,
+                  "process_name": "acad.exe",
+                  "process_exe": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe",
+                  "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt",
+                  "parent_name": "",
+                  "parent_exe": "",
+                  "is_tarch_source": 1,
+                  "source_hint": "tarch_source"
+                }
+              ]
+            }
+          },
+          "event": {
+            "timestamp": "2026-03-22T00:00:02+0800",
+            "source": "cad_runtime_guard",
+            "target": "execution_agents",
+            "severity": "info",
+            "code": "RUNTIME_RECOVERED",
+            "message": "活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。",
+            "recommended_action": "resume_allowed",
+            "status": "healthy_tarch",
+            "suspicious_streak": 0,
+            "doc_name": "Drawing1.dwg",
+            "pid": 24812,
+            "process_hint": "tarch_source"
+          }
+        },
+        "auto_recovery": {
+          "enabled": 1,
+          "attempt_count": 1,
+          "last_attempt_at": "2026-03-21T23:59:13+0800",
+          "last_attempt_epoch": 1774108752.6507215,
+          "last_result": "recovered",
+          "last_reason": "healthy_tarch_restored",
+          "last_before_status": "suspected_plain_cad",
+          "last_after_status": "healthy_tarch",
+          "last_recovered_pid": 24812
+        }
+      }
+    }
+  ],
+  "timeline": [
+    {
+      "timestamp": "2026-03-21T23:58:27+0800",
+      "guard_status": "no_active_cad",
+      "recommended_action": "observe",
+      "snapshot_status": "no_active_cad",
+      "pid": 0,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": ""
+    },
+    {
+      "timestamp": "2026-03-21T23:58:30+0800",
+      "guard_status": "no_active_cad",
+      "recommended_action": "observe",
+      "snapshot_status": "no_active_cad",
+      "pid": 0,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": ""
+    },
+    {
+      "timestamp": "2026-03-21T23:58:33+0800",
+      "guard_status": "no_active_cad",
+      "recommended_action": "observe",
+      "snapshot_status": "no_active_cad",
+      "pid": 0,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": ""
+    },
+    {
+      "timestamp": "2026-03-21T23:58:36+0800",
+      "guard_status": "no_active_cad",
+      "recommended_action": "observe",
+      "snapshot_status": "cad_busy",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:58:39+0800",
+      "guard_status": "no_active_cad",
+      "recommended_action": "observe",
+      "snapshot_status": "cad_busy",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:58:42+0800",
+      "guard_status": "cad_busy",
+      "recommended_action": "observe",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:58:45+0800",
+      "guard_status": "cad_busy",
+      "recommended_action": "observe",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:58:48+0800",
+      "guard_status": "cad_busy",
+      "recommended_action": "observe",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:58:51+0800",
+      "guard_status": "suspected_plain_cad",
+      "recommended_action": "pause_and_verify",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:58:55+0800",
+      "guard_status": "suspected_plain_cad",
+      "recommended_action": "pause_and_verify",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:58:58+0800",
+      "guard_status": "suspected_plain_cad",
+      "recommended_action": "pause_and_verify",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:59:01+0800",
+      "guard_status": "suspected_plain_cad",
+      "recommended_action": "pause_and_verify",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:59:04+0800",
+      "guard_status": "suspected_plain_cad",
+      "recommended_action": "pause_and_verify",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:59:07+0800",
+      "guard_status": "suspected_plain_cad",
+      "recommended_action": "pause_and_verify",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-21T23:59:10+0800",
+      "guard_status": "suspected_plain_cad",
+      "recommended_action": "pause_and_recover",
+      "snapshot_status": "suspected_plain_cad",
+      "pid": 7100,
+      "plain_process_pids": [
+        7100
+      ],
+      "tarch_process_pids": [],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /nologo"
+    },
+    {
+      "timestamp": "2026-03-22T00:00:08+0800",
+      "guard_status": "healthy_tarch",
+      "recommended_action": "resume_allowed",
+      "snapshot_status": "healthy_tarch",
+      "pid": 24812,
+      "plain_process_pids": [],
+      "tarch_process_pids": [
+        24812
+      ],
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt"
+    }
+  ],
+  "success": true,
+  "final_reason": "plain_round_recovered_to_tarch",
+  "final_snapshot": {
+    "status": "healthy_tarch",
+    "severity": "info",
+    "reason": "活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。",
+    "process_hint": "tarch_source",
+    "process_name": "acad.exe",
+    "process_exe": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe",
+    "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt",
+    "parent_name": "",
+    "parent_exe": "",
+    "pid": 24812,
+    "hwnd": 2624514,
+    "doc_name": "Drawing1.dwg",
+    "doc_full_name": "",
+    "modelspace_ready": 1,
+    "paperspace_ready": 1,
+    "com_ready": 1,
+    "acad_process_count": 1,
+    "tarch_process_count": 1,
+    "plain_process_count": 0,
+    "tarch_process_pids": [
+      24812
+    ],
+    "plain_process_pids": [],
+    "acad_processes": [
+      {
+        "pid": 24812,
+        "process_name": "acad.exe",
+        "process_exe": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe",
+        "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt",
+        "parent_name": "",
+        "parent_exe": "",
+        "is_tarch_source": 1,
+        "source_hint": "tarch_source"
+      }
+    ]
+  },
+  "final_guard_state": {
+    "role": "cad_runtime_guard",
+    "current_status": "healthy_tarch",
+    "completion": 100,
+    "current_task": "passive_runtime_monitoring",
+    "pending_count": 0,
+    "next_action": "resume_allowed",
+    "last_output_file": "D:\\codex-tasks\\dwg_agents_ops\\agent_control\\runtime_events.jsonl",
+    "last_seen": "2026-03-22T00:00:02+0800",
+    "severity": "info",
+    "code": "RUNTIME_RECOVERED",
+    "recommended_action": "resume_allowed",
+    "suspicious_streak": 0,
+    "probe": {
+      "status": "healthy_tarch",
+      "severity": "info",
+      "reason": "活动 CAD 进程来源包含 TArch/Tangent/TGStart 线索，且 COM/文档可用。",
+      "process_hint": "tarch_source",
+      "process_name": "acad.exe",
+      "process_exe": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe",
+      "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt",
+      "parent_name": "",
+      "parent_exe": "",
+      "pid": 24812,
+      "hwnd": 2624514,
+      "doc_name": "Drawing1.dwg",
+      "doc_full_name": "",
+      "modelspace_ready": 1,
+      "paperspace_ready": 1,
+      "com_ready": 1,
+      "acad_process_count": 1,
+      "tarch_process_count": 1,
+      "plain_process_count": 0,
+      "tarch_process_pids": [
+        24812
+      ],
+      "plain_process_pids": [],
+      "acad_processes": [
+        {
+          "pid": 24812,
+          "process_name": "acad.exe",
+          "process_exe": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe",
+          "process_cmdline": "C:\\Program Files\\Autodesk\\AutoCAD 2021\\acad.exe /p TArch20V9 /t C:\\Tangent\\TArchT20V9\\sys24x64\\acad.dwt",
+          "parent_name": "",
+          "parent_exe": "",
+          "is_tarch_source": 1,
+          "source_hint": "tarch_source"
+        }
+      ]
+    }
+  },
+  "finished_at": "2026-03-22T00:00:08+0800"
+}

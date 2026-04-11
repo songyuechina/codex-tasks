@@ -1,0 +1,2979 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405",
+  "work_dwg": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+  "process_token": "case-bfc5a4299a",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf",
+    "source_stem": "plot-case-bfc5a4299a",
+    "mode": "purified_adaptive",
+    "total_jobs": 118,
+    "landscape_count": 102,
+    "portrait_count": 16,
+    "jobs_by_space": {
+      "model": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E72",
+          "lower_left": [
+            -1626478.8608430908,
+            130722.68074651831
+          ],
+          "upper_right": [
+            -1567078.8608430908,
+            172722.6807465183
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-01.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E4C",
+          "lower_left": [
+            -1567078.8608430908,
+            130722.68074651831
+          ],
+          "upper_right": [
+            -1507678.8608430908,
+            172722.6807465183
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 2,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-02.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E77",
+          "lower_left": [
+            -1507678.8608430908,
+            130722.68074651831
+          ],
+          "upper_right": [
+            -1448278.8608430908,
+            172722.6807465183
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 3,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-03.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E7C",
+          "lower_left": [
+            -1448278.8608430962,
+            130722.68074657989
+          ],
+          "upper_right": [
+            -1388878.8608430962,
+            172722.6807465799
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 4,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-04.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E81",
+          "lower_left": [
+            -1388878.8608430875,
+            130722.68074651365
+          ],
+          "upper_right": [
+            -1329478.8608430875,
+            172722.68074651365
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 5,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-05.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E86",
+          "lower_left": [
+            -1329478.860843088,
+            130722.680746514
+          ],
+          "upper_right": [
+            -1270078.860843088,
+            172722.680746514
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 6,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-06.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E8B",
+          "lower_left": [
+            -1270078.8608430861,
+            130722.68074650888
+          ],
+          "upper_right": [
+            -1210678.8608430861,
+            172722.68074650888
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 7,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-07.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "643",
+          "lower_left": [
+            -1602226.284974394,
+            -221939.1091914086
+          ],
+          "upper_right": [
+            -1542826.284974394,
+            -179939.1091914086
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 8,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-08.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "641",
+          "lower_left": [
+            -1542826.284974394,
+            -221939.1091914086
+          ],
+          "upper_right": [
+            -1483426.284974394,
+            -179939.1091914086
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 9,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-09.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "63C",
+          "lower_left": [
+            -1483426.284974394,
+            -221939.1091914086
+          ],
+          "upper_right": [
+            -1424026.284974394,
+            -179939.1091914086
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 10,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-10.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "63A",
+          "lower_left": [
+            -1424026.284974394,
+            -221939.1091914086
+          ],
+          "upper_right": [
+            -1364626.284974394,
+            -179939.1091914086
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 11,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-11.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "638",
+          "lower_left": [
+            -1364626.284974394,
+            -221939.1091914086
+          ],
+          "upper_right": [
+            -1305226.284974394,
+            -179939.1091914086
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 12,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-12.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "12D88",
+          "lower_left": [
+            -1924528.2701034069,
+            -547540.4293115054
+          ],
+          "upper_right": [
+            -1903528.2701034069,
+            -517840.4293115054
+          ],
+          "short_side": 21000.0,
+          "long_side": 29700.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 13,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-13.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "12EAB",
+          "lower_left": [
+            -1903528.2701034069,
+            -547540.4293115054
+          ],
+          "upper_right": [
+            -1882528.2701034069,
+            -517840.4293115054
+          ],
+          "short_side": 21000.0,
+          "long_side": 29700.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 14,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-14.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "12E6E",
+          "lower_left": [
+            -1997330.5030315565,
+            -553928.9548914202
+          ],
+          "upper_right": [
+            -1937930.5030315565,
+            -511928.9548914202
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 15,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-15.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "18AE1",
+          "lower_left": [
+            1275523.4770079057,
+            -618398.5500732649
+          ],
+          "upper_right": [
+            1296523.4770079057,
+            -588698.5500732649
+          ],
+          "short_side": 21000.0,
+          "long_side": 29700.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 16,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-16.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "17E53",
+          "lower_left": [
+            1211683.656001292,
+            -621547.077839649
+          ],
+          "upper_right": [
+            1271083.656001292,
+            -579547.077839649
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 17,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-17.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "AD33",
+          "lower_left": [
+            1311184.493535813,
+            -627590.8575183691
+          ],
+          "upper_right": [
+            1395284.493535813,
+            -568190.8575183691
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 18,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-18.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "AD37",
+          "lower_left": [
+            1395284.493535813,
+            -627590.8575183691
+          ],
+          "upper_right": [
+            1479384.493535813,
+            -568190.8575183691
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 19,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-19.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "AD39",
+          "lower_left": [
+            1479384.493535813,
+            -627590.8575183691
+          ],
+          "upper_right": [
+            1563484.493535813,
+            -568190.8575183691
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 20,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-20.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "AD3B",
+          "lower_left": [
+            1563484.493535813,
+            -627590.8575183691
+          ],
+          "upper_right": [
+            1647584.493535813,
+            -568190.8575183691
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 21,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-21.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "AD3D",
+          "lower_left": [
+            1647584.493535813,
+            -627590.8575183691
+          ],
+          "upper_right": [
+            1731684.493535813,
+            -568190.8575183691
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 22,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-22.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "ADC9",
+          "lower_left": [
+            1731684.493535813,
+            -627590.8575183691
+          ],
+          "upper_right": [
+            1815784.493535813,
+            -568190.8575183691
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 23,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-23.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B3BE",
+          "lower_left": [
+            -6216097.071643667,
+            -675208.0804902657
+          ],
+          "upper_right": [
+            -6213362.071643659,
+            -674958.0804902657
+          ],
+          "short_side": 250.0,
+          "long_side": 2735.000000008382,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 0,
+          "sequence_no": 24,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-24.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B3BC",
+          "lower_left": [
+            -6213229.57164366,
+            -679348.0804902661
+          ],
+          "upper_right": [
+            -6197129.571643656,
+            -665148.0804902642
+          ],
+          "short_side": 14200.000000001863,
+          "long_side": 16100.000000003725,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:25",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 25,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-25.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B3D4",
+          "lower_left": [
+            -6216097.071643639,
+            -679698.0804902689
+          ],
+          "upper_right": [
+            -6213362.071643632,
+            -679448.0804902689
+          ],
+          "short_side": 250.0,
+          "long_side": 2735.0000000074506,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 0,
+          "sequence_no": 26,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-26.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "D04",
+          "lower_left": [
+            -2908472.767883474,
+            -686036.9274449267
+          ],
+          "upper_right": [
+            -2879253.166952962,
+            -653136.9274449267
+          ],
+          "short_side": 29219.60093051195,
+          "long_side": 32900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:25",
+          "paper_code": "A0",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 27,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-27.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E31",
+          "lower_left": [
+            -2898542.7653835956,
+            -686477.8509740748
+          ],
+          "upper_right": [
+            -2895896.453373069,
+            -676872.0560007014
+          ],
+          "short_side": 2646.312010526657,
+          "long_side": 9605.794973373413,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:25",
+          "paper_code": "A3",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 0,
+          "sequence_no": 28,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-28.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1979C",
+          "lower_left": [
+            -5847413.819523979,
+            -692286.4146999272
+          ],
+          "upper_right": [
+            -5788013.819523979,
+            -650286.4146999272
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 29,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-29.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1979A",
+          "lower_left": [
+            -5788013.819523979,
+            -692286.4146999272
+          ],
+          "upper_right": [
+            -5728613.819523979,
+            -650286.4146999272
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 30,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-30.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1979E",
+          "lower_left": [
+            -5728613.819523979,
+            -692286.4146999272
+          ],
+          "upper_right": [
+            -5669213.819523979,
+            -650286.4146999272
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 31,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-31.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "197A0",
+          "lower_left": [
+            -5669213.819523985,
+            -692286.4146998656
+          ],
+          "upper_right": [
+            -5609813.819523985,
+            -650286.4146998656
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 32,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-32.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "197A2",
+          "lower_left": [
+            -5609813.819523975,
+            -692286.4146999319
+          ],
+          "upper_right": [
+            -5550413.819523975,
+            -650286.4146999319
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 33,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-33.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "197A4",
+          "lower_left": [
+            -5550413.819523976,
+            -692286.4146999315
+          ],
+          "upper_right": [
+            -5491013.819523976,
+            -650286.4146999315
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 34,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-34.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "123C",
+          "lower_left": [
+            1311184.493535813,
+            -692286.4146999272
+          ],
+          "upper_right": [
+            1370584.493535813,
+            -650286.4146999272
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 35,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-35.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "118E",
+          "lower_left": [
+            1370584.493535813,
+            -692286.4146999272
+          ],
+          "upper_right": [
+            1429984.493535813,
+            -650286.4146999272
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 36,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-36.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "123E",
+          "lower_left": [
+            1429984.493535813,
+            -692286.4146999272
+          ],
+          "upper_right": [
+            1489384.493535813,
+            -650286.4146999272
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 37,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-37.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1240",
+          "lower_left": [
+            1489384.4935358076,
+            -692286.4146998656
+          ],
+          "upper_right": [
+            1548784.4935358076,
+            -650286.4146998656
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 38,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-38.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1242",
+          "lower_left": [
+            1548784.4935358162,
+            -692286.4146999319
+          ],
+          "upper_right": [
+            1608184.4935358162,
+            -650286.4146999319
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 39,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-39.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1244",
+          "lower_left": [
+            1608184.4935358157,
+            -692286.4146999315
+          ],
+          "upper_right": [
+            1667584.4935358157,
+            -650286.4146999315
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 40,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-40.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "CE0",
+          "lower_left": [
+            -2555582.9231898976,
+            -733350.4982506996
+          ],
+          "upper_right": [
+            -2496182.9231898976,
+            -691350.4982506996
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 41,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-41.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "784",
+          "lower_left": [
+            -2496182.9231898976,
+            -733350.4982506996
+          ],
+          "upper_right": [
+            -2436782.9231898976,
+            -691350.4982506996
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 42,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-42.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "CE5",
+          "lower_left": [
+            -2436782.9231898976,
+            -733350.4982506996
+          ],
+          "upper_right": [
+            -2377382.9231898976,
+            -691350.4982506996
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 43,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-43.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "CEA",
+          "lower_left": [
+            -2377382.9231899027,
+            -733350.498250638
+          ],
+          "upper_right": [
+            -2317982.9231899027,
+            -691350.498250638
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 44,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-44.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "CEF",
+          "lower_left": [
+            -2317982.9231898943,
+            -733350.4982507043
+          ],
+          "upper_right": [
+            -2258582.9231898943,
+            -691350.4982507043
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 45,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-45.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "CF4",
+          "lower_left": [
+            -2258582.9231898948,
+            -733350.4982507039
+          ],
+          "upper_right": [
+            -2199182.9231898948,
+            -691350.4982507039
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 46,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-46.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "CF9",
+          "lower_left": [
+            -2199182.923189893,
+            -733350.498250709
+          ],
+          "upper_right": [
+            -2139782.923189893,
+            -691350.498250709
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 47,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-47.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "C23D",
+          "lower_left": [
+            -2053338.4446233972,
+            -733350.4982506996
+          ],
+          "upper_right": [
+            -1993938.4446233972,
+            -691350.4982506996
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 48,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-48.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E5C",
+          "lower_left": [
+            -2700073.095860959,
+            -742441.8777042974
+          ],
+          "upper_right": [
+            -2581173.095860959,
+            -658341.8777042974
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 49,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-49.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1246",
+          "lower_left": [
+            -1660732.8599174267,
+            -742441.8777042974
+          ],
+          "upper_right": [
+            -1541832.8599174267,
+            -658341.8777042974
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 50,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-50.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19BF6",
+          "lower_left": [
+            -5847413.819523979,
+            -746029.4471676426
+          ],
+          "upper_right": [
+            -5788013.819523979,
+            -704029.4471676426
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 51,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-51.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19BF4",
+          "lower_left": [
+            -5788013.819523979,
+            -746029.4471676426
+          ],
+          "upper_right": [
+            -5728613.819523979,
+            -704029.4471676426
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 52,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-52.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19BF8",
+          "lower_left": [
+            -5728613.819523979,
+            -746029.4471676426
+          ],
+          "upper_right": [
+            -5669213.819523979,
+            -704029.4471676426
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 53,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-53.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19BFA",
+          "lower_left": [
+            -5669213.819523985,
+            -746029.4471675811
+          ],
+          "upper_right": [
+            -5609813.819523985,
+            -704029.4471675811
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 54,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-54.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19BFC",
+          "lower_left": [
+            -5609813.819523975,
+            -746029.4471676473
+          ],
+          "upper_right": [
+            -5550413.819523975,
+            -704029.4471676473
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 55,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-55.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19BFE",
+          "lower_left": [
+            -5550413.819523976,
+            -746029.447167647
+          ],
+          "upper_right": [
+            -5491013.819523976,
+            -704029.447167647
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 56,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-56.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E32",
+          "lower_left": [
+            1311184.493535813,
+            -746029.4471676426
+          ],
+          "upper_right": [
+            1370584.493535813,
+            -704029.4471676426
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 57,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-57.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E30",
+          "lower_left": [
+            1370584.493535813,
+            -746029.4471676426
+          ],
+          "upper_right": [
+            1429984.493535813,
+            -704029.4471676426
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 58,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-58.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E34",
+          "lower_left": [
+            1429984.493535813,
+            -746029.4471676426
+          ],
+          "upper_right": [
+            1489384.493535813,
+            -704029.4471676426
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 59,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-59.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E36",
+          "lower_left": [
+            1489384.4935358076,
+            -746029.4471675811
+          ],
+          "upper_right": [
+            1548784.4935358076,
+            -704029.4471675811
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 60,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-60.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E38",
+          "lower_left": [
+            1548784.4935358162,
+            -746029.4471676473
+          ],
+          "upper_right": [
+            1608184.4935358162,
+            -704029.4471676473
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 61,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-61.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E3A",
+          "lower_left": [
+            1608184.4935358157,
+            -746029.447167647
+          ],
+          "upper_right": [
+            1667584.4935358157,
+            -704029.447167647
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 62,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-62.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "D4B7",
+          "lower_left": [
+            -2668824.324240297,
+            -752988.6924974385
+          ],
+          "upper_right": [
+            -2664824.324240297,
+            -748088.6924974385
+          ],
+          "short_side": 4000.0,
+          "long_side": 4900.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:25",
+          "paper_code": "A3",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 0,
+          "sequence_no": 63,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-63.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "10DC",
+          "lower_left": [
+            -2555582.9231898976,
+            -775350.4982507047
+          ],
+          "upper_right": [
+            -2496182.9231898976,
+            -733350.4982507047
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 64,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-64.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "C772",
+          "lower_left": [
+            -2053338.4446233972,
+            -787093.530718415
+          ],
+          "upper_right": [
+            -1993938.4446233972,
+            -745093.530718415
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 65,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-65.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19C06",
+          "lower_left": [
+            -5847413.819523979,
+            -799772.4796353581
+          ],
+          "upper_right": [
+            -5788013.819523979,
+            -757772.4796353581
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 66,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-66.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19C04",
+          "lower_left": [
+            -5788013.819523979,
+            -799772.4796353581
+          ],
+          "upper_right": [
+            -5728613.819523979,
+            -757772.4796353581
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 67,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-67.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19C08",
+          "lower_left": [
+            -5728613.819523979,
+            -799772.4796353581
+          ],
+          "upper_right": [
+            -5669213.819523979,
+            -757772.4796353581
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 68,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-68.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19C0A",
+          "lower_left": [
+            -5669213.819523985,
+            -799772.4796352965
+          ],
+          "upper_right": [
+            -5609813.819523985,
+            -757772.4796352965
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 69,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-69.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19C0C",
+          "lower_left": [
+            -5609813.819523975,
+            -799772.4796353627
+          ],
+          "upper_right": [
+            -5550413.819523975,
+            -757772.4796353627
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 70,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-70.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19C0E",
+          "lower_left": [
+            -5550413.819523976,
+            -799772.4796353624
+          ],
+          "upper_right": [
+            -5491013.819523976,
+            -757772.4796353624
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 71,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-71.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19C10",
+          "lower_left": [
+            -5491013.819523974,
+            -799772.4796353675
+          ],
+          "upper_right": [
+            -5431613.819523974,
+            -757772.4796353675
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 72,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-72.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E3F",
+          "lower_left": [
+            1311184.493535813,
+            -799772.4796353581
+          ],
+          "upper_right": [
+            1370584.493535813,
+            -757772.4796353581
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 73,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-73.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E3D",
+          "lower_left": [
+            1370584.493535813,
+            -799772.4796353581
+          ],
+          "upper_right": [
+            1429984.493535813,
+            -757772.4796353581
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 74,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-74.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E41",
+          "lower_left": [
+            1429984.493535813,
+            -799772.4796353581
+          ],
+          "upper_right": [
+            1489384.493535813,
+            -757772.4796353581
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 75,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-75.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E43",
+          "lower_left": [
+            1489384.4935358076,
+            -799772.4796352965
+          ],
+          "upper_right": [
+            1548784.4935358076,
+            -757772.4796352965
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 76,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-76.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E45",
+          "lower_left": [
+            1548784.4935358162,
+            -799772.4796353627
+          ],
+          "upper_right": [
+            1608184.4935358162,
+            -757772.4796353627
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 77,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-77.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E47",
+          "lower_left": [
+            1608184.4935358157,
+            -799772.4796353624
+          ],
+          "upper_right": [
+            1667584.4935358157,
+            -757772.4796353624
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 78,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-78.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2E49",
+          "lower_left": [
+            1667584.4935358176,
+            -799772.4796353675
+          ],
+          "upper_right": [
+            1726984.4935358176,
+            -757772.4796353675
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 79,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-79.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E26A",
+          "lower_left": [
+            -1618115.474836961,
+            -828279.2559958489
+          ],
+          "upper_right": [
+            -1617115.474836961,
+            -825379.2559958489
+          ],
+          "short_side": 1000.0,
+          "long_side": 2900.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 80,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-80.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E280",
+          "lower_left": [
+            -1600274.7128306092,
+            -828279.2559958489
+          ],
+          "upper_right": [
+            -1599274.7128306092,
+            -825379.2559958489
+          ],
+          "short_side": 1000.0,
+          "long_side": 2900.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 81,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-81.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "C778",
+          "lower_left": [
+            -2053338.4446233972,
+            -840836.5631861305
+          ],
+          "upper_right": [
+            -1993938.4446233972,
+            -798836.5631861305
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 82,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-82.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "17C5E",
+          "lower_left": [
+            -1817387.7274036147,
+            -880366.7145198303
+          ],
+          "upper_right": [
+            -1816387.7274036147,
+            -877666.7145198303
+          ],
+          "short_side": 1000.0,
+          "long_side": 2700.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 83,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-83.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "17C70",
+          "lower_left": [
+            -1801753.7672254015,
+            -881083.1486824303
+          ],
+          "upper_right": [
+            -1800753.7672254015,
+            -878383.1486824303
+          ],
+          "short_side": 1000.0,
+          "long_side": 2700.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 84,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-84.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "17C8E",
+          "lower_left": [
+            -1786165.0082564391,
+            -882076.904960811
+          ],
+          "upper_right": [
+            -1785165.0082564391,
+            -879376.904960811
+          ],
+          "short_side": 1000.0,
+          "long_side": 2700.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 85,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-85.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "C77E",
+          "lower_left": [
+            -2053338.4446233972,
+            -894579.5956538459
+          ],
+          "upper_right": [
+            -1993938.4446233972,
+            -852579.5956538459
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 86,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-86.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "17A70",
+          "lower_left": [
+            -1878623.949287102,
+            -897574.5285874726
+          ],
+          "upper_right": [
+            -1877623.949287102,
+            -894674.5285874726
+          ],
+          "short_side": 1000.0,
+          "long_side": 2900.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 87,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-87.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "17B69",
+          "lower_left": [
+            -1857177.4428342846,
+            -897574.5285874726
+          ],
+          "upper_right": [
+            -1856177.4428342846,
+            -894674.5285874726
+          ],
+          "short_side": 1000.0,
+          "long_side": 2900.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 88,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-88.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E03F",
+          "lower_left": [
+            -1806389.5099709667,
+            -952589.8188920812
+          ],
+          "upper_right": [
+            -1805389.5099709667,
+            -949889.8188920812
+          ],
+          "short_side": 1000.0,
+          "long_side": 2700.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 89,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-89.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E0AC",
+          "lower_left": [
+            -1790755.5497927535,
+            -953306.2530546811
+          ],
+          "upper_right": [
+            -1789755.5497927535,
+            -950606.2530546811
+          ],
+          "short_side": 1000.0,
+          "long_side": 2700.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 90,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-90.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E0D8",
+          "lower_left": [
+            -1775166.7908237912,
+            -954300.0093330619
+          ],
+          "upper_right": [
+            -1774166.7908237912,
+            -951600.0093330619
+          ],
+          "short_side": 1000.0,
+          "long_side": 2700.0,
+          "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A1+3/4",
+          "rotation": 1,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 91,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-91.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "DB5B",
+          "lower_left": [
+            -1752747.5285597127,
+            -970595.4344005275
+          ],
+          "upper_right": [
+            -1747033.191281721,
+            -970195.4344005275
+          ],
+          "short_side": 400.0,
+          "long_side": 5714.337277991697,
+          "media": "UserDefinedMetric (1486.00 x 841.00毫米)",
+          "ratio": "1:150",
+          "paper_code": "A0+1/4",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "standard_flag": 0,
+          "sequence_no": 92,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-92.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "D16F",
+          "lower_left": [
+            -1580600.4497994473,
+            -1095135.5384251375
+          ],
+          "upper_right": [
+            -1521988.1280014925,
+            -1059976.0650201517
+          ],
+          "short_side": 35159.47340498585,
+          "long_side": 58612.32179795485,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:50",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.1,
+          "standard_flag": 0,
+          "sequence_no": 93,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-93.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EBF8",
+          "lower_left": [
+            1311184.493535813,
+            -1821118.2135006182
+          ],
+          "upper_right": [
+            1370584.493535813,
+            -1779118.2135006182
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 94,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-94.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EBF6",
+          "lower_left": [
+            1370584.493535813,
+            -1821118.2135006182
+          ],
+          "upper_right": [
+            1429984.493535813,
+            -1779118.2135006182
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 95,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-95.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EBFA",
+          "lower_left": [
+            1429984.493535813,
+            -1821118.2135006182
+          ],
+          "upper_right": [
+            1489384.493535813,
+            -1779118.2135006182
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 96,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-96.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EBFC",
+          "lower_left": [
+            1489384.4935358076,
+            -1821118.2135005565
+          ],
+          "upper_right": [
+            1548784.4935358076,
+            -1779118.2135005565
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 97,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-97.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EBFE",
+          "lower_left": [
+            1548784.4935358162,
+            -1821118.213500623
+          ],
+          "upper_right": [
+            1608184.4935358162,
+            -1779118.213500623
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 98,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-98.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC00",
+          "lower_left": [
+            1608184.4935358157,
+            -1821118.2135006227
+          ],
+          "upper_right": [
+            1667584.4935358157,
+            -1779118.2135006227
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 99,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-99.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC04",
+          "lower_left": [
+            1311184.493535813,
+            -1874861.2459683337
+          ],
+          "upper_right": [
+            1370584.493535813,
+            -1832861.2459683337
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 100,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-100.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC02",
+          "lower_left": [
+            1370584.493535813,
+            -1874861.2459683337
+          ],
+          "upper_right": [
+            1429984.493535813,
+            -1832861.2459683337
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 101,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-101.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC06",
+          "lower_left": [
+            1429984.493535813,
+            -1874861.2459683337
+          ],
+          "upper_right": [
+            1489384.493535813,
+            -1832861.2459683337
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 102,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-102.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC08",
+          "lower_left": [
+            1489384.4935358076,
+            -1874861.245968272
+          ],
+          "upper_right": [
+            1548784.4935358076,
+            -1832861.245968272
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 103,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-103.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC0A",
+          "lower_left": [
+            1548784.4935358162,
+            -1874861.2459683383
+          ],
+          "upper_right": [
+            1608184.4935358162,
+            -1832861.2459683383
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 104,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-104.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC0C",
+          "lower_left": [
+            1608184.4935358157,
+            -1874861.245968338
+          ],
+          "upper_right": [
+            1667584.4935358157,
+            -1832861.245968338
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 105,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-105.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC10",
+          "lower_left": [
+            1311184.493535813,
+            -1928604.2784360491
+          ],
+          "upper_right": [
+            1370584.493535813,
+            -1886604.2784360491
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 106,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-106.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC0E",
+          "lower_left": [
+            1370584.493535813,
+            -1928604.2784360491
+          ],
+          "upper_right": [
+            1429984.493535813,
+            -1886604.2784360491
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 107,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-107.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC12",
+          "lower_left": [
+            1429984.493535813,
+            -1928604.2784360491
+          ],
+          "upper_right": [
+            1489384.493535813,
+            -1886604.2784360491
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 108,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-108.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC14",
+          "lower_left": [
+            1489384.4935358076,
+            -1928604.2784359874
+          ],
+          "upper_right": [
+            1548784.4935358076,
+            -1886604.2784359874
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 109,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-109.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC16",
+          "lower_left": [
+            1548784.4935358162,
+            -1928604.2784360538
+          ],
+          "upper_right": [
+            1608184.4935358162,
+            -1886604.2784360538
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 110,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-110.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1EC18",
+          "lower_left": [
+            1608184.4935358157,
+            -1928604.2784360535
+          ],
+          "upper_right": [
+            1667584.4935358157,
+            -1886604.2784360535
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 111,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-111.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "142CD",
+          "lower_left": [
+            1311184.493535813,
+            -2815936.80356282
+          ],
+          "upper_right": [
+            1395284.493535813,
+            -2756536.80356282
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 112,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-112.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "142D7",
+          "lower_left": [
+            1395284.493535813,
+            -2815936.80356282
+          ],
+          "upper_right": [
+            1479384.493535813,
+            -2756536.80356282
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 113,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-113.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "142D2",
+          "lower_left": [
+            1479384.493535813,
+            -2815936.8035628228
+          ],
+          "upper_right": [
+            1584484.493535813,
+            -2756536.8035628228
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 114,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-114.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "12FAC",
+          "lower_left": [
+            1310642.5157448805,
+            -2914301.8302917825
+          ],
+          "upper_right": [
+            1429542.5157448805,
+            -2830201.8302917825
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 115,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-115.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "132B4",
+          "lower_left": [
+            1429542.5157448805,
+            -2914301.8302917825
+          ],
+          "upper_right": [
+            1548442.5157448805,
+            -2830201.8302917825
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 116,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-116.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "13443",
+          "lower_left": [
+            1548442.5157448805,
+            -2914301.8302917825
+          ],
+          "upper_right": [
+            1667342.5157448805,
+            -2830201.8302917825
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 117,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-117.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\work\\work-case-bfc5a4299a.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "16DC3",
+          "lower_left": [
+            1667342.5157448805,
+            -2914301.8302917825
+          ],
+          "upper_right": [
+            1786242.5157448805,
+            -2830201.8302917825
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 118,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\pdf\\model\\plot-case-bfc5a4299a-model-118.pdf"
+        }
+      ]
+    }
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-bfc5a4299a\\20260320-133405\\scope_analysis.json",
+  "scope_filter": {
+    "applied": false,
+    "reason": "no_pseudo_maximal_scope",
+    "selected_scope": null
+  },
+  "execution": null,
+  "verification": null
+}

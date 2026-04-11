@@ -1,0 +1,40 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/scripts/Scheme_drawing",
+  "role": "scheme-outline-execution-workspace",
+  "summary": "总图定位/建筑外轮廓绘制工作区。负责把图片或结构化坐标数据转换为建筑外轮廓 DWG，并按默认规则补齐坐标引线标注、保存文件、关闭整个天正/AutoCAD。",
+  "entry_docs": [
+    "README.md",
+    "AGENTS.md",
+    "draw_building_outline.quote.meta.json",
+    "draw_building_outline.procedure.meta.json"
+  ],
+  "stable_assets": [
+    "draw_building_outline.py：图片/JSON/CSV/TXT 坐标输入 -> 外轮廓 + 坐标标注 + 保存 + 关闭 CAD",
+    "draw_building_outline.quote.meta.json：脚本级定位与边界",
+    "draw_building_outline.procedure.meta.json：脚本主流程",
+    "draw_building_outline_functions.quote.meta.json：函数职责压缩",
+    "draw_building_outline_functions.procedure.meta.json：函数步骤压缩"
+  ],
+  "supporting_assets": [
+    "test_image1_points.json：Image #1 的测试坐标"
+  ],
+  "default_behavior": [
+    "默认绘制闭合建筑外轮廓",
+    "默认对每个轮廓点生成简单折线引线和 X/Y 双行坐标文字",
+    "默认使用当前 CAD 默认字体，不主动切换文字样式",
+    "默认输出到输入文件所在目录下的 总图定位.dwg",
+    "默认在保存后关闭整个天正/AutoCAD 进程"
+  ],
+  "volatile_or_excluded": [
+    "外部输出 DWG：例如 D:/腾讯云工作台1#/私人住宅/张嘉辉/总图定位.dwg",
+    "用户临时 OCR 文本或图片 sidecar 文件",
+    "运行时 CAD 会话状态"
+  ],
+  "refresh_rules": [
+    "当脚本默认能力或参数变化时，同时更新 README、AGENTS 和四层 meta",
+    "当输入格式扩展时，先更新 quote/procedure meta，再补 README 示例",
+    "当默认收尾策略变化时，必须更新 AGENTS.md 的硬规则"
+  ]
+}

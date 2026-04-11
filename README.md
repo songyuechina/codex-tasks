@@ -95,4 +95,6 @@
     对应带运行监督链 / runtime guard 的监督版基线。
   - `print-unsupervised-plain-guard-20260321`
     对应移除 runtime guard 监督链、回到朴素守护后的无监督对比版快照。
+  - `project-governor-doc-outline-20260411`
+    对应本轮小步增量版本：补入 `cad/official_development_document/` 官方开发文档，并新增总图轮廓绘制工作区 `cad/scripts/Scheme_drawing/`。
 - 若后续本地实验回退到“无监督、朴素守护”状态，不应反向覆盖监督版说明；应通过新的提交或标签单独标注“朴素版”或“对比实验版”。

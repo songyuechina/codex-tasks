@@ -1,0 +1,73 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+  "total_pseudo_maximal_count": 4,
+  "rows_by_space": {
+    "model": [
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "AD3C",
+        "bbox": [
+          1599261.6311101965,
+          -861484.7453587202,
+          2425037.293592964,
+          39417.9213353864
+        ],
+        "area": 743943496421.8176
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "286FF",
+        "bbox": [
+          2142213.1533480333,
+          -648242.2307992671,
+          2226313.1533480333,
+          -588842.2307992671
+        ],
+        "area": 4995540000.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "202CC",
+        "bbox": [
+          2142213.1533480333,
+          -648242.2307992671,
+          2226313.1533480333,
+          -588842.2307992671
+        ],
+        "area": 4995540000.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1AD78",
+        "bbox": [
+          1673831.6630348365,
+          -118503.29049547629,
+          1715831.6630348365,
+          -88803.29049547629
+        ],
+        "area": 1247400000.0
+      }
+    ]
+  },
+  "largest_scope": {
+    "space_key": "model",
+    "layout_name": "model",
+    "owner_btr": "*MODEL_SPACE",
+    "handle": "AD3C",
+    "bbox": [
+      1599261.6311101965,
+      -861484.7453587202,
+      2425037.293592964,
+      39417.9213353864
+    ],
+    "area": 743943496421.8176
+  }
+}

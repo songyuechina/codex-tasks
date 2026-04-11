@@ -1,0 +1,47 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+  "total_pseudo_maximal_count": 2,
+  "rows_by_space": {
+    "model": [
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "9CE8",
+        "bbox": [
+          381543.42038776167,
+          3085486.2881988515,
+          382983.2691563845,
+          3085960.1501279636
+        ],
+        "area": 682289.5151293243
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "DC1F",
+        "bbox": [
+          380141.07165080536,
+          3087009.901302099,
+          381573.357745206,
+          3087431.7980446666
+        ],
+        "area": 604276.8376522356
+      }
+    ]
+  },
+  "largest_scope": {
+    "space_key": "model",
+    "layout_name": "model",
+    "owner_btr": "*MODEL_SPACE",
+    "handle": "9CE8",
+    "bbox": [
+      381543.42038776167,
+      3085486.2881988515,
+      382983.2691563845,
+      3085960.1501279636
+    ],
+    "area": 682289.5151293243
+  }
+}

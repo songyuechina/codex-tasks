@@ -1,0 +1,213 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+  "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf",
+  "source_stem": "plot-case-40830161e1",
+  "mode": "purified_adaptive",
+  "total_jobs": 8,
+  "landscape_count": 7,
+  "portrait_count": 1,
+  "jobs_by_space": {
+    "model": [
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "DF9A",
+        "lower_left": [
+          380688.06340748986,
+          3087670.2769642915
+        ],
+        "upper_right": [
+          381108.56340748986,
+          3087967.2769642915
+        ],
+        "short_side": 297.0,
+        "long_side": 420.5,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 1,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-01.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "AB43",
+        "lower_left": [
+          380203.95413809124,
+          3087090.4670791114
+        ],
+        "upper_right": [
+          380500.95413809124,
+          3087300.4670791114
+        ],
+        "short_side": 210.0,
+        "long_side": 297.0,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 2,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-02.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "9E3D",
+        "lower_left": [
+          380518.06481253577,
+          3087090.4670791114
+        ],
+        "upper_right": [
+          380623.06481253577,
+          3087238.9670791114
+        ],
+        "short_side": 105.0,
+        "long_side": 148.5,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:25",
+        "paper_code": "A2",
+        "rotation": 1,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 3,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-03.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "9D56",
+        "lower_left": [
+          380663.87685441726,
+          3087078.645123043
+        ],
+        "upper_right": [
+          381084.37685441726,
+          3087375.645123043
+        ],
+        "short_side": 297.0,
+        "long_side": 420.5,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 4,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-04.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "9D06",
+        "lower_left": [
+          381084.37685441726,
+          3087078.645123043
+        ],
+        "upper_right": [
+          381504.87685441726,
+          3087375.645123043
+        ],
+        "short_side": 297.0,
+        "long_side": 420.5,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 5,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-05.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "ED68",
+        "lower_left": [
+          381084.37685441726,
+          3086010.2570144357
+        ],
+        "upper_right": [
+          381504.87685441726,
+          3086307.2570144357
+        ],
+        "short_side": 297.0,
+        "long_side": 420.5,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 6,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-06.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "4A7A",
+        "lower_left": [
+          381727.4815146231,
+          3085571.553089992
+        ],
+        "upper_right": [
+          382147.9815146231,
+          3085868.553089992
+        ],
+        "short_side": 297.0,
+        "long_side": 420.5,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 7,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-07.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\work\\work-case-40830161e1.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "9CD2",
+        "lower_left": [
+          382496.0677128382,
+          3085571.553089992
+        ],
+        "upper_right": [
+          382916.5677128382,
+          3085868.553089992
+        ],
+        "short_side": 297.0,
+        "long_side": 420.5,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 8,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-40830161e1\\20260320-122550\\pdf\\model\\plot-case-40830161e1-model-08.pdf"
+      }
+    ]
+  }
+}

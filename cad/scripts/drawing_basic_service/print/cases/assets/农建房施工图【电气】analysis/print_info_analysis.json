@@ -1,0 +1,3982 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】-0930_t6_t3.dwg",
+  "analysis_dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】prosess\\20260318-235548\\runs\\农建房施工图【电气】-0930_t6_t3\\20260318-235548\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-235548.dwg",
+  "plan_json_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】prosess\\20260318-235548\\runs\\农建房施工图【电气】-0930_t6_t3\\20260318-235548\\print_plan.json",
+  "content_json_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】prosess\\20260318-235548\\runs\\农建房施工图【电气】-0930_t6_t3\\20260318-235548\\content_analysis.json",
+  "print_mode": "purified_adaptive",
+  "requested_handles": [],
+  "excluded_handle_count": 12,
+  "total_jobs": 9,
+  "inner_frame_found_count": 9,
+  "title_block_found_count": 9,
+  "attribute_block_count": 0,
+  "with_title_count": 9,
+  "with_drawing_no_count": 9,
+  "with_number_count": 9,
+  "with_project_count": 0,
+  "print_info_dict": {
+    "01": {
+      "page_key": "model-01",
+      "sequence_key": "01",
+      "sequence_no": 1,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "21ED",
+      "drawing_title": "电 气 设 计 总 说 明",
+      "drawing_no": "01",
+      "project_name": "",
+      "ratio": "1:150",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "21EC",
+      "inner_frame_bbox": [
+        25969.892909516755,
+        508401.93952213885,
+        109819.9741750061,
+        568401.9976727576
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24E0",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        92319.97562877327,
+        508401.99912652746,
+        109819.9756287735,
+        513901.99912652746
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "电 气 设 计 总 说 明",
+        "01"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24E1",
+          "text": "电 气 设 计 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            100899.17490924866,
+            510383.6209424989,
+            104331.57714388553,
+            510779.15166875586
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E7",
+          "text": "01",
+          "obj_name": "AcDbText",
+          "bbox": [
+            108835.90294474358,
+            509550.8004471018,
+            109181.5569531824,
+            509846.1590968908
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "电 气 设 计 总 说 明"
+      ],
+      "drawing_no_candidates": [
+        "01"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24E1",
+          "text": "电 气 设 计 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            100899.17490924866,
+            510383.6209424989,
+            104331.57714388553,
+            510779.15166875586
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E7",
+          "text": "01",
+          "obj_name": "AcDbText",
+          "bbox": [
+            108835.90294474358,
+            509550.8004471018,
+            109181.5569531824,
+            509846.1590968908
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "02": {
+      "page_key": "model-02",
+      "sequence_key": "02",
+      "sequence_no": 2,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "21E9",
+      "drawing_title": "电气节能与绿建设计专篇",
+      "drawing_no": "02",
+      "project_name": "",
+      "ratio": "1:150",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "21E8",
+      "inner_frame_bbox": [
+        122133.94944713084,
+        508401.93952213885,
+        205984.0307126203,
+        568401.9976727576
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24AF",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        188484.03071262175,
+        508401.93952214345,
+        205984.03071262199,
+        513901.93952214345
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "电气节能与绿建设计专篇",
+        "建筑电气工程通病防治专篇",
+        "02",
+        "电 气 抗 震 设 计 专 篇"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24DD",
+          "text": "电气节能与绿建设计专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510868.6009295756,
+            200838.8724511977,
+            511264.1316558326
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "24E3",
+          "text": "建筑电气工程通病防治专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510170.4107871313,
+            201182.1126746614,
+            510565.94151338824
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E6",
+          "text": "02",
+          "obj_name": "AcDbText",
+          "bbox": [
+            204998.35635735083,
+            509550.74084271776,
+            205344.01036578964,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        },
+        {
+          "handle": "24E4",
+          "text": "电 气 抗 震 设 计 专 篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            509452.6463806879,
+            201010.49256292955,
+            509849.8530845985
+          ],
+          "layer": "TL"
+        }
+      ],
+      "drawing_title_candidates": [
+        "电气节能与绿建设计专篇",
+        "建筑电气工程通病防治专篇",
+        "电 气 抗 震 设 计 专 篇"
+      ],
+      "drawing_no_candidates": [
+        "02"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24DD",
+          "text": "电气节能与绿建设计专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510868.6009295756,
+            200838.8724511977,
+            511264.1316558326
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "24E3",
+          "text": "建筑电气工程通病防治专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510170.4107871313,
+            201182.1126746614,
+            510565.94151338824
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E6",
+          "text": "02",
+          "obj_name": "AcDbText",
+          "bbox": [
+            204998.35635735083,
+            509550.74084271776,
+            205344.01036578964,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        },
+        {
+          "handle": "24E4",
+          "text": "电 气 抗 震 设 计 专 篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            509452.6463806879,
+            201010.49256292955,
+            509849.8530845985
+          ],
+          "layer": "TL"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "03": {
+      "page_key": "model-03",
+      "sequence_key": "03",
+      "sequence_no": 3,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "21E5",
+      "drawing_title": "室 内 布 线 安 装 总 说 明",
+      "drawing_no": "03",
+      "project_name": "",
+      "ratio": "1:150",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "21E4",
+      "inner_frame_bbox": [
+        216874.48250250117,
+        508401.93952213885,
+        300724.5637679906,
+        568401.9976727576
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24E6",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        283224.56522175774,
+        508401.93952214345,
+        300724.565221758,
+        513901.93952214345
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "室 内 布 线 安 装 总 说 明",
+        "03"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24E7",
+          "text": "室 内 布 线 安 装 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            291803.7645022331,
+            510119.69948267145,
+            296265.88740726106,
+            510516.90618658205
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E8",
+          "text": "03",
+          "obj_name": "AcDbText",
+          "bbox": [
+            299738.8908664868,
+            509550.74084271776,
+            300084.54487492563,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "室 内 布 线 安 装 总 说 明"
+      ],
+      "drawing_no_candidates": [
+        "03"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24E7",
+          "text": "室 内 布 线 安 装 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            291803.7645022331,
+            510119.69948267145,
+            296265.88740726106,
+            510516.90618658205
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E8",
+          "text": "03",
+          "obj_name": "AcDbText",
+          "bbox": [
+            299738.8908664868,
+            509550.74084271776,
+            300084.54487492563,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "04": {
+      "page_key": "model-04",
+      "sequence_key": "04",
+      "sequence_no": 4,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "23DA",
+      "drawing_title": "系统图",
+      "drawing_no": "04",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "23DB",
+      "inner_frame_bbox": [
+        304724.5652217563,
+        507901.9380683733,
+        360624.5652217563,
+        547901.9380683734
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24EA",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        348249.56522175734,
+        507901.9380683766,
+        360624.5652217575,
+        511791.2237826623
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "系统图",
+        "04"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24EC",
+          "text": "系统图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            354318.16567594605,
+            508927.04443281074,
+            355038.97014521976,
+            509201.56957247556
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E9",
+          "text": "04",
+          "obj_name": "AcDbText",
+          "bbox": [
+            359931.8466584515,
+            508712.98169237975,
+            360178.9892744852,
+            508924.1631269789
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "系统图"
+      ],
+      "drawing_no_candidates": [
+        "04"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24EC",
+          "text": "系统图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            354318.16567594605,
+            508927.04443281074,
+            355038.97014521976,
+            509201.56957247556
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E9",
+          "text": "04",
+          "obj_name": "AcDbText",
+          "bbox": [
+            359931.8466584515,
+            508712.98169237975,
+            360178.9892744852,
+            508924.1631269789
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "05": {
+      "page_key": "model-05",
+      "sequence_key": "05",
+      "sequence_no": 5,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "237C",
+      "drawing_title": "一层强电平面图",
+      "drawing_no": "05",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "237E",
+      "inner_frame_bbox": [
+        36264.12809879199,
+        447048.0150371175,
+        92164.12809879199,
+        487048.0150371175
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24EE",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        74664.12955255917,
+        447048.0746415062,
+        92164.1295525594,
+        452548.0746415062
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "一层强电平面图",
+        "05"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24EF",
+          "text": "一层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            449029.6964574776,
+            85646.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EA",
+          "text": "05",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            448196.8759620805,
+            91525.7108769683,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "一层强电平面图"
+      ],
+      "drawing_no_candidates": [
+        "05"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24EF",
+          "text": "一层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            449029.6964574776,
+            85646.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EA",
+          "text": "05",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            448196.8759620805,
+            91525.7108769683,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "06": {
+      "page_key": "model-06",
+      "sequence_key": "06",
+      "sequence_no": 6,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "237F",
+      "drawing_title": "二层强电平面图",
+      "drawing_no": "06",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2380",
+      "inner_frame_bbox": [
+        95664.12809879199,
+        447048.0150371175,
+        151564.128098792,
+        487048.0150371175
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24F2",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        134064.12955255917,
+        447048.0746415062,
+        151564.1295525594,
+        452548.0746415062
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "二层强电平面图",
+        "06"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24F3",
+          "text": "二层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            449029.6964574776,
+            145046.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EB",
+          "text": "06",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            448196.8759620805,
+            150925.71087696828,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "二层强电平面图"
+      ],
+      "drawing_no_candidates": [
+        "06"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24F3",
+          "text": "二层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            449029.6964574776,
+            145046.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EB",
+          "text": "06",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            448196.8759620805,
+            150925.71087696828,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "07": {
+      "page_key": "model-07",
+      "sequence_key": "07",
+      "sequence_no": 7,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "2381",
+      "drawing_title": "一层弱电平面图",
+      "drawing_no": "07",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2382",
+      "inner_frame_bbox": [
+        36264.12809879199,
+        393324.2283969014,
+        92164.12809879199,
+        433324.2283969014
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24F6",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        74664.12955255917,
+        393324.28800129006,
+        92164.1295525594,
+        398824.28800129006
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "一层弱电平面图",
+        "07"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24F7",
+          "text": "一层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            395305.90981726145,
+            85646.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EC",
+          "text": "07",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            394473.08932186436,
+            91525.7108769683,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "一层弱电平面图"
+      ],
+      "drawing_no_candidates": [
+        "07"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24F7",
+          "text": "一层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            395305.90981726145,
+            85646.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EC",
+          "text": "07",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            394473.08932186436,
+            91525.7108769683,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "08": {
+      "page_key": "model-08",
+      "sequence_key": "08",
+      "sequence_no": 8,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "2383",
+      "drawing_title": "二层弱电平面图",
+      "drawing_no": "08",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2384",
+      "inner_frame_bbox": [
+        95664.12809879199,
+        393324.2283969014,
+        151564.128098792,
+        433324.2283969014
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24FA",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        134064.12955255917,
+        393324.28800129006,
+        151564.1295525594,
+        398824.28800129006
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "二层弱电平面图",
+        "08"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24FB",
+          "text": "二层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            395305.90981726145,
+            145046.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66ED",
+          "text": "08",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            394473.08932186436,
+            150925.71087696828,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "二层弱电平面图"
+      ],
+      "drawing_no_candidates": [
+        "08"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24FB",
+          "text": "二层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            395305.90981726145,
+            145046.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66ED",
+          "text": "08",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            394473.08932186436,
+            150925.71087696828,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "09": {
+      "page_key": "model-09",
+      "sequence_key": "09",
+      "sequence_no": 9,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "2385",
+      "drawing_title": "屋顶防雷平面图",
+      "drawing_no": "09",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2386",
+      "inner_frame_bbox": [
+        36264.12809879199,
+        339600.44175668526,
+        92164.12809879199,
+        379600.44175668526
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24FE",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        74664.12955255917,
+        339600.5013610739,
+        92164.1295525594,
+        345100.5013610739
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "屋顶防雷平面图",
+        "09"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24FF",
+          "text": "屋顶防雷平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            341582.1231770453,
+            85646.01039728036,
+            341974.30194799503
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EE",
+          "text": "09",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            340749.30268164823,
+            91525.7108769683,
+            341044.66133143724
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "屋顶防雷平面图"
+      ],
+      "drawing_no_candidates": [
+        "09"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24FF",
+          "text": "屋顶防雷平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            341582.1231770453,
+            85646.01039728036,
+            341974.30194799503
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EE",
+          "text": "09",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            340749.30268164823,
+            91525.7108769683,
+            341044.66133143724
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    }
+  },
+  "print_info_dict_by_space": {
+    "model": {
+      "01": {
+        "page_key": "model-01",
+        "sequence_key": "01",
+        "sequence_no": 1,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "21ED",
+        "drawing_title": "电 气 设 计 总 说 明",
+        "drawing_no": "01",
+        "project_name": "",
+        "ratio": "1:150",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "21EC",
+        "inner_frame_bbox": [
+          25969.892909516755,
+          508401.93952213885,
+          109819.9741750061,
+          568401.9976727576
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24E0",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          92319.97562877327,
+          508401.99912652746,
+          109819.9756287735,
+          513901.99912652746
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "电 气 设 计 总 说 明",
+          "01"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24E1",
+            "text": "电 气 设 计 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              100899.17490924866,
+              510383.6209424989,
+              104331.57714388553,
+              510779.15166875586
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E7",
+            "text": "01",
+            "obj_name": "AcDbText",
+            "bbox": [
+              108835.90294474358,
+              509550.8004471018,
+              109181.5569531824,
+              509846.1590968908
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "电 气 设 计 总 说 明"
+        ],
+        "drawing_no_candidates": [
+          "01"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24E1",
+            "text": "电 气 设 计 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              100899.17490924866,
+              510383.6209424989,
+              104331.57714388553,
+              510779.15166875586
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E7",
+            "text": "01",
+            "obj_name": "AcDbText",
+            "bbox": [
+              108835.90294474358,
+              509550.8004471018,
+              109181.5569531824,
+              509846.1590968908
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "02": {
+        "page_key": "model-02",
+        "sequence_key": "02",
+        "sequence_no": 2,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "21E9",
+        "drawing_title": "电气节能与绿建设计专篇",
+        "drawing_no": "02",
+        "project_name": "",
+        "ratio": "1:150",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "21E8",
+        "inner_frame_bbox": [
+          122133.94944713084,
+          508401.93952213885,
+          205984.0307126203,
+          568401.9976727576
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24AF",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          188484.03071262175,
+          508401.93952214345,
+          205984.03071262199,
+          513901.93952214345
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "电气节能与绿建设计专篇",
+          "建筑电气工程通病防治专篇",
+          "02",
+          "电 气 抗 震 设 计 专 篇"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24DD",
+            "text": "电气节能与绿建设计专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510868.6009295756,
+              200838.8724511977,
+              511264.1316558326
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "24E3",
+            "text": "建筑电气工程通病防治专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510170.4107871313,
+              201182.1126746614,
+              510565.94151338824
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E6",
+            "text": "02",
+            "obj_name": "AcDbText",
+            "bbox": [
+              204998.35635735083,
+              509550.74084271776,
+              205344.01036578964,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          },
+          {
+            "handle": "24E4",
+            "text": "电 气 抗 震 设 计 专 篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              509452.6463806879,
+              201010.49256292955,
+              509849.8530845985
+            ],
+            "layer": "TL"
+          }
+        ],
+        "drawing_title_candidates": [
+          "电气节能与绿建设计专篇",
+          "建筑电气工程通病防治专篇",
+          "电 气 抗 震 设 计 专 篇"
+        ],
+        "drawing_no_candidates": [
+          "02"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24DD",
+            "text": "电气节能与绿建设计专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510868.6009295756,
+              200838.8724511977,
+              511264.1316558326
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "24E3",
+            "text": "建筑电气工程通病防治专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510170.4107871313,
+              201182.1126746614,
+              510565.94151338824
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E6",
+            "text": "02",
+            "obj_name": "AcDbText",
+            "bbox": [
+              204998.35635735083,
+              509550.74084271776,
+              205344.01036578964,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          },
+          {
+            "handle": "24E4",
+            "text": "电 气 抗 震 设 计 专 篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              509452.6463806879,
+              201010.49256292955,
+              509849.8530845985
+            ],
+            "layer": "TL"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "03": {
+        "page_key": "model-03",
+        "sequence_key": "03",
+        "sequence_no": 3,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "21E5",
+        "drawing_title": "室 内 布 线 安 装 总 说 明",
+        "drawing_no": "03",
+        "project_name": "",
+        "ratio": "1:150",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "21E4",
+        "inner_frame_bbox": [
+          216874.48250250117,
+          508401.93952213885,
+          300724.5637679906,
+          568401.9976727576
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24E6",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          283224.56522175774,
+          508401.93952214345,
+          300724.565221758,
+          513901.93952214345
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "室 内 布 线 安 装 总 说 明",
+          "03"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24E7",
+            "text": "室 内 布 线 安 装 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              291803.7645022331,
+              510119.69948267145,
+              296265.88740726106,
+              510516.90618658205
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E8",
+            "text": "03",
+            "obj_name": "AcDbText",
+            "bbox": [
+              299738.8908664868,
+              509550.74084271776,
+              300084.54487492563,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "室 内 布 线 安 装 总 说 明"
+        ],
+        "drawing_no_candidates": [
+          "03"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24E7",
+            "text": "室 内 布 线 安 装 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              291803.7645022331,
+              510119.69948267145,
+              296265.88740726106,
+              510516.90618658205
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E8",
+            "text": "03",
+            "obj_name": "AcDbText",
+            "bbox": [
+              299738.8908664868,
+              509550.74084271776,
+              300084.54487492563,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "04": {
+        "page_key": "model-04",
+        "sequence_key": "04",
+        "sequence_no": 4,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "23DA",
+        "drawing_title": "系统图",
+        "drawing_no": "04",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "23DB",
+        "inner_frame_bbox": [
+          304724.5652217563,
+          507901.9380683733,
+          360624.5652217563,
+          547901.9380683734
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24EA",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          348249.56522175734,
+          507901.9380683766,
+          360624.5652217575,
+          511791.2237826623
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "系统图",
+          "04"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24EC",
+            "text": "系统图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              354318.16567594605,
+              508927.04443281074,
+              355038.97014521976,
+              509201.56957247556
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E9",
+            "text": "04",
+            "obj_name": "AcDbText",
+            "bbox": [
+              359931.8466584515,
+              508712.98169237975,
+              360178.9892744852,
+              508924.1631269789
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "系统图"
+        ],
+        "drawing_no_candidates": [
+          "04"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24EC",
+            "text": "系统图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              354318.16567594605,
+              508927.04443281074,
+              355038.97014521976,
+              509201.56957247556
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E9",
+            "text": "04",
+            "obj_name": "AcDbText",
+            "bbox": [
+              359931.8466584515,
+              508712.98169237975,
+              360178.9892744852,
+              508924.1631269789
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "05": {
+        "page_key": "model-05",
+        "sequence_key": "05",
+        "sequence_no": 5,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "237C",
+        "drawing_title": "一层强电平面图",
+        "drawing_no": "05",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "237E",
+        "inner_frame_bbox": [
+          36264.12809879199,
+          447048.0150371175,
+          92164.12809879199,
+          487048.0150371175
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24EE",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          74664.12955255917,
+          447048.0746415062,
+          92164.1295525594,
+          452548.0746415062
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "一层强电平面图",
+          "05"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24EF",
+            "text": "一层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              449029.6964574776,
+              85646.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EA",
+            "text": "05",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              448196.8759620805,
+              91525.7108769683,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "一层强电平面图"
+        ],
+        "drawing_no_candidates": [
+          "05"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24EF",
+            "text": "一层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              449029.6964574776,
+              85646.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EA",
+            "text": "05",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              448196.8759620805,
+              91525.7108769683,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "06": {
+        "page_key": "model-06",
+        "sequence_key": "06",
+        "sequence_no": 6,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "237F",
+        "drawing_title": "二层强电平面图",
+        "drawing_no": "06",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2380",
+        "inner_frame_bbox": [
+          95664.12809879199,
+          447048.0150371175,
+          151564.128098792,
+          487048.0150371175
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24F2",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          134064.12955255917,
+          447048.0746415062,
+          151564.1295525594,
+          452548.0746415062
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "二层强电平面图",
+          "06"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24F3",
+            "text": "二层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              449029.6964574776,
+              145046.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EB",
+            "text": "06",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              448196.8759620805,
+              150925.71087696828,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "二层强电平面图"
+        ],
+        "drawing_no_candidates": [
+          "06"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24F3",
+            "text": "二层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              449029.6964574776,
+              145046.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EB",
+            "text": "06",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              448196.8759620805,
+              150925.71087696828,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "07": {
+        "page_key": "model-07",
+        "sequence_key": "07",
+        "sequence_no": 7,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "2381",
+        "drawing_title": "一层弱电平面图",
+        "drawing_no": "07",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2382",
+        "inner_frame_bbox": [
+          36264.12809879199,
+          393324.2283969014,
+          92164.12809879199,
+          433324.2283969014
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24F6",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          74664.12955255917,
+          393324.28800129006,
+          92164.1295525594,
+          398824.28800129006
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "一层弱电平面图",
+          "07"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24F7",
+            "text": "一层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              395305.90981726145,
+              85646.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EC",
+            "text": "07",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              394473.08932186436,
+              91525.7108769683,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "一层弱电平面图"
+        ],
+        "drawing_no_candidates": [
+          "07"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24F7",
+            "text": "一层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              395305.90981726145,
+              85646.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EC",
+            "text": "07",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              394473.08932186436,
+              91525.7108769683,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "08": {
+        "page_key": "model-08",
+        "sequence_key": "08",
+        "sequence_no": 8,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "2383",
+        "drawing_title": "二层弱电平面图",
+        "drawing_no": "08",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2384",
+        "inner_frame_bbox": [
+          95664.12809879199,
+          393324.2283969014,
+          151564.128098792,
+          433324.2283969014
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24FA",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          134064.12955255917,
+          393324.28800129006,
+          151564.1295525594,
+          398824.28800129006
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "二层弱电平面图",
+          "08"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24FB",
+            "text": "二层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              395305.90981726145,
+              145046.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66ED",
+            "text": "08",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              394473.08932186436,
+              150925.71087696828,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "二层弱电平面图"
+        ],
+        "drawing_no_candidates": [
+          "08"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24FB",
+            "text": "二层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              395305.90981726145,
+              145046.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66ED",
+            "text": "08",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              394473.08932186436,
+              150925.71087696828,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      "09": {
+        "page_key": "model-09",
+        "sequence_key": "09",
+        "sequence_no": 9,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "2385",
+        "drawing_title": "屋顶防雷平面图",
+        "drawing_no": "09",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2386",
+        "inner_frame_bbox": [
+          36264.12809879199,
+          339600.44175668526,
+          92164.12809879199,
+          379600.44175668526
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24FE",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          74664.12955255917,
+          339600.5013610739,
+          92164.1295525594,
+          345100.5013610739
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "屋顶防雷平面图",
+          "09"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24FF",
+            "text": "屋顶防雷平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              341582.1231770453,
+              85646.01039728036,
+              341974.30194799503
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EE",
+            "text": "09",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              340749.30268164823,
+              91525.7108769683,
+              341044.66133143724
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "屋顶防雷平面图"
+        ],
+        "drawing_no_candidates": [
+          "09"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24FF",
+            "text": "屋顶防雷平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              341582.1231770453,
+              85646.01039728036,
+              341974.30194799503
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EE",
+            "text": "09",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              340749.30268164823,
+              91525.7108769683,
+              341044.66133143724
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      }
+    }
+  },
+  "page_info_dict": {
+    "model-01": {
+      "page_key": "model-01",
+      "sequence_key": "01",
+      "sequence_no": 1,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "21ED",
+      "drawing_title": "电 气 设 计 总 说 明",
+      "drawing_no": "01",
+      "project_name": "",
+      "ratio": "1:150",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "21EC",
+      "inner_frame_bbox": [
+        25969.892909516755,
+        508401.93952213885,
+        109819.9741750061,
+        568401.9976727576
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24E0",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        92319.97562877327,
+        508401.99912652746,
+        109819.9756287735,
+        513901.99912652746
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "电 气 设 计 总 说 明",
+        "01"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24E1",
+          "text": "电 气 设 计 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            100899.17490924866,
+            510383.6209424989,
+            104331.57714388553,
+            510779.15166875586
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E7",
+          "text": "01",
+          "obj_name": "AcDbText",
+          "bbox": [
+            108835.90294474358,
+            509550.8004471018,
+            109181.5569531824,
+            509846.1590968908
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "电 气 设 计 总 说 明"
+      ],
+      "drawing_no_candidates": [
+        "01"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24E1",
+          "text": "电 气 设 计 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            100899.17490924866,
+            510383.6209424989,
+            104331.57714388553,
+            510779.15166875586
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E7",
+          "text": "01",
+          "obj_name": "AcDbText",
+          "bbox": [
+            108835.90294474358,
+            509550.8004471018,
+            109181.5569531824,
+            509846.1590968908
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-02": {
+      "page_key": "model-02",
+      "sequence_key": "02",
+      "sequence_no": 2,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "21E9",
+      "drawing_title": "电气节能与绿建设计专篇",
+      "drawing_no": "02",
+      "project_name": "",
+      "ratio": "1:150",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "21E8",
+      "inner_frame_bbox": [
+        122133.94944713084,
+        508401.93952213885,
+        205984.0307126203,
+        568401.9976727576
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24AF",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        188484.03071262175,
+        508401.93952214345,
+        205984.03071262199,
+        513901.93952214345
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "电气节能与绿建设计专篇",
+        "建筑电气工程通病防治专篇",
+        "02",
+        "电 气 抗 震 设 计 专 篇"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24DD",
+          "text": "电气节能与绿建设计专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510868.6009295756,
+            200838.8724511977,
+            511264.1316558326
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "24E3",
+          "text": "建筑电气工程通病防治专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510170.4107871313,
+            201182.1126746614,
+            510565.94151338824
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E6",
+          "text": "02",
+          "obj_name": "AcDbText",
+          "bbox": [
+            204998.35635735083,
+            509550.74084271776,
+            205344.01036578964,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        },
+        {
+          "handle": "24E4",
+          "text": "电 气 抗 震 设 计 专 篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            509452.6463806879,
+            201010.49256292955,
+            509849.8530845985
+          ],
+          "layer": "TL"
+        }
+      ],
+      "drawing_title_candidates": [
+        "电气节能与绿建设计专篇",
+        "建筑电气工程通病防治专篇",
+        "电 气 抗 震 设 计 专 篇"
+      ],
+      "drawing_no_candidates": [
+        "02"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24DD",
+          "text": "电气节能与绿建设计专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510868.6009295756,
+            200838.8724511977,
+            511264.1316558326
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "24E3",
+          "text": "建筑电气工程通病防治专篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            510170.4107871313,
+            201182.1126746614,
+            510565.94151338824
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E6",
+          "text": "02",
+          "obj_name": "AcDbText",
+          "bbox": [
+            204998.35635735083,
+            509550.74084271776,
+            205344.01036578964,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        },
+        {
+          "handle": "24E4",
+          "text": "电 气 抗 震 设 计 专 篇",
+          "obj_name": "AcDbText",
+          "bbox": [
+            197063.22999309713,
+            509452.6463806879,
+            201010.49256292955,
+            509849.8530845985
+          ],
+          "layer": "TL"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-03": {
+      "page_key": "model-03",
+      "sequence_key": "03",
+      "sequence_no": 3,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "21E5",
+      "drawing_title": "室 内 布 线 安 装 总 说 明",
+      "drawing_no": "03",
+      "project_name": "",
+      "ratio": "1:150",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "21E4",
+      "inner_frame_bbox": [
+        216874.48250250117,
+        508401.93952213885,
+        300724.5637679906,
+        568401.9976727576
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24E6",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        283224.56522175774,
+        508401.93952214345,
+        300724.565221758,
+        513901.93952214345
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "室 内 布 线 安 装 总 说 明",
+        "03"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24E7",
+          "text": "室 内 布 线 安 装 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            291803.7645022331,
+            510119.69948267145,
+            296265.88740726106,
+            510516.90618658205
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E8",
+          "text": "03",
+          "obj_name": "AcDbText",
+          "bbox": [
+            299738.8908664868,
+            509550.74084271776,
+            300084.54487492563,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "室 内 布 线 安 装 总 说 明"
+      ],
+      "drawing_no_candidates": [
+        "03"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24E7",
+          "text": "室 内 布 线 安 装 总 说 明",
+          "obj_name": "AcDbText",
+          "bbox": [
+            291803.7645022331,
+            510119.69948267145,
+            296265.88740726106,
+            510516.90618658205
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E8",
+          "text": "03",
+          "obj_name": "AcDbText",
+          "bbox": [
+            299738.8908664868,
+            509550.74084271776,
+            300084.54487492563,
+            509846.09949250676
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-04": {
+      "page_key": "model-04",
+      "sequence_key": "04",
+      "sequence_no": 4,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "23DA",
+      "drawing_title": "系统图",
+      "drawing_no": "04",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "23DB",
+      "inner_frame_bbox": [
+        304724.5652217563,
+        507901.9380683733,
+        360624.5652217563,
+        547901.9380683734
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24EA",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        348249.56522175734,
+        507901.9380683766,
+        360624.5652217575,
+        511791.2237826623
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "系统图",
+        "04"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24EC",
+          "text": "系统图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            354318.16567594605,
+            508927.04443281074,
+            355038.97014521976,
+            509201.56957247556
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E9",
+          "text": "04",
+          "obj_name": "AcDbText",
+          "bbox": [
+            359931.8466584515,
+            508712.98169237975,
+            360178.9892744852,
+            508924.1631269789
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "系统图"
+      ],
+      "drawing_no_candidates": [
+        "04"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24EC",
+          "text": "系统图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            354318.16567594605,
+            508927.04443281074,
+            355038.97014521976,
+            509201.56957247556
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66E9",
+          "text": "04",
+          "obj_name": "AcDbText",
+          "bbox": [
+            359931.8466584515,
+            508712.98169237975,
+            360178.9892744852,
+            508924.1631269789
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-05": {
+      "page_key": "model-05",
+      "sequence_key": "05",
+      "sequence_no": 5,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "237C",
+      "drawing_title": "一层强电平面图",
+      "drawing_no": "05",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "237E",
+      "inner_frame_bbox": [
+        36264.12809879199,
+        447048.0150371175,
+        92164.12809879199,
+        487048.0150371175
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24EE",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        74664.12955255917,
+        447048.0746415062,
+        92164.1295525594,
+        452548.0746415062
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "一层强电平面图",
+        "05"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24EF",
+          "text": "一层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            449029.6964574776,
+            85646.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EA",
+          "text": "05",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            448196.8759620805,
+            91525.7108769683,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "一层强电平面图"
+      ],
+      "drawing_no_candidates": [
+        "05"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24EF",
+          "text": "一层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            449029.6964574776,
+            85646.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EA",
+          "text": "05",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            448196.8759620805,
+            91525.7108769683,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-06": {
+      "page_key": "model-06",
+      "sequence_key": "06",
+      "sequence_no": 6,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "237F",
+      "drawing_title": "二层强电平面图",
+      "drawing_no": "06",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2380",
+      "inner_frame_bbox": [
+        95664.12809879199,
+        447048.0150371175,
+        151564.128098792,
+        487048.0150371175
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24F2",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        134064.12955255917,
+        447048.0746415062,
+        151564.1295525594,
+        452548.0746415062
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "二层强电平面图",
+        "06"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24F3",
+          "text": "二层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            449029.6964574776,
+            145046.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EB",
+          "text": "06",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            448196.8759620805,
+            150925.71087696828,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "二层强电平面图"
+      ],
+      "drawing_no_candidates": [
+        "06"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24F3",
+          "text": "二层强电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            449029.6964574776,
+            145046.01039728036,
+            449423.55120608094
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EB",
+          "text": "06",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            448196.8759620805,
+            150925.71087696828,
+            448492.2346118695
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-07": {
+      "page_key": "model-07",
+      "sequence_key": "07",
+      "sequence_no": 7,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "2381",
+      "drawing_title": "一层弱电平面图",
+      "drawing_no": "07",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2382",
+      "inner_frame_bbox": [
+        36264.12809879199,
+        393324.2283969014,
+        92164.12809879199,
+        433324.2283969014
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24F6",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        74664.12955255917,
+        393324.28800129006,
+        92164.1295525594,
+        398824.28800129006
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "一层弱电平面图",
+        "07"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24F7",
+          "text": "一层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            395305.90981726145,
+            85646.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EC",
+          "text": "07",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            394473.08932186436,
+            91525.7108769683,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "一层弱电平面图"
+      ],
+      "drawing_no_candidates": [
+        "07"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24F7",
+          "text": "一层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            395305.90981726145,
+            85646.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EC",
+          "text": "07",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            394473.08932186436,
+            91525.7108769683,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-08": {
+      "page_key": "model-08",
+      "sequence_key": "08",
+      "sequence_no": 8,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "2383",
+      "drawing_title": "二层弱电平面图",
+      "drawing_no": "08",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2384",
+      "inner_frame_bbox": [
+        95664.12809879199,
+        393324.2283969014,
+        151564.128098792,
+        433324.2283969014
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24FA",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        134064.12955255917,
+        393324.28800129006,
+        151564.1295525594,
+        398824.28800129006
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "二层弱电平面图",
+        "08"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24FB",
+          "text": "二层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            395305.90981726145,
+            145046.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66ED",
+          "text": "08",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            394473.08932186436,
+            150925.71087696828,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "二层弱电平面图"
+      ],
+      "drawing_no_candidates": [
+        "08"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24FB",
+          "text": "二层弱电平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            142643.32883303455,
+            395305.90981726145,
+            145046.01039728036,
+            395699.7645658648
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66ED",
+          "text": "08",
+          "obj_name": "AcDbText",
+          "bbox": [
+            150580.05686852947,
+            394473.08932186436,
+            150925.71087696828,
+            394768.44797165337
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    },
+    "model-09": {
+      "page_key": "model-09",
+      "sequence_key": "09",
+      "sequence_no": 9,
+      "layout_name": "model",
+      "space_kind": "model",
+      "print_handle": "2385",
+      "drawing_title": "屋顶防雷平面图",
+      "drawing_no": "09",
+      "project_name": "",
+      "ratio": "1:100",
+      "paper_code": "A2",
+      "media": "ISO_A2_(594.00_x_420.00_MM)",
+      "rotation": 0,
+      "plot_scale": 1.0,
+      "standard_flag": 1,
+      "inner_frame_exists": 1,
+      "inner_frame_found": 1,
+      "inner_frame_handle": "2386",
+      "inner_frame_bbox": [
+        36264.12809879199,
+        339600.44175668526,
+        92164.12809879199,
+        379600.44175668526
+      ],
+      "right_bottom_title_block_exists": 1,
+      "right_bottom_block_exists": 1,
+      "title_block_found": 1,
+      "title_block_kind": "normal_block",
+      "title_block_handle": "24FE",
+      "title_block_name": "TQ",
+      "title_block_is_attribute": 0,
+      "title_block_bbox": [
+        74664.12955255917,
+        339600.5013610739,
+        92164.1295525594,
+        345100.5013610739
+      ],
+      "title_block_attr_fields": {},
+      "attr_fields": {},
+      "title_block_texts": [
+        "屋顶防雷平面图",
+        "09"
+      ],
+      "title_block_text_records": [
+        {
+          "handle": "24FF",
+          "text": "屋顶防雷平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            341582.1231770453,
+            85646.01039728036,
+            341974.30194799503
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EE",
+          "text": "09",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            340749.30268164823,
+            91525.7108769683,
+            341044.66133143724
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "drawing_title_candidates": [
+        "屋顶防雷平面图"
+      ],
+      "drawing_no_candidates": [
+        "09"
+      ],
+      "selected_texts": [
+        {
+          "handle": "24FF",
+          "text": "屋顶防雷平面图",
+          "obj_name": "AcDbText",
+          "bbox": [
+            83243.32883303455,
+            341582.1231770453,
+            85646.01039728036,
+            341974.30194799503
+          ],
+          "layer": "TL"
+        },
+        {
+          "handle": "66EE",
+          "text": "09",
+          "obj_name": "AcDbText",
+          "bbox": [
+            91180.05686852947,
+            340749.30268164823,
+            91525.7108769683,
+            341044.66133143724
+          ],
+          "layer": "PUB_TITLE"
+        }
+      ],
+      "analysis_stop_reason": "block_bbox_texts"
+    }
+  },
+  "jobs_by_space": {
+    "model": [
+      {
+        "page_key": "model-01",
+        "sequence_key": "01",
+        "sequence_no": 1,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "21ED",
+        "drawing_title": "电 气 设 计 总 说 明",
+        "drawing_no": "01",
+        "project_name": "",
+        "ratio": "1:150",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "21EC",
+        "inner_frame_bbox": [
+          25969.892909516755,
+          508401.93952213885,
+          109819.9741750061,
+          568401.9976727576
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24E0",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          92319.97562877327,
+          508401.99912652746,
+          109819.9756287735,
+          513901.99912652746
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "电 气 设 计 总 说 明",
+          "01"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24E1",
+            "text": "电 气 设 计 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              100899.17490924866,
+              510383.6209424989,
+              104331.57714388553,
+              510779.15166875586
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E7",
+            "text": "01",
+            "obj_name": "AcDbText",
+            "bbox": [
+              108835.90294474358,
+              509550.8004471018,
+              109181.5569531824,
+              509846.1590968908
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "电 气 设 计 总 说 明"
+        ],
+        "drawing_no_candidates": [
+          "01"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24E1",
+            "text": "电 气 设 计 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              100899.17490924866,
+              510383.6209424989,
+              104331.57714388553,
+              510779.15166875586
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E7",
+            "text": "01",
+            "obj_name": "AcDbText",
+            "bbox": [
+              108835.90294474358,
+              509550.8004471018,
+              109181.5569531824,
+              509846.1590968908
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-02",
+        "sequence_key": "02",
+        "sequence_no": 2,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "21E9",
+        "drawing_title": "电气节能与绿建设计专篇",
+        "drawing_no": "02",
+        "project_name": "",
+        "ratio": "1:150",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "21E8",
+        "inner_frame_bbox": [
+          122133.94944713084,
+          508401.93952213885,
+          205984.0307126203,
+          568401.9976727576
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24AF",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          188484.03071262175,
+          508401.93952214345,
+          205984.03071262199,
+          513901.93952214345
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "电气节能与绿建设计专篇",
+          "建筑电气工程通病防治专篇",
+          "02",
+          "电 气 抗 震 设 计 专 篇"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24DD",
+            "text": "电气节能与绿建设计专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510868.6009295756,
+              200838.8724511977,
+              511264.1316558326
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "24E3",
+            "text": "建筑电气工程通病防治专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510170.4107871313,
+              201182.1126746614,
+              510565.94151338824
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E6",
+            "text": "02",
+            "obj_name": "AcDbText",
+            "bbox": [
+              204998.35635735083,
+              509550.74084271776,
+              205344.01036578964,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          },
+          {
+            "handle": "24E4",
+            "text": "电 气 抗 震 设 计 专 篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              509452.6463806879,
+              201010.49256292955,
+              509849.8530845985
+            ],
+            "layer": "TL"
+          }
+        ],
+        "drawing_title_candidates": [
+          "电气节能与绿建设计专篇",
+          "建筑电气工程通病防治专篇",
+          "电 气 抗 震 设 计 专 篇"
+        ],
+        "drawing_no_candidates": [
+          "02"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24DD",
+            "text": "电气节能与绿建设计专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510868.6009295756,
+              200838.8724511977,
+              511264.1316558326
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "24E3",
+            "text": "建筑电气工程通病防治专篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              510170.4107871313,
+              201182.1126746614,
+              510565.94151338824
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E6",
+            "text": "02",
+            "obj_name": "AcDbText",
+            "bbox": [
+              204998.35635735083,
+              509550.74084271776,
+              205344.01036578964,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          },
+          {
+            "handle": "24E4",
+            "text": "电 气 抗 震 设 计 专 篇",
+            "obj_name": "AcDbText",
+            "bbox": [
+              197063.22999309713,
+              509452.6463806879,
+              201010.49256292955,
+              509849.8530845985
+            ],
+            "layer": "TL"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-03",
+        "sequence_key": "03",
+        "sequence_no": 3,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "21E5",
+        "drawing_title": "室 内 布 线 安 装 总 说 明",
+        "drawing_no": "03",
+        "project_name": "",
+        "ratio": "1:150",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "21E4",
+        "inner_frame_bbox": [
+          216874.48250250117,
+          508401.93952213885,
+          300724.5637679906,
+          568401.9976727576
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24E6",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          283224.56522175774,
+          508401.93952214345,
+          300724.565221758,
+          513901.93952214345
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "室 内 布 线 安 装 总 说 明",
+          "03"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24E7",
+            "text": "室 内 布 线 安 装 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              291803.7645022331,
+              510119.69948267145,
+              296265.88740726106,
+              510516.90618658205
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E8",
+            "text": "03",
+            "obj_name": "AcDbText",
+            "bbox": [
+              299738.8908664868,
+              509550.74084271776,
+              300084.54487492563,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "室 内 布 线 安 装 总 说 明"
+        ],
+        "drawing_no_candidates": [
+          "03"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24E7",
+            "text": "室 内 布 线 安 装 总 说 明",
+            "obj_name": "AcDbText",
+            "bbox": [
+              291803.7645022331,
+              510119.69948267145,
+              296265.88740726106,
+              510516.90618658205
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E8",
+            "text": "03",
+            "obj_name": "AcDbText",
+            "bbox": [
+              299738.8908664868,
+              509550.74084271776,
+              300084.54487492563,
+              509846.09949250676
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-04",
+        "sequence_key": "04",
+        "sequence_no": 4,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "23DA",
+        "drawing_title": "系统图",
+        "drawing_no": "04",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "23DB",
+        "inner_frame_bbox": [
+          304724.5652217563,
+          507901.9380683733,
+          360624.5652217563,
+          547901.9380683734
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24EA",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          348249.56522175734,
+          507901.9380683766,
+          360624.5652217575,
+          511791.2237826623
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "系统图",
+          "04"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24EC",
+            "text": "系统图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              354318.16567594605,
+              508927.04443281074,
+              355038.97014521976,
+              509201.56957247556
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E9",
+            "text": "04",
+            "obj_name": "AcDbText",
+            "bbox": [
+              359931.8466584515,
+              508712.98169237975,
+              360178.9892744852,
+              508924.1631269789
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "系统图"
+        ],
+        "drawing_no_candidates": [
+          "04"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24EC",
+            "text": "系统图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              354318.16567594605,
+              508927.04443281074,
+              355038.97014521976,
+              509201.56957247556
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66E9",
+            "text": "04",
+            "obj_name": "AcDbText",
+            "bbox": [
+              359931.8466584515,
+              508712.98169237975,
+              360178.9892744852,
+              508924.1631269789
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-05",
+        "sequence_key": "05",
+        "sequence_no": 5,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "237C",
+        "drawing_title": "一层强电平面图",
+        "drawing_no": "05",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "237E",
+        "inner_frame_bbox": [
+          36264.12809879199,
+          447048.0150371175,
+          92164.12809879199,
+          487048.0150371175
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24EE",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          74664.12955255917,
+          447048.0746415062,
+          92164.1295525594,
+          452548.0746415062
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "一层强电平面图",
+          "05"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24EF",
+            "text": "一层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              449029.6964574776,
+              85646.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EA",
+            "text": "05",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              448196.8759620805,
+              91525.7108769683,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "一层强电平面图"
+        ],
+        "drawing_no_candidates": [
+          "05"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24EF",
+            "text": "一层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              449029.6964574776,
+              85646.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EA",
+            "text": "05",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              448196.8759620805,
+              91525.7108769683,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-06",
+        "sequence_key": "06",
+        "sequence_no": 6,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "237F",
+        "drawing_title": "二层强电平面图",
+        "drawing_no": "06",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2380",
+        "inner_frame_bbox": [
+          95664.12809879199,
+          447048.0150371175,
+          151564.128098792,
+          487048.0150371175
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24F2",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          134064.12955255917,
+          447048.0746415062,
+          151564.1295525594,
+          452548.0746415062
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "二层强电平面图",
+          "06"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24F3",
+            "text": "二层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              449029.6964574776,
+              145046.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EB",
+            "text": "06",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              448196.8759620805,
+              150925.71087696828,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "二层强电平面图"
+        ],
+        "drawing_no_candidates": [
+          "06"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24F3",
+            "text": "二层强电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              449029.6964574776,
+              145046.01039728036,
+              449423.55120608094
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EB",
+            "text": "06",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              448196.8759620805,
+              150925.71087696828,
+              448492.2346118695
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-07",
+        "sequence_key": "07",
+        "sequence_no": 7,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "2381",
+        "drawing_title": "一层弱电平面图",
+        "drawing_no": "07",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2382",
+        "inner_frame_bbox": [
+          36264.12809879199,
+          393324.2283969014,
+          92164.12809879199,
+          433324.2283969014
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24F6",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          74664.12955255917,
+          393324.28800129006,
+          92164.1295525594,
+          398824.28800129006
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "一层弱电平面图",
+          "07"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24F7",
+            "text": "一层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              395305.90981726145,
+              85646.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EC",
+            "text": "07",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              394473.08932186436,
+              91525.7108769683,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "一层弱电平面图"
+        ],
+        "drawing_no_candidates": [
+          "07"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24F7",
+            "text": "一层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              395305.90981726145,
+              85646.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EC",
+            "text": "07",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              394473.08932186436,
+              91525.7108769683,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-08",
+        "sequence_key": "08",
+        "sequence_no": 8,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "2383",
+        "drawing_title": "二层弱电平面图",
+        "drawing_no": "08",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2384",
+        "inner_frame_bbox": [
+          95664.12809879199,
+          393324.2283969014,
+          151564.128098792,
+          433324.2283969014
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24FA",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          134064.12955255917,
+          393324.28800129006,
+          151564.1295525594,
+          398824.28800129006
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "二层弱电平面图",
+          "08"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24FB",
+            "text": "二层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              395305.90981726145,
+              145046.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66ED",
+            "text": "08",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              394473.08932186436,
+              150925.71087696828,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "二层弱电平面图"
+        ],
+        "drawing_no_candidates": [
+          "08"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24FB",
+            "text": "二层弱电平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              142643.32883303455,
+              395305.90981726145,
+              145046.01039728036,
+              395699.7645658648
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66ED",
+            "text": "08",
+            "obj_name": "AcDbText",
+            "bbox": [
+              150580.05686852947,
+              394473.08932186436,
+              150925.71087696828,
+              394768.44797165337
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      },
+      {
+        "page_key": "model-09",
+        "sequence_key": "09",
+        "sequence_no": 9,
+        "layout_name": "model",
+        "space_kind": "model",
+        "print_handle": "2385",
+        "drawing_title": "屋顶防雷平面图",
+        "drawing_no": "09",
+        "project_name": "",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "inner_frame_exists": 1,
+        "inner_frame_found": 1,
+        "inner_frame_handle": "2386",
+        "inner_frame_bbox": [
+          36264.12809879199,
+          339600.44175668526,
+          92164.12809879199,
+          379600.44175668526
+        ],
+        "right_bottom_title_block_exists": 1,
+        "right_bottom_block_exists": 1,
+        "title_block_found": 1,
+        "title_block_kind": "normal_block",
+        "title_block_handle": "24FE",
+        "title_block_name": "TQ",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": [
+          74664.12955255917,
+          339600.5013610739,
+          92164.1295525594,
+          345100.5013610739
+        ],
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_block_texts": [
+          "屋顶防雷平面图",
+          "09"
+        ],
+        "title_block_text_records": [
+          {
+            "handle": "24FF",
+            "text": "屋顶防雷平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              341582.1231770453,
+              85646.01039728036,
+              341974.30194799503
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EE",
+            "text": "09",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              340749.30268164823,
+              91525.7108769683,
+              341044.66133143724
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "drawing_title_candidates": [
+          "屋顶防雷平面图"
+        ],
+        "drawing_no_candidates": [
+          "09"
+        ],
+        "selected_texts": [
+          {
+            "handle": "24FF",
+            "text": "屋顶防雷平面图",
+            "obj_name": "AcDbText",
+            "bbox": [
+              83243.32883303455,
+              341582.1231770453,
+              85646.01039728036,
+              341974.30194799503
+            ],
+            "layer": "TL"
+          },
+          {
+            "handle": "66EE",
+            "text": "09",
+            "obj_name": "AcDbText",
+            "bbox": [
+              91180.05686852947,
+              340749.30268164823,
+              91525.7108769683,
+              341044.66133143724
+            ],
+            "layer": "PUB_TITLE"
+          }
+        ],
+        "analysis_stop_reason": "block_bbox_texts"
+      }
+    ]
+  },
+  "excel_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】analysis\\print_info_analysis.xlsx"
+}

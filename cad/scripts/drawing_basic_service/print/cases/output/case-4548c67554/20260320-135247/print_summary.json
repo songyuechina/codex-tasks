@@ -1,0 +1,79 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247",
+  "work_dwg": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\work\\work-case-4548c67554.dwg",
+  "process_token": "case-4548c67554",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\work\\work-case-4548c67554.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\pdf",
+    "source_stem": "plot-case-4548c67554",
+    "mode": "purified_adaptive",
+    "total_jobs": 2,
+    "landscape_count": 2,
+    "portrait_count": 0,
+    "jobs_by_space": {
+      "model": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\work\\work-case-4548c67554.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "4A7A",
+          "lower_left": [
+            381727.4815146231,
+            3085571.553089992
+          ],
+          "upper_right": [
+            382147.9815146231,
+            3085868.553089992
+          ],
+          "short_side": 297.0,
+          "long_side": 420.5,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\pdf\\model\\plot-case-4548c67554-model-01.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\work\\work-case-4548c67554.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9CD2",
+          "lower_left": [
+            382496.0677128382,
+            3085571.553089992
+          ],
+          "upper_right": [
+            382916.5677128382,
+            3085868.553089992
+          ],
+          "short_side": 297.0,
+          "long_side": 420.5,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 2,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\pdf\\model\\plot-case-4548c67554-model-02.pdf"
+        }
+      ]
+    }
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\case-4548c67554\\20260320-135247\\scope_analysis.json",
+  "scope_filter": {
+    "applied": false,
+    "reason": "no_pseudo_maximal_scope",
+    "selected_scope": null
+  },
+  "execution": null,
+  "verification": null
+}

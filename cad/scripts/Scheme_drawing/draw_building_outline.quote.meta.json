@@ -1,0 +1,86 @@
+{
+  "meta_version": "V1.0",
+  "layer": "quote",
+  "module_name": "draw_building_outline",
+  "file_path": "D:/codex-tasks/cad/scripts/Scheme_drawing/draw_building_outline.py",
+  "script_role": "总图定位外轮廓绘制入口脚本",
+  "core_problem": "把图片或结构化文件里的建筑物大地坐标转换为带坐标标注的闭合外轮廓 DWG，并在保存后主动关闭整个天正/AutoCAD。",
+  "system_position": {
+    "layer_name": "领域执行入口层",
+    "high_value_stable_core": false,
+    "works_with": [
+      "system.licad.py",
+      "system.common_logger.py",
+      "library/cad_geometry_draw.py"
+    ],
+    "main_entry_note": "这是入口脚本，负责 bootstrap、参数解析、顶层编排与收尾，不替代 cad/system 的统一连接骨架。"
+  },
+  "core_functions": [
+    {
+      "name": "load_points_from_source",
+      "role": "按输入类型读取点坐标，并决定是否保留原顺序",
+      "input_shape": "source_path + optional ocr_text_path",
+      "output_shape": "(points, ordered)"
+    },
+    {
+      "name": "create_fresh_document",
+      "role": "在现有 CAD 会话中创建并激活一个新的工作图纸",
+      "input_shape": "无",
+      "output_shape": "new_doc_name"
+    },
+    {
+      "name": "draw_outline",
+      "role": "绘制闭合建筑外轮廓 LWPolyline",
+      "input_shape": "points + layer + color",
+      "output_shape": "polyline_com_object"
+    },
+    {
+      "name": "annotate_points",
+      "role": "为每个轮廓点生成简单折线引线和 X/Y 双行坐标文字",
+      "input_shape": "points + label parameters",
+      "output_shape": "side effects in ModelSpace"
+    },
+    {
+      "name": "save_document",
+      "role": "保存为目标 DWG，并在需要时关闭输出文档",
+      "input_shape": "output_path + close_after_save",
+      "output_shape": "无"
+    },
+    {
+      "name": "shutdown_cad_application",
+      "role": "关闭整个天正/AutoCAD，必要时按 PID 强制收口",
+      "input_shape": "force=True/False",
+      "output_shape": "无"
+    },
+    {
+      "name": "main",
+      "role": "串联坐标读取、点顺序归一、绘图、标注、保存和 CAD 收尾",
+      "input_shape": "CLI args",
+      "output_shape": "process exit code"
+    }
+  ],
+  "side_effects_and_boundaries": [
+    "会通过 licad.C 连接和驱动真实天正/AutoCAD 会话",
+    "会创建新图纸、绘制图元、保存外部 DWG 文件",
+    "输入的大地坐标会按 (X, Y) -> CAD(x, y) = (Y, X) 的规则映射到模型空间",
+    "默认会输出到输入文件同目录下的 总图定位.dwg；若需改路径，必须显式传 --output",
+    "默认会关闭整个 CAD 进程；若需保留会话，必须显式使用 --no-shutdown-cad",
+    "默认文字样式沿用 CAD 当前默认字体，不主动切换 TextStyle",
+    "图片模式优先使用 sidecar 文件，只有缺失时才会尝试 OCR"
+  ],
+  "must_keep_experience": [
+    "入口层只做 bootstrap、解析与编排，CAD 主连接仍统一通过 system.licad.C",
+    "轮廓绘制和引线绘制都要对 busy/rejected 做重试，不能假设天正刚启动后立即稳定",
+    "坐标标注默认要用简单折线引线和两行 X/Y 文字，而不是只画轮廓",
+    "保存后默认要关闭整个天正/AutoCAD，不能把收尾责任留给人工",
+    "关闭 CAD 不能只依赖 Quit，要保留按 PID 强制收口的兜底链"
+  ],
+  "known_limits": [
+    "图片自动 OCR 的准确率受原图清晰度影响，复杂图片更推荐提供 sidecar 文本/JSON/CSV",
+    "未引入高级避让算法，多个点位非常密集时标注仍可能需要后续优化"
+  ],
+  "rewrite_status": {
+    "allowed_rewrite": true,
+    "guidance": "允许继续增强输入格式、标注避让与绘图能力，但必须保留统一连接、默认标注、默认保存和默认关闭 CAD 这几条固有能力。"
+  }
+}

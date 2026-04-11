@@ -1,0 +1,50 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_min_req\\rect_min_req_source.dwg",
+  "objects": {
+    "closed_nonstandard": {
+      "created": true,
+      "handle": "E5",
+      "closed": true,
+      "bbox": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          260.0,
+          173.0
+        ]
+      ]
+    },
+    "open_nonstandard": {
+      "created": true,
+      "handle": "E6",
+      "closed": false,
+      "bbox": [
+        [
+          400.0,
+          0.0
+        ],
+        [
+          673.0,
+          181.0
+        ]
+      ]
+    },
+    "rotated_nonstandard": {
+      "created": true,
+      "handle": "E7",
+      "closed": true,
+      "bbox": [
+        [
+          808.5889527835967,
+          120.0
+        ],
+        [
+          1081.8221983093763,
+          336.6647030308559
+        ]
+      ]
+    }
+  }
+}

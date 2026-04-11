@@ -1,0 +1,294 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110",
+  "work_dwg": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+  "plan_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf",
+    "total_jobs": 9,
+    "landscape_count": 9,
+    "portrait_count": 0,
+    "jobs_by_space": {
+      "平面分割图": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E0F",
+          "lower_left": [
+            -310.9841886581021,
+            711.1662634268639
+          ],
+          "upper_right": [
+            12.36541787450551,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-01.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E12",
+          "lower_left": [
+            162.85949222645468,
+            711.1662634268639
+          ],
+          "upper_right": [
+            486.2090987590623,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 2,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-02.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E18",
+          "lower_left": [
+            645.7992503808168,
+            711.1662634268639
+          ],
+          "upper_right": [
+            969.1488569134244,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 3,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-03.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E1E",
+          "lower_left": [
+            1144.2819015391678,
+            711.1662634268639
+          ],
+          "upper_right": [
+            1467.6315080717754,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 4,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-04.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E48",
+          "lower_left": [
+            1642.7645526975189,
+            711.1662634268639
+          ],
+          "upper_right": [
+            1966.1141592301265,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 5,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-05.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E4E",
+          "lower_left": [
+            2141.2472038558694,
+            711.1662634268639
+          ],
+          "upper_right": [
+            2464.596810388477,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 6,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-06.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E54",
+          "lower_left": [
+            2639.729855014221,
+            711.1662634268639
+          ],
+          "upper_right": [
+            2963.0794615468285,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 7,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-07.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E5C",
+          "lower_left": [
+            3138.2125061725715,
+            711.1662634268639
+          ],
+          "upper_right": [
+            3461.562112705179,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 8,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-08.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\work\\混合空间0109.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "4E62",
+          "lower_left": [
+            3636.695157330923,
+            711.1662634268639
+          ],
+          "upper_right": [
+            3960.0447638635305,
+            988.1662634268639
+          ],
+          "short_side": 277.0,
+          "long_side": 323.3496065326076,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 9,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-09.pdf"
+        }
+      ]
+    }
+  },
+  "execution": {
+    "total_jobs": 9,
+    "success_count": 0,
+    "failure_count": 9,
+    "generated_files": [],
+    "failures": [
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E0F",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-01.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E12",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-02.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E18",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-03.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E1E",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-04.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E48",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-05.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E4E",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-06.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E54",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-07.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E5C",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-08.pdf"
+      },
+      {
+        "layout_name": "平面分割图",
+        "handle": "4E62",
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222110\\pdf\\平面分割图\\混合空间0109-平面分割图-09.pdf"
+      }
+    ]
+  },
+  "verification": {
+    "expected_count": 0,
+    "existing_count": 0,
+    "missing_count": 0,
+    "zero_size_count": 0,
+    "existing": [],
+    "missing": [],
+    "zero_size": []
+  }
+}

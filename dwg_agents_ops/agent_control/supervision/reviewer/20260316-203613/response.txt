@@ -1,0 +1,25 @@
+### 1. Findings
+
+**1. [Severity: High] Unsafe CAD-Side Effect (Architectural Drift)**
+*   **Location:** `print_area_analysis.py` (Docstring / Design Intent)
+*   **Issue:** The module docstring explicitly states that the script performs a destructive operation: *"删除伪打印区域外框（并在删除前用 4 条直线保留其边界信息）"* (Deletes pseudo print area bounding boxes and retains boundary info with 4 lines).
+*   **Why it matters in CAD automation:** An "analysis" or "extraction" module should be strictly read-only (side-effect free). Mutating the DWG database during print area detection is highly unsafe. If the automation pipeline crashes mid-execution, or if the DWG is subsequently saved by another downstream process, the user's original drawing is permanently altered. This violates safe CAD automation practices.
+
+**2. [Severity: Low] Brittle Regex for User-Defined Media (Missing Unit Validation)**
+*   **Location:** `print_verifier.py` -> `_parse_media_size_mm`
+*   **Issue:** The regex `r"UserDefinedMetric \(([0-9.]+) x ([0-9.]+)"` captures the dimensions but ignores the rest of the string (missing closing parenthesis and unit suffix).
+*   **Why it matters in CAD automation:** AutoCAD PC3 drivers can output user-defined sizes in different units depending on locale or driver settings (e.g., `UserDefinedMetric (36.0 x 24.0 Inches)`). Because the regex ignores the suffix, it will blindly parse 36x24 as millimeters, leading to false mismatches in the verifier. 
+
+**3. [Severity: Low] PDF Page Size Verification Robustness**
+*   **Location:** `print_verifier.py` -> `_read_pdf_page_size_mm`
+*   **Issue:** The function relies exclusively on `page.mediabox`. 
+*   **Why it matters in CAD automation:** While `MediaBox` works for standard AutoCAD PDF outputs (which explains the 49/49 success rate), some PDF drivers or post-processing tools define the actual visible/printed page size using `CropBox` or `TrimBox`, leaving `MediaBox` larger to accommodate bleed/margins. Falling back to `CropBox` if it exists would make the verifier more robust against different PDF plotters.
+
+### 2. Open questions / assumptions
+*   **Code Truncation:** Both `print_area_analysis.py` and `print_verifier.py` are heavily truncated (`...[truncated]...`). I am assuming the 49/49 success rate means the core mathematical matching logic works for the current test set, but I cannot verify the actual implementation of the `standard_flag` assignment.
+*   **Dynamic Tolerance:** The docstring mentions a dynamic tolerance of `0.0005*w_short`. Because the code is truncated, I cannot verify if this tolerance is safely clamped (e.g., preventing near-zero tolerances on extremely small details or overly loose tolerances on massive coordinate systems).
+
+### 3. Residual risk
+*   **Unreviewed Core Logic:** Due to truncation, the actual "极大矩形" (Maximal Rectangle) algorithm, the multi-scale standard matching logic (the 288 sizes), and the implementation of the unsafe CAD deletion are completely unreviewed. There is a high residual risk of edge-case bugs (e.g., infinite loops in rectangle clustering or unhandled exceptions during CAD entity deletion) in the unseen code.
+
+[PROGRESS] task=none; status=completed; completion=100; next=Provide the full, untruncated source code of print_area_analysis.py if a deep algorithmic review of the matching and deletion logic is required.

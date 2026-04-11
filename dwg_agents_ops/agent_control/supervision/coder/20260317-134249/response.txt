@@ -1,0 +1,1 @@
+已收到，可正常收发消息。[PROGRESS] task=none; status=ok; completion=100; next=等待下一步指令.

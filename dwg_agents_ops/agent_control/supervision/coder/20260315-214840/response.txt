@@ -1,0 +1,5 @@
+1. Implementation focus：当前打印实现已覆盖从 DWG 中识别打印区域（多段线）、匹配标准纸张/比例、生成 `PrintPlan/PrintJob`，并按 `model/layout` 组织任务。  
+2. Proposed or completed changes：从 `print_policy.py` 可见已接入 `get_layout_names`、打印区域分析与标准幅面匹配；样例 `print_summary.json` 证明混合空间案例已成功产出 37 个任务、输出计划 JSON，且本次全部为横向打印。  
+3. Risks / blockers：当前上下文只证明“计划生成”与结果汇总，未看到实际 PDF 出图成功率、失败重试、设备/介质兼容性校验。  
+最值得补强的一项：补一层“计划到实际出图”的执行校验与回归统计，确认每个 `PrintJob` 真正落成 PDF，并记录失败原因。  
+[PROGRESS] task=print-supervision-smoke; status=done; completion=100; next=补充实际出图结果校验与失败统计闭环。

@@ -1,0 +1,26 @@
+# Review: print_executor.py
+
+## 1. Findings
+
+The file content is truncated — the second `@dataclass class` definition is cut off mid-declaration, so I cannot review the full implementation. Based on what is provided:
+
+No high-severity bugs are visible in the delivered fragment. The imports, path bootstrapping, and `PrintDefaults` dataclass are straightforward.
+
+However, the single most notable residual risk in the visible code is:
+
+**Medium severity — Unbounded upward path traversal at module load time**
+
+```python
+current = Path(__file__).resolve()
+while current.name != "cad":
+    if current.parent == current:
+        raise Exception("找不到根目录 cad")
+    current = current.parent
+```
+
+This runs unconditionally at import time. If the file is ever executed from a location where no ancestor directory is literally named `cad` (e.g., a CI runner, a temp copy, a renamed workspace), it walks all the way to the filesystem root and then raises a hard `Exception` — not a custom error, not a logged warning. In a CAD automation context this means: a single misplaced script copy or a renamed project root silently kills the entire print pipeline with no actionable error message and no cleanup of any CAD state that may already be in progress.
+
+## 2. Open Questions / Assumptions
+
+- The file is truncated after `@dataclass class`. I cannot review the actual print execution logic, error handling around CAD COM calls, or output-path validation. Any findings about those areas are impossible with the provided content.
+- `PrintPlan` and `PrintJob` come from `print_policy` — their contracts (required fields, validation) are not provided,

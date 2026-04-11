@@ -1,0 +1,5 @@
+1. Test scope：已覆盖 `print_runner.py` 对默认案例 `混合空间0109.dwg` 的一次打印运行结果校验，依据 `print_summary.json` 确认流程产出了 `work_dwg`、`print_plan.json`，并生成了包含 37 个打印任务的 plan。  
+2. Test cases / execution：本次属于半自动结果核对；已知 plan 中 `total_jobs=37`、全部为横向(`landscape_count=37`)、无纵向(`portrait_count=0`)，且至少覆盖了 model 空间任务编排。  
+3. Result / blocker：目前缺少实际 PDF 文件列表/页数/命名结果、`verify_generated_pdfs` 执行结论、布局空间(`include_layouts`)明细、CAD/TArch 实际打印界面或打印机驱动侧验证证据，因此还不能判定“37 个任务是否全部成功出图且内容正确”。  
+4. 建议下一步：补充该次运行目录下生成的 PDF 产物清单与校验日志，或提供 `verify_generated_pdfs` 输出，以完成“计划正确”到“出图成功”的闭环验证。  
+[PROGRESS] task=print-test-supervision; status=blocked; completion=65; next=请补充该运行的PDF生成结果与校验日志以确认打印是否真正成功完成。

@@ -1,0 +1,1117 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+  "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf",
+  "total_jobs": 46,
+  "landscape_count": 46,
+  "portrait_count": 0,
+  "jobs_by_space": {
+    "model": [
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12887",
+        "lower_left": [
+          380662.0,
+          3073909.0
+        ],
+        "upper_right": [
+          380872.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 1,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-01.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12888",
+        "lower_left": [
+          380892.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381102.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 2,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-02.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12889",
+        "lower_left": [
+          381122.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381332.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 3,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-03.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288A",
+        "lower_left": [
+          381351.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381561.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 4,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-04.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288B",
+        "lower_left": [
+          381587.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381797.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 5,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-05.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288C",
+        "lower_left": [
+          381825.0,
+          3073909.0
+        ],
+        "upper_right": [
+          382035.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 6,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-06.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288D",
+        "lower_left": [
+          382054.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382264.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 7,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-07.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288E",
+        "lower_left": [
+          382287.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382497.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 8,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-08.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288F",
+        "lower_left": [
+          382515.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382725.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 9,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-09.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12890",
+        "lower_left": [
+          382746.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382956.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 10,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-10.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12891",
+        "lower_left": [
+          382968.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383178.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 11,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-11.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12892",
+        "lower_left": [
+          383205.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383415.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 12,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-12.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12893",
+        "lower_left": [
+          383434.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383644.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 13,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-13.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12894",
+        "lower_left": [
+          383667.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383877.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 14,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-14.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12895",
+        "lower_left": [
+          383895.0,
+          3073908.0
+        ],
+        "upper_right": [
+          384105.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 15,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-15.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12896",
+        "lower_left": [
+          384126.0,
+          3073908.0
+        ],
+        "upper_right": [
+          384336.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 16,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-16.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12897",
+        "lower_left": [
+          380662.0,
+          3073712.5
+        ],
+        "upper_right": [
+          380872.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 17,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-17.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12898",
+        "lower_left": [
+          380892.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381102.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 18,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-18.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12899",
+        "lower_left": [
+          381122.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381332.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 19,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-19.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289A",
+        "lower_left": [
+          381351.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381561.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 20,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-20.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289B",
+        "lower_left": [
+          381587.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381797.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 21,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-21.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289C",
+        "lower_left": [
+          381825.0,
+          3073712.5
+        ],
+        "upper_right": [
+          382035.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 22,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-22.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289D",
+        "lower_left": [
+          382054.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382264.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 23,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-23.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289E",
+        "lower_left": [
+          382287.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382497.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 24,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-24.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289F",
+        "lower_left": [
+          382515.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382725.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 25,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-25.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "128A0",
+        "lower_left": [
+          382746.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382956.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 26,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-26.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "156FD",
+        "lower_left": [
+          -1930.0000000032014,
+          1502.999999990221
+        ],
+        "upper_right": [
+          82169.9999999968,
+          60902.99999999022
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 27,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-27.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148E4",
+        "lower_left": [
+          -310.9841886581022,
+          706.1662634268639
+        ],
+        "upper_right": [
+          79.01581134189797,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.00000000000017,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 28,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-28.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148E5",
+        "lower_left": [
+          162.85949222645453,
+          706.1662634268639
+        ],
+        "upper_right": [
+          552.8594922264547,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0000000000001,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 29,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-29.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148E6",
+        "lower_left": [
+          645.7992503808167,
+          706.1662634268639
+        ],
+        "upper_right": [
+          1035.7992503808168,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0000000000001,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 30,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-30.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148E7",
+        "lower_left": [
+          1144.2819015391676,
+          706.1662634268639
+        ],
+        "upper_right": [
+          1534.2819015391678,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0000000000002,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 31,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-31.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148E8",
+        "lower_left": [
+          1642.7645526975186,
+          706.1662634268639
+        ],
+        "upper_right": [
+          2032.7645526975189,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0000000000002,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 32,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-32.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148E9",
+        "lower_left": [
+          2141.24720385587,
+          706.1662634268639
+        ],
+        "upper_right": [
+          2531.24720385587,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 33,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-33.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148EA",
+        "lower_left": [
+          2639.729855014221,
+          706.1662634268639
+        ],
+        "upper_right": [
+          3029.729855014221,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 34,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-34.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148EB",
+        "lower_left": [
+          3138.212506172572,
+          706.1662634268639
+        ],
+        "upper_right": [
+          3528.212506172572,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 35,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-35.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "148EC",
+        "lower_left": [
+          3636.695157330923,
+          706.1662634268639
+        ],
+        "upper_right": [
+          4026.695157330923,
+          993.1662634268623
+        ],
+        "short_side": 286.9999999999984,
+        "long_side": 390.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 36,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-36.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "158B4",
+        "lower_left": [
+          -498.9841886581271,
+          288.16626342665404
+        ],
+        "upper_right": [
+          -288.9841886581271,
+          436.66626342665404
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "sequence_no": 37,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\model\\混合空间0109-model-37.pdf"
+      }
+    ],
+    "平面分割图": [
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E0F",
+        "lower_left": [
+          -310.9841886581021,
+          711.1662634268639
+        ],
+        "upper_right": [
+          12.36541787450551,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 1,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-01.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E12",
+        "lower_left": [
+          162.85949222645468,
+          711.1662634268639
+        ],
+        "upper_right": [
+          486.2090987590623,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 2,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-02.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E18",
+        "lower_left": [
+          645.7992503808168,
+          711.1662634268639
+        ],
+        "upper_right": [
+          969.1488569134244,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 3,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-03.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E1E",
+        "lower_left": [
+          1144.2819015391678,
+          711.1662634268639
+        ],
+        "upper_right": [
+          1467.6315080717754,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 4,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-04.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E48",
+        "lower_left": [
+          1642.7645526975189,
+          711.1662634268639
+        ],
+        "upper_right": [
+          1966.1141592301265,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 5,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-05.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E4E",
+        "lower_left": [
+          2141.2472038558694,
+          711.1662634268639
+        ],
+        "upper_right": [
+          2464.596810388477,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 6,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-06.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E54",
+        "lower_left": [
+          2639.729855014221,
+          711.1662634268639
+        ],
+        "upper_right": [
+          2963.0794615468285,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 7,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-07.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E5C",
+        "lower_left": [
+          3138.2125061725715,
+          711.1662634268639
+        ],
+        "upper_right": [
+          3461.562112705179,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 8,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-08.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\work\\混合空间0109.dwg",
+        "space_kind": "layout",
+        "layout_name": "平面分割图",
+        "owner_btr": "layout_viewport:平面分割图",
+        "handle": "4E62",
+        "lower_left": [
+          3636.695157330923,
+          711.1662634268639
+        ],
+        "upper_right": [
+          3960.0447638635305,
+          988.1662634268639
+        ],
+        "short_side": 277.0,
+        "long_side": 323.3496065326076,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 9,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\混合空间0109\\20260315-222009\\pdf\\平面分割图\\混合空间0109-平面分割图-09.pdf"
+      }
+    ]
+  }
+}

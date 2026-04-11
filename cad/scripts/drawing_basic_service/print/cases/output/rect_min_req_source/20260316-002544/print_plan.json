@@ -1,0 +1,59 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_min_req_source\\20260316-002544\\work\\rect_min_req_source__print_work.dwg",
+  "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_min_req_source\\20260316-002544\\pdf",
+  "total_jobs": 2,
+  "landscape_count": 2,
+  "portrait_count": 0,
+  "jobs_by_space": {
+    "model": [
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_min_req_source\\20260316-002544\\work\\rect_min_req_source__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "E5",
+        "lower_left": [
+          0.0,
+          0.0
+        ],
+        "upper_right": [
+          260.0,
+          173.0
+        ],
+        "short_side": 173.0,
+        "long_side": 260.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:25",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 1,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_min_req_source\\20260316-002544\\pdf\\model\\rect_min_req_source-model-01.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_min_req_source\\20260316-002544\\work\\rect_min_req_source__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "E6",
+        "lower_left": [
+          400.0,
+          0.0
+        ],
+        "upper_right": [
+          673.0,
+          181.0
+        ],
+        "short_side": 181.0,
+        "long_side": 273.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:25",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.1,
+        "sequence_no": 2,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_min_req_source\\20260316-002544\\pdf\\model\\rect_min_req_source-model-02.pdf"
+      }
+    ]
+  }
+}

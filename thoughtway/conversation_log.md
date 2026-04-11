@@ -4278,7 +4278,7 @@ Excel 当前包含三张表：
 中的 `planner` 配置改为：
 
 - `base_url = https://cc.ioasis.xyz/v1`
-- `api_key = sk-8iU0lM6eKBxETqTssT7ctknrYItuSc0EcYrs5hMu0JgkpIbz`
+- `api_key = <from env: DWG_PLANNER_API_KEY / role-specific env>`
 - `model = gpt-5.4`
 
 ### 当前一句话共识

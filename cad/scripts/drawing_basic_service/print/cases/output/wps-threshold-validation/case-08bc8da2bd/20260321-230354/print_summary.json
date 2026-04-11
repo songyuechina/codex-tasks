@@ -1,0 +1,1316 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354",
+  "work_dwg": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+  "process_token": "case-08bc8da2bd",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf",
+    "source_stem": "plot-case-08bc8da2bd",
+    "mode": "purified_adaptive",
+    "total_jobs": 51,
+    "landscape_count": 48,
+    "portrait_count": 3,
+    "jobs_by_space": {
+      "model": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1946A",
+          "lower_left": [
+            1612358.3975118832,
+            -118503.29049547721
+          ],
+          "upper_right": [
+            1671758.3975118832,
+            -76503.29049547721
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-01.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "18754",
+          "lower_left": [
+            1673831.6630348358,
+            -118503.29049547721
+          ],
+          "upper_right": [
+            1694831.6630348358,
+            -88803.29049547721
+          ],
+          "short_side": 21000.0,
+          "long_side": 29700.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 2,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-02.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1A126",
+          "lower_left": [
+            1694831.6630348358,
+            -118503.29049547721
+          ],
+          "upper_right": [
+            1715831.6630348358,
+            -88803.29049547721
+          ],
+          "short_side": 21000.0,
+          "long_side": 29700.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 3,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-03.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1886",
+          "lower_left": [
+            1720934.8361330205,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            1805034.8361330205,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 4,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-04.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "188A",
+          "lower_left": [
+            1805034.8361330205,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            1889134.8361330205,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 5,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-05.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "188C",
+          "lower_left": [
+            1889134.8361330205,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            1973234.836133021,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.00000000047,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 6,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-06.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "19DB",
+          "lower_left": [
+            1973234.836133021,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            2057334.836133021,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 7,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-07.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "188D",
+          "lower_left": [
+            2057334.836133021,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            2141434.836133021,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 8,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-08.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1890",
+          "lower_left": [
+            2141434.836133021,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            2225534.836133021,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 9,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-09.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "13808",
+          "lower_left": [
+            2225534.836133021,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            2309634.836133021,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 10,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-10.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "17BB6",
+          "lower_left": [
+            2309634.836133021,
+            -129435.4829947722
+          ],
+          "upper_right": [
+            2393734.836133021,
+            -70035.4829947722
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 11,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-11.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9910",
+          "lower_left": [
+            1715628.809669326,
+            -224769.87898305594
+          ],
+          "upper_right": [
+            1820728.809669326,
+            -165369.87898305594
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 12,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-12.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "990C",
+          "lower_left": [
+            1820728.809669326,
+            -224769.87898305594
+          ],
+          "upper_right": [
+            1925828.809669326,
+            -165369.87898305594
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 13,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-13.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "990E",
+          "lower_left": [
+            1925828.809669326,
+            -224769.87898305594
+          ],
+          "upper_right": [
+            2030928.809669326,
+            -165369.87898305594
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 14,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-14.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9914",
+          "lower_left": [
+            2030928.809669326,
+            -224769.87898305594
+          ],
+          "upper_right": [
+            2115028.809669326,
+            -165369.87898305594
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 15,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-15.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9912",
+          "lower_left": [
+            2115028.809669326,
+            -224769.87898305594
+          ],
+          "upper_right": [
+            2199128.809669326,
+            -165369.87898305594
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 16,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-16.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "135B1",
+          "lower_left": [
+            2199128.809669326,
+            -224769.87898305594
+          ],
+          "upper_right": [
+            2283228.809669326,
+            -165369.87898305594
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 17,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-17.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F49",
+          "lower_left": [
+            1715628.809669326,
+            -302583.9691871742
+          ],
+          "upper_right": [
+            1820728.809669326,
+            -243183.96918717423
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 18,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-18.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F45",
+          "lower_left": [
+            1820728.809669326,
+            -302583.9691871742
+          ],
+          "upper_right": [
+            1925828.809669326,
+            -243183.96918717423
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 19,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-19.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F47",
+          "lower_left": [
+            1925828.809669326,
+            -302583.9691871742
+          ],
+          "upper_right": [
+            2030928.809669326,
+            -243183.96918717423
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 20,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-20.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F4D",
+          "lower_left": [
+            2030928.809669326,
+            -302583.9691871742
+          ],
+          "upper_right": [
+            2115028.809669326,
+            -243183.96918717423
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 21,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-21.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F4B",
+          "lower_left": [
+            2115028.809669326,
+            -302583.9691871742
+          ],
+          "upper_right": [
+            2199128.809669326,
+            -243183.96918717423
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 22,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-22.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F4F",
+          "lower_left": [
+            2199128.809669326,
+            -302583.9691871742
+          ],
+          "upper_right": [
+            2283228.809669326,
+            -243183.96918717423
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 23,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-23.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F56",
+          "lower_left": [
+            1715628.809669326,
+            -380398.0593912925
+          ],
+          "upper_right": [
+            1820728.809669326,
+            -320998.0593912925
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 24,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-24.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F52",
+          "lower_left": [
+            1820728.809669326,
+            -380398.0593912925
+          ],
+          "upper_right": [
+            1925828.809669326,
+            -320998.0593912925
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 25,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-25.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F54",
+          "lower_left": [
+            1925828.809669326,
+            -380398.0593912925
+          ],
+          "upper_right": [
+            2030928.809669326,
+            -320998.0593912925
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 26,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-26.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F5A",
+          "lower_left": [
+            2030928.809669326,
+            -380398.0593912925
+          ],
+          "upper_right": [
+            2115028.809669326,
+            -320998.0593912925
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 27,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-27.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F58",
+          "lower_left": [
+            2115028.809669326,
+            -380398.0593912925
+          ],
+          "upper_right": [
+            2199128.809669326,
+            -320998.0593912925
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 28,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-28.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F5C",
+          "lower_left": [
+            2199128.809669326,
+            -380398.0593912925
+          ],
+          "upper_right": [
+            2283228.809669326,
+            -320998.0593912925
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 29,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-29.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F62",
+          "lower_left": [
+            1715628.809669326,
+            -458212.1495954108
+          ],
+          "upper_right": [
+            1820728.809669326,
+            -398812.1495954108
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 30,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-30.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F5E",
+          "lower_left": [
+            1820728.809669326,
+            -458212.1495954108
+          ],
+          "upper_right": [
+            1925828.809669326,
+            -398812.1495954108
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 31,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-31.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F60",
+          "lower_left": [
+            1925828.809669326,
+            -458212.1495954108
+          ],
+          "upper_right": [
+            2030928.809669326,
+            -398812.1495954108
+          ],
+          "short_side": 59400.0,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 32,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-32.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F66",
+          "lower_left": [
+            2030928.809669326,
+            -458212.1495954108
+          ],
+          "upper_right": [
+            2115028.809669326,
+            -398812.1495954108
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 33,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-33.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F64",
+          "lower_left": [
+            2115028.809669326,
+            -458212.1495954108
+          ],
+          "upper_right": [
+            2199128.809669326,
+            -398812.1495954108
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 34,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-34.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "9F68",
+          "lower_left": [
+            2199128.809669326,
+            -458212.1495954108
+          ],
+          "upper_right": [
+            2283228.809669326,
+            -398812.1495954108
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 35,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-35.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1F537",
+          "lower_left": [
+            1691125.7918362594,
+            -642324.8530511445
+          ],
+          "upper_right": [
+            1712125.7918362594,
+            -612624.8530511445
+          ],
+          "short_side": 21000.0,
+          "long_side": 29700.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 36,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-36.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1E8FA",
+          "lower_left": [
+            1627285.9708296456,
+            -645473.3808175287
+          ],
+          "upper_right": [
+            1686685.9708296456,
+            -603473.3808175287
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 37,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-37.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "201D0",
+          "lower_left": [
+            1717162.3491327632,
+            -648242.2307992671
+          ],
+          "upper_right": [
+            1801262.3491327632,
+            -588842.2307992671
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 38,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-38.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "201CE",
+          "lower_left": [
+            1801262.3491327632,
+            -648242.2307992671
+          ],
+          "upper_right": [
+            1885362.3491327632,
+            -588842.2307992671
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 39,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-39.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "202C6",
+          "lower_left": [
+            1889913.1533480333,
+            -648242.2307992671
+          ],
+          "upper_right": [
+            1974013.1533480333,
+            -588842.2307992671
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 40,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-40.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "202C8",
+          "lower_left": [
+            1974013.1533480333,
+            -648242.2307992671
+          ],
+          "upper_right": [
+            2058113.1533480333,
+            -588842.2307992671
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 41,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-41.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "289EB",
+          "lower_left": [
+            2058113.1533480333,
+            -648242.2307992671
+          ],
+          "upper_right": [
+            2142213.1533480333,
+            -588842.2307992671
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 42,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-42.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "286FF",
+          "lower_left": [
+            2142213.1533480333,
+            -648242.2307992671
+          ],
+          "upper_right": [
+            2226313.1533480333,
+            -588842.2307992671
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 43,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-43.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "290CF",
+          "lower_left": [
+            2230273.349132763,
+            -648242.2307992671
+          ],
+          "upper_right": [
+            2314373.349132763,
+            -588842.2307992671
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 44,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-44.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B5BF",
+          "lower_left": [
+            1804395.5813112147,
+            -725919.3174511939
+          ],
+          "upper_right": [
+            1888495.5813112147,
+            -666519.3174511939
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 45,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-45.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B5C3",
+          "lower_left": [
+            1888495.5813112147,
+            -725919.3174511966
+          ],
+          "upper_right": [
+            1972595.5813112147,
+            -666519.3174511966
+          ],
+          "short_side": 59400.0,
+          "long_side": 84100.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 46,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-46.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B5C1",
+          "lower_left": [
+            1972595.5813112147,
+            -725919.3174511965
+          ],
+          "upper_right": [
+            2077695.5813112147,
+            -666519.3174511966
+          ],
+          "short_side": 59399.99999999988,
+          "long_side": 105100.0,
+          "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A1+1/4",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 47,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-47.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B001",
+          "lower_left": [
+            1803853.6035202823,
+            -824284.3441801565
+          ],
+          "upper_right": [
+            1922753.6035202823,
+            -740184.3441801565
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 48,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-48.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B093",
+          "lower_left": [
+            1922753.6035202823,
+            -824284.3441801565
+          ],
+          "upper_right": [
+            2041653.6035202823,
+            -740184.3441801565
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 49,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-49.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1B0C8",
+          "lower_left": [
+            2041653.6035202823,
+            -824284.3441801565
+          ],
+          "upper_right": [
+            2160553.6035202825,
+            -740184.3441801565
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.00000000023,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 50,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-50.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\work\\work-case-08bc8da2bd.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "1E0A2",
+          "lower_left": [
+            2160553.6035202825,
+            -824284.3441801565
+          ],
+          "upper_right": [
+            2279453.6035202825,
+            -740184.3441801565
+          ],
+          "short_side": 84100.0,
+          "long_side": 118900.0,
+          "media": "ISO_A0_(841.00_x_1189.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A0",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 51,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\pdf\\model\\plot-case-08bc8da2bd-model-51.pdf"
+        }
+      ]
+    }
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\wps-threshold-validation\\case-08bc8da2bd\\20260321-230354\\scope_analysis.json",
+  "scope_filter": {
+    "applied": true,
+    "reason": "largest_pseudo_maximal_scope",
+    "selected_scope": {
+      "space_key": "model",
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "handle": "AD3C",
+      "bbox": [
+        1599261.6311101965,
+        -861484.7453587202,
+        2425037.293592964,
+        39417.9213353864
+      ],
+      "area": 743943496421.8176
+    }
+  },
+  "execution": null,
+  "verification": null
+}

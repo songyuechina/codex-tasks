@@ -1,0 +1,89 @@
+{
+  "meta_version": "V1.0",
+  "layer": "procedure",
+  "module_name": "draw_building_outline",
+  "file_path": "D:/codex-tasks/cad/scripts/Scheme_drawing/draw_building_outline.py",
+  "applicable_scenarios": [
+    "用户给出建筑物角点大地坐标，需要生成总图定位 DWG",
+    "输入是图片，但已具备可提取或 sidecar 化的坐标文本",
+    "需要在轮廓外同时输出点位 X/Y 坐标标注",
+    "任务要求保存完成后自动关闭整个天正/AutoCAD"
+  ],
+  "preconditions": [
+    "当前机器可以访问 AutoCAD.Application / 天正 CAD COM 接口",
+    "system.licad 与 system.common_logger 可正常导入",
+    "输入文件存在且至少能提取 3 个有效点",
+    "输出路径所在目录可写"
+  ],
+  "core_flow": [
+    {
+      "step": 1,
+      "name": "入口引导与参数解析",
+      "detail": "定位 codex-tasks 根目录，挂载 cad 到 sys.path，解析 source/output/label/shutdown 等参数。"
+    },
+    {
+      "step": 2,
+      "name": "读取并归一坐标",
+      "detail": "按 json/csv/txt/image 分支读取坐标，必要时 OCR，再做点格式归一、相邻重合点去重和顺逆时针整理；真正落图时按 (X, Y) -> (Y, X) 映射到模型空间。"
+    },
+    {
+      "step": 3,
+      "name": "准备输出目标",
+      "detail": "若未显式传 output，则把输出路径解析到输入文件所在目录下的 总图定位.dwg；再检查覆盖策略。"
+    },
+    {
+      "step": 4,
+      "name": "创建新图纸",
+      "detail": "通过 licad.C 接入现有天正/AutoCAD，会话内新建并激活一个工作图纸。"
+    },
+    {
+      "step": 5,
+      "name": "绘制闭合外轮廓",
+      "detail": "调用 cad_geometry_draw.draw_lwpolyline_wcs 绘制闭合 LWPolyline，并对 busy/rejected 做外层重试。"
+    },
+    {
+      "step": 6,
+      "name": "生成点位坐标标注",
+      "detail": "以外轮廓包围盒中心为参考，为每个点生成向外的简单折线引线，并写入 X/Y 双行文字。"
+    },
+    {
+      "step": 7,
+      "name": "保存 DWG",
+      "detail": "通过 licad.C.save_file_as 保存到目标路径，并按需要关闭输出文档。"
+    },
+    {
+      "step": 8,
+      "name": "关闭整个 CAD",
+      "detail": "默认尝试关闭全部文档并执行 Quit；若 CAD 进程未退出，再按 PID 使用 taskkill 强制收口。"
+    }
+  ],
+  "success_criteria": [
+    "输出路径下存在可打开的 DWG 文件",
+    "图纸中至少包含 1 条闭合外轮廓",
+    "每个输入点都生成了对应的折线引线和 X/Y 双行文字",
+    "默认模式结束后 AutoCAD/Application COM 不再可获取"
+  ],
+  "failure_criteria": [
+    "只画轮廓但未输出坐标标注",
+    "保存成功但 CAD 会话残留未关闭",
+    "绕开 licad.C 直接分散建立新的 CAD 主连接",
+    "输入点顺序混乱但未做归一，导致轮廓自交或无法闭合"
+  ],
+  "do_not_use_for": [
+    "不要把本脚本当作复杂总图编辑器或通用图签系统",
+    "不要在这里扩张与总图定位无关的打印/块编辑职责",
+    "不要把默认关闭 CAD 的逻辑下沉到普通库模块中"
+  ],
+  "integration_with_other_modules": {
+    "system.licad.py": "提供统一 CAD 连接、保存与按名称关图能力",
+    "system.common_logger.py": "提供入口层调试模式和统一日志",
+    "cad/library/cad_geometry_draw.py": "提供外轮廓与引线多段线绘制能力"
+  },
+  "rewrite_constraints": [
+    "允许继续增强 OCR、标注避让和输入格式",
+    "允许继续补充更多总图定位输出规则",
+    "不得删除默认坐标标注能力",
+    "不得删除默认关闭整个 CAD 的收尾能力",
+    "不得绕过统一连接入口重写为分散 COM 脚本"
+  ]
+}

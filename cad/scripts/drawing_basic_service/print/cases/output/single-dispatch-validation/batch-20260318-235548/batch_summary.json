@@ -1,0 +1,56 @@
+{
+  "input_dir": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets",
+  "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\single-dispatch-validation\\batch-20260318-235548",
+  "mode": "purified_adaptive",
+  "dwg_count": 1,
+  "items": [
+    {
+      "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】-0930_t6_t3.dwg",
+      "mode": "purified_adaptive",
+      "final_pdf_dir": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf",
+      "analysis_dir": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】analysis",
+      "process_dir": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】prosess\\20260318-235548",
+      "initial_run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】prosess\\20260318-235548\\runs\\农建房施工图【电气】-0930_t6_t3\\20260318-235548",
+      "initial_print_summary": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】prosess\\20260318-235548\\runs\\农建房施工图【电气】-0930_t6_t3\\20260318-235548\\print_summary.json",
+      "initial_existing_count": 9,
+      "initial_failure_count": 0,
+      "initial_zero_size_count": 0,
+      "initial_page_mismatch_count": 0,
+      "blank_pdf_count": 0,
+      "blank_pdf_suspects": [],
+      "blank_fix_applied": false,
+      "analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】analysis\\print_info_analysis.json",
+      "analysis_excel": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】analysis\\print_info_analysis.xlsx",
+      "analysis_total_jobs": 9,
+      "analysis_with_title_count": 9,
+      "analysis_with_drawing_no_count": 9,
+      "analysis_with_project_count": 0,
+      "copied_count": 9,
+      "final_output_paths": [
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-01.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-02.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-03.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-04.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-05.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-06.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-07.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-08.pdf",
+        "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】pdf\\农建房施工图【电气】-0930_t6_t3-model-09.pdf"
+      ],
+      "selected_handles": [
+        "21ED",
+        "21E9",
+        "21E5",
+        "23DA",
+        "237C",
+        "237F",
+        "2381",
+        "2383",
+        "2385"
+      ],
+      "unresolved_outputs": [],
+      "final_blank_filtered": [],
+      "final_blank_filtered_count": 0
+    }
+  ]
+}

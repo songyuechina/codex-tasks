@@ -1,0 +1,35 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_open_same_size\\20260316-003303\\work\\rect_open_same_size__print_work.dwg",
+  "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_open_same_size\\20260316-003303\\pdf",
+  "total_jobs": 1,
+  "landscape_count": 1,
+  "portrait_count": 0,
+  "jobs_by_space": {
+    "model": [
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_open_same_size\\20260316-003303\\work\\rect_open_same_size__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "E5",
+        "lower_left": [
+          0.0,
+          0.0
+        ],
+        "upper_right": [
+          260.0,
+          173.0
+        ],
+        "short_side": 173.0,
+        "long_side": 260.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:25",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.2,
+        "sequence_no": 1,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_open_same_size\\20260316-003303\\pdf\\model\\rect_open_same_size-model-01.pdf"
+      }
+    ]
+  }
+}

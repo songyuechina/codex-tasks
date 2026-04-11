@@ -1,0 +1,3 @@
+Planner 角色已就绪，可以正常收发消息。
+
+[PROGRESS] task=none; status=done; completion=100; next=等待下一个任务包。

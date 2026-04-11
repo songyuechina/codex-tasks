@@ -1,0 +1,265 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928",
+  "work_dwg": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf",
+    "source_stem": "农建房施工图【电气】-0930_t6_t3",
+    "mode": "purified_adaptive",
+    "total_jobs": 9,
+    "landscape_count": 9,
+    "portrait_count": 0,
+    "jobs_by_space": {
+      "model": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "21ED",
+          "lower_left": [
+            22219.889275103284,
+            506901.9380683733
+          ],
+          "upper_right": [
+            111319.97562877176,
+            569901.9991265229
+          ],
+          "short_side": 63000.061058149615,
+          "long_side": 89100.08635366848,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:150",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-01.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "21E9",
+          "lower_left": [
+            118383.94581271737,
+            506901.9380683733
+          ],
+          "upper_right": [
+            207484.03216638596,
+            569901.9991265229
+          ],
+          "short_side": 63000.061058149615,
+          "long_side": 89100.0863536686,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:150",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 2,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-02.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "21E5",
+          "lower_left": [
+            213124.4788680877,
+            506901.9380683733
+          ],
+          "upper_right": [
+            302224.5652217563,
+            569901.9991265229
+          ],
+          "short_side": 63000.061058149615,
+          "long_side": 89100.0863536686,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:150",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 3,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-03.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "23DA",
+          "lower_left": [
+            302224.5652217563,
+            506901.9380683733
+          ],
+          "upper_right": [
+            361624.5652217563,
+            548901.9380683734
+          ],
+          "short_side": 42000.00000000006,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 4,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-04.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "237C",
+          "lower_left": [
+            33764.12809879199,
+            446048.0150371175
+          ],
+          "upper_right": [
+            93164.12809879199,
+            488048.0150371175
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 5,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-05.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "237F",
+          "lower_left": [
+            93164.12809879199,
+            446048.0150371175
+          ],
+          "upper_right": [
+            152564.128098792,
+            488048.0150371175
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 6,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-06.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2381",
+          "lower_left": [
+            33764.12809879199,
+            392324.2283969014
+          ],
+          "upper_right": [
+            93164.12809879199,
+            434324.2283969014
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 7,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-07.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2383",
+          "lower_left": [
+            93164.12809879199,
+            392324.2283969014
+          ],
+          "upper_right": [
+            152564.128098792,
+            434324.2283969014
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 8,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-08.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-232928.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "2385",
+          "lower_left": [
+            33764.12809879199,
+            338600.44175668526
+          ],
+          "upper_right": [
+            93164.12809879199,
+            380600.44175668526
+          ],
+          "short_side": 42000.0,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 9,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\pdf\\model\\农建房施工图【电气】-0930_t6_t3-model-09.pdf"
+        }
+      ]
+    }
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\scope-regression\\农建房施工图【电气】-0930_t6_t3\\20260318-232928\\scope_analysis.json",
+  "scope_filter": {
+    "applied": true,
+    "reason": "largest_pseudo_maximal_scope",
+    "selected_scope": {
+      "space_key": "model",
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "handle": "23DC",
+      "bbox": [
+        -7085.417211669963,
+        303996.5228054973,
+        387872.3458634359,
+        606871.4835319121
+      ],
+      "area": 119622816979.96533
+    }
+  },
+  "execution": null,
+  "verification": null
+}

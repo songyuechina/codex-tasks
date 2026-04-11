@@ -1,0 +1,48 @@
+### 1. Findings
+
+#### [Critical] `collect_space_title_snapshots` Hardcoded to Ignore Text
+**Module:** `collect_space_title_snapshots` (Line 244)
+The function signature claims to return `tuple[list[BlockSnapshot], list[TextSnapshot]]`, but the implementation ends with `return block_snapshots, []`. 
+*   **Impact:** This is the primary reason `nearby_text_count` is 0 and `nearby_texts` is empty in the JSON output. Even if text exists in the drawing, the analysis engine never sees it.
+*   **CAD Context:** In many DWG standards, title blocks are not "Attribute Blocks" but "Static Blocks" containing nested `AcDbText` or `AcDbMText`. By ignoring text snapshots, the script limits itself strictly to `AcDbAttribute` objects, which the "TQ1" block in the sample clearly lacks (`is_attribute_block: 0`).
+
+#### [High] Lack of Nested Entity Inspection for Non-Attribute Blocks
+**Module:** `collect_space_title_snapshots` / `_extract_attribute_fields`
+The current logic only calls `GetAttributes()` on `AcDbBlockReference`. 
+*   **Impact:** If a block is a "Static Block" (like the identified TQ1), its content (Drawing Name, etc.) is stored inside the `BlockTableRecord` (the definition), not as attributes on the `BlockReference` (the instance). 
+*   **CAD Context:** To support "TQ1" and similar blocks, the script must iterate through the entities *inside* the block definition if `HasAttributes` is false, or use spatial queries to find text overlapping the block's bounding box.
+
+#### [Medium] Brittle Space Activation with `time.sleep`
+**Module:** `_activate_space_for_owner` (Line 165)
+The code uses `time.sleep(0.2)` after switching `ActiveLayout`.
+*   **Impact:** In large or complex drawings, 200ms is often insufficient for the COM interface to stabilize the `ActiveLayout` and `MSpace` state, leading to `ss_select` (Selection Set) failures or returning entities from the previous layout.
+*   **CAD Context:** Automation should ideally use `wait_quiescent` (which is imported but not used here) or poll the `C.doc.ActiveLayout.Name` to ensure the switch is complete.
+
+#### [Low] Inefficient Text Cleaning for CAD Formatting
+**Module:** `_clean_text` (Line 171)
+The cleaner handles `\\P` (MText newlines) but ignores other common MText formatting codes like `\\f...;`, `\\H...;`, or `\\W...;`.
+*   **Impact:** Extracted drawing titles might contain "garbage" characters (e.g., `{\\fSimSun|b0|i0|c134|p2;图纸名称}`) which will fail downstream filename validation or database entry.
+
+---
+
+### 2. Open questions / assumptions
+
+1.  **TQ1 Definition:** Is "TQ1" a standard block across the user's organization? If so, does it consistently place "Drawing Name" at a specific relative coordinate? (If yes, coordinate-based extraction is more reliable than keyword matching).
+2.  **Text vs. MText:** Does the "TQ1" block use `AcDbText` or `AcDbMText`? The current `TEXT_OBJECTS` set includes both, but the extraction logic for nested entities is entirely missing.
+3.  **Coordinate System:** The JSON shows very large coordinates (e.g., `-576846`). Are these drawings using a specific survey coordinate system? This makes "distance to corner" calculations sensitive to floating-point precision if the print area is small relative to the origin.
+
+---
+
+### 3. Residual risk
+
+*   **Performance Bottleneck:** If the hardcoded `[]` is fixed and the script starts collecting all text in Model Space, `ss_select("all", ...)` will become extremely slow on drawings with 10,000+ text entities.
+*   **False Positives:** Without "Deep Inspection," the script might pick up "nearby" text that belongs to the drawing content (e.g., a note near the border) rather than the title block itself.
+*   **Exploded Title Blocks:** If the title block is exploded (just lines and text, no block reference), the current `collect_space_title_snapshots` will find nothing because it only filters for `INSERT`.
+
+---
+
+### Next Step Recommendation
+**Priority 1:** Fix `collect_space_title_snapshots` to actually return text snapshots.
+**Priority 2:** Implement a "Spatial Text Aggregator" that takes the `bbox` of the selected "TQ1" candidate and finds all `TextSnapshot` items contained within it. This bypasses the need to handle complex nested block definitions and works even if the title block is exploded.
+
+[PROGRESS] task=none; status=completed; completion=100; next=Implement spatial text aggregation for non-attribute block candidates.

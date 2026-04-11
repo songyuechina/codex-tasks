@@ -1,0 +1,10 @@
+{
+  "rect_closed_only.dwg": {
+    "closed": true,
+    "handle": "E5"
+  },
+  "rect_open_only.dwg": {
+    "closed": false,
+    "handle": "E5"
+  }
+}

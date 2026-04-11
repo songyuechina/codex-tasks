@@ -1,0 +1,51 @@
+1. Implementation focus
+
+- 评估 `cad/scripts/drawing_basic_service/print/print_area_analysis.py` 的打印标准匹配风险，重点是：
+  - strict / nearest 两类匹配是否存在明显实现风险
+  - 288 标准值与 supported bounds 的边界处理风险
+  - `standard_flag` 标记链路风险
+- 评估 `cad/scripts/drawing_basic_service/print/print_verifier.py` 的 PDF 页尺寸校验风险，重点是：
+  - `media` 解析
+  - PDF 实际页尺寸读取
+  - 容差比对逻辑
+
+2. Proposed or completed changes
+
+- 本次基于提供内容仅做风险判断，**没有提出代码改动**。
+- 结论：**当前看没有明显严重实现风险**，可认为主链路风险较低。
+- 依据：
+  - 已有真实复杂工程实测：`49/49` 打印成功。
+  - 页尺寸校验结果：`page_size_checked=49, page_size_match=49, page_size_mismatch=0`，说明“期望纸张尺寸 → 输出 PDF 页面尺寸”的闭环在样本中是通的。
+  - `print_verifier.py` 中页尺寸校验逻辑相对直接稳妥：
+    - `media` 解析支持 ISO 与 `UserDefinedMetric`
+    - PDF 读取后统一按短边/长边比较，规避横竖方向差异
+    - 使用 `size_tol_mm` 做容差匹配，逻辑没有明显漏洞
+  - `standard_flag` 至少已被 verifier 统计进 `standard_flags`，说明校验结果可区分标准/非标准来源，当前没有看到明显错用迹象。
+
+- 仍需注意但暂不构成“明显严重风险”的点：
+  1. **strict / nearest**
+     - 从上下文看两套匹配机制是明确分开的：严格匹配只认 288 标准值，近似匹配总能返回最近标准。
+     - 这类设计本身合理，若实测 49/49 全通过，说明至少当前业务样本中没有明显错配。
+     - 但由于任务包未给出完整匹配实现代码，**无法进一步确认“等距最近值”“越界最近值”“边界值落点”是否有细小瑕疵**。
+  2. **supported bounds**
+     - 文件说明里有“只匹配 288 标准值”和“近似匹配总能返回最接近标准”，通常意味着支持范围是离散标准集合而不是无限连续空间。
+     - 如果输入尺寸远超/远低于标准集合，nearest 仍会返回某个标准；这在设计上未必是错，但可能需要业务上接受。
+     - 目前没有证据显示这是缺陷，只能说是**需靠上层 `standard_flag` 区分标准/近似命中**的设计点。
+  3. **standard_flag**
+     - 从 `print_verifier.py` 看，它被记录和输出统计，但任务包未展示其生成逻辑。
+     - 因此只能判断：**校验端没有明显风险，生成端是否 100% 正确仍缺少直接代码证据**。
+  4. **页尺寸校验**
+     - 现有实现只读 PDF 第 1 页；若未来出现多页输出且后续页尺寸不同，则当前校验覆盖不到。
+     - 但结合当前“打印任务 → 单输出 PDF”的实测结果，这不是当前明显阻塞风险。
+
+3. Risks / blockers
+
+- **无明显严重风险**，可以继续沿用当前实现。
+- 现阶段主要不是实现阻塞，而是**证据缺口**：
+  - `print_area_analysis.py` 匹配核心实现被截断，无法逐行确认 strict / nearest / supported bounds 边界细节。
+  - `standard_flag` 的生成代码未提供，只能确认 verifier 侧消费正常，不能完全证明标记源头绝对无误。
+- 安全结论：
+  - **基于现有实测结果与已见代码，当前打印标准匹配与 PDF 页尺寸校验实现没有明显实现风险。**
+  - 若要再降风险，优先补充验证“边界尺寸样本”和“非标准尺寸样本”，而不是先改代码。
+
+[PROGRESS] task=print-standard-match-risk-check; status=completed; completion=100; next=如需进一步收敛风险，请补充 strict/nearest 边界样本与 standard_flag 生成代码片段。

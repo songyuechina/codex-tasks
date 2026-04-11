@@ -1,0 +1,58 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "draw_building_outline.py",
+    "path": "D:/codex-tasks/cad/scripts/Scheme_drawing/draw_building_outline.py",
+    "encoding": "utf-8",
+    "version": "2026-04-09.functions-meta-v1"
+  },
+  "functions_procedure": {
+    "goal": "稳定地把坐标数据转成带点位标注的总图定位 DWG，并在默认模式下关闭整个 CAD。",
+    "step_style": "graded",
+    "public_api": [
+      "parse_args",
+      "load_points_from_source",
+      "ensure_output_ready",
+      "create_fresh_document",
+      "draw_outline",
+      "annotate_points",
+      "save_document",
+      "shutdown_cad_application",
+      "main"
+    ]
+  },
+  "functions": [
+    {"name": "find_codex_tasks_root", "level": "utility", "signature": "def find_codex_tasks_root(p: Path) -> Path:", "role": "入口 bootstrap helper。", "brief_flow": ["从当前路径逐级向上找 codex-tasks。", "找到后返回根目录路径。"], "must_keep_experience": ["入口脚本统一用同一套根目录查找逻辑，不在多个模块里写不同版本。"], "evidence": {"line_start": 21, "line_end": 43}},
+    {"name": "load_cad_geometry_draw_module", "level": "normal", "signature": "def load_cad_geometry_draw_module():", "role": "按文件路径加载 cad_geometry_draw。", "steps": ["定位 cad_geometry_draw.py。", "通过 importlib 按路径加载模块。"], "must_keep_experience": ["保留绕开 library 包循环导入的加载方式。"], "evidence": {"line_start": 46, "line_end": 55}},
+    {"name": "parse_args", "level": "core", "signature": "def parse_args() -> argparse.Namespace:", "role": "建立 CLI 协议。", "steps": ["声明输入源、输出路径、标注参数。", "声明覆盖、是否关闭 CAD、是否关闭标注等开关。"], "must_keep_experience": ["默认能力要覆盖标注和关闭 CAD，关闭它们必须显式传参。"], "evidence": {"line_start": 59, "line_end": 82}},
+    {"name": "_point_from_any", "level": "utility", "signature": "def _point_from_any(value) -> Point3D:", "role": "单点格式归一。", "brief_flow": ["解析 dict/list/tuple。", "返回标准三维点。"], "evidence": {"line_start": 86, "line_end": 102}},
+    {"name": "_dedupe_adjacent", "level": "utility", "signature": "def _dedupe_adjacent(points: Sequence[Point3D], tol: float = 1e-6) -> List[Point3D]:", "role": "清理重复点。", "brief_flow": ["去掉相邻重复。", "去掉尾首重合。"], "evidence": {"line_start": 105, "line_end": 120}},
+    {"name": "_polygon_area", "level": "utility", "signature": "def _polygon_area(points: Sequence[Point3D]) -> float:", "role": "判断点序方向。", "brief_flow": ["用鞋带公式求有向面积。"], "evidence": {"line_start": 123, "line_end": 128}},
+    {"name": "_sort_points_clockwise", "level": "normal", "signature": "def _sort_points_clockwise(points: Sequence[Point3D]) -> List[Point3D]:", "role": "无序点排序。", "steps": ["求质心。", "按极角排序。", "必要时反转为顺时针。"], "evidence": {"line_start": 131, "line_end": 137}},
+    {"name": "_normalize_points", "level": "normal", "signature": "def _normalize_points(points: Iterable[Point3D], preserve_order: bool) -> List[Point3D]:", "role": "点列表总归一。", "steps": ["做点格式归一和去重。", "检查点数下限。", "按 preserve_order 决定修正方向或重新排序。"], "must_keep_experience": ["不能直接信任外部点序，必须做最小校验与修正。"], "evidence": {"line_start": 140, "line_end": 148}},
+    {"name": "_variant_point", "level": "utility", "signature": "def _variant_point(point: Point3D):", "role": "点转 VARIANT。", "brief_flow": ["把三维点转成 COM 数组。"], "evidence": {"line_start": 151, "line_end": 152}},
+    {"name": "_to_model_point", "level": "utility", "signature": "def _to_model_point(geo_point: Point3D) -> Point3D:", "role": "执行单点坐标轴交换。", "brief_flow": ["把输入大地坐标 (X, Y) 映射成模型空间 (Y, X)。"], "must_keep_experience": ["输入坐标显示和标注仍保持 X/Y 语义，但落图必须交换坐标轴。"], "evidence": {"line_start": 155, "line_end": 157}},
+    {"name": "_to_model_points", "level": "utility", "signature": "def _to_model_points(geo_points: Sequence[Point3D]) -> List[Point3D]:", "role": "执行批量坐标轴交换。", "brief_flow": ["遍历点列表。", "逐点转成模型空间坐标。"], "evidence": {"line_start": 160, "line_end": 161}},
+    {"name": "_bbox", "level": "utility", "signature": "def _bbox(points: Sequence[Point3D]) -> tuple[float, float, float, float]:", "role": "求包围盒。", "brief_flow": ["抽取模型空间 x/y。", "返回 min/max。"], "evidence": {"line_start": 164, "line_end": 167}},
+    {"name": "_ensure_layer", "level": "normal", "signature": "def _ensure_layer(layer_name: str) -> None:", "role": "确保图层存在。", "steps": ["读取当前文档图层表。", "若目标图层不存在则创建。", "busy 时重试。"], "must_keep_experience": ["天正刚启动或切图后图层访问可能 busy，不能只试一次。"], "evidence": {"line_start": 170, "line_end": 185}},
+    {"name": "_run_with_retries", "level": "normal", "signature": "def _run_with_retries(action, *, retries: int = 8, delay: float = 0.8, action_name: str = \"cad_action\"):", "role": "统一外层重试器。", "steps": ["执行动作。", "异常则等待重试。", "耗尽次数后抛出上下文化错误。"], "must_keep_experience": ["真实 CAD/COM 动作要有入口层兜底重试。"], "evidence": {"line_start": 188, "line_end": 196}},
+    {"name": "_draw_text_line", "level": "normal", "signature": "def _draw_text_line(text: str, insert_point: Point3D, height: float, layer: str | None, color: int | None):", "role": "写一行坐标文字。", "steps": ["调用 AddText。", "可选设置图层和颜色。"], "must_keep_experience": ["不主动修改文字样式，沿用当前默认字体。"], "evidence": {"line_start": 190, "line_end": 205}},
+    {"name": "_build_coordinate_label", "level": "utility", "signature": "def _build_coordinate_label(point: Point3D) -> tuple[str, str]:", "role": "格式化坐标文案。", "brief_flow": ["生成 X 行和 Y 行字符串。"], "evidence": {"line_start": 208, "line_end": 209}},
+    {"name": "_make_label_spec", "level": "normal", "signature": "def _make_label_spec(...):", "role": "生成单点标注几何。", "steps": ["根据质心判断标注朝向。", "计算折线拐点和肩点。", "计算两行文字插入点。"], "must_keep_experience": ["引线默认是简单折线，文字默认放在引线上方。"], "evidence": {"line_start": 212, "line_end": 254}},
+    {"name": "_extract_xy_pairs", "level": "normal", "signature": "def _extract_xy_pairs(text: str) -> List[Point3D]:", "role": "从文本抽取坐标。", "steps": ["优先匹配 X/Y 成对文本。", "再回退到宽松数字对匹配。"], "evidence": {"line_start": 257, "line_end": 271}},
+    {"name": "_load_json_points", "level": "normal", "signature": "def _load_json_points(path: Path) -> tuple[List[Point3D], bool]:", "role": "JSON 输入读取。", "steps": ["读取 JSON。", "识别 points/vertices/coordinates/outline。", "带出 ordered 标志。"], "evidence": {"line_start": 274, "line_end": 285}},
+    {"name": "_load_csv_points", "level": "normal", "signature": "def _load_csv_points(path: Path) -> tuple[List[Point3D], bool]:", "role": "CSV 输入读取。", "steps": ["尝试 sniff 方言。", "优先走 DictReader。", "回退到普通坐标行。"], "evidence": {"line_start": 288, "line_end": 318}},
+    {"name": "_ocr_image_to_text", "level": "normal", "signature": "def _ocr_image_to_text(image_path: Path) -> str:", "role": "图片 OCR。", "steps": ["优先 pytesseract。", "失败时回退到 tesseract CLI。", "两者都失败则抛错。"], "evidence": {"line_start": 321, "line_end": 341}},
+    {"name": "_load_text_like_points", "level": "normal", "signature": "def _load_text_like_points(path: Path) -> tuple[List[Point3D], bool]:", "role": "文本文件读取。", "brief_flow": ["读文本。", "抽取坐标。", "没有则报错。"], "evidence": {"line_start": 344, "line_end": 349}},
+    {"name": "_load_image_points", "level": "normal", "signature": "def _load_image_points(path: Path, ocr_text: str | None) -> tuple[List[Point3D], bool]:", "role": "图片输入总流程。", "steps": ["优先显式 OCR 文本。", "再找 sidecar 文本/JSON/CSV。", "最后走 OCR。"], "must_keep_experience": ["图片任务不应一上来就盲目 OCR，先复用 sidecar 数据。"], "evidence": {"line_start": 352, "line_end": 378}},
+    {"name": "load_points_from_source", "level": "core", "signature": "def load_points_from_source(source: Path, ocr_text: str | None) -> tuple[List[Point3D], bool]:", "role": "输入分发。", "steps": ["按后缀分支。", "调用对应 loader。"], "evidence": {"line_start": 381, "line_end": 391}},
+    {"name": "ensure_output_ready", "level": "normal", "signature": "def ensure_output_ready(output_path: Path, overwrite: bool) -> None:", "role": "输出准备。", "steps": ["创建目录。", "检查覆盖策略。", "必要时删除旧文件。"], "evidence": {"line_start": 394, "line_end": 403}},
+    {"name": "create_fresh_document", "level": "core", "signature": "def create_fresh_document() -> str:", "role": "创建并激活工作图纸。", "steps": ["刷新 licad 连接。", "Documents.Add 新建文档。", "激活并等待连接刷新。"], "must_keep_experience": ["新建文档后激活可能 busy，必须重试。"], "evidence": {"line_start": 406, "line_end": 425}},
+    {"name": "draw_outline", "level": "core", "signature": "def draw_outline(points: Sequence[Point3D], layer: str, color: int):", "role": "绘制闭合外轮廓。", "steps": ["调用 draw_lwpolyline_wcs。", "失败则通过外层重试继续尝试。", "成功后 Regen。"], "must_keep_experience": ["闭合轮廓是主交付物，不能因一次 busy 就直接放弃。"], "evidence": {"line_start": 428, "line_end": 449}},
+    {"name": "annotate_points", "level": "core", "signature": "def annotate_points(... ) -> None:", "role": "绘制全部点位标注。", "steps": ["创建标注图层。", "求包围盒中心。", "对每个点生成引线和双行文字。", "完成后 Regen。"], "must_keep_experience": ["默认要给每个点补齐标注，而不是把标注当可选附加行为。"], "evidence": {"line_start": 452, "line_end": 512}},
+    {"name": "save_document", "level": "core", "signature": "def save_document(output_path: Path, close_after_save: bool) -> None:", "role": "保存输出。", "steps": ["调用 C.save_file_as。", "如果要求 close_after_save，则优先按文件名关图。"], "must_keep_experience": ["保存后关图要优先按输出文件名精确关闭，避免关错当前会话里的别的文档。"], "evidence": {"line_start": 515, "line_end": 526}},
+    {"name": "shutdown_cad_application", "level": "core", "signature": "def shutdown_cad_application(force: bool = True) -> None:", "role": "关闭整个 CAD 会话。", "steps": ["记录 hwnd/pid。", "先关闭全部文档。", "尝试 Quit。", "若 PID 仍存在则 taskkill。"], "must_keep_experience": ["关闭 CAD 不能只依赖 Quit；必须有按 PID 强制收口的兜底。"], "evidence": {"line_start": 529, "line_end": 579}},
+    {"name": "main", "level": "core", "signature": "def main() -> int:", "role": "顶层主编排。", "steps": ["解析参数并开日志。", "读取点并归一。", "准备输出、新建图纸、画轮廓。", "按默认规则画坐标标注。", "保存并默认关闭整个 CAD。"], "must_keep_experience": ["入口脚本负责闭环，不能停在‘绘制完成但未收尾’。"], "evidence": {"line_start": 582, "line_end": 619}}
+  ]
+}

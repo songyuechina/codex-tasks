@@ -1,0 +1,63 @@
+{
+  "meta_version": "2.0",
+  "meta_scope": "functions",
+  "script": {
+    "name": "draw_building_outline.py",
+    "path": "D:/codex-tasks/cad/scripts/Scheme_drawing/draw_building_outline.py",
+    "encoding": "utf-8",
+    "version": "2026-04-09.functions-meta-v1"
+  },
+  "functions_quote": {
+    "goal": "以统一入口方式完成坐标读取、轮廓绘制、点位标注、保存和关闭 CAD。",
+    "coverage": "all",
+    "grading": {
+      "core": "入口主流程、真实绘图、真实标注、保存与 CAD 收尾函数。",
+      "normal": "输入解析、排序归一、文档创建、标注几何计算等中等风险函数。",
+      "utility": "轻量转换、helper、字符串/点格式处理函数。"
+    },
+    "public_api": [
+      "parse_args",
+      "load_points_from_source",
+      "ensure_output_ready",
+      "create_fresh_document",
+      "draw_outline",
+      "annotate_points",
+      "save_document",
+      "shutdown_cad_application",
+      "main"
+    ]
+  },
+  "functions": [
+    {"name": "find_codex_tasks_root", "level": "utility", "signature": "def find_codex_tasks_root(p: Path) -> Path:", "purpose": "向上查找 codex-tasks 根目录，供入口脚本做 bootstrap。", "risk_level": "low", "evidence": {"line_start": 21, "line_end": 43}},
+    {"name": "load_cad_geometry_draw_module", "level": "normal", "signature": "def load_cad_geometry_draw_module():", "purpose": "按文件路径单独加载 cad_geometry_draw，绕开 library 包初始化循环引用。", "risk_level": "medium", "evidence": {"line_start": 46, "line_end": 55}},
+    {"name": "parse_args", "level": "core", "signature": "def parse_args() -> argparse.Namespace:", "purpose": "解析输入源、输出路径、标注参数、覆盖策略和关闭 CAD 策略。", "risk_level": "medium", "evidence": {"line_start": 59, "line_end": 82}},
+    {"name": "_point_from_any", "level": "utility", "signature": "def _point_from_any(value) -> Point3D:", "purpose": "把 dict/list/tuple 三类点输入统一转换为三维点。", "risk_level": "low", "evidence": {"line_start": 86, "line_end": 102}},
+    {"name": "_dedupe_adjacent", "level": "utility", "signature": "def _dedupe_adjacent(points: Sequence[Point3D], tol: float = 1e-6) -> List[Point3D]:", "purpose": "去掉相邻重复点和尾首重复点。", "risk_level": "low", "evidence": {"line_start": 105, "line_end": 120}},
+    {"name": "_polygon_area", "level": "utility", "signature": "def _polygon_area(points: Sequence[Point3D]) -> float:", "purpose": "用鞋带公式判断点序面积符号。", "risk_level": "low", "evidence": {"line_start": 123, "line_end": 128}},
+    {"name": "_sort_points_clockwise", "level": "normal", "signature": "def _sort_points_clockwise(points: Sequence[Point3D]) -> List[Point3D]:", "purpose": "在未声明有序时按质心极角排序为轮廓点序。", "risk_level": "medium", "evidence": {"line_start": 131, "line_end": 137}},
+    {"name": "_normalize_points", "level": "normal", "signature": "def _normalize_points(points: Iterable[Point3D], preserve_order: bool) -> List[Point3D]:", "purpose": "统一点列表的去重、最小数量校验和顺逆时针修正。", "risk_level": "medium", "evidence": {"line_start": 140, "line_end": 148}},
+    {"name": "_variant_point", "level": "utility", "signature": "def _variant_point(point: Point3D):", "purpose": "把三维点转换为 COM 可接受的 VARIANT 数组。", "risk_level": "low", "evidence": {"line_start": 151, "line_end": 152}},
+    {"name": "_to_model_point", "level": "utility", "signature": "def _to_model_point(geo_point: Point3D) -> Point3D:", "purpose": "把大地坐标 (X, Y) 映射成 CAD 模型空间点 (Y, X)。", "risk_level": "low", "evidence": {"line_start": 155, "line_end": 157}},
+    {"name": "_to_model_points", "level": "utility", "signature": "def _to_model_points(geo_points: Sequence[Point3D]) -> List[Point3D]:", "purpose": "批量执行大地坐标到模型空间坐标的轴交换映射。", "risk_level": "low", "evidence": {"line_start": 160, "line_end": 161}},
+    {"name": "_bbox", "level": "utility", "signature": "def _bbox(points: Sequence[Point3D]) -> tuple[float, float, float, float]:", "purpose": "获取模型空间点集包围盒，为标注朝向和质心提供基础。", "risk_level": "low", "evidence": {"line_start": 164, "line_end": 167}},
+    {"name": "_ensure_layer", "level": "normal", "signature": "def _ensure_layer(layer_name: str) -> None:", "purpose": "确保目标图层存在，并对图层访问 busy 做重试。", "risk_level": "medium", "evidence": {"line_start": 170, "line_end": 185}},
+    {"name": "_run_with_retries", "level": "normal", "signature": "def _run_with_retries(action, *, retries: int = 8, delay: float = 0.8, action_name: str = \"cad_action\"):", "purpose": "对真实 CAD/COM 动作做统一外层重试。", "risk_level": "medium", "evidence": {"line_start": 188, "line_end": 196}},
+    {"name": "_draw_text_line", "level": "normal", "signature": "def _draw_text_line(text: str, insert_point: Point3D, height: float, layer: str | None, color: int | None):", "purpose": "用当前默认字体在模型空间写单行坐标文字。", "risk_level": "medium", "evidence": {"line_start": 190, "line_end": 205}},
+    {"name": "_build_coordinate_label", "level": "utility", "signature": "def _build_coordinate_label(point: Point3D) -> tuple[str, str]:", "purpose": "把点坐标格式化为 X/Y 两行字符串。", "risk_level": "low", "evidence": {"line_start": 208, "line_end": 209}},
+    {"name": "_make_label_spec", "level": "normal", "signature": "def _make_label_spec(...):", "purpose": "按点位相对质心方向生成折线引线和文字插入点几何参数。", "risk_level": "medium", "evidence": {"line_start": 212, "line_end": 254}},
+    {"name": "_extract_xy_pairs", "level": "normal", "signature": "def _extract_xy_pairs(text: str) -> List[Point3D]:", "purpose": "从 OCR 或文本中提取 X/Y 坐标对。", "risk_level": "medium", "evidence": {"line_start": 257, "line_end": 271}},
+    {"name": "_load_json_points", "level": "normal", "signature": "def _load_json_points(path: Path) -> tuple[List[Point3D], bool]:", "purpose": "读取 JSON 坐标并带出 ordered 标记。", "risk_level": "medium", "evidence": {"line_start": 274, "line_end": 285}},
+    {"name": "_load_csv_points", "level": "normal", "signature": "def _load_csv_points(path: Path) -> tuple[List[Point3D], bool]:", "purpose": "读取带表头或无表头的 CSV 坐标。", "risk_level": "medium", "evidence": {"line_start": 288, "line_end": 318}},
+    {"name": "_ocr_image_to_text", "level": "normal", "signature": "def _ocr_image_to_text(image_path: Path) -> str:", "purpose": "优先用 pytesseract，否则回退到 tesseract CLI 做图片 OCR。", "risk_level": "medium", "evidence": {"line_start": 321, "line_end": 341}},
+    {"name": "_load_text_like_points", "level": "normal", "signature": "def _load_text_like_points(path: Path) -> tuple[List[Point3D], bool]:", "purpose": "从纯文本文件中提取坐标对。", "risk_level": "medium", "evidence": {"line_start": 344, "line_end": 349}},
+    {"name": "_load_image_points", "level": "normal", "signature": "def _load_image_points(path: Path, ocr_text: str | None) -> tuple[List[Point3D], bool]:", "purpose": "图片模式下优先使用 sidecar 文件，否则 OCR 后提取坐标。", "risk_level": "medium", "evidence": {"line_start": 352, "line_end": 378}},
+    {"name": "load_points_from_source", "level": "core", "signature": "def load_points_from_source(source: Path, ocr_text: str | None) -> tuple[List[Point3D], bool]:", "purpose": "按后缀分发到 JSON/CSV/TXT/图片读取分支。", "risk_level": "medium", "evidence": {"line_start": 381, "line_end": 391}},
+    {"name": "ensure_output_ready", "level": "normal", "signature": "def ensure_output_ready(output_path: Path, overwrite: bool) -> None:", "purpose": "创建输出目录并处理覆盖删除逻辑。", "risk_level": "medium", "evidence": {"line_start": 394, "line_end": 403}},
+    {"name": "create_fresh_document", "level": "core", "signature": "def create_fresh_document() -> str:", "purpose": "在当前 CAD 会话中新增并激活一个工作图纸。", "risk_level": "high", "evidence": {"line_start": 406, "line_end": 425}},
+    {"name": "draw_outline", "level": "core", "signature": "def draw_outline(points: Sequence[Point3D], layer: str, color: int):", "purpose": "绘制闭合建筑外轮廓并刷新视图。", "risk_level": "high", "evidence": {"line_start": 428, "line_end": 449}},
+    {"name": "annotate_points", "level": "core", "signature": "def annotate_points(... ) -> None:", "purpose": "为每个点位绘制引线和双行坐标文字。", "risk_level": "high", "evidence": {"line_start": 452, "line_end": 512}},
+    {"name": "save_document", "level": "core", "signature": "def save_document(output_path: Path, close_after_save: bool) -> None:", "purpose": "另存为目标 DWG，并按需要关闭输出文档。", "risk_level": "high", "evidence": {"line_start": 515, "line_end": 526}},
+    {"name": "shutdown_cad_application", "level": "core", "signature": "def shutdown_cad_application(force: bool = True) -> None:", "purpose": "关闭所有文档并退出整个 CAD，必要时按 PID 强制结束进程。", "risk_level": "high", "evidence": {"line_start": 529, "line_end": 579}},
+    {"name": "main", "level": "core", "signature": "def main() -> int:", "purpose": "执行顶层编排：读坐标、画轮廓、做标注、保存并关闭 CAD。", "risk_level": "high", "evidence": {"line_start": 582, "line_end": 619}}
+  ]
+}

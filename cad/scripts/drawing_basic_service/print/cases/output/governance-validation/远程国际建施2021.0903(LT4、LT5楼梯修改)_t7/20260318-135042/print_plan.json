@@ -1,0 +1,1138 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+  "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf",
+  "source_stem": "远程国际建施2021.0903(LT4、LT5楼梯修改)_t7",
+  "mode": "basic",
+  "total_jobs": 45,
+  "landscape_count": 41,
+  "portrait_count": 4,
+  "jobs_by_space": {
+    "model": [
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5870",
+        "lower_left": [
+          -688857.6192654421,
+          35256.18380955624
+        ],
+        "upper_right": [
+          -629457.6192440462,
+          77256.18380955624
+        ],
+        "short_side": 42000.0,
+        "long_side": 59400.00002139597,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 1,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-01.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "B6CC",
+        "lower_left": [
+          -629457.6192440463,
+          35256.18380955624
+        ],
+        "upper_right": [
+          -570057.6192226503,
+          77256.18380955624
+        ],
+        "short_side": 42000.0,
+        "long_side": 59400.00002139597,
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 2,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-02.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "A58F",
+        "lower_left": [
+          -688857.619265442,
+          -43902.50536741951
+        ],
+        "upper_right": [
+          -604757.619265442,
+          15497.494632580492
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 3,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-03.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "A590",
+        "lower_left": [
+          -604757.619265442,
+          -43902.50536741951
+        ],
+        "upper_right": [
+          -520657.6192654421,
+          15497.494632580492
+        ],
+        "short_side": 59400.0,
+        "long_side": 84099.99999999994,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 4,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-04.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "BC27",
+        "lower_left": [
+          -520657.6192654421,
+          -43902.50536741951
+        ],
+        "upper_right": [
+          -436557.6192654421,
+          15497.494632580492
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 5,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-05.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "B53F",
+        "lower_left": [
+          -436557.6192654421,
+          -43902.50536741951
+        ],
+        "upper_right": [
+          -352457.6192654421,
+          15497.494632580492
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 6,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-06.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "BCF8",
+        "lower_left": [
+          -352457.6202292311,
+          -43902.505798964965
+        ],
+        "upper_right": [
+          -268357.6202292311,
+          15497.49420103502
+        ],
+        "short_side": 59399.999999999985,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 7,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-07.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "A592",
+        "lower_left": [
+          -268357.6215215811,
+          -43902.50536741954
+        ],
+        "upper_right": [
+          -184257.62152158108,
+          15497.494632580463
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 8,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-08.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "A593",
+        "lower_left": [
+          -184257.61926544202,
+          -43902.50615477908
+        ],
+        "upper_right": [
+          -100157.61926544202,
+          15497.493845220917
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 9,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-09.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "AD0F",
+        "lower_left": [
+          -100157.61926544202,
+          -43902.50615477914
+        ],
+        "upper_right": [
+          -16057.619265442132,
+          15497.493845220917
+        ],
+        "short_side": 59400.00000000006,
+        "long_side": 84099.99999999988,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 10,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-10.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "A598",
+        "lower_left": [
+          -16057.619265442132,
+          -43902.50615477908
+        ],
+        "upper_right": [
+          68042.38073455787,
+          15497.493845220917
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 11,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-11.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "A596",
+        "lower_left": [
+          68042.38073455787,
+          -43902.50615477908
+        ],
+        "upper_right": [
+          152142.38073455787,
+          15497.493845220917
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 12,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-12.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "7841",
+        "lower_left": [
+          -692675.1161030412,
+          -159910.58836883114
+        ],
+        "upper_right": [
+          -535025.1161030412,
+          -70810.58836883116
+        ],
+        "short_side": 89099.99999999999,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 13,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-13.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "7847",
+        "lower_left": [
+          -535025.1161030412,
+          -159910.58836883114
+        ],
+        "upper_right": [
+          -377375.1161030412,
+          -70810.58836883116
+        ],
+        "short_side": 89099.99999999999,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 14,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-14.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "784C",
+        "lower_left": [
+          -377375.1161030412,
+          -159910.58836883114
+        ],
+        "upper_right": [
+          -219725.11610304122,
+          -70810.58836883116
+        ],
+        "short_side": 89099.99999999999,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 15,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-15.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "7851",
+        "lower_left": [
+          -219725.11610304122,
+          -159910.58837207744
+        ],
+        "upper_right": [
+          -62075.11610304122,
+          -70810.58837207746
+        ],
+        "short_side": 89099.99999999999,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 16,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-16.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "7853",
+        "lower_left": [
+          -62075.11610304122,
+          -159910.58837519775
+        ],
+        "upper_right": [
+          95574.88389695878,
+          -70810.58837519777
+        ],
+        "short_side": 89099.99999999999,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 17,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-17.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "7855",
+        "lower_left": [
+          95574.88389695878,
+          -159910.58837519775
+        ],
+        "upper_right": [
+          253224.8838969588,
+          -70810.58837519777
+        ],
+        "short_side": 89099.99999999999,
+        "long_side": 157650.00000000003,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 18,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-18.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1386",
+        "lower_left": [
+          253224.8838969588,
+          -159910.58837519775
+        ],
+        "upper_right": [
+          337324.8838969588,
+          -100510.58837519775
+        ],
+        "short_side": 59400.0,
+        "long_side": 84099.99999999997,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 19,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-19.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1803",
+        "lower_left": [
+          337324.8838969588,
+          -159910.58837519775
+        ],
+        "upper_right": [
+          421424.8838969588,
+          -100510.58837519775
+        ],
+        "short_side": 59400.0,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 20,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-20.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5EA5",
+        "lower_left": [
+          190124.88389696344,
+          -238909.71537919622
+        ],
+        "upper_right": [
+          263674.88389696344,
+          -209209.71537919622
+        ],
+        "short_side": 29700.0,
+        "long_side": 73550.0,
+        "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+3/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 21,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-21.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "70CC",
+        "lower_left": [
+          263674.883896966,
+          -238909.71537919622
+        ],
+        "upper_right": [
+          326724.883896966,
+          -209209.71537919622
+        ],
+        "short_side": 29700.0,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 22,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-22.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "785A",
+        "lower_left": [
+          -692675.1161030412,
+          -268609.71537919523
+        ],
+        "upper_right": [
+          -535025.1161030412,
+          -179509.71537919523
+        ],
+        "short_side": 89100.0,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 23,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-23.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "785F",
+        "lower_left": [
+          -535025.1161030412,
+          -268609.71537919523
+        ],
+        "upper_right": [
+          -377375.1161030412,
+          -179509.71537919523
+        ],
+        "short_side": 89100.0,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 24,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-24.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "7865",
+        "lower_left": [
+          -377375.1161030412,
+          -268609.71537919523
+        ],
+        "upper_right": [
+          -219725.11610304122,
+          -179509.71537919523
+        ],
+        "short_side": 89100.0,
+        "long_side": 157650.0,
+        "media": "UserDefinedMetric (1051.00 x 594.00毫米)",
+        "ratio": "1:150",
+        "paper_code": "A1+1/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 25,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-25.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "F29C",
+        "lower_left": [
+          -219725.11610303656,
+          -268609.7153791954
+        ],
+        "upper_right": [
+          -93625.11610303656,
+          -209209.7153791954
+        ],
+        "short_side": 59400.0,
+        "long_side": 126100.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:100",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 26,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-26.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5869",
+        "lower_left": [
+          -93625.11610303656,
+          -268609.7153791954
+        ],
+        "upper_right": [
+          53474.88389696344,
+          -209209.71537919538
+        ],
+        "short_side": 59400.00000000003,
+        "long_side": 147100.0,
+        "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+        "ratio": "1:100",
+        "paper_code": "A1+3/4",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 27,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-27.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1395",
+        "lower_left": [
+          53474.88389696344,
+          -268609.7153791954
+        ],
+        "upper_right": [
+          137574.88389696344,
+          -209209.71537919538
+        ],
+        "short_side": 59400.00000000003,
+        "long_side": 84100.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:100",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 28,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-28.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "6A50",
+        "lower_left": [
+          137574.88389696344,
+          -268609.7153791954
+        ],
+        "upper_right": [
+          200624.88389696344,
+          -238909.71537919538
+        ],
+        "short_side": 29700.00000000003,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 29,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-29.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5F65",
+        "lower_left": [
+          200624.88389696344,
+          -268609.7153791962
+        ],
+        "upper_right": [
+          263674.88389696344,
+          -238909.71537919622
+        ],
+        "short_side": 29700.0,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 30,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-30.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "70CF",
+        "lower_left": [
+          263674.88389696344,
+          -268609.7153791962
+        ],
+        "upper_right": [
+          326724.88389696344,
+          -238909.71537919622
+        ],
+        "short_side": 29700.0,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 31,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-31.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "772D",
+        "lower_left": [
+          327698.0090939243,
+          -268609.7153791962
+        ],
+        "upper_right": [
+          390748.0090939243,
+          -238909.71537919628
+        ],
+        "short_side": 29699.99999999994,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 32,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-32.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "7C35",
+        "lower_left": [
+          390748.0090939243,
+          -268609.7153791962
+        ],
+        "upper_right": [
+          453798.0090939243,
+          -238909.71537919628
+        ],
+        "short_side": 29699.99999999994,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 33,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-33.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "BE53",
+        "lower_left": [
+          453798.0090939243,
+          -268609.71537919727
+        ],
+        "upper_right": [
+          516848.0090939243,
+          -238909.71537919733
+        ],
+        "short_side": 29699.99999999994,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 34,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-34.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "82D9",
+        "lower_left": [
+          516848.0090939243,
+          -268609.71537919727
+        ],
+        "upper_right": [
+          579898.0090939243,
+          -238909.71537919733
+        ],
+        "short_side": 29699.99999999994,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 35,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-35.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "540B",
+        "lower_left": [
+          -688857.617351408,
+          -338662.6994628899
+        ],
+        "upper_right": [
+          -674007.617351408,
+          -307137.6994628899
+        ],
+        "short_side": 14850.0,
+        "long_side": 31525.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:25",
+        "paper_code": "A1+1/2",
+        "rotation": 1,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 36,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-36.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "540E",
+        "lower_left": [
+          -674007.617351408,
+          -338662.6994628899
+        ],
+        "upper_right": [
+          -659157.617351408,
+          -307137.6994628899
+        ],
+        "short_side": 14850.0,
+        "long_side": 31525.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:25",
+        "paper_code": "A1+1/2",
+        "rotation": 1,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 37,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-37.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "F896",
+        "lower_left": [
+          -659157.617351408,
+          -338662.6994628899
+        ],
+        "upper_right": [
+          -644307.617351408,
+          -307137.6994628899
+        ],
+        "short_side": 14850.0,
+        "long_side": 31525.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:25",
+        "paper_code": "A1+1/2",
+        "rotation": 1,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 38,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-38.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54B8",
+        "lower_left": [
+          -644307.617351408,
+          -338662.6994628899
+        ],
+        "upper_right": [
+          -629457.6173514082,
+          -301887.6994628899
+        ],
+        "short_side": 14849.999999999767,
+        "long_side": 36775.0,
+        "media": "UserDefinedMetric (1471.00 x 594.00毫米)",
+        "ratio": "1:25",
+        "paper_code": "A1+3/4",
+        "rotation": 1,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 39,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-39.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "C99A",
+        "lower_left": [
+          -629457.6173514082,
+          -338662.69946289033
+        ],
+        "upper_right": [
+          -587407.6173514082,
+          -308962.69946289033
+        ],
+        "short_side": 29700.0,
+        "long_side": 42050.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 40,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-40.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "8A15",
+        "lower_left": [
+          -587211.3220444472,
+          -338662.69946289033
+        ],
+        "upper_right": [
+          -566186.3220444472,
+          -323812.69946289033
+        ],
+        "short_side": 14850.0,
+        "long_side": 21025.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:25",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 41,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-41.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "8C2E",
+        "lower_left": [
+          -566186.3220444472,
+          -338662.69946289033
+        ],
+        "upper_right": [
+          -545161.3220444472,
+          -323812.69946289033
+        ],
+        "short_side": 14850.0,
+        "long_side": 21025.0,
+        "media": "ISO_A1_(841.00_x_594.00_MM)",
+        "ratio": "1:25",
+        "paper_code": "A1",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 42,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-42.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "97F7",
+        "lower_left": [
+          -545161.3220444472,
+          -338662.69946289033
+        ],
+        "upper_right": [
+          -482111.3220444472,
+          -308962.69946289033
+        ],
+        "short_side": 29700.0,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 43,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-43.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "97F3",
+        "lower_left": [
+          -482111.3220444472,
+          -338662.69946289033
+        ],
+        "upper_right": [
+          -419061.3220444472,
+          -308962.69946289033
+        ],
+        "short_side": 29700.0,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 44,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-44.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\work\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7__print_work.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "CD8F",
+        "lower_left": [
+          -419061.3220444472,
+          -338662.69946289033
+        ],
+        "upper_right": [
+          -356011.3220444472,
+          -308962.69946289033
+        ],
+        "short_side": 29700.0,
+        "long_side": 63050.0,
+        "media": "UserDefinedMetric (1261.00 x 594.00毫米)",
+        "ratio": "1:50",
+        "paper_code": "A1+1/2",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 45,
+        "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\governance-validation\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7\\20260318-135042\\pdf\\model\\远程国际建施2021.0903(LT4、LT5楼梯修改)_t7-model-45.pdf"
+      }
+    ]
+  }
+}

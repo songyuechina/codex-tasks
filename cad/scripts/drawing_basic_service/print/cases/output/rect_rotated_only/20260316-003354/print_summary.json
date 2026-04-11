@@ -1,0 +1,15 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_rotated_only\\20260316-003354",
+  "work_dwg": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_rotated_only\\20260316-003354\\work\\rect_rotated_only__print_work.dwg",
+  "plan_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_rotated_only\\20260316-003354\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_rotated_only\\20260316-003354\\work\\rect_rotated_only__print_work.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_rotated_only\\20260316-003354\\pdf",
+    "total_jobs": 0,
+    "landscape_count": 0,
+    "portrait_count": 0,
+    "jobs_by_space": {}
+  },
+  "execution": null,
+  "verification": null
+}

@@ -1,0 +1,69 @@
+1. Implementation focus
+
+聚焦两个最可能失稳点：
+- `print_executor.py` 的布局切换/窗口激活执行链
+- `print_runner.py` / `CAD_core.py` 的打开文档与“当前活动文档”绑定流程
+
+基于已知现象：
+- 模型空间 37 张成功，但布局仅识别 9 张
+- 曾出现“切换布局失败”
+- 曾出现 COM “被呼叫方拒绝接收呼叫”
+- 曾出现“同名文档误激活”
+
+这组症状更像是**执行时拿错活动文档 + 布局切换时未充分等待 CAD 空闲/激活稳定**，而不是打印策略本身有问题。
+
+2. Proposed or completed changes
+
+以下是最小修复建议，仅给 4 条：
+
+1. **在 `print_runner.py` 打开 DWG 后，强制以“完整路径/对象句柄”确认当前文档，不再依赖标题激活。**  
+   - 根因判断：已知有“同名文档误激活”，说明当前流程很可能依赖窗口标题或 `ActiveDocument` 的瞬时状态；若多个同名 DWG 或历史窗口存在，后续布局切换和打印就会作用到错误文档。
+   - 最小修复：
+     - `open_dwg_paradigm(...)` 返回后，立即校验“当前活动文档 FullName == 目标 dwg_path”。
+     - 若不一致，按文档集合再次显式激活目标文档，而不是只调用 `activate_window_by_title(...)`。
+   - 受影响模块：
+     - `cad/scripts/drawing_basic_service/print/print_runner.py`
+     - `cad/system/CAD_core.py`
+   - 这条优先级最高。
+
+2. **在 `print_executor.py` 每次 `switch_to_layout` / `set_space_mode` 前后增加 `wait_quiescent()` 与有限次重试，专门兜底“被呼叫方拒绝接收呼叫”。**  
+   - 根因判断：布局比模型空间更依赖 COM/UI 状态，已知错误“被呼叫方拒绝接收呼叫”通常表示 CAD 忙、未空闲、前一命令未完成。模型空间成功多、布局失败多，符合这个特征。
+   - 最小修复：
+     - 在每个 job 执行时，调用顺序改为：
+       1) `wait_quiescent()`
+       2) 切换文档/布局
+       3) 再次 `wait_quiescent()`
+       4) 若失败，仅重试 2~3 次，间隔短暂 `sleep`
+     - 重试仅包裹布局切换和打印触发，不扩大到整条流程，避免改动过大。
+   - 受影响模块：
+     - `cad/scripts/drawing_basic_service/print/print_executor.py`
+     - 可能复用 `cad/system/CAD_core.py` 现有 COM 重试能力
+
+3. **弱化或移除 `print_executor.py` 中基于窗口标题的 `activate_window_by_title(...)` 作为主路径，改成“仅失败后兜底”。**  
+   - 根因判断：既然已发生“同名文档误激活”，标题激活本身就是高风险操作，尤其批量打印时多个图纸标题相近/相同更容易误命中。
+   - 最小修复：
+     - 主流程只使用 CAD 文档对象激活；
+     - `activate_window_by_title(...)` 仅在对象激活失败时作为 fallback；
+     - fallback 后必须再次校验 `FullName`，否则直接判失败，不继续打印。
+   - 受影响模块：
+     - `cad/scripts/drawing_basic_service/print/print_executor.py`
+
+4. **对布局枚举结果增加“切换校验”，避免识别到 9 张但实际未切到对应布局仍继续打印。**  
+   - 根因判断：现在问题不一定是“布局识别少”，也可能是识别到了，但执行时切换失败却未被强约束拦截，导致后续打印不稳定。
+   - 最小修复：
+     - `switch_to_layout(layout_name)` 后，立即读取当前布局名/空间状态做断言；
+     - 不匹配则记录失败并跳过该 job，不继续落到打印动作。
+   - 受影响模块：
+     - `cad/scripts/drawing_basic_service/print/print_executor.py`
+
+3. Risks / blockers
+
+- **关键信息缺口**：任务包未提供 `open_dwg_paradigm`、`switch_to_layout`、`execute_print_plan` 的完整实现，因此我不能确认当前是否已经做了部分校验或 COM 重试。
+- **最大风险**：如果现有架构强依赖窗口层控制，而不是 CAD 文档对象控制，那么仅在打印层补等待可能只能缓解，不能彻底解决“同名文档误激活”。
+- **验证建议**：
+  1. 准备两个同名 DWG（不同目录）并同时打开；
+  2. 连续执行布局批量打印；
+  3. 记录每次打印前的 `ActiveDocument.FullName`、目标布局名、实际当前布局名；
+  4. 观察“布局识别 9 张”是否恢复为稳定执行，且 COM 拒绝错误是否明显下降。
+
+[PROGRESS] task=layout-print-stability; status=done; completion=90; next=请补充 open_dwg_paradigm 与 execute_print_plan 的关键实现，以便把建议收敛成可直接提交的最小补丁。

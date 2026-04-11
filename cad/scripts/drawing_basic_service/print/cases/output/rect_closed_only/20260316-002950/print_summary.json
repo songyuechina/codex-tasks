@@ -1,0 +1,60 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950",
+  "work_dwg": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\work\\rect_closed_only__print_work.dwg",
+  "plan_json": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\work\\rect_closed_only__print_work.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\pdf",
+    "total_jobs": 1,
+    "landscape_count": 1,
+    "portrait_count": 0,
+    "jobs_by_space": {
+      "model": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\work\\rect_closed_only__print_work.dwg",
+          "space_kind": "model",
+          "layout_name": "model",
+          "owner_btr": "*MODEL_SPACE",
+          "handle": "E5",
+          "lower_left": [
+            0.0,
+            0.0
+          ],
+          "upper_right": [
+            260.0,
+            173.0
+          ],
+          "short_side": 173.0,
+          "long_side": 260.0,
+          "media": "ISO_A1_(841.00_x_594.00_MM)",
+          "ratio": "1:25",
+          "paper_code": "A1",
+          "rotation": 0,
+          "plot_scale": 1.2,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\pdf\\model\\rect_closed_only-model-01.pdf"
+        }
+      ]
+    }
+  },
+  "execution": {
+    "total_jobs": 1,
+    "success_count": 1,
+    "failure_count": 0,
+    "generated_files": [
+      "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\pdf\\model\\rect_closed_only-model-01.pdf"
+    ],
+    "failures": []
+  },
+  "verification": {
+    "expected_count": 1,
+    "existing_count": 1,
+    "missing_count": 0,
+    "zero_size_count": 0,
+    "existing": [
+      "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\output\\rect_closed_only\\20260316-002950\\pdf\\model\\rect_closed_only-model-01.pdf"
+    ],
+    "missing": [],
+    "zero_size": []
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\print\\cases\\assets\\农建房施工图【电气】prosess\\20260318-235548\\runs\\农建房施工图【电气】-0930_t6_t3\\20260318-235548\\work\\农建房施工图【电气】-0930_t6_t3__print_work__20260318-235548.dwg",
+  "total_pseudo_maximal_count": 7,
+  "rows_by_space": {
+    "model": [
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "23DC",
+        "bbox": [
+          -7085.417211669963,
+          303996.5228054973,
+          387872.3458634359,
+          606871.4835319121
+        ],
+        "area": 119622816979.96533
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "21E9",
+        "bbox": [
+          118383.94581271737,
+          506901.9380683733,
+          207484.03216638596,
+          569901.9991265229
+        ],
+        "area": 5613310880.567525
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "21E5",
+        "bbox": [
+          213124.4788680877,
+          506901.9380683733,
+          302224.5652217563,
+          569901.9991265229
+        ],
+        "area": 5613310880.567525
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "21ED",
+        "bbox": [
+          22219.889275103284,
+          506901.9380683733,
+          111319.97562877176,
+          569901.9991265229
+        ],
+        "area": 5613310880.567517
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "21E6",
+        "bbox": [
+          213124.56522175623,
+          506901.9991265229,
+          302224.5652217563,
+          569901.9991265229
+        ],
+        "area": 5613300000.000004
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "21EE",
+        "bbox": [
+          22219.97562877182,
+          506901.9991265229,
+          111319.97562877182,
+          569901.9991265229
+        ],
+        "area": 5613300000.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "21EA",
+        "bbox": [
+          118384.03216638602,
+          506901.9991265229,
+          207484.03216638602,
+          569901.9991265229
+        ],
+        "area": 5613300000.0
+      }
+    ]
+  },
+  "largest_scope": {
+    "space_key": "model",
+    "layout_name": "model",
+    "owner_btr": "*MODEL_SPACE",
+    "handle": "23DC",
+    "bbox": [
+      -7085.417211669963,
+      303996.5228054973,
+      387872.3458634359,
+      606871.4835319121
+    ],
+    "area": 119622816979.96533
+  }
+}

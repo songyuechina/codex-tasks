@@ -1,0 +1,1 @@
+Failed to authenticate. API Error: 403 {"error":{"code":"","message":"无权访问 claude 分组 (request id: 2026031513344825025074aLoS3uQ7)","type":"new_api_error"}}
