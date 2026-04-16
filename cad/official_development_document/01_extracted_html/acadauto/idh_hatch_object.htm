@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+<TITLE>Hatch object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Hatch object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Block;idh_block_object.htm">
+    <PARAM name="Item2" value="ModelSpace Collection;idh_modelspace_collection.htm">
+    <PARAM name="Item3" value="PaperSpace Collection;idh_paperspace_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadHatch;none.htm">
+    <PARAM name="Item2" value="IAcadEntity;idh_iacadentity_interface.htm">
+    <PARAM name="Item3" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item4" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Hatch object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">An area fill consisting of a pattern of lines.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadHatch&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">ModelSpace.AddHatch<BR>
+PaperSpace.AddHatch<BR>
+Block.AddHatch&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">ModelSpace.Item<BR>
+PaperSpace.Item<BR>
+Block.Item<BR>
+SelectionSet.Item<BR>
+Group.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">To create a hatch, first create the Hatch object using the <A HREF="idh_addhatch.htm">AddHatch</A> method. After the Hatch object has been created, add the outer loop using the AppendOuterLoop method. The outer loop must be closed and must be created before any inner loops can be added. After a valid outer loop has been created, add any inner loops, one at a time, using AppendInnerLoop method.
+<P CLASS="body"><span class=WarningChar>WARNING!</span> Once the Hatch object has been created, you must add the outer loop to the Hatch object for it to become a valid AutoCAD object. If you attempt any operation other than calling the AppendOuterLoop method, AutoCAD will enter an unpredictable state.
+<P CLASS="body">To edit a Hatch object, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_appendinnerloop.htm"><P CLASS="body">AppendInnerLoop</A>
+<A HREF="idh_appendouterloop.htm"><P CLASS="body">AppendOuterLoop</A>
+<A HREF="idh_arraypolar.htm"><P CLASS="body">ArrayPolar</A>
+<A HREF="idh_arrayrectangular.htm"><P CLASS="body">ArrayRectangular</A>
+<A HREF="idh_copy.htm"><P CLASS="body">Copy</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_evaluate.htm"><P CLASS="body">Evaluate</A>
+<A HREF="idh_getboundingbox.htm"><P CLASS="body">GetBoundingBox</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getloopat.htm"><P CLASS="body">GetLoopAt</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_highlight.htm"><P CLASS="body">Highlight</A>
+<A HREF="idh_insertloopat.htm"><P CLASS="body">InsertLoopAt</A>
+<A HREF="idh_intersectwith.htm"><P CLASS="body">IntersectWith</A>
+<A HREF="idh_mirror.htm"><P CLASS="body">Mirror</A>
+<A HREF="idh_mirror3d.htm"><P CLASS="body">Mirror3D</A>
+<A HREF="idh_move.htm"><P CLASS="body">Move</A>
+<A HREF="idh_rotate.htm"><P CLASS="body">Rotate</A>
+<A HREF="idh_rotate3d.htm"><P CLASS="body">Rotate3D</A>
+<A HREF="idh_scaleentity.htm"><P CLASS="body">ScaleEntity</A>
+<A HREF="idh_setpattern.htm"><P CLASS="body">SetPattern</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_transformby.htm"><P CLASS="body">TransformBy</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_area.htm"><P CLASS="body">Area</A>
+<A HREF="idh_associativehatch.htm"><P CLASS="body">AssociativeHatch</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_elevation.htm"><P CLASS="body">Elevation</A>
+<A HREF="idh_GradientAngle.htm"><P CLASS="body">GradientAngle</A>
+<A HREF="idh_GradientCentered.htm"><P CLASS="body">GradientCentered</A>
+<A HREF="idh_GradientColor1.htm"><P CLASS="body">GradientColor1</A>
+<A HREF="idh_GradientColor2.htm"><P CLASS="body">GradientColor2</A>
+<A HREF="idh_GradientName.htm"><P CLASS="body">GradientName</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_HatchObjectType.htm"><P CLASS="body">HatchObjectType</A>
+<A HREF="idh_hatchstyle.htm"><P CLASS="body">HatchStyle</A>
+<A HREF="idh_hyperlinks.htm"><P CLASS="body">Hyperlinks</A>
+<A HREF="idh_isopenwidth.htm"><P CLASS="body">ISOPenWidth</A>
+<A HREF="idh_layer.htm"><P CLASS="body">Layer</A>
+<A HREF="idh_linetype.htm"><P CLASS="body">Linetype</A>
+<A HREF="idh_linetypescale.htm"><P CLASS="body">LinetypeScale</A>
+<A HREF="idh_lineweight.htm"><P CLASS="body">Lineweight</A>
+<A HREF="idh_normal.htm"><P CLASS="body">Normal</A>
+<A HREF="idh_numberofloops.htm"><P CLASS="body">NumberOfLoops</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_origin.htm"><P CLASS="body">Origin</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_patternangle.htm"><P CLASS="body">PatternAngle</A>
+<A HREF="idh_patterndouble.htm"><P CLASS="body">PatternDouble</A>
+<A HREF="idh_patternname.htm"><P CLASS="body">PatternName</A>
+<A HREF="idh_patternscale.htm"><P CLASS="body">PatternScale</A>
+<A HREF="idh_patternspace.htm"><P CLASS="body">PatternSpace</A>
+<A HREF="idh_patterntype.htm"><P CLASS="body">PatternType</A>
+<A HREF="idh_plotstylename.htm"><P CLASS="body">PlotStyleName</A>
+<A HREF="idh_TrueColor_property.htm"><P CLASS="body">TrueColor</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

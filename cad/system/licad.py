@@ -26,7 +26,7 @@ try:
     # 🔥【关键修复】导入时直接改名，避免与下方函数名冲突
     from system.CAD_com_utils import retry_on_busy as _tool_retry_on_busy, SafeCOM 
 except ImportError as e:
-    print(f"❌ [licad] 关键模块缺失: {e}")
+    print(f"[licad] ERROR critical module missing: {e}")
     raise
 
 def _coinit_once():
@@ -37,14 +37,14 @@ def _coinit_once():
 def _launch_tarch_bootstrap(pth: str = r"C:\Tangent\TArchT20V9") -> bool:
     exe = Path(pth) / "TGStart.exe"
     if not exe.exists():
-        print(f"[licad] ❌ 天正启动程序不存在: {exe}")
+        print(f"[licad] ERROR TArch bootstrap not found: {exe}")
         return False
     try:
         subprocess.Popen([str(exe)], cwd=str(exe.parent))
         print(f"[licad] 已通过 TGStart.exe 发起天正启动: {exe}")
         return True
     except Exception as exc:
-        print(f"[licad] ❌ 发起天正启动失败: {exc}")
+        print(f"[licad] ERROR failed to launch TArch bootstrap: {exc}")
         return False
 
 # =================================================================
@@ -77,7 +77,7 @@ def get_acad_doc(max_wait=15.0): # 增加默认等待时间，天正启动很慢
     # 内部自愈函数：清理缓存
     def _auto_fix_com_cache():
         try:
-            print("\n[licad] ⚠️ 检测到 COM 接口异常，正在执行自动修复 (清理缓存)...")
+            print("\n[licad] WARN COM interface issue detected, cleaning generated cache...")
             import os, shutil, sys
             paths_to_clean = []
             try:
@@ -95,16 +95,16 @@ def get_acad_doc(max_wait=15.0): # 增加默认等待时间，天正启动很慢
                 if p and os.path.exists(p):
                     try:
                         shutil.rmtree(p)
-                        print(f"[licad] ✅ 已清理缓存: {p}")
+                        print(f"[licad] cleaned cache: {p}")
                         cleaned = True
                     except: pass
             
             if cleaned:
-                print("[licad] 缓存清理完成，请稍后再次运行脚本以生效。")
+                print("[licad] cache cleanup finished, rerun after restarting Python and CAD.")
             else:
-                print("[licad] 未发现缓存文件或清理失败。")
+                print("[licad] no cache cleaned.")
         except Exception as e:
-            print(f"[licad] ❌ 自动修复失败: {e}")
+            print(f"[licad] ERROR automatic cache cleanup failed: {e}")
 
     _coinit_once()
     t0 = time.time()

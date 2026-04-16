@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AppendInnerLoop method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AppendInnerLoop Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Appends an inner loop to the hatch.</P>
+
+<P CLASS="h1-access"><A HREF="appendinnerloop_see_also.htm">See Also</A> | <A HREF="ex_appendinnerloop.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.AppendInnerLoop Loop
+<P class="element">Object</p><p class=element-desc><A HREF='idh_hatch_object.htm'>Hatch</A><BR>
+The object this method applies to.
+<P class="element">Loop</p><p class=element-desc>Variant (object, or array of objects); input-only<BR>
+An array of objects forming a closed boundary. The array can consist of one or more objects. If more than one object is used, their endpoints must coincide for the loop to be created properly. The loop may contain the following types of objects:<BR>
+<A HREF='idh_line_object.htm'>Line</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_circle_object.htm'>Circle</A>, <A HREF='idh_ellipse_object.htm'>Ellipse</A>, <A HREF='idh_spline_object.htm'>Spline</A>, <A HREF='idh_region_object.htm'>Region</A>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">After the Hatch object has been created using the 
+<A HREF="idh_addhatch.htm">AddHatch</A> method, add the outer loop using 
+<A HREF="idh_appendouterloop.htm">AppendOuterLoop</A>. The outer loop must be closed and must be created 
+before any inner loops can be added. 
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

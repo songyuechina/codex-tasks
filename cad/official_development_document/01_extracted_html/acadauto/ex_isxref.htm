@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>IsXRef Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">IsXRef Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_IsXRef()
+    ' This example cycles through each Block object in a drawing
+    ' and determines the style of each Block by accessing the
+    ' IsLayout and IsXRef properties.  A Block
+    ' object is also added at runtime so the results are mixed and do not only
+    ' come from the default Blocks.
+    
+    Dim circleObj As AcadCircle
+    Dim centerPoint(0 To 2) As Double, InsertPoint(0 To 2) As Double
+    Dim radius As Double
+    Dim newBlock As AcadBlock, insertedBlock As AcadBlockReference
+    Dim tempBlock As AcadBlock
+    Dim msg As String
+    
+    ' Define the Circle object that will be inserted into the block
+    centerPoint(0) = 0: centerPoint(1) = 0: centerPoint(2) = 0
+    InsertPoint(0) = 1: InsertPoint(1) = 1: InsertPoint(2) = 0
+    radius = 0.5
+    
+    ' Create a new block to hold the Circle object
+    Set newBlock = ThisDrawing.Blocks.Add(centerPoint, "CBlock")
+    
+    ' Add the Circle object to the new block object
+    Set circleObj = ThisDrawing.Blocks("CBlock").AddCircle(centerPoint, radius)
+    
+    ' Add the new block to model space
+    Set insertedBlock = ThisDrawing.ModelSpace.InsertBlock(InsertPoint, "CBlock", 1, 1, 1, 0)
+        
+    ThisDrawing.Application.ZoomAll
+    
+    msg = vbCrLf & vbCrLf
+    
+    For Each tempBlock In ThisDrawing.Blocks
+        If Not (tempBlock.IsLayout) And Not (tempBlock.IsXRef) Then
+            ' Block is simple
+            msg = msg & tempBlock.name & ": Simple"
+        ElseIf tempBlock.IsXRef Then
+            ' Block is an external reference
+            msg = msg & tempBlock.name & ": External Reference"
+            If tempBlock.IsLayout Then
+                ' Block also contains layout geometry
+                msg = msg & tempBlock.name & " and Contains Layout Geometry"
+            End If
+        ElseIf tempBlock.IsLayout Then
+            ' Block contains layout geometry
+            msg = msg & tempBlock.name & ": Contains Layout Geometry"
+        End If
+        
+        msg = msg & vbCrLf      ' Move to next line
+    Next
+        
+    ' Display Block information for this drawing
+    MsgBox "Blocks in this drawing have the following styles: " & msg
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

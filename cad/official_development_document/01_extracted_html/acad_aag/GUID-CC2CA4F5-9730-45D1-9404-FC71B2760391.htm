@@ -1,0 +1,73 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-CC2CA4F5-9730-45D1-9404-FC71B2760391"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2014 and AutoCAD 2014-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2014 API History Reference (ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2015 API History Reference (ActiveX)</div><a href="GUID-6FEDBCCA-91D0-4782-AE5A-49BD4384FD8C.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">AutoCAD 2013 API History Reference (ActiveX)</div><a href="GUID-4EB45B9F-9C4D-439A-AFCA-AACD2616B85B.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-298B8BCD-F104-45E2-A258-F6F61E2C5BF3"></a></span><h1>AutoCAD 2014 API History Reference (ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-CC2CA4F5-9730-45D1-9404-FC71B2760391"></a></span><p class="blurb"> Additions and changes made to the ActiveX API in AutoCAD 2014 and AutoCAD 2014-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_D37C3915FAF04605A483746E74C3C7DD"></a></span> <h2><a name="TOC_ENTRY__d24e6244"></a><span style="display:none"><a name="GUID-04408ED8-1E49-4DE9-B5D1-8BA501EC8FD6"></a></span>Enums</h2> <div class="codeBlock"><pre>AcPointCloudStylizationType (New)
+        acIntensity = 3
+        acNormal = 2
+        acObjectColor = 1
+        acScanColor = 0</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_D16EB7CF9F654B82A9D6B293F2ABFD75"></a></span> <h2><a name="TOC_ENTRY__d24e6252"></a><span style="display:none"><a name="GUID-993381ED-4AED-4518-A753-B76383C90ED3"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadApplication
+        HWND32 - Property (Obsolete; use HWND)
+IAcadDatabase
+        ObjectIDToObject32 - Method (Obsolete; use ObjectIDToObject)
+IAcadDocument
+        ObjectIDToObject32 - Method (Obsolete; use ObjectIDToObject)
+        HWND32 - Property (Obsolete; use HWND)
+IAcadGeoPositionMarker (New)
+        Altitude - Property
+        BackgroundFill - Property
+        DrawingDirection - Property
+        Height - Property
+        LandingGap - Property
+        Latitude - Property
+        LineSpacingDistance - Property
+        LineSpacingFactor - Property
+        LineSpacingStyle - Property
+        Longitude - Property
+        Notes - Property
+        Position - Property
+        Radius - Property
+        Rotation - Property
+        TextFrameDisplay - Property
+        TextJustify - Property
+        TextString - Property
+        TextStyleName - Property
+        TextWidth - Property
+IAcadIDPair
+        Key32 - Property (Obsolete; use Key)
+        Value32 - Property (Obsolete; use Value)
+IAcadMLeader
+        GetBlockAttributeValue32 - Method (Obsolete; use GetBlockAttributeValue)
+        SetBlockAttributeValue32 - Method (Obsolete; use SetBlockAttributeValue)
+IAcadObject
+        ObjectID32 - Property (Obsolete; use ObjectID)
+        OwnerID32 - Property (Obsolete; use OwnerID)
+IAcadPointCloud2 (New)
+        Stylization - Property
+        Unit - Property
+        UnitFactor - Property
+IAcadPViewport
+        LabelBlockId32 - Property (Obsolete; use LabelBlockId)
+IAcadTable
+        GetBlockAttributeValue232 - Method (Obsolete; use GetBlockAttributeValue2)
+        GetBlockAttributeValue32 - Method (Obsolete; use GetBlockAttributeValue)
+        GetBlockTableRecordId232 - Method (Obsolete; use GetBlockTableRecordId2)
+        GetBlockTableRecordId32 - Method (Obsolete; use GetBlockTableRecordId)
+        GetFieldId232 - Method (Obsolete; use GetFieldId2)
+        GetFieldId32 - Method (Obsolete; use GetFieldId)
+        GetGridLinetype32 - Method (Obsolete; use GetGridLinetype)
+        SetBlockAttributeValue232 - Method (Obsolete; use SetBlockAttributeValue2)
+        SetBlockAttributeValue32 - Method (Obsolete; use SetBlockAttributeValue)
+        SetBlockTableRecordId232 - Method (Obsolete; use SetBlockTableRecordId2)
+        SetBlockTableRecordId32 - Method (Obsolete; use SetBlockTableRecordId)
+        SetFieldId232 - Method (Obsolete; use SetFieldId2)
+        SetFieldId32 - Method (Obsolete; use SetFieldId)
+        SetGridLinetype32 - Method (Obsolete; use SetGridLinetype)
+IAcadTableStyle
+        GetTextStyleId32 - Method (Obsolete; use GetTextStyleId)
+        SetTemplateId32 - Method (Obsolete; use SetTemplateId)
+        SetTextStyleId32 - Method (Obsolete; use SetTextStyleId)
+        TemplateId32 - Property (Obsolete; use TemplateId)
+IAcadUtility
+        GetSubEntity32 - Method (Obsolete; use GetSubEntity)
+        ObjectId32ToObjectIdString - Method (Obsolete; use ObjectIdToObjectIdString)
+IAcadView
+        LayoutID32 - Property (Obsolete; use LayoutID)</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

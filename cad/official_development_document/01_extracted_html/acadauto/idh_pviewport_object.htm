@@ -1,0 +1,188 @@
+<HTML>
+<HEAD>
+<TITLE>PViewport object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "PViewport object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="PaperSpace Collection;idh_paperspace_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadPViewport;none.htm">
+    <PARAM name="Item2" value="IAcadEntity;idh_iacadentity_interface.htm">
+    <PARAM name="Item3" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item4" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; PViewport object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">Rectangular objects created in paper space that display views.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadPViewport&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">PaperSpace.AddPViewport&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">PaperSpace.Item<BR>
+Document.ActivePViewport&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">The functionality of the PViewport object is slightly
+different from what is used in the AutoCAD user interface. Users familiar
+with AutoCAD paper space viewport functionality will find the following
+information helpful.
+
+<P CLASS="body">In ActiveX Automation, the <A HREF="idh_activespace.htm">ActiveSpace</A>
+property is used to control the TILEMODE system variable. Setting <span class=code-char>ThisDrawing.ActiveSpace = acModelSpace</SPAN> is
+equivalent to setting TILEMODE = 1, and setting
+<span class=code-char>ThisDrawing.ActiveSpace  =  acPaperSpace</SPAN> is equivalent to setting
+TILEMODE = 0.
+<P CLASS="body">Similarly, the <A HREF="idh_mspace.htm">MSpace</A> property is the
+equivalent of both the MSPACE and PSPACE commands in AutoCAD. Setting
+<span class=code-char>ThisDrawing.MSpace = True</SPAN> is the same as using the MSPACE command, and setting
+<span class=code-char>ThisDrawing.MSpace = False</SPAN> is the same as using the PSPACE command.
+<P CLASS="body">In addition, the ActiveX Automation user is required to use
+the <A HREF="idh_display.htm">Display</A> method before setting the MSpace property to TRUE.
+The Display method initializes certain graphic settings that must be set before switching
+to model space. In AutoCAD this is done "behind the scenes." However, in the ActiveX
+Automation interface, the programmer must take care of this initialization.
+<P CLASS="body"><span class=NoteChar>NOTE&#32;</span>Remember, you must turn on the
+display using the Display method for at least one PViewport object before you can set the
+MSpace property to TRUE. Failure to turn on the display will result
+in an error being returned when you try to set the MSpace property.
+<P CLASS="body">The ActiveSpace and MSpace properties are found on the
+<A HREF="idh_document_object.htm">Document</A> object.
+<P CLASS="body">To create a PViewport object, use the <A HREF="idh_addpviewport.htm">AddPViewport</A> method. To edit or query a paper space viewport object, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_arraypolar.htm"><P CLASS="body">ArrayPolar</A>
+<A HREF="idh_arrayrectangular.htm"><P CLASS="body">ArrayRectangular</A>
+<A HREF="idh_copy.htm"><P CLASS="body">Copy</A>
+<A HREF="idh_display.htm"><P CLASS="body">Display</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_getboundingbox.htm"><P CLASS="body">GetBoundingBox</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getgridspacing.htm"><P CLASS="body">GetGridSpacing</A>
+<A HREF="idh_getsnapspacing.htm"><P CLASS="body">GetSnapSpacing</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_highlight.htm"><P CLASS="body">Highlight</A>
+<A HREF="idh_LayerPropertyOverrides.htm"><P CLASS="body">LayerPropertyOverrides</A>
+<A HREF="idh_mirror.htm"><P CLASS="body">Mirror</A>
+<A HREF="idh_mirror3d.htm"><P CLASS="body">Mirror3D</A>
+<A HREF="idh_move.htm"><P CLASS="body">Move</A>
+<A HREF="idh_rotate.htm"><P CLASS="body">Rotate</A>
+<A HREF="idh_rotate3d.htm"><P CLASS="body">Rotate3D</A>
+<A HREF="idh_scaleentity.htm"><P CLASS="body">ScaleEntity</A>
+<A HREF="idh_setgridspacing.htm"><P CLASS="body">SetGridSpacing</A>
+<A HREF="idh_setsnapspacing.htm"><P CLASS="body">SetSnapSpacing</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_viewport_syncmodelview.htm"><!--note naming inconsistency from IDL--><P CLASS="body">SyncModelView</A>
+<A HREF="idh_transformby.htm"><P CLASS="body">TransformBy</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_arcsmoothness.htm"><P CLASS="body">ArcSmoothness</A>
+<A HREF="idh_center.htm"><P CLASS="body">Center</A>
+<A HREF="idh_clipped.htm"><P CLASS="body">Clipped</A>
+<A HREF="idh_customscale.htm"><P CLASS="body">CustomScale</A>
+<A HREF="idh_direction.htm"><P CLASS="body">Direction</A>
+<A HREF="idh_displaylocked.htm"><P CLASS="body">DisplayLocked</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_gridon.htm"><P CLASS="body">GridOn</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_hassheetview.htm"><P CLASS="body">HasSheetView</A>
+<A HREF="idh_height.htm"><P CLASS="body">Height</A>
+<A HREF="idh_hyperlinks.htm"><P CLASS="body">Hyperlinks</A>
+<A HREF="idh_labelblockid.htm"><P CLASS="body">LabelBlockId</A>
+<A HREF="idh_labelblockid32.htm"><P CLASS="body">LabelBlockId32</A>
+<A HREF="idh_layer.htm"><P CLASS="body">Layer</A>
+<A HREF="idh_lenslength.htm"><P CLASS="body">LensLength</A>
+<A HREF="idh_linetype.htm"><P CLASS="body">Linetype</A>
+<A HREF="idh_linetypescale.htm"><P CLASS="body">LinetypeScale</A>
+<A HREF="idh_lineweight.htm"><P CLASS="body">Lineweight</A>
+<A HREF="idh_modelview.htm"><P CLASS="body">ModelView</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_plotstylename.htm"><P CLASS="body">PlotStyleName</A>
+<A HREF="idh_removehiddenlines.htm"><P CLASS="body">RemoveHiddenLines</A>
+<A HREF="idh_ShadePlot.htm"><P CLASS="body">ShadePlot</A>
+<A HREF="idh_sheetview.htm"><P CLASS="body">SheetView</A>
+<A HREF="idh_snapbasepoint.htm"><P CLASS="body">SnapBasePoint</A>
+<A HREF="idh_snapon.htm"><P CLASS="body">SnapOn</A>
+<A HREF="idh_snaprotangle.htm"><P CLASS="body">SnapRotationAngle</A>
+<A HREF="idh_standardscale.htm"><P CLASS="body">StandardScale</A>
+<A HREF="idh_target.htm"><P CLASS="body">Target</A>
+<A HREF="idh_TrueColor_property.htm"><P CLASS="body">TrueColor</A>
+<A HREF="idh_twistangle.htm"><P CLASS="body">TwistAngle</A>
+<A HREF="idh_ucsiconatorigin.htm"><P CLASS="body">UCSIconAtOrigin</A>
+<A HREF="idh_ucsiconon.htm"><P CLASS="body">UCSIconOn</A>
+<A HREF="idh_ucsperviewport.htm"><P CLASS="body">UCSPerViewport</A>
+<A HREF="idh_viewporton.htm"><P CLASS="body">ViewportOn</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<A HREF="idh_width.htm"><P CLASS="body">Width</A>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

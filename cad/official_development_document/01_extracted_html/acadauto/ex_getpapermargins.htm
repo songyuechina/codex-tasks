@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetPaperMargins Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetPaperMargins Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_GetPaperMargins()
+    ' This example will access the Layouts collection for the current drawing
+    ' and list the plot size based on the margins returned from the GetPaperMargins
+    ' property for each Layout except model space.
+    Dim Layouts As AcadLayouts, Layout As ACADLayout
+    Dim msg As String
+    Dim Measurement As String
+    Dim MarginLowerLeft As Variant, MarginUpperRight As Variant
+
+    Dim PaperHeight As Double, PaperWidth As Double
+    Dim PlotHeight As Double, PlotWidth As Double
+    
+    ' Get layouts collection from document object
+    Set Layouts = ThisDrawing.Layouts
+    
+    msg = vbCrLf & vbCrLf   ' Start with a space
+    
+    ' Get the margin information of every layout in this drawing
+
+    For Each Layout In Layouts
+        ' Skip model space
+        If Layout.name = "Model" Then GoTo NEXT_LAYOUT
+        ThisDrawing.ActiveLayout = Layout
+        
+        msg = msg & Layout.name & vbCrLf
+        
+        ' Get paper size and margin information
+        Layout.GetPaperMargins MarginLowerLeft, MarginUpperRight
+        Layout.GetPaperSize PaperWidth, PaperHeight
+        
+        ' Do plot area calculations
+
+        PlotWidth = PaperWidth - (MarginUpperRight(0) - MarginLowerLeft(0))
+        PlotHeight = PaperHeight - (MarginUpperRight(1) - MarginLowerLeft(1))
+        
+        ' Are we using inches or millimeters
+        Measurement = " millimeter(s)"
+        
+        ' Format for display
+        msg = msg & vbTab & "The paper size for this layout is: " & PaperWidth & " X " & PaperHeight & Measurement & vbCrLf & vbCrLf
+
+        msg = msg & vbTab & "The paper margins are: " & vbCrLf & _
+                            vbTab & vbTab & "Left" & vbTab & "(" & MarginLowerLeft(0) & ")" & Measurement & vbCrLf & _
+                            vbTab & vbTab & "Right" & vbTab & "(" & MarginUpperRight(0) & ")" & Measurement & vbCrLf & _
+                            vbTab & vbTab & "Top" & vbTab & "(" & MarginUpperRight(1) & ")" & Measurement & vbCrLf & _
+                            vbTab & vbTab & "Bottom" & vbTab & "(" & MarginLowerLeft(1) & ")" & Measurement & vbCrLf & vbCrLf
+        msg = msg & vbTab & "The paper plot area for this layout is: " & PlotWidth & " X " & PlotHeight & Measurement & vbCrLf
+
+        msg = msg & "_____________________" & vbCrLf
+        
+<PRE CLASS="Code">NEXT_LAYOUT:
+    Next
+    
+    ' Display paper size and margin information
+    MsgBox "Paper plot information for the current drawing is: " & msg
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

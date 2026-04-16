@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>DemandLoadArxApp property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">DemandLoadARXApp Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies whether AutoCAD demand-loads a third-party application if a drawing contains custom objects.</P>
+
+<P CLASS="h1-access"><A HREF="demandloadarxapp_see_also.htm">See Also</A> | <A HREF="ex_demandloadarxapp.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.DemandLoadARXApp
+<P class="element">object</p><p class=element-desc><A HREF='idh_preferencesopensave_object.htm'>PreferencesOpenSave</A><BR>
+The object this property applies to.
+<P class="element">DemandLoadARXApp</p><p class=element-desc>acARXDemandLoad enum; read-write
+<P CLASS="Constant">acDemandLoadDisabled
+<P CLASS="Constant">acDemandLoadOnObjectDetect
+<P CLASS="Constant">acDemandLoadCmdInvoke
+<P CLASS="Constant">acDemandLoadOnObjectDetect + acDemandLoadCmdInvoke
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The value for this property is stored in the <A HREF="ms-its:acad180.chm::/DEMANDLOA.htm">DEMANDLOAD</A> system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value for this property is
+<SPAN CLASS="constant-char">acDemandLoadOnObjectDetect + acDemandLoadCmdInvoke</SPAN>.
+<P CLASS="DefConstHead">acDemandLoadDisabled</P>
+<P CLASS="DefineText">Turns off demand-loading.</P>
+<P CLASS="DefConstHead">acDemandLoadOnObjectDetect</P>
+<P CLASS="DefineText">Demand-loads the source application when you
+open a drawing that contains custom objects. This setting does not
+demand-load the application when you invoke one of the application's
+commands.</P>
+<P CLASS="DefConstHead">acDemandLoadCmdInvoke</P>
+<P CLASS="DefineText">Demand-loads the source application when you invoke one of the
+application's commands. This setting does not demand-load the
+application when you open a drawing that contains custom objects.</P>
+<P CLASS="DefConstHead">acDemandLoadOnObjectDetect + acDemandLoadCmdInvoke</P>
+<P CLASS="DefineText">Demand-loads the source application when you
+open a drawing that contains custom objects or when you invoke one
+of the application's commands.</P>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

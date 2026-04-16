@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SliceSolid method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SliceSolid Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a slice of the 3DSolid object given three points that define the plane.</P>
+
+<P CLASS="h1-access"><A HREF="slicesolid_see_also.htm">See Also</A> | <A HREF="ex_slicesolid.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.SliceSolid(Point1, Point2, Point3, Negative)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_3dsolid_object.htm'>3DSolid</A><BR>
+The object this method applies to.
+<P class="element">Point1</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the first point.
+<P class="element">Point2</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the second point.
+<P class="element">Point3</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the third point.
+<P class="element">Negative</p><p class=element-desc>Boolean; input-only<BR>
+This specifies whether to return the part of the solid that is on the negative side of the plane. If TRUE, then AutoCAD creates a new Acad3DSolid object that contains the portion of the original solid that is on the negative normal side of the plane.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_3dsolid_object.htm'>3DSolid</A> object<BR>
+The resulting slice as a 3DSolid object.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

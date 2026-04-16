@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>Select method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Select Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Selects a cell in a table. </P>
+
+<P CLASS="h1-access"><A HREF="tableobject_see_also.htm">See Also</A> | <A HREF="ex_none.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Select(wpt, wvwVec, wvwxvec, wxaper, wyaper, allowOutside, resultRowIndex, resultColumnIndex)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_Table_Object.htm'>Table</A> <BR>
+The object this method applies to.
+<P class="element">wpt</p><p class=element-desc>Variant<BR>
+3D point in WCS specifying the input pick point.
+<P class="element">wvwVec</p><p class=element-desc>Variant<BR>
+3D vector in WCS specifying the view direction for the hit test.
+<P class="element">wvwxvec</p><p class=element-desc>Variant<BR>
+3D vector in WCS specifying the view orientation for the hit test.
+<P class="element">wxaper</p><p class=element-desc>Double<BR>
+Width of aperture box centered at the hit point for the hit test; reserved for future use.
+<P class="element">wyaper</p><p class=element-desc>Double<BR>
+Height of aperture box centered at the hit point for the hit test; reserved for future use.
+<P class="element">allowOutside</p><p class=element-desc>Boolean<BR>
+Indicates whether a pick point outside the table will select a cell.
+<P class="element">resultRowIndex</p><p class=element-desc>Long<BR>
+Row index of the selected cell.
+<P class="element">resultColumnIndex</p><p class=element-desc>Long<BR>
+Column index of the selected cell.
+
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This function selects a cell in the table by specifying a point, viewing direction, and orientation. The row and column index of the selected cell are returned in resultRowIndex and resultColumnIndex.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

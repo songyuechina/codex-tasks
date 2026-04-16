@@ -1,0 +1,2728 @@
+{
+  "ok": true,
+  "target_file": "D:\\codex-tasks\\cad\\tests\\综合测试_模型目录链3.dwg",
+  "match_mode": "basic",
+  "drawing_no_prefix": "JS-",
+  "catalog_name": "图纸目录",
+  "default_remark": "",
+  "include_model": true,
+  "include_layouts": false,
+  "only_layouts": [],
+  "requested_handles": [],
+  "print_area_count": 32,
+  "print_areas": [
+    {
+      "sequence_no": 1,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "82FE",
+      "paper_code": "A2",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        388727.0,
+        3081652.0,
+        448127.0,
+        3123652.0
+      ],
+      "inner_frame_bbox": [
+        391227.0,
+        3082652.0,
+        447127.0,
+        3122652.0
+      ],
+      "graphic_info_area_bbox": [
+        440127.00000000035,
+        3082652.0,
+        447127.00000000035,
+        3122652.0
+      ],
+      "red_border_area": [
+        440596.47187747393,
+        3085852.0,
+        447127.0,
+        3088676.6450581816
+      ],
+      "green_border_area": [
+        442127.00000000035,
+        3083452.0,
+        447127.00000000035,
+        3084252.0
+      ],
+      "drawing_title": "地下室平面图",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "84AE",
+      "title_block_name": "A2",
+      "title_block_bbox": [
+        440127.00000000035,
+        3082652.0,
+        447127.00000000035,
+        3122652.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "STANDARD",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 2,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "8308",
+      "paper_code": "A2+1/4",
+      "graphic_orientation": "portrait",
+      "print_bbox": [
+        480199.99999999994,
+        3081651.9999999995,
+        522199.99999999994,
+        3155951.9999999995
+      ],
+      "inner_frame_bbox": [
+        481199.99999999994,
+        3082651.9999999995,
+        521199.99999999994,
+        3153451.9999999995
+      ],
+      "graphic_info_area_bbox": [
+        481200.0,
+        3082651.9999999995,
+        521200.0,
+        3089651.9999999995
+      ],
+      "red_border_area": [
+        484400.0,
+        3082652.0,
+        487224.6450581817,
+        3089182.528122526
+      ],
+      "green_border_area": [
+        482000.0,
+        3082651.9999999995,
+        482800.0,
+        3087651.9999999995
+      ],
+      "drawing_title": "大样图、二层平面图、负二层平面图、一层平面图",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "84C8",
+      "title_block_name": "A2",
+      "title_block_bbox": [
+        481200.0,
+        3082651.9999999995,
+        521200.0,
+        3089651.9999999995
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "STANDARD",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 3,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "831B",
+      "paper_code": "A1",
+      "graphic_orientation": "portrait",
+      "print_bbox": [
+        565618.0000000002,
+        3081651.9999999995,
+        595318.0000000002,
+        3123701.9999999995
+      ],
+      "inner_frame_bbox": [
+        566118.0000000002,
+        3082151.9999999995,
+        594818.0000000002,
+        3122451.9999999995
+      ],
+      "graphic_info_area_bbox": [
+        566118.0,
+        3082152.0,
+        594818.0000000015,
+        3085662.4162095315
+      ],
+      "red_border_area": [
+        567718.0,
+        3082162.4162095315,
+        569199.4746889254,
+        3085431.797477446
+      ],
+      "green_border_area": [
+        581903.0000000008,
+        3082503.041620953,
+        593383.0000000014,
+        3085311.3745885785
+      ],
+      "drawing_title": "三层平面图",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "fallback_regex",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "84E2",
+      "title_block_name": "A1",
+      "title_block_bbox": [
+        566118.0,
+        3082152.0,
+        594818.0000000015,
+        3085662.4162095315
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "STANDARD",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 4,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "832D",
+      "paper_code": "A1+1/2",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        628737.0000000028,
+        3081651.9999999995,
+        817887.0000000028,
+        3170751.9999999995
+      ],
+      "inner_frame_bbox": [
+        632487.0000000028,
+        3083151.9999999995,
+        816387.0000000028,
+        3169251.9999999995
+      ],
+      "graphic_info_area_bbox": [
+        805855.7513714073,
+        3083151.9999999995,
+        816387.0000000028,
+        3169252.000000004
+      ],
+      "red_border_area": [
+        806547.6075676645,
+        3087951.9999999995,
+        816355.7513714073,
+        3092396.424066776
+      ],
+      "green_border_area": [
+        806908.8762342668,
+        3087456.9999999995,
+        815333.8751371433,
+        3121897.000000002
+      ],
+      "drawing_title": "正立面图、五层平面图",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "fallback_regex",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "84FC",
+      "title_block_name": "A1",
+      "title_block_bbox": [
+        805855.7513714073,
+        3083151.9999999995,
+        816387.0000000028,
+        3169252.000000004
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "STANDARD",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 5,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "54A6",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        380662.0,
+        3073909.0,
+        380872.0,
+        3074057.5
+      ],
+      "inner_frame_bbox": [
+        380674.5,
+        3073914.0,
+        380867.0,
+        3074052.5
+      ],
+      "graphic_info_area_bbox": [
+        380833.2195121951,
+        3073914.0,
+        380867.0,
+        3074052.5
+      ],
+      "red_border_area": [
+        380835.5620217835,
+        3073929.442508711,
+        380867.0,
+        3073938.8711262406
+      ],
+      "green_border_area": [
+        380842.87108013936,
+        3073917.8606271776,
+        380867.0,
+        3073921.7212543553
+      ],
+      "drawing_title": "纵断面图1",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8516",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        380833.2195121951,
+        3073914.0,
+        380867.0,
+        3074052.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 6,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "54A5",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        380892.0,
+        3073909.0,
+        381102.0,
+        3074057.5
+      ],
+      "inner_frame_bbox": [
+        380904.5,
+        3073914.0,
+        381097.0,
+        3074052.5
+      ],
+      "graphic_info_area_bbox": [
+        381063.2195121951,
+        3073914.0,
+        381097.0,
+        3074052.5
+      ],
+      "red_border_area": [
+        381065.5620217835,
+        3073929.442508711,
+        381097.0,
+        3073938.8711262406
+      ],
+      "green_border_area": [
+        381072.87108013936,
+        3073917.8606271776,
+        381097.0,
+        3073921.7212543553
+      ],
+      "drawing_title": "纵断面图2",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8530",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381063.2195121951,
+        3073914.0,
+        381097.0,
+        3074052.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 7,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "54A4",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381122.0,
+        3073909.0,
+        381332.0,
+        3074057.5
+      ],
+      "inner_frame_bbox": [
+        381134.5,
+        3073914.0,
+        381327.0,
+        3074052.5
+      ],
+      "graphic_info_area_bbox": [
+        381293.2195121951,
+        3073914.0,
+        381327.0,
+        3074052.5
+      ],
+      "red_border_area": [
+        381295.5620217835,
+        3073929.442508711,
+        381327.0,
+        3073938.8711262406
+      ],
+      "green_border_area": [
+        381302.87108013936,
+        3073917.8606271776,
+        381327.0,
+        3073921.7212543553
+      ],
+      "drawing_title": "纵断面图3",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "854A",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381293.2195121951,
+        3073914.0,
+        381327.0,
+        3074052.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 8,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "54A3",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381351.0,
+        3073909.0,
+        381561.0,
+        3074057.5
+      ],
+      "inner_frame_bbox": [
+        381363.5,
+        3073914.0,
+        381556.0,
+        3074052.5
+      ],
+      "graphic_info_area_bbox": [
+        381522.2195121951,
+        3073914.0,
+        381556.0,
+        3074052.5
+      ],
+      "red_border_area": [
+        381524.5620217835,
+        3073929.442508711,
+        381556.0,
+        3073938.8711262406
+      ],
+      "green_border_area": [
+        381531.87108013936,
+        3073917.8606271776,
+        381556.0,
+        3073921.7212543553
+      ],
+      "drawing_title": "纵断面图4",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8564",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381522.2195121951,
+        3073914.0,
+        381556.0,
+        3074052.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 9,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "54A2",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381587.0,
+        3073909.0,
+        381797.0,
+        3074057.5
+      ],
+      "inner_frame_bbox": [
+        381599.5,
+        3073914.0,
+        381792.0,
+        3074052.5
+      ],
+      "graphic_info_area_bbox": [
+        381758.2195121951,
+        3073914.0,
+        381792.0,
+        3074052.5
+      ],
+      "red_border_area": [
+        381760.5620217835,
+        3073929.442508711,
+        381792.0,
+        3073938.8711262406
+      ],
+      "green_border_area": [
+        381767.87108013936,
+        3073917.8606271776,
+        381792.0,
+        3073921.7212543553
+      ],
+      "drawing_title": "纵断面图5",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "857E",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381758.2195121951,
+        3073914.0,
+        381792.0,
+        3074052.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 10,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "54A1",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381825.0,
+        3073909.0,
+        382035.0,
+        3074057.5
+      ],
+      "inner_frame_bbox": [
+        381837.5,
+        3073914.0,
+        382030.0,
+        3074052.5
+      ],
+      "graphic_info_area_bbox": [
+        381996.2195121951,
+        3073914.0,
+        382030.0,
+        3074052.5
+      ],
+      "red_border_area": [
+        381998.5620217835,
+        3073929.442508711,
+        382030.0,
+        3073938.8711262406
+      ],
+      "green_border_area": [
+        382005.87108013936,
+        3073917.8606271776,
+        382030.0,
+        3073921.7212543553
+      ],
+      "drawing_title": "纵断面图6",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8598",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381996.2195121951,
+        3073914.0,
+        382030.0,
+        3074052.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 11,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "54A0",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382054.0,
+        3073908.0,
+        382264.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        382066.5,
+        3073913.0,
+        382259.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        382225.2195121951,
+        3073913.0,
+        382259.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        382227.5620217835,
+        3073928.442508711,
+        382259.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        382234.87108013936,
+        3073916.8606271776,
+        382259.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图7",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "85B2",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382225.2195121951,
+        3073913.0,
+        382259.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 12,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "549F",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382287.0,
+        3073908.0,
+        382497.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        382299.5,
+        3073913.0,
+        382492.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        382458.2195121951,
+        3073913.0,
+        382492.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        382460.5620217835,
+        3073928.442508711,
+        382492.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        382467.87108013936,
+        3073916.8606271776,
+        382492.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图8",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "85CC",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382458.2195121951,
+        3073913.0,
+        382492.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 13,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "549E",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382515.0,
+        3073908.0,
+        382725.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        382527.5,
+        3073913.0,
+        382720.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        382686.2195121951,
+        3073913.0,
+        382720.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        382688.5620217835,
+        3073928.442508711,
+        382720.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        382695.87108013936,
+        3073916.8606271776,
+        382720.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图9",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "85E6",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382686.2195121951,
+        3073913.0,
+        382720.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 14,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "549D",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382746.0,
+        3073908.0,
+        382956.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        382758.5,
+        3073913.0,
+        382951.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        382917.2195121951,
+        3073913.0,
+        382951.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        382919.5620217835,
+        3073928.442508711,
+        382951.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        382926.87108013936,
+        3073916.8606271776,
+        382951.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图10",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8600",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382917.2195121951,
+        3073913.0,
+        382951.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 15,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "549C",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382968.0,
+        3073908.0,
+        383178.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        382980.5,
+        3073913.0,
+        383173.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        383139.2195121951,
+        3073913.0,
+        383173.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        383141.5620217835,
+        3073928.442508711,
+        383173.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        383148.87108013936,
+        3073916.8606271776,
+        383173.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图11",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "861A",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        383139.2195121951,
+        3073913.0,
+        383173.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 16,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "548F",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        383205.0,
+        3073908.0,
+        383415.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        383217.5,
+        3073913.0,
+        383410.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        383376.2195121951,
+        3073913.0,
+        383410.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        383378.5620217835,
+        3073928.442508711,
+        383410.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        383385.87108013936,
+        3073916.8606271776,
+        383410.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图12",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8634",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        383376.2195121951,
+        3073913.0,
+        383410.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 17,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "548E",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        383434.0,
+        3073908.0,
+        383644.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        383446.5,
+        3073913.0,
+        383639.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        383605.2195121951,
+        3073913.0,
+        383639.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        383607.5620217835,
+        3073928.442508711,
+        383639.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        383614.87108013936,
+        3073916.8606271776,
+        383639.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图13",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "864E",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        383605.2195121951,
+        3073913.0,
+        383639.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 18,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "548D",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        383667.0,
+        3073908.0,
+        383877.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        383679.5,
+        3073913.0,
+        383872.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        383838.2195121951,
+        3073913.0,
+        383872.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        383840.5620217835,
+        3073928.442508711,
+        383872.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        383847.87108013936,
+        3073916.8606271776,
+        383872.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图14",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8668",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        383838.2195121951,
+        3073913.0,
+        383872.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 19,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "548C",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        383895.0,
+        3073908.0,
+        384105.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        383907.5,
+        3073913.0,
+        384100.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        384066.2195121951,
+        3073913.0,
+        384100.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        384068.5620217835,
+        3073928.442508711,
+        384100.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        384075.87108013936,
+        3073916.8606271776,
+        384100.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图15",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8682",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        384066.2195121951,
+        3073913.0,
+        384100.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 20,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "548B",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        384126.0,
+        3073908.0,
+        384336.0,
+        3074056.5
+      ],
+      "inner_frame_bbox": [
+        384138.5,
+        3073913.0,
+        384331.0,
+        3074051.5
+      ],
+      "graphic_info_area_bbox": [
+        384297.2195121951,
+        3073913.0,
+        384331.0,
+        3074051.5
+      ],
+      "red_border_area": [
+        384299.5620217835,
+        3073928.442508711,
+        384331.0,
+        3073937.8711262406
+      ],
+      "green_border_area": [
+        384306.87108013936,
+        3073916.8606271776,
+        384331.0,
+        3073920.7212543553
+      ],
+      "drawing_title": "纵断面图16",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "869C",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        384297.2195121951,
+        3073913.0,
+        384331.0,
+        3074051.5
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 21,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "549B",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        380662.0,
+        3073712.5,
+        380872.0,
+        3073861.0
+      ],
+      "inner_frame_bbox": [
+        380674.5,
+        3073717.5,
+        380867.0,
+        3073856.0
+      ],
+      "graphic_info_area_bbox": [
+        380833.2195121951,
+        3073717.5,
+        380867.0,
+        3073856.0
+      ],
+      "red_border_area": [
+        380835.5620217835,
+        3073732.942508711,
+        380867.0,
+        3073742.3711262406
+      ],
+      "green_border_area": [
+        380842.87108013936,
+        3073721.3606271776,
+        380867.0,
+        3073725.2212543553
+      ],
+      "drawing_title": "纵断面图17",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "86B6",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        380833.2195121951,
+        3073717.5,
+        380867.0,
+        3073856.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 22,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "549A",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        380892.0,
+        3073712.5,
+        381102.0,
+        3073861.0
+      ],
+      "inner_frame_bbox": [
+        380904.5,
+        3073717.5,
+        381097.0,
+        3073856.0
+      ],
+      "graphic_info_area_bbox": [
+        381063.2195121951,
+        3073717.5,
+        381097.0,
+        3073856.0
+      ],
+      "red_border_area": [
+        381065.5620217835,
+        3073732.942508711,
+        381097.0,
+        3073742.3711262406
+      ],
+      "green_border_area": [
+        381072.87108013936,
+        3073721.3606271776,
+        381097.0,
+        3073725.2212543553
+      ],
+      "drawing_title": "纵断面图18",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "86D1",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381063.2195121951,
+        3073717.5,
+        381097.0,
+        3073856.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 23,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5499",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381122.0,
+        3073712.5,
+        381332.0,
+        3073861.0
+      ],
+      "inner_frame_bbox": [
+        381134.5,
+        3073717.5,
+        381327.0,
+        3073856.0
+      ],
+      "graphic_info_area_bbox": [
+        381293.2195121951,
+        3073717.5,
+        381327.0,
+        3073856.0
+      ],
+      "red_border_area": [
+        381295.5620217835,
+        3073732.942508711,
+        381327.0,
+        3073742.3711262406
+      ],
+      "green_border_area": [
+        381302.87108013936,
+        3073721.3606271776,
+        381327.0,
+        3073725.2212543553
+      ],
+      "drawing_title": "纵断面图19",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "86EB",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381293.2195121951,
+        3073717.5,
+        381327.0,
+        3073856.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 24,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5498",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381351.0,
+        3073712.5,
+        381561.0,
+        3073861.0
+      ],
+      "inner_frame_bbox": [
+        381363.5,
+        3073717.5,
+        381556.0,
+        3073856.0
+      ],
+      "graphic_info_area_bbox": [
+        381522.2195121951,
+        3073717.5,
+        381556.0,
+        3073856.0
+      ],
+      "red_border_area": [
+        381524.5620217835,
+        3073732.942508711,
+        381556.0,
+        3073742.3711262406
+      ],
+      "green_border_area": [
+        381531.87108013936,
+        3073721.3606271776,
+        381556.0,
+        3073725.2212543553
+      ],
+      "drawing_title": "纵断面图20",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8705",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381522.2195121951,
+        3073717.5,
+        381556.0,
+        3073856.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 25,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5497",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381587.0,
+        3073712.5,
+        381797.0,
+        3073861.0
+      ],
+      "inner_frame_bbox": [
+        381599.5,
+        3073717.5,
+        381792.0,
+        3073856.0
+      ],
+      "graphic_info_area_bbox": [
+        381758.2195121951,
+        3073717.5,
+        381792.0,
+        3073856.0
+      ],
+      "red_border_area": [
+        381760.5620217835,
+        3073732.942508711,
+        381792.0,
+        3073742.3711262406
+      ],
+      "green_border_area": [
+        381767.87108013936,
+        3073721.3606271776,
+        381792.0,
+        3073725.2212543553
+      ],
+      "drawing_title": "纵断面图21",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "871F",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381758.2195121951,
+        3073717.5,
+        381792.0,
+        3073856.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 26,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5496",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        381825.0,
+        3073712.5,
+        382035.0,
+        3073861.0
+      ],
+      "inner_frame_bbox": [
+        381837.5,
+        3073717.5,
+        382030.0,
+        3073856.0
+      ],
+      "graphic_info_area_bbox": [
+        381996.2195121951,
+        3073717.5,
+        382030.0,
+        3073856.0
+      ],
+      "red_border_area": [
+        381998.5620217835,
+        3073732.942508711,
+        382030.0,
+        3073742.3711262406
+      ],
+      "green_border_area": [
+        382005.87108013936,
+        3073721.3606271776,
+        382030.0,
+        3073725.2212543553
+      ],
+      "drawing_title": "纵断面图22",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8739",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        381996.2195121951,
+        3073717.5,
+        382030.0,
+        3073856.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 27,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5495",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382054.0,
+        3073711.5,
+        382264.0,
+        3073860.0
+      ],
+      "inner_frame_bbox": [
+        382066.5,
+        3073716.5,
+        382259.0,
+        3073855.0
+      ],
+      "graphic_info_area_bbox": [
+        382225.2195121951,
+        3073716.5,
+        382259.0,
+        3073855.0
+      ],
+      "red_border_area": [
+        382227.5620217835,
+        3073731.942508711,
+        382259.0,
+        3073741.3711262406
+      ],
+      "green_border_area": [
+        382234.87108013936,
+        3073720.3606271776,
+        382259.0,
+        3073724.2212543553
+      ],
+      "drawing_title": "纵断面图23",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8753",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382225.2195121951,
+        3073716.5,
+        382259.0,
+        3073855.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 28,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5494",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382287.0,
+        3073711.5,
+        382497.0,
+        3073860.0
+      ],
+      "inner_frame_bbox": [
+        382299.5,
+        3073716.5,
+        382492.0,
+        3073855.0
+      ],
+      "graphic_info_area_bbox": [
+        382458.2195121951,
+        3073716.5,
+        382492.0,
+        3073855.0
+      ],
+      "red_border_area": [
+        382460.5620217835,
+        3073731.942508711,
+        382492.0,
+        3073741.3711262406
+      ],
+      "green_border_area": [
+        382467.87108013936,
+        3073720.3606271776,
+        382492.0,
+        3073724.2212543553
+      ],
+      "drawing_title": "纵断面图24",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "876D",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382458.2195121951,
+        3073716.5,
+        382492.0,
+        3073855.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 29,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5493",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382515.0,
+        3073711.5,
+        382725.0,
+        3073860.0
+      ],
+      "inner_frame_bbox": [
+        382527.5,
+        3073716.5,
+        382720.0,
+        3073855.0
+      ],
+      "graphic_info_area_bbox": [
+        382686.2195121951,
+        3073716.5,
+        382720.0,
+        3073855.0
+      ],
+      "red_border_area": [
+        382688.5620217835,
+        3073731.942508711,
+        382720.0,
+        3073741.3711262406
+      ],
+      "green_border_area": [
+        382695.87108013936,
+        3073720.3606271776,
+        382720.0,
+        3073724.2212543553
+      ],
+      "drawing_title": "纵断面图25",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "8787",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382686.2195121951,
+        3073716.5,
+        382720.0,
+        3073855.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 30,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5492",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382746.0,
+        3073711.5,
+        382956.0,
+        3073860.0
+      ],
+      "inner_frame_bbox": [
+        382758.5,
+        3073716.5,
+        382951.0,
+        3073855.0
+      ],
+      "graphic_info_area_bbox": [
+        382917.2195121951,
+        3073716.5,
+        382951.0,
+        3073855.0
+      ],
+      "red_border_area": [
+        382919.5620217835,
+        3073731.942508711,
+        382951.0,
+        3073741.3711262406
+      ],
+      "green_border_area": [
+        382926.87108013936,
+        3073720.3606271776,
+        382951.0,
+        3073724.2212543553
+      ],
+      "drawing_title": "纵断面图26",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "87A1",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        382917.2195121951,
+        3073716.5,
+        382951.0,
+        3073855.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 31,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5491",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        382968.0,
+        3073711.5,
+        383178.0,
+        3073860.0
+      ],
+      "inner_frame_bbox": [
+        382980.5,
+        3073716.5,
+        383173.0,
+        3073855.0
+      ],
+      "graphic_info_area_bbox": [
+        383139.2195121951,
+        3073716.5,
+        383173.0,
+        3073855.0
+      ],
+      "red_border_area": [
+        383141.5620217835,
+        3073731.942508711,
+        383173.0,
+        3073741.3711262406
+      ],
+      "green_border_area": [
+        383148.87108013936,
+        3073720.3606271776,
+        383173.0,
+        3073724.2212543553
+      ],
+      "drawing_title": "纵断面图27",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "87BB",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        383139.2195121951,
+        3073716.5,
+        383173.0,
+        3073855.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    },
+    {
+      "sequence_no": 32,
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "print_handle": "5490",
+      "paper_code": "A3",
+      "graphic_orientation": "landscape",
+      "print_bbox": [
+        383196.0,
+        3073711.5,
+        383406.0,
+        3073860.0
+      ],
+      "inner_frame_bbox": [
+        383208.5,
+        3073716.5,
+        383401.0,
+        3073855.0
+      ],
+      "graphic_info_area_bbox": [
+        383367.2195121951,
+        3073716.5,
+        383401.0,
+        3073855.0
+      ],
+      "red_border_area": [
+        383369.5620217835,
+        3073731.942508711,
+        383401.0,
+        3073741.3711262406
+      ],
+      "green_border_area": [
+        383376.87108013936,
+        3073720.3606271776,
+        383401.0,
+        3073724.2212543553
+      ],
+      "drawing_title": "纵断面图28",
+      "drawing_no": "JS-A2",
+      "drawing_title_source": "tdb_drawing_name",
+      "drawing_no_source": "guide_rectangles",
+      "drawing_title_records": [],
+      "drawing_no_records": [],
+      "graphic_info_text_records": [],
+      "classified_text_records": [],
+      "title_block_handle": "87D5",
+      "title_block_name": "A3",
+      "title_block_bbox": [
+        383367.2195121951,
+        3073716.5,
+        383401.0,
+        3073855.0
+      ],
+      "title_block_kind": "attribute_block",
+      "title_style": {
+        "style": "宋体",
+        "height": 7.0
+      },
+      "number_style": {
+        "style": "Standard",
+        "height": 350.0
+      }
+    }
+  ],
+  "scope_suffix": "model",
+  "entries": [
+    {
+      "sequence_no": "01",
+      "drawing_title": "图纸目录",
+      "drawing_no": "JS-00",
+      "paper_code": "A2",
+      "remark": "",
+      "source_print_handle": "",
+      "kind": "catalog_header"
+    },
+    {
+      "sequence_no": "02",
+      "drawing_title": "地下室平面图",
+      "drawing_no": "JS-01",
+      "paper_code": "A2",
+      "remark": "",
+      "source_print_handle": "82FE",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "03",
+      "drawing_title": "大样图、二层平面图、负二层平面图、一层平面图",
+      "drawing_no": "JS-02",
+      "paper_code": "A2+1/4",
+      "remark": "",
+      "source_print_handle": "8308",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "04",
+      "drawing_title": "三层平面图",
+      "drawing_no": "JS-03",
+      "paper_code": "A1",
+      "remark": "",
+      "source_print_handle": "831B",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "05",
+      "drawing_title": "正立面图、五层平面图",
+      "drawing_no": "JS-04",
+      "paper_code": "A1+1/2",
+      "remark": "",
+      "source_print_handle": "832D",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "06",
+      "drawing_title": "纵断面图1",
+      "drawing_no": "JS-05",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "54A6",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "07",
+      "drawing_title": "纵断面图2",
+      "drawing_no": "JS-06",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "54A5",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "08",
+      "drawing_title": "纵断面图3",
+      "drawing_no": "JS-07",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "54A4",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "09",
+      "drawing_title": "纵断面图4",
+      "drawing_no": "JS-08",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "54A3",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "10",
+      "drawing_title": "纵断面图5",
+      "drawing_no": "JS-09",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "54A2",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "11",
+      "drawing_title": "纵断面图6",
+      "drawing_no": "JS-10",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "54A1",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "12",
+      "drawing_title": "纵断面图7",
+      "drawing_no": "JS-11",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "54A0",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "13",
+      "drawing_title": "纵断面图8",
+      "drawing_no": "JS-12",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "549F",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "14",
+      "drawing_title": "纵断面图9",
+      "drawing_no": "JS-13",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "549E",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "15",
+      "drawing_title": "纵断面图10",
+      "drawing_no": "JS-14",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "549D",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "16",
+      "drawing_title": "纵断面图11",
+      "drawing_no": "JS-15",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "549C",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "17",
+      "drawing_title": "纵断面图12",
+      "drawing_no": "JS-16",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "548F",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "18",
+      "drawing_title": "纵断面图13",
+      "drawing_no": "JS-17",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "548E",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "19",
+      "drawing_title": "纵断面图14",
+      "drawing_no": "JS-18",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "548D",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "20",
+      "drawing_title": "纵断面图15",
+      "drawing_no": "JS-19",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "548C",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "21",
+      "drawing_title": "纵断面图16",
+      "drawing_no": "JS-20",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "548B",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "22",
+      "drawing_title": "纵断面图17",
+      "drawing_no": "JS-21",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "549B",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "23",
+      "drawing_title": "纵断面图18",
+      "drawing_no": "JS-22",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "549A",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "24",
+      "drawing_title": "纵断面图19",
+      "drawing_no": "JS-23",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5499",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "25",
+      "drawing_title": "纵断面图20",
+      "drawing_no": "JS-24",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5498",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "26",
+      "drawing_title": "纵断面图21",
+      "drawing_no": "JS-25",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5497",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "27",
+      "drawing_title": "纵断面图22",
+      "drawing_no": "JS-26",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5496",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "28",
+      "drawing_title": "纵断面图23",
+      "drawing_no": "JS-27",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5495",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "29",
+      "drawing_title": "纵断面图24",
+      "drawing_no": "JS-28",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5494",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "30",
+      "drawing_title": "纵断面图25",
+      "drawing_no": "JS-29",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5493",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "31",
+      "drawing_title": "纵断面图26",
+      "drawing_no": "JS-30",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5492",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "32",
+      "drawing_title": "纵断面图27",
+      "drawing_no": "JS-31",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5491",
+      "kind": "drawing"
+    },
+    {
+      "sequence_no": "33",
+      "drawing_title": "纵断面图28",
+      "drawing_no": "JS-32",
+      "paper_code": "A3",
+      "remark": "",
+      "source_print_handle": "5490",
+      "kind": "drawing"
+    }
+  ],
+  "catalogue_write": {
+    "catalogue_path": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\compile_catalogue\\user_directory\\综合测试_模型目录链3_model_目录.dwg",
+    "entry_count": 33,
+    "used_second_page": false,
+    "cleared_handles": [],
+    "written_handles": [
+      "3E4",
+      "3E5",
+      "3E6",
+      "3E7",
+      "3E8",
+      "3E9",
+      "3EA",
+      "3EB",
+      "3EC",
+      "3ED",
+      "3EE",
+      "3EF",
+      "3F0",
+      "3F1",
+      "3F2",
+      "3F3",
+      "3F4",
+      "3F5",
+      "3F6",
+      "3F7",
+      "3F8",
+      "3F9",
+      "3FA",
+      "3FB",
+      "3FC",
+      "3FD",
+      "3FE",
+      "3FF",
+      "400",
+      "401",
+      "402",
+      "403",
+      "404",
+      "405",
+      "406",
+      "407",
+      "408",
+      "409",
+      "40A",
+      "40B",
+      "40C",
+      "40D",
+      "40E",
+      "40F",
+      "410",
+      "411",
+      "412",
+      "413",
+      "414",
+      "415",
+      "416",
+      "417",
+      "418",
+      "419",
+      "41A",
+      "41B",
+      "41C",
+      "41D",
+      "41E",
+      "41F",
+      "420",
+      "421",
+      "422",
+      "423",
+      "424",
+      "425",
+      "426",
+      "427",
+      "428",
+      "429",
+      "42A",
+      "42B",
+      "42C",
+      "42D",
+      "42E",
+      "42F",
+      "430",
+      "431",
+      "432",
+      "433",
+      "434",
+      "435",
+      "436",
+      "437",
+      "438",
+      "439",
+      "43A",
+      "43B",
+      "43C",
+      "43D",
+      "43E",
+      "43F",
+      "440",
+      "441",
+      "442",
+      "443",
+      "444",
+      "445",
+      "446",
+      "447",
+      "448",
+      "449",
+      "44A",
+      "44B",
+      "44C",
+      "44D",
+      "44E",
+      "44F",
+      "450",
+      "451",
+      "452",
+      "453",
+      "454",
+      "455",
+      "456",
+      "457",
+      "458",
+      "459",
+      "45A",
+      "45B",
+      "45C",
+      "45D",
+      "45E",
+      "45F",
+      "460",
+      "461",
+      "462",
+      "463",
+      "464",
+      "465",
+      "466",
+      "467"
+    ]
+  },
+  "catalogue_finalize": {
+    "pages": [
+      {
+        "handle": "15",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "print_bbox": [
+          200099.54501951183,
+          -284511.98638494307,
+          259499.54501951183,
+          -242511.98638494307
+        ],
+        "paper_code": "A2",
+        "media": "ISO_A2_(594.00_x_420.00_MM)",
+        "sequence_no": 1
+      }
+    ],
+    "page_count": 1,
+    "trimmed_second_page": true,
+    "deleted_second_page": {
+      "handle": "13",
+      "owner_btr": "*MODEL_SPACE",
+      "bbox": [
+        271835.40896220575,
+        -284511.98638494307,
+        331235.40896220575,
+        -242511.98638494307
+      ],
+      "deleted_handle_count": 104
+    },
+    "deleted_handles": [
+      "13",
+      "16",
+      "17",
+      "18",
+      "19",
+      "1A",
+      "1B",
+      "1C",
+      "A4",
+      "A5",
+      "A6",
+      "A7",
+      "A8",
+      "A9",
+      "AA",
+      "AB",
+      "AC",
+      "AD",
+      "AE",
+      "AF",
+      "B0",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "B7",
+      "B8",
+      "B9",
+      "BA",
+      "BB",
+      "BC",
+      "BD",
+      "BE",
+      "BF",
+      "C0",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "CA",
+      "CB",
+      "CC",
+      "CD",
+      "CE",
+      "CF",
+      "D0",
+      "D1",
+      "D2",
+      "D3",
+      "D4",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "DA",
+      "DB",
+      "DC",
+      "DD",
+      "DE",
+      "DF",
+      "E0",
+      "E1",
+      "E2",
+      "E3",
+      "E4",
+      "E5",
+      "E6",
+      "E7",
+      "E8",
+      "E9",
+      "EA",
+      "EB",
+      "EC",
+      "ED",
+      "EE",
+      "EF",
+      "F0",
+      "F1",
+      "F2",
+      "F3",
+      "F4",
+      "F5",
+      "F6",
+      "F7",
+      "F8",
+      "F9",
+      "154",
+      "155",
+      "156",
+      "157",
+      "158",
+      "159",
+      "15A",
+      "15B",
+      "15C",
+      "15D"
+    ]
+  },
+  "catalogue_attach": {
+    "ok": true,
+    "skipped": false,
+    "target_layout_name": "model",
+    "target_owner_btr": "*MODEL_SPACE",
+    "gap": 7425.0,
+    "inserted_pages": [
+      {
+        "source_handle": "15",
+        "inserted": true,
+        "source_bbox": [
+          200099.54501951183,
+          -284511.98638494307,
+          259499.54501951183,
+          -242511.98638494307
+        ],
+        "destination_bbox": [
+          321902.0,
+          3081652.0,
+          381302.0,
+          3123652.0
+        ],
+        "copied_count": 91,
+        "moved_handles": [
+          "A562",
+          "A564",
+          "A569",
+          "A56B",
+          "A56C",
+          "A56D",
+          "A56E",
+          "A56F",
+          "A570",
+          "A571",
+          "A572",
+          "A573",
+          "A574",
+          "A575",
+          "A576",
+          "A577",
+          "A579",
+          "A57A",
+          "A57B",
+          "A57C",
+          "A57D",
+          "A57E",
+          "A57F",
+          "A580",
+          "A581",
+          "A582",
+          "A583",
+          "A584",
+          "A585",
+          "A587",
+          "A588",
+          "A58A",
+          "A58B",
+          "A58C",
+          "A58D",
+          "A58E",
+          "A58F",
+          "A590",
+          "A591",
+          "A592",
+          "A593",
+          "A594",
+          "A595",
+          "A596",
+          "A597",
+          "A598",
+          "A599",
+          "A59A",
+          "A59B",
+          "A59C",
+          "A59D",
+          "A59E",
+          "A59F",
+          "A5A0",
+          "A5A1",
+          "A5A2",
+          "A5A3",
+          "A5A4",
+          "A5A5",
+          "A5A6",
+          "A5A7",
+          "A5A8",
+          "A5A9",
+          "A5AA",
+          "A5AB",
+          "A5AC",
+          "A5AD",
+          "A5AE",
+          "A5AF",
+          "A5B0",
+          "A5B1",
+          "A5B2",
+          "A5B3",
+          "A5B4",
+          "A5B5",
+          "A5B6",
+          "A5B7",
+          "A5B8",
+          "A5B9",
+          "A5BA",
+          "A5BB",
+          "A5BC",
+          "A5BD",
+          "A5BE",
+          "A5BF",
+          "A5C0",
+          "A5C1",
+          "A5C2",
+          "A5C3",
+          "A5FD",
+          "A601"
+        ]
+      }
+    ]
+  },
+  "catalogue_file": "D:\\codex-tasks\\cad\\scripts\\drawing_basic_service\\compile_catalogue\\user_directory\\综合测试_模型目录链3_model_目录.dwg"
+}

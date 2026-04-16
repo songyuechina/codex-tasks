@@ -1,0 +1,1898 @@
+<!DOCTYPE html
+  PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+   <HEAD>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso8859-1">
+      <meta name="GENERATOR" content="Microsoft HTML Help Workshop 4.1">
+      <title>TOC</title>
+   </HEAD>
+   <BODY>
+      <UL>
+         <!-- TOC BEGIN -->
+         <li><object type="text/sitemap">
+               <param name="Name" value="ActiveX Developer's Guide (ActiveX/VBA)">
+               <param name="Local" value="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm"></object></li>
+         <ul></ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Introduction">
+               <param name="Local" value="topichead_0.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About the AutoCAD ActiveX Technology (ActiveX)">
+                  <param name="Local" value="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About the AutoCAD Visual Basic for Applications Interface (VBA/ActiveX)">
+                  <param name="Local" value="GUID-AAF6095B-ABF9-4063-991E-7C0F58B36401.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About How VBA Is Implemented in AutoCAD (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1A810BBD-8B23-4C91-A1CA-7875FBF5C1A4.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Using ActiveX Automation with the Microsoft .NET Framework (ActiveX)">
+                        <param name="Local" value="GUID-D1E1CE43-F42B-4D8E-9B42-FDA9D8CCB6B9.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)">
+                     <param name="Local" value="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Using AutoCAD ActiveX and VBA Together (VBA/ActiveX)">
+                  <param name="Local" value="GUID-AA5D86AC-4EAB-483C-994D-2D01CECA028F.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About the Organization of the ActiveX Documentation (ActiveX)">
+                  <param name="Local" value="GUID-17DB37A2-FA71-4351-B88B-61456570E767.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Sample Code (VBA/ActiveX)">
+                  <param name="Local" value="GUID-6F91436B-7B46-42A2-9BB0-22F78448BD94.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="To Run the Examples from the AutoCAD Help System (VBA/ActiveX)">
+                     <param name="Local" value="GUID-F9BABEF5-3E0E-4654-A410-3149F9E83771.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Migrating Automation Projects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About the ActiveX API History (ActiveX)">
+                  <param name="Local" value="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2021 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-D0D0AB15-2082-44D0-B8FF-3340079E6B45.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2020 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-DB25C076-E0A1-4C41-9F97-B718F15639CF.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2019 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-7F0BA7E5-7C9C-4E7E-9BBC-3DCD0E4A2EAA.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2018 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-04B5A49A-96B3-4CE1-9AED-7C3DE85225F5.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2017 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-CE8D6107-6E5F-41F8-A8B6-7C4BD600FC1C.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2016 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-27CC4D9B-D1AB-4EEE-9B23-F3117B6601DE.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2015 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-6FEDBCCA-91D0-4782-AE5A-49BD4384FD8C.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2014 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-CC2CA4F5-9730-45D1-9404-FC71B2760391.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2013 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-4EB45B9F-9C4D-439A-AFCA-AACD2616B85B.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2012 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-E778C675-47B3-4623-868E-E863519267A9.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2011 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-E05225CF-89D7-463D-A3BA-A38A52600760.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2010 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-637BD93E-EB14-4B83-A7F6-28197857B8D0.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2009 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-694FF5D1-C5E9-4B6E-8292-B8B2F3FFE75F.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2008 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-95D92244-7CC8-46A7-88AB-C5755EF779FE.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2007 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-CC6BE90C-5ABE-4DE5-9390-B36FDCFF798B.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2006 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-44EFF8B3-9713-45A6-9CDE-4215FF02E286.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2005 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-4570302D-8416-402B-902C-5948068B4B7E.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2004 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-82A124B3-1F6D-44EF-A3AE-CA269A5BC5CB.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2002 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-4483C941-5519-4E12-A1C1-8BB845535E5C.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2000i API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-1F38DE80-3338-49DE-A16F-CADD62E4D80B.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="AutoCAD 2000 API History Reference (ActiveX)">
+                     <param name="Local" value="GUID-75B59871-39AA-4577-8075-5522D589DABA.htm"></object></li>
+               <ul></ul>
+            </ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Getting Started with VBA">
+               <param name="Local" value="topichead_1.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Embedded and Global VBA Projects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-3117C11D-260C-4DBB-8FB6-0E2E4A9D8E77.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Organizing Your Projects with the VBA Manager (ActiveX)">
+                  <param name="Local" value="GUID-3ABD7E06-C8F2-47D9-AD7E-EC6299B21621.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Loading an Existing Project">
+                     <param name="Local" value="GUID-111015FB-FE60-43D8-8206-0A13600C987C.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Virus Alerts (VBA/ActiveX)">
+                        <param name="Local" value="GUID-9772DB82-C4C4-4E55-A14C-63EB47626157.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Load an Existing VBA Project File (VBA/ActiveX)">
+                        <param name="Local" value="GUID-2D469EC0-DA85-4F18-BCC6-D256519AF30C.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Unloading a Project (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D60F3066-95AB-484A-9083-847B8E846672.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Unload a VBA Project (VBA/ActiveX)">
+                        <param name="Local" value="GUID-C35D46E5-3E39-4BCC-9C3D-282BBF6E7115.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Embedding a Project into a Drawing (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9975AAE8-F376-4CE6-A6A0-8CE86D938722.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Embed a Project in an AutoCAD Drawing (VBA/ActiveX)">
+                        <param name="Local" value="GUID-D7EB028F-3389-4048-9BF2-122BE0F65A3B.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Extracting a Project from a Drawing (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D9F88961-251A-4D5B-97DE-30E92219238B.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Extract a Project from an AutoCAD Drawing (VBA/ActiveX)">
+                        <param name="Local" value="GUID-D2A16B31-CCC3-4332-85AE-C6FE12D7650A.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating a New Project (VBA/ActiveX)">
+                     <param name="Local" value="GUID-58AEEF48-8D28-4BE8-826F-A9E730285789.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Create a New VBA Project (VBA/ActiveX)">
+                        <param name="Local" value="GUID-1E4B50D2-369F-47AF-B5D9-981A51D191B1.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="Saving Your Project (VBA/ActiveX)">
+                     <param name="Local" value="GUID-3E56779A-04B4-4FA8-B6DF-854287351D03.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Save a Project Using the VBA Manager (VBA/ActiveX)">
+                        <param name="Local" value="GUID-35C20DAA-4F68-424E-BD17-645C992C866D.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="To Open the VBA Manager (VBA/ActiveX)">
+                     <param name="Local" value="GUID-F69A7E47-3F3B-4D2E-A5D9-03DA93936A67.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Handling Your Macros (VBA/ActiveX)">
+                  <param name="Local" value="GUID-A6AC5AD4-F37C-4F08-90B5-0117FCCFB325.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using the Macros Dialog Box (VBA/ActiveX)">
+                     <param name="Local" value="GUID-DD968EB1-6DED-44D4-9956-9E8B843FBA1B.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Create a New Macro (VBA/ActiveX)">
+                        <param name="Local" value="GUID-F2812C2C-54D8-489E-9CF9-22E30FC969BE.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Delete a Macro (VBA/ActiveX)">
+                        <param name="Local" value="GUID-2AAADF2C-A1B2-4746-9EEB-D6F1B521B7E2.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Running a Macro (VBA/Active)">
+                     <param name="Local" value="GUID-E8D43826-2BFA-44ED-8699-6B57AC9BD42C.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Run a Macro from the Macros Dialog Box (VBA/ActiveX)">
+                        <param name="Local" value="GUID-329CE95B-61A4-4EC4-A9CB-BE342F1BDCFA.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Run a Macro from the VBA IDE (VBA/ActiveX)">
+                        <param name="Local" value="GUID-C02E8DB0-C466-4B23-A0CD-D130EF00AE35.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing a Macro (VBA/ActiveX)">
+                     <param name="Local" value="GUID-574C7008-2292-48B6-B814-C2F90888AA99.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Edit a Macro (VBA/ActiveX)">
+                        <param name="Local" value="GUID-D6BCDA33-9F6F-41EE-882B-97D9EC1E5762.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Stepping into a Macro (VBA/ActiveX)">
+                     <param name="Local" value="GUID-8CEAD3C3-8773-4569-8B6F-D57E7A2B9151.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Step into a Macro (VBA/ActiveX)">
+                        <param name="Local" value="GUID-8A1324E8-5325-4968-9020-56B0F5D3CC7C.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Setting Project Options (VBA/ActiveX)">
+                     <param name="Local" value="GUID-93E88BA7-4152-4CF0-A845-A295DEB85A8F.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Set the AutoCAD VBA Project Options (VBA/ActiveX)">
+                        <param name="Local" value="GUID-9A39B901-BD25-4933-8938-E2CC9147AA94.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Editing Your Projects with the VBA IDE (VBA/ActiveX)">
+                  <param name="Local" value="GUID-CDCFDC45-65FF-4476-9E99-3B5F8247CDC0.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Viewing Project Information (VBA/ActiveX)">
+                     <param name="Local" value="GUID-58D1A06A-2F6F-4F19-A83D-8434113D4CCA.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Defining the Components in a Project (VBA/ActiveX)">
+                     <param name="Local" value="GUID-ED8E50A7-8CDB-4123-8090-80D69DC79CAC.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Importing Existing Components (VBA/ActiveX)">
+                     <param name="Local" value="GUID-36065C5D-F7B3-4941-AB33-77BA38857DC8.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Import an Existing Component into a Project (VBA/ActiveX)">
+                        <param name="Local" value="GUID-0E430CD9-5BB8-4E57-8C60-DBEB90B39B38.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing Components (VBA/ActiveX)">
+                     <param name="Local" value="GUID-385E095E-CAE3-4E04-95B6-859E62B0873D.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Using the Code Window (VBA/ActiveX)">
+                        <param name="Local" value="GUID-3F3B24EC-89BF-4468-A1A0-A19685D51C0C.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Using the UserForm Window (VBA/ActiveX)">
+                        <param name="Local" value="GUID-9F19DCE7-94C3-4B93-8121-A40B7C847EFA.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Edit a Component in a Project (VBA/ActiveX)">
+                        <param name="Local" value="GUID-8B85B44F-DE14-49DC-99B6-33ABA6926424.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Access the Code Associated with a Form (VBA/ActiveX)">
+                        <param name="Local" value="GUID-BACB2C6D-27E4-4486-B71E-09B2F25887D5.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Naming Your Project (VBA/ActiveX)">
+                     <param name="Local" value="GUID-406AD712-0434-4082-8266-E58C4225547C.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Change the Name of a Project (VBA/ActiveX)">
+                        <param name="Local" value="GUID-9CE99DA5-52F5-48E6-A990-41770564F72F.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Change the File Name for a Project (VBA/ActiveX)">
+                        <param name="Local" value="GUID-97F9393D-305A-464F-BD2A-E5B50C6FB047.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Referencing Other VBA Projects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-97F17688-D4A1-4DA4-81C8-52E64E7D4EFC.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Reference Another VBA Project (VBA/ActiveX)">
+                        <param name="Local" value="GUID-AA005F9E-2C3D-45C3-B429-19B6F467DF79.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Setting the VBA IDE Options (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B2CB78B4-7723-4168-B79A-2A8D910255ED.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="To Open the VBA IDE on Demand (VBA/ActiveX)">
+                     <param name="Local" value="GUID-19049DC2-E317-4E5D-ABA1-30B2BB0E54ED.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="Exercise: An Introduction to VBA (VBA/ActiveX)">
+                  <param name="Local" value="GUID-90922E81-2BFC-4660-86EC-1EE9626EAA3A.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About More Information on the VBA IDE (VBA/ActiveX)">
+                  <param name="Local" value="GUID-751528A6-3FB2-4D0B-AD8A-158ABFADD1BD.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="AutoCAD VBA Project Terms Reference (VBA/ActiveX)">
+                  <param name="Local" value="GUID-EC6BA968-C39B-4AB5-A738-42BD79780FB0.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="AutoCAD VBA Commands Reference (VBA/ActiveX)">
+                  <param name="Local" value="GUID-5E5F7A38-0E02-4086-8AB8-823F55523963.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="AutoCAD VBA AutoLISP Functions Reference (VBA/ActiveX)">
+                  <param name="Local" value="GUID-4F971CAA-B743-479B-AC7F-6CED8AAA04D9.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="To Add a New Component to a Project (VBA/ActiveX)">
+                  <param name="Local" value="GUID-24F150FF-138C-400F-A55F-C5049DBE869E.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="ActiveX Automation Basics">
+               <param name="Local" value="topichead_2.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About the AutoCAD Object Model (VBA/ActiveX)">
+                  <param name="Local" value="GUID-68D6EFA7-ED2D-482C-BBA6-EB22F2854348.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About the Application Object (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B8D2A641-4D52-4EE0-A0E6-12B1DA43D77F.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About the Document Object (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A5144865-30BA-40C5-9BC2-9FD6F366A5C5.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Collection Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-589F246A-41BE-4D38-AA91-9FDA3ABABEA6.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Graphical and Nongraphical Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-647C6D1B-AB3D-4D8E-83EC-3AF96584DC67.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About the Preferences, Plot, and Utility Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9091E614-25B8-452E-A67A-301939B52161.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using New AutoCAD Features (VBA/ActiveX)">
+                     <param name="Local" value="GUID-110B7176-A9C0-4743-A340-AA80E07A27F5.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Accessing the Object Hierarchy (VBA/ActiveX)">
+                  <param name="Local" value="GUID-C5BD40D8-A0B0-4E65-9090-02924E3877AE.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Referencing Objects in the Object Hierarchy (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D4FF317D-16DA-42D8-8309-8260B7427E55.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Accessing the Application Object (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9C66C307-9ED1-492B-9CE5-F81F73671C88.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="Collection Objects Reference (VBA/ActiveX)">
+                  <param name="Local" value="GUID-A73AB626-5DAF-4F03-936A-655F772263E0.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Accessing a Collection (VBA/ActiveX)">
+                     <param name="Local" value="GUID-7B31FE08-D868-49B7-8BE1-41A160EE6D58.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding a New Member to a Collection Object (VBA/ActiveX)">
+                     <param name="Local" value="GUID-E7D4B944-5C97-4B31-83C8-FDD424A0E11D.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Iterating through a Collection Object (VBA/ActiveX)">
+                     <param name="Local" value="GUID-05AC034B-3E51-4EC3-85BE-B3153B8CC40B.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Deleting a Member of a Collection Object (VBA/ActiveX)">
+                     <param name="Local" value="GUID-8527D1AF-8167-4D8B-9562-B698D3296647.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Properties and Methods (VBA/ActiveX)">
+                  <param name="Local" value="GUID-C9B83D5F-55A0-4903-A1E4-06C567A84FE1.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Parent Objects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-8B061754-6592-4BA5-B189-D366C0478676.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Locating the Type Library (VBA/ActiveX)">
+                  <param name="Local" value="GUID-F085048B-819F-4D70-BB4F-A95FF1498170.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Using Variants in Methods and Properties (VBA/ActiveX)">
+                  <param name="Local" value="GUID-CC394595-C4A3-47D4-A040-C58C16B92918.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Variants (VBA/ActiveX)">
+                     <param name="Local" value="GUID-FD389E86-030B-414D-B3EE-64A13DF2BC12.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Variants for Array Data (VBA/ActiveX)">
+                     <param name="Local" value="GUID-F6B0A90B-B484-4B2E-A0E1-FE6B7441ADBC.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Converting Arrays to Variants (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5004997B-3086-4D07-A0A1-AEB32B7727A2.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Interpreting Variant Arrays (VBA/ActiveX)">
+                     <param name="Local" value="GUID-192B537E-8F89-4F21-BD5D-28B9E3918C88.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Using Other Programming Languages (VBA/ActiveX)">
+                  <param name="Local" value="GUID-B94D1C10-4704-4D60-9CA4-F7BB4B974C85.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Converting the VBA Code to VB (VBA/ActiveX)">
+                     <param name="Local" value="GUID-73EC319D-9D7D-43FF-91B7-78CF36284028.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Prompting for User Input (VBA/ActiveX)">
+                  <param name="Local" value="GUID-2F1938FE-DE63-456B-9C29-612DA4539EB0.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Control the AutoCAD Environment">
+               <param name="Local" value="topichead_3.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Opening, Saving, and Closing Drawings (VBA/ActiveX)">
+                  <param name="Local" value="GUID-EF30D5C5-6A02-48FE-82C9-14E0EAEAFB79.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Setting AutoCAD Preferences (VBA/ActiveX)">
+                  <param name="Local" value="GUID-EC28388C-2D1D-4262-B4AC-CE3C2D8E4FDF.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Database Preferences (VBA/ActiveX)">
+                     <param name="Local" value="GUID-86F7BD62-D51C-49FF-B0C8-AC5AB6FEAC80.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Controlling the Application Window (VBA/ActiveX)">
+                  <param name="Local" value="GUID-BCE7E749-DCCB-4914-9E52-CC1265A3574F.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Controlling the Drawing Windows (VBA/ActiveX)">
+                  <param name="Local" value="GUID-763B9F87-19BE-4714-BA16-8698AB8B39A8.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Positioning and Sizing the Document Window (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A68A896C-4896-403B-B14D-2F996A968709.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Zoom (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5733E1A7-3D52-4A72-8218-7BC46A31AB5F.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Defining a Zoom Window (VBA/ActiveX)">
+                        <param name="Local" value="GUID-6D85F583-2B0D-4C8B-9E17-0A072EBCB41C.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Scaling a View (VBA/ActiveX)">
+                        <param name="Local" value="GUID-DEEBD7BD-FE3A-4C48-81DC-735E6AA2E3AC.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Centering Objects (VBA/ActiveX)">
+                        <param name="Local" value="GUID-47D88346-A2EB-425B-90A5-E7539BB78E20.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Displaying Drawing Limits and Extents (VBA/ActiveX)">
+                        <param name="Local" value="GUID-911F75FD-2CAF-4F90-90F7-CA502ACD3703.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Named Views (VBA/ActiveX)">
+                     <param name="Local" value="GUID-3371E240-8B1C-4EB8-91A2-AC27EE6960A9.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Tiled Viewports (VBA/ActiveX)">
+                     <param name="Local" value="GUID-7E989F77-7073-4284-8AFD-D35F2A77AD3B.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Splitting the Active Viewport (VBA/ActiveX)">
+                        <param name="Local" value="GUID-75D8D986-8F90-4C66-856E-C67E702D1310.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Making Another Tiled Viewport Current (VBA/ActiveX)">
+                        <param name="Local" value="GUID-1F0D1ED9-2CA1-44DA-B8E5-C346B8112F17.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Updating the Geometry in the Document Window (VBA/ActiveX)">
+                     <param name="Local" value="GUID-8D9140F0-3676-41D7-B618-27D94AB9DE7E.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Resetting Active Objects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-F8F39BA9-558C-4EE6-847C-C09EBA66B321.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Setting and Returning System Variables (VBA/ActiveX)">
+                  <param name="Local" value="GUID-AE8193CC-CEAE-4B0A-BC38-808742B1750C.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Drawing with Precision (VBA/ActiveX)">
+                  <param name="Local" value="GUID-A8CD0FE0-9D03-42F3-8A20-EAC331FF3499.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adjusting Snap and Grid Alignment (VBA/ActiveX)">
+                     <param name="Local" value="GUID-BA4EDDE0-EA74-434F-8FC8-FCDB292AC39D.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Ortho Mode (VBA/ActiveX)">
+                     <param name="Local" value="GUID-E16359AE-88A0-4FA6-87CA-66510937DFA4.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Drawing Construction Lines (VBA/ActiveX)">
+                     <param name="Local" value="GUID-39A4106D-AE1A-4073-B973-92554E95FDF3.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Creating Construction XLines (VBA/ActiveX)">
+                        <param name="Local" value="GUID-379063FE-D9B0-488C-ABE3-E0CFC22B6FF5.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Querying Construction XLines (VBA/ActiveX)">
+                        <param name="Local" value="GUID-D861D37D-15F5-4926-A171-F238D7AC3681.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Creating Rays (VBA/ActiveX)">
+                        <param name="Local" value="GUID-0D5E3D38-71C1-4F94-8865-DB15EC677C25.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Querying Rays (VBA/ActiveX)">
+                        <param name="Local" value="GUID-EE4BC4C1-F88B-4671-A624-7FE809F7F5E1.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Calculating Points and Values (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D60D53D7-5692-465B-BCEC-5090FF7F2027.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Calculating Areas (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5DE8E17F-6B23-4D99-9CA5-75ADB79465F5.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Calculating a Defined Area (VBA/ActiveX)">
+                        <param name="Local" value="GUID-07538761-7F5B-45E5-916C-F71510CB3788.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Prompting for User Input (VBA/ActiveX)">
+                  <param name="Local" value="GUID-2F1938FE-DE63-456B-9C29-612DA4539EB0-1.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Requesting for a String (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B6F21049-4C5D-4895-99CD-CD0FAC7E5D54.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Requesting a Point (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9111F796-1331-48E2-BA27-EE5DA7FD8E46.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Requesting a Keyword (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5D322A2D-3BC9-44F4-AFFD-C5770A357858.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Controlling User Input (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1E17B5E6-92FC-433C-97B7-760A0BEB73AC.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Accessing the AutoCAD Command Line (VBA/ActiveX)">
+                  <param name="Local" value="GUID-0A56CD7D-C18E-4A94-B0A7-6F70956A21A9.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working with No Documents Open (VBA/ActiveX)">
+                  <param name="Local" value="GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Importing Other File Formats (VBA/ActiveX)">
+                  <param name="Local" value="GUID-F51F1C9E-D750-423B-9462-EA1CB2E98E55.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Exporting to Other File Formats (VBA/ActiveX)">
+                  <param name="Local" value="GUID-605EBB90-D3A8-4150-9BFC-F321B1316948.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Create and Edit AutoCAD Entities">
+               <param name="Local" value="topichead_4.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating Objects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-98C74CFE-E0C6-40AD-A8B7-E4FC6CE7E16F.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Determining the Container Object (VBA/ActiveX)">
+                     <param name="Local" value="GUID-EB6758D4-7714-46B6-A7C1-B213EF5338EF.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Lines (VBA/ActiveX)">
+                     <param name="Local" value="GUID-193BC2C6-2DDB-4A62-B7C0-5D04EFBBEFAD.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Curved Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-3EE52394-5301-40C8-99F7-B14569137847.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Point Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-84944B90-BD96-4EBB-AC91-BBF73DE40B15.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Solid-Filled Areas (VBA/ActiveX)">
+                     <param name="Local" value="GUID-8850F24F-E2DC-4223-A70D-C3A07BFA38EA.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Working with Regions (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9EB18E5E-9C16-4FB9-B334-D61ED00DCB80.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Creating Regions (VBA/ActiveX)">
+                        <param name="Local" value="GUID-4699B54A-2628-49FE-B093-0062FBEC37EA.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Creating Composite Regions (VBA/ActiveX)">
+                        <param name="Local" value="GUID-07F158A9-42C6-4C2E-9D49-BB3C4960A696.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Hatches (VBA/ActiveX)">
+                     <param name="Local" value="GUID-E0D67A85-6D1A-4646-9A6D-18D69DAA81BE.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Assigning the Hatch Pattern Type and Name (VBA/ActiveX)">
+                        <param name="Local" value="GUID-6E0BB80C-39BB-4312-9BE1-0DC03F6C525E.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Defining the Hatch Boundaries (VBA/ActiveX)">
+                        <param name="Local" value="GUID-CC1986F6-9208-4A59-81EE-6E28A5BB2117.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working with Selection Sets (VBA/ActiveX)">
+                  <param name="Local" value="GUID-2D0DC345-1A49-4A90-81AC-62A5F2048B06.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating a Selection Set (VBA/ActiveX)">
+                     <param name="Local" value="GUID-F23DA291-5F68-4DAA-BA2B-A92A4A8D2942.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding Objects to a Selection Set (VBA/ActiveX)">
+                     <param name="Local" value="GUID-2709CA2D-509E-4C55-AD48-3F8303AF6E8D.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Defining Rules for Selection Sets (VBA/ActiveX)">
+                     <param name="Local" value="GUID-903F832E-6F74-4720-A929-D899289B9800.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Using Filter Lists to Define Selection Set Rules (VBA/ActiveX)">
+                        <param name="Local" value="GUID-6026DE9A-DC00-46D2-938A-6EDCD8670578.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Specifying Multiple Criteria in a Selection Set Filter List (VBA/ActiveX)">
+                        <param name="Local" value="GUID-B8D9719D-3063-49A1-A7F3-B0B4E312A308.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Adding Complexity to Your Filter List Conditions (VBA/ActiveX)">
+                        <param name="Local" value="GUID-A1A6DB80-A730-45D1-B035-331F549E9667.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Using Wild-Card Patterns in Selection Set Filter Criteria (VBA/ActiveX)">
+                        <param name="Local" value="GUID-E9CDCF5E-0E9F-4072-8A1D-099764B0A19E.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Filtering for Extended Data (VBA/ActiveX)">
+                        <param name="Local" value="GUID-260FCD32-0B65-4257-B81C-EC99AE19DE5E.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Displaying Information About a Selection Set (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A5B708A7-0792-4949-8FDA-8A5B8480B424.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Removing Objects from a Selection Set (VBA/ActiveX)">
+                     <param name="Local" value="GUID-70C2FA21-F15B-4A88-B803-083157D36C51.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Modifying Objects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-027C70E5-B987-4DCC-8A60-6BFA5136DFF5.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Working with Named Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9684D0B3-03BE-44CF-91EE-681C852CC7F0.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Purging Named Objects (VBA/ActiveX)">
+                        <param name="Local" value="GUID-A139F688-C02E-40ED-8259-6725788470D3.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Renaming Objects (VBA/ActiveX)">
+                        <param name="Local" value="GUID-7397BDDC-DB5C-484F-863A-30C2A329EF3A.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Copying Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A93327DC-5681-4CBA-AAF5-F94373E24BEC.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Copying an Object to the Same Location (VBA/ActiveX)">
+                        <param name="Local" value="GUID-41A72243-6132-47ED-A98C-6B1A5363A75C.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Copying Multiple Objects (VBA/ActiveX)">
+                        <param name="Local" value="GUID-F7E07C2E-B6C7-4A24-891B-19CD2ED72BCF.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Offsetting Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-688405AF-CE9F-4AF7-8FE2-5ACAD8755A59.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Mirroring Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-C671B30A-0596-4114-A7F3-517FC7AABD6B.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Rectangular Arrays (VBA/ActiveX)">
+                     <param name="Local" value="GUID-24CEAF8E-9E75-43C5-B9F2-20CD8B351255.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Polar Arrays (VBA/ActiveX)">
+                     <param name="Local" value="GUID-0DCE08F2-94D1-44F4-AE2D-55BA2D07E9BB.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Moving Objects Along a Vector (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1F8B68A6-0A46-4697-A978-BBEDAE3AE5FF.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Rotating Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-C8AF765C-9B6D-44B1-9ED2-F08CF52D9968.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Erasing or Deleting Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A78C21B9-75C7-4AF4-88DD-77730D0425B2.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Scaling Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-455846DB-273B-4865-83B4-45ECF05C6A8E.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Transforming Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-19A5491D-7675-4ECF-A66A-5D309A14429F.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Extending and Trimming Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-93E3B432-3752-4960-A052-E255516E6F18.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Exploding Objects (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9E5F880D-E93B-4234-A961-2CF119E2DD63.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing Polylines (VBA/ActiveX)">
+                     <param name="Local" value="GUID-C8AB9FB3-2B5C-4491-9ED7-E0A6F7EEBB3E.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing Splines (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D0DF3475-1786-41DF-AA0B-1A79CFC0ACA5.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing Hatches (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1114B624-5A5E-4B25-8822-E03A7A6E1148.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Editing Hatch Boundaries (VBA/ActiveX)">
+                        <param name="Local" value="GUID-9358BDCA-42FF-4CB5-9213-3831A6F58ED4.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Editing Hatch Patterns (VBA/ActiveX)">
+                        <param name="Local" value="GUID-511B6731-9F5D-4CB6-B96C-8291CE0AAD3E.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Adding Text to Drawings (VBA/ActiveX)">
+                  <param name="Local" value="GUID-D824CF69-4AAD-41A6-8CA2-8567662C5877.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Working with Text Styles (VBA/ActiveX)">
+                     <param name="Local" value="GUID-495016AB-796D-48F6-945C-057700EA8EFF.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Creating and Modifying Text Styles (VBA/ActiveX)">
+                        <param name="Local" value="GUID-B6880624-B89C-4C7E-8276-6E21070CFBF6.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Assigning Fonts (VBA/ActiveX)">
+                        <param name="Local" value="GUID-B4F3367E-C60F-4130-A385-243504249C71.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Using TrueType Fonts (VBA/ActiveX)">
+                        <param name="Local" value="GUID-E2C73430-1EBC-4C47-8F98-38909755962B.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Using Unicode and Big Fonts (VBA/ActiveX)">
+                        <param name="Local" value="GUID-29E096AD-6237-4B26-8964-A55DDF7197F8.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Setting Text Height (VBA/ActiveX)">
+                        <param name="Local" value="GUID-92E4A20D-471A-41A4-A360-3B3A754C71AC.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Setting Obliquing Angle (VBA/ActiveX)">
+                        <param name="Local" value="GUID-62C7282B-66C2-4640-8189-F78919D4972D.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Setting Text Generation Flag (VBA/ActiveX)">
+                        <param name="Local" value="GUID-0F889AB4-9B6E-43AF-925B-0FF47F863B76.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Line Text (VBA/ActiveX)">
+                     <param name="Local" value="GUID-3CC9ACFB-2AD0-4729-AFDE-17203E05865E.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Formatting Line Text (VBA/ActiveX)">
+                        <param name="Local" value="GUID-F0A5E115-9791-435B-B520-1253341B5E1B.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Aligning Line Text (VBA/ActiveX)">
+                        <param name="Local" value="GUID-AD06FE0B-3305-4892-A149-E20076A30EFA.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Changing Line Text (VBA/ActiveX)">
+                        <param name="Local" value="GUID-9E7DE903-87FE-496E-A3B4-04380704E991.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Multiline Text (VBA/ActiveX)">
+                     <param name="Local" value="GUID-03E19EAE-38E7-4B70-8868-F4C9A03347FB.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Formatting Multiline Text (VBA/ActiveX)">
+                        <param name="Local" value="GUID-A43040EF-F9C5-4AEF-B87B-375FB16C77F2.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Unicode Characters, Control Codes, and Special Characters (VBA/ActiveX)">
+                     <param name="Local" value="GUID-004B0417-AB7A-46A2-AAD0-1B2E90C9F3ED.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Substituting Fonts (VBA/ActiveX)">
+                     <param name="Local" value="GUID-35AA3841-80F0-4669-B7BA-93EA737219D3.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Specifying an Alternative Default Font (VBA/ActiveX)">
+                        <param name="Local" value="GUID-6488206B-B883-4F72-9BA8-27FA6B4A0981.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Checking Spelling (VBA/ActiveX)">
+                     <param name="Local" value="GUID-715642C3-7D94-45BE-801B-329E1F9C7CFC.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working with Layers (VBA/ActiveX)">
+                  <param name="Local" value="GUID-14688C25-B001-49FA-A4EB-DA48A708CDA7.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Sorting Layers and Linetypes (VBA/ActiveX)">
+                     <param name="Local" value="GUID-72E0EC31-B232-4688-BFFF-CA10F42E1034.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating and Naming Layers (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5B2CCA06-1A61-46F6-BABE-6B8BEA1DF20D.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Making a Layer Active (VBA/ActiveX)">
+                     <param name="Local" value="GUID-978E62D3-817C-4300-8BC6-6A2644F61022.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Turning Layers on and off (VBA/ActiveX)">
+                     <param name="Local" value="GUID-ACACB44A-F7C0-4756-9E90-30AFFB14E4D5.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Freezing and Thawing Layers (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A1815C41-7753-45F5-B8BC-31F67F79F138.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Locking and Unlocking Layers (VBA/ActiveX)">
+                     <param name="Local" value="GUID-0A9F3388-F958-4727-BC58-1BF2820E7A45.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Assigning Color to a Layer (VBA/ActiveX)">
+                     <param name="Local" value="GUID-755F7604-05F1-4B86-BD30-089622A5B584.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Assigning a Linetype to a Layer (VBA/ActiveX)">
+                     <param name="Local" value="GUID-435FABFF-D469-4004-AB1E-A47295959AB1.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Deleting Layers (VBA/ActiveX)">
+                     <param name="Local" value="GUID-463948A3-EE1E-4448-B3A6-B0B67B8902F1.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working with Colors (VBA/ActiveX)">
+                  <param name="Local" value="GUID-D08F9A8E-5551-4473-A270-D95F7F32F51A.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working with Linetypes (VBA/ActiveX)">
+                  <param name="Local" value="GUID-F24BF2BB-A230-4B61-9524-250ABE2644E9.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Making a Linetype Active (VBA/ActiveX)">
+                     <param name="Local" value="GUID-7D0BB966-3CF0-41F3-A091-B6877EE1734C.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Renaming Linetypes (VBA/ActiveX)">
+                     <param name="Local" value="GUID-375643D7-1D7E-4E82-83BB-A3BAFCF5814C.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Deleting Linetypes (VBA/ActiveX)">
+                     <param name="Local" value="GUID-146286EB-5CEB-40C6-958E-9E15351C3A8D.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Specifying Linetype Scale (VBA/ActiveX)">
+                     <param name="Local" value="GUID-4D1D635B-663F-4BB3-A6BE-46C7D13A39D8.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Assigning Layers, Colors, and Linetypes to Objects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-D86DF08B-BBD3-4E0F-AB75-13B2C4AD972C.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Changing an Object's Layer (VBA/ActiveX)">
+                     <param name="Local" value="GUID-89E004BA-FB12-49BC-BAAE-B2D46DB46CD2.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Changing an Object's Color (VBA/ActiveX)">
+                     <param name="Local" value="GUID-84FCCAA2-6F7F-4A1A-A3AA-04733874A229.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Changing an Object's Linetype (VBA/ActiveX)">
+                     <param name="Local" value="GUID-38488A59-B5D6-4E59-AE47-3CAC11723223.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Saving and Restoring Layer Settings (VBA/ActiveX)">
+                  <param name="Local" value="GUID-5D1B221E-4E34-4F7F-AED3-7C71F0776697.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About How AutoCAD Saves Layer Settings (VBA/ActiveX)">
+                     <param name="Local" value="GUID-E14EA6CE-7E2A-4632-AF5E-ECF098A76CDA.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using the LayerStateManager to Manage Layer Settings (VBA/ActiveX)">
+                     <param name="Local" value="GUID-52B191C9-B183-4B20-96FD-AE3F44FA9AFA.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Saving Layer Settings (VBA/ActiveX)">
+                        <param name="Local" value="GUID-D68D99C4-51E4-4DEC-81F7-1F70645B2E44.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Restoring Layer Settings (VBA/ActiveX)">
+                        <param name="Local" value="GUID-636EFC4E-3204-4C9A-9B58-D6F0475D34EA.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Exporting and Importing Saved Layer Settings (VBA/ActiveX)">
+                        <param name="Local" value="GUID-97EC4066-41A2-43C3-AABC-7AF35ED542A6.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Dimensions, Leaders, and Geometric Tolerances">
+               <param name="Local" value="topichead_5.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Dimensioning Concepts (VBA/ActiveX)">
+                  <param name="Local" value="GUID-9262F333-9B88-4E4A-880F-EFE8C9D0F64D.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About the Parts of a Dimension (VBA/ActiveX)">
+                     <param name="Local" value="GUID-3C77E83B-36FE-4623-9D44-A1C6CFA1A7B1.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Defining the Dimension System Variables (VBA/ActiveX)">
+                     <param name="Local" value="GUID-6C25FEDA-A427-4E17-8BC5-1C5233BE201A.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Setting Dimension Text Styles (VBA/ActiveX)">
+                     <param name="Local" value="GUID-AEA24FAF-776B-4767-BCCF-A4261A259D8F.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Leader Lines (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A59C9093-9AD0-4A28-A3B9-33F56DF1F573.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Associative Dimensions (VBA/ActiveX)">
+                     <param name="Local" value="GUID-FA7E4A8D-F556-4516-A88C-D0BFD2081314.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating Dimensions (VBA/ActiveX)">
+                  <param name="Local" value="GUID-CAE82667-1A3F-4A6F-9509-0E9ADA4348FA.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Linear Dimensions (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A3624BA2-D98D-4493-9920-19C0B7A2C2A2.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Radial Dimensions (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B956FC95-ACFE-4AB5-B04C-BF530B8A3B67.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Angular Dimensions (VBA/ActiveX)">
+                     <param name="Local" value="GUID-8B9611FB-1E82-4B2E-B35A-E323F5577154.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Ordinate Dimensions (VBA/ActiveX)">
+                     <param name="Local" value="GUID-08D99F08-E0D5-4F4B-8798-D9C92033ABD0.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Editing Dimensions (VBA/ActiveX)">
+                  <param name="Local" value="GUID-C8148F93-71D0-4FF1-8662-DB2804844D92.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Overriding Dimension Text (VBA/ActiveX)">
+                     <param name="Local" value="GUID-84FF2E5D-0942-4982-B2EA-A63E7CAF1AFF.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working with Dimension Styles (VBA/ActiveX)">
+                  <param name="Local" value="GUID-85F5BE70-BA59-4B01-AA8B-E66725D5A4FC.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating, Modifying, and Copying Dimension Styles (VBA/ActiveX)">
+                     <param name="Local" value="GUID-580AA784-03F3-4471-9779-807836047E0B.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Overriding the Dimension Style (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5673FCA4-4FDD-4027-BFEA-D71C6483F456.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Dimensioning in Model Space and Paper Space (VBA/activeX)">
+                  <param name="Local" value="GUID-EC608C0F-5D27-4C63-BE37-1AB13343FE78.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating Leaders and Annotation (VBA/ActiveX)">
+                  <param name="Local" value="GUID-6AAEFD35-E07C-417F-B6ED-B0D2A5CEA130.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Leader Lines (VBA/ActiveX)">
+                     <param name="Local" value="GUID-56D7E65F-28B9-416D-AF22-75D58D7755B9.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding the Annotation to a Leader Line (VBA/ActiveX)">
+                     <param name="Local" value="GUID-F6AE4FCA-BD0E-4574-9F8D-9E7187FEB9C5.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Leader Associativity (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1A4C98CE-9B7E-4944-AC26-FE26F1FB6FBD.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing Leader Associativity (VBA/ActiveX)">
+                     <param name="Local" value="GUID-ECF8E72F-DE22-4CF0-AE7D-8428C5164BFE.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing Leaders (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1389272C-7A98-4CC5-B5C7-55C5F6EB5ABC.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Using Geometric Tolerances (VBA/ActiveX)">
+                  <param name="Local" value="GUID-E5EC65B1-9D3C-4907-84F4-020B7521D908.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Geometric Tolerances (VBA/ActiveX)">
+                     <param name="Local" value="GUID-14CFC474-7A7D-4987-9182-97516CBF0CB8.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Editing Tolerances (VBA/ActiveX)">
+                     <param name="Local" value="GUID-FFF61AD5-181D-4A25-A77B-B01F72B4192C.htm"></object></li>
+               <ul></ul>
+            </ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Customize Toolbars and Menus">
+               <param name="Local" value="topichead_6.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About the MenuBar and MenuGroups Collections (VBA/ActiveX)">
+                  <param name="Local" value="GUID-6C244044-422D-434A-AA7F-FBEE3FD1419B.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Loading Menu Groups (VBA/ActiveX)">
+                  <param name="Local" value="GUID-0D62ED6A-EED8-4D17-9528-4F80A2CCCD99.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Changing the Menu Bar (VBA/ActiveX)">
+                  <param name="Local" value="GUID-833C025C-8EED-4427-83C8-2329C8A84CAE.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Inserting Menus in the Menu Bar (VBA/ActiveX)">
+                     <param name="Local" value="GUID-BECAD68B-4002-4704-9418-9E7E0185B5A3.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Removing Menus from the Menu Bar (VBA/ActiveX)">
+                     <param name="Local" value="GUID-EB259681-93EA-4198-A6F0-399D797C5D40.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Rearranging Menu Items on the Menu Bar (VBA/ActiveX)">
+                     <param name="Local" value="GUID-61502686-4360-4545-89BE-1B101D1A4C29.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating and Editing Pull-Down and Shortcut Menus (VBA/ActiveX)">
+                  <param name="Local" value="GUID-DA77FCFE-69DD-4611-B590-601668F3B8D7.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating New Menus (VBA/ActiveX)">
+                     <param name="Local" value="GUID-7707DE67-97EE-4F55-88E7-8EA5C7AC9B4D.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding New Menu Items to a Menu (VBA/ActiveX)">
+                     <param name="Local" value="GUID-AAECD9B0-3955-44C7-9B76-9C184BE5CC4F.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding Separators to a Menu (VBA/ActiveX)">
+                     <param name="Local" value="GUID-7424CB4E-0139-4050-8977-691C4145929A.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Assigning an Accelerator Key to a Menu Item (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5926DFDB-3A25-4096-A97D-0895938B971E.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Cascading Submenus (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1E0A402C-382D-4A52-97BC-D8FE1BE693B1.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Deleting Menu Items from a Menu (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1CB99709-F34F-45FA-8B6D-20D42D57A607.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Exploring the Properties of Menu Items (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B451F6FD-84F6-4DAD-9E6C-14ECD046D65C.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating and Editing Toolbars (VBA/ActiveX)">
+                  <param name="Local" value="GUID-7A9BD31B-D9DE-4503-B431-31B2D72CB4EE.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating New Toolbars (VBA/ActiveX)">
+                     <param name="Local" value="GUID-EC9EFC44-BC1C-4601-974D-AE743E27EE3A.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding New Toolbar Buttons to a Toolbar (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A967E84E-1032-4684-BB54-D12190BA8DE6.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding Separators to a Toolbar (VBA/ActiveX)">
+                     <param name="Local" value="GUID-C52E824E-4C52-42AE-8CA0-862CB7559327.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Defining the Toolbar Button Image (VBA/ActiveX)">
+                     <param name="Local" value="GUID-E1F4B75C-D1DF-4C59-A37E-EF0937FAB7DC.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Flyout Toolbars (VBA/ActiveX)">
+                     <param name="Local" value="GUID-50AFDC1F-1DBE-4DAA-8826-FC39CF16EA07.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Floating and Docking Toolbars (VBA/ActiveX)">
+                     <param name="Local" value="GUID-7CE93FE8-B95E-4A0D-B0D8-DE4A09E6EB0A.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Deleting Toolbar Buttons from a Toolbar (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B619EFD0-D0C9-4928-9B82-FD092BEF7B67.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Exploring the Properties of Toolbar Items (VBA/ActiveX)">
+                     <param name="Local" value="GUID-8570026A-246F-4F88-B0A1-6F3DB1588B92.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating Macros (VBA/ActiveX)">
+                  <param name="Local" value="GUID-51143091-11BF-4704-8978-2BF58FF2C28B.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="Macro Characters Mapped to ASCII Equivalents Reference (VBA/ActiveX)">
+                     <param name="Local" value="GUID-6DD8C014-4C84-4980-833F-2836AB79E2AA.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Macro Termination (VBA/ActiveX)">
+                     <param name="Local" value="GUID-CCDCAC5B-9316-45A3-91D5-77A6255C45A5.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Pausing for User Input (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D67372D9-DB15-4418-8253-3C426EAFADD0.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Canceling a Command (VBA/ActiveX)">
+                     <param name="Local" value="GUID-ABEEEBC2-3EBE-4AB5-B082-6C736D677965.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Macro Repetition (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B2805C07-05F4-4F06-B0AA-2738C2D171AE.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Single Object Selection Mode (VBA/ActiveX)">
+                     <param name="Local" value="GUID-72F5165A-FC65-48A1-8D2D-92283DB5863E.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating Status-Line Help for Menu Items and Toolbar Items (VBA/ActiveX)">
+                  <param name="Local" value="GUID-34D036D0-884D-4A21-B370-5A0107AA35CA.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Adding Entries to the Right-Click Menu (VBA/ActiveX)">
+                  <param name="Local" value="GUID-9750E367-1C15-47AF-B65E-AD5B3522E4A0.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Use Events">
+               <param name="Local" value="topichead_7.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About the Events in AutoCAD (VBA/ActiveX)">
+                  <param name="Local" value="GUID-ACBA4AF1-CBF9-4270-823A-3C1912476EC2.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Event Handlers (VBA/ActiveX)">
+                  <param name="Local" value="GUID-2FF2F1B5-FFAC-420A-A741-15D1FC1A571E.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Handling Application Level Events (VBA/ActiveX)">
+                  <param name="Local" value="GUID-07494559-EA6C-4D84-B494-A49930C67E91.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Enabling Application Level Events (VBA/ActiveX)">
+                     <param name="Local" value="GUID-C584A219-3E90-4D1B-B382-6000F00CE9B0.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Create a New Class and Declare an Application Object with Events (VBA/ActiveX)">
+                        <param name="Local" value="GUID-5AB42CC1-54A4-4FEA-AE61-2621BD9CF721.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Connect the Declared Object to the Application Object (VBA/ActiveX)">
+                        <param name="Local" value="GUID-BD2DDACD-F650-4691-B73C-BCCEE82B1CE6.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Handling Document Level Events (VBA/ActiveX)">
+                  <param name="Local" value="GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Enabling Document Level Events in Environments Other Than VBA (VBA/ActiveX)">
+                     <param name="Local" value="GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Create a New Class and Declare a Document Object with Events (VBA/ActiveX)">
+                        <param name="Local" value="GUID-F7167688-613A-4180-9799-1CF7DE4E35B4.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Connect the Declared Object to the Document Object (VBA/ActiveX)">
+                        <param name="Local" value="GUID-1CB324CB-F4B3-4B13-8F44-50CDD2D76887.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Coding Document Level Events in Environments Other Than VBA (VBA/ActiveX)">
+                     <param name="Local" value="GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Coding Document Level Events in VBA (VBA/ActiveX)">
+                     <param name="Local" value="GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Handling Object Level Events (VBA/ActiveX)">
+                  <param name="Local" value="GUID-0745E97F-A094-4636-AAA0-22134173A67F.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Enabling the Object Level Event (VBA/ActiveX)">
+                     <param name="Local" value="GUID-63990AD3-FB70-4A95-A20C-40E2677916E5.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Create a New Class and Declare a Circle Object with Events (VBA/ActiveX)">
+                        <param name="Local" value="GUID-F04B20D8-C77C-4786-BA69-8B2858D2A753.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Connect the Declared Object to the Automation Object (VBA/ActiveX">
+                        <param name="Local" value="GUID-40EAF8A4-BD25-4D90-A94E-6E76575BA75D.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Work in Three-Dimensional Space">
+               <param name="Local" value="topichead_8.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Specifying 3D Coordinates (VBA/ActiveX)">
+                  <param name="Local" value="GUID-6954AAF3-7107-4D93-A2CE-FE859F3F9902.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Defining a User Coordinate System (VBA/ActiveX)">
+                  <param name="Local" value="GUID-95E29CF8-9F69-4600-B8AB-94E121E7E6B6.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Converting Coordinates (VBA/ActiveX)">
+                  <param name="Local" value="GUID-06B18EED-D4E3-4B81-ACB8-037E884CB93D.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Creating 3D Objects (VBA/ActiveX)">
+                  <param name="Local" value="GUID-56DB9D0F-81AF-486B-9D0B-677B56604764.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Wireframes (VBA/ActiveX)">
+                     <param name="Local" value="GUID-CBF044D6-BE1C-47DA-B0D7-AB3883790FF7.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Meshes (VBA/ActiveX)">
+                     <param name="Local" value="GUID-52C230A9-E7FA-4D97-86D3-362D08C4BEF4.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Polyface Meshes (VBA/ActiveX)">
+                     <param name="Local" value="GUID-BABD9CAC-4586-4AB0-8AA5-07BB652A88FD.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Solids (VBA/ActiveX)">
+                     <param name="Local" value="GUID-EB3F1ACC-EE98-4A48-ABCB-AB0B34D3D8A2.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Editing in 3D (VBA/ActiveX)">
+                  <param name="Local" value="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Rotating in 3D (VBA/ActiveX)">
+                     <param name="Local" value="GUID-3FEB0A3C-E4B1-40DF-A4DF-CAB22F1E2A92.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Arraying in 3D (VBA/ActiveX)">
+                     <param name="Local" value="GUID-68988D57-F867-41C3-AE2B-8BD20607BF33.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Mirroring Objects Along a Plane (VBA/ActiveX)">
+                     <param name="Local" value="GUID-851EC3D2-1B07-4452-8BAB-FB7AE44C426C.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Editing 3D Solids (VBA/ActiveX)">
+                  <param name="Local" value="GUID-702017B4-B40A-41C6-B035-D6543273188D.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Define and Plot Layouts">
+               <param name="Local" value="topichead_9.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Model Space and Paper Space (VBA/ActiveX)">
+                  <param name="Local" value="GUID-2A6032EE-58D5-49DB-B7CD-3778A5CFEE0B.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Layouts (VBA/ActiveX)">
+                  <param name="Local" value="GUID-10344852-4888-4237-8EB6-5EBE24D5C87C.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Layouts and Blocks (VBA/ActiveX)">
+                     <param name="Local" value="GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Plot Configurations (VBA/ActiveX)">
+                     <param name="Local" value="GUID-7DC14E4B-5198-428C-9919-F3B814370504.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Layout Settings (VBA/ActiveX)">
+                     <param name="Local" value="GUID-E1398C01-DE00-49DD-AC6A-124D77B3BBE6.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Paper Size and Units (VBA/ActiveX)">
+                        <param name="Local" value="GUID-16AB5D5E-CC71-4A24-8B9F-D78C6D191D3B.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Adjusting the Plot Origin (VBA/ActiveX)">
+                        <param name="Local" value="GUID-1D14459F-627A-44D2-8D85-24684EB6EDA8.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Setting the Plot Area (VBA/ActiveX)">
+                        <param name="Local" value="GUID-77B2BD4B-05C2-4B90-9F1F-E24981C93B5C.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Setting the Plot Scale (VBA/ActiveX)">
+                        <param name="Local" value="GUID-D881B237-0040-4A7C-99D5-E82FA8B1EFE0.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Setting the Lineweight Scale (VBA/ActiveX)">
+                        <param name="Local" value="GUID-1B3FAF4A-0CE9-4D45-8D56-B9C6AA290197.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Setting the Plot Device (VBA/ActiveX)">
+                        <param name="Local" value="GUID-B2F56BD0-8219-4BA5-9CA5-0740B56C7FA2.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Viewports (VBA/ActiveX)">
+                  <param name="Local" value="GUID-E8C0910B-9DF3-4F18-B04B-293DCCDA801A.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Floating Viewports (VBA/ActiveX)">
+                     <param name="Local" value="GUID-4EAB8372-859A-4C6E-BEE5-B2C8EBA31AD7.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Switching to a Paper Space Layout (VBA/ActiveX)">
+                     <param name="Local" value="GUID-A55918B2-0D79-476A-9A20-A1BA80AB2EDD.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Switch to the Last Active Paper Space Layout (VBA/ActiveX)">
+                        <param name="Local" value="GUID-EF299927-9413-440E-9FD1-5E8866EBA1FD.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Switching to the Model Space Layout (VBA/ActiveX)">
+                     <param name="Local" value="GUID-B6C6E57C-5CF8-42EE-9324-E9840E944658.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Switch to Floating Viewports (VBA/ActiveX)">
+                        <param name="Local" value="GUID-C01CFA23-F78C-4A93-B633-5AF357C4B5F0.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Switch to Tiled Viewports (VBA/ActiveX)">
+                        <param name="Local" value="GUID-33972F54-B030-4EE9-AC29-7E33FD276661.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating Paper Space Viewports (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9DCF17E7-717B-4766-AFFE-D3C9ED506BB8.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Changing Viewport Views and Content (VBA/ActiveX)">
+                     <param name="Local" value="GUID-845E7DF4-A76C-4889-BD26-F606E7AA13BB.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Edit a Drawing in a Floating Viewport (VBA/ActiveX)">
+                        <param name="Local" value="GUID-F7A6E5C6-2D39-4329-A4C7-7E97E9678801.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Scaling Views Relative to Paper Space (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D2923334-0F8D-4417-BDA4-F8B3DE27BDDD.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Scaling Pattern Linetypes in Paper Space (VBA/ActiveX)">
+                     <param name="Local" value="GUID-62CE7A57-2B8E-4D4B-8F25-7D62374B80A7.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Using Shaded Viewports (VBA/ActiveX)">
+                     <param name="Local" value="GUID-52DBC632-3AF8-4523-A57B-07981FE1C73D.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Plotting Your Drawing (VBA/ActiveX)">
+                  <param name="Local" value="GUID-FD585AB3-A5E2-4E2B-8713-B87FD0F59C17.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Plotting from Model Space and Paper Space (VBA/ActiveX)">
+                     <param name="Local" value="GUID-0366CF9B-4112-42AD-B6CB-0949022250EA.htm"></object></li>
+               <ul></ul>
+            </ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Advanced Drawing and Organizational Techniques">
+               <param name="Local" value="topichead_10.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working with Raster Images (VBA/ActiveX)">
+                  <param name="Local" value="GUID-341981FB-14CE-4395-B919-55116E402A6A.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Attaching and Scaling a Raster Image (VBA/ActiveX)">
+                     <param name="Local" value="GUID-8B77C386-4AFD-4266-95A8-D1DF59B4EF31.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Manage Raster Images (VBA/ActiveX)">
+                     <param name="Local" value="GUID-4F957B32-EF14-4E07-A9B8-83D06344C356.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Modifying Images and Image Boundaries (VBA/ActiveX)">
+                     <param name="Local" value="GUID-1429CC4E-D555-4529-A083-3346383B5254.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Showing and Hiding Image Boundaries (VBA/ActiveX)">
+                        <param name="Local" value="GUID-7F6138B4-35E5-439D-B8DA-77BC54A88D0F.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Changing the Layer, Boundary Color, and Boundary Linetype for an Image (VBA/ActiveX)">
+                        <param name="Local" value="GUID-49A4B783-D344-497B-BF37-3B4925813B31.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Changing the Scale, Rotation, Location, Width, and Height for an Image (VBA/ActiveX)">
+                        <param name="Local" value="GUID-9FBD3DD9-DAAC-46ED-A085-126D736B1C73.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Changing the Visibility of an Image (VBA/ActiveX)">
+                        <param name="Local" value="GUID-0B4F60E2-CFE3-4DEF-8D08-A841B614CEAC.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Modifying Bitonal Image Color and Transparency (VBA/ActiveX)">
+                        <param name="Local" value="GUID-393426D9-A8EA-434C-A258-15B1A4036D76.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Adjusting Image Brightness, Contrast, and Fade (VBA/ActiveX)">
+                        <param name="Local" value="GUID-4C8C08CC-CD6E-4998-A0E6-D5EDD66CC8E1.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Clipping Images (VBA/ActiveX)">
+                     <param name="Local" value="GUID-68230A95-1159-4EDF-A5AF-F110A18BD6D1.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Showing and Hiding the Clipping Boundary (VBA/ActiveX)">
+                        <param name="Local" value="GUID-AD786012-0C11-4267-896C-526960470A10.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To Clip an Image (VBA/ActiveX)">
+                        <param name="Local" value="GUID-20C47CE4-A25A-49A5-AE58-AD4C6B8D93E2.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Using Blocks and Attributes (VBA/ActiveX)">
+                  <param name="Local" value="GUID-F9C39B22-6AF1-4501-9EE8-928C1B4AAA21.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Working with Blocks (VBA/ActiveX)">
+                     <param name="Local" value="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Defining Blocks (VBA/ActiveX)">
+                        <param name="Local" value="GUID-888C0CC5-AE4B-4BE4-BF34-B2A3A9DC38A9.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Inserting Blocks (VBA/ActiveX)">
+                        <param name="Local" value="GUID-0A650525-85E8-4462-9F46-A1DD18A998F6.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Exploding a Block Reference (VBA/ActiveX)">
+                        <param name="Local" value="GUID-77744360-91AB-4289-8287-7F861522A0DF.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Redefining a Block (VBA/ActiveX)">
+                        <param name="Local" value="GUID-B213D3A9-AABE-44E1-BDCB-29166BB7BF91.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Working with Attributes (VBA/ActiveX)">
+                     <param name="Local" value="GUID-2133E7A1-44FA-4F69-A79D-1220B889CA06.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Creating Attribute Definitions and Attribute References (VBA/ActiveX)">
+                        <param name="Local" value="GUID-906149DF-53E2-49F3-AC61-A79721C2C76E.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Editing Attribute Definitions (VBA/ActiveX)">
+                        <param name="Local" value="GUID-78E5448F-F0DA-47FB-876E-3EA911F9FB91.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Extracting Attribute Information (VBA/ActiveX)">
+                        <param name="Local" value="GUID-C34E2AE8-A2D0-4781-8B5B-BC3E226E8B94.htm"></object></li>
+                  <ul></ul>
+               </ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Using External References (VBA/ActiveX)">
+                  <param name="Local" value="GUID-1D1A4F18-4CEB-49EB-8139-BBE883D47981.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Updating Xrefs (VBA/ActiveX)">
+                     <param name="Local" value="GUID-5695F327-F7B2-4E31-9AC5-02B15E23F959.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Attaching Xrefs (VBA/ActiveX)">
+                     <param name="Local" value="GUID-3472CC4B-99CB-4242-9D6D-AC4F9E36E195.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Overlaying Xrefs (VBA/ActiveX)">
+                        <param name="Local" value="GUID-6AD94981-F99D-4566-84E5-B514A68AB6D9.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Detaching Xrefs (VBA/ActiveX)">
+                     <param name="Local" value="GUID-FC86754D-B783-4204-8BAB-7AA092EF6CAC.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Reloading Xrefs (VBA/ActiveX)">
+                     <param name="Local" value="GUID-02993703-273F-4ACC-BDA0-834D5BA4BFB5.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Unloading Xrefs (VBA/ActiveX)">
+                     <param name="Local" value="GUID-9BA45055-D4D8-4E3E-B292-DB6F15D4691E.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Binding Xrefs (VBA/ActiveX)">
+                     <param name="Local" value="GUID-288FF849-9398-4B6B-A87E-13D03BE25B42.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Clipping Blocks and Xrefs (VBA/ActiveX)">
+                     <param name="Local" value="GUID-577D96C5-9B22-4771-87DD-38D32ACF9F09.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Demand Loading and Xref Performance (VBA/ActiveX)">
+                     <param name="Local" value="GUID-31577C7F-55C4-4137-9D05-3F6C0F18DA79.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Assigning and Retrieving Extended Data (VBA/ActiveX)">
+                  <param name="Local" value="GUID-A675254F-08B2-4048-95CB-DD7195616BC1.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Interact with Other Applications and Window APIs">
+               <param name="Local" value="topichead_11.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Interacting with Visual LISP Applications (AutoLISP/ActiveX)">
+                  <param name="Local" value="GUID-FA1CBDFC-E571-420B-A268-F1318E46BBD8.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Interacting with Other Windows Applications (ActiveX)">
+                  <param name="Local" value="GUID-3637903E-5C8A-4AEB-83AD-18F4C3FA6E4B.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Referencing the ActiveX Object Library of Other Applications (VBA/ActiveX)">
+                     <param name="Local" value="GUID-4CA01114-7DA0-4A6C-8884-E7DF964DF43C.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="To make a reference to another application's object library (VBA/ActiveX)">
+                        <param name="Local" value="GUID-8A273A3B-434E-47EC-B2B3-1DAC0478FB1D.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Creating an Instance of the Other Application (VBA/ActiveX)">
+                     <param name="Local" value="GUID-FD48FD40-1077-4054-8A15-CA55DADF821F.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Programming with Objects from Other Applications (VBA/ActiveX)">
+                     <param name="Local" value="GUID-2DB596AC-B4B6-4FA4-89B2-9178D8BF35B7.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Quitting the Other Application (VBA/ActiveX)">
+                        <param name="Local" value="GUID-FEC4FBC3-7B57-49D3-9F68-1CAC9C0F249F.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="To Exchange Information Across ActiveX Object Models (ActiveX)">
+                     <param name="Local" value="GUID-4B32C104-D79C-48BE-986B-F341EB37F562.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Accessing Windows APIs from VBA (VBA/ActiveX)">
+                  <param name="Local" value="GUID-CF8A5562-CE8F-422C-84A2-ACF9FB5DDFD4.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="Example: List AutoCAD attributes on an Excel spreadsheet (VBA/ActiveX)">
+                  <param name="Local" value="GUID-403AF773-01AD-4AAF-BC3D-49A9884F7CF6.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Develop Applications with VBA">
+               <param name="Local" value="topichead_12.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="Terminology Reference (VBA)">
+                  <param name="Local" value="GUID-68419EAA-AD12-4881-8EA1-BCE629994FB4.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Forms (VBA)">
+                  <param name="Local" value="GUID-CF0EBC57-D6B1-4F07-8736-C4425C82114C.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Design and Run Mode (VBA)">
+                     <param name="Local" value="GUID-2C6452B1-7413-44BE-B4AA-2C1620196C58.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Adding Controls to a Form (VBA)">
+                     <param name="Local" value="GUID-6A254E8B-9836-48D9-B894-F4C117ECD10A.htm"></object></li>
+               <ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Changing the Size and Placement of a Control (VBA)">
+                        <param name="Local" value="GUID-D9FE7FF6-80C5-4CD4-80EE-2AF75BC6C2E5.htm"></object></li>
+                  <ul>
+                     <li><object type="text/sitemap">
+                           <param name="Name" value="To Size a Control As it is Placed (VBA)">
+                           <param name="Local" value="GUID-0D8E996B-F086-4003-9D22-958FB4E4867D.htm"></object></li>
+                     <ul></ul>
+                     <li><object type="text/sitemap">
+                           <param name="Name" value="To Place Several Instances of the Same Control (VBA)">
+                           <param name="Local" value="GUID-2AD2F935-27A0-4814-823F-7B441B112814.htm"></object></li>
+                     <ul></ul>
+                  </ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Formatting Controls (VBA)">
+                        <param name="Local" value="GUID-2B50FE65-C4CC-496F-9E45-FDD3EEEC9B91.htm"></object></li>
+                  <ul></ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Changing the Properties of a Control (VBA)">
+                        <param name="Local" value="GUID-86D90A8C-CA3F-4ABE-B8F4-362193AE200C.htm"></object></li>
+                  <ul>
+                     <li><object type="text/sitemap">
+                           <param name="Name" value="To Change the Property of a Control (VBA)">
+                           <param name="Local" value="GUID-DE77C181-1E81-4905-9C7F-7F98917FECD0.htm"></object></li>
+                     <ul></ul>
+                  </ul>
+                  <li><object type="text/sitemap">
+                        <param name="Name" value="About Adding Code to a Control (VBA)">
+                        <param name="Local" value="GUID-F282A5AB-99D4-49B2-AF46-B7D267A55376.htm"></object></li>
+                  <ul></ul>
+               </ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Displaying and Hiding Forms (VBA)">
+                     <param name="Local" value="GUID-A999A684-A7E0-42B5-835B-46447AB09EB9.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Loading and Unloading Forms (VBA)">
+                     <param name="Local" value="GUID-903F2600-AB8B-4CD2-AD7C-C9AED7E3017A.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Modal Forms (VBA)">
+                     <param name="Local" value="GUID-20B146DD-C271-4090-8DC8-DC96DB6A8F28.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="To Create a New Form in a Project (VBA)">
+                     <param name="Local" value="GUID-34F74481-8122-413E-AE77-EF41562BA41A.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="To Create a Modeless Form in a Project (VBA)">
+                     <param name="Local" value="GUID-D58C3EED-FCA6-4BE8-B5DE-CF42487F5BB2.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Handling Errors (VBA)">
+                  <param name="Local" value="GUID-AEF621CA-FEFC-48FE-9C25-928193DBEA17.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="Application Error Types Reference (VBA)">
+                     <param name="Local" value="GUID-3B82478A-3FFC-4F15-8B0C-74CF9E143A21.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Trapping Runtime Errors (VBA)">
+                     <param name="Local" value="GUID-59A7C13A-1A55-4497-AD17-77559264D6B0.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Responding to Trapped Errors (VBA)">
+                     <param name="Local" value="GUID-13A91923-C44C-4A00-8172-92EAE53940B9.htm"></object></li>
+               <ul></ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="About Responding to AutoCAD User Input Errors (VBA/ActiveX)">
+                     <param name="Local" value="GUID-D85CFFB7-F1CD-4B9E-BB28-0B0F520C5028.htm"></object></li>
+               <ul></ul>
+            </ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Encrypting VBA Code Modules (VBA)">
+                  <param name="Local" value="GUID-CCDB6952-13E2-469A-B1E9-01C6B7C87996.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Running a VBA Macro from a Toolbar or Menu (VBA)">
+                  <param name="Local" value="GUID-FB84CFBC-DFD6-4189-ACFD-617A1D48E25E.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Automatically Loading a VBA Project (VBA)">
+                  <param name="Local" value="GUID-925950F9-CDC1-4486-94FE-9268BFBF4170.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Automatically Running a VBA Macro (VBA)">
+                  <param name="Local" value="GUID-5C45C666-D554-4F4E-832A-1F785F1C4D4C.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Automatically Opening the VBA IDE Whenever a Project Is Loaded (VBA)">
+                  <param name="Local" value="GUID-4B7DEBF4-A7F9-41BD-BE9D-0E17897BA373.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Working in a Zero Document State (VBA)">
+                  <param name="Local" value="GUID-08173ED3-2032-484C-BF6A-73E9705118B1.htm"></object></li>
+            <ul></ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="About Distributing Your Application (VBA)">
+                  <param name="Local" value="GUID-A2018D0D-2778-4823-A4A2-1A467A807F42.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="Visual LISP and ActiveX/VBA Comparison">
+               <param name="Local" value="topichead_13.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="AutoLISP and ActiveX/VBA Comparison Reference (VBA/ActiveX)">
+                  <param name="Local" value="GUID-20482A17-F2D1-4AFB-80F5-B7C61779F8F1.htm"></object></li>
+            <ul></ul>
+         </ul>
+         <li><object type="text/sitemap">
+               <param name="Name" value="ActiveX/VBA Tutorial: Design the Garden Path">
+               <param name="Local" value="topichead_14.htm"></object></li>
+         <ul>
+            <li><object type="text/sitemap">
+                  <param name="Name" value="Tutorial: Designing a Garden Path (VBA/ActiveX)">
+                  <param name="Local" value="GUID-25772D8C-5C80-43DC-8315-A8759F59A916.htm"></object></li>
+            <ul>
+               <li><object type="text/sitemap">
+                     <param name="Name" value="Modifying the Properties of the Controls and User Form">
+                     <param name="Local" value="GUID-C29BA2C5-4B81-4D5E-9395-ECF9CBBC56BE.htm"></object></li>
+               <ul></ul>
+            </ul>
+         </ul>
+         <!-- TOC END -->
+      </UL>
+   </BODY>
+</HTML>

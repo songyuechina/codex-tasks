@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Toolbar object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Toolbar object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Toolbars Collection;idh_toolbars_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="ToolbarItem;idh_toolbaritem_object.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadToolbar;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Toolbar object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">An AutoCAD toolbar. </P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadToolbar&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">Toolbars.Add&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">Toolbars.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">Toolbars provide access to frequently used or custom commands, settings, macros, and modes. You can add tools to the AutoCAD default toolbars or create your own toolbars. You can also remove toolbar items or entire toolbars, and reposition toolbars.
+<P CLASS="body">To create a new toolbar, use the <A HREF="idh_add.htm">Add</A> method. The Add method will create an empty toolbar to which you can add toolbar buttons. To add a toolbar button to a toolbar, use the <A HREF="idh_addtoolbarbutton.htm">AddToolbarButton</A> method. You can add separators to your toolbar using the <A HREF="idh_addseparator.htm">AddSeparator</A> method. Both the AddToolbarbutton and AddSeparator methods return a <A HREF='idh_toolbaritem_object.htm'>ToolbarItem</A> object representing an individual button on the toolbar. Use the ToolbarItem object to add functionality to the toolbar button, or to create flyout toolbar buttons.
+<P CLASS="body">You can change the position of toolbars by docking them along the top, bottom, or sides of the AutoCAD screen, or you can float toolbars anywhere on the screen. To dock a toolbar, use the <A HREF="idh_dock.htm">Dock</A> method. To float a toolbar, use the <A HREF="idh_float.htm">Float</A> method. To check the current positioning of a toolbar, use the <A HREF="idh_dockstatus.htm">DockStatus</A> property. If you do not want the toolbar to be visible at all, use the <A HREF="idh_visible.htm">Visible</A> property to hide it.
+<P CLASS="body">To edit or query a toolbar, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_addtoolbarbutton.htm"><P CLASS="body">AddToolbarButton</A>
+<A HREF="idh_addseparator.htm"><P CLASS="body">AddSeparator</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_dock.htm"><P CLASS="body">Dock</A>
+<A HREF="idh_float.htm"><P CLASS="body">Float</A>
+<A HREF="idh_item.htm"><P CLASS="body">Item</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_count.htm"><P CLASS="body">Count</A>
+<A HREF="idh_dockstatus.htm"><P CLASS="body">DockStatus</A>
+<A HREF="idh_floatingrows.htm"><P CLASS="body">FloatingRows</A>
+<A HREF="idh_height.htm"><P CLASS="body">Height</A>
+<A HREF="idh_helpstring.htm"><P CLASS="body">HelpString</A>
+<A HREF="idh_largebuttons.htm"><P CLASS="body">LargeButtons</A>
+<A HREF="idh_left.htm"><P CLASS="body">Left</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_parent.htm"><P CLASS="body">Parent</A>
+<A HREF="idh_tagstring.htm"><P CLASS="body">TagString</A>
+<A HREF="idh_top.htm"><P CLASS="body">Top</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<A HREF="idh_width.htm"><P CLASS="body">Width</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

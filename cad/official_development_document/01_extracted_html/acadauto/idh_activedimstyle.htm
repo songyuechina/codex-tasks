@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>ActiveDimStyle property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ActiveDimStyle Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the active dimension style.</P>
+
+<P CLASS="h1-access"><A HREF="activedimstyle_see_also.htm">See Also</A> | <A HREF="ex_activedimstyle.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.ActiveDimStyle</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A> object<BR>
+The object this property applies to.
+<P class="element">ActiveDimStyle</p><p class=element-desc><A HREF='idh_dimstyle_object.htm'>DimStyle</A> object; read-write<BR>
+A user-specified variable declared as an AcadDimStyle object type.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This style will be applied to all newly created dimensions. To change the style on an existing dimension, use the StyleName property.
+<P CLASS="body">To control the settings of the current document overrides, use the dimensioning system variables. 
+See "System Variables" in the <I>AutoCAD Command Reference</I> for a list of dimensioning system variables.
+<P CLASS="body">When you change a dimensioning system variable, you are actually setting a document override for the active dimension style. You are not changing the active dimension style itself. To change the settings of a given dimension style, use the <A HREF="idh_copyfrom.htm">CopyFrom</A> method. This method copies a dimension style configuration, including overrides, from a document, dimension, or other dimension style.
+<P CLASS="body">Dimensions created via the AutoCAD user interface are created with the active dimension style plus all document overrides. Dimensions created via ActiveX are created with the active dimension style only. To have the dimensions created via ActiveX take on the document overrides, use the CopyFrom method to copy the dimension style from the document to the active dimension style. This process will copy all existing overrides into the active dimension style.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

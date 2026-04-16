@@ -1,0 +1,23 @@
+{
+  "script": "illustration_frame_service.py",
+  "workflow": [
+    "apply_illustration_labels: 可选先从用户源 DWG 准备 A0/A1/A2/A3 块定义 -> 准备 user_frame 中的 A0_H/A1_H/A2_H/A3_H 模板 -> 从这些模板同步真实图签块定义到目标 DWG -> 打开目标 DWG -> 获取打印区域 -> 逐区域执行图框/图签插入 -> 保存目标文件 -> 清空 user_frame",
+    "打印区域处理: 调用 match_standard_print_by_mode 获取规格与横竖向 -> 在同空间矩形多段线中搜索面积比超过 85% 的内框 -> 若缺失则插入标准图框并计算目标内框包围盒",
+    "图签处理: 用规格家族确定 A0/A1/A2/A3 块名 -> 检查目标块定义是否为真实图签块定义 -> 检查内框锚点是否已有同名图签块 -> 若没有则按内框缩放与方向插入并对齐 -> 插入后再次校验块定义签名"
+  ],
+  "failure_paths": [
+    "目标文件、图签源文件或标准模板文件缺失时立即报错",
+    "print_area_analysis 无法识别规格时跳过该打印区域并记录原因",
+    "runtime guard 返回阻断信号时中止执行",
+    "目标文件缺少可用块定义且导入失败时中止执行",
+    "若插入结果不是来自 A0_H/A1_H/A2_H/A3_H 内部真实块定义，则立即报错",
+    "若 title 资源文件被 CAD 占用且无法关闭清理，则在清理阶段报错"
+  ],
+  "verification_signals": [
+    "返回 print_area_count 和每个打印区域的 status",
+    "结果中明确记录 frame_inserted / frame_already_present / title_inserted / title_already_present",
+    "真实回归时目标 DWG 成功保存，且能在结果中看到标准匹配与内框坐标",
+    "目标 DWG 中的 A0/A1/A2/A3 块定义应带有 Defpoints 图层两根多段线，且颜色索引为 1 和 3",
+    "目标 DWG 中不应残留 A0_H/A1_H/A2_H/A3_H 外层文件块作为错误图签结果"
+  ]
+}

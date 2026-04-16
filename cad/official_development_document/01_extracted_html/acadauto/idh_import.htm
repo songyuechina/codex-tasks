@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>Import method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Import Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Imports a drawing or a group of saved layer settings from a file.</P>
+
+<P CLASS="h1-access"><A HREF="import_see_also.htm">See Also</A> | <A HREF="ex_import.htm">Example</A></P>
+
+<P CLASS="Heading-2">Signatures: Overview
+<P CLASS="element">Drawing&nbsp;</P>
+<P CLASS="element-desc">RetVal = object.Import(FileName, InsertionPoint, ScaleFactor)&nbsp;</P>
+<P CLASS="element">Layer Settings&nbsp;</P>
+<P CLASS="element-desc">object.Import FileName&nbsp;</P>
+
+<P CLASS="Heading-2">Signatures: Detail
+<P CLASS="syntax">RetVal = object.Import(FileName, InsertionPoint, ScaleFactor)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A><BR>
+The object this method applies to.
+<P class="element">FileName</p><p class=element-desc>String; input-only<BR>
+The name of the file to be imported.
+<P class="element">InsertionPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates location in the current drawing where the imported file is placed.
+<P class="element">ScaleFactor</p><p class=element-desc>Double; input-only<BR>
+The scale used to place the imported file.
+<P class="element">RetVal</p><p class=element-desc>Object<BR>
+In the case of importing a WMF file, a BlockReference object is returned. In all other cases, the return value is NULL.
+<HR CLASS="thin">
+
+<P CLASS="syntax">object.Import FileName</P>
+<P class="element">Object</p><p class=element-desc><A HREF='idh_layerstatemanager.htm'>LayerStateManager</A><BR>
+A LayerStateManager object.
+<P class="element">FileName</p><p class=element-desc>String; input-only<BR>
+The name of the file you are importing layer settings from.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,471 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-CC6BE90C-5ABE-4DE5-9390-B36FDCFF798B"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2007 and AutoCAD 2007-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2007 API History Reference (ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2008 API History Reference (ActiveX)</div><a href="GUID-95D92244-7CC8-46A7-88AB-C5755EF779FE.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">AutoCAD 2006 API History Reference (ActiveX)</div><a href="GUID-44EFF8B3-9713-45A6-9CDE-4215FF02E286.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-5439631A-CBCD-488D-A7CF-838203CEC2A8"></a></span><h1>AutoCAD 2007 API History Reference (ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-CC6BE90C-5ABE-4DE5-9390-B36FDCFF798B"></a></span><p class="blurb">Additions and changes made to the ActiveX API in AutoCAD 2007 and AutoCAD 2007-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_D6D406730F1E418288EA16680DEDAFAD"></a></span> <h2><a name="TOC_ENTRY__d24e6473"></a><span style="display:none"><a name="GUID-744EDB7A-FAE2-42AC-8657-EA42ABA76FB2"></a></span>Enums</h2> <div class="codeBlock"><pre>AcEntityName (Changed)
+        acDwfUnderlay = 46 (New)
+        acDgnUnderlay = 47 (New)
+AcViewportScale (Changed)
+        acVp1_1 = 2 (New)
+        acVp1_2 = 3 (New)
+        acVp1_4 = 4 (New)
+        acVp1_8 = 5 (New)
+        acVp1_10 = 6 (New)
+        acVp1_16 = 7 (New)
+        acVp1_20 = 8 (New)
+        acVp1_30 = 9 (New)
+        acVp1_40 = 10 (New)
+        acVp1_50 = 11 (New)
+        acVp1_100 = 12 (New)
+        acVp2_1 = 13 (New)
+        acVp4_1 = 14 (New)
+        acVp8_1 = 15 (New)
+        acVp10_1 = 16 (New)
+        acVp100_1 = 17 (New)
+        acVp1_128in_1ft = 18 (New)
+        acVp1_64in_1ft = 19 (New)
+        acVp1_32in_1ft = 20 (New)
+        acVp1_16in_1ft = 21 (New)
+        acVp3_32in_1ft = 22 (New)
+        acVp1_8in_1ft = 23 (New)
+        acVp3_16in_1ft = 24 (New)
+        acVp1_4in_1ft = 25 (New)
+        acVp3_8in_1ft = 26 (New)
+        acVp1_2in_1ft = 27 (New)
+        acVp3_4in_1ft = 28 (New)
+        acVp1in_1ft = 29 (New)
+        acVp1and1_2in_1ft = 30 (New)
+        acVp3in_1ft = 31 (New)
+        acVp6in_1ft = 32 (New)
+        acVp1ft_1ft = 33 (New)
+AcSaveAsType (Changed)
+        ac2007_dwg = 36 (New)
+        ac2007_dxf = 37 (New)
+        ac2007_Template = 38 (New)
+        acNative = 36 (Changed)
+AcValueDataType (New)
+        acUnknownDataType = 0
+        acLong = 1
+        acDouble = 2
+        acString = 4
+        acDate = 8
+        acPoint2d = 16
+        acPoint3d = 32
+        acObjectId = 64
+        acBuffer = 128
+        acResbuf = 256
+        acGeneral = 512
+AcValueUnitType (New)
+        acUnitless = 0
+        acUnitDistance = 1
+        acUnitAngle = 2
+        acUnitArea = 4
+        acUnitVolume = 8
+AcParseOption (New)
+        acParseOptionNone = 0
+        acSetDefaultFormat = 1
+        acPreserveMtextFormat = 2
+AcFormatOption (New)
+        kFormatOptionNone = 0
+        acForEditing = 1
+        acForExpression = 2
+        acUseMaximumPrecision = 4
+        acIgnoreMtextFormat = 8
+AcTableStyleOverrides (Changed)
+        acTitleRowDataType = 24 (New)
+        acHeaderRowDataType = 25 (New)
+        acDataRowDataType = 26 (New)
+        acCellDataType = 148 (New)
+AcSectionState (New)
+        acSectionStatePlane = 1
+        acSectionStateBoundary = 2
+        acSectionStateVolume = 4
+AcSectionSubItem (New)
+        acSectionSubItemkNone = 0
+        acSectionSubItemSectionLine = 1
+        acSectionSubItemSectionLineTop = 2
+        acSectionSubItemSectionLineBottom = 4
+        acSectionSubItemBackLine = 8
+        acSectionSubItemBackLineTop = 16
+        acSectionSubItemBackLineBottom = 32
+        acSectionSubItemVerticalLineTop = 64
+        acSectionSubItemVerticalLineBottom = 128
+AcSectionType (New)
+        acSectionTypeLiveSection = 1
+        acSectionType2dSection = 2
+        acSectionType3dSection = 4
+AcSectionGeneration (New)
+        acSectionGenerationSourceAllObjects = 1
+        acSectionGenerationSourceSelectedObjects = 2
+        acSectionGenerationDestinationNewBlock = 16
+        acSectionGenerationDestinationReplaceBlock = 32
+        acSectionGenerationDestinationFile = 64
+AcHelixConstrainType (New)
+        acTurnHeight = 0
+        acTurns = 1
+        acHeight = 2
+AcShadowDisplayType (New)
+        acCastsAndReceivesShadows = 0
+        acCastsShadows = 1
+        acReceivesShadows = 2
+        acIgnoreShadows = 3
+AcLoftedSurfaceNormalType (New)
+        acRuled = 0
+        acSmooth = 1
+        acFirstNormal = 2
+        acLastNormal = 3
+        acEndsNormal = 4
+        acAllNormal = 5
+        acUseDraftAngles = 6
+AcHelixTwistType (New)
+        acCCW = 0
+        acCW = 1</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_8A2E1798E79D4E6AB809B0ACD1AA0C4B"></a></span> <h2><a name="TOC_ENTRY__d24e6481"></a><span style="display:none"><a name="GUID-E542831C-FF5C-44CB-8845-74A9BEF7317B"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadDatabase (Changed)
+        SectionManager - Property (New)
+        Materials - Property (New)
+IAcadBlock (Changed)
+        AddTable - Method (Moved from IAcadBlock2)
+        Path - Property (Moved from IAcadBlock2)
+        Comments - Property (Moved from IAcadBlock3)
+        Units - Property (Moved from IAcadBlock3)
+        Explodable - Property (Moved from IAcadBlock3)
+        BlockScaling - Property (Moved from IAcadBlock3)
+        IsDynamicBlock - Property (Moved from IAcadBlock3)
+        AddDimArc - Method (Moved from IAcadBlock3)
+        AddDimRadialLarge - Method (Moved from IAcadBlock3)
+        AddSection - Method (New)
+IAcadEntity (Changed)
+        Material - Property (New)
+IAcadAttribute (Changed)
+        LockPosition - Property (Moved from IAcadAttribute2)
+IAcadAttributeReference (Changed)
+        LockPosition - Property (Moved from IAcadAttributeReference2)
+IAcad3DSolid (Changed)
+        SolidType - Property (New)
+        Position - Property (New)
+        History - Property (New)
+        ShowHistory - Property (New)
+IAcadDimAligned (Changed)
+        DimensionLinetype - Property (New)
+        ExtLine1Linetype - Property (New)
+        ExtLine2Linetype - Property (New)
+        ExtLineFixedLenSuppress - Property (New)
+        ExtLineFixedLen - Property (New)
+IAcadDimension (Changed)
+        TextFill - Property (New)
+        TextFillColor - Property (New)
+IAcadDimAngular (Changed)
+        DimensionLinetype - Property (New)
+        ExtLine1Linetype - Property (New)
+        ExtLine2Linetype - Property (New)
+        ExtLineFixedLenSuppress - Property (New)
+        ExtLineFixedLen - Property (New)
+IAcadDimDiametric (Changed)
+        DimensionLinetype - Property (New)
+IAcadDimRotated (Changed)
+        DimensionLinetype - Property (New)
+        ExtLine1Linetype - Property (New)
+        ExtLine2Linetype - Property (New)
+        ExtLineFixedLenSuppress - Property (New)
+        ExtLineFixedLen - Property (New)
+IAcadDimOrdinate (Changed)
+        ExtLineFixedLenSuppress - Property (New)
+        ExtLineFixedLen - Property (New)
+IAcadDimRadial (Changed)
+        DimensionLinetype - Property (New)
+IAcadMText (Changed)
+        BackgroundFill - Property (Moved from IAcadMText2)
+        FieldCode - Method (Moved from IAcadMText2)
+IAcadText (Changed)
+        FieldCode - Method (Moved from IAcadText2)
+IAcadBlockReference (Changed)
+        EffectiveName - Property (Moved from IAcadBlockReference2)
+        IsDynamicBlock - Property (Moved from IAcadBlockReference2)
+        GetDynamicBlockProperties - Method (Moved from IAcadBlockReference2)
+        ResetBlock - Method (Moved from IAcadBlockReference2)
+        ConvertToAnonymousBlock - Method (Moved from IAcadBlockReference2)
+        ConvertToStaticBlock - Method (Moved from IAcadBlockReference2)
+        XEffectiveScaleFactor - Property (Moved from IAcadBlockReference2)
+        YEffectiveScaleFactor - Property (Moved from IAcadBlockReference2)
+        ZEffectiveScaleFactor - Property (Moved from IAcadBlockReference2)
+        InsUnits - Property (Moved from IAcadBlockReference2)
+        InsUnitsFactor - Property (Moved from IAcadBlockReference2)
+IAcadHatch (Changed)
+        Area - Property (Moved from IAcadHatch2)
+        Origin - Property (Moved from IAcadHatch2)
+IAcadMLine (Changed)
+        Justification - Property (Moved from IAcadMLine2)
+        MLineScale - Property (Moved from IAcadMLine2)
+IAcadDim3PointAngular (Changed)
+        DimensionLinetype - Property (New)
+        ExtLine1Linetype - Property (New)
+        ExtLine2Linetype - Property (New)
+        ExtLineFixedLenSuppress - Property (New)
+        ExtLineFixedLen - Property (New)
+IAcadExternalReference (Changed)
+        XEffectiveScaleFactor - Property (Moved from IAcadExternalReference2)
+        YEffectiveScaleFactor - Property (Moved from IAcadExternalReference2)
+        ZEffectiveScaleFactor - Property (Moved from IAcadExternalReference2)
+        InsUnits - Property (Moved from IAcadExternalReference2)
+        InsUnitsFactor - Property (Moved from IAcadExternalReference2)
+IAcadTable (Changed)
+        RegenerateTableSuppressed - Property (Moved from IAcadTable2)
+        GetDataType - Method (New)
+        SetDataType - Method (New)
+        GetFormat - Method (New)
+        SetFormat - Method (New)
+        FormatValue - Method (New)
+        GetCellDataType - Method (New)
+        SetCellDataType - Method (New)
+        GetCellFormat - Method (New)
+        SetCellFormat - Method (New)
+        GetCellValue - Method (New)
+        SetCellValue - Method (New)
+        SetCellValueFromText - Method (New)
+        ResetCellValue - Method (New)
+IAcadDimArcLength (Changed)
+        SymbolPosition - Property (New)
+        DimensionLinetype - Property (New)
+        ExtLine1Linetype - Property (New)
+        ExtLine2Linetype - Property (New)
+        ExtLineFixedLenSuppress - Property (New)
+        ExtLineFixedLen - Property (New)
+IAcadDimRadialLarge (Changed)
+        DimensionLinetype - Property (New)
+IAcadSection (New)
+        Name - Property
+        State - Property
+        ViewingDirection - Property
+        VerticalDirection - Property
+        Normal - Property
+        LiveSectionEnabled - Property
+        IndicatorTransparency - Property
+        IndicatorFillColor - Property
+        Elevation - Property
+        TopHeight - Property
+        BottomHeight - Property
+        NumVertices - Property
+        Vertices - Property
+        Coordinate - Property
+        AddVertex - Method
+        RemoveVertex - Method
+        HitTest - Method
+        CreateJog - Method
+        Settings - Property
+        GenerateSectionGeometry - Method
+IAcadSectionSettings (New)
+        CurrentSectionType - Property
+        GetSectionTypeSettings - Method
+IAcadSectionTypeSettings (New)
+        GenerationOptions - Property
+        SourceObjects - Property
+        DestinationBlock - Property
+        DestinationFile - Property
+        IntersectionBoundaryColor - Property
+        IntersectionBoundaryLayer - Property
+        IntersectionBoundaryLinetype - Property
+        IntersectionBoundaryLinetypeScale - Property
+        IntersectionBoundaryPlotStyleName - Property
+        IntersectionBoundaryLineweight - Property
+        IntersectionBoundaryDivisionLines - Property
+        IntersectionFillVisible - Property
+        IntersectionFillHatchPatternType - Property
+        IntersectionFillHatchPatternName - Property
+        IntersectionFillHatchAngle - Property
+        IntersectionFillHatchScale - Property
+        IntersectionFillHatchSpacing - Property
+        IntersectionFillColor - Property
+        IntersectionFillLayer - Property
+        IntersectionFillLinetype - Property
+        IntersectionFillLinetypeScale - Property
+        IntersectionFillPlotStyleName - Property
+        IntersectionFillLineweight - Property
+        IntersectionFillFaceTransparency - Property
+        BackgroundLinesVisible - Property
+        BackgroundLinesHiddenLine - Property
+        BackgroundLinesColor - Property
+        BackgroundLinesLayer - Property
+        BackgroundLinesLinetype - Property
+        BackgroundLinesLinetypeScale - Property
+        BackgroundLinesPlotStyleName - Property
+        BackgroundLinesLineweight - Property
+        ForegroundLinesVisible - Property
+        ForegroundLinesHiddenLine - Property
+        ForegroundLinesColor - Property
+        ForegroundLinesLayer - Property
+        ForegroundLinesLinetype - Property
+        ForegroundLinesLinetypeScale - Property
+        ForegroundLinesPlotStyleName - Property
+        ForegroundLinesLineweight - Property
+        ForegroundLinesFaceTransparency - Property
+        ForegroundLinesEdgeTransparency - Property
+        CurveTangencyLinesVisible - Property
+        CurveTangencyLinesColor - Property
+        CurveTangencyLinesLayer - Property
+        CurveTangencyLinesLinetype - Property
+        CurveTangencyLinesLinetypeScale - Property
+        CurveTangencyLinesPlotStyleName - Property
+        CurveTangencyLinesLineweight - Property
+IAcadPViewport (Changed)
+        VisualStyle - Property (New)
+        ModelView - Property (Moved from IAcadPViewport2)
+        SheetView - Property (Moved from IAcadPViewport2)
+        LabelBlockId - Property (Moved from IAcadPViewport2)
+        HasSheetView - Property (Moved from IAcadPViewport2)
+        SyncModelView - Method (Moved from IAcadPViewport2)
+IAcadView (Changed)
+        CategoryName - Property (Moved from IAcadView2)
+        LayoutId - Property (Moved from IAcadView2)
+        LayerState - Property (Moved from IAcadView2)
+        HasVpAssociation - Property (Moved from IAcadView2)
+IAcadGroup (Changed)
+        Material - Property (New)
+IAcadLayers (Changed)
+        GenerateUsageData - Method (Moved from IAcadLayers2)
+IAcadLayer (Changed)
+        Description - Property (Moved from IAcadLayer2)
+        Used - Property (Moved from IAcadLayer2)
+        Material - Property (New)
+IAcadSectionManager (New)
+        Item - Method
+        Count - Property
+        GetLiveSection - Method
+        GetUniqueSectionName - Method
+IAcadMaterials (New)
+        Item - Method
+        Count - Property
+        Add - Method
+IAcadMaterial (New)
+        Description - Property
+        Name - Property
+IAcadTableStyle (Changed)
+        GetDataType - Method (New)
+        SetDataType - Method (New)
+        GetFormat - Method (New)
+        SetFormat - Method (New)
+IAcadShadowDisplay (New)
+        ShadowDisplay - Property
+        EnableShadowDisplay - Property
+IAcadMInsertBlock (Changed)
+        EffectiveName - Property (Moved from IAcadMInsertBlock2)
+        IsDynamicBlock - Property (Moved from IAcadMInsertBlock2)
+        GetDynamicBlockProperties - Method (Moved from IAcadMInsertBlock2)
+        ResetBlock - Method (Moved from IAcadMInsertBlock2)
+        ConvertToAnonymousBlock - Method (Moved from IAcadMInsertBlock2)
+        ConvertToStaticBlock - Method (Moved from IAcadMInsertBlock2)
+        XEffectiveScaleFactor - Property (Moved from IAcadMInsertBlock2)
+        YEffectiveScaleFactor - Property (Moved from IAcadMInsertBlock2)
+        ZEffectiveScaleFactor - Property (Moved from IAcadMInsertBlock2)
+        InsUnits - Property (Moved from IAcadMInsertBlock2)
+        InsUnitsFactor - Property (Moved from IAcadMInsertBlock2)
+IAcadHelix (New)
+        Position - Property
+        Constrain - Property
+        Height - Property
+        Turns - Property
+        TurnHeight - Property
+        BaseRadius - Property
+        TopRadius - Property
+        Twist - Property
+        TurnSlope - Property
+        TotalLength - Property
+IAcadSurface (New)
+        SurfaceType - Property
+        UIsolineDensity - Property
+        VIsolineDensity - Property
+IAcadPlaneSurface (New)
+IAcadExtrudedSurface (New)
+        Height - Property
+        TaperAngle - Property
+        Direction - Property
+IAcadRevolvedSurface (New)
+        RevolutionAngle - Property
+        AxisPosition - Property
+        AxisDirection - Property
+IAcadSweptSurface (New)
+        ProfileRotation - Property
+        Bank - Property
+        Twist - Property
+        scale - Property
+        Length - Property
+IAcadLoftedSurface (New)
+        NumCrossSections - Property
+        NumGuidePaths - Property
+        SurfaceNormals - Property
+        StartDraftAngle - Property
+        StartDraftMagnitude - Property
+        EndDraftAngle - Property
+        EndDraftMagnitude - Property
+        Closed - Property
+IAcadUnderlay (New)
+        Contrast - Property
+        Fade - Property
+        Position - Property
+        Rotation - Property
+        Width - Property
+        Height - Property
+        UnderlayName - Property
+        ItemName - Property
+        Monochrome - Property
+        AdjustForBackground - Property
+        ClipBoundary - Method
+        ScaleFactor - Property
+        File - Property
+        UnderlayVisibility - Property
+        ClippingEnabled - Property
+IAcadSubEntity (New)
+        OnModified - Event
+        ObjectName - Property
+        color - Property
+        Layer - Property
+        Linetype - Property
+        LinetypeScale - Property
+        PlotStyleName - Property
+        Lineweight - Property
+        Hyperlinks - Property
+IAcadSubEntSolidFace (New)
+        Material - Property
+IAcadSubEntSolidEdge (New)
+IAcadSubEntSolidVertex (New)
+IAcadSubEntSolidNode (New)
+IAcadModelSpace (Changed)
+        AddTable - Method (Moved from IAcadModelSpace2)
+        AddDimArc - Method (Moved from IAcadModelSpace3)
+        AddDimRadialLarge - Method (Moved from IAcadModelSpace3)
+IAcadPaperSpace (Changed)
+        AddTable - Method (Moved from IAcadPaperSpace2)
+        AddDimArc - Method (Moved from IAcadPaperSpace3)
+        AddDimRadialLarge - Method (Moved from IAcadPaperSpace3)
+IAcadDocument (Changed)
+        ActiveMaterial - Property (New)
+IAcadPreferencesFiles (Changed)
+        EnterpriseMenuFile - Property (New)
+        CustomIconPath - Property (New)
+        QNewTemplateFile - Property (Moved from IAcadPreferencesFiles2)
+        PlotLogFilePath - Property (Moved from IAcadPreferencesFiles2)
+        PageSetupOverridesTemplateFile - Property (Moved from IAcadPreferencesFiles2)
+IAcadPreferencesOutput (Changed)
+        ContinuousPlotLog - Property (Moved from IAcadPreferencesOutput2)
+        AutomaticPlotLog - Property (Moved from IAcadPreferencesOutput2)
+        DefaultPlotToFilePath - Property (Moved from IAcadPreferencesOutput2)
+IAcadUtility (Changed)
+        SendModelessOperationStart - Property (Moved from IAcadUtility2)</pre></div> <p><span style="display:none"><a name="GUID-75D4884B-6390-445D-ACEF-214B4BF160DA"></a></span>The following classes were removed/merged with their parent classes: </p> <div class="codeBlock"><pre>IAcadLayer2 (Removed - Moved to IAcadLayer)
+IAcadView2 (Removed - Moved to IAcadView)
+IAcadLayers2 (Removed - Moved to IAcadLayers)
+IAcadAttribute2 (Removed - Moved to IAcadAttribute)
+IAcadAttributeReference2 (Removed - Moved to IAcadAttributeReference)
+IAcadBlockReference2 (Removed - Moved to IAcadBlockReference)
+IAcadHatch2 (Removed - Moved to IAcadHatch)
+IAcadMText2 (Removed - Moved to IAcadMText)
+IAcadText2 (Removed - Moved to IAcadText)
+IAcadPViewport2 (Removed - Moved to IAcadPViewport)
+IAcadMInsertBlock2 (Removed - Moved to IAcadMInsertBlock)
+IAcadMLine2 (Removed - Moved to IAcadMLine)
+IAcadExternalReference2 (Removed - Moved to IAcadExternalReference)
+IAcadTable2 (Removed - Moved to IAcadTable)
+IAcadBlock2 (Removed - Moved to IAcadBlock)
+IAcadBlock3 (Removed - Moved to IAcadBlock)
+IAcadModelSpace2 (Removed - Moved to IAcadModelSpace)
+IAcadModelSpace3 (Removed - Moved to IAcadModelSpace)
+IAcadPaperSpace2 (Removed - Moved to IAcadPaperSpace)
+IAcadPaperSpace3 (Removed - Moved to IAcadPaperSpace)
+IAcadPreferencesFiles2 (Removed - Moved to IAcadPreferencesFiles)
+IAcadPreferencesOutput2 (Removed - Moved to IAcadPreferencesOutput)
+IAcadUtility2 (Removed - Moved to IAcadUtility)</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

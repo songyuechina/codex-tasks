@@ -1,0 +1,149 @@
+[
+  {
+    "src": "insert_illustration_title_blocks.py",
+    "src_path": "illustration_label/insert_illustration_title_blocks.py",
+    "rel_type": "IMPORTS",
+    "dst": "illustration_frame_service.py",
+    "dst_path": "illustration_label/illustration_frame_service.py"
+  },
+  {
+    "src": "insert_illustration_labels.py",
+    "src_path": "illustration_label/insert_illustration_labels.py",
+    "rel_type": "IMPORTS",
+    "dst": "illustration_frame_service.py",
+    "dst_path": "illustration_label/illustration_frame_service.py"
+  },
+  {
+    "src": "replace_defined_blocks.py",
+    "src_path": "illustration_label/replace_defined_blocks.py",
+    "rel_type": "IMPORTS",
+    "dst": "illustration_block_service.py",
+    "dst_path": "illustration_label/illustration_block_service.py"
+  },
+  {
+    "src": "insert_illustration_labels.py",
+    "src_path": "illustration_label/insert_illustration_labels.py",
+    "rel_type": "IMPORTS",
+    "dst": "illustration_block_service.py",
+    "dst_path": "illustration_label/illustration_block_service.py"
+  },
+  {
+    "src": "illustration_frame_service.py",
+    "src_path": "illustration_label/illustration_frame_service.py",
+    "rel_type": "IMPORTS",
+    "dst": "illustration_block_service.py",
+    "dst_path": "illustration_label/illustration_block_service.py"
+  },
+  {
+    "src": "print_runner.py",
+    "src_path": "print/print_runner.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_verifier.py",
+    "dst_path": "print/print_verifier.py"
+  },
+  {
+    "src": "print_batch_dispatch.py",
+    "src_path": "print/print_batch_dispatch.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_runner.py",
+    "dst_path": "print/print_runner.py"
+  },
+  {
+    "src": "print_runner.py",
+    "src_path": "print/print_runner.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_policy.py",
+    "dst_path": "print/print_policy.py"
+  },
+  {
+    "src": "print_info_analysis.py",
+    "src_path": "print/print_info_analysis.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_policy.py",
+    "dst_path": "print/print_policy.py"
+  },
+  {
+    "src": "print_executor.py",
+    "src_path": "print/print_executor.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_policy.py",
+    "dst_path": "print/print_policy.py"
+  },
+  {
+    "src": "print_area_scope_analysis.py",
+    "src_path": "print/print_area_scope_analysis.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_policy.py",
+    "dst_path": "print/print_policy.py"
+  },
+  {
+    "src": "print_area_content_analysis.py",
+    "src_path": "print/print_area_content_analysis.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_policy.py",
+    "dst_path": "print/print_policy.py"
+  },
+  {
+    "src": "print_batch_dispatch.py",
+    "src_path": "print/print_batch_dispatch.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_info_analysis.py",
+    "dst_path": "print/print_info_analysis.py"
+  },
+  {
+    "src": "print_runner.py",
+    "src_path": "print/print_runner.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_executor.py",
+    "dst_path": "print/print_executor.py"
+  },
+  {
+    "src": "print_runner.py",
+    "src_path": "print/print_runner.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_area_scope_analysis.py",
+    "dst_path": "print/print_area_scope_analysis.py"
+  },
+  {
+    "src": "print_runner.py",
+    "src_path": "print/print_runner.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_area_content_analysis.py",
+    "dst_path": "print/print_area_content_analysis.py"
+  },
+  {
+    "src": "print_info_analysis.py",
+    "src_path": "print/print_info_analysis.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_area_content_analysis.py",
+    "dst_path": "print/print_area_content_analysis.py"
+  },
+  {
+    "src": "illustration_frame_service.py",
+    "src_path": "illustration_label/illustration_frame_service.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_area_analysis.py",
+    "dst_path": "print/print_area_analysis.py"
+  },
+  {
+    "src": "print_policy.py",
+    "src_path": "print/print_policy.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_area_analysis.py",
+    "dst_path": "print/print_area_analysis.py"
+  },
+  {
+    "src": "print_info_analysis.py",
+    "src_path": "print/print_info_analysis.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_area_analysis.py",
+    "dst_path": "print/print_area_analysis.py"
+  },
+  {
+    "src": "print_area_scope_analysis.py",
+    "src_path": "print/print_area_scope_analysis.py",
+    "rel_type": "IMPORTS",
+    "dst": "print_area_analysis.py",
+    "dst_path": "print/print_area_analysis.py"
+  }
+]

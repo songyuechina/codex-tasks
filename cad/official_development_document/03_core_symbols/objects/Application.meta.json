@@ -1,0 +1,51 @@
+{
+  "symbol": "Application",
+  "kind": "object",
+  "source_terms": [
+    "application"
+  ],
+  "owners": [
+    "AutoCAD"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "connect_active_document",
+    "open_save_close_document"
+  ],
+  "pywin32_signature": "C.acad",
+  "risk_tags": [
+    "直接绕过 licad 建立裸连接",
+    "应用存在但文档尚未就绪"
+  ],
+  "project_paths": [
+    "cad/system/licad.py"
+  ],
+  "path_md": "03_core_symbols/objects/Application.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-9C66C307-9ED1-492B-9CE5-F81F73671C88.htm",
+    "01_extracted_html/acad_aag/GUID-BCE7E749-DCCB-4914-9E52-CC1265A3574F.htm",
+    "01_extracted_html/acad_aag/GUID-FD48FD40-1077-4054-8A15-CA55DADF821F.htm",
+    "01_extracted_html/acad_aag/GUID-A2018D0D-2778-4823-A4A2-1A467A807F42.htm",
+    "01_extracted_html/acad_aag/GUID-C584A219-3E90-4D1B-B382-6000F00CE9B0.htm"
+  ],
+  "project_refs": [
+    "cad/system/licad.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:GUID_9C66C307_9ED1_492B_9CE5_F81F73671C88",
+    "acad_aag:GUID_BCE7E749_DCCB_4914_9E52_CC1265A3574F",
+    "acad_aag:GUID_FD48FD40_1077_4054_8A15_CA55DADF821F",
+    "acad_aag:GUID_A2018D0D_2778_4823_A4A2_1A467A807F42",
+    "acad_aag:GUID_C584A219_3E90_4D1B_B382_6000F00CE9B0"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-9C66C307-9ED1-492B-9CE5-F81F73671C88.htm",
+    "01_extracted_html/acad_aag/GUID-BCE7E749-DCCB-4914-9E52-CC1265A3574F.htm",
+    "01_extracted_html/acad_aag/GUID-FD48FD40-1077-4054-8A15-CA55DADF821F.htm",
+    "01_extracted_html/acad_aag/GUID-A2018D0D-2778-4823-A4A2-1A467A807F42.htm",
+    "01_extracted_html/acad_aag/GUID-C584A219-3E90-4D1B-B382-6000F00CE9B0.htm"
+  ]
+}

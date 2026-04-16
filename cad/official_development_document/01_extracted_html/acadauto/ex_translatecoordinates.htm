@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>TranslateCoordinates Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">TranslateCoordinates Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_TranslateCoordinates()
+    ' This example creates a UCS with an origin at 2, 2, 2.
+    ' Next, a point is entered by the user. The WCS and UCS
+    ' coordinates of that point are output in a Msgbox.
+    
+    ' Create a UCS named "New_UCS" in current drawing
+    Dim ucsObj As AcadUCS
+    Dim origin(0 To 2) As Double
+    Dim xAxisPnt(0 To 2) As Double
+    Dim yAxisPnt(0 To 2) As Double
+    
+    ' Define the UCS
+    origin(0) = 2#: origin(1) = 2#: origin(2) = 2#
+    xAxisPnt(0) = 5#: xAxisPnt(1) = 2#: xAxisPnt(2) = 2#
+    yAxisPnt(0) = 2#: yAxisPnt(1) = 6#: yAxisPnt(2) = 2#
+    
+    ' Add the UCS to the UserCoordinatesSystems collection
+    Set ucsObj = ThisDrawing.UserCoordinateSystems.Add(origin, xAxisPnt, yAxisPnt, "New_UCS")
+    ThisDrawing.ActiveUCS = ucsObj
+    
+    ' Get the active viewport and make sure the UCS icon is on
+    Dim viewportObj As AcadViewport
+    Set viewportObj = ThisDrawing.ActiveViewport
+    viewportObj.UCSIconOn = True
+    viewportObj.UCSIconAtOrigin = True
+    ThisDrawing.ActiveViewport = viewportObj
+   
+    ' Have the user enter a point
+    Dim pointWCS As Variant
+    pointWCS = ThisDrawing.Utility.GetPoint(, "Enter a point to translate:")
+    
+    ' Translate the point into UCS coordinates
+    Dim pointUCS As Variant
+    pointUCS = ThisDrawing.Utility.TranslateCoordinates(pointWCS, acWorld, acUCS, False)
+    
+    ' Display the coordinates of the point
+    MsgBox "The point has the following coordinates:" & vbCrLf & _
+            "WCS: " & pointWCS(0) & ", " & pointWCS(1) & ", " & pointWCS(2) & vbCrLf & _
+            "UCS: " & pointUCS(0) & ", " & pointUCS(1) & ", " & pointUCS(2), , "TranslateCoordinates Example"
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

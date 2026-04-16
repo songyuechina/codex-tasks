@@ -302,6 +302,10 @@ def collect_print_jobs(
         for layout_name in layout_names_in_order:
             if selected_layouts and layout_name.lower() not in selected_layouts:
                 continue
+            if pending_by_layout.get(layout_name):
+                # 布局自身已经存在真实打印框时，优先采用与模型空间同源的矩形分析结果，
+                # 避免再叠加 viewport 候选导致布局区域被误判或重复。
+                continue
             viewport_jobs = [
                 _make_job(vp, dwg_path, "layout", layout_name, f"layout_viewport:{layout_name}", mode=mode)
                 for vp in _collect_layout_viewports(layout_name)

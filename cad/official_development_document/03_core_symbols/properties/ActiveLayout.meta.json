@@ -1,0 +1,47 @@
+{
+  "symbol": "ActiveLayout",
+  "kind": "property",
+  "source_terms": [
+    "activelayout"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "switch_to_target_layout",
+    "determine_space_and_layout"
+  ],
+  "pywin32_signature": "C.doc.ActiveLayout = C.doc.Layouts.Item(layout_name)",
+  "risk_tags": [
+    "切换成功但上下文未完全同步"
+  ],
+  "project_paths": [
+    "cad/system/CAD_core.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "path_md": "03_core_symbols/properties/ActiveLayout.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_activelayout.htm",
+    "01_extracted_html/acadauto/idh_activelayout.htm",
+    "01_extracted_html/acadauto/activelayout_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_core.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_activelayout",
+    "acadauto:idh_activelayout",
+    "acadauto:activelayout_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_activelayout.htm",
+    "01_extracted_html/acadauto/idh_activelayout.htm",
+    "01_extracted_html/acadauto/activelayout_see_also.htm"
+  ]
+}

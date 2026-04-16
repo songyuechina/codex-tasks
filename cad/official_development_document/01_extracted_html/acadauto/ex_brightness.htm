@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Brightness Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Brightness Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Brightness()
+    ' This example inserts a raster image and finds the current
+    ' brightness of the image. It then changes the brightness
+    ' of the image.
+    
+    ' This example uses the "downtown.jpg" found in the Sample
+    ' directory. If you do not have this image, or if it is located
+    ' in a different directory, insert a valid path and file name
+    ' for the imageName variable below.
+    Dim insertionPoint(0 To 2) As Double
+    Dim scalefactor As Double
+    Dim rotAngleInDegree As Double, rotAngle As Double
+    Dim imageName As String
+    Dim raster As AcadRasterImage
+    imageName = "C:/AutoCAD/sample/downtown.jpg"
+    
+    insertionPoint(0) = 2#: insertionPoint(1) = 2#: insertionPoint(2) = 0#
+    scalefactor = 1#
+    rotAngleInDegree = 0#
+    rotAngle = rotAngleInDegree * 3.141592 / 180#
+    
+    On Error Resume Next
+    
+    ' Creates a raster image in model space
+    Set raster = ThisDrawing.ModelSpace.AddRaster(imageName, insertionPoint, scalefactor, rotAngle)
+    If Err.Description = "File error" Then
+        MsgBox imageName & " could not be found."
+        Exit Sub
+    End If
+
+    ' Find the current brightness
+    ThisDrawing.Regen True
+    MsgBox "The brightness is currently set to: " & raster.Brightness, vbInformation
+    
+    ' Change the brightness to 5
+    raster.Brightness = 5
+    ThisDrawing.Regen True
+    MsgBox "The brightness is now set to: " & raster.Brightness, vbInformation
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

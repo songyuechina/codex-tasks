@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="method.doc" KEYWORDS="drawing object, methods; moving object, by transformation matrices; object, moving; object, rotating; object, scaling; rotating object, by transformation matrices; scaling, object; transformation matrices, getting matrices associated with UCSs; transformation matrices, moving, scaling, or rotating object by; TransformBy method; UCS object, getting transformation matrices associated with; user coordinate systems. See UCS object; All Drawing objects, TransformBy method; AttributeRef object, TransformBy method; entity, TransformBy method; Transformation matrix, TransformBy method  " CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 5:06:57 PM">
+<TITLE>TransformBy method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">TransformBy Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Moves, scales, or rotates an object given a 4x4 transformation matrix.</P>
+
+<P CLASS="h1-access"><A HREF="transformby_see_also.htm">See Also</A> | <A HREF="ex_transformby.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.TransformBy TransformationMatrix 
+<P class="element">Object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing Objects</A>, <A HREF='idh_attributeref_object.htm'>AttributeReference</A><BR>
+The object this method applies to.
+<P class="element">TransformationMatrix</p><p class=element-desc>Variant (4x4 array of doubles); input-only<BR>
+A 4x4 matrix specifying the transformation to perform.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The following table demonstrates the transformation matrix configuration, where <I>R</I> = Rotation, and <I>T</I> = Translation:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="body">R00&nbsp;</TD>
+<TD><P CLASS="body">R01&nbsp;</TD>
+<TD><P CLASS="body">R02&nbsp;</TD>
+<TD><P CLASS="body">T0&nbsp;</TD></TR>
+
+<TR VALIGN=top><TD><P CLASS="body">R10&nbsp;</TD>
+<TD><P CLASS="body">R11&nbsp;</TD>
+<TD><P CLASS="body">R12&nbsp;</TD>
+<TD><P CLASS="body">T1&nbsp;</TD></TR>
+
+<TR VALIGN=top><TD><P CLASS="body">R20&nbsp;</TD>
+<TD><P CLASS="body">R21&nbsp;</TD>
+<TD><P CLASS="body">R22&nbsp;</TD>
+<TD><P CLASS="body">T2&nbsp;</TD></TR>
+
+<TR VALIGN=top><TD><P CLASS="body">0&nbsp;</TD>
+<TD><P CLASS="body">0&nbsp;</TD>
+<TD><P CLASS="body">0&nbsp;</TD>
+<TD><P CLASS="body">1&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">This method will return an error if the transformation matrix is not correct. 
+<P CLASS="body">Sample transformation matrices are provided in the example code for this method.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

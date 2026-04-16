@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+
+<TITLE>Close method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Close Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Closes the specified drawing, or all open drawings.</P>
+
+<P CLASS="h1-access"><A HREF="close_see_also.htm">See Also</A> | <A HREF="ex_close.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Close([SaveChanges][, FileName])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A>; <A HREF='idh_documents_collection.htm'>Documents</A><BR>
+The document to close.
+<P class="element">SaveChanges</p><p class=element-desc>Variant; input-only; optional<BR>
+(Not applicable when called from Documents collection.)<BR>
+Specifies if the drawing is to be saved or not.
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: Save the drawing.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: Do not save the drawing.</SPAN>
+<P class="element">FileName</p><p class=element-desc>String; input-only; optional<BR>
+(Not applicable when called from Documents collection.)<BR>
+The name to assign to the drawing. If no name is provided when saving a drawing for the first time, the drawing will be saved using the VBA project information: ThisDrawing.Path\ThisDrawing.Name.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">If there are no changes to the drawing, SaveChanges and FileName are ignored. If there are changes to the drawing, SaveChanges specifies whether changes should be saved. The default value for the SaveChanges parameter is TRUE.
+
+<UL>
+<LI CLASS="bullet-1-begin">If SaveChanges is TRUE and there is not yet a file name associated with a drawing, then the FileName argument is used. If FileName is omitted, or if calling this method from the Documents collection, an error will be issued.
+<LI CLASS="bullet-1-end">If SaveChanges is FALSE, then the drawing is closed and the changes are not saved. 
+</UL>
+<P CLASS="body">Calling this method from the Documents collection in MDI mode will close all open drawings. To close a single drawing, call this method from the drawing to be closed.
+<P CLASS="body">You cannot close a drawing from inside an event handler for that drawing.
+<P CLASS="body"><span class=NoteChar>NOTE</span> Closing a drawing destroys the Document object. Never try to reference an object once it has been destroyed, or in this case, closed. In-process clients (VBA macros) may notice that objects are not destroyed until the subroutine is exited. However, references to destroyed objects are not recommended at all, even in the in-process code.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

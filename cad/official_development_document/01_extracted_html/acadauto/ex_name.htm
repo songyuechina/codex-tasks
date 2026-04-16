@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Name Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Name Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Name()
+    ' This example creates a new layer. It then
+    ' changes the name of that layer.
+    
+    ' Add the new layer
+    Dim layerObj As AcadLayer
+    Set layerObj = ThisDrawing.Layers.Add("NewLayer")
+    
+    ' Find the name of the new layer
+    Dim layerName As String
+    layerName = layerObj.name
+    MsgBox "A new layer was created with the name: " & layerObj.name, , "Name Example"
+    
+    ' Change the name of the layer to "TEST". Note that behavior of the
+    ' following code will be different for different objects. In some cases such as
+    ' Block reference, changing the name means referencing to a new Block and therefore
+    ' a Block with named "TEST" should already exist: otherwise an error will be
+    ' returned.
+    layerObj.name = "TEST"
+    layerName = layerObj.name
+    MsgBox "The new name of the layer is: " & layerObj.name, , "Name Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

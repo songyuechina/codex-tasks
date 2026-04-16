@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>ActiveViewport property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ActiveViewport Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the active viewport for the drawing.</P>
+
+<P CLASS="h1-access"><A HREF="activeviewport_see_also.htm">See Also</A> | <A HREF="ex_activeviewport.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.ActiveViewport
+<P class="element">object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A><BR>
+The object this property applies to.
+<P class="element">ActiveViewport</p><p class=element-desc><A HREF='idh_viewport_object.htm'>Viewport</A> object; read-write<BR>
+The active viewport for the drawing.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Changes made to the current active viewport will become 
+visible only after you reset the viewport as the active viewport. To 
+reset the active viewport, simply call this property with the updated 
+viewport object.
+<P CLASS="body">Use the <A HREF="idh_statusid.htm">StatusID</A> property to determine
+if a viewport is currently active.
+<P CLASS="body">You can iterate through existing viewports to find a 
+particular viewport. To do this, first identify the name of the viewport 
+configuration on which the desired viewport resides using the <A HREF="idh_name.htm">Name</A> property. Additionally, if the viewport configuration has been split, each individual viewport on the configuration can be identified through the LowerLeftCorner and UpperRightCorner properties.
+<P CLASS="body">The <A HREF="idh_lowerleftcorner.htm">LowerLeftCorner</A> 
+and <A HREF="idh_upperrightcorner.htm">UpperRightCorner</A> properties 
+represent the graphic placement of the viewport on the display. These 
+properties are defined as follows (using a four-way split as an example):
+<P CLASS="body"><IMG SRC='img/vports.gif' BORDER=0>
+<P CLASS="body">Viewport 1有owerLeftCorner = (0, .5), UpperRightCorner = (.5, 1)
+<P CLASS="body">Viewport 2有owerLeftCorner = (.5, .5), UpperRightCorner = (1, 1)
+<P CLASS="body">Viewport 3有owerLeftCorner = (0, 0), UpperRightCorner = (.5, .5)
+<P CLASS="body">Viewport 4有owerLeftCorner = (.5, 0), UpperRightCorner = (1, .5)
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

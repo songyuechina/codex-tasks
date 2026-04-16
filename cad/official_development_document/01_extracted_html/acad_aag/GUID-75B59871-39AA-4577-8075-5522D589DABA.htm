@@ -1,0 +1,3521 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-75B59871-39AA-4577-8075-5522D589DABA"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2000 and AutoCAD 2000-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2000 API History Reference (ActiveX) </title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2000i API History Reference (ActiveX)</div><a href="GUID-1F38DE80-3338-49DE-A16F-CADD62E4D80B.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">Getting Started with VBA</div><a href="topichead_1.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-BDA9D837-4DC7-4BE9-A2D7-B0C0BF797AEC"></a></span><h1>AutoCAD 2000 API History Reference (ActiveX) </h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-75B59871-39AA-4577-8075-5522D589DABA"></a></span><p class="blurb"> Additions and changes made to the ActiveX API in AutoCAD 2000 and AutoCAD 2000-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_A44640904ED949A5AE4307037E01DDB9"></a></span> <h2><a name="TOC_ENTRY__d24e6666"></a><span style="display:none"><a name="GUID-DDCDFE5D-01C6-437E-9D2D-7ED55827B663"></a></span>Constants</h2> <p><span style="display:none"><a name="GUID-CAD26997-DE8A-4921-BC0A-C30B0E37B7C2"></a></span>The following have been removed: </p> <div class="codeBlock"><pre>AutoCADConstants
+        acTrue = 1;
+        acFalse = 0;
+        acOn = 1;
+        acOff = 0;
+        ac3dFace = 1;
+        ac3dPolyline = 2;
+        ac3dSolid = 3;
+        acArc = 4;
+        acAttribute = 5;
+        acAttributeReference = 6;
+        acBlockReference = 7;
+        acCircle = 8;
+        acDimAligned = 9;
+        acDimAngular = 10;
+        acDimDiametric = 12;
+        acDimOrdinate = 13;
+        acDimRadial = 14;
+        acDimRotated = 15;
+        acEllipse = 16;
+        acHatch = 17;
+        acLeader = 18;
+        acLine = 19;
+        acMtext = 21;
+        acPoint = 22;
+        acPolyline = 23;
+        acPolylineLight = 24;
+        acPolymesh = 25;
+        acRaster = 26;
+        acRay = 27;
+        acRegion = 28;
+        acShape = 29;
+        acSolid = 30;
+        acSpline = 31;
+        acText = 32;
+        acTolerance = 33;
+        acTrace = 34;
+        acPViewport = 35;
+        acXline = 36;
+        acGroup = 37;
+        acModelSpace = 1;
+        acPaperSpace = 0;
+        acPreferenceClassic = 0;
+        acPreferenceCustom = 1;
+        acPlotOrientationPortrait = 0;
+        acPlotOrientationLandscape = 1;
+        acByBlock = 0;
+        acRed = 1;
+        acYellow = 2;
+        acGreen = 3;
+        acCyan = 4;
+        acBlue = 5;
+        acMagenta = 6;
+        acWhite = 7;
+        acByLayer = 256;
+        acAttachmentPointTopLeft = 1;
+        acAttachmentPointTopCenter = 2;
+        acAttachmentPointTopRight = 3;
+        acAttachmentPointMiddleLeft = 4;
+        acAttachmentPointMiddleCenter = 5;
+        acAttachmentPointMiddleRight = 6;
+        acAttachmentPointBottomLeft = 7;
+        acAttachmentPointBottomCenter = 8;
+        acAttachmentPointBottomRight = 9;
+        acLeftToRight = 1;
+        acRightToLeft = 2;
+        acTopToBottom = 3;
+        acBottomToTop = 4;
+        acLineNoArrow = 0;
+        acSplineNoArrow = 1;
+        acLineWithArrow = 2;
+        acSplineWithArrow = 3;
+        acAttributeModeInvisible = 1;
+        acAttributeModeConstant = 2;
+        acAttributeModeVerify = 4;
+        acAttributeModePreset = 8;
+        acHorizontalAlignmentLeft = 0;
+        acHorizontalAlignmentCenter = 1;
+        acHorizontalAlignmentRight = 2;
+        acHorizontalAlignmentAligned = 3;
+        acHorizontalAlignmentMiddle = 4;
+        acHorizontalAlignmentFit = 5;
+        acVerticalAlignmentBaseline = 0;
+        acVerticalAlignmentBottom = 1;
+        acVerticalAlignmentMiddle = 2;
+        acVerticalAlignmentTop = 3;
+        acTextFlagBackward = 2;
+        acTextFlagUpsideDown = 4;
+        acSelectionSetWindow = 0;
+        acSelectionSetCrossing = 1;
+        acSelectionSetFence = 2;
+        acSelectionSetPrevious = 3;
+        acSelectionSetLast = 4;
+        acSelectionSetAll = 5;
+        acSelectionSetWindowPolygon = 6;
+        acSelectionSetCrossingPolygon = 7;
+        acHatchPatternTypeUserDefined = 0;
+        acHatchPatternTypePreDefined = 1;
+        acHatchPatternTypeCustomDefined = 2;
+        acHatchLoopTypeDefault = 0;
+        acHatchLoopTypeExternal = 1;
+        acHatchLoopTypePolyline = 2;
+        acHatchLoopTypeDerived = 4;
+        acHatchLoopTypeTextbox = 8;
+        acHatchStyleNormal = 0;
+        acHatchStyleOuter = 1;
+        acHatchStyleIgnore = 2;
+        acOsnapEnd = 1;
+        acOsnapMid = 2;
+        acOsnapCenter = 3;
+        acOsnapNode = 4;
+        acOsnapQuadrant = 5;
+        acOsnapInsert = 6;
+        acOsnapPerpendicular = 7;
+        acOsnapTangent = 8;
+        acOsnapNear = 9;
+        acSimplePoly = 0;
+        acFitCurvePoly = 1;
+        acQuadSplinePoly = 2;
+        acCubicSplinePoly = 3;
+        acViewport2Horizontal = 0;
+        acViewport2Vertical = 1;
+        acViewport3Left = 2;
+        acViewport3Right = 3;
+        acViewport3Horizontal = 4;
+        acViewport3Vertical = 5;
+        acViewport3Above = 6;
+        acViewport3Below = 7;
+        acViewport4 = 8;
+        acActiveViewport = 0;
+        acAllViewports = 1;
+        acAmericanEnglish = "enu";
+        acAustralianEnglish = "ena";
+        acBritishEnglishIse = "ens";
+        acBritishEnglishIze = "enz";
+        acCatalan = "ca";
+        acCzech = "cs";
+        acDanish = "da";
+        acDutchPrim = "nl";
+        acDutchSec = "nls";
+        acFinnish = "fi";
+        acFrenchUnaccentCap = "fr";
+        acFrenchAccentCap = "fra";
+        acGermanScharfesS = "de";
+        acGermanDoppleS = "ded";
+        acItalian = "it";
+        acNorwegianBokmal = "no";
+        acNorwegianNynorsk = "non";
+        acPortugueseIberian = "pt";
+        acPortugueseBrazilian = "ptb";
+        acRussianInfrequentIo = "ru";
+        acRussianFrequentIo = "rui";
+        acSpanishUnaccentCap = "es";
+        acSpanishAccentCap = "esa";
+        acSwedish = "sv";
+        acUnion = 0;
+        acIntersection = 1;
+        acSubtraction = 2;
+        acExtendNone = 0;
+        acExtendThisEntity = 1;
+        acExtendOtherEntity = 2;
+        acExtendBoth = 3;
+        acDegrees = 0;
+        acDegreeMinuteSeconds = 1;
+        acGrads = 2;
+        acRadians = 3;
+        acSurveyorUnits = 4;
+        acScientific = 1;
+        acDecimal = 2;
+        acEngineering = 3;
+        acArchitectural = 4;
+        acFractional = 5;
+        acWorld = 0;
+        acUCS = 1;
+        acDisplayDCS = 2;
+        acPaperSpaceDCS = 3;
+        acEnglish = 0;
+        acMetric = 1;
+        acDemandLoadDisabled = 0;
+        acDemandLoadEnabled = 1;
+        acDemandLoadEnabledWithCopy = 2;
+        acPartialPreview = 0;
+        acFullPreview = 1;
+        acSimpleMesh = 0;
+        acQuadSurfaceMesh = 5;
+        acCubicSurfaceMesh = 6;
+        acBezierSurfaceMesh = 8;
+        acZoomScaledAbsolute = 0;
+        acZoomScaledRelative = 1;
+        acZoomScaledRelativePSpace = 2;
+        acDragDoNotDisplay = 0;
+        acDragDisplayOnRequest = 1;
+        acDragDisplayAutomatically = 2;
+        acDemanLoadDisable = 0;
+        acDemandLoadOnObjectDetect = 1;
+        acDemandLoadCmdInvoke = 2;
+        acFontRegular = 0;
+        acFontItalic = 1;
+        acFontBold = 2;
+        acFontBoldItalic = 3;
+        acProxyNotShow = 0;
+        acProxyShow = 1;
+        acProxyBoundingBox = 2;
+        acKeyboardRunningObjSnap = 0;
+        acKeyboardEntry = 1;
+        acKeyboardProxyNoScripts = 2;</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_6E4C9CE1DCE9467D8546057761F2144B"></a></span> <h2><a name="TOC_ENTRY__d24e6677"></a><span style="display:none"><a name="GUID-254C4E60-349D-4900-9F43-BEA5412277CF"></a></span>Enums</h2> <div class="codeBlock"><pre>AcBoolean (New)
+        acFalse = 0
+        acTrue = 1
+AcOnOff (New)
+        acOff = 0
+        acOn = 1
+AcEntityName (New)
+        ac3dFace = 1
+        ac3dPolyline = 2
+        ac3dSolid = 3
+        acArc = 4
+        acAttribute = 5
+        acAttributeReference = 6
+        acBlockReference = 7
+        acCircle = 8
+        acDimAligned = 9
+        acDimAngular = 10
+        acDimDiametric = 12
+        acDimOrdinate = 13
+        acDimRadial = 14
+        acDimRotated = 15
+        acEllipse = 16
+        acHatch = 17
+        acLeader = 18
+        acLine = 19
+        acMtext = 21
+        acPoint = 22
+        acPolyline = 23
+        acPolylineLight = 24
+        acPolymesh = 25
+        acRaster = 26
+        acRay = 27
+        acRegion = 28
+        acShape = 29
+        acSolid = 30
+        acSpline = 31
+        acText = 32
+        acTolerance = 33
+        acTrace = 34
+        acPViewport = 35
+        acXline = 36
+        acGroup = 37
+        acMInsertBlock = 38
+        acPolyfaceMesh = 39
+        acMLine = 40
+        acDim3PointAngular = 41
+        acExternalReference = 42
+AcActiveSpace (New)
+        acPaperSpace = 0
+        acModelSpace = 1
+AcKeyboardAccelerator (New)
+        acPreferenceClassic = 0
+        acPreferenceCustom = 1
+AcPlotOrientation (New)
+        acPlotOrientationPortrait = 0
+        acPlotOrientationLandscape = 1
+AcColor (New)
+        acByBlock = 0
+        acRed = 1
+        acYellow = 2
+        acGreen = 3
+        acCyan = 4
+        acBlue = 5
+        acMagenta = 6
+        acWhite = 7
+        acByLayer = 256
+AcAttachmentPoint (New)
+        acAttachmentPointTopLeft = 1
+        acAttachmentPointTopCenter = 2
+        acAttachmentPointTopRight = 3
+        acAttachmentPointMiddleLeft = 4
+        acAttachmentPointMiddleCenter = 5
+        acAttachmentPointMiddleRight = 6
+        acAttachmentPointBottomLeft = 7
+        acAttachmentPointBottomCenter = 8
+        acAttachmentPointBottomRight = 9
+AcDrawingDirection (New)
+        acLeftToRight = 1
+        acRightToLeft = 2
+        acTopToBottom = 3
+        acBottomToTop = 4
+        acByStyle = 5
+AcLeaderType (New)
+        acLineNoArrow = 0
+        acSplineNoArrow = 1
+        acLineWithArrow = 2
+        acSplineWithArrow = 3
+AcAttributeMode (New)
+        acAttributeModeNormal = 0
+        acAttributeModeInvisible = 1
+        acAttributeModeConstant = 2
+        acAttributeModeVerify = 4
+        acAttributeModePreset = 8
+AcHorizontalAlignment (New)
+        acHorizontalAlignmentLeft = 0
+        acHorizontalAlignmentCenter = 1
+        acHorizontalAlignmentRight = 2
+        acHorizontalAlignmentAligned = 3
+        acHorizontalAlignmentMiddle = 4
+        acHorizontalAlignmentFit = 5
+AcVerticalAlignment (New)
+        acVerticalAlignmentBaseline = 0
+        acVerticalAlignmentBottom = 1
+        acVerticalAlignmentMiddle = 2
+        acVerticalAlignmentTop = 3
+AcTextGenerationFlag (New)
+        acTextFlagBackward = 2
+        acTextFlagUpsideDown = 4
+AcSelect (New)
+        acSelectionSetWindow = 0
+        acSelectionSetCrossing = 1
+        acSelectionSetFence = 2
+        acSelectionSetPrevious = 3
+        acSelectionSetLast = 4
+        acSelectionSetAll = 5
+        acSelectionSetWindowPolygon = 6
+        acSelectionSetCrossingPolygon = 7
+AcPatternType (New)
+        acHatchPatternTypeUserDefined = 0
+        acHatchPatternTypePreDefined = 1
+        acHatchPatternTypeCustomDefined = 2
+AcLoopType (New)
+        acHatchLoopTypeDefault = 0
+        acHatchLoopTypeExternal = 1
+        acHatchLoopTypePolyline = 2
+        acHatchLoopTypeDerived = 4
+        acHatchLoopTypeTextbox = 8
+AcHatchStyle (New)
+        acHatchStyleNormal = 0
+        acHatchStyleOuter = 1
+        acHatchStyleIgnore = 2
+AcPolylineType (New)
+        acSimplePoly = 0
+        acFitCurvePoly = 1
+        acQuadSplinePoly = 2
+        acCubicSplinePoly = 3
+Ac3DPolylineType (New)
+        acSimple3DPoly = 0
+        acQuadSpline3DPoly = 1
+        acCubicSpline3DPoly = 2
+AcViewportSplitType (New)
+        acViewport2Horizontal = 0
+        acViewport2Vertical = 1
+        acViewport3Left = 2
+        acViewport3Right = 3
+        acViewport3Horizontal = 4
+        acViewport3Vertical = 5
+        acViewport3Above = 6
+        acViewport3Below = 7
+        acViewport4 = 8
+AcRegenType (New)
+        acActiveViewport = 0
+        acAllViewports = 1
+AcBooleanType (New)
+        acUnion = 0
+        acIntersection = 1
+        acSubtraction = 2
+AcExtendOption (New)
+        acExtendNone = 0
+        acExtendThisEntity = 1
+        acExtendOtherEntity = 2
+        acExtendBoth = 3
+AcAngleUnits (New)
+        acDegrees = 0
+        acDegreeMinuteSeconds = 1
+        acGrads = 2
+        acRadians = 3
+AcUnits (New)
+        acDefaultUnits = 0xffffffff
+        acScientific = 1
+        acDecimal = 2
+        acEngineering = 3
+        acArchitectural = 4
+        acFractional = 5
+AcCoordinateSystem (New)
+        acWorld = 0
+        acUCS = 1
+        acDisplayDCS = 2
+        acPaperSpaceDCS = 3
+        acOCS = 4
+AcMeasurementUnits (New)
+        acEnglish = 0
+        acMetric = 1
+AcXRefDemandLoad (New)
+        acDemandLoadDisabled = 0
+        acDemandLoadEnabled = 1
+        acDemandLoadEnabledWithCopy = 2
+AcPreviewMode (New)
+        acPartialPreview = 0
+        acFullPreview = 1
+AcPolymeshType (New)
+        acSimpleMesh = 0
+        acQuadSurfaceMesh = 5
+        acCubicSurfaceMesh = 6
+        acBezierSurfaceMesh = 8
+AcZoomScaleType (New)
+        acZoomScaledAbsolute = 0
+        acZoomScaledRelative = 1
+        acZoomScaledRelativePSpace = 2
+AcDragDisplayMode (New)
+        acDragDoNotDisplay = 0
+        acDragDisplayOnRequest = 1
+        acDragDisplayAutomatically = 2
+AcARXDemandLoad (New)
+        acDemanLoadDisable = 0
+        acDemandLoadOnObjectDetect = 1
+        acDemandLoadCmdInvoke = 2
+AcTextFontStyle (New)
+        acFontRegular = 0
+        acFontItalic = 1
+        acFontBold = 2
+        acFontBoldItalic = 3
+AcProxyImage (New)
+        acProxyNotShow = 0
+        acProxyShow = 1
+        acProxyBoundingBox = 2
+AcKeyboardPriority (New)
+        acKeyboardRunningObjSnap = 0
+        acKeyboardEntry = 1
+        acKeyboardEntryExceptScripts = 2
+AcMenuGroupType (New)
+        acBaseMenuGroup = 0
+        acPartialMenuGroup = 1
+AcMenuFileType (New)
+        acMenuFileCompiled = 0
+        acMenuFileSource = 1
+AcMenuItemType (New)
+        acMenuItem = 0
+        acMenuSeparator = 1
+        acMenuSubMenu = 2
+AcToolbarItemType (New)
+        acToolbarButton = 0
+        acToolbarSeparator = 1
+        acToolbarControl = 2
+        acToolbarFlyout = 3
+AcToolbarDockStatus (New)
+        acToolbarDockTop = 0
+        acToolbarDockBottom = 1
+        acToolbarDockLeft = 2
+        acToolbarDockRight = 3
+        acToolbarFloating = 4
+AcLineWeight (New)
+        acLnWt000 = 0
+        acLnWt005 = 5
+        acLnWt009 = 9
+        acLnWt013 = 13
+        acLnWt015 = 15
+        acLnWt018 = 18
+        acLnWt020 = 20
+        acLnWt025 = 25
+        acLnWt030 = 30
+        acLnWt035 = 35
+        acLnWt040 = 40
+        acLnWt050 = 50
+        acLnWt053 = 53
+        acLnWt060 = 60
+        acLnWt070 = 70
+        acLnWt080 = 80
+        acLnWt090 = 90
+        acLnWt100 = 100
+        acLnWt106 = 106
+        acLnWt120 = 120
+        acLnWt140 = 140
+        acLnWt158 = 158
+        acLnWt200 = 200
+        acLnWt211 = 211
+        acLnWtByLayer = 0xffffffff
+        acLnWtByBlock = 0xfffffffe
+        acLnWtByLwDefault = 0xfffffffd
+AcWindowState (New)
+        acNorm = 1
+        acMin = 2
+        acMax = 3
+AcPlotPaperUnits (New)
+        acInches = 0
+        acMillimeters = 1
+        acPixels = 2
+AcPlotRotation (New)
+        ac0degrees = 0
+        ac90degrees = 1
+        ac180degrees = 2
+        ac270degrees = 3
+AcPlotType (New)
+        acDisplay = 0
+        acExtents = 1
+        acLimits = 2
+        acView = 3
+        acWindow = 4
+        acLayout = 5
+AcPlotScale (New)
+        acScaleToFit = 0
+        ac1_128in_1ft = 1
+        ac1_64in_1ft = 2
+        ac1_32in_1ft = 3
+        ac1_16in_1ft = 4
+        ac3_32in_1ft = 5
+        ac1_8in_1ft = 6
+        ac3_16in_1ft = 7
+        ac1_4in_1ft = 8
+        ac3_8in_1ft = 9
+        ac1_2in_1ft = 10
+        ac3_4in_1ft = 11
+        ac1in_1ft = 12
+        ac3in_1ft = 13
+        ac6in_1ft = 14
+        ac1ft_1ft = 15
+        ac1_1 = 16
+        ac1_2 = 17
+        ac1_4 = 18
+        ac1_8 = 19
+        ac1_10 = 20
+        ac1_16 = 21
+        ac1_20 = 22
+        ac1_30 = 23
+        ac1_40 = 24
+        ac1_50 = 25
+        ac1_100 = 26
+        ac2_1 = 27
+        ac4_1 = 28
+        ac8_1 = 29
+        ac10_1 = 30
+        ac100_1 = 31
+AcAlignment (New)
+        acAlignmentLeft = 0
+        acAlignmentCenter = 1
+        acAlignmentRight = 2
+        acAlignmentAligned = 3
+        acAlignmentMiddle = 4
+        acAlignmentFit = 5
+        acAlignmentTopLeft = 6
+        acAlignmentTopCenter = 7
+        acAlignmentTopRight = 8
+        acAlignmentMiddleLeft = 9
+        acAlignmentMiddleCenter = 10
+        acAlignmentMiddleRight = 11
+        acAlignmentBottomLeft = 12
+        acAlignmentBottomCenter = 13
+        acAlignmentBottomRight = 14
+ACAD_COLOR (New)
+ACAD_LAYER (New)
+ACAD_LTYPE (New)
+ACAD_NULL (New)
+ACAD_DISTANCE (New)
+ACAD_ANGLE (New)
+ACAD_LWEIGHT (New)
+ACAD_NOUNITS (New)
+ACAD_POINT (New)
+AcLineSpacingStyle (New)
+        acLineSpacingStyleAtLeast = 1
+        acLineSpacingStyleExactly = 2
+AcDimPrecision (New)
+        acDimPrecisionZero = 0
+        acDimPrecisionOne = 1
+        acDimPrecisionTwo = 2
+        acDimPrecisionThree = 3
+        acDimPrecisionFour = 4
+        acDimPrecisionFive = 5
+        acDimPrecisionSix = 6
+        acDimPrecisionSeven = 7
+        acDimPrecisionEight = 8
+AcDimUnits (New)
+        acDimScientific = 1
+        acDimDecimal = 2
+        acDimEngineering = 3
+        acDimArchitecturalStacked = 4
+        acDimFractionalStacked = 5
+        acDimArchitectural = 6
+        acDimFractional = 7
+        acDimWindowsDesktop = 8
+AcDimLUnits (New)
+        acDimLScientific = 1
+        acDimLDecimal = 2
+        acDimLEngineering = 3
+        acDimLArchitectural = 4
+        acDimLFractional = 5
+        acDimLWindowsDesktop = 6
+AcDimArrowheadType (New)
+        acArrowDefault = 0
+        acArrowClosedBlank = 1
+        acArrowClosed = 2
+        acArrowDot = 3
+        acArrowArchTick = 4
+        acArrowOblique = 5
+        acArrowOpen = 6
+        acArrowOrigin = 7
+        acArrowOrigin2 = 8
+        acArrowOpen90 = 9
+        acArrowOpen30 = 10
+        acArrowDotSmall = 11
+        acArrowDotBlank = 12
+        acArrowSmall = 13
+        acArrowBoxBlank = 14
+        acArrowBoxFilled = 15
+        acArrowDatumBlank = 16
+        acArrowDatumFilled = 17
+        acArrowIntegral = 18
+        acArrowNone = 19
+        acArrowUserDefined = 20
+AcDimCenterType (New)
+        acCenterMark = 0
+        acCenterLine = 1
+        acCenterNone = 2
+AcDimFit (New)
+        acTextAndArrows = 0
+        acArrowsOnly = 1
+        acTextOnly = 2
+        acBestFit = 3
+AcDimFractionType (New)
+        acHorizontal = 0
+        acDiagonal = 1
+        acNotStacked = 2
+AcDimHorizontalJustification (New)
+        acHorzCentered = 0
+        acFirstExtensionLine = 1
+        acSecondExtensionLine = 2
+        acOverFirstExtension = 3
+        acOverSecondExtension = 4
+AcDimVerticalJustification (New)
+        acVertCentered = 0
+        acAbove = 1
+        acOutside = 2
+        acJIS = 3
+AcDimTextMovement (New)
+        acDimLineWithText = 0
+        acMoveTextAddLeader = 1
+        acMoveTextNoLeader = 2
+AcDimToleranceMethod (New)
+        acTolNone = 0
+        acTolSymmetrical = 1
+        acTolDeviation = 2
+        acTolLimits = 3
+        acTolBasic = 4
+AcDimToleranceJustify (New)
+        acTolBottom = 0
+        acTolMiddle = 1
+        acTolTop = 2
+AcViewportScale (New)
+        acVpScaleToFit = 0
+        acVpCustomScale = 1
+        acVp1_1 = 2
+        acVp1_2 = 3
+        acVp1_4 = 4
+        acVp1_8 = 5
+        acVp1_10 = 6
+        acVp1_16 = 7
+        acVp1_20 = 8
+        acVp1_30 = 9
+        acVp1_40 = 10
+        acVp1_50 = 11
+        acVp1_100 = 12
+        acVp2_1 = 13
+        acVp4_1 = 14
+        acVp8_1 = 15
+        acVp10_1 = 16
+        acVp100_1 = 17
+        acVp1_128in_1ft = 18
+        acVp1_64in_1ft = 19
+        acVp1_32in_1ft = 20
+        acVp1_16in_1ft = 21
+        acVp3_32in_1ft = 22
+        acVp1_8in_1ft = 23
+        acVp3_16in_1ft = 24
+        acVp1_4in_1ft = 25
+        acVp3_8in_1ft = 26
+        acVp1_2in_1ft = 27
+        acVp3_4in_1ft = 28
+        acVp1in_1ft = 29
+        acVp3in_1ft = 30
+        acVp6in_1ft = 31
+        acVp1ft_1ft = 32
+AcISOPenWidth (New)
+        acPenWidth013 = 13
+        acPenWidth018 = 18
+        acPenWidth025 = 25
+        acPenWidth035 = 35
+        acPenWidth050 = 50
+        acPenWidth070 = 70
+        acPenWidth100 = 100
+        acPenWidth140 = 140
+        acPenWidth200 = 200
+        acPenWidthUnk = 0xffffffff
+AcSaveAsType (New)
+        acUnknown = 0xffffffff
+        acR12_dxf = 1
+        acR13_dwg = 4
+        acR13_dxf = 5
+        acR14_dwg = 8
+        acR14_dxf = 9
+        acR15_dwg = 12
+        acR15_dxf = 13
+        acR15_Template = 14
+        acNative = 12
+AcPrinterSpoolAlert (New)
+        acPrinterAlwaysAlert = 0
+        acPrinterAlertOnce = 1
+        acPrinterNeverAlertLogOnce = 2
+        acPrinterNeverAlert = 3
+AcPlotPolicyForNewDwgs (New)
+        acPolicyNewDefault = 0
+        acPolicyNewLegacy = 1
+AcPlotPolicyForLegacyDwgs (New)
+        acPolicyLegacyDefault = 0
+        acPolicyLegacyQuery = 1
+        acPolicyLegacyLegacy = 2
+AcOleQuality (New)
+        acOQLineArt = 0
+        acOQText = 1
+        acOQGraphics = 2
+        acOQPhoto = 3
+        acOQHighPhoto = 4
+AcLoadPalette (New)
+        acPaletteByDrawing = 0
+        acPaletteBySession = 1
+AcInsertUnits (New)
+        acInsertUnitsUnitless = 0
+        acInsertUnitsInches = 1
+        acInsertUnitsFeet = 2
+        acInsertUnitsMiles = 3
+        acInsertUnitsMillimeters = 4
+        acInsertUnitsCentimeters = 5
+        acInsertUnitsMeters = 6
+        acInsertUnitsKilometers = 7
+        acInsertUnitsMicroinches = 8
+        acInsertUnitsMils = 9
+        acInsertUnitsYards = 10
+        acInsertUnitsAngstroms = 11
+        acInsertUnitsNanometers = 12
+        acInsertUnitsMicrons = 13
+        acInsertUnitsDecimeters = 14
+        acInsertUnitsDecameters = 15
+        acInsertUnitsHectometers = 16
+        acInsertUnitsGigameters = 17
+        acInsertUnitsAstronomicalUnits = 18
+        acInsertUnitsLightYears = 19
+        acInsertUnitsParsecs = 20
+AcAlignmentPointAcquisition (New)
+        acAlignPntAcquisitionAutomatic = 0
+        acAlignPntAcquisitionShiftToAcquire = 1
+AcInsertUnitsAction (New)
+        acInsertUnitsPrompt = 0
+        acInsertUnitsAutoAssign = 1
+AcPlotPolicy (New)
+        acPolicyNamed = 0
+        acPolicyLegacy = 1
+AcDrawingAreaShortCutMenu
+        acNoDrawingAreaShortCutMenu = 0
+        acUseDefaultDrawingAreaShortCutMenu = 1
+AcDrawingAreaSCMDefault
+        acRepeatLastCommand = 0
+        acSCM = 1
+AcDrawingAreaSCMEdit
+        acEdRepeatLastCommand = 0
+        acEdSCM = 1
+AcDrawingAreaSCMCommand
+        acEnter = 0
+        acEnableSCMOptions = 1
+        acEnableSCM = 2</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_EC9AC79167974B72B12DB706AF5E8D0C"></a></span> <h2><a name="TOC_ENTRY__d24e6685"></a><span style="display:none"><a name="GUID-A2B74C05-E5B5-4540-9106-C5606AF78A9D"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadObject (Changed)
+        Handle - Property
+        ObjectName - Property (New)
+        Name - Property (Removed)
+        GetXData - Method
+        SetXData - Method
+        Delete - Method (New)
+        ObjectID - Property
+        Application - Property
+        Database - Property (New)
+        HasExtensionDictionary - Property (New)
+        GetExtensionDictionary - Method (New)
+        OwnerID - Property (New)
+        Document - Property (New)
+IAcadDatabase (New)
+        ModelSpace - Property
+        PaperSpace - Property
+        Blocks - Property
+        CopyObjects - Method
+        Groups - Property
+        DimStyles - Property
+        Layers - Property
+        Linetypes - Property
+        Dictionaries - Property
+        RegisteredApplications - Property
+        TextStyles - Property
+        UserCoordinateSystems - Property
+        Views - Property
+        Viewports - Property
+        ElevationModelSpace - Property
+        ElevationPaperSpace - Property
+        Limits - Property
+        HandleToObject - Method
+        ObjectIdToObject - Method
+        Layouts - Property
+        PlotConfigurations - Property
+        Preferences - Property
+IAcadModelSpace (Changed)
+        Item - Method
+        Count - Property
+        Name - Property
+        Origin - Property (New)
+        AddCustomObject - Method
+        Add3DFace - Method
+        Add3DMesh - Method
+        Add3DPoly - Method
+        AddArc - Method
+        AddAttribute - Method
+        AddBox - Method
+        AddCircle - Method
+        AddCone - Method
+        AddCylinder - Method
+        AddDimAligned - Method
+        AddDimAngular - Method
+        AddDimDiametric - Method
+        AddDimRotated - Method
+        AddDimOrdinate - Method
+        AddDimRadial - Method
+        AddEllipse - Method
+        AddEllipticalCone - Method
+        AddEllipticalCylinder - Method
+        AddExtrudedSolid - Method
+        AddExtrudedSolidAlongPath - Method
+        AddLeader - Method
+        AddMText - Method
+        AddPoint - Method
+        AddLightWeightPolyline - Method
+        AddPolyline - Method
+        AddRay - Method
+        AddRegion - Method
+        AddRevolvedSolid - Method
+        AddShape - Method
+        AddSolid - Method
+        AddSphere - Method
+        AddSpline - Method
+        AddText - Method
+        AddTolerance - Method
+        AddTorus - Method
+        AddTrace - Method
+        AddWedge - Method
+        AddXline - Method
+        InsertBlock - Method
+        AddHatch - Method
+        AddRaster - Method
+        AddLine - Method
+        IsLayout - Property (New)
+        Layout - Property (New)
+        IsXRef - Property (New)
+        AddMInsertBlock - Method (New)
+        AddPolyfaceMesh - Method (New)
+        AddMLine - Method (New)
+        AddDim3PointAngular - Method (New)
+        XRefDatabase - Property (New)
+        AttachExternalReference - Method (New)
+        Unload - Method (New)
+        Reload - Method (New)
+        Bind - Method (New)
+        Detach - Method (New)
+        Handle - Property (Removed)
+IAcadBlock (Changed)
+        Item - Method
+        Count - Property
+        Name - Property
+        Origin - Property
+        AddCustomObject - Method
+        Add3DFace - Method
+        Add3DMesh - Method
+        Add3DPoly - Method
+        AddArc - Method
+        AddAttribute - Method
+        AddBox - Method
+        AddCircle - Method
+        AddCone - Method
+        AddCylinder - Method
+        AddDimAligned - Method
+        AddDimAngular - Method
+        AddDimDiametric - Method
+        AddDimRotated - Method
+        AddDimOrdinate - Method
+        AddDimRadial - Method
+        AddEllipse - Method
+        AddEllipticalCone - Method
+        AddEllipticalCylinder - Method
+        AddExtrudedSolid - Method
+        AddExtrudedSolidAlongPath - Method
+        AddLeader - Method
+        AddMText - Method
+        AddPoint - Method
+        AddLightWeightPolyline - Method
+        AddPolyline - Method
+        AddRay - Method
+        AddRegion - Method
+        AddRevolvedSolid - Method
+        AddShape - Method
+        AddSolid - Method
+        AddSphere - Method
+        AddSpline - Method
+        AddText - Method
+        AddTolerance - Method
+        AddTorus - Method
+        AddTrace - Method
+        AddWedge - Method
+        AddXline - Method
+        InsertBlock - Method
+        AddHatch - Method
+        AddRaster - Method
+        AddLine - Method
+        IsLayout - Property (New)
+        Layout - Property (New)
+        IsXRef - Property (New)
+        AddMInsertBlock - Method (New)
+        AddPolyfaceMesh - Method (New)
+        AddMLine - Method (New)
+        AddDim3PointAngular - Method (New)
+        XRefDatabase - Property (New)
+        AttachExternalReference - Method (New)
+        Unload - Method (New)
+        Reload - Method (New)
+        Bind - Method (New)
+        Detach - Method (New)
+        Delete - Property (Removed)
+        Handle - Property (Removed)
+IAcadEntity (Changed)
+        Handle - Property (Removed)
+        Color - Property
+        Layer - Property
+        Linetype - Property
+        LinetypeScale - Property
+        Visible - Property
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method
+        ArrayRectangular - Method
+        Highlight - Method
+        Copy - Method
+        Erase - Method (Removed)
+        Move - Method
+        Rotate - Method
+        Rotate3D - Method
+        Mirror - Method
+        Mirror3D - Method(0x00010213)]
+        ScaleEntity - Method
+        TransformBy - Method
+        Update - Method
+        GetBoundingBox - Method
+        IntersectWith - Method
+        PlotStyleName - Property (New)
+        Lineweight - Property (New)
+        Hyperlinks - Property (New)
+        EntityName - Property (New)
+        EntityType - Property (New)
+        ObjectID - Property (Removed)
+        Application - Property (Removed)
+IAcadHyperlinks (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Add - Method
+IAcadHyperlink (New)
+        URL - Property
+        URLDescription - Property
+        Application - Property
+        Delete - Method
+        URLNamedLocation - Property
+IAcad3DFace (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Coordinates - Property (New)
+        VisibilityEdge1 - Property (New)
+        VisibilityEdge2 - Property (New)
+        VisibilityEdge3 - Property (New)
+        VisibilityEdge4 - Property (New)
+        GetInvisibleEdge - Method
+        SetInvisibleEdge - Method
+        Coordinate - Property (New)
+IAcadPolygonMesh (New)
+        Coordinates - Property
+        MClose - Property
+        NClose - Property
+        MDensity - Property
+        NDensity - Property
+        MVertexCount - Property
+        NVertexCount - Property
+        Type - Property
+        AppendVertex - Method
+        Explode - Method
+        Coordinate - Property
+IAcad3DPolyline (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Coordinates - Property
+        AppendVertex - Method
+        Explode - Method
+        Coordinate - Property (New)
+        Type - Property (New)
+        Closed - Property
+IAcadArc (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Area - Property
+        Center - Property
+        Radius - Property
+        StartAngle - Property
+        EndAngle - Property
+        TotalAngle - Property (New)
+        ArcLength - Property (New)
+        StartPoint - Property
+        EndPoint - Property
+        Normal - Property
+        Thickness - Property
+        Offset - Method
+IAcadAttribute (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        FieldLength - Property
+        Height - Property
+        Alignment - Property (New)
+        HorizontalAlignment - Property
+        InsertionPoint - Property
+        Normal - Property
+        ObliqueAngle - Property
+        PromptString - Property
+        Rotation - Property
+        ScaleFactor - Property
+        StyleName - Property
+        TagString - Property
+        TextAlignmentPoint - Property
+        TextGenerationFlag - Property
+        TextString - Property
+        Thickness - Property
+        VerticalAlignment - Property
+        Mode - Property
+        UpsideDown - Property (New)
+        Backward - Property (New)
+        Invisible - Property (New)
+        Constant - Property (New)
+        Verify - Property (New)
+        Preset - Property (New)
+IAcadAttributeReference (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Highlight - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        FieldLength - Property
+        Height - Property
+        HorizontalAlignment - Property
+        InsertionPoint - Property
+        Normal - Property
+        ObliqueAngle - Property
+        Rotation - Property
+        ScaleFactor - Property
+        StyleName - Property
+        TagString - Property
+        TextAlignmentPoint - Property
+        TextGenerationFlag - Property
+        TextString - Property
+        Thickness - Property
+        VerticalAlignment - Property
+        Alignment - Property
+        UpsideDown - Property
+        Backward - Property
+        Invisible - Property
+        Constant - Property
+IAcad3DSolid (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Centroid - Property
+        MomentOfInertia - Property
+        PrincipalDirections - Property
+        PrincipalMoments - Property
+        ProductOfInertia - Property
+        RadiiOfGyration - Property
+        Volume - Property
+        Boolean - Method
+        CheckInterference - Method
+        SectionSolid - Method
+        SliceSolid - Method
+IAcadRegion (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Area - Property
+        Centroid - Property
+        MomentOfInertia - Property
+        Normal - Property
+        Perimeter - Property
+        PrincipalDirections - Property
+        PrincipalMoments - Property
+        ProductOfInertia - Property
+        RadiiOfGyration - Property
+        Boolean - Method
+        Explode - Method
+IAcadCircle (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Area - Property
+        Center - Property
+        Radius - Property
+        Normal - Property
+        Thickness - Property
+        Offset - Method
+        Diameter - Property (New)
+        Circumference - Property (New)
+IAcadDimAligned (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Normal - Property
+        Rotation - Property
+        TextPosition - Property
+        TextRotation - Property
+        TextString - Property
+        StyleName - Property
+        ExtLine1Point - Property
+        ExtLine2Point - Property
+        AltUnits - Property (New)
+        AltUnitsPrecision - Property (New)
+        AltUnitsScale - Property (New)
+        AltRoundDistance - Property (New)
+        AltTolerancePrecision - Property (New)
+        AltUnitsFormat - Property (New)
+        AltTextPrefix - Property (New)
+        AltTextSuffix - Property (New)
+        DimensionLineColor - Property (New)
+        ExtensionLineColor - Property (New)
+        PrimaryUnitsPrecision - Property (New)
+        DimensionLineExtend - Property (New)
+        ExtensionLineExtend - Property (New)
+        Fit - Property (New)
+        FractionFormat - Property (New)
+        HorizontalTextPosition - Property (New)
+        LinearScaleFactor - Property (New)
+        UnitsFormat - Property (New)
+        ExtensionLineWeight - Property (New)
+        RoundDistance - Property (New)
+        DimLine1Suppress - Property (New)
+        DimLine2Suppress - Property (New)
+        ExtLine1Suppress - Property (New)
+        ExtLine2Suppress - Property (New)
+        DimLineInside - Property (New)
+        TextInsideAlign - Property (New)
+        TextInside - Property (New)
+        ForceLineInside - Property (New)
+        TextOutsideAlign - Property (New)
+        ExtensionLineOffset - Property (New)
+        AltSuppressLeadingZeros - Property (New)
+        AltSuppressTrailingZeros - Property (New)
+        AltSuppressZeroFeet - Property (New)
+        AltSuppressZeroInches - Property (New)
+        AltToleranceSuppressLeadingZeros - Property (New)
+        AltToleranceSuppressTrailingZeros - Property (New)
+        AltToleranceSuppressZeroFeet - Property (New)
+        AltToleranceSuppressZeroInches - Property (New)
+        SuppressZeroFeet - Property (New)
+        SuppressZeroInches - Property (New)
+        ToleranceSuppressZeroFeet - Property (New)
+        ToleranceSuppressZeroInches - Property (New)
+        DimensionLineWeight - Property (New)
+        ArrowheadSize - Property (New)
+        Arrowhead1Type - Property (New)
+        Arrowhead2Type - Property (New)
+        Measurement - Property (New)
+        Arrowhead1Block - Property (New)
+        Arrowhead2Block - Property (New)
+IAcadDimension (New)
+        Normal - Property
+        Rotation - Property
+        TextPosition - Property
+        TextRotation - Property
+        TextOverride - Property
+        StyleName - Property
+        TextColor - Property
+        DecimalSeparator - Property
+        TextGap - Property
+        TextPrefix - Property
+        TextSuffix - Property
+        ScaleFactor - Property
+        VerticalTextPosition - Property
+        TolerancePrecision - Property
+        ToleranceHeightScale - Property
+        ToleranceLowerLimit - Property
+        TextMovement - Property
+        ToleranceDisplay - Property
+        ToleranceJustification - Property
+        ToleranceUpperLimit - Property
+        TextStyle - Property
+        TextHeight - Property
+        SuppressLeadingZeros - Property
+        SuppressTrailingZeros - Property
+        ToleranceSuppressLeadingZeros - Property
+        ToleranceSuppressTrailingZeros - Property
+IAcadDimAngular (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Normal - Property
+        Rotation - Property
+        TextPosition - Property
+        TextRotation - Property
+        TextString - Property
+        StyleName - Property
+        ExtLine1StartPoint - Property
+        ExtLine1EndPoint - Property
+        ExtLine2StartPoint - Property
+        ExtLine2EndPoint - Property
+        AngleFormat - Property (New)
+        DimensionLineColor - Property (New)
+        ExtensionLineColor - Property (New)
+        ExtensionLineExtend - Property (New)
+        Fit - Property (New)
+        HorizontalTextPosition - Property (New)
+        ExtensionLineWeight - Property (New)
+        DimLine1Suppress - Property (New)
+        DimLine2Suppress - Property (New)
+        ExtLine1Suppress - Property (New)
+        ExtLine2Suppress - Property (New)
+        DimLineInside - Property (New)
+        TextInsideAlign - Property (New)
+        TextInside - Property (New)
+        ForceLineInside - Property (New)
+        TextOutsideAlign - Property (New)
+        TextPrecision - Property (New)
+        ExtensionLineOffset - Property (New)
+        DimensionLineWeight - Property (New)
+        ArrowheadSize - Property (New)
+        Arrowhead1Type - Property (New)
+        Arrowhead2Type - Property (New)
+        Measurement - Property (New)
+        Arrowhead1Block - Property (New)
+        Arrowhead2Block - Property (New)
+IAcadDimDiametric (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Normal - Property
+        Rotation - Property
+        TextPosition - Property
+        TextRotation - Property
+        TextString - Property
+        StyleName - Property
+        LeaderLength - Property
+        AltUnits - Property (New)
+        AltUnitsPrecision - Property (New)
+        AltUnitsScale - Property (New)
+        AltRoundDistance - Property (New)
+        AltTolerancePrecision - Property (New)
+        AltUnitsFormat - Property (New)
+        AltTextPrefix - Property (New)
+        AltTextSuffix - Property (New)
+        DimensionLineColor - Property (New)
+        PrimaryUnitsPrecision - Property (New)
+        FractionFormat - Property (New)
+        Fit - Property (New)
+        LinearScaleFactor - Property (New)
+        UnitsFormat - Property (New)
+        RoundDistance - Property (New)
+        DimLine1Suppress - Property (New)
+        DimLine2Suppress - Property (New)
+        TextInsideAlign - Property (New)
+        TextInside - Property (New)
+        ForceLineInside - Property (New)
+        TextOutsideAlign - Property (New)
+        CenterType - Property (New)
+        CenterMarkSize - Property (New)
+        AltSuppressLeadingZeros - Property (New)
+        AltSuppressTrailingZeros - Property (New)
+        AltSuppressZeroFeet - Property (New)
+        AltSuppressZeroInches - Property (New)
+        AltToleranceSuppressLeadingZeros - Property (New)
+        AltToleranceSuppressTrailingZeros - Property (New)
+        AltToleranceSuppressZeroFeet - Property (New)
+        AltToleranceSuppressZeroInches - Property (New)
+        SuppressZeroFeet - Property (New)
+        SuppressZeroInches - Property (New)
+        ToleranceSuppressZeroFeet - Property (New)
+        ToleranceSuppressZeroInches - Property (New)
+        DimensionLineWeight - Property (New)
+        ArrowheadSize - Property (New)
+        Arrowhead1Type - Property (New)
+        Arrowhead2Type - Property (New)
+        Measurement - Property (New)
+        Arrowhead1Block - Property (New)
+        Arrowhead2Block - Property (New)
+IAcadDimRotated (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Normal - Property
+        Rotation - Property
+        TextPosition - Property
+        TextRotation - Property
+        TextString - Property
+        StyleName - Property
+        AltUnits - Property (New)
+        AltUnitsPrecision - Property (New)
+        AltUnitsScale - Property (New)
+        AltRoundDistance - Property (New)
+        AltTolerancePrecision - Property (New)
+        AltUnitsFormat - Property (New)
+        AltTextPrefix - Property (New)
+        AltTextSuffix - Property (New)
+        DimensionLineColor - Property (New)
+        ExtensionLineColor - Property (New)
+        PrimaryUnitsPrecision - Property (New)
+        DimensionLineExtend - Property (New)
+        ExtensionLineExtend - Property (New)
+        Fit - Property (New)
+        FractionFormat - Property (New)
+        HorizontalTextPosition - Property (New)
+        LinearScaleFactor - Property (New)
+        UnitsFormat - Property (New)
+        ExtensionLineWeight - Property (New)
+        RoundDistance - Property (New)
+        DimLine1Suppress - Property (New)
+        DimLine2Suppress - Property (New)
+        ExtLine1Suppress - Property (New)
+        ExtLine2Suppress - Property (New)
+        DimLineInside - Property (New)
+        TextInsideAlign - Property (New)
+        TextInside - Property (New)
+        ForceLineInside - Property (New)
+        TextOutsideAlign - Property (New)
+        ExtensionLineOffset - Property (New)
+        AltSuppressLeadingZeros - Property (New)
+        AltSuppressTrailingZeros - Property (New)
+        AltSuppressZeroFeet - Property (New)
+        AltSuppressZeroInches - Property (New)
+        AltToleranceSuppressLeadingZeros - Property (New)
+        AltToleranceSuppressTrailingZeros - Property (New)
+        AltToleranceSuppressZeroFeet - Property (New)
+        AltToleranceSuppressZeroInches - Property (New)
+        SuppressZeroFeet - Property (New)
+        SuppressZeroInches - Property (New)
+        ToleranceSuppressZeroFeet - Property (New)
+        ToleranceSuppressZeroInches - Property (New)
+        DimensionLineWeight - Property (New)
+        ArrowheadSize - Property (New)
+        Arrowhead1Type - Property (New)
+        Arrowhead2Type - Property (New)
+        Measurement - Property (New)
+        Arrowhead1Block - Property (New)
+        Arrowhead2Block - Property (New)
+IAcadDimOrdinate (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Normal - Property
+        Rotation - Property
+        TextPosition - Property
+        TextRotation - Property
+        TextString - Property
+        StyleName - Property
+        AltUnits - Property (New)
+        AltUnitsPrecision - Property (New)
+        AltUnitsScale - Property (New)
+        AltRoundDistance - Property (New)
+        AltTolerancePrecision - Property (New)
+        AltUnitsFormat - Property (New)
+        AltTextPrefix - Property (New)
+        AltTextSuffix - Property (New)
+        ExtensionLineColor - Property (New)
+        PrimaryUnitsPrecision - Property (New)
+        FractionFormat - Property (New)
+        LinearScaleFactor - Property (New)
+        UnitsFormat - Property (New)
+        ExtensionLineWeight - Property (New)
+        RoundDistance - Property (New)
+        ExtensionLineOffset - Property (New)
+        AltSuppressLeadingZeros - Property (New)
+        AltSuppressTrailingZeros - Property (New)
+        AltSuppressZeroFeet - Property (New)
+        AltSuppressZeroInches - Property (New)
+        AltToleranceSuppressLeadingZeros - Property (New)
+        AltToleranceSuppressTrailingZeros - Property (New)
+        AltToleranceSuppressZeroFeet - Property (New)
+        AltToleranceSuppressZeroInches - Property (New)
+        SuppressZeroFeet - Property (New)
+        SuppressZeroInches - Property (New)
+        ToleranceSuppressZeroFeet - Property (New)
+        ToleranceSuppressZeroInches - Property (New)
+        ArrowheadSize - Property (New)
+        Measurement - Property (New)
+IAcadDimRadial (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Normal - Property
+        Rotation - Property
+        TextPosition - Property
+        TextRotation - Property
+        TextString - Property
+        StyleName - Property
+        LeaderLength - Property
+        AltUnits - Property (New)
+        AltUnitsPrecision - Property (New)
+        AltUnitsScale - Property (New)
+        AltRoundDistance - Property (New)
+        AltTolerancePrecision - Property (New)
+        AltUnitsFormat - Property (New)
+        AltTextPrefix - Property (New)
+        AltTextSuffix - Property (New)
+        CenterType - Property (New)
+        CenterMarkSize - Property (New)
+        DimensionLineColor - Property (New)
+        PrimaryUnitsPrecision - Property (New)
+        FractionFormat - Property (New)
+        Fit - Property (New)
+        LinearScaleFactor - Property (New)
+        UnitsFormat - Property (New)
+        RoundDistance - Property (New)
+        DimLineSuppress - Property (New)
+        TextInsideAlign - Property (New)
+        TextInside - Property (New)
+        ForceLineInside - Property (New)
+        TextOutsideAlign - Property (New)
+        AltSuppressLeadingZeros - Property (New)
+        AltSuppressTrailingZeros - Property (New)
+        AltSuppressZeroFeet - Property (New)
+        AltSuppressZeroInches - Property (New)
+        AltToleranceSuppressLeadingZeros - Property (New)
+        AltToleranceSuppressTrailingZeros - Property (New)
+        AltToleranceSuppressZeroFeet - Property (New)
+        AltToleranceSuppressZeroInches - Property (New)
+        SuppressZeroFeet - Property (New)
+        SuppressZeroInches - Property (New)
+        ToleranceSuppressZeroFeet - Property (New)
+        ToleranceSuppressZeroInches - Property (New)
+        DimensionLineWeight - Property (New)
+        ArrowheadSize - Property (New)
+        ArrowheadType - Property (New)
+        Measurement - Property (New)
+        ArrowheadBlock - Property (New)
+IAcadEllipse (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Area - Property
+        StartPoint - Property
+        EndPoint - Property
+        Center - Property
+        StartAngle - Property
+        EndAngle - Property
+        StartParameter - Property
+        EndParameter - Property
+        MajorAxis - Property
+        MinorAxis - Property
+        Normal - Property
+        RadiusRatio - Property
+        Offset - Method
+        MajorRadius - Property (New)
+        MinorRadius - Property (New)
+IAcadLeader (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Coordinates - Property
+        Normal - Property
+        StyleName - Property
+        Type - Property
+        Evaluate - Method
+        Coordinate - Property (New)
+        Annotation - Property (New)
+        ArrowheadSize - Property (New)
+        ArrowheadType - Property (New)
+        DimensionLineColor - Property (New)
+        DimensionLineWeight - Property (New)
+        ScaleFactor - Property (New)
+        VerticalTextPosition - Property (New)
+        TextGap - Property (New)
+        ArrowheadBlock - Property (New)
+IAcadMtext (Removed)
+        Handle - Property
+        EntityName - Property
+        Color - Property
+        Layer - Property
+        Linetype - Property
+        LinetypeScale - Property
+        Visible - Property
+        GetXData - Method
+        SetXData - Method
+        ArrayPolar - Method
+        ArrayRectangular - Method
+        Highlight - Method
+        Copy - Method
+        Erase - Method
+        Move - Method
+        Rotate - Method
+        Rotate3D - Method
+        Mirror - Method
+        Mirror3D - Method
+        ScaleEntity- Method
+        TransformBy - Method
+        Update - Method
+        GetBoundingBox - Method
+        IntersectWith - Method
+        ObjectID - Property
+        EntityType - Property
+        Application - Property
+        AttachmentPoint - Property
+        DrawingDirection - Property
+        Height - Property
+        InsertionPoint - Property
+        Normal - Property
+        Rotation - Property
+        StyleName - Property
+        TextString - Property
+        Width - Property
+IAcadMText (New/Renamed from IAcadMtext)
+        TextString - Property
+        StyleName - Property
+        AttachmentPoint - Property
+        DrawingDirection - Property
+        Width - Property
+        Height - Property
+        Rotation - Property
+        InsertionPoint - Property
+        Normal - Property
+        LineSpacingFactor - Property
+        LineSpacingStyle - Property
+IAcadPoint (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Coordinates - Property
+        Normal - Property
+        Thickness - Property
+IAcadLWPolyline (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Area - Property
+        Closed - Property
+        Coordinates - Property
+        Normal - Property
+        Thickness - Property
+        AddVertex - Method
+        Explode - Method
+        GetBulge - Method
+        SetBulge - Method
+        GetWidth - Method
+        SetWidth - Method
+        Offset - Method
+        ConstantWidth - Property (New)
+        Elevation - Property (New)
+        Coordinate - Property (New)
+        LinetypeGeneration - Property (New)
+IAcadPolyline (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Area - Property
+        Closed - Property
+        Coordinates - Property
+        Normal - Property
+        Thickness - Property
+        Type - Property
+        AppendVertex - Method
+        Explode - Method
+        GetBulge - Method
+        SetBulge - Method
+        GetWidth - Method
+        SetWidth - Method
+        Offset - Method
+        ConstantWidth - Property (New)
+        Elevation - Property (New)
+        LinetypeGeneration - Property (New)
+        Coordinate - Property (New)
+IAcadRay (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        BasePoint - Property
+        DirectionVector - Property
+        SecondPoint - Property (New)
+IAcadShape (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Height - Property
+        InsertionPoint - Property
+        Name - Property
+        Normal - Property
+        ObliqueAngle - Property
+        Rotation - Property
+        ScaleFactor - Property
+        Thickness - Property
+IAcadSolid (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Coordinates - Property
+        Normal - Property
+        Thickness - Property
+        Coordinate - Property (New)
+IAcadSpline (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Area - Property
+        Closed - Property
+        Degree - Property
+        EndTangent - Property
+        FitTolerance - Property
+        IsRational - Property
+        NumberOfControlPoints - Property
+        NumberOfFitPoints - Property
+        StartTangent - Property
+        SetControlPoint - Method
+        GetControlPoint - Method
+        SetFitPoint - Method
+        GetFitPoint - Method
+        SetWeight - Method
+        GetWeight - Method
+        AddFitPoint - Method
+        DeleteFitPoint - Method
+        ElevateOrder - Method
+        Offset - Method
+        PurgeFitData - Method
+        Reverse - Method
+        ControlPoints - Property (New)
+        FitPoints - Property (New)
+        IsPlanar - Property (New)
+        IsPeriodic - Property (New)
+        Knots - Property (New)
+        Weights - Property (New)
+IAcadText (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Height - Property
+        HorizontalAlignment - Property
+        InsertionPoint - Property
+        Normal - Property
+        ObliqueAngle - Property
+        Rotation - Property
+        ScaleFactor - Property
+        StyleName - Property
+        TextAlignmentPoint - Property
+        TextGenerationFlag - Property
+        TextString - Property
+        Thickness - Property
+        VerticalAlignment - Property
+        Alignment - Property (New)
+        UpsideDown - Property (New)
+        Backward - Property (New)
+IAcadTolerance (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        DirectionVector - Property
+        InsertionPoint - Property
+        Normal - Property
+        StyleName - Property
+        TextString - Property
+        TextColor - Property (New)
+        TextStyle - Property (New)
+        TextHeight - Property (New)
+        ScaleFactor - Property (New)
+        DimensionLineColor - Property (New)
+IAcadTrace (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Coordinates - Property
+        Normal - Property
+        Thickness - Property
+        Coordinate - Property (New)
+IAcadXline (Change)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        BasePoint - Property
+        DirectionVector - Property
+        Offset - Method
+        SecondPoint - Property (New)
+IAcadBlockReference (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        InsertionPoint - Property
+        Name - Property
+        Normal - Property
+        Rotation - Property
+        XScaleFactor - Property
+        YScaleFactor - Property
+        Explode - Method
+        GetAttributes - Method
+        HasAttributes - Property
+        ZScaleFactor - Property
+        GetConstantAttributes - Method (New)
+IAcadHatch (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Normal - Property
+        Elevation - Property
+        AssociativeHatch - Property (Now Supports In/Out)
+        NumberOfLoops - Property
+        PatternType - Property
+        PatternName - Property
+        PatternAngle - Property
+        PatternScale - Property
+        PatternSpace - Property
+        PatternDouble - Property
+        HatchStyle - Property
+        SetPattern - Method
+        AppendOuterLoop - Method
+        AppendInnerLoop - Method
+        InsertLoopAt - Method
+        GetLoopAt - Method
+        Evaluate - Method
+        ISOPenWidth - Property (New)
+IAcadRaster (Removed)
+        Handle - Property
+        EntityName - Property
+        Color - Property
+        Layer - Property
+        Linetype - Property
+        LinetypeScale - Property
+        Visible - Property
+        GetXData - Method
+        SetXData - Method
+        ArrayPolar - Method
+        ArrayRectangular - Method
+        Highlight - Method
+        Copy - Method
+        Erase - Method
+        Move - Method
+        Rotate - Method
+        Rotate3D - Method
+        Mirror - Method
+        Mirror3D - Method
+        ScaleEntity- Method
+        TransformBy - Method
+        Update - Method
+        GetBoundingBox - Method
+        IntersectWith - Method
+        ObjectID - Property
+        EntityType - Property
+        Application - Property
+        ImageFile - Property
+        Origin - Property
+        ImageVisibility - Property
+        ClippingEnabled - Property
+        Transparency - Property
+        Brightness - Property
+        Contrast - Property
+        Fade - Property
+        ClipBoundary - Property
+        Height - Property
+        Width - Property
+IAcadRasterImage (New/Renamed from IAcadRaster)
+        Brightness - Property
+        Contrast - Property
+        Fade - Property
+        Origin - Property
+        Rotation - Property
+        ImageWidth - Property
+        ImageHeight - Property
+        Name - Property
+        ImageFile - Property
+        ImageVisibility - Property
+        ClippingEnabled - Property
+        Transparency - Property
+        ClipBoundary - Property
+        Height - Property
+        Width - Property
+        ShowRotation - Property
+        ScaleFactor - Property
+IAcadLine (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        StartPoint - Property
+        EndPoint - Property
+        Normal - Property
+        Thickness - Property
+        Offset - Method
+        Delta - Property (New)
+        Length - Property (New)
+        Angle - Property (New)
+IAcadLayout (New)
+        Block - Property
+        TabOrder - Property
+IAcadPlotConfiguration (New)
+        Name - Property
+        ConfigName - Property
+        CanonicalMediaName - Property
+        PaperUnits - Property
+        PlotViewportBorders - Property
+        ShowPlotStyles - Property
+        PlotRotation - Property
+        CenterPlot - Property
+        PlotHidden - Property
+        PlotType - Property
+        ViewToPlot - Property
+        UseStandardScale - Property
+        StandardScale - Property
+        GetCustomScale - Method
+        SetCustomScale - Method
+        ScaleLineweights - Property
+        PlotWithLineweights - Property
+        PlotViewportsFirst - Property
+        StyleSheet - Property
+        GetPaperMargins - Method
+        GetPaperSize - Method
+        PlotOrigin - Property
+        GetWindowToPlot - Method
+        SetWindowToPlot - Method
+        PlotWithPlotStyles - Property
+        ModelType - Property
+        CopyFrom - Method
+        GetCanonicalMediaNames - Method
+        GetPlotDeviceNames - Method
+        GetPlotStyleTableNames - Method
+        RefreshPlotDeviceInfo - Method
+        GetLocaleMediaName - Method
+IAcadMInsertBlock (New)
+        Columns - Property
+        ColumnSpacing - Property
+        Rows - Property
+        RowSpacing - Property
+IAcadPolyfaceMesh (New)
+        Coordinates - Property
+        Coordinate - Property
+        NumberOfVertices - Property
+        NumberOfFaces - Property
+        Faces - Method
+IAcadMLine (New)
+        StyleName - Property
+        Coordinates - Property
+IAcadDim3PointAngular (New)
+        ExtLine1EndPoint - Property
+        ExtLine2EndPoint - Property
+        AngleVertex - Property
+        TextPrecision - Property
+        AngleFormat - Property
+        DimensionLineColor - Property
+        ExtensionLineColor - Property
+        ExtensionLineExtend - Property
+        Fit - Property
+        HorizontalTextPosition - Property
+        ExtensionLineWeight - Property
+        DimLine1Suppress - Property
+        DimLine2Suppress - Property
+        ExtLine1Suppress - Property
+        ExtLine2Suppress - Property
+        DimLineInside - Property
+        TextInsideAlign - Property
+        TextInside - Property
+        ForceLineInside - Property
+        TextOutsideAlign - Property
+        ExtensionLineOffset - Property
+        DimensionLineWeight - Property
+        ArrowheadSize - Property
+        Arrowhead1Type - Property
+        Arrowhead2Type - Property
+        Measurement - Property
+        Arrowhead1Block - Property
+        Arrowhead2Block - Property
+IAcadExternalReference (New)
+        Path - Property
+IAcadPaperSpace (Changed)
+        Count - Property (Removed)
+        Application - Property (Removed)
+        AddLine - Method (Removed)
+        AddCustomObject - Method (Removed)
+        Add3DFace - Method (Removed)
+        Add3DMesh - Method (Removed)
+        Add3DPoly - Method (Removed)
+        AddArc - Method (Removed)
+        AddAttribute - Method (Removed)
+        AddBox - Method (Removed)
+        AddCircle - Method (Removed)
+        AddCone - Method (Removed)
+        AddCylinder - Method (Removed)
+        AddDimAligned - Method (Removed)
+        AddDimAngular - Method (Removed)
+        AddDimDiametric - Method (Removed)
+        AddDimRotated - Method (Removed)
+        AddDimOrdinate - Method (Removed)
+        AddDimRadial - Method (Removed)
+        AddEllipse - Method (Removed)
+        AddEllipticalCone - Method (Removed)
+        AddEllipticalCylinder - Method (Removed)
+        AddExtrudedSolid - Method (Removed)
+        AddExtrudedSolidAlongPath - Method (Removed)
+        AddLeader - Method (Removed)
+        AddMText - Method (Removed)
+        AddPoint - Method (Removed)
+        AddLightWeightPolyline - Method (Removed)
+        AddPolyline - Method (Removed)
+        AddRay - Method (Removed)
+        AddRegion - Method (Removed)
+        AddRevolvedSolid - Method (Removed)
+        AddShape - Method (Removed)
+        AddSolid - Method (Removed)
+        AddSphere - Method (Removed)
+        AddSpline - Method (Removed)
+        AddText - Method (Removed)
+        AddTolerance - Method (Removed)
+        AddTorus - Method (Removed)
+        AddTrace - Method (Removed)
+        AddWedge - Method (Removed)
+        AddXline - Method (Removed)
+        InsertBlock - Method (Removed)
+        AddHatch - Method (Removed)
+        AddRaster - Method (Removed)
+        Name - Property (Removed)
+        AddPViewport - Method
+        Handle - Property (Removed)
+IAcadPViewport (Changed)
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property (Removed)
+        Layer - Property (Removed)
+        Linetype - Property (Removed)
+        LinetypeScale - Property (Removed)
+        Visible - Property (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        ArrayPolar - Method (Removed)
+        ArrayRectangular - Method (Removed)
+        Highlight - Method (Removed)
+        Copy - Method (Removed)
+        Erase - Method (Removed)
+        Move - Method (Removed)
+        Rotate - Method (Removed)
+        Rotate3D - Method (Removed)
+        Mirror - Method (Removed)
+        Mirror3D - Method (Removed)
+        ScaleEntity- Method (Removed)
+        TransformBy - Method (Removed)
+        Update - Method (Removed)
+        GetBoundingBox - Method (Removed)
+        IntersectWith - Method (Removed)
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Center - Property
+        Direction - Property
+        GridOn - Property
+        Height - Property
+        Width - Property
+        SnapBasePoint - Property
+        SnapOn - Property
+        SnapRotationAngle - Property
+        UCSIconOn - Property
+        UCSIconAtOrigin - Property
+        GetGridSpacing - Method
+        SetGridSpacing - Method
+        GetSnapSpacing - Method
+        SetSnapSpacing - Method
+        Display - Property
+        TwistAngle - Property
+        LensLength - Property
+        RemoveHiddenLines - Property
+        Target - Property
+        ZoomExtents - Method
+        ZoomAll - Method
+        ZoomCenter - Method
+        ZoomScaled - Method
+        ZoomWindow - Method
+        ZoomPickWindow - Method
+        ViewportOn - Property (New)
+        Clipped - Property (New)
+        DisplayLocked - Property (New)
+        StandardScale - Property (New)
+        CustomScale - Property (New)
+        StyleSheet - Property (New)
+        UCSPerViewport - Property (New)
+        ArcSmoothness - Property (New)
+IAcadBlocks (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadGroups (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadGroup (Changed)
+        Item - Method
+        Count - Property
+        Handle - Property (Removed)
+        EntityName - Property (Removed)
+        Color - Property
+        Layer - Property
+        Linetype - Property
+        LinetypeScale - Property
+        Visible - Property
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Highlight - Method
+        ObjectID - Property (Removed)
+        EntityType - Property (Removed)
+        Application - Property (Removed)
+        Name - Property
+        AppendItems - Method
+        RemoveItems - Method
+        Delete - Method (Removed)
+        Update - Method
+        PlotStyleName - Property (New)
+        Lineweight - Property (New)
+IAcadDimStyles (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadDimStyle (Changed)
+        Application - Property (Removed)
+        Name - Property
+        Delete - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Handle - Property (Removed)
+        CopyFrom - Method (New)
+IAcadLayers (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadLayer (Changed)
+        Application - Property (Removed)
+        Color - Property
+        Freeze - Property
+        LayerOn - Property
+        Linetype - Property
+        Lock - Property
+        Name - Property
+        Delete - Method
+        GetXData - Method
+        SetXData - Method
+        Handle - Property
+        Plottable - Property (New)
+        ViewportDefault - Property (New)
+        PlotStyleName - Property (New)
+        Lineweight - Property (New)
+IAcadLineTypes (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+        Load - Method
+IAcadLineType (Changed)
+        Application - Property (Removed)
+        Description - Property
+        Name - Property
+        Delete - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Handle - Method (Removed)
+IAcadDictionaries (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadDictionary (Changed)
+        Application - Property (Removed)
+        Name - Property
+        AddObject - Method
+        GetName - Method
+        GetObject - Method
+        Remove - Method
+        Rename - Method
+        Replace - Method
+        Delete - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Handle - Property (Removed)
+        Item - Method (Removed)
+        Count - Property (Removed)
+        AddXRecord - Method (Removed)
+IAcadXRecord (New)
+        Name - Property
+        GetXRecordData - Method
+        SetXRecordData - Method
+        TranslateIDs - Property
+IAcadRegisteredApplications (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadRegisteredApplication (Changed)
+        Application - Property (Removed)
+        Name - Property
+        Delete - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Handle - Property (Removed)
+IAcadTextStyles (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadTextStyle (Changed)
+        Application - Property (Removed)
+        BigFontFile - Property
+        FontFile - Property
+        Height - Property
+        LastHeight - Property
+        Name - Property
+        ObliqueAngle - Property
+        TextGenerationFlag - Property
+        Width - Property
+        Delete - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Handle - Property (Removed)
+        GetFont - Method
+        SetFont - Method
+IAcadUCSs (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadUCS (Changed)
+        Application - Property (Removed)
+        Name - Property
+        Origin - Property
+        XVector - Property
+        YVector - Property
+        Delete - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        GetUCSMatrix - Method
+        Handle - Property (Removed)
+IAcadViews (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+IAcadView (Changed)
+        Application - Property (Removed)
+        Center - Property
+        Height - Property
+        Width - Property
+        Target - Property
+        Direction - Property
+        Name - Property
+        Delete - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Handle - Property (Removed)
+IAcadViewports (Changed)
+        Item - Method
+        Count - Property
+        Application - Property (Removed)
+        Add - Method
+        Delete - Method (Removed)
+        DeleteConfiguration - Method (New)
+IAcadViewport (Changed)
+        Application - Property (Removed)
+        Center - Property
+        Height - Property
+        Width - Property
+        Target - Property
+        Direction - Property
+        Name - Property
+        GridOn - Property
+        OrthoOn - Property
+        SnapBasePoint - Property
+        SnapOn - Property
+        SnapRotationAngle - Property
+        StatusId - Property (Removed)
+        UCSIconOn - Property
+        UCSIconAtOrigin - Property
+        LowerLeftCorner - Property
+        UpperRightCorner - Property
+        Split - Method
+        GetGridSpacing - Method
+        SetGridSpacing - Method
+        GetSnapSpacing - Method
+        SetSnapSpacing - Method
+        SetView - Method
+        ZoomExtents - Method (Removed)
+        ZoomAll - Method (Removed)
+        ZoomCenter - Method (Removed)
+        ZoomScaled - Method (Removed)
+        ZoomWindow - Method (Removed)
+        ZoomPickWindow - Method (Removed)
+        GetXData - Method (Removed)
+        SetXData - Method (Removed)
+        Handle - Property (Removed)
+        ArcSmoothness - Property (New)
+IAcadLayouts (New)
+        Item - Method
+        Count - Property
+        Add - Method
+IAcadPlotConfigurations (New)
+        Item - Method
+        Count - Property
+        Add - Method
+IAcadDatabasePreferences (New)
+        Application - Property
+        SolidFill - Property
+        XRefEdit - Property
+        XRefLayerVisibility - Property
+        OLELaunch - Property
+        AllowLongSymbolNames - Property
+        ObjectSortBySelection - Property
+        ObjectSortBySnap - Property
+        ObjectSortByRedraws - Property
+        ObjectSortByRegens - Property
+        ObjectSortByPlotting - Property
+        ObjectSortByPSOutput - Property
+        ContourLinesPerSurface - Property
+        DisplaySilhouette - Property
+        MaxActiveViewports - Property
+        RenderSmoothness - Property
+        SegmentPerPolyline - Property
+        TextFrameDisplay - Property
+        Lineweight - Property
+        LineWeightDisplay - Property
+IAcadObjectEvents (New)
+        Modified - Event
+IAcadIdPair (New)
+        IsCloned - Property
+        IsOwnerXlated - Property
+        IsPrimary - Property
+        Key - Property
+        Value - Property
+        Application - Property
+_DAcadApplicationEvents (New)
+        SysVarChanged - Event
+        NewDrawing - Event
+        AppActivate - Event
+        AppDeactivate - Event
+        WindowMovedOrResized - Event
+        BeginModal - Event
+        EndModal - Event
+        BeginQuit - Event
+        BeginFileDrop - Event
+        ARXLoaded - Event
+        ARXUnloaded - Event
+        BeginPlot - Event
+        EndPlot - Event
+        BeginSave - Event
+        EndSave - Event
+        BeginOpen - Event
+        EndOpen - Event
+        BeginCommand - Event
+        EndCommand - Event
+        BeginLisp - Event
+        EndLisp - Event
+        LispCancelled - Event
+        WindowChanged - Event
+IAcadDocument (Changed)
+        ModelSpace - Property
+        PaperSpace - Property
+        Blocks - Property
+        Plot - Property
+        Application - Property
+        ActiveLayer - Property
+        ActiveLinetype - Property
+        ActiveDimStyle - Property
+        ActiveTextStyle - Property
+        ActiveUCS - Property
+        ActiveViewport - Property
+        ActivePViewport - Property
+        ActiveSpace - Property
+        SelectionSets - Property
+        Groups - Property
+        DimStyles - Property]
+        Layers - Property
+        Linetypes - Property
+        Dictionaries - Property
+        RegisteredApplications - Property
+        TextStyles - Property
+        UserCoordinateSystems - Property
+        Views - Property
+        Viewports - Property
+        ActiveSelectionSet - Property
+        FullName - Property
+        Name - Property
+        Path - Property
+        ElevationModelSpace - Property
+        ElevationPaperSpace - Property
+        Limits - Property
+        ObjectSnapMode - Property
+        ReadOnly - Property
+        Saved - Property
+        MSpace - Property
+        Open - Method
+        AuditInfo - Method
+        Import - Method
+        Export - Method
+        HandleToObject - Method
+        ObjectIdToObject - Method
+        New - Method
+        Regen - Method
+        Save - Method
+        SaveAs - Method
+        PurgeAll - Method
+        GetVariable - Method
+        SetVariable - Method
+        LoadShapeFile - Method
+        Wblock - Method
+        Utility - Property
+IAcadPlot (Changed)
+        Application - Property
+        PlotOrientation - Property (Removed)
+        PlotScale - Property (Removed)
+        Rotation - Property (Removed)
+        HideLines - Property (Removed)
+        Origin - Property (Removed)
+        PaperSize - Property (Removed)
+        PlotUnits - Property (Removed)
+        AdjustAreaFill - Property (Removed)
+        PlotWithConfigFile - Property (Removed)
+        PlotExtents - Method (Removed)
+        PlotLimits - Method (Removed)
+        PlotPreview - Method (Removed)
+        PlotToFile - Method
+        PlotToDevice - Method
+        PlotView - Method (Removed)
+        PlotWindow - Method (Removed)
+        LoadPC2 - Method (Removed)
+        SavePC2 - Method (Removed)
+        QuietErrorMode - Property (New)
+        NumberOfCopies - Property (New)
+        BatchPlotProgress - Property (New)
+        DisplayPlotPreview - Property (New)
+        SetLayoutsToPlot - Method (New)
+        StartBatchMode - Method (New)
+IAcadApplication (Changed)
+        Visible - Property
+        Quit - Method
+        Name - Property
+        Application - Property
+        ActiveDocument - Property
+        Caption - Property
+        FullName - Property
+        Height - Property
+        Left - Property (Removed)
+        Path - Property
+        Top - Property (Removed)
+        Version - Property
+        Width - Property
+        LocaleId - Property
+        Preferences - Property
+        ListAds - Method (Removed)
+        ListArx - Method
+        LoadAds - Method (Removed)
+        LoadArx - Method
+        GetInterfaceObject - Method
+        UnloadAds - Method (Removed)
+        UnloadArx - Method
+        Update - Method
+        StartUndoMark - Method
+        EndUndoMark - Method
+        WindowLeft - Property (New)
+        WindowTop - Property (New)
+        StatusId - Property (New)
+        VBE - Property (New)
+        MenuGroups - Property (New)
+        MenuBar - Property (New)
+        LoadDVB - Method (New)
+        UnloadDVB - Method (New)
+        Documents - Property (New)
+        Eval - Method (New)
+        WindowState - Property (New)
+        RunMacro - Method (New)
+        ZoomExtents - Method (New)
+        ZoomAll - Method (New)
+        ZoomCenter - Method (New)
+        ZoomScaled - Method (New)
+        ZoomWindow - Method (New)
+        ZoomPickWindow - Method (New)
+        GetAcadState - Method (New)
+        ZoomPrevious - Method (New)
+IAcadPreferences (Changed)
+        Application - Property
+        SupportPath - Property (Removed)
+        DriversPath - Property (Removed)
+        MenuFile - Property (Removed)
+        AltTabletMenuFile - Property (Removed)
+        HelpFilePath - Property (Removed)
+        AutoSaveFile - Property (Removed)
+        LogFileName - Property (Removed)
+        DefaultInternetURL - Property (Removed)
+        ConfigFile - Property (Removed)
+        LicenseServer - Property (Removed)
+        TextEditor - Property (Removed)
+        MainDictionary - Property (Removed)
+        CustomDictionary - Property (Removed)
+        AltFontFile - Property (Removed)
+        FontFileMap - Property (Removed)
+        PrintFile - Property (Removed)
+        PrintSpoolExecutable - Property (Removed)
+        PostScriptPrologFile - Property (Removed)
+        PrintSpoolerPath - Property (Removed)
+        TemplateDwgPath - Property (Removed)
+        TempFilePath - Property (Removed)
+        TempXrefPath - Property (Removed)
+        XrefDemandLoad - Property (Removed)
+        TextFrameDisplay - Property (Removed)
+        DisplaySilhouette - Property (Removed)
+        RenderSmoothness - Property (Removed)
+        ContourLinesPerSurface - Property (Removed)
+        SegmentPerPolyline - Property (Removed)
+        MaxActiveViewports - Property (Removed)
+        IncrementalSavePercent - Property (Removed)
+        PersistentLisp - Property (Removed)
+        EnableStartupDialog - Property (Removed)
+        ShowRasterImage - Property (Removed)
+        KeyboardAccelerator - Property (Removed)
+        FullCRCValidation - Property (Removed)
+        AutoAudit - Property (Removed)
+        LogFileOn - Property (Removed)
+        SavePreviewThumbnail - Property (Removed)
+        AutoSaveInterval - Property (Removed)
+        CreateBackup - Property (Removed)
+        BeepOnError - Property (Removed)
+        MaxNumOfSymbols - Property (Removed)
+        DisplayScreenMenu - Property (Removed)
+        DisplayScrollBars - Property (Removed)
+        MaxAutoCADWindow - Property (Removed)
+        DockedVisibleLines - Property (Removed)
+        HistoryLines - Property (Removed)
+        GraphicsWinBackgrndColor - Property (Removed)
+        GraphicsTextBackgrndColor - Property (Removed)
+        GraphicsTextColor - Property (Removed)
+        TextWinBackgrndColor - Property (Removed)
+        TextWinTextColor - Property (Removed)
+        CrosshairColor - Property (Removed)
+        MonochromeVectors - Property (Removed)
+        GraphicFont - Property (Removed)
+        GraphicFontStyle - Property (Removed)
+        GraphicFontSize - Property (Removed)
+        TextFont - Property (Removed)
+        TextFontStyle - Property (Removed)
+        TextFontSize - Property (Removed)
+        SetProjectFilePath - Method (Removed)
+        GetProjectFilePath - Method (Removed)
+        ImportProfile - Method (Removed)
+        ExportProfile - Method (Removed)
+        DeleteProfile - Method (Removed)
+        ResetProfile - Method (Removed)
+        ArcSmoothness - Property (Removed)
+        CursorSize - Property (Removed)
+        MeasurementUnits - Property (Removed)
+        DemandLoadARXApp - Property (Removed)
+        DisplayDraggedObject - Property (Removed)
+        TextureMapPath - Property (Removed)
+        ActiveProfile - Property (Removed)
+        ProxyImage - Property (Removed)
+        ShowProxyDialogBox - Property (Removed)
+        KeyboardPriority - Property (Removed)
+        TempFileExtension - Property (Removed)
+        Files - Property (New)
+        Display - Property (New)
+        OpenSave - Property (New)
+        Output - Property (New)
+        System - Property (New)
+        User - Property (New)
+        Drafting - Property (New)
+        Selection - Property (New)
+        Profiles - Property (New)
+IAcadPreferencesFiles (New)
+        Application - Property
+        SupportPath - Property
+        DriversPath - Property
+        MenuFile - Property
+        HelpFilePath - Property
+        DefaultInternetURL - Property
+        ConfigFile - Property
+        LicenseServer - Property
+        TextEditor - Property
+        MainDictionary - Property
+        CustomDictionary - Property
+        AltFontFile - Property
+        FontFileMap - Property
+        PrintFile - Property
+        PrintSpoolExecutable - Property
+        PostScriptPrologFile - Property
+        PrintSpoolerPath - Property
+        AutoSavePath - Property
+        TemplateDwgPath - Property
+        LogFilePath - Property
+        TempFilePath - Property
+        TempXrefPath - Property
+        TextureMapPath - Property
+        AltTabletMenuFile - Property
+        SetProjectFilePath - Method
+        GetProjectFilePath - Method
+        PrinterConfigPath - Property
+        PrinterDescPath - Property
+        PrinterStyleSheetPath - Property
+        WorkspacePath - Property
+        ObjectARXPath - Property
+IAcadPreferencesDisplay (New)
+        Application - Property
+        LayoutDisplayMargins - Property
+        LayoutDisplayPaper - Property
+        LayoutDisplayPaperShadow - Property
+        LayoutShowPlotSetup - Property
+        LayoutCreateViewport - Property
+        DisplayScrollBars - Property
+        DisplayScreenMenu - Property
+        CursorSize - Property
+        DockedVisibleLines - Property
+        ShowRasterImage - Property
+        GraphicsWinModelBackgrndColor - Property
+        ModelCrosshairColor - Property
+        GraphicsWinLayoutBackgrndColor - Property
+        TextWinBackgrndColor - Property
+        TextWinTextColor - Property
+        LayoutCrosshairColor - Property
+        AutoTrackingVecColor - Property
+        TextFont - Property
+        TextFontStyle - Property
+        TextFontSize - Property
+        HistoryLines - Property
+        MaxAutoCADWindow - Property
+        DisplayLayoutTabs - Property
+        ImageFrameHighlight - Property
+        TrueColorImages - Property
+        XRefFadeIntensity - Property
+IAcadPreferencesOpenSave (New)
+        Application - Property
+        SavePreviewThumbnail - Property
+        IncrementalSavePercent - Property
+        AutoSaveInterval - Property
+        CreateBackup - Property
+        FullCRCValidation - Property
+        LogFileOn - Property
+        TempFileExtension - Property
+        XrefDemandLoad - Property
+        DemandLoadARXApp - Property
+        ProxyImage - Property
+        ShowProxyDialogBox - Property
+        AutoAudit - Property
+        SaveAsType - Property
+        MRUNumber - Property
+IAcadPreferencesOutput (New)
+        Application - Property
+        DefaultOutputDevice - Property
+        PrinterSpoolAlert - Property
+        PrinterPaperSizeAlert - Property
+        PlotLegacy - Property
+        OLEQuality - Property
+        UseLastPlotSettings - Property
+        PlotPolicy - Property
+        DefaultPlotStyleTable - Property
+        DefaultPlotStyleForObjects - Property
+        DefaultPlotStyleForLayer - Property
+IAcadPreferencesSystem (New)
+        Application - Property
+        SingleDocumentMode - Property
+        DisplayOLEScale - Property
+        StoreSQLIndex - Property
+        TablesReadOnly - Property
+        EnableStartupDialog - Property
+        BeepOnError - Property
+        ShowWarningMessages - Property
+        LoadAcadLspInAllDocuments - Property
+IAcadPreferencesUser (New)
+        Application - Property
+        KeyboardAccelerator - Property
+        KeyboardPriority - Property
+        HyperlinkDisplayCursor - Property
+        HyperlinkDisplayTooltip - Property
+        ADCInsertUnitsDefaultSource( - Property
+        ADCInsertUnitsDefaultTarget - Property
+        ShortCutMenuDisplay - Property
+        SCMDefaultMode - Property
+        SCMEditMode - Property
+        SCMCommandMode - Property
+IAcadPreferencesDrafting (New)
+        Application - Property
+        AutoSnapMarker - Property
+        AutoSnapMagnet - Property
+        AutoSnapTooltip - Property
+        AutoSnapAperture - Property
+        AutoSnapApertureSize - Property
+        AutoSnapMarkerColor - Property
+        AutoSnapMarkerSize - Property
+        PolarTrackingVector - Property
+        FullScreenTrackingVector - Property
+        AutoTrackTooltip - Property
+        AlignmentPointAcquisition - Property
+IAcadPreferencesSelection (New)
+        Application - Property
+        PickFirst - Property
+        PickAdd - Property
+        PickDrag - Property
+        PickAuto - Property
+        PickBoxSize - Property
+        DisplayGrips - Property
+        DisplayGripsWithinBlocks - Property
+        GripColorSelected - Property
+        GripColorUnselected - Property
+        GripSize - Property
+        PickGroup - Property
+IAcadPreferencesProfiles (New)
+        Application - Property
+        ActiveProfile - Property
+        ImportProfile - Method
+        ExportProfile - Method
+        DeleteProfile - Method
+        ResetProfile - Method
+        RenameProfile - Method
+        CopyProfile - Method
+        GetAllProfileNames - Method
+IAcadMenuGroups (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Parent - Property
+        Load - Method
+IAcadMenuGroup (New)
+        Application - Property
+        Parent - Property
+        Name - Property
+        Type - Property
+        MenuFileName - Property
+        Menus - Property
+        Toolbars - Property
+        Unload - Method
+        Save - Method
+        SaveAs - Method
+IAcadPopupMenus (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Parent - Property
+        Add - Method
+        InsertMenuInMenuBar - Method
+        RemoveMenuFromMenuBar - Method
+IAcadPopupMenu (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Parent - Property
+        Name - Property
+        NameNoMnemonic - Property
+        ShortcutMenu - Property
+        OnMenuBar - Property
+        AddMenuItem - Method
+        AddSubMenu - Method
+        AddSeparator - Method
+        InsertInMenuBar - Method
+        RemoveFromMenuBar - Method
+        TagString - Property
+IAcadPopupMenuItem (New)
+        Application - Property
+        Parent - Property
+        Label - Property
+        TagString - Property
+        Enable - Property
+        Check - Property
+        Type - Property
+        SubMenu - Property
+        Macro - Property
+        Index - Property
+        Caption - Property
+        HelpString - Property
+        Delete - Method
+        EndSubMenuLevel - Property
+IAcadToolbars (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Parent - Property
+        LargeButtons - Property
+        Add - Method
+IAcadToolbar (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Parent - Property
+        Name - Property
+        Visible - Property
+        DockStatus - Property
+        LargeButtons - Property
+        left - Property
+        top - Property
+        Width - Property
+        Height - Property
+        FloatingRows - Property
+        HelpString - Property
+        AddToolbarButton - Method
+        AddSeparator - Method
+        Dock - Method
+        Float - Method
+        Delete - Method
+        TagString - Property
+IAcadToolbarItem (New)
+        Application - Property
+        Parent - Property
+        Name - Property
+        TagString - Property
+        Type - Property
+        Flyout - Property
+        Macro - Property
+        Index - Property
+        HelpString - Property
+        GetBitmaps - Method
+        SetBitmaps - Method
+        AttachToolbarToFlyout - Method
+        Delete - Method
+IAcadMenuBar (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Parent - Property
+IAcadDocuments (New)
+        Item - Method
+        Count - Property
+        Application - Property
+        Add - Method
+        Open - Method
+        Close - Method
+IAcadState (New)
+        Application - Property
+        IsQuiescent - Property
+IAcadSelectionSets (Changed)
+        Item - Method
+        Count - Property
+        Application - Property
+        Add - Method
+        Delete - Method (Removed)
+IAcadSelectionSet
+        Item - Method
+        Count - Property
+        Name - Property
+        Highlight - Method
+        Erase - Method
+        Update - Method
+        Application - Property
+        AddItems - Method
+        RemoveItems - Method
+        Clear - Method
+        Select - Method
+        SelectAtPoint - Method
+        SelectByPolygon - Method
+        SelectOnScreen - Method
+        Delete - Method
+IAcadUtility (Changed)
+        AngleToReal - Method
+        AngleToString - Method
+        DistanceToReal - Method
+        RealToString - Method
+        TranslateCoordinates - Method
+        InitializeUserInput - Method
+        GetInteger - Method
+        GetReal - Method
+        GetInput - Method
+        GetKeyword - Method
+        GetString - Method
+        GetAngle - Method
+        AngleFromXAxis - Method
+        GetCorner - Method
+        GetDistance - Method
+        GetOrientation - Method
+        GetPoint - Method
+        PolarPoint - Method
+        CreateTypedArray - Method
+        GetEntity - Method
+        Prompt - Method (New)
+        GetSubEntity - Method (New)
+        IsURL - Method (New)
+        GetRemoteFile - Method (New)
+        PutRemoteFile - Method (New)
+        IsRemoteFile - Method (New)
+        LaunchBrowserDialog - Method (New)
+_DAcadDocumentEvents (Changed)
+        BeginSave - Event
+        EndSave - Event
+        BeginOpen - Event (Removed)
+        EndOpen - Event (Removed)
+        BeginQuit - Event (Removed)
+        BeginCommand - Event
+        EndCommand - Event
+        BeginLisp - Event (New)
+        EndLisp - Event (New)
+        LispCancelled - Event (New)
+        SelectionChanged - Event (New)
+        Activate - Event (New)
+        Deactivate - Event (New)
+        BeginRightClick - Event (New)
+        BeginShortcutMenuDefault - Event (New)
+        BeginShortcutMenuEdit - Event (New)
+        BeginShortcutMenuCommand - Event (New)
+        BeginShortcutMenuGrip - Event (New)
+        BeginShortcutMenuOsnap - Event (New)
+        EndShortcutMenu - Event (New)
+        BeginDoubleClick - Event (New)
+        ObjectAdded - Event (New)
+        ObjectErased - Event (New)
+        ObjectModified - Event (New)
+        BeginPlot - Event (New)
+        EndPlot - Event (New)
+        WindowMovedOrResized - Event (New)
+        LayoutSwitched - Event (New)
+        WindowChanged - Event (New)
+        BeginClose - Event (New)</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

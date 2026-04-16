@@ -1,0 +1,76 @@
+{
+  "script": "cad_runtime_guard.py",
+  "functions": [
+    {
+      "name": "now_iso",
+      "level": "utility",
+      "summary": "生成当前本地 ISO 时间戳，用于状态和事件写入。"
+    },
+    {
+      "name": "ensure_dirs",
+      "level": "utility",
+      "summary": "确保 runtime 状态目录和事件目录存在。"
+    },
+    {
+      "name": "is_already_running",
+      "level": "core",
+      "summary": "通过锁文件和 PID 探测判断 guard 是否已在运行。"
+    },
+    {
+      "name": "create_lock",
+      "level": "utility",
+      "summary": "写入当前 PID 到锁文件。"
+    },
+    {
+      "name": "remove_lock",
+      "level": "utility",
+      "summary": "退出时删除锁文件。"
+    },
+    {
+      "name": "read_json",
+      "level": "utility",
+      "summary": "安全读取 JSON 文件，失败时返回默认值。"
+    },
+    {
+      "name": "write_json",
+      "level": "utility",
+      "summary": "将状态 JSON 写入目标文件。"
+    },
+    {
+      "name": "append_event",
+      "level": "utility",
+      "summary": "向 runtime_events.jsonl 追加单条事件。"
+    },
+    {
+      "name": "classify_action",
+      "level": "core",
+      "summary": "根据当前状态和可疑连续次数，推导 severity 与 recommended_action。"
+    },
+    {
+      "name": "build_state",
+      "level": "core",
+      "summary": "把 runtime 快照和 streak 整理成统一状态结构。"
+    },
+    {
+      "name": "should_emit_event",
+      "level": "normal",
+      "summary": "比较当前状态和上一状态，判断是否需要发事件。"
+    },
+    {
+      "name": "monitor_loop",
+      "level": "core",
+      "summary": "长期循环观察 CAD 运行态、写状态、发事件、做 heartbeat。"
+    },
+    {
+      "name": "run_once",
+      "level": "normal",
+      "summary": "单轮检测并输出 JSON，供调试和人工核验。"
+    },
+    {
+      "name": "main",
+      "level": "core",
+      "summary": "解析参数并统一处理 once 模式、单实例治理和顶层退出。"
+    }
+  ]
+}
+

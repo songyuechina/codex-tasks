@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>Help Version Information</title>
+<style>
+body         { bgcolor=#ffffff; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt; font-style: normal; font-weight: normal; color: #000000; letter-spacing: normal; text-align: left; text-indent: 0pt; word-spacing: normal; margin-left: 5pt;  }
+.TitleTable  { margin-top: 0pt; background: #0000ff; text-indent: 3pt; margin-bottom: 5pt;}
+.FooterTable { margin-top: 0pt; background: #ffffff; text-indent: 3pt; }
+.Title       { margin-bottom: 5pt; margin-left: 3pt; text-align: left; font-family: Helvetica; font-size: 14pt; color: #FFFFFF; font-weight: bold; margin-top: 10px; cursor: hand }
+</style>
+</head>
+<body>
+
+
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td><a href="javascript:history.back();" style="text-decoration:none" title="Click to go Back"
+><h2 class="Title">Help Version Information</h2></a>
+</td></tr></table>
+<hr>
+
+<script language=vbscript>
+  ' ![v.u15-1.U018]!.4feb00.htm
+  'tmpstr = unescape(location.href) ' aparently the unescape function doesn't always work .. ??
+  tmpstr = location.href
+  i1 = InStr(tmpstr, "![")
+  i2 = InStr(tmpstr, "]!")
+  if (i1 = 0) or (i2 = 0) then
+    document.write("<p><b>ERROR: Invalid filename format!</b></p>")
+    document.write("<ul>Proper syntax:")
+    document.write("<p><b>![v.<i>prodcode</i>.<i>version_number</i>]!.<i>ddmmyy</i>.htm</b>")
+    document.write("(for example: <b>![v.u15-1.U018]!.4feb00.htm</b>)</ul>")
+  else 
+    hlpver  = Mid(tmpstr, i1+2, i2-i1-2)
+    hlpdate = Mid(tmpstr, i2+3, 7)
+    i1 = InStr(1,tmpstr, ".chm",1)
+    tmpstr = Left(tmpstr, i1+3)
+    i2 = InStrRev(tmpstr, "\")
+    chmname = Mid(tmpstr, i2+1)
+    document.write("<p><b>CHM: "+ chmname + "</b></p>")
+    document.write("<p><b>Date: "+ hlpdate + "</b></p>")
+    document.write("<p><b>Version: "+ hlpver + "</b></p>")
+  end if
+</script>
+
+<hr size=1>
+<table class=FooterTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>&nbsp;</td></tr></table>
+<hr>
+
+</body>
+</html>
+

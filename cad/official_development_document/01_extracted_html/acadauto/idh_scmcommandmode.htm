@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SCMCommandMode property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SCMCommandMode Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Determines right-click functionality in the drawing area while in Command mode, which means that a command is currently in progress.</P>
+
+<P CLASS="h1-access"><A HREF="scmcommandmode_see_also.htm">See Also</A> | <A HREF="ex_scmcommandmode.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SCMCommandMode
+<P class="element">object</p><p class=element-desc><A HREF='idh_preferencesuser_object.htm'>PreferencesUser</A><BR>
+The object this property applies to.
+<P class="element">SCMCommandMode</p><p class=element-desc>AcDrawingAreaSCMCommand enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acEnter</TD>
+  <TD><P class="constant-desc">Disables the Command shortcut menu. As a result, right-clicking in the drawing area when a command is in progress issues ENTER.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acEnableSCM</TD>
+  <TD><P class="constant-desc">Enables the Command shortcut menu.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acEnableSCMOptions</TD>
+  <TD><P class="constant-desc">Enables the Command shortcut menu only when options are currently available from the command line prompt. In a command line prompt, options are enclosed in square brackets. If no options are available, right-clicking issues ENTER.</TD>
+</TR>
+</TABLE>
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The value of this property is stored in the <A HREF='ms-its:acad180.chm::/shortcutmenu.htm'>SHORTCUTMENU</A> system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value for this property is 
+<SPAN CLASS="constant-char">acEnableSCMOptions</SPAN>.
+<P CLASS="body">This property can only be set when the 
+<A HREF="idh_shortcutmenudisplay.htm">ShortcutMenuDisplay</A> property is set to TRUE.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

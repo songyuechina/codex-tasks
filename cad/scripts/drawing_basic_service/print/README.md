@@ -35,6 +35,8 @@
    最后看领域知识、经验规则、典型误区。
 8. `cases/CASE_MANIFEST.md`
    需要落到真实案例时再看案例与当前权威输出。
+9. `.gitnexus/`
+   需要快速建立结构导航、依赖查询、影响分析时再看本地 GitNexus 索引。
 
 ## 文档角色分工
 
@@ -54,6 +56,8 @@
   专业知识、经验、判断依据。
 - `cases/CASE_MANIFEST.md`
   案例资产与权威结果索引。
+- `.gitnexus/`
+  本目录本地结构导航索引，不替代规则与真实 DWG 验证。
 
 若文档冲突，优先级为：
 
@@ -90,6 +94,61 @@
   伪打印区域分析，服务 `purified_adaptive`。
 - `print_info_analysis.py`
   打印信息分析，分析打印区域中的内框线、图签块和文字信息。
+- `print_pdf_naming.py`
+  根据 `print_info_analysis.json` 复制一份最终 PDF，并按默认命名规则生成命名副本。
+
+## 当前打印信息主链
+
+当用户说“获取打印信息”时，当前默认主链是：
+
+1. 用 `print_policy.py` / `print_area_*` 系列脚本确定最终待分析打印区域
+2. `print_info_analysis.py` 对每页识别内框线与角点对齐图签块
+3. 用图签块外包盒作为 `graphic_info_area`
+4. 用 `CAD_selection.select_entities_in_window(...)` 选取窗口内对象
+5. 对 `AcDbText / AcDbMText / TDbText / TDbMText` 统一调用 `cad_annotation.get_text_content()`
+6. 按以下优先级判定图纸编号 / 图纸名称：
+   - `layer_named`
+   - `guide_rectangles`
+   - `fallback_regex`
+7. 若需要生成便于交付或整理的 PDF 命名副本，则调用 `print_pdf_naming.py`
+
+这三种路径不是三个“模式”，而是同一主链中的三个优先级分支。
+
+## GitNexus 结构导航
+
+本目录已建立本地 GitNexus 索引：
+
+- 索引目录：`D:\codex-tasks\cad\scripts\drawing_basic_service\print\.gitnexus`
+- 最近一次索引范围：`print/`
+- 当前可直接用于入口、依赖、影响面查询
+
+常用命令：
+
+```powershell
+& 'C:\Users\User\AppData\Roaming\npm\gitnexus.cmd' status
+& 'C:\Users\User\AppData\Roaming\npm\gitnexus.cmd' list
+& 'C:\Users\User\AppData\Roaming\npm\gitnexus.cmd' query "print info analysis" --repo print
+& 'C:\Users\User\AppData\Roaming\npm\gitnexus.cmd' context print_info_analysis.py --repo print
+& 'C:\Users\User\AppData\Roaming\npm\gitnexus.cmd' impact print_info_analysis.py --repo print
+& 'C:\Users\User\AppData\Roaming\npm\gitnexus.cmd' context print_batch_dispatch.py --repo print
+```
+
+当前已确认的结构事实：
+
+- `print_batch_dispatch.py` 是目录级统一调度入口
+- `print_batch_dispatch.py` 直接导入 `print_info_analysis.py`
+- `print_info_analysis.py` 直接依赖：
+  - `print_policy.py`
+  - `print_area_analysis.py`
+  - `print_area_content_analysis.py`
+- `print_pdf_naming.py` 读取 `print_info_analysis.json` 和最终 PDF 目录，本身不参与 CAD 真机分析
+- 变更 `print_info_analysis.py` 的直接上游影响面目前主要是 `print_batch_dispatch.py`
+
+若本目录代码结构明显变化，应刷新索引：
+
+```powershell
+& 'C:\Users\User\AppData\Roaming\npm\gitnexus.cmd' analyze D:\codex-tasks\cad\scripts\drawing_basic_service\print --skip-git --skip-agents-md
+```
 
 ## 当前输出组织规则
 
@@ -100,6 +159,11 @@
 - 目录任务：
   - 仍逐 DWG 按上述规则交付最终结果
   - 另外在调度根目录下保留 `batch_summary.json`
+- 默认命名副本：
+  - 生成在最终 `pdf/` 目录下的 `named/`
+  - 命名规则默认为：`顺序号-项目名称-子项目名称-图纸名称-图纸编号`
+  - 图纸编号前可追加项目代号前缀，如 `JS-`
+  - 若未指定项目名称、子项目名称或编号前缀，则对应段为空并自动跳过
 
 这里的“公共名”用于去掉日期、版次、批次尾缀，便于用户查找最终交付目录。
 
@@ -131,6 +195,17 @@
 4. 若同时命中伪极大范围与伪区域风险，则仅保留最大伪极大范围内的打印区域
 5. 再过滤 `pseudo_handles`，得到最终打印计划
 
+布局空间补充约定：
+
+- `layout_viewport:*` 视口型 job 在 `purified_adaptive` 下不再参与伪打印区域淘汰。
+- 原因是纸空间实体复杂度无法代表视口中的模型内容，直接按空白区判伪会误删真实布局打印任务。
+- 因此布局视口仍保留 `scope_analysis.json` / `content_analysis.json`，但 `content_analysis` 对其只做记录，不据此剔除 job。
+
+耗时输出：
+
+- `print_runner.py` 结果 JSON 现包含 `started_at`、`finished_at`、`elapsed_seconds`、`stage_durations`。
+- `print_batch_dispatch.py` 单文件汇总现补充 `initial_*` 耗时字段，以及文件级别的 `started_at` / `finished_at` / `elapsed_seconds`。
+
 ## 当前第一职责
 
 打印执行链的第一职责始终是：
@@ -156,6 +231,7 @@
 - 用户未明确指定打印信息分析模式，默认 `basic`
 - 只有在用户明确要求或案例表明 `basic` 不足时，才进入 `adaptive` 或 `purified_adaptive`
 - 只有在用户明确需要结构化页面信息时，才调用 `print_info_analysis.py`
+- 一旦进入 `print_info_analysis.py`，图纸名称 / 编号判定顺序固定为：`layer_named -> guide_rectangles -> fallback_regex`
 
 ## 当前对未来迭代的要求
 

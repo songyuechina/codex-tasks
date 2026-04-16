@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>SelectSubRegion method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SelectSubRegion Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Selects a set of cells in a table. </P>
+
+<P CLASS="h1-access"><A HREF="tableobject_see_also.htm">See Also</A> | <A HREF="ex_none.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SelectSubRegion(wpt1, wpt2, wvwVec, wvwxVec, seltype, bIncludeCurrentSelection, rowMin, rowMax, colMin, colMax)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_Table_Object.htm'>Table</A> <BR>
+The object this method applies to.
+
+<P class="element">wpt1</p><p class=element-desc>Variant<BR>
+3D point in WCS specifying the first corner point of the window box selection.
+<P class="element">wpt2</p><p class=element-desc>Variant<BR>
+3D point in WCS specifying the second corner point of the window box selection.
+<P class="element">wvwvec</p><p class=element-desc>Variant<BR>
+3D vector in WCS specifying the view direction of the selection.
+<P class="element">wvwxvec</p><p class=element-desc>Variant<BR>
+3D vector in WCS specifying the view orientation of the hit test.
+
+<P class="element">seltype</p><p class=element-desc>AcSelectType enum; the selection type</p>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acCrossing</TD>
+  <TD><P class="constant-desc">Cross-selection type.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acWindow</TD>
+  <TD><P class="constant-desc">Window-selection type.</TD>
+</TR>
+
+</TABLE>
+
+
+ 
+
+
+<P class="element">bincludecurrentselection</p><p class=element-desc>Boolean<BR>
+Indicates whether the selected cells returned will include currently selected cells and newly selected cells or only newly selected cells.
+<P class="element">rowMin</p><p class=element-desc>Long<BR>
+Zero-based lower bound of row index.
+<P class="element">rowMax</p><p class=element-desc>Long<BR>
+Zero-based upper bound of row index.
+<P class="element">colMin</p><p class=element-desc>Long<BR>
+Zero-based lower bound of column index.
+<P class="element">colMax</p><p class=element-desc>Long<BR>
+Zero-based upper bound of column index.
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The row and column index of the upper and lower bounds of the selected region are returned in rowMin, rowMax, colMin, and colMax.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

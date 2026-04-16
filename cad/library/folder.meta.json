@@ -7,7 +7,9 @@
   "entry_docs": [
     "../system/README.md",
     "meta/cad_annotation.meta.json",
-    "meta/cad_geometry.meta.json"
+    "meta/cad_geometry.meta.json",
+    "tarch_operation/README.md",
+    "tarch_operation/folder.meta.json"
   ],
   "main_modules": [
     "cad_blocks.py：图块与属性相关能力",
@@ -15,11 +17,13 @@
     "cad_geometry_*：几何绘制、折线、线段处理能力",
     "cad_objects.py：对象级通用辅助",
     "cad_control.py：进程、缓存和外围控制工具",
-    "Databaseoperation.py：数据库访问工具"
+    "Databaseoperation.py：数据库访问工具",
+    "tarch_operation/：天正专项操作工作区，当前提供单行文字与图名标注写入能力"
   ],
   "usage_rules": [
     "优先把高层业务能力沉淀在这里，而不是塞回 system 层",
     "调用 library 时仍应遵守 system 层连接、日志和协调规则",
+    "基于 pywin32 的 CAD 业务函数默认只允许操作单一已启动的 CAD 进程，不得在业务函数内部自行启动、重建或并发拉起多个 CAD 进程",
     "新增公共业务函数后，应补充相应 meta 或说明文档"
   ]
 }

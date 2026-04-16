@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+
+<TITLE>ArrowheadSize property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ArrowheadSize Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the size of dimension line arrowheads, leader and mleader line arrowheads, and hook lines.</P>
+
+<P CLASS="h1-access"><A HREF="arrowheadsize_see_also.htm">See Also</A> | <A HREF="ex_arrowheadsize.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.ArrowheadSize
+<P class="element">object</p><p class=element-desc><A HREF='idh_dim3pointangular_object.htm'>Dim3PointAngular</A>, <A HREF='idh_dimaligned_object.htm'>DimAligned</A>, <A HREF='idh_dimangular_object.htm'>DimAngular</A>, <A HREF='idh_dimarclength_object.htm'>DimArcLength</A>, <A HREF='idh_dimdiametric_object.htm'>DimDiametric</A>, <A HREF='idh_dimordinate_object.htm'>DimOrdinate</A>, <A HREF='idh_dimradial_object.htm'>DimRadial</A>, <A HREF='idh_dimradiallarge_object.htm'>DimRadialLarge</A>, <A HREF='idh_dimrotated_object.htm'>DimRotated</A>, <A HREF='idh_leader_object.htm'>Leader</A>, <A HREF='idh_mleader_object.htm'>MLeader</A><BR>
+The objects this property applies to.
+<P class="element">ArrowheadSize</p><p class=element-desc>Double; read-write<BR>
+The size of the arrowhead must be specified as a positive real &gt;= 0.0.
+<P CLASS="Heading-2">System variables
+<P CLASS="body">This property overrides the value of the
+<A HREF="ms-its:acad180.chm::/DIMAS.htm">DIMASZ</A> system variable for the given dimension.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value for this property is 0.1800
+<P CLASS="body">Multiples of the arrowhead size determine if dimension lines and text
+should fit between the extension lines. This property is also used to scale arrowhead
+blocks if set by <A HREF="ms-its:acad180.chm::/DIMBL.htm">DIMBLK</A>.
+This property has no effect when <A HREF="ms-its:acad180.chm::/DIMTS.htm">DIMTSZ</A> is other than zero.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

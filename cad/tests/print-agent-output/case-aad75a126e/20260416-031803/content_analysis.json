@@ -1,0 +1,65 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\work\\work-case-aad75a126e.dwg",
+  "mode": "purified_adaptive",
+  "snapshot_count": 0,
+  "total_areas": 1,
+  "candidate_valid_print_areas": 1,
+  "pseudo_candidates": [],
+  "lowest12_by_complexity": [
+    {
+      "page_key": "平面分割图-01",
+      "handle": "23D9",
+      "entity_count": 0,
+      "text_count": 0,
+      "simple_geometry_count": 0,
+      "complex_entity_count": 0,
+      "block_reference_count": 0,
+      "layer_count": 0,
+      "text_chars": 0,
+      "bbox_fill_ratio": 0.0,
+      "complexity_score": 0.0,
+      "sequence_no": 1,
+      "paper_code": "A3",
+      "ratio": "1:25",
+      "output_path": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\pdf\\平面分割图\\plot-case-aad75a126e-平面分割图-01.pdf",
+      "layout_name": "平面分割图",
+      "space_kind": "layout",
+      "owner_btr": "layout_viewport:平面分割图",
+      "pseudo_candidate": 0,
+      "reasons": [
+        "layout_viewport_passthrough"
+      ],
+      "complexity_baseline": 0.0,
+      "entity_baseline": 0
+    }
+  ],
+  "jobs_by_space": {
+    "平面分割图": [
+      {
+        "handle": "23D9",
+        "entity_count": 0,
+        "text_count": 0,
+        "simple_geometry_count": 0,
+        "complex_entity_count": 0,
+        "block_reference_count": 0,
+        "layer_count": 0,
+        "text_chars": 0,
+        "bbox_fill_ratio": 0.0,
+        "complexity_score": 0.0,
+        "sequence_no": 1,
+        "paper_code": "A3",
+        "ratio": "1:25",
+        "output_path": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\pdf\\平面分割图\\plot-case-aad75a126e-平面分割图-01.pdf",
+        "layout_name": "平面分割图",
+        "space_kind": "layout",
+        "owner_btr": "layout_viewport:平面分割图",
+        "pseudo_candidate": 0,
+        "reasons": [
+          "layout_viewport_passthrough"
+        ],
+        "complexity_baseline": 0.0,
+        "entity_baseline": 0
+      }
+    ]
+  }
+}

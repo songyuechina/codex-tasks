@@ -1,0 +1,54 @@
+{
+  "symbol": "CanonicalMediaName",
+  "kind": "property",
+  "source_terms": [
+    "canonicalmedianame",
+    "plot media",
+    "paper size"
+  ],
+  "owners": [
+    "Layout"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_layout_plot_info",
+    "execute_layout_plot",
+    "build_print_plan_and_info"
+  ],
+  "pywin32_signature": "layout.CanonicalMediaName = media_name",
+  "risk_tags": [
+    "必须在 ConfigName 确定且设备刷新后再赋值",
+    "设备切换后沿用旧介质名会导致页面尺寸或输出结果异常"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "path_md": "03_core_symbols/properties/CanonicalMediaName.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_canonicalmedianame.htm",
+    "01_extracted_html/acadauto/idh_canonicalmedianame.htm",
+    "01_extracted_html/acadauto/canonicalmedianame_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/plot_layout_rules.md",
+    "05_pywin32_bridge/common_failures.md",
+    "05_pywin32_bridge/common_patterns.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_canonicalmedianame",
+    "acadauto:idh_canonicalmedianame",
+    "acadauto:canonicalmedianame_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_canonicalmedianame.htm",
+    "01_extracted_html/acadauto/idh_canonicalmedianame.htm",
+    "01_extracted_html/acadauto/canonicalmedianame_see_also.htm"
+  ]
+}

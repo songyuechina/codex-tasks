@@ -1,0 +1,38 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-90922E81-2BFC-4660-86EC-1EE9626EAA3A"><meta name="topic-subtype" content="activex"><meta name="description" content="In this exercise you will create a new AutoCAD drawing, add a line of text to that drawing, then save the drawing, all from VBA."><meta name="indexterm" content="VBA IDE: Hello World exercise"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="topichead_1"><title>Exercise: An Introduction to VBA (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">To Open the VBA IDE on Demand (VBA/ActiveX)</div><a href="GUID-19049DC2-E317-4E5D-ABA1-30B2BB0E54ED.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">Getting Started with VBA</div><a href="topichead_1.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About More Information on the VBA IDE (VBA/ActiveX)</div><a href="GUID-751528A6-3FB2-4D0B-AD8A-158ABFADD1BD.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_1.htm">Getting Started with VBA</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-4BD0B64D-1696-4386-A0D7-CB6DFF645B8F"></a></span><h1>Exercise: An Introduction to VBA (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-90922E81-2BFC-4660-86EC-1EE9626EAA3A"></a></span><p class="blurb"> In this exercise you will create a new AutoCAD drawing, add a line of text to that drawing, then save the drawing, all from VBA. 
+  </p><!--Body--><!--OList--><span style="display:none"><a name="OL_632D2708F9254548AD1EFA280F51B0A3"></a></span><ol start="1"><li>At the AutoCAD Command prompt, enter 
+		  <em class="strong">vbaide</em>. 
+		</li><li>In the VBA IDE, Project Explorer window, select the ThisDrawing class module or a code module in the project. 
+		</li><li>On the menu bar, click View menu <span name="glyph_span" class="glyphArrow"><img src="images/ac.menuaro.gif"></span> Code to open a code window for the ThisDrawing class module. 
+		</li><li>On the menu bar, click Insert menu <span name="glyph_span" class="glyphArrow"><img src="images/ac.menuaro.gif"></span> Procedure to create a new procedure in the project. 
+		</li><li>In the Add Procedure dialog box, Name text box, type 
+		  <em class="strong">HelloWorld</em>. 
+		</li><li>Under the Type section, select Sub. 
+		</li><li>Under the Scope section, select Public. Click OK. 
+		</li><li>Enter the following code between the lines 
+		  <span class="code">Public Sub HelloWorld()</span> and 
+		  <span class="code">End Sub</span> lines. 
+		  <div class="codeBlock"><pre>' Create a new drawing
+ThisDrawing.Application.Documents.Add
+
+Dim insPoint(0 To 2) As Double  'Declare insertion point
+Dim textHeight As Double        'Declare text height
+Dim textStr As String           'Declare text string
+Dim textObj As AcadText         'Declare text object
+
+insPoint(0) = 2                 'Set insertion point X coordinate
+insPoint(1) = 4                 'Set insertion point Y coordinate
+insPoint(2) = 0                 'Set insertion point Z coordinate
+
+textHeight = 1                  'Set text height to 1.0
+textStr = "Hello World!"        'Set the text string
+
+'Create the Text object
+Set textObj = ThisDrawing.ModelSpace.AddText _
+ (textStr, insPoint, textHeight)
+
+ThisDrawing.SaveAs("Hello.dwg")</pre></div> </li><li>On the menu bar, click Run menu <span name="glyph_span" class="glyphArrow"><img src="images/ac.menuaro.gif"></span> Run Sub/UserForm to execute the HelloWorld subroutine. 
+		  <p><span style="display:none"><a name="GUID-B9B6ECE5-38BB-4B84-87F5-9F512F2CBB08"></a></span>When the subroutine finishes executing, switch to the AutoCAD application window. The text &#8220;Hello World!&#8221; should be visible in your drawing. The drawing name should be 
+			 <em class="mild">Hello.dwg</em>. 
+		  </p> </li></ol><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-3ABD7E06-C8F2-47D9-AD7E-EC6299B21621.htm" title=" You can view all the VBA projects loaded in the current AutoCAD session by using the VBA Manager. It is an AutoCAD tool that allows you to load, unload, save, create, embed, and extract VBA projects. ">About Organizing Your Projects with the VBA Manager (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-385E095E-CAE3-4E04-95B6-859E62B0873D.htm" title=" You can edit standard modules, class modules, and forms in the VBA IDE. Standard and class modules are edited in a Code window. Forms are edited in the UserForm window using a special toolbox. ">About Editing Components (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-A6AC5AD4-F37C-4F08-90B5-0117FCCFB325.htm" title=" A macro is a public (executable) subroutine. Each project usually contains at least one macro. ">About Handling Your Macros (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

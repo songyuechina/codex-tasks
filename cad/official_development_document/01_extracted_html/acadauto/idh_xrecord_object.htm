@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>XRecord object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "XRecord object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Dictionary;idh_dictionary_object.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadXRecord;none.htm">
+    <PARAM name="Item2" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item3" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; XRecord object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">XRecord objects are used to store and manage arbitrary data. </P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadXRecord&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">Dictionary.AddXRecord&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">Dictionary.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">This object is similar in concept to XData but is not limited by size or order. 
+<P CLASS="body">Unlike XData, XRecords work with the standard AutoCAD group codes that are all below 1000 in value. All the standard AutoCAD group codes are supported. This means that, in addition to all the normally used data types, an XRecord is capable of storing object IDs, which allows XRecords to own other objects including other XRecords.
+<P CLASS="body">The following group codes are common to all XRecord objects:
+
+<P CLASS="DefConstHead">100
+<P CLASS="DefineText">Subclass marker (AcDbXrecord)
+<P CLASS="DefConstHead">1-369 (except 5 and 105 and 210-239)
+<P CLASS="DefineText">These values can be used by an application in any way.
+
+<P CLASS="body">XRecord obects are saved with the drawing and are directly accessible by other ObjectARX and LISP programs. So, if data security is an issue for your application, you should be careful when storing information in XRecords.
+<P CLASS="body"><span class=NoteChar>NOTE</span> XRecord objects are designed to work in such a way as to not offend Releases 13c0 through 13c3. However, if read into a pre-Release 13c4 level of AutoCAD, XRecord objects disappear. 
+<P CLASS="body">To create an XRecord, use the <A HREF="idh_addxrecord.htm">AddXRecord</A> method. To edit or query an XRecord, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_getxrecorddata.htm"><P CLASS="body">GetXRecordData</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_setxrecorddata.htm"><P CLASS="body">SetXRecordData</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_translateids.htm"><P CLASS="body">TranslateIDs</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

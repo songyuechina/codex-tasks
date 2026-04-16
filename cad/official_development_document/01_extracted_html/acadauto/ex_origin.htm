@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Origin Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Origin Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Origin()
+    ' This example creates a UCS and returns its origin.
+
+    Dim viewportObj As AcadViewport
+    
+    ' Set the viewportObj variable to the activeviewport
+    Set viewportObj = ThisDrawing.ActiveViewport
+    
+    ' Create a new UCS with origin 2, 2, 0
+    Dim ucsObj As AcadUCS
+    Dim origin(0 To 2) As Double
+    Dim xAxisPoint(0 To 2) As Double
+    Dim yAxisPoint(0 To 2) As Double
+    
+    origin(0) = 2: origin(1) = 2: origin(2) = 0
+    xAxisPoint(0) = 3: xAxisPoint(1) = 2: xAxisPoint(2) = 0
+    yAxisPoint(0) = 2: yAxisPoint(1) = 3: yAxisPoint(2) = 0
+    
+    Set ucsObj = ThisDrawing.UserCoordinateSystems.Add(origin, xAxisPoint, yAxisPoint, "UCS1")
+    ThisDrawing.ActiveUCS = ucsObj
+    viewportObj.UCSIconOn = True
+    viewportObj.UCSIconAtOrigin = True
+    ThisDrawing.ActiveViewport = viewportObj
+    
+    ' Display the current origin for the new UCS
+    MsgBox "The origin of the UCS is: " & ucsObj.origin(0) & ", " & ucsObj.origin(1) & ", " & ucsObj.origin(2), , "Origin Example"
+
+    ' Change the origin of the UCS
+    origin(0) = 4: origin(1) = 4: origin(2) = 0
+    ucsObj.origin = origin
+    
+    ' Reset the active UCS and viewport to see the change
+    ThisDrawing.ActiveUCS = ucsObj
+    ThisDrawing.ActiveViewport = viewportObj
+    
+    MsgBox "The origin of the UCS is now: " & ucsObj.origin(0) & ", " & ucsObj.origin(1) & ", " & ucsObj.origin(2), , "Origin Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

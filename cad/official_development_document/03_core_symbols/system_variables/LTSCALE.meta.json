@@ -1,0 +1,41 @@
+{
+  "symbol": "LTSCALE",
+  "kind": "system_variable",
+  "owners": [
+    "Document"
+  ],
+  "source_terms": [
+    "ltscale",
+    "linetype scale"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_layout_plot_info",
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "C.doc.GetVariable(\"LTSCALE\") / C.doc.SetVariable(\"LTSCALE\", value)",
+  "risk_tags": [
+    "全局修改影响整个图纸视觉结果"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/common_patterns.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/system_variables/LTSCALE.md",
+  "source_topic_ids": [
+    "acadauto:ex_setvariable",
+    "acad_aag:GUID_4D1D635B_663F_4BB3_A6BE_46C7D13A39D8"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-4D1D635B-663F-4BB3-A6BE-46C7D13A39D8.htm",
+    "01_extracted_html/acadauto/ex_setvariable.htm"
+  ]
+}

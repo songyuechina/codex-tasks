@@ -1,0 +1,50 @@
+{
+  "symbol": "SelectionSets",
+  "kind": "object",
+  "source_terms": [
+    "selectionsets"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "build_selection_set"
+  ],
+  "pywin32_signature": "C.doc.SelectionSets",
+  "risk_tags": [
+    "同名集合残留",
+    "命令态下选择异常"
+  ],
+  "project_paths": [
+    "cad/system/CAD_selection.py",
+    "cad/system/CAD_core.py"
+  ],
+  "path_md": "03_core_symbols/objects/SelectionSets.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_selectionsets.htm",
+    "01_extracted_html/acadauto/selectionsets_see_also.htm",
+    "01_extracted_html/acadauto/idh_selectionsets_collection.htm",
+    "01_extracted_html/acadauto/idh_selectionsets.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_selection.py",
+    "cad/system/CAD_core.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_selectionsets",
+    "acadauto:idh_selectionsets_collection",
+    "acadauto:idh_selectionsets",
+    "acadauto:selectionsets_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_selectionsets.htm",
+    "01_extracted_html/acadauto/idh_selectionsets_collection.htm",
+    "01_extracted_html/acadauto/idh_selectionsets.htm",
+    "01_extracted_html/acadauto/selectionsets_see_also.htm"
+  ]
+}

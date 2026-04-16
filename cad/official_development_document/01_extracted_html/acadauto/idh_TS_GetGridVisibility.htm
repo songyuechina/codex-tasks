@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>GetGridVisibility method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetGridVisibility Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Returns a grid visibility value for the specifed grid linetype and row type. </P>
+
+<P CLASS="h1-access"><A HREF="TS_GetGridVisibility_see_also.htm">See Also</A> | <A HREF="ex_TS_GetGridVisibility.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.GetGridVisibility(gridLineType, rowType)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_Table_Object.htm'>Table</A>, <A HREF='idh_TableStyle_object.htm'>TableStyle</A> <BR>
+The object this method applies to.
+
+<P class="element">gridLineType</p><p class=element-desc>AcGridLineType enum; the type of the grid line</p>
+
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acHorzBottom</TD>
+  <TD><P class="constant-desc">Top or bottom horizontal grid line, based on the flow direction.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acHorzInside</TD>
+  <TD><P class="constant-desc">All horizontal grid lines, excluding the top and bottom lines.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acHorzTop</TD>
+  <TD><P class="constant-desc">Top or bottom horizontal grid line, based on the flow direction.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acInvalidGridLine</TD>
+  <TD><P class="constant-desc">An invalid grid line.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVertInside</TD>
+  <TD><P class="constant-desc">All the vertical grid lines, excluding the farthest left and farthest right grid lines.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVertLeft</TD>
+  <TD><P class="constant-desc">Farthest left grid line.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVertRight</TD>
+  <TD><P class="constant-desc">Farthest right grid line.</TD>
+</TR>
+</TABLE>
+
+<P class="element">rowType</p><p class=element-desc>AcRowType enum; the row type
+<P CLASS="Constant">acDataRow 
+<P CLASS="Constant">acHeaderRow
+<P CLASS="Constant">acTitleRow 
+<P CLASS="Constant-Last">acUnknownRow 
+
+<P class="element">RetVal</p><p class=element-desc>Boolean; the value specifying the grid visibility value for the specifed grid linetype and row type.</P>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

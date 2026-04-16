@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetXRecordData Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetXRecordData Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_GetXRecordData()
+    ' This example creates a new XRecord if one doesn't exist,
+    ' appends data to the XRecord and reads it back.  To see data being added
+    ' run the example more than once.
+    
+    Dim TrackingDictionary As AcadDictionary, TrackingXRecord As AcadXRecord
+    Dim XRecordDataType As Variant, XRecordData As Variant
+    Dim ArraySize As Long, iCount As Long
+    Dim DataType As Integer, Data As String, msg As String
+    
+    ' Unique identifiers to distinguish our XRecordData from other XRecordData
+    Const TYPE_STRING = 1
+    Const TAG_DICTIONARY_NAME = "ObjectTrackerDictionary"
+    Const TAG_XRECORD_NAME = "ObjectTrackerXRecord"
+
+    ' Connect to the dictionary we store the XRecord in
+    On Error GoTo CREATE
+    Set TrackingDictionary = ThisDrawing.Dictionaries(TAG_DICTIONARY_NAME)
+    Set TrackingXRecord = TrackingDictionary.GetObject(TAG_XRECORD_NAME)
+    On Error GoTo 0
+    
+    ' Get current XRecordData
+    TrackingXRecord.GetXRecordData XRecordDataType, XRecordData
+    
+    ' If we don't have an array already then create one
+    If VarType(XRecordDataType) And vbArray = vbArray Then
+        ArraySize = UBound(XRecordDataType) + 1       ' Get the size of the data elements returned
+        ArraySize = ArraySize + 1                        ' Increase to hold new data
+    
+        ReDim Preserve XRecordDataType(0 To ArraySize)
+        ReDim Preserve XRecordData(0 To ArraySize)
+    Else
+        ArraySize = 0
+        ReDim XRecordDataType(0 To ArraySize) As Integer
+        ReDim XRecordData(0 To ArraySize) As Variant
+    End If
+    
+    ' Append new XRecord Data
+    '
+    ' For this sample we only append the current time to the XRecord
+    XRecordDataType(ArraySize) = TYPE_STRING: XRecordData(ArraySize) = CStr(Now)
+    TrackingXRecord.SetXRecordData XRecordDataType, XRecordData
+    
+    ' Read back all XRecordData entries
+    TrackingXRecord.GetXRecordData XRecordDataType, XRecordData
+    ArraySize = UBound(XRecordDataType)
+    
+    ' Retrieve and display stored XRecordData
+    For iCount = 0 To ArraySize
+        ' Get information for this element
+        DataType = XRecordDataType(iCount)
+        Data = XRecordData(iCount)
+        
+        If DataType = TYPE_STRING Then
+            msg = msg & Data & vbCrLf
+        End If
+    Next
+    
+    MsgBox "The data in the XRecord is: " & vbCrLf & vbCrLf & msg, vbInformation
+    
+    Exit Sub
+
+<PRE CLASS="Code">CREATE:
+    ' Create the entities that hold our XRecordData
+    If TrackingDictionary Is Nothing Then  ' Make sure we have our tracking object
+        Set TrackingDictionary = ThisDrawing.Dictionaries.Add(TAG_DICTIONARY_NAME)
+        Set TrackingXRecord = TrackingDictionary.AddXRecord(TAG_XRECORD_NAME)
+    End If
+    
+    Resume
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

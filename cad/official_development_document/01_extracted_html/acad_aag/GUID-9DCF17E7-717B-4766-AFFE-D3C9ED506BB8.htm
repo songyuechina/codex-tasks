@@ -1,0 +1,95 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-9DCF17E7-717B-4766-AFFE-D3C9ED506BB8"><meta name="topic-subtype" content="activex"><meta name="description" content="Paper space viewports are created with the AddPViewport method."><meta name="indexterm" content="AddPViewport method: example code"><meta name="indexterm" content="AddPViewport method: paper space"><meta name="indexterm" content="ActivePViewport property: example code"><meta name="indexterm" content="ActiveSpace property: example code"><meta name="indexterm" content="Display method: example code"><meta name="indexterm" content="TILEMODE system variable"><meta name="indexterm" content="system variables: TILEMODE"><meta name="indexterm" content="Direction property: example code"><meta name="indexterm" content="Layer property"><meta name="indexterm" content="LensLength property"><meta name="indexterm" content="LinetypeScale property"><meta name="indexterm" content="Linetype property"><meta name="indexterm" content="GridOn property"><meta name="indexterm" content="Document object: example code"><meta name="indexterm" content="acZoomScaledRelativePSpace constant: example code"><meta name="indexterm" content="ZoomExtents method: example code: floating viewport"><meta name="indexterm" content="ZoomScaled method: example code: floating viewports"><meta name="indexterm" content="Height property: example code: floating viewport"><meta name="indexterm" content="Width property: example code: floating viewport"><meta name="indexterm" content="MSpace property: example code"><meta name="indexterm" content="PViewport object: example code"><meta name="indexterm" content="Regen method: example code"><meta name="indexterm" content="viewports: properties (list)"><meta name="indexterm" content="viewports: modifying"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-E8C0910B-9DF3-4F18-B04B-293DCCDA801A"><title>About Creating Paper Space Viewports (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">To Switch to Tiled Viewports (VBA/ActiveX)</div><a href="GUID-33972F54-B030-4EE9-AC29-7E33FD276661.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Viewports (VBA/ActiveX)</div><a href="GUID-E8C0910B-9DF3-4F18-B04B-293DCCDA801A.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Changing Viewport Views and Content (VBA/ActiveX)</div><a href="GUID-845E7DF4-A76C-4889-BD26-F606E7AA13BB.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_9.htm">Define and Plot Layouts</a>&nbsp;&gt;&nbsp;<a href="GUID-E8C0910B-9DF3-4F18-B04B-293DCCDA801A.htm">About Viewports (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-64DD9F37-4A83-4676-877E-6F60AF80674A"></a></span><h1>About Creating Paper Space Viewports (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-9DCF17E7-717B-4766-AFFE-D3C9ED506BB8"></a></span><p class="blurb"> Paper space viewports are created with the <span class="code">AddPViewport</span> method. </p><!--Body--><p><span style="display:none"><a name="GUID-C13779F3-D823-4564-BA2C-8A1EB3F06F9D"></a></span> The <span class="code">AddPViewport</span> method requires a center point and the width and height of the new viewport. Before creating the viewport, use the <span class="code">ActiveSpace</span> property to set paper space as the current space (normally done by setting TILEMODE to 0). </p><p><span style="display:none"><a name="GUID-9D3934C8-B87D-421A-BDCD-6442641D089A"></a></span>After creating the <span class="code">PViewport</span> object, you can set properties of the view itself, such as viewing direction (<span class="code">Direction</span> property), lens length for perspective views (<span class="code">LensLength</span> property), and grid display (<span class="code">GridOn</span> property). You can also control properties of the viewport itself, such as layer (<span class="code">Layer</span> property), linetype (<span class="code">Linetype</span> property), and linetype scaling (<span class="code">LinetypeScale</span> property). </p><div class="section"><span style="display:none"><a name="SECTION_6E9A9E01950348B4B8DE88303AED20C8"></a></span> <h2><a name="TOC_ENTRY__d24e36503"></a><span style="display:none"><a name="GUID-ADFD0C26-6543-4F8E-9B8C-F0952D8804AC"></a></span>Create and enable a floating viewport</h2> <p><span style="display:none"><a name="GUID-FD6732DB-20B8-4209-9F5C-6F4B482EEE76"></a></span>This example switches AutoCAD to paper space, creates a floating viewport, sets the view, and enables the viewport. </p> <div class="codeBlock"><pre>Sub Ch9_SwitchToPaperSpace()
+   ' Set the active space to paper space
+    ThisDrawing.ActiveSpace = acPaperSpace
+
+   ' Create the paperspace viewport
+    Dim newVport As AcadPViewport
+    Dim center(0 To 2) As Double
+    center(0) = 3.25
+    center(1) = 3
+    center(2) = 0
+    Set newVport = ThisDrawing.PaperSpace. _
+ AddPViewport(center, 6, 5)
+
+   ' Change the view direction for the viewport
+    Dim viewDir(0 To 2) As Double
+    viewDir(0) = 1
+    viewDir(1) = 1
+    viewDir(2) = 1
+    newVport.Direction = viewDir
+
+   ' Enable the viewport
+    newVport.Display True
+
+   ' Switch to model space
+    ThisDrawing.MSpace = True
+
+   ' Set newVport current
+   ' (not always necessary but a good idea)
+    ThisDrawing.ActivePViewport = newVport
+
+   ' Zoom Extents in model space
+    ZoomExtents
+
+   ' Turn model space editing off
+    ThisDrawing.MSpace = False
+
+    ' ZoomExtents in paperspace
+    ZoomExtents
+End Sub</pre></div> <p><span style="display:none"><a name="GUID-F8444EDC-E07A-403F-8974-7E1A1A1A204B"></a></span>The order of steps in the preceding code is important. In general, things must be done in the same order they would be done at the AutoCAD command line. The only unexpected actions involve defining the view and enabling the viewport. </p> <div><span style="display:none"><a name="GUID-364C5398-F2CB-414E-B25D-E428DE946D8B"></a></span><div class="note-note"><span class="label">Note</span>To set or modify aspects of the view (view direction, lens length, and so forth), the <span class="code">Viewport</span> object's <span class="code">Display</span> method must be set to off (FALSE), and before you can set a viewport current the <span class="code">Display</span> method must be set to on (TRUE). </div></div> </div><div class="section"><span style="display:none"><a name="SECTION_0108B4B3294A4ADF9D5F148BD85A59C2"></a></span> <h2><a name="TOC_ENTRY__d24e36529"></a><span style="display:none"><a name="GUID-7EE53AC7-771F-461D-90C3-113B1FE2380A"></a></span>Create four floating viewports</h2> <p><span style="display:none"><a name="GUID-ED10AE1E-A3DD-4EBE-A659-E1FC77FBAA4E"></a></span>This example takes the example from "Create and enable a floating viewport" and continues it by creating four floating viewports and setting the view of each to top, front, right, and isometric views, respectively. Each view is scaled to half the scale of paper space. To ensure there is something to see in these viewports, you may want to create a 3D solid sphere before trying this example. </p> <div class="codeBlock"><pre>Sub Ch9_FourPViewports()
+    Dim topVport, frontVport As AcadPViewport
+    Dim rightVport, isoVport As AcadPViewport
+    Dim pt(0 To 2) As Double
+    Dim viewDir(0 To 2) As Double
+    ThisDrawing.ActiveSpace = acPaperSpace
+    ThisDrawing.MSpace = True
+' Take the existing PViewport and make it the topVport
+    pt(0) = 2.5: pt(1) = 5.5: pt(2) = 0
+    Set topVport = ThisDrawing.ActivePViewport
+    'No need to set Direction for top view
+    topVport.center = pt
+    topVport.width = 2.5
+    topVport.height = 2.5
+    topVport.Display True
+    ThisDrawing.MSpace = True
+    ThisDrawing.ActivePViewport = topVport
+    ZoomExtents
+    ZoomScaled 0.5, acZoomScaledRelativePSpace
+'Create and setup frontVport
+    pt(0) = 2.5: pt(1) = 2.5: pt(2) = 0
+    Set frontVport = ThisDrawing.PaperSpace. _
+ AddPViewport(pt, 2.5, 2.5)
+    viewDir(0) = 0: viewDir(1) = 1: viewDir(2) = 0
+    frontVport.direction = viewDir
+    frontVport.Display acOn
+    ThisDrawing.MSpace = True
+    ThisDrawing.ActivePViewport = frontVport
+    ZoomExtents
+    ZoomScaled 0.5, acZoomScaledRelativePSpace
+'Create and setup rightVport
+    pt(0) = 5.5: pt(1) = 5.5: pt(2) = 0
+    Set rightVport = ThisDrawing.PaperSpace. _
+ AddPViewport(pt, 2.5, 2.5)
+    viewDir(0) = 1: viewDir(1) = 0: viewDir(2) = 0
+    rightVport.direction = viewDir
+    rightVport.Display acOn
+    ThisDrawing.MSpace = True
+    ThisDrawing.ActivePViewport = rightVport
+    ZoomExtents
+    ZoomScaled 0.5, acZoomScaledRelativePSpace
+'Create and set up isoVport
+    pt(0) = 5.5: pt(1) = 2.5: pt(2) = 0
+    Set isoVport = ThisDrawing.PaperSpace. _
+ AddPViewport(pt, 2.5, 2.5)
+    viewDir(0) = 1: viewDir(1) = 1: viewDir(2) = 1
+    isoVport.direction = viewDir
+    isoVport.Display acOn
+    ThisDrawing.MSpace = True
+    ThisDrawing.ActivePViewport = isoVport
+    ZoomExtents
+    ZoomScaled 0.5, acZoomScaledRelativePSpace
+'Finish: Perform a regen in all viewports
+    ThisDrawing.Regen True
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-845E7DF4-A76C-4889-BD26-F606E7AA13BB.htm" title=" The view within a Viewport object can be changed while you are in model space and the viewport is active. ">About Changing Viewport Views and Content (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-D2923334-0F8D-4417-BDA4-F8B3DE27BDDD.htm" title=" Before you plot, you can establish accurate zoom scale factors for each section of your drawing. ">About Scaling Views Relative to Paper Space (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-62CE7A57-2B8E-4D4B-8F25-7D62374B80A7.htm" title=" In paper space, you can scale any type of linetype in two ways. The scale can be based on the drawing units of the space in which the object was created (model or paper). ">About Scaling Pattern Linetypes in Paper Space (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-4EAB8372-859A-4C6E-BEE5-B2C8EBA31AD7.htm" title=" To access the model in a PViewport object, toggle from paper space to model space using the ActiveSpace property. ">About Floating Viewports (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-E8C0910B-9DF3-4F18-B04B-293DCCDA801A.htm" title=" Viewports control which objects are displayed on screen and when outputting a drawing. ">About Viewports (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

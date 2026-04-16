@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+
+<TITLE>Hyperlink Object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Hyperlink object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Hyperlinks;idh_hyperlinks_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadHyperlink;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Hyperlink object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">A URL and URL description.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadHyperlink&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">Hyperlinks.Add&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">Hyperlinks.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">URL and URL descriptions are stored within the XData of their corresponding object. The Hyperlink objects themselves are not stored with the drawing. This means that every time you request the Hyperlink object for an object, a new Hyperlink object is created and the URL and URL description for that hyperlink is read out of the XData. Because of this, you should be careful to avoid creating multiple Hyperlink objects to reference the same URL information. Updating one of these Hyperlink objects would not update the second object.
+<P CLASS="body">To create a hyperlink use the <A HREF="idh_add.htm">Add</A> method. To edit or query a hyperlink, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_url.htm"><P CLASS="body">URL</A>
+<A HREF="idh_urldescription.htm"><P CLASS="body">URLDescription</A>
+<A HREF="idh_urlnamedlocation.htm"><P CLASS="body">URLNamedLocation</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

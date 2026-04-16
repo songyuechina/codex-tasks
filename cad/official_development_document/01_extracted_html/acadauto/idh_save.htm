@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+
+<TITLE>Save method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Save Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Saves a document or group of layer property settings; no longer supported for menu groups.
+</P>
+
+<P CLASS="h1-access"><A HREF="save_see_also.htm">See Also</A> | <A HREF="ex_save.htm">Example</A></P>
+
+<P CLASS="Heading-2">Signatures: Overview
+
+<P CLASS="element">Document:&nbsp;</P>
+<P CLASS="element-desc">object.Save&nbsp;</P>
+
+<P CLASS="element">MenuGroup:&nbsp;</P>
+<P CLASS="element-desc">no op&nbsp;</P>
+
+<P CLASS="element">Layer Settings:&nbsp;</P>
+<P CLASS="element-desc">object.Save Name, Mask&nbsp;</P>
+
+<P CLASS="Heading-2">Signatures: Detail
+
+<P CLASS="syntax">object.Save
+<P class="element">Object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A><BR>
+Saves the specified document. 
+<HR CLASS="thin">
+
+<P CLASS="syntax">object.Save MenuFileType
+<P class="element">Object</p><p class=element-desc><A HREF='idh_menugroup_object.htm'>MenuGroup</A><BR>
+The object this method applies to.
+<P class="element">&nbsp;</p><p class=element-desc><b>Note</b> This method has no effect for menu groups.</P>
+
+<HR CLASS="thin">
+<P CLASS="syntax">object.Save Name, Mask
+<P class="element">Object</p><p class=element-desc><A HREF='idh_layerstatemanager.htm'>LayerStateManager</A><BR>
+A LayerStateManager object.
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name to be assigned to the saved layer settings.
+<P class="element">Mask</p><p class=element-desc>enum; input-only<BR>
+A number representing the layer properties to be saved and restored. Use the following
+constants to identify layer properties:</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acLsAll</TD>
+  <TD><P class="constant-desc">All layer properties</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsColor</TD>
+  <TD><P class="constant-desc">Color</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsFrozen</TD>
+  <TD><P class="constant-desc">Frozen or thawed</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsLineType</TD>
+  <TD><P class="constant-desc">Linetype</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsLineWeight</TD>
+  <TD><P class="constant-desc">Lineweight</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsLocked</TD>
+  <TD><P class="constant-desc">Locked or unlocked</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsNewViewport</TD>
+  <TD><P class="constant-desc">New viewport layers frozen or thawed</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsNone</TD>
+  <TD><P class="constant-desc">None</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsOn</TD>
+  <TD><P class="constant-desc">On or off</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsPlot</TD>
+  <TD><P class="constant-desc">Plotting on or off</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLsPlotStyle</TD>
+  <TD><P class="constant-desc">Plot style</TD>
+</TR>
+</TABLE>
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">When you save a document to a secure URL, a dialog box prompts the user for the necessary password information.
+<P CLASS="body">Menu groups cannot be saved in AutoCAD 2006. This method will be removed from the MenuGroup object in a future release.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

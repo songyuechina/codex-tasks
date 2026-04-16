@@ -1,0 +1,180 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162"><meta name="topic-subtype" content="activex"><meta name="description" content="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in AutoCAD 2021."><meta name="indexterm" content="automation projects: migrating"><meta name="indexterm" content="CreateObject method"><meta name="indexterm" content="GetObject method"><meta name="indexterm" content="GetInterfaceObject method"><meta name="indexterm" content="ProgIDs"><meta name="indexterm" content="migrating automation projects"><meta name="indexterm" content="type libraries: automation projects"><meta name="indexterm" content="VB: migrating automation projects"><meta name="indexterm" content="VB7 (Visual Basic 7)"><meta name="indexterm" content="VBA: migrating automation projects"><meta name="indexterm" content="version-dependent ProgIDs"><meta name="indexterm" content="version-independent ProgIDs"><meta name="indexterm" content="Visual Basic"><meta name="indexterm" content="Visual Basic 7"><meta name="indexterm" content="VB.NET"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="topichead_0"><title>About Migrating Automation Projects (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">To Run the Examples from the AutoCAD Help System (VBA/ActiveX)</div><a href="GUID-F9BABEF5-3E0E-4654-A410-3149F9E83771.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">Introduction</div><a href="topichead_0.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-B48D24A3-1622-40ED-8125-710175E8673D"></a></span><h1>About Migrating Automation Projects (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162"></a></span><p class="blurb">In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in 
+	 <span class="charspan-msgph">AutoCAD 2021</span>. 
+  </p><!--Body--><p><span style="display:none"><a name="GUID-501C9F03-A290-4998-9D9C-1BFEB7D0119C"></a></span>For a general history of the changes made to the ActiveX API, see &#8220;ActiveX API History." 
+	 </p><div class="section"><span style="display:none"><a name="SECTION_394AA0782A5040519C579A895D5FB92E"></a></span> <h2><a name="TOC_ENTRY__d24e5115"></a><span style="display:none"><a name="GUID-EB145AB5-F36E-4890-83A7-3C398E2C510F"></a></span>ActiveX Library References</h2> <p><span style="display:none"><a name="GUID-DBF3D4E6-09C2-4656-AEF1-7C91EF2DC74A"></a></span>References to the AutoCAD ActiveX API might need to be updated in VBA projects created in the AutoCAD drawing environment or other applications that support VBA, such as Microsoft Word or Excel. Managed .NET and ObjectARX applications that use the AutoCAD ActiveX API might also need to update. 
+		</p> <p><span style="display:none"><a name="GUID-84DF6664-6930-4C62-9036-DF64B324FDE1"></a></span>The following table lists the filename of the AutoCAD object library that is supported by AutoCAD-based product release. 
+		</p> <span style="display:none"><a name="TABLE_89B526F054174D61A425BBE3EE2DFB11"></a></span><div class="table_NotRuled"><table cellpadding="0" cellspacing="0" class="not-ruled"><colgroup><col width="28.57142857142857%"><col width="14.285714285714285%"><col width="28.57142857142857%"><col width="28.57142857142857%"><col></colgroup><tr class="not-ruledHeading"><th class="table-heading">Release 
+				  </th><th class="table-heading">Release Number 
+				  </th><th class="table-heading">AutoCAD Type Library 
+				  </th><th class="table-heading">AutoCAD/ObjectDBX Type Library 
+				  </th></tr><tr class="not-ruledOddRow"><td class="table-body"><span class="charspan-msgph">AutoCAD 2021</span> </td><td class="table-body"><span class="charspan-msgph">R24.0</span> </td><td class="table-body"><em class="mild"><span class="charspan-msgph">acax24&lt;language&gt;.tlb</span></em> </td><td class="table-body"><em class="mild"><span class="charspan-msgph">axdb24&lt;language&gt;.tlb</span></em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2020 
+				  </td><td class="table-body">23.1 
+				  </td><td class="table-body"><em class="mild">acax23&lt;language&gt;.tlb</em> </td><td class="table-body"><em class="mild">axdb23&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2019 
+				  </td><td class="table-body">23.0 
+				  </td><td class="table-body"><em class="mild">acax23&lt;language&gt;.tlb</em> </td><td class="table-body"><em class="mild">axdb23&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2018 
+				  </td><td class="table-body">22.0 
+				  </td><td class="table-body"> <em class="mild">acax22&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb22&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2017 
+				  </td><td class="table-body">21.0 
+				  </td><td class="table-body"> <em class="mild">acax21&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb21&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2016 
+				  </td><td class="table-body">20.1 
+				  </td><td class="table-body"> <em class="mild">acax20&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb20&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2015 
+				  </td><td class="table-body">20.0 
+				  </td><td class="table-body"> <em class="mild">acax20&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb20&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2014 
+				  </td><td class="table-body">19.1 
+				  </td><td class="table-body"> <em class="mild">acax19&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb19&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2013 
+				  </td><td class="table-body">19.0 
+				  </td><td class="table-body"> <em class="mild">acax19&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb19&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2012 
+				  </td><td class="table-body">18.2 
+				  </td><td class="table-body"> <em class="mild">acax18&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb18&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2011 
+				  </td><td class="table-body">18.1 
+				  </td><td class="table-body"> <em class="mild">acax18&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb18&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2010 
+				  </td><td class="table-body">18.0 
+				  </td><td class="table-body"> <em class="mild">acax18&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb18&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2009 
+				  </td><td class="table-body">17.2 
+				  </td><td class="table-body"> <em class="mild">acax17&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb17&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2008 
+				  </td><td class="table-body">17.1 
+				  </td><td class="table-body"> <em class="mild">acax17&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb17&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2007 
+				  </td><td class="table-body">17.0 
+				  </td><td class="table-body"> <em class="mild">acax17&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb17&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2006 
+				  </td><td class="table-body">16.2 
+				  </td><td class="table-body"> <em class="mild">acax16&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb16&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2005 
+				  </td><td class="table-body">16.1 
+				  </td><td class="table-body"> <em class="mild">acax16&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb16&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2004 
+				  </td><td class="table-body">16.0 
+				  </td><td class="table-body"> <em class="mild">acax16&lt;language&gt;.tlb</em> </td><td class="table-body"> <em class="mild">axdb16&lt;language&gt;.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2002 
+				  </td><td class="table-body">15.2 
+				  </td><td class="table-body"> <em class="mild">acax15.tlb</em> </td><td class="table-body"> <em class="mild">axdb15.tlb</em> </td></tr><tr class="not-ruledEvenRow"><td class="table-body">AutoCAD 2000i 
+				  </td><td class="table-body">15.1 
+				  </td><td class="table-body"> <em class="mild">acax15.tlb</em> </td><td class="table-body"> <em class="mild">axdb15.tlb</em> </td></tr><tr class="not-ruledOddRow"><td class="table-body">AutoCAD 2000 
+				  </td><td class="table-body">15.0 
+				  </td><td class="table-body"> <em class="mild">acax15.tlb</em> </td><td class="table-body"> <em class="mild">axdb15.tlb</em> </td></tr></table></div> <div><span style="display:none"><a name="GUID-371F821B-1734-451F-A705-38CFE4626F8C"></a></span><div class="note-note"><span class="label">Note</span><em class="mild">&lt;language&gt;</em> represents the language of the object library. For example, 
+		  <em class="mild">&lt;language&gt;</em> might be 
+		  <em class="strong">enu</em> on English installations and 
+		  <em class="strong">fra</em> on French installations. 
+		</div></div> <p><span style="display:none"><a name="GUID-A1FBE397-CA2D-400F-91D5-C4B76CB48563"></a></span>The following lists filenames of the other AutoCAD ActiveX APIs used by earlier releases and the object library files that they have been replaced with the latest release: 
+		</p> <span style="display:none"><a name="UL_2CFBC518EC164B9F96EC003F14CCF166"></a></span><ul><li><em class="strong">acETransmit17.tlb</em> through 
+			 <em class="strong">acETransmit19.tlb</em> &#8211; Change to 
+			 <em class="mild">acETransmit20.tlb</em> </li><li><em class="strong">AcSmComponents17.tlb</em> through 
+			 <em class="strong">AcSmComponents23.tlb</em> &#8211; Change to 
+			 <em class="mild">AcSmComponents24.tlb</em> </li><li><em class="strong">cao16<em class="mild">&lt;language&gt;</em>.tlb</em> &#8211; Change to 
+			 <em class="mild">cao20<em class="mild">&lt;language&gt;</em>.tlb</em> </li></ul> </div><div class="section"><span style="display:none"><a name="SECTION_6C2D3B0F1FAB439083027B2E62B68D7D"></a></span> <h2><a name="TOC_ENTRY__d24e5513"></a><span style="display:none"><a name="GUID-0A3BF07E-7F12-46B9-A5DE-ACE9936D4AD5"></a></span>New and Changed Objects in Latest Release</h2> <span style="display:none"><a name="GUID-1D5A0E47-3C62-4702-8E0D-77803547F686"></a></span><dl><span style="display:none"><a name="GUID-54EE0E2D-52D2-4F68-BE20-6A776915194C"></a></span><dt><span class="term"><span style="display:none"><a name="GUID-B9E79F05-B18C-4B51-B38D-5CA5DC98511A"></a></span>New Objects 
+			 </span></dt><dd><div class="definition"><span style="display:none"><a name="GUID-F465DB34-0D2F-401E-946B-367B9300DBF5"></a></span> <p><span style="display:none"><a name="GUID-D3BDAE89-2E2E-43C9-B6D7-366DA1092BEE"></a></span>No new objects were added. 
+				</p> </div></dd><span style="display:none"><a name="GUID-125B4242-6C5D-4047-B62A-A2F73C8F9803"></a></span><dt><span class="term"><span style="display:none"><a name="GUID-B3186141-E072-499B-ABC6-47186F154414"></a></span>Changed Objects 
+			 </span></dt><dd><div class="definition"><span style="display:none"><a name="GUID-4D0228F6-A5E0-4A1D-AF6B-E9506D1578C6"></a></span> <p><span style="display:none"><a name="GUID-1B336985-4668-4C77-A663-CC9D023083A1"></a></span>The following table describes the changes made to existing objects. 
+				</p> <span style="display:none"><a name="TABLE_C74FCA5375334CE38D4E73256E076F68"></a></span><div class="table_NotRuled"><table cellpadding="0" cellspacing="0" class="not-ruled"><colgroup><col><col><col></colgroup><tr class="not-ruledHeading"><th class="table-heading"><span class="charspan-msgph">AutoCAD 2020</span> </th><th class="table-heading"> <span class="charspan-msgph">AutoCAD 2021</span> </th><th class="table-heading">Description of change 
+						  </th></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.AcadLayerStateManager.23</span> </p> </td><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.AcadLayerStateManager.24</span> </p> </td><td class="table-body" valign="top"> <p class="table-body">Use 
+								<span class="code">AutoCAD.AcadLayerStateManager</span> to create an instance of the AutoCAD Layer States Manager based on the latest library installed.
+							 </p> </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.AcCmColor.23</span> </p> </td><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.AcCmColor.24</span> </p> </td><td class="table-body" valign="top"> <p class="table-body">Use 
+								<span class="code">AutoCAD.AcCmColor</span> to create an instance of an AutoCAD color object based on the latest library installed. 
+							 </p> </td></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.Application.23</span> or 
+								<span class="code">AutoCAD.Application.23.1</span> </p> </td><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.Application.24</span> </p> </td><td class="table-body" valign="top"> <p class="table-body">Use 
+								<span class="code">AutoCAD.Application</span> to create an instance of the AutoCAD application based on the latest library installed. 
+							 </p> <p class="table-body">If you want to ensure an instance of 
+								<span class="charspan-msgph">AutoCAD 2021</span> is created, use 
+								<span class="code">AutoCAD.Application.24</span>. 
+							 </p> </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.SecurityParams.23</span> </p> </td><td class="table-body" valign="top"> <p class="table-body"><span class="code">AutoCAD.SecurityParams.24</span> </p> </td><td class="table-body" valign="top"> <p class="table-body">Use 
+								<span class="code">AutoCAD.SecurityParams</span> to create an instance of an AutoCAD security parameters object based on the latest library installed. 
+							 </p> </td></tr></table></div> </div></dd></dl> </div><div class="section"><span style="display:none"><a name="SECTION_77F67E3B153446C990853018BAB787C9"></a></span> <h2><a name="TOC_ENTRY__d24e5657"></a><span style="display:none"><a name="GUID-E167FF9C-DB47-489C-A264-C6CC22F960AF"></a></span>General Changes from an Earlier Release</h2> <p><span style="display:none"><a name="GUID-CA58848A-431E-4CC1-8173-7F703CAFB3B4"></a></span>In addition to updating COM library references, the following changes might need to be made to migrate a program from an earlier release: 
+		</p> <span style="display:none"><a name="UL_D40769FC3F224F28A88602B7DFE99D15"></a></span><ul><li>The methods and properties used for 64-bit support must be revised. These changes are outline in the "64-bit Migration" section. 
+		  </li><li>Starting with AutoCAD 2015-based products, the 
+			 <span class="code">SendCommand</span> method sends a command string to an 
+			 <span class="code">AcadDocument</span> object and executes it asynchronously. The execution of the VBA project is suspended until the last command executed by the command string is completed or terminated and returns the document to an idle state. In earlier releases, the command string was sent to the 
+			 <span class="code">AcadDocument</span> object without suspending the VBA and you to pass values to the current command using the 
+			 <span class="code">SendCommand</span> method. 
+			 <p><span style="display:none"><a name="GUID-83812724-A90A-4884-8ACF-00BC06DEAE00"></a></span>For example, the following worked in AutoCAD 2014-based products and earlier: 
+			 </p> <div class="codeBlock"><pre>ThisDrawing.SendCommand "._LINE "
+ThisDrawing.SendCommand "0,0 5,5 "</pre></div> <p><span style="display:none"><a name="GUID-D1B4E8AA-9E0C-41E8-A119-32DE03B18D37"></a></span>In AutoCAD 2015-based products and later, the previous code would execute the LINE command and then wait for the user to provide points. After the LINE command was completed or terminated the second 
+				<span class="code">SendCommand</span> method would be executed. You would change the previous code to the following to execute correctly: 
+			 </p> <div class="codeBlock"><pre>ThisDrawing.SendCommand "._LINE 0,0 5,5 "</pre></div> <p><span style="display:none"><a name="GUID-2172220D-166F-4002-B150-89E9613C3AB2"></a></span>If you need to break your code statements up across multiple lines, you might be able to utilize the 
+				<span class="code">PostCommand</span> method which posts a command string to the 
+				<span class="code">AcadDocument</span> object and executes the string synchronously. Synchronous execution of the command string means that it is executed when the outermost procedure is executed and the 
+				<span class="code">AcadDocument</span> object is in an idle state. 
+			 </p> </li><li>The 
+			 <span class="code">SaveAs</span> method no longer supports the ability to assign a password to a drawing. Password protection is no longer supported. Remove the 
+			 <span class="code">AcadSecurityParams</span> object from the 
+			 <span class="code">vSecurityParams</span> parameter of the 
+			 <span class="code">SaveAs</span> method to update the code statement for use in the latest release. 
+		  </li></ul> </div><div class="section"><span style="display:none"><a name="SECTION_617AD26313894F0BAC93420DE5E8B607"></a></span> <h2><a name="TOC_ENTRY__d24e5725"></a><span style="display:none"><a name="GUID-5ADF2966-49E3-43B4-8E83-9093844DBC42"></a></span>64-bit Migration</h2> <p><span style="display:none"><a name="GUID-FE0E480C-E4D5-411B-A7D5-E7E14B3D2085"></a></span>Starting with AutoCAD 2014, AutoCAD supports VBA 7.1 which offers native 64-bit support. This change will require you to maintain two versions of your VBA projects: 32-bit and 64-bit. In releases prior to AutoCAD 2014, VBA ran as an out-of-process component, accessed through a 32-bit-to-64-bit &#8220;thunking&#8221; layer which allowed existing 32-bit VBA projects to function as expected in AutoCAD 64-bit. 
+		</p> <p><span style="display:none"><a name="GUID-E0601C74-680A-4620-8696-0F02939CE8FF"></a></span>VBA 64-bit requires the use of different libraries and controls for forms. Not all VBA libraries and form controls are available in 64-bit yet, and you might need to adjust some of your code to work correctly on both Windows 32-bit and Windows 64-bit. 
+		</p> <p><span style="display:none"><a name="GUID-96008F46-CBDF-4D8F-A91C-9EA30FF61A54"></a></span>If your VBA projects were developed for AutoCAD 2009 through AutoCAD 2013, you need to take the following into consideration when migrating VBA projects to the latest release: 
+		</p> <span style="display:none"><a name="UL_C9585C4E2BBE4BFF884E66A8BAC0402A"></a></span><ul><li>Controls used on forms originally created for Windows 32-bit might need to be updated or replaced with a 64-bit alterative to execute correctly on Windows 64-bit. 
+		  </li><li>Methods and properties created specifically to allow VBA 32-bit to work with AutoCAD 64-bit are now obsolete and have been removed. Replace the use of the obsolete method and property with the correct method and property, often removing "32" from the name of the method or property is enough. 
+		  </li></ul> <span style="display:none"><a name="GUID-7CC05D04-8B8E-4F91-8333-44AE96BC8E0D"></a></span><dl><span style="display:none"><a name="GUID-6B8C6BB0-89A1-4506-8E8A-079EEBC3BD2E"></a></span><dt><span class="term"><span style="display:none"><a name="GUID-53F553E4-599B-4DAD-BC90-F4C09710B2B1"></a></span>Handling ObjectId 
+			 </span></dt><dd><div class="definition"><span style="display:none"><a name="GUID-F41E754A-CE23-4D93-911C-A66978FC14E6"></a></span> <p><span style="display:none"><a name="GUID-89AB3698-9D70-4C15-8C5E-188ACB040791"></a></span>Beginning with AutoCAD 2009 64-bit through AutoCAD 2013 64-bit, object IDs were represented by a 64-bit integer datatype (<span class="code">__int64</span>). Accessing those values in 32-bit VBA caused a compilation error. As a resolution, a new set of method names suffixed with "32" corresponding to the old methods were created (e.g. 
+				  <span class="code">ObjectID32()</span>, 
+				  <span class="code">OwnerID32()</span>). Those methods used the 
+				  <span class="code">LONG</span> data type, which internally mapped to the 64-bit integer data type. 
+				</p> <p><span style="display:none"><a name="GUID-4BE42DDF-D900-4CA3-8F4F-11EAA46F3519"></a></span>To be more precise, a 32-bit Object ID was created internally for each object ID required in VBA. This ID was mapped to its 64-bit actual ID, so that if the 32-bit ID was passed back to AutoCAD from VBA code, then the 64-bit object ID could be returned and used internally for all purposes. 
+				</p> <p><span style="display:none"><a name="GUID-79625F39-DD13-4391-A6C1-9CD35B5C4F96"></a></span>The following sample gives an example of ported 32-bit Object ID code: 
+				</p> <p><span style="display:none"><a name="GUID-3FEF1D29-F0D6-487A-8BDC-661C58F244BE"></a></span> <em class="strong">Original code 64-bit (AutoCAD 2009 through AutoCAD 2013)</em> </p> <div class="codeBlock"><pre>Dim splineObj As AcadSpline
+Dim objectID As Long
+objectID = splineObj.objectID32
+Dim tempObj As AcadObject
+Set tempObj = ThisDrawing.ObjectIdToObject32(objectID)</pre></div> <p><span style="display:none"><a name="GUID-D667D606-9152-475A-999A-B477978DD008"></a></span> <em class="strong">Code ported for AutoCAD 2014 64-bit and later compatibility</em> </p> <div class="codeBlock"><pre>Dim splineObj As AcadSpline
+Dim objectID As Long
+objectID = splineObj.objectID
+Dim tempObj As AcadObject
+Set tempObj = ThisDrawing.ObjectIdToObject(objectID)</pre></div> <p><span style="display:none"><a name="GUID-0045E3EC-65F3-40CC-9CE8-1800DD238843"></a></span>VBA applications can also use an object&#8217;s handle instead of its object ID. The following sample shows how to use the handle instead of the object ID: 
+				</p> <p><span style="display:none"><a name="GUID-6E240D33-D852-4E87-AEE0-33CEC7D812E3"></a></span> <em class="strong">Original code using an object's Object ID</em> </p> <div class="codeBlock"><pre>Dim splineObj As AcadSpline
+Dim objectID As Long
+objectID = splineObj.objectID
+Dim tempObj As AcadObject
+Set tempObj = ThisDrawing.ObjectIdToObject(objectID)</pre></div> <p><span style="display:none"><a name="GUID-F211E039-D8B0-40A6-AE29-7A1F08CF2E2A"></a></span> <em class="strong">Revised code using an object's handle</em> </p> <div class="codeBlock"><pre>Dim splineObj As AcadSpline
+Dim objectHandle As String
+objectHandle = splineObj.Handle
+Dim tempObj As AcadObject
+Set tempObj = ThisDrawing.HandleToObject(objectHandle)</pre></div> </div></dd><span style="display:none"><a name="GUID-B92E0565-785B-4611-AE4E-4A816EE4B4BF"></a></span><dt><span class="term"><span style="display:none"><a name="GUID-984A49EB-0156-4334-B3B7-B18D8B66F23D"></a></span>Appendix of 32-bit Methods (Obsolete with AutoCAD 2014 64-bit and Later) 
+			 </span></dt><dd><div class="definition"><span style="display:none"><a name="GUID-D5094535-D058-4E1F-B6A8-4B763B72D7A3"></a></span> <div><span style="display:none"><a name="GUID-70AE4941-444F-4FE1-960F-CBA42E985951"></a></span><div class="note-note"><span class="label">Note</span>Object IDs are no longer converted to the 
+				  <span class="code">LONG</span> data type for AutoCAD 32-bit. 
+				</div></div> <p><span style="display:none"><a name="GUID-9F4E0CAC-A939-4CC1-9B47-6E771B023790"></a></span>The following table lists the methods that were used in AutoCAD 2009 64-bit through AutoCAD 2013 64-bit as 32-bit substitutions: 
+				</p> <span style="display:none"><a name="TABLE_617E6B909EFC4CEA9810A54E2FC485D1"></a></span><div class="table_NotRuled"><table cellpadding="0" cellspacing="0" class="not-ruled"><colgroup><col width="18.166089965397926%"><col width="17.301038062283737%"><col width="29.93079584775087%"><col width="34.602076124567475%"></colgroup><tr class="not-ruledHeading"><th class="table-heading" colspan="3" valign="top">VBA Methods for a 64-bit System 
+						  </th></tr><tr class="not-ruledHeading"><th class="table-heading" valign="top">Method - AutoCAD 2009 through 2013 
+						  </th><th class="table-heading" valign="top">Method - AutoCAD 2014 and Later 
+						  </th><th class="table-heading" valign="top">Use 
+						  </th></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top">GetBlockAttributeValue32 
+						  </td><td class="table-body" valign="top">GetBlockAttributeValue 
+						  </td><td class="table-body" valign="top">Returns the attribute value from the specified block cell for the attribute definition object contained in the block using its 32-bit object ID. 
+						  </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top">GetBlockTableRecordId32 
+						  </td><td class="table-body" valign="top">GetBlockTableRecordId 
+						  </td><td class="table-body" valign="top">Gets the 32-bit object ID of the block table record associated to the block-type cell and 
+							 <em class="mild">nContent</em>. 
+						  </td></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top">GetFieldId32 
+						  </td><td class="table-body" valign="top">GetFieldId 
+						  </td><td class="table-body" valign="top">Returns the 32-bit object ID of the field object associated to the specified cell. 
+						  </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top">GetGridLinetype32 
+						  </td><td class="table-body" valign="top">GetGridLinetype 
+						  </td><td class="table-body" valign="top">Returns the 32-bit object ID of the grid linetype object. 
+						  </td></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top">Key32 
+						  </td><td class="table-body" valign="top">Key 
+						  </td><td class="table-body" valign="top">Specifies the object ID of the source object in the 
+							 <span class="code">CopyObjects</span> operation for a 64-bit system. 
+						  </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top">ObjectID32 
+						  </td><td class="table-body" valign="top">ObjectID 
+						  </td><td class="table-body" valign="top">Gets the object ID for a 64-bit system. 
+						  </td></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top">ObjectIDtoObject32 
+						  </td><td class="table-body" valign="top">ObjectIDtoObject 
+						  </td><td class="table-body" valign="top">Gets the object that corresponds to the given object ID for a 64-bit system. 
+						  </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top">OwnerID32 
+						  </td><td class="table-body" valign="top">OwnerID 
+						  </td><td class="table-body" valign="top">Gets the object ID of the owner (parent) object for a 64-bit system. 
+						  </td></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top">SetBlockAttributeValue32 
+						  </td><td class="table-body" valign="top">SetBlockAttributeValue 
+						  </td><td class="table-body" valign="top">Sets the attribute value from the specified block cell for the attribute definition object contained in the block and 
+							 <em class="mild">nContent</em> using its 32-bit object ID. 
+						  </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top">SetBlockTableRecordId32 
+						  </td><td class="table-body" valign="top">SetBlockTableRecordId 
+						  </td><td class="table-body" valign="top">Sets the 32-bit object ID block table record associated to the block-type cell and 
+							 <em class="mild">nContent</em>. 
+						  </td></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top">SetFieldId32 
+						  </td><td class="table-body" valign="top">SetFieldId 
+						  </td><td class="table-body" valign="top">Sets the 32-bit object ID of the field object associated to the specified cell and 
+							 <em class="mild">nContent</em>. 
+						  </td></tr><tr class="not-ruledEvenRow"><td class="table-body" valign="top">SetGridLinetype32 
+						  </td><td class="table-body" valign="top">SetGridLinetype 
+						  </td><td class="table-body" valign="top">Sets the 32-bit object ID of the grid line type object. 
+						  </td></tr><tr class="not-ruledOddRow"><td class="table-body" valign="top">Value32 
+						  </td><td class="table-body" valign="top">Value 
+						  </td><td class="table-body" valign="top">Specifies the current value for the property, or the object ID of the newly created cloned object, for a 64-bit system. 
+						  </td></tr></table></div> </div></dd></dl> </div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

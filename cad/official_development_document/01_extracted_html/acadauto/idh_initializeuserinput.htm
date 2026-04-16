@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>InitializeUserInput method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">InitializeUserInput Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Initializes the GetKeyword method.</P>
+
+<P CLASS="h1-access"><A HREF="initializeuserinput_see_also.htm">See Also</A> | <A HREF="ex_initializeuserinput.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.InitializeUserInput Bits[, Keyword]
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Bits</p><p class="element-desc">Integer; input-only<BR>
+To set more than one condition at a time, add the values together in any combination. If this value is not included or is set to 0, none of the control conditions apply.</P>
+
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">1&nbsp;</TD>
+  <TD><P class="constant-desc"> Disallows NULL input. This prevents the 
+      user from responding to the request by entering only [Return] or a 
+	  space.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">2</TD>
+  <TD><P class="constant-desc">Disallows input of zero (0). This prevents 
+      the user from responding to the request by entering 0.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">4</TD>
+  <TD><P class="constant-desc">Disallows negative values.
+      This prevents the user from responding to the request by entering 
+	  a negative value. </TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">8</TD>
+  <TD><P class="constant-desc">Does not check drawing limits, even if 
+      the <A HREF='ms-its:acad180.chm::/limcheck.htm'>LIMCHECK</A> system 
+	  variable is on. This enables the user to enter a point outside the
+	  current drawing limits. This condition applies to the next 
+	  user-input function even if the AutoCAD LIMCHECK system variable 
+	  is currently set.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">16</TD>
+  <TD><P class="constant-desc">Not currently used.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">32</TD>
+  <TD><P class="constant-desc">Uses dashed lines when drawing rubber-band 
+      lines or boxes. This causes the rubber-band line or box that AutoCAD 
+	  displays to be dashed instead of solid, for those methods that let 
+	  the user specify a point by selecting a location on the graphics 
+	  screen. (Some display drivers use a distinctive color instead of 
+	  dashed lines.) If the <A HREF='ms-its:acad180.chm::/popups.htm'>POPUPS</A> system 
+	  variable is 0, AutoCAD ignores this bit. </TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">64</TD>
+  <TD><P class="constant-desc">Ignores Z coordinate of 3D points 
+      (GetDistance method only). This option ignores the Z coordinate of 
+	  3D points returned by the GetDistance method, so an application can 
+	  ensure this function returns a 2D distance.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">128</TD>
+  <TD><P class="constant-desc">Allows arbitrary input—whatever the user types.</TD>
+</TR>
+
+</TABLE>
+
+<P class="element">Keyword</p><p class=element-desc>Variant (array of strings); input-only; optional<BR>
+The keywords that the following user-input method will recognize.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Keywords must be defined with this method before the call 
+to <A HREF="idh_getkeyword.htm">GetKeyword</A>. Certain user-input methods can 
+accept keyword values in addition to the values they normally return, 
+provided that this method has been called to define the keyword. The 
+user-input methods that can accept keywords are: 
+GetKeyword, GetInteger, GetReal, GetDistance, 
+GetAngle, GetOrientation, GetPoint, and GetCorner.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

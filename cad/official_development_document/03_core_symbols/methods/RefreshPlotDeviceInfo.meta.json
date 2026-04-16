@@ -1,0 +1,45 @@
+{
+  "symbol": "RefreshPlotDeviceInfo",
+  "kind": "method",
+  "source_terms": [
+    "refreshplotdeviceinfo"
+  ],
+  "owners": [
+    "Layout"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_layout_plot_info",
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "layout.RefreshPlotDeviceInfo()",
+  "risk_tags": [
+    "刷新顺序不对导致打印设置失效"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/methods/RefreshPlotDeviceInfo.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_refreshplotdeviceinfo.htm",
+    "01_extracted_html/acadauto/idh_refreshplotdeviceinfo.htm",
+    "01_extracted_html/acadauto/refreshplotdeviceinfo_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_refreshplotdeviceinfo",
+    "acadauto:idh_refreshplotdeviceinfo",
+    "acadauto:refreshplotdeviceinfo_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_refreshplotdeviceinfo.htm",
+    "01_extracted_html/acadauto/idh_refreshplotdeviceinfo.htm",
+    "01_extracted_html/acadauto/refreshplotdeviceinfo_see_also.htm"
+  ]
+}

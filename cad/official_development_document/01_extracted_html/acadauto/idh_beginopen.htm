@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>BeginOpen event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">BeginOpen Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered immediately after AutoCAD receives a request to open an existing drawing.</P>
+
+<P CLASS="h1-access"><A HREF="beginopen_see_also.htm">See Also</A> | <A HREF="ex_beginopen.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.BeginOpen(Filename)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A><BR>
+An object expression that evaluates to a valid container object.
+In this case, the only valid container is the application.
+<P class="element">Filename</p><p class=element-desc>String<BR>
+The name of the file being opened.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The BeginOpen event is triggered as soon as AutoCAD receives a request to open an existing file. This request can come either interactively by a user through the File Open dialog box or programmatically.
+<P CLASS="body">The BeginOpen event does not trigger when opening a DXF format file.
+<P CLASS="body">When opening an existing file, the BeginOpen event will be followed by the EndOpen event when AutoCAD completes the opening of the drawing. For example, when a user selects File &gt; Open, then chooses the file to open from the dialog box and selects the Open button, the BeginOpen event is triggered (as soon as the Open button is processed). Once the drawing is visible in the AutoCAD window and is ready for work, the EndOpen event is triggered.
+<P CLASS="body">When creating a new file, the NewDrawing event is triggered.
+<P CLASS="body">No events will be fired while a modal dialog is being displayed.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -154,12 +154,17 @@ def run_print_case(
     if not dwg_path.exists():
         raise FileNotFoundError(dwg_path)
     mode = normalize_print_mode(mode)
+    started_at = datetime.now()
+    stage_durations: dict[str, float] = {}
 
+    stage_start = time.perf_counter()
     launch_cad_guardians()
     if not litz():
         raise RuntimeError("print_runner 启动阶段未能恢复到可信天正环境")
     assert_runtime_guard_ok("print_runner:after_litz")
+    stage_durations["runtime_prepare_seconds"] = round(time.perf_counter() - stage_start, 3)
 
+    stage_start = time.perf_counter()
     run_root, work_dir, pdf_dir = _make_run_dirs(dwg_path, output_root)
     process_token = _make_process_token(dwg_path)
     process_source_stem = f"plot-{process_token}"
@@ -172,6 +177,7 @@ def run_print_case(
         raise RuntimeError(f"未能激活工作 DWG: {work_dwg}")
     wait_quiescent(min_quiet=0.5, timeout=20.0)
     assert_runtime_guard_ok("print_runner:after_open_work_dwg")
+    stage_durations["prepare_work_dwg_seconds"] = round(time.perf_counter() - stage_start, 3)
 
     scope_analysis_payload: dict | None = None
     scope_analysis_path: Path | None = None
@@ -183,7 +189,9 @@ def run_print_case(
             keep_open=True,
         )
         scope_analysis_path = _write_json(run_root / "scope_analysis.json", scope_analysis_payload)
+        stage_durations["scope_analysis_seconds"] = round(time.perf_counter() - stage_start, 3)
 
+    stage_start = time.perf_counter()
     plan = build_print_plan(
         str(work_dwg),
         pdf_dir,
@@ -226,6 +234,7 @@ def run_print_case(
                 output_root=pdf_dir,
                 source_stem=plan.source_stem,
             )
+    stage_durations["build_plan_seconds"] = round(time.perf_counter() - stage_start, 3)
 
     plan_json = save_plan_json(plan, run_root / "print_plan.json")
     assert_runtime_guard_ok("print_runner:before_execute_plan")
@@ -240,10 +249,12 @@ def run_print_case(
         "content_analysis_json": str(content_analysis_path) if content_analysis_path else "",
         "scope_analysis_json": str(scope_analysis_path) if scope_analysis_path else "",
         "scope_filter": scope_filter_summary,
+        "started_at": started_at.strftime("%Y-%m-%d %H:%M:%S"),
     }
 
     if not dry_run and plan.total_jobs > 0:
         all_jobs = [job for jobs in plan.jobs_by_space.values() for job in jobs]
+        stage_start = time.perf_counter()
         execution = execute_print_plan(
             plan,
             defaults=PrintDefaults(
@@ -251,7 +262,10 @@ def run_print_case(
                 wps_close_threshold=wps_threshold,
             ),
         )
+        stage_durations["execute_print_plan_seconds"] = round(time.perf_counter() - stage_start, 3)
+        stage_start = time.perf_counter()
         verification = verify_generated_pdfs(execution.generated_files, jobs=all_jobs)
+        stage_durations["verify_pdfs_seconds"] = round(time.perf_counter() - stage_start, 3)
         summary["execution"] = {
             "total_jobs": execution.total_jobs,
             "success_count": execution.success_count,
@@ -265,6 +279,10 @@ def run_print_case(
         summary["verification"] = None
 
     summary_path = run_root / "print_summary.json"
+    finished_at = datetime.now()
+    summary["finished_at"] = finished_at.strftime("%Y-%m-%d %H:%M:%S")
+    summary["elapsed_seconds"] = round((finished_at - started_at).total_seconds(), 3)
+    summary["stage_durations"] = stage_durations
     summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     summary["summary_path"] = str(summary_path)
 

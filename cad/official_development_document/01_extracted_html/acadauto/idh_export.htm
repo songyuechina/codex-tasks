@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>Export method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Export Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Exports an AutoCAD drawing or a group of saved layer settings to a file.</P>
+<P CLASS="h1-access"><A HREF="export_see_also.htm">See Also</A> | <A HREF="ex_export.htm">Example</A></P>
+
+<P CLASS="Heading-2">Signatures: Overview
+<P CLASS="element">Drawings&nbsp;</P>
+<P CLASS="element-desc">object.Export FileName, Extension, SelectionSet&nbsp;</P>
+<P CLASS="element">Layer Settings&nbsp;</P>
+<P CLASS="element-desc">object.Export Name, FileName&nbsp;</P>
+
+<P CLASS="Heading-2">Signatures: Detail
+<P CLASS="syntax">object.Export FileName, Extension, SelectionSet</P>
+<P class="element">Object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A><BR>
+The object this method applies to.
+<P class="element">FileName</p><p class=element-desc>String; input-only<BR>
+The name for the newly exported file.
+<P class="element">Extension</p><p class=element-desc>String; input-only<BR>
+This string should contain three characters specifying the type of file to export
+the drawing into. Case is not important. Use one of the following extensions:
+<i>.wmf, .sat, .eps, .dsf,</i> or <i>.bmp</i>.
+<P class="element">SelectionSet</p><p class=element-desc><A HREF='idh_selectionset_object.htm'>SelectionSet</A> object; input-only<BR>
+For WMF, SAT, and BMP formats, the selection set specifies the objects to be exported. For EPS and DXF formats, the selection set is ignored and the entire drawing is exported.
+<HR CLASS="thin">
+
+<P CLASS="syntax">object.Export Name, FileName</P>
+<P class="element">Object</p><p class=element-desc><A HREF='idh_layerstatemanager.htm'>LayerStateManager</A><BR>
+A LayerStateManager object.
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name of the saved layer settings you are exporting.
+<P class="element">FileName</p><p class=element-desc>String; input-only<BR>
+The name of the file you are exporting layer settings to.
+
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">When exporting to WMF or BMP formats, a nonempty selection set must be provided. This selection set specifies the objects from the drawing to export. If an empty selection set is provided, AutoCAD will prompt the user to select the objects to export.
+<P CLASS="body">When exporting to SAT format, a nonempty selection set must be provided. This selection set specifies the objects from the drawing to export. Only Region objects, 3DSolid objects, non-manifold solids, and other ShapeManager entities that do not fit the characteristics of the 3DSolid or Region objects will be exported; all other objects in the selection set will be ignored. If an empty selection set is provided, AutoCAD will not prompt the user to select the objects to export.
+<P CLASS="body">When exporting to EPS and DXF formats, the selection set is ignored and the entire drawing is exported.
+<P CLASS="body">When exporting saved layer settings, you must name your output
+file with a <i>.las</i> extension in order for AutoCAD to automatically
+identify it as a saved layer settings export file.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

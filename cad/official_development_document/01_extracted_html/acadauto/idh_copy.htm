@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+
+<TITLE>Copy method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Copy Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Duplicates the given object to the same location.</P>
+
+<P CLASS="h1-access"><A HREF="copy_see_also.htm">See Also</A> | <A HREF="ex_copy.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.Copy
+<P class="element">Object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing Objects</A> 
+<P class="element">RetVal</p><p class=element-desc>Object<BR>
+The newly created duplicate object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>AttributeReference</I>: You should not attempt to use this method on AttributeReference objects. AttributeReference objects inherit this method because they are one of the drawing objects, however, it is not feasible to perform this operation on an attribute reference. 
+<P CLASS="body"><span class=NoteChar>NOTE</span> You cannot execute this method while simultaneously iterating through a collection. An iteration will open the work space for a read-only operation, while this method attempts to perform a read-write operation. Complete any iteration before you call this method.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

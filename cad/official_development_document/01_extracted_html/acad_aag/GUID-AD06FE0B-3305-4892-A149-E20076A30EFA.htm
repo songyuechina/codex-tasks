@@ -1,0 +1,51 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-AD06FE0B-3305-4892-A149-E20076A30EFA"><meta name="topic-subtype" content="activex"><meta name="description" content="You can justify line text horizontally and vertically. Left alignment is the default. To set the horizontal and vertical alignment options, use the Alignment property."><meta name="indexterm" content="Alignment property: example code"><meta name="indexterm" content="Alignment property: in text"><meta name="indexterm" content="AddText method: example code"><meta name="indexterm" content="TextAlignmentPoint property: example code"><meta name="indexterm" content="SetVariable method: example code"><meta name="indexterm" content="Text object: example code"><meta name="indexterm" content="Text object: aligning in drawings"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-3CC9ACFB-2AD0-4729-AFDE-17203E05865E"><title>About Aligning Line Text (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Formatting Line Text (VBA/ActiveX)</div><a href="GUID-F0A5E115-9791-435B-B520-1253341B5E1B.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Creating Line Text (VBA/ActiveX)</div><a href="GUID-3CC9ACFB-2AD0-4729-AFDE-17203E05865E.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Changing Line Text (VBA/ActiveX)</div><a href="GUID-9E7DE903-87FE-496E-A3B4-04380704E991.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_4.htm">Create and Edit AutoCAD Entities</a>&nbsp;&gt;&nbsp;<a href="GUID-D824CF69-4AAD-41A6-8CA2-8567662C5877.htm">About Adding Text to Drawings (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;<a href="GUID-3CC9ACFB-2AD0-4729-AFDE-17203E05865E.htm">About Creating Line Text (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-16B43CB3-46BA-4844-BA9E-D6FC3B2A81E0"></a></span><h1>About Aligning Line Text (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-AD06FE0B-3305-4892-A149-E20076A30EFA"></a></span><p class="blurb"> You can justify line text horizontally and vertically. Left alignment is the default. To set the horizontal and vertical alignment options, use the <span class="code">Alignment</span> property. </p><!--Body--><div class="section"><span style="display:none"><a name="SECTION_E9E3490D4125482DB64CD2B6EDD2BF24"></a></span> <h2><a name="TOC_ENTRY__d24e21898"></a><span style="display:none"><a name="GUID-3EAC87C6-A076-41F9-B6C7-7F11D0A2A130"></a></span>Realign text</h2> <p><span style="display:none"><a name="GUID-28990A06-AF30-49DB-9CB0-CD9DFFD0777A"></a></span>This example creates a <span class="code">Text</span> object and a <span class="code">Point</span> object. The <span class="code">Point</span> object is set to the text alignment point, and is changed to a red crosshair so that it is visible. The text alignment is changed and a message box is displayed so that the macro execution is halted. This allows you to see the impact of changing the text alignment. </p> <div class="codeBlock"><pre>Sub Ch4_TextAlignment()
+  Dim textObj As AcadText
+  Dim textString As String
+  Dim insertionPoint(0 To 2) As Double
+  Dim height As Double
+
+  ' Define the new Text object
+  textString = "Hello, World."
+  insertionPoint(0) = 3
+  insertionPoint(1) = 3
+  insertionPoint(2) = 0
+  height = 0.5
+
+  ' Create the Text object in model space
+  Set textObj = ThisDrawing.ModelSpace.AddText(textString, insertionPoint, height)
+
+  ' Create a point over the text alignment point,
+  ' so we can better visualize the alignment process
+  Dim pointObj As AcadPoint
+  Dim alignmentPoint(0 To 2) As Double
+  alignmentPoint(0) = 3
+  alignmentPoint(1) = 3
+  alignmentPoint(2) = 0
+  Set pointObj = ThisDrawing.ModelSpace.AddPoint(alignmentPoint)
+  pointObj.Color = acRed
+
+  ' Set the point style to crosshair
+  ThisDrawing.SetVariable "PDMODE", 2
+
+  ' Align the text to the Left
+  textObj.Alignment = acAlignmentLeft
+  ThisDrawing.Regen acActiveViewport
+  MsgBox "The Text object is now aligned left"
+
+  ' Align the text to the Center
+  textObj.Alignment = acAlignmentCenter
+
+  ' Align the text to the point (necessary for
+  ' all but left aligned text.)
+  textObj.TextAlignmentPoint = alignmentPoint
+
+  ThisDrawing.Regen acActiveViewport
+  MsgBox "The Text object is now centered"
+
+  ' Align the text to the Right
+  textObj.Alignment = acAlignmentRight
+  ThisDrawing.Regen acActiveViewport
+  MsgBox "The Text object is now aligned right"
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-reference"><h4 class="related">Related References</h4><ul><li class="topiclist-litem"><a href="GUID-ED298AC7-19E0-4E54-8983-48439EF70116.htm">Text Object (ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-3CC9ACFB-2AD0-4729-AFDE-17203E05865E.htm" title=" Each individual line of text is a distinct object when using line text. ">About Creating Line Text (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-D824CF69-4AAD-41A6-8CA2-8567662C5877.htm" title=" Text conveys important information in your drawing. Use text for title blocks, to label parts of the drawing, to give specifications, or to make annotations. ">About Adding Text to Drawings (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

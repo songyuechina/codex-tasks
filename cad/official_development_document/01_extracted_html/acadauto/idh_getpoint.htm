@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetPoint method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetPoint Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the point selected in AutoCAD.</P>
+
+<P CLASS="h1-access"><A HREF="getpoint_see_also.htm">See Also</A> | <A HREF="ex_getpoint.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = GetPoint([Point][, Prompt])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Point</p><p class=element-desc>Variant (three-element array of doubles); input-only; optional<BR>
+The 3D WCS coordinates specifying the relative base point.
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text used to prompt the user for input.
+<P class="element">RetVal</p><p class=element-desc>Variant (three-element array of doubles)<BR>
+The 3D WCS coordinates of the point the AutoCAD user has selected.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD pauses for user input of a point, and sets the return value to the value of the selected point. The Point parameter specifies a relative base point in the WCS. The Prompt parameter specifies a string that AutoCAD displays before it pauses. Both Point and Prompt are optional.
+<P CLASS="body">The AutoCAD user can specify the point by entering a coordinate in the current units format; GetPoint treats the Point parameter and the return value as three-dimensional points. The user can specify the point also by specifying a location on the graphics screen. If the Point parameter is provided, AutoCAD draws a rubber-band line from Point to the current crosshair position.
+<P CLASS="body">The coordinates of the point stored in the return value are expressed in terms of the WCS.
+<P CLASS="body">If a keyword is returned instead of a point, AutoCAD will generate the error message "User input keyword." Use the GetInput method to obtain the keyword from the return value.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

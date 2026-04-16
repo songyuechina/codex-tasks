@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ArcLength Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ArcLength Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ArcLength()
+    ' This example creates an Arc in model space and returns the length of the new Arc
+    Dim arcObj As AcadArc
+    Dim centerPoint(0 To 2)  As Double
+    Dim radius As Double
+    Dim startAngleInDegree As Double, endAngleInDegree As Double
+    Dim startAngleInRadian As Double, endAngleInRadian As Double
+    
+    ' Define the Arc
+    centerPoint(0) = 0: centerPoint(1) = 0: centerPoint(2) = 0
+    radius = 5#
+    startAngleInDegree = 10#: endAngleInDegree = 230#
+
+    ' Convert the angles in degrees to angles in radians
+    startAngleInRadian = startAngleInDegree * 3.141592 / 180#
+    endAngleInRadian = endAngleInDegree * 3.141592 / 180#
+    
+    ' Create the arc object in model space
+    Set arcObj = ThisDrawing.ModelSpace.AddArc(centerPoint, radius, startAngleInRadian, endAngleInRadian)
+    ThisDrawing.Application.ZoomAll
+    
+    ' Return length of new arc
+    MsgBox "The length of the new Arc is: " & arcObj.ArcLength
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

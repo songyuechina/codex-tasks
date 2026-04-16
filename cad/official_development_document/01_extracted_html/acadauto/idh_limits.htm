@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+
+<TITLE>Limits property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Limits Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the drawing limits.</P>
+
+<P CLASS="h1-access"><A HREF="limits_see_also.htm">See Also</A> | <A HREF="ex_limits.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Limits
+<P class="element">object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A><BR>
+The object this property applies to.
+<P class="element">Limits</p><p class=element-desc>Variant (array of doubles); read-write<BR>
+An array of four values. The first pair of values define the <I>X</I> and <I>Y</I> coordinates of the lower-left limit, the second pair of values define the <I>X</I> and <I>Y</I> coordinates of the upper-right limit.
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The lower-left limit controls the <A HREF='ms-its:acad180.chm::/limmin.htm'>LIMMIN</A> system variable. The upper-right limit controls the <A HREF='ms-its:acad180.chm::/limmax.htm'>LIMMAX</A> system variable. The <A HREF='ms-its:acad180.chm::/limcheck.htm'>LIMCHECK</A> system variable turns limits checking on and off for the current space.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The drawing limits are two-dimensional points in the World Coordinate System (WCS) that represent a lower-left and an upper-right limit. You cannot impose limits on the <I>Z</I> direction.
+<P CLASS="body">The drawing limits also govern the portion of the drawing covered by the visible grid and 
+determine the minimum area that the <A HREF="idh_zoomall.htm">ZoomAll</A> method displays.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

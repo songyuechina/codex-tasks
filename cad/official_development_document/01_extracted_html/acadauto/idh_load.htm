@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>Load method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Load Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Loads a menu group from a customization (CUI) file or the definition of a linetype from a library (LIN) file. </P>
+
+<P CLASS="h1-access"><A HREF="load_see_also.htm">See Also</A> | <A HREF="ex_load.htm">Example</A></P>
+
+<P CLASS="Heading-2">Signatures: Overview
+<P CLASS="element">Linetypes&nbsp;</P>
+<P CLASS="element-desc">object.Load LinetypeName, Filename&nbsp;</P>
+<P CLASS="element">MenuGroups&nbsp;</P>
+<P CLASS="element-desc">object.Load MenuFilename [,BaseMenu]&nbsp;</P>
+
+<P CLASS="Heading-2">Signatures: Detail
+<P CLASS="syntax">object.Load LineTypeName, FileName
+<P class="element">Object</p><p class=element-desc><A HREF='idh_linetypes_collection.htm'>Linetypes</A><BR>
+The object this method applies to.
+<P class="element">LineTypeName</p><p class=element-desc>String; input-only<BR>
+The name of the linetype to load.
+<P class="element">FileName</p><p class=element-desc>String; input-only<BR>
+The name of the file the linetype is in.
+<HR CLASS="thin">
+<P CLASS="syntax">RetVal = object.Load (<I>MenuFileName </I>[,<I>BaseMenu</I>])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_menugroups_collection.htm'>MenuGroups</A><BR>
+The object this method applies to.
+<P class="element">MenuFileName</p><p class=element-desc>String; input-only<BR>
+The name of the customization (CUI) file to load.
+<P class="element">BaseMenu</p><p class=element-desc>Variant; input-only; optional<BR>
+If this parameter is set to TRUE, then the menu group will be loaded as a 
+base menu (similar to the
+<A HREF='ms-its:acad180.chm::/menu.htm'>MENU</A>
+command in AutoCAD). 
+If this parameter is omitted, the menu group will be loaded as a partial 
+menu (similar to the 
+<A HREF='ms-its:acad180.chm::/menuload.htm'>MENULOAD</A>
+command in AutoCAD).
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_menugroup_object.htm'>MenuGroup</A> object
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>Linetypes:</I> Although you can create a linetype and 
+add it to the Linetypes Collection object using the 
+<A HREF="idh_add.htm">Add</A> method, it will be created with the default properties 
+only. Because you cannot edit linetype properties with this release of 
+ActiveX Automation, use this method to load existing linetypes into your 
+drawing.
+<P CLASS="body"><I>Menu groups:</I> AutoCAD searches for customization files with the specified
+<I>MenuFileName</I> and a <I>.cui</I> extension.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

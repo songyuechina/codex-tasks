@@ -1,0 +1,105 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-F7E07C2E-B6C7-4A24-891B-19CD2ED72BCF"><meta name="topic-subtype" content="activex"><meta name="description" content="To copy multiple objects, use the CopyObjects method or create an array of objects to use with the Copy method."><meta name="indexterm" content="Circle object: example code"><meta name="indexterm" content="CopyObjects method: example code"><meta name="indexterm" content="copying: objects to other drawings"><meta name="indexterm" content="copying: from one drawing to another"><meta name="indexterm" content="copying: multiple objects"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-A93327DC-5681-4CBA-AAF5-F94373E24BEC"><title>About Copying Multiple Objects (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Copying an Object to the Same Location (VBA/ActiveX)</div><a href="GUID-41A72243-6132-47ED-A98C-6B1A5363A75C.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Copying Objects (VBA/ActiveX)</div><a href="GUID-A93327DC-5681-4CBA-AAF5-F94373E24BEC.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Offsetting Objects (VBA/ActiveX)</div><a href="GUID-688405AF-CE9F-4AF7-8FE2-5ACAD8755A59.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_4.htm">Create and Edit AutoCAD Entities</a>&nbsp;&gt;&nbsp;<a href="GUID-027C70E5-B987-4DCC-8A60-6BFA5136DFF5.htm">About Modifying Objects (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;<a href="GUID-A93327DC-5681-4CBA-AAF5-F94373E24BEC.htm">About Copying Objects (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-795B6923-7413-4CC8-9BA0-1DFA9776C23B"></a></span><h1>About Copying Multiple Objects (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-F7E07C2E-B6C7-4A24-891B-19CD2ED72BCF"></a></span><p class="blurb"> To copy multiple objects, use the <span class="code">CopyObjects</span> method or create an array of objects to use with the <span class="code">Copy</span> method. </p><!--Body--><p><span style="display:none"><a name="GUID-354244AC-D672-4F08-A3B3-28F1CAC997B8"></a></span> To copy the objects in a selection set, iterate through the selection set and save the objects into an array. Iterate through the array, copying each object individually, and collect the newly created objects in a second array. </p><p><span style="display:none"><a name="GUID-77983A01-6B20-4C26-B598-97ACE29CD5B4"></a></span>To copy multiple objects to a different drawing, use the <span class="code">CopyObjects</span> method and set the <em class="mild">Owner</em> parameter to the drawing's model space. </p><div class="section"><span style="display:none"><a name="SECTION_2AD5F0E2D5624CCA8E09D37EC0CF5D50"></a></span> <h2><a name="TOC_ENTRY__d24e18496"></a><span style="display:none"><a name="GUID-43E55EFC-EAFE-4636-B1CE-329C7136D5B6"></a></span>Copy two Circle objects</h2> <p><span style="display:none"><a name="GUID-7FC7FB4E-3B5D-4C75-A4F0-244168499422"></a></span>This example creates two <span class="code">Circle</span> objects and uses the <span class="code">CopyObjects</span> method to make a copy of the circles. </p> <div class="codeBlock"><pre>Sub Ch4_CopyCircleObjects()
+  Dim DOC1 As AcadDocument
+  Dim circleObj1 As AcadCircle
+  Dim circleObj2 As AcadCircle
+  Dim circleObj1Copy As AcadCircle
+  Dim circleObj2Copy As AcadCircle
+  Dim centerPoint(0 To 2) As Double
+  Dim radius1 As Double
+  Dim radius2 As Double
+  Dim radius1Copy As Double
+  Dim radius2Copy As Double
+  Dim objCollection(0 To 1) As Object
+  Dim retObjects As Variant
+
+  ' Define the Circle object
+  centerPoint(0) = 0: centerPoint(1) = 0: centerPoint(2) = 0
+  radius1 = 5#: radius2 = 7#
+  radius1Copy = 1#: radius2Copy = 2#
+
+  ' Create a new drawing
+  Set DOC1 = ThisDrawing.Application.Documents.Add
+
+  ' Add two circles to the drawing
+  Set circleObj1 = DOC1.ModelSpace.AddCircle(centerPoint, radius1)
+  Set circleObj2 = DOC1.ModelSpace.AddCircle(centerPoint, radius2)
+  ZoomAll
+
+  ' Put the objects to be copied into a form
+  ' compatible with CopyObjects
+  Set objCollection(0) = circleObj1
+  Set objCollection(1) = circleObj2
+
+  ' Copy object and get back a collection of
+  ' the new objects (copies)
+  retObjects = DOC1.CopyObjects(objCollection)
+
+  ' Get newly created object and apply
+  ' new properties to the copies
+  Set circleObj1Copy = retObjects(0)
+  Set circleObj2Copy = retObjects(1)
+
+  circleObj1Copy.Radius = radius1Copy
+  circleObj1Copy.Color = acRed
+  circleObj2Copy.Radius = radius2Copy
+  circleObj2Copy.Color = acRed
+
+  ZoomAll
+End Sub</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_AEC3B2B80BBA4899A82FFDC61CA72793"></a></span> <h2><a name="TOC_ENTRY__d24e18513"></a><span style="display:none"><a name="GUID-7DB111EB-7BF4-4566-ABE8-E70818D261ED"></a></span>Copy objects to another drawing</h2> <p><span style="display:none"><a name="GUID-02B7A9D1-724C-4856-833D-446C10FF03C9"></a></span>This example creates <span class="code">Circle</span> objects, then uses the <span class="code">CopyObjects</span> method to copy the circles into a new drawing. </p> <div class="codeBlock"><pre>Sub Ch4_Copy_to_New_Drawing()
+  Dim DOC0 As AcadDocument
+  Dim circleObj1 As AcadCircle, circleObj2 As AcadCircle
+  Dim centerPoint(0 To 2) As Double
+  Dim radius1 As Double, radius2 As Double
+  Dim radius1Copy As Double, radius2Copy As Double
+  Dim objCollection(0 To 1) As Object
+  Dim retObjects As Variant
+
+  ' Define the Circle object
+  centerPoint(0) = 0: centerPoint(1) = 0: centerPoint(2) = 0
+  radius1 = 5#: radius2 = 7#
+  radius1Copy = 1#: radius2Copy = 2#
+
+  ' Add two circles to the current drawing
+  Set circleObj1 = ThisDrawing.ModelSpace.AddCircle(centerPoint, radius1)
+  Set circleObj2 = ThisDrawing.ModelSpace.AddCircle(centerPoint, radius2)
+  ThisDrawing.Application.ZoomAll
+
+  ' Save pointer to the current drawing
+  Set DOC0 = ThisDrawing.Application.ActiveDocument
+
+  ' Copy objects
+  '
+  ' First put the objects to be copied into a form compatible
+  ' with CopyObjects
+  Set objCollection(0) = circleObj1
+  Set objCollection(1) = circleObj2
+
+  ' Create a new drawing and point to its model space
+  Dim Doc1MSpace As AcadModelSpace
+  Dim DOC1 As AcadDocument
+
+  Set DOC1 = Documents.Add
+  Set Doc1MSpace = DOC1.ModelSpace
+
+  ' Copy the objects into the model space of the new drawing. A
+  ' collection of the new (copied) objects is returned.
+  retObjects = DOC0.CopyObjects(objCollection, Doc1MSpace)
+
+  Dim circleObj1Copy As AcadCircle, circleObj2Copy As AcadCircle
+
+  ' Get the newly created object collection and apply new
+  ' properties to the copies.
+  Set circleObj1Copy = retObjects(0)
+  Set circleObj2Copy = retObjects(1)
+
+  circleObj1Copy.radius = radius1Copy
+  circleObj1Copy.Color = acRed
+  circleObj2Copy.radius = radius2Copy
+  circleObj2Copy.Color = acRed
+
+  ThisDrawing.Application.ZoomAll
+
+  MsgBox "Circles copied."
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-reference"><h4 class="related">Related References</h4><ul><li class="topiclist-litem"><a href="GUID-D9E0A89C-2D81-4141-8B88-B9AC6EAABD62.htm">CopyObjects Method (ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-41A72243-6132-47ED-A98C-6B1A5363A75C.htm" title=" To copy a single object, use the Copy method provided for that object. ">About Copying an Object to the Same Location (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-A93327DC-5681-4CBA-AAF5-F94373E24BEC.htm" title=" You can copy single or multiple objects within the current drawing. ">About Copying Objects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-027C70E5-B987-4DCC-8A60-6BFA5136DFF5.htm" title=" To modify an existing object, use the methods and properties associated with that object. If you modify a visible property of a graphic object, use the Update method to redraw the object on screen. ">About Modifying Objects (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

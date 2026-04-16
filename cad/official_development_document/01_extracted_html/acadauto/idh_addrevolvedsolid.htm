@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddRevolvedSolid method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddRevolvedSolid Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a revolved solid, given the region around an axis. </P>
+
+<P CLASS="h1-access"><A HREF="addrevolvedsolid_see_also.htm">See Also</A> | <A HREF="ex_addrevolvedsolid.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddRevolvedSolid(Profile, AxisPoint, AxisDir, Angle)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">Profile</p><p class=element-desc><A HREF='idh_region_object.htm'>Region</A> object; input-only
+<P class="element">AxisPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the start point of the axis of revolution.
+<P class="element">AxisDir</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+A 3D vector specifying the direction of the axis of revolution.
+<P class="element">Angle</p><p class=element-desc>Double; input-only<BR>
+The angle of revolution in radians. Enter 6.28 for a full circle revolution.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_3dsolid_object.htm'>3DSolid</A> object<BR>
+A 3DSolid object as the newly created revolved solid.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The region to revolve must be closed. You cannot revolve objects contained within a block. You can revolve only one object at a time.
+<P CLASS="body">The right-hand rule determines the positive direction of rotation. 
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

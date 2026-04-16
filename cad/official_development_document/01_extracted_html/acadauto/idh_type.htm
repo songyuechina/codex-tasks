@@ -1,0 +1,203 @@
+<HTML>
+<HEAD>
+
+<TITLE>Type property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Type Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies type of a Leader, MenuGroup, PopupMenuItem, ToolbarItem, Polyline, or PolygonMesh object. </P>
+<P CLASS="h1-access"><A HREF="type_see_also.htm">See Also</A> | <A HREF="ex_type.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Type
+<P class="element">object</p><p class=element-desc><A HREF='idh_3dpoly_object.htm'>3DPolyline </A>, <A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_leader_object.htm'>Leader</A>, <A HREF='idh_menugroup_object.htm'>MenuGroup</A>, <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_polygonmesh_object.htm'>PolygonMesh</A>, <A HREF='idh_popupmenuitem_object.htm'>PopupMenuItem</A>, <A HREF='idh_toolbaritem_object.htm'>ToolbarItem</A><BR>
+The object this property applies to.
+<P class="element">Type</p><p class=element-desc>Integer;
+<P CLASS="element-desc-cont">Leader uses the acLeaderType enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acLineNoArrow</TD>
+  <TD><P class="constant-desc">A line with no arrow.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLineWithArrow</TD>
+  <TD><P class="constant-desc">A line with arrow.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acSplineNoArrow</TD>
+  <TD><P class="constant-desc">A spline with no arrow.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acSplineWithArrow</TD>
+  <TD><P class="constant-desc">A spline with arrow.</TD>
+</TR>
+</TABLE>
+<BR>
+<P CLASS="element-desc-cont">MenuGroup uses the acMenuGroupType enum; read-only</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acBaseMenuGroup</TD>
+  <TD><P class="constant-desc">The base menu group.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPartialMenuGroup</TD>
+  <TD><P class="constant-desc">A partial menu group.</TD>
+</TR>
+</TABLE>
+
+<BR>
+<P CLASS="element-desc-cont">PopupMenuItem uses the acMenuItemType enum; read-only</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acMenuItem</TD>
+  <TD><P class="constant-desc">A menu item.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acMenuSeparator</TD>
+  <TD><P class="constant-desc">A menu separator.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acMenuSubMenu</TD>
+  <TD><P class="constant-desc">A sub menu.</TD>
+</TR>
+</TABLE>
+
+<BR>
+<P CLASS="element-desc-cont">ToolbarItem uses the acToolbarItemType enum; read-only</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acToolbarButton</TD>
+  <TD><P class="constant-desc">A generic button.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acToolbarFlyout</TD>
+  <TD><P class="constant-desc">A flyout button.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acToolbarControl</TD>
+  <TD><P class="constant-desc">A control button.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acToolbarSeparator</TD>
+  <TD><P class="constant-desc">A separator.</TD>
+</TR>
+</TABLE>
+
+<BR>
+<P CLASS="element-desc-cont">3DPolyline  uses the ac3DPolylineType enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acSimple3DPoly</TD>
+  <TD><P class="constant-desc">A simple polyline.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acQuadSpline3DPoly</TD>
+  <TD><P class="constant-desc">A quadratic B-spline polyline.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acCubicSpline3DPoly</TD>
+  <TD><P class="constant-desc">A cubic B-spline polyline.</TD>
+</TR>
+</TABLE>
+
+<BR>
+<P CLASS="element-desc-cont">Polyline uses the acPolylineType enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acSimplePoly</TD>
+  <TD><P class="constant-desc">A simple polyline.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acFitCurvePoly</TD>
+  <TD><P class="constant-desc">A fit curve polyline.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acQuadSplinePoly</TD>
+  <TD><P class="constant-desc">A quadratic B-spline polyline.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acCubicSplinePoly</TD>
+  <TD><P class="constant-desc">A cubic B-spline polyline.</TD>
+</TR>
+</TABLE>
+
+<BR>
+<P CLASS="element-desc-cont">PolygonMesh uses the acPolymeshType enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acSimpleMesh</TD>
+  <TD><P class="constant-desc">A simple mesh with no surface fitting or smoothing.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acQuadSurfaceMesh</TD>
+  <TD><P class="constant-desc">A quadratic B-spline surface fit.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acCubicSurfaceMesh</TD>
+  <TD><P class="constant-desc">A cubic B-spline surface fit.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acBezierSurfaceMesh</TD>
+  <TD><P class="constant-desc">A Bezier surface fit.</TD>
+</TR>
+</TABLE>
+
+<BR>
+<P CLASS="element-desc-cont">Layout and PlotConfiguration use the acPlotType enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acDisplay</TD>
+  <TD><P class="constant-desc">Prints everything that is in the current display.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acExtents</TD>
+  <TD><P class="constant-desc">Print everything that falls within the extents of the currently selected space.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLimits</TD>
+  <TD><P class="constant-desc">Prints everything that is in the limits of the current space.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acView</TD>
+  <TD><P class="constant-desc">Prints the view named by the 
+      <A HREF="idh_viewtoplot.htm">ViewToPlot</A> property.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acWindow</TD>
+  <TD><P class="constant-desc">Prints everything in the window specified 
+       by the <A HREF="idh_setwindowtoplot.htm">SetWindowToPlot</A> method.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acLayout</TD>
+  <TD><P class="constant-desc">Prints everything that falls within the margins of the specified paper size with the origin being calculated from 0,0 coordinate location in the Layout tab.  This option is not available when printing from model space.</TD>
+</TR>
+</TABLE>
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>PolygonMesh:</I> If the PolygonMesh type is set to 
+<SPAN CLASS="constant-char">acSimpleMesh</SPAN> then the <I>M</I> and <I>N</I> vertex count values will 
+be used for vertex row column sizes.  For any other PolygonMesh type, 
+the <I>M</I> and <I>N</I> density values will be used as the row and 
+column sizes.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

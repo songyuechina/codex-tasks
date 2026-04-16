@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>HasAttributes Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">HasAttributes Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_HasAttributes()
+    ' This example first creates a block without attributes.
+    ' It then inserts the block and checks whether it has attributes.
+    ' It then adds attributes to the block and inserts it again.
+    ' Then it checks the new block reference for attributes.
+    
+    ' Create the block
+    Dim blockObj As AcadBlock
+    Dim insertionPnt(0 To 2) As Double
+    insertionPnt(0) = 0#: insertionPnt(1) = 0#: insertionPnt(2) = 0#
+    Set blockObj = ThisDrawing.Blocks.Add(insertionPnt, "CircleBlock")
+    
+    ' Add a circle to the block
+    Dim circleObj As AcadCircle
+    Dim center(0 To 2) As Double
+    Dim radius As Double
+    center(0) = 0: center(1) = 0: center(2) = 0
+    radius = 1
+    Set circleObj = blockObj.AddCircle(center, radius)
+   
+    ' Insert the block
+    Dim blockRefObj As AcadBlockReference
+    insertionPnt(0) = 2#: insertionPnt(1) = 2#: insertionPnt(2) = 0
+    Set blockRefObj = ThisDrawing.ModelSpace.InsertBlock(insertionPnt, "CircleBlock", 1#, 1#, 1#, 0)
+    ThisDrawing.Application.ZoomAll
+    MsgBox "This block reference " & IIf(blockRefObj.HasAttributes, "has attributes.", "does not have attributes."), , "Has Attributes Example"
+    
+    
+    ' Add attributes to the block definition.
+    ' Define the attribute definition.
+    Dim attributeObj As AcadAttribute
+    Dim height As Double
+    Dim mode As Long
+    Dim prompt As String
+    Dim insertionPoint(0 To 2) As Double
+    Dim tag As String
+    Dim value As String
+    height = 1#
+    mode = acAttributeModeVerify
+    prompt = "Attribute Prompt"
+    insertionPoint(0) = 1#: insertionPoint(1) = 1#: insertionPoint(2) = 0
+    tag = "Attribute Tag"
+    value = "Attribute Value"
+    
+    ' Create the attribute definition
+    Set attributeObj = blockObj.AddAttribute(height, mode, prompt, insertionPoint, tag, value)
+       
+    ' Insert the block again
+    Dim blockRefObj2 As AcadBlockReference
+    insertionPnt(0) = 3#: insertionPnt(1) = 3#: insertionPnt(2) = 0
+    Set blockRefObj2 = ThisDrawing.ModelSpace.InsertBlock(insertionPnt, "CircleBlock", 1#, 1#, 1#, 0)
+    ZoomAll
+    MsgBox "The first block reference " & IIf(blockRefObj.HasAttributes, "has attributes.", "does not have attributes.") & vbCrLf & _
+            "The second block reference " & IIf(blockRefObj2.HasAttributes, "has attributes.", "does not have attributes."), , "Has Attributes Example"
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

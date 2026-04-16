@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>BeginSave event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">BeginSave Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered immediately after AutoCAD receives a request to save the drawing.</P>
+
+<P CLASS="h1-access"><A HREF="beginsave_see_also.htm">See Also</A> | <A HREF="ex_beginsave.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.BeginSave(Filename)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A><BR>
+An object expression that evaluates to a valid container object.
+In this case, the only valid container is the application.
+<P class="element">Filename</p><p class=element-desc>String<BR>
+The name of the file being saved.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The BeginSave event is triggered as soon as AutoCAD receives a request to save along with the name of the file to save. This request can come either interactively by a user through the interface or programmatically.
+<P CLASS="body">The BeginSave event is followed by the 
+<A HREF="idh_endsave.htm">EndSave</A> event after AutoCAD completes the saving of the drawing. 
+<P CLASS="body">No events will be fired while a modal dialog is being displayed.
+
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

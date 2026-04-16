@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ArrayRectangular Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ArrayRectangular Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ArrayRectangular()
+    ' This example creates a circle and then performs
+    ' a rectangular array on that circle.
+    
+    ' Create the circle
+    Dim circleObj As AcadCircle
+    Dim center(0 To 2) As Double
+    Dim radius As Double
+    center(0) = 2#: center(1) = 2#: center(2) = 0#
+    radius = 0.5
+    Set circleObj = ThisDrawing.ModelSpace.AddCircle(center, radius)
+    ThisDrawing.Application.ZoomAll
+    MsgBox "Perform the rectangular array on the circle.", , "ArrayRectangular Example"
+    
+    ' Define the rectangular array
+    Dim numberOfRows As Long
+    Dim numberOfColumns As Long
+    Dim numberOfLevels As Long
+    Dim distanceBwtnRows As Double
+    Dim distanceBwtnColumns As Double
+    Dim distanceBwtnLevels As Double
+    numberOfRows = 5
+    numberOfColumns = 5
+    numberOfLevels = 2
+    distanceBwtnRows = 1
+    distanceBwtnColumns = 1
+    distanceBwtnLevels = 1
+    
+    ' Create the array of objects
+    Dim retObj As Variant
+    retObj = circleObj.ArrayRectangular(numberOfRows, numberOfColumns, numberOfLevels, distanceBwtnRows, distanceBwtnColumns, distanceBwtnLevels)
+    
+    ZoomAll
+    MsgBox "Rectangular array completed.", , "ArrayRectangular Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

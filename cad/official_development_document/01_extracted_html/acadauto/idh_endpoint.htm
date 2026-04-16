@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+<TITLE>EndPoint property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">EndPoint Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the endpoint for the arc, line, or ellipse.</P>
+
+<P CLASS="h1-access"><A HREF="endpoint_see_also.htm">See Also</A> | <A HREF="ex_endpoint.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.EndPoint
+<P class="element">object</p><p class=element-desc><A HREF='idh_arc_object.htm'>Arc</A>, <A HREF='idh_line_object.htm'>Line</A>, <A HREF='idh_ellipse_object.htm'>Ellipse</A><BR>
+The objects this property applies to.
+<P class="element">EndPoint</p><p class=element-desc>Variant (three-element array of doubles); <BR>
+For the Arc and Ellipse objects this property is read-only.<BR>
+For the Line object this property is read-write.<BR>
+A 3D coordinate representing the endpoint of the object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><IMG SRC='img/end_pt.gif' BORDER=0>
+<P CLASS="body-smalltopmargin"><I>The endpoint for an arc, ellipse, and line</I>
+<P CLASS="body"><span class=NoteChar>NOTE</span> You cannot change the endpoint of an arc 
+or an ellipse. To edit an arc, use the 
+<A HREF="idh_endangle.htm">EndAngle</A> and <A HREF="idh_radius.htm">Radius</A> properties. 
+To edit an ellipse, use the EndAngle, 
+<A HREF="idh_majoraxis.htm">MajorAxis</A>, and 
+<A HREF="idh_radiusratio.htm">RadiusRatio</A> properties.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetBoundingBox Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetBoundingBox Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_GetBoundingBox()
+    ' This example creates a line in model space. It then finds the
+    ' bounding box for the line and displays the corners of the box.
+    
+    Dim startPoint(0 To 2) As Double
+    Dim endPoint(0 To 2) As Double
+    Dim lineObj As AcadLine
+
+    ' Create the Line object in model space
+    startPoint(0) = 2#: startPoint(1) = 2#: startPoint(2) = 0#
+    endPoint(0) = 4#: endPoint(1) = 4#: endPoint(2) = 0#
+    Set lineObj = ThisDrawing.ModelSpace.AddLine(startPoint, endPoint)
+    ZoomAll
+    
+    Dim minExt As Variant
+    Dim maxExt As Variant
+    
+    ' Return the bounding box for the line and return the minimum
+    ' and maximum extents of the box in the minExt and maxExt variables.
+    lineObj.GetBoundingBox minExt, maxExt
+    
+    ' Print the min and max extents
+    MsgBox "The extents of the bounding box for the line are:" & vbCrLf _
+         & "Min Extent: " & minExt(0) & "," & minExt(1) & "," & minExt(2) _
+         & vbCrLf & "Max Extent: " & maxExt(0) & "," & maxExt(1) & "," & maxExt(2), vbInformation, "GetBoundingBox Example"
+         
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

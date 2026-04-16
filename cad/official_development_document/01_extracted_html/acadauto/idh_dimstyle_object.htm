@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>DimStyle object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "DimStyle object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="DimStyles Collection;idh_dimstyles_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadDimStyle;none.htm">
+    <PARAM name="Item2" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item3" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; DimStyle object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">A group of dimension settings that determines the appearance of a dimension. </P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadDimStyle&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">DimStyles.Add&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">DimStyles.Item<BR>
+Document.ActiveDimStyle&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">The active dimension style determines the appearance of new dimensions that are created in the drawing. To change the style of an existing dimension, use the <A HREF="idh_stylename.htm">StyleName</A> property found on the dimension.
+<P CLASS="body">To control the settings of the current document 
+overrides, use the dimensioning system variables. See "System Variables" in the <I>AutoCAD Command Reference</I> for a list of dimensioning system variables. 
+
+<P CLASS="body">When you change a dimensioning system variable, you are actually setting a document override for the active dimension style; you are not changing the active dimension style itself. This means that all newly created dimensions will still be created with the active dimension style only and will not reflect the overrides from the system variables. The overrides from the system variables will not be recognized on new dimensions until the active dimension style is updated. To change the settings of any dimension style, use the <A HREF="idh_copyfrom.htm">CopyFrom</A> method. This method copies a dimension style configuration, including overrides, from a document, dimension, or other dimension style.
+<P CLASS="body">Dimensions created via the AutoCAD user interface are created with the active dimension style plus all document overrides. Dimensions created via ActiveX are created with the active dimension style only. To have the dimensions created via ActiveX take on the document overrides, use the CopyFrom method to copy the dimension style from the document to the active dimension style. This process will copy all existing overrides into the active dimension style.
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_copyfrom.htm"><P CLASS="body">CopyFrom</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

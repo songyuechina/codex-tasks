@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>HasVpAssociation Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">HasVpAssociation Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">Sub Example_HasVpAssociation()
+    ' This example demonstrates the
+    ' CategoryName, LayoutId, LayerState,
+    ' and HasVpAssociation properties of the View object
+    
+    Dim oLSM As AcadLayerStateManager
+
+    ' Access the LayerStateManager object
+    Set oLSM = ThisDrawing.Application. _
+       GetInterfaceObject("AutoCAD.AcadLayerStateManager.18")
+
+    ' Associate the current drawing database with LayerStateManager
+    oLSM.SetDatabase ThisDrawing.Database
+
+    oLSM.Save "ColorLinetype", acLsColor + acLsLineType
+    
+    ' Create a view named "New_View" in current drawing
+    Dim viewObj As IAcadView2
+   
+    ' Add the view to the views collection
+    Set viewObj = ThisDrawing.Views.Add("New_View")
+    MsgBox viewObj.Name & " has been added." & vbCrLf & _
+           "Height: " & viewObj.Height & vbCrLf & _
+           "Width: " & viewObj.Width, , "Example"
+    
+    viewObj.CategoryName = "My View Category"
+    viewObj.LayerState = "My Layer State"
+    
+    viewObj.LayoutId = ThisDrawing.Layouts(1).ObjectID
+        
+    MsgBox viewObj.CategoryName & " is the Category name." & vbCrLf & _
+            viewObj.LayoutId & " is the Layout ID." & vbCrLf & _
+            viewObj.LayerState & " is the Layer state."
+   
+    If viewObj.HasVpAssociation = True Then
+        MsgBox "The view is associated with a paper space viewport."
+    Else
+        MsgBox "The view is not associated with a paper space viewport."
+    
+   End If
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

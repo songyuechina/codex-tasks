@@ -1,0 +1,47 @@
+{
+  "symbol": "HasAttributes",
+  "kind": "property",
+  "source_terms": [
+    "hasattributes"
+  ],
+  "owners": [
+    "BlockReference"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_block_attributes",
+    "update_titleblock_fields"
+  ],
+  "pywin32_signature": "bool(block_ref.HasAttributes)",
+  "risk_tags": [
+    "对象类型不对时读取异常"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/properties/HasAttributes.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_hasattributes.htm",
+    "01_extracted_html/acadauto/idh_hasattributes.htm",
+    "01_extracted_html/acadauto/hasattributes_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_hasattributes",
+    "acadauto:idh_hasattributes",
+    "acadauto:hasattributes_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_hasattributes.htm",
+    "01_extracted_html/acadauto/idh_hasattributes.htm",
+    "01_extracted_html/acadauto/hasattributes_see_also.htm"
+  ]
+}

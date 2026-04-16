@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>TextMovement Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">TextMovement Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_TextMovement()
+   ' This example creates two aligned dimensions in model space and
+   ' sets the TextMovement property of each one differently to allow
+   ' the user to see the differences this property makes when moving
+   ' dimension text
+   '
+   ' To see the effects of this property:
+   ' 1) Run this sample
+   ' 2) Enter the drawing and move the dimension text of the leftmost object
+   '    on the screen with the mouse or keyboard.
+   ' 3) Notice the position of the dimension lines
+   ' 4) Repeat with the rightmost object
+   
+    Dim dimObj1 As AcadDimAligned, dimObj2 As AcadDimAligned
+    Dim point1(0 To 2) As Double, point2(0 To 2) As Double
+    Dim point3(0 To 2) As Double, point4(0 To 2) As Double
+    Dim location1(0 To 2) As Double, location2(0 To 2) As Double
+        
+    ' Define the two dimensions
+    point1(0) = 5: point1(1) = 5: point1(2) = 0
+    point2(0) = 6: point2(1) = 5: point2(2) = 0
+    location1(0) = 5: location1(1) = 7: location1(2) = 0
+    
+    point3(0) = 7: point3(1) = 5: point3(2) = 0
+    point4(0) = 8: point4(1) = 5: point4(2) = 0
+    location2(0) = 5: location2(1) = 7: location2(2) = 0
+    
+    ' Create the aligned dimension objects in model space
+    Set dimObj1 = ThisDrawing.ModelSpace.AddDimAligned(point1, point2, location1)
+    Set dimObj2 = ThisDrawing.ModelSpace.AddDimAligned(point3, point4, location2)
+    
+    ThisDrawing.Application.ZoomAll
+
+    ' Set the text movement of the new dimensions to different values
+    dimObj1.TextMovement = acMoveTextNoLeader
+    dimObj2.TextMovement = acDimLineWithText
+       
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

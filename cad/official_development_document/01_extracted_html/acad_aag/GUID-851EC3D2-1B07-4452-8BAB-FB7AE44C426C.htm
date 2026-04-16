@@ -1,0 +1,32 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-851EC3D2-1B07-4452-8BAB-FB7AE44C426C"><meta name="topic-subtype" content="activex"><meta name="description" content="With the Mirror3D method, you can mirror objects along a specified mirroring plane specified by three points."><meta name="indexterm" content="3D modeling: mirroring (illustration)"><meta name="indexterm" content="3DSolid object: example code"><meta name="indexterm" content="AddBox method: example code"><meta name="indexterm" content="Mirror3D method: example code"><meta name="indexterm" content="boxes: example code: mirroring"><meta name="indexterm" content="mirroring: in 3D"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81"><title>About Mirroring Objects Along a Plane (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Arraying in 3D (VBA/ActiveX)</div><a href="GUID-68988D57-F867-41C3-AE2B-8BD20607BF33.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Editing in 3D (VBA/ActiveX)</div><a href="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Editing 3D Solids (VBA/ActiveX)</div><a href="GUID-702017B4-B40A-41C6-B035-D6543273188D.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_8.htm">Work in Three-Dimensional Space</a>&nbsp;&gt;&nbsp;<a href="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81.htm">About Editing in 3D (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-33BF34DE-A774-47CF-98FD-1AEFD5EB6D06"></a></span><h1>About Mirroring Objects Along a Plane (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-851EC3D2-1B07-4452-8BAB-FB7AE44C426C"></a></span><p class="blurb"> With the <span class="code">Mirror3D</span> method, you can mirror objects along a specified mirroring plane specified by three points. </p><!--Body--><img src="GUID-60A6D405-3221-4E1C-A282-BC4692EAFFAA-low.png"><div class="section"><span style="display:none"><a name="SECTION_F51D8836730541DA9083142B6078681C"></a></span> <h2><a name="TOC_ENTRY__d24e34848"></a><span style="display:none"><a name="GUID-DCE18E87-A523-4A17-9EE2-4DFD13945F15"></a></span>Mirror in 3D</h2> <p><span style="display:none"><a name="GUID-1A17F2CA-3857-4440-A0D2-F2DF113E0BD9"></a></span>This example creates a box in model space. It then mirrors the box about a plane and colors the mirrored box red. </p> <div class="codeBlock"><pre>Sub Ch8_MirrorABox3D()
+    ' Create the box object
+    Dim boxObj As Acad3DSolid
+    Dim length As Double
+    Dim width As Double
+    Dim height As Double
+    Dim center(0 To 2) As Double
+    center(0) = 5#: center(1) = 5#: center(2) = 0
+    length = 5#: width = 7: height = 10#
+
+    ' Create the box (3DSolid) object in model space
+    Set boxObj = ThisDrawing.ModelSpace. _
+ AddBox(center, length, width, height)
+
+    ' Define the mirroring plane with three points
+    Dim mirrorPt1(0 To 2) As Double
+    Dim mirrorPt2(0 To 2) As Double
+    Dim mirrorPt3(0 To 2) As Double
+
+    mirrorPt1(0) = 1.25: mirrorPt1(1) = 0: mirrorPt1(2) = 0
+    mirrorPt2(0) = 1.25: mirrorPt2(1) = 2: mirrorPt2(2) = 0
+    mirrorPt3(0) = 1.25: mirrorPt3(1) = 2: mirrorPt3(2) = 2
+
+    ' Mirror the box
+    Dim mirrorBoxObj As Acad3DSolid
+    Set mirrorBoxObj = boxObj.Mirror3D _
+ (mirrorPt1, mirrorPt2, mirrorPt3)
+    mirrorBoxObj.Color = acRed
+    ZoomAll
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-reference"><h4 class="related">Related References</h4><ul><li class="topiclist-litem"><a href="GUID-F89941D6-676B-43C0-8D92-9AFDAFB03780.htm">Mirror Method (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-0862213C-8E61-40EA-B182-3C7CE5D7A1EE.htm">Mirror3D Method (ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81.htm" title=" This section describes how to edit 3D objects by, for example, rotating, arraying, and mirroring. ">About Editing in 3D (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

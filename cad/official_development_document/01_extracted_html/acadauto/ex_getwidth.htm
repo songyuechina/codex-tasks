@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetWidth Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetWidth Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">
+Sub Example_GetWidth()
+    ' The following code prompts you to select a lightweight
+    ' polyline, then displays the width of each segment of the
+    ' selected polyline. 
+   
+    Dim returnObj As AcadObject
+    Dim basePnt As Variant
+    Dim retCoord As Variant
+    Dim StartWidth As Double
+    Dim EndWidth As Double
+    Dim i, j As Long
+    Dim nbr_of_segments As Long
+    Dim nbr_of_vertices As Long
+    Dim segment As Long
+    Dim message_string
+              
+    On Error Resume Next
+   
+    ThisDrawing.Utility.GetEntity returnObj, basePnt, "Select a polyline"
+       
+    ' Make sure the user selected a polyline.
+    If Err &lt;&gt; 0 Then
+        If returnObj.EntityName &lt;&gt; "AcDbPolyline" Then
+            MsgBox "You did not select a polyline"
+        End If
+        Exit Sub
+    End If
+    
+    ' Obtain the coordinates of each vertex of the selected polyline.
+    ' The coordinates are returned in an array of points.
+    retCoord = returnObj.Coordinates
+    
+    segment = 0
+    i = LBound(retCoord)                 ' Start index of coordinates array
+    j = UBound(retCoord)                 ' End index of coordinates array
+    nbr_of_vertices = ((j - i) \ 2) + 1  ' Number of vertices in the polyline
+    
+    ' Determine the number of segments in the polyline.
+    ' A closed polyline has as many segments as it has vertices.
+    ' An open polyline has one fewer segment than it has vertices.
+    ' Check the Closed property to determine if the polyline is closed.
+    
+    If returnObj.Closed Then
+        nbr_of_segments = nbr_of_vertices
+    Else
+        nbr_of_segments = nbr_of_vertices - 1
+    End If
+    
+    ' Get the width of each segment of the polyline
+    Do While nbr_of_segments > 0
+          
+        ' Get the width of the current segment
+        returnObj.GetWidth segment, StartWidth, EndWidth
+        
+        message_string = "The segment that begins at " & retCoord(i) & "," & retCoord(i + 1) _
+            & " has a start width of " & StartWidth & " and an end width of " & EndWidth
+        MsgBox message_string, , "GetWidth Example"
+     
+        ' Prepare to obtain width of next segment, if any
+        i = i + 2
+        segment = segment + 1
+        nbr_of_segments = nbr_of_segments - 1
+    Loop
+      
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

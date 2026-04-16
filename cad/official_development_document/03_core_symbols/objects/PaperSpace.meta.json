@@ -1,0 +1,53 @@
+{
+  "symbol": "PaperSpace",
+  "kind": "object",
+  "source_terms": [
+    "paperspace"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "determine_space_and_layout",
+    "read_layout_plot_info"
+  ],
+  "pywin32_signature": "C.doc.PaperSpace",
+  "risk_tags": [
+    "ActiveLayout 切换成功但空间理解仍错误"
+  ],
+  "project_paths": [
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "path_md": "03_core_symbols/objects/PaperSpace.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_elevationpaperspace.htm",
+    "01_extracted_html/acadauto/ex_paperspace.htm",
+    "01_extracted_html/acadauto/idh_elevationpaperspace.htm",
+    "01_extracted_html/acadauto/idh_paperspace_collection.htm",
+    "01_extracted_html/acadauto/idh_paperspace.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_paperspace",
+    "acadauto:ex_elevationpaperspace",
+    "acadauto:idh_paperspace_collection",
+    "acadauto:idh_paperspace",
+    "acadauto:idh_elevationpaperspace"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_paperspace.htm",
+    "01_extracted_html/acadauto/ex_elevationpaperspace.htm",
+    "01_extracted_html/acadauto/idh_paperspace_collection.htm",
+    "01_extracted_html/acadauto/idh_paperspace.htm",
+    "01_extracted_html/acadauto/idh_elevationpaperspace.htm"
+  ]
+}

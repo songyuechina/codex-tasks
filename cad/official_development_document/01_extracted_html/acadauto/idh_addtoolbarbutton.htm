@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddToolbarButton method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddToolbarButton Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Adds a toolbar item to a toolbar at a specified position.</P>
+
+<P CLASS="h1-access"><A HREF="addtoolbarbutton_see_also.htm">See Also</A> | <A HREF="ex_addtoolbarbutton.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddToolbarButton(Index, Name, HelpString, Macro[, FlyoutButton])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_toolbar_object.htm'>Toolbar</A><BR>
+The object this method applies to.
+<P class="element">Index</p><p class=element-desc>Variant; input-only<BR>
+The index location in the toolbar where the item is to be added.<BR>
+The index must be either an integer or a string. If an integer is specified, 
+the index must be between 0 and <I>N</I>-1, where <I>N</I> is the number of objects in the toolbar. The new item will be added immediately before the specified index location.
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The string that identifies the toolbar button. The string must comprise alphanumeric characters with no punctuation other than a dash (-) or an underscore (_). This string is displayed as the tooltip when the cursor is placed over the toolbar button.
+<P class="element">HelpString</p><p class=element-desc>String; input-only<BR>
+The string that is displayed in the AutoCAD status line for the button.
+<P class="element">Macro</p><p class=element-desc>String; input-only<BR>
+The name of the macro associated with this item.
+<P class="element">FlyoutButton</p><p class=element-desc>Variant; input-only; optional<BR>
+A Boolean variable stating if the new button is to be a flyout button or not. If the button is a flyout button, this parameter must be set to TRUE. If the button is not a flyout button, this parameter can be set to FALSE or ignored and the new ToolbarItem object will be returned.
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: The button is a flyout button.</SPAN>
+<P CLASS="Constant-Last">FALSE<SPAN CLASS="BodyText">: The button is not a flyout button.</SPAN>
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_toolbaritem_object.htm'>ToolbarItem</A> object<BR>
+The newly created toolbar item. 
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">You can only add or remove toolbar buttons when the toolbar is visible.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>GetString method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetString Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets a string from the user.</P>
+
+<P CLASS="h1-access"><A HREF="getstring_see_also.htm">See Also</A> | <A HREF="ex_getstring.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = GetString(HasSpaces[, Prompt])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A>
+<P class="element">HasSpaces</p><p class=element-desc>Integer; input-only
+<P CLASS="Constant">1<SPAN CLASS="BodyText">: The return string can contain spaces. It is terminated by a carriage return only.</SPAN>
+<P CLASS="Constant">0<SPAN CLASS="BodyText">: The return string cannot contain spaces. It is terminated by a carriage return or space.</SPAN>
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text used to prompt the user for input.
+<P class="element">RetVal</p><p class=element-desc>String<BR>
+The string returned from the user.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD pauses for user input of the string, and sets the result to the string that the user enters. The HasSpaces parameter specifies whether the string can contain spaces. The Prompt parameter specifies a string that this method displays before AutoCAD pauses.
+<P CLASS="body">The AutoCAD user can enter the string from the keyboard. If the HasSpaces parameter is TRUE, the string can contain blanks and the user must terminate it by entering [Return]. If HasSpaces is False, entering either a blank or [Return] terminates the string. If the user enters more than 132 characters, string entry continues until the user enters a blank or carriage return (according to HasSpaces), but GetString places only the first 132 characters into the return value.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

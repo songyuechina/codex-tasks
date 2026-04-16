@@ -1,0 +1,135 @@
+<HTML>
+<HEAD>
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="object.doc" KEYWORDS="ActiveSpace property; collections, ModelSpace Collection; Display property; floating viewports; ModelSpace Collection (model space), settings; MSpace property; PViewport object, usage; tiled viewports; Viewport object; Viewport object, active; Viewport object, methods; Viewport object, properties; viewports, floating; viewports, model space. See Viewport object; viewports, paper space. See PViewport object; viewports, tiled; work space settings; xref, Viewport object; system variables, TILEMODE; active, Viewport object; AcadViewport. See Viewport object; TILEMODE system variable, Viewport object " CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:41:44 AM">
+<TITLE>Viewport object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Viewport object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Viewports Collection;idh_viewports_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadViewport;none.htm">
+    <PARAM name="Item2" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item3" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Viewport object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">A bounded area that displays some portion of a drawing's model space.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadViewport&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">Viewports.Add&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">Viewports.Item<BR>
+Document.ActiveViewport&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">The <A HREF="idh_activespace.htm">ActiveSpace</A> 
+property (equivalent to the TILEMODE system variable) determines the type of viewport used.
+<P CLASS="body">No editing or view changes can be performed unless the viewport is active. To make a viewport active, use the <A HREF="idh_activeviewport.htm">ActiveViewport</A> property on the Document object.
+<P CLASS="body">Once changes have been completed, the viewport must be reset as the active viewport for the changes to appear. To reset the active viewport, simply call the ActiveViewport property again with the updated Viewport object.
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getgridspacing.htm"><P CLASS="body">GetGridSpacing</A>
+<A HREF="idh_getsnapspacing.htm"><P CLASS="body">GetSnapSpacing</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_setgridspacing.htm"><P CLASS="body">SetGridSpacing</A>
+<A HREF="idh_setsnapspacing.htm"><P CLASS="body">SetSnapSpacing</A>
+<A HREF="idh_setview.htm"><P CLASS="body">SetView</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_split.htm"><P CLASS="body">Split</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_arcsmoothness.htm"><P CLASS="body">ArcSmoothness</A>
+<A HREF="idh_center.htm"><P CLASS="body">Center</A>
+<A HREF="idh_direction.htm"><P CLASS="body">Direction</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_gridon.htm"><P CLASS="body">GridOn</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_height.htm"><P CLASS="body">Height</A>
+<A HREF="idh_lowerleftcorner.htm"><P CLASS="body">LowerLeftCorner</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_orthoon.htm"><P CLASS="body">OrthoOn</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_snapbasepoint.htm"><P CLASS="body">SnapBasePoint</A>
+<A HREF="idh_snapon.htm"><P CLASS="body">SnapOn</A>
+<A HREF="idh_snaprotangle.htm"><P CLASS="body">SnapRotationAngle</A>
+<A HREF="idh_target.htm"><P CLASS="body">Target</A>
+<A HREF="idh_ucsiconatorigin.htm"><P CLASS="body">UCSIconAtOrigin</A>
+<A HREF="idh_ucsiconon.htm"><P CLASS="body">UCSIconOn</A>
+<A HREF="idh_upperrightcorner.htm"><P CLASS="body">UpperRightCorner</A>
+<A HREF="idh_width.htm"><P CLASS="body">Width</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

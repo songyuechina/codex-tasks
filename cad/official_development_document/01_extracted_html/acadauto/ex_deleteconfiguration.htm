@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>DeleteConfiguration Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">DeleteConfiguration Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_DeleteConfiguration()
+    ' This example creates a new viewport and splits
+    ' the viewport into 4 windows.
+    ' It then deletes the viewport configuration
+    Dim oldViewport As AcadViewport
+    Set oldViewport = ThisDrawing.ActiveViewport
+       
+    ' Create a new viewport and make it active
+    Dim newViewport As AcadViewport
+    Set newViewport = ThisDrawing.Viewports.Add("TESTVIEWPORT")
+    ThisDrawing.ActiveViewport = newViewport
+    
+    ' Split the viewport in 4 windows
+    newViewport.Split acViewport4
+    
+    ' Make the newly split viewport active
+    ThisDrawing.ActiveViewport = newViewport
+    MsgBox "The viewport configuration split into 4 windows."
+
+    ' Delete the viewport configuration
+    ThisDrawing.ActiveViewport = oldViewport
+    ThisDrawing.Viewports.DeleteConfiguration ("TESTVIEWPORT")
+    ThisDrawing.Regen acAllViewports
+    MsgBox "The viewport configuration has been deleted."
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

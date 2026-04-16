@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="object.doc" KEYWORDS="SelectionSet object; SelectionSet object, creating; SelectionSet object, editing; SelectionSet object, methods; SelectionSet object, properties; SelectionSet object, querying; AcadSelectionSet. See SelectionSet object; SelectionSet object, clearing;SelectionSet object, removing items; SelectionSet object, erasing items; SelectionSet object, deleting selection sets; SelectionSet object, editing; SelectionSet object; querying" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:41:42 AM">
+<TITLE>SelectionSet object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "SelectionSet object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="SelectionSets Collection;idh_selectionsets_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadSelectionSet;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; SelectionSet object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">A group of one or more AutoCAD objects specified for processing as a single unit.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadSelectionSet&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">SelectionSets.Add&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">SelectionSets.Item<BR>
+Document.ActiveSelectionSet&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">To delete a selection set, or delete items from a selection set, use one of the following methods:
+<P CLASS="body"><I>Clear:</I>  The Clear method empties the selection set. The selection set will still exist, but won't contain any items. The items that previously resided in the selection still exist, but they no longer reside in the selection set.
+<P CLASS="body"><I>RemoveItems:</I>  The RemoveItems method removes one or more items from a selection set. The removed items still exist, but they no longer reside in the selection set.
+<P CLASS="body"><I>Erase:</I>  The Erase method deletes all items in a selection set. The selection set still exists, but won't contain any items. The items that previously resided in the selection set no longer exist.
+<P CLASS="body"><I>Delete:</I>  The Delete method deletes a selection set object, but not the objects in the selection set. While the selection set itself will not exist after the call to the Delete method, the items previously in the selection set will still exist.
+<P CLASS="body">To create a selection set, use the <A HREF="idh_add.htm">Add</A> method. To edit or query a selection set, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_additems.htm"><P CLASS="body">AddItems</A>
+<A HREF="idh_clear.htm"><P CLASS="body">Clear</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_erase.htm"><P CLASS="body">Erase</A>
+<A HREF="idh_highlight.htm"><P CLASS="body">Highlight</A>
+<A HREF="idh_item.htm"><P CLASS="body">Item</A>
+<A HREF="idh_removeitems.htm"><P CLASS="body">RemoveItems</A>
+<A HREF="idh_select.htm"><P CLASS="body">Select</A>
+<A HREF="idh_selectatpoint.htm"><P CLASS="body">SelectAtPoint</A>
+<A HREF="idh_selectbypolygon.htm"><P CLASS="body">SelectByPolygon</A>
+<A HREF="idh_selectonscreen.htm"><P CLASS="body">SelectOnScreen</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_count.htm"><P CLASS="body">Count</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

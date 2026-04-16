@@ -1,0 +1,47 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-77744360-91AB-4289-8287-7F861522A0DF"><meta name="topic-subtype" content="activex"><meta name="description" content="Use the Explode method to break a block reference."><meta name="indexterm" content="Block object: example code"><meta name="indexterm" content="Explode method: example code"><meta name="indexterm" content="block references: exploding"><meta name="indexterm" content="BlockReference object: example code"><meta name="indexterm" content="blocks: exploding"><meta name="indexterm" content="InsertBlock method: example code"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6"><title>About Exploding a Block Reference (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Inserting Blocks (VBA/ActiveX)</div><a href="GUID-0A650525-85E8-4462-9F46-A1DD18A998F6.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Working with Blocks (VBA/ActiveX)</div><a href="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Redefining a Block (VBA/ActiveX)</div><a href="GUID-B213D3A9-AABE-44E1-BDCB-29166BB7BF91.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_10.htm">Advanced Drawing and Organizational Techniques</a>&nbsp;&gt;&nbsp;<a href="GUID-F9C39B22-6AF1-4501-9EE8-928C1B4AAA21.htm">About Using Blocks and Attributes (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;<a href="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6.htm">About Working with Blocks (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-2DD211BC-629F-44CE-91FC-DC7A994AF718"></a></span><h1>About Exploding a Block Reference (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-77744360-91AB-4289-8287-7F861522A0DF"></a></span><p class="blurb"> Use the <span class="code">Explode</span> method to break a block reference. </p><!--Body--><p><span style="display:none"><a name="GUID-550FFF79-797B-4930-9488-23F29357F650"></a></span> By exploding a block reference, you can modify the block or add to or delete the objects that define it. </p><div class="section"><span style="display:none"><a name="SECTION_EEC56FA48D284BC8A54BCB0E5628109D"></a></span> <h2><a name="TOC_ENTRY__d24e38745"></a><span style="display:none"><a name="GUID-FFC0EF88-8DC2-43D1-AAEB-DAA23491DDCE"></a></span>Display the results of an exploded block reference</h2> <p><span style="display:none"><a name="GUID-8F92D834-17AB-4C8F-B6B1-12454689B500"></a></span>This example creates a block and adds a circle to the definition of the block. The block is then inserted into the drawing as a block reference. The block reference is then exploded, and the objects resulting from the explode process are displayed along with their object types. </p> <div class="codeBlock"><pre>Sub Ch10_ExplodingABlock()
+ ' Define the block
+ Dim blockObj As AcadBlock
+ Dim insertionPnt(0 To 2) As Double
+ insertionPnt(0) = 0
+ insertionPnt(1) = 0
+ insertionPnt(2) = 0
+ Set blockObj = ThisDrawing.Blocks.Add _
+ (insertionPnt, "CircleBlock")
+ 
+ ' Add a circle to the block
+ Dim circleObj As AcadCircle
+ Dim center(0 To 2) As Double
+ Dim radius As Double
+ center(0) = 0
+ center(1) = 0
+ center(2) = 0
+ radius = 1
+ Set circleObj = blockObj.AddCircle(center, radius)
+ 
+ ' Insert the block
+ Dim blockRefObj As AcadBlockReference
+ insertionPnt(0) = 2
+ insertionPnt(1) = 2
+ insertionPnt(2) = 0
+ Set blockRefObj = ThisDrawing.ModelSpace.InsertBlock _
+ (insertionPnt, "CircleBlock", 1#, 1#, 1#, 0)
+ ZoomAll
+ MsgBox "The circle belongs to " &amp; blockRefObj.ObjectName
+ 
+ ' Explode the block reference
+ Dim explodedObjects As Variant
+ explodedObjects = blockRefObj.Explode
+ 
+ ' Loop through the exploded objects
+ Dim I As Integer
+ For I = 0 To UBound(explodedObjects)
+ explodedObjects(I).Color = acRed
+ explodedObjects(I).Update
+ MsgBox "Exploded Object " &amp; I &amp; ": " _
+ &amp; explodedObjects(I).ObjectName
+ explodedObjects(I).Color = acByLayer
+ explodedObjects(I).Update
+ Next
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-0A650525-85E8-4462-9F46-A1DD18A998F6.htm" title=" You can insert blocks or entire drawings into the current drawing with the InsertBlock method. ">About Inserting Blocks (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6.htm" title=" A block is a collection of objects you can associate together to form a single object, or a block reference. ">About Working with Blocks (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>GetInteger method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetInteger Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets an integer value from the user.</P>
+
+<P CLASS="h1-access"><A HREF="getinteger_see_also.htm">See Also</A> | <A HREF="ex_getinteger.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = GetInteger([Prompt])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text used to prompt the user for input.
+<P class="element">RetVal</p><p class=element-desc>Integer<BR>
+The integer value returned by the user.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD pauses for user input of an integer and sets the return value to the selected value. The Prompt parameter specifies a string that AutoCAD displays before it pauses. The Prompt is optional.
+<P CLASS="body">The AutoCAD user can enter any valid (short) integer in the range of -32,768 to +32,767.
+<P CLASS="body">If a keyword is returned instead of an integer, or if the user presses
+ENTER without entering a value, AutoCAD generates error number -2145320928 
+(and the error message, "User input is a keyword"). Use the 
+<A HREF="idh_getinput.htm">GetInput</A> method to obtain the keyword from the return value.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

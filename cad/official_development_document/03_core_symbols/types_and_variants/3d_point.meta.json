@@ -1,0 +1,51 @@
+{
+  "symbol": "3d_point",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "addline",
+    "insertblock",
+    "setwindowtoplot"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_basic_geometry_smoke",
+    "insert_block_or_dwg",
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "(x, y, z) or VARIANT(VT_ARRAY | VT_R8, (x, y, z))",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/pywin32_type_rules.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/3d_point.md",
+  "source_topic_ids": [
+    "acadauto:ex_addline",
+    "acadauto:ex_insertblock",
+    "acadauto:ex_setwindowtoplot",
+    "acadauto:ex_addminsertblock",
+    "acadauto:idh_addline"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_insertblock.htm",
+    "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+    "01_extracted_html/acadauto/ex_addminsertblock.htm",
+    "01_extracted_html/acadauto/ex_addline.htm",
+    "01_extracted_html/acadauto/idh_addline.htm"
+  ]
+}

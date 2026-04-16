@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>MSpace Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">MSpace Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_MSpace()
+    ' This example creates a new paper space viewport.
+    ' It then toggles the ability to edit in model space using
+    ' the MSpace property.
+    
+    Dim pviewportObj As AcadPViewport
+    Dim center(0 To 2) As Double
+    Dim width As Double
+    Dim height As Double
+    
+    ' Define the paper space viewport
+    center(0) = 3: center(1) = 3: center(2) = 0
+    width = 40
+    height = 40
+    
+    ' Change from model space to paperspace
+    ThisDrawing.ActiveSpace = acPaperSpace
+
+    ' Create the paper space viewport
+    Set pviewportObj = ThisDrawing.PaperSpace.AddPViewport(center, width, height)
+    pviewportObj.DISPLAY True
+    ThisDrawing.mspace = True
+    ThisDrawing.ActivePViewport = pviewportObj
+    ThisDrawing.Regen acAllViewports
+    
+    ' Find the current MSpace value
+    MsgBox "The ability to edit model space from this PViewport is " & IIf(ThisDrawing.mspace, "on.", "off."), , "MSpace Example"
+    
+    ' Toggle the setting of MSpace
+    ThisDrawing.mspace = False
+    MsgBox "The ability to edit model space from this PViewport is now " & IIf(ThisDrawing.mspace, "on.", "off."), , "MSpace Example"
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

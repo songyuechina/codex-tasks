@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Preset Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Preset Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Preset()
+    ' This example creates a block containing an attribute definition.
+    ' Initially, the attribute has the preset flag turned on and will display a preset
+    ' value for the attribute when the parent block is inserted as a reference.
+    '
+    ' Every time the example is run, attempt to find the attribute and
+    ' toggle the Preset value.
+    '
+    ' * Note: After running this example for the first time, select the menu "Insert/Block..."
+    ' and create a block reference from "Block-PRESET".  You will see
+    ' the preset value display for the attribute when the blockref is displayed.
+    '
+    ' Then run the example again and repeat the block insert.  Notice this time that the
+    ' preset has been turned off, and you are now prompted for the attribute value.
+    
+    Dim attributeObj As AcadAttribute
+    Dim height As Double, mode As Long, prompt As String, tag As String, value As String
+    Dim AttrInsertionPoint(0 To 2) As Double
+    Dim BlockInsertionPoint(0 To 2) As Double
+    Dim newBlock As AcadBlock
+    Dim IsPreset As String
+    
+    ' Determine if this block has already been created.  If so, get the block and
+    ' the attribute inside; otherwise, create a new block containing an
+    ' attribute.
+    On Error Resume Next
+    
+    Set newBlock = ThisDrawing.Blocks("Block-PRESET")
+    
+    
+    If Err = 0 Then         ' The example block has been created
+        Set attributeObj = newBlock.Item(0)                 ' Get only object in example block
+    
+        attributeObj.Preset = Not (attributeObj.Preset)     ' Toggle the attribute preset value
+    
+    ElseIf Err &lt;&gt; 0 Then    ' The example block has not been created
+    
+        ' Create a new block to hold the Attribute object
+        BlockInsertionPoint(0) = 0: BlockInsertionPoint(1) = 0: BlockInsertionPoint(2) = 0
+        Set newBlock = ThisDrawing.Blocks.Add(BlockInsertionPoint, "Block-PRESET")
+    
+        ' Define the attribute definition
+        AttrInsertionPoint(0) = 0: AttrInsertionPoint(1) = 0: AttrInsertionPoint(2) = 0
+        height = 1#:
+        mode = acAttributeModePreset
+        prompt = "New Prompt"
+        tag = "New Tag": value = "Preset"
+        
+        ' Add attribute definition object to new block
+        Set attributeObj = newBlock.AddAttribute(height, mode, prompt, AttrInsertionPoint, tag, value)
+    
+    End If
+    
+    On Error GoTo 0
+
+    ' Read the attribute back and display information
+    IsPreset = IIf(attributeObj.Preset, "has a preset value of: " & attributeObj.textString, _
+                   "does not have a preset value")
+                   
+    MsgBox "The block attribute " & IsPreset, vbInformation
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

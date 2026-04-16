@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>CopyFrom Method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">CopyFrom Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Copies the settings for a dimension style, layout, or plot configuration.</P>
+<P CLASS="h1-access"><A HREF="copyfrom_see_also.htm">See Also</A> | <A HREF="ex_copyfrom.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.CopyFrom SourceObject
+<P class="element">Object</p><p class=element-desc><A HREF='idh_dimstyle_object.htm'>DimStyle</A>, <A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A> object<BR>
+The objects this property applies to.
+<P class="element">SourceObject</p><p class=element-desc>The source object to be copied; input only<BR>
+<BR>
+Layout and PlotConfiguration objects: The source object must be a <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A> object.<BR>
+<BR>
+DimStyle objects: The source object must be either a <A HREF='idh_dimstyle_object.htm'>DimStyle</A>, <A HREF='idh_document_object.htm'>Document</A>, <A HREF='idh_dim3pointangular_object.htm'>Dim3PointAngular</A>, <A HREF='idh_dimangular_object.htm'>DimAngular</A>, <A HREF='idh_dimdiametric_object.htm'>DimDiametric</A>, <A HREF='idh_dimordinate_object.htm'>DimOrdinate</A>, <A HREF='idh_dimradial_object.htm'>DimRadial</A>, <A HREF='idh_dimrotated_object.htm'>DimRotated</A>, <A HREF='idh_tolerance_object.htm'>Tolerance</A>, or <A HREF='idh_leader_object.htm'>Leader</A>.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>DimStyle:</I>  This method allows users to copy dimension style data into an existing dimstyle from three different types of sources.
+<P CLASS="body">1.	If SourceObject is a dimension (this includes all dimension objects), Tolerance, or Leader object, this method copies the style for that object plus any object overrides.
+<P CLASS="body">2.	If SourceObject is a DimStyle object, this method copies the style data from that dimension style.
+<P CLASS="body">3.	If SourceObject is a Document object, this method copies the active dimension style settings for the drawing plus any drawing overrides.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

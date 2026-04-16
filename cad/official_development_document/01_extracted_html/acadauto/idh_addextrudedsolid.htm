@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddExtrudedSolid method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddExtrudedSolid Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates an extruded solid given the Profile, Height, and TaperAngle.</P>
+
+<P CLASS="h1-access"><A HREF="addextrudedsolid_see_also.htm">See Also</A> | <A HREF="ex_addextrudedsolid.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddExtrudedSolid(Profile, Height, TaperAngle)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">Profile</p><p class=element-desc>Profile object; input-only<BR>
+The <A HREF='idh_region_object.htm'>Region</A> object only.
+<P class="element">Height</p><p class=element-desc>Double; input-only<BR>
+The height of the extrusion along the <I>Z</I> axis of the object's coordinate system. If you enter a positive number, AutoCAD extrudes the object along the positive <I>Z</I> axis. If you enter a negative number, AutoCAD extrudes the object along the negative <I>Z</I> axis.
+<P class="element">TaperAngle</p><p class=element-desc>Double; input-only<BR>
+The taper angle of the extrusion must be provided in radians. The range of the taper angle is from -90 to +90 degrees.<BR>
+Positive angles taper in from the base, negative angles taper out. The default angle, 0, extrudes a 2D object perpendicular to its plane.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_3dsolid_object.htm'>3DSolid</A> object<BR>
+A 3DSolid object as the newly created extruded solid.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">You can extrude only 2D planar regions.
+<P CLASS="body">Tapered extrusions are possible only with loops that are continuous at the vertices. A large taper angle or long extrusion height can cause the object, or portions of the object, to intersect with itself before reaching the extrusion height. AutoCAD does not allow an extrusion when the resulting solid intersects with itself.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

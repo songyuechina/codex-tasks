@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>IsRemoteFile Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">IsRemoteFile Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_IsRemoteFile()
+    ' This example will prompt the user for a URL to download and will verify that
+    ' a proper URL was entered.  After downloading, the example will attempt to load
+    ' the downloaded URL as a drawing.
+    '
+    ' * Note: Remember to delete the downloaded file from your disk drive when finished.
+    
+    Dim Utility As AcadUtility
+    Dim URL As String, DestFile As String, FileURL As String
+    
+    Set Utility = ThisDrawing.Utility   ' Connect to Utility object
+    
+<PRE CLASS="Code">GETURL:
+    ' Prompt user for a URL to download.  This should be a URL to an AutoCAD drawing file.
+    URL = InputBox("Enter the complete URL of the file you wish to download. " & _
+                    "Enter BROWSER to select the URL from a web browser", _
+                    "Enter URL To Download", URL)
+    
+    URL = Trim(URL)                     ' Get rid of blank spaces
+    
+    If URL = "" Then Exit Sub           ' Did user cancel
+
+    ' Does the user want to select from a browser?
+    If StrComp(URL, "BROWSER", vbTextCompare) = 0 Then
+        Utility.LaunchBrowserDialog _
+        URL, "AutoCAD Browser", "Open", "http://www.autodesk.com", "ACADBROWSER", True
+        
+        GoTo GETURL     ' Return to display chosen URL and allow modifications
+    End If
+
+    ' Determine if user entered a valid URL; if not, prompt again
+    If Not (Utility.IsURL(URL)) Then
+        MsgBox "The URL you entered is not valid.  Make sure the syntax is a valid URL."
+        GoTo GETURL
+    End If
+        
+    ' Download URL
+    Utility.GetRemoteFile URL, DestFile, True
+    
+    ' Display downloaded file information
+    MsgBox URL & " was downloaded to: " & DestFile & vbCrLf & vbCrLf & _
+           "Press any key to attempt to load the new file as a drawing."
+
+    ' Attempt to load file as drawing; if an error occurs, this was probably not a drawing
+    ' file, but rather the text from a web page.
+    ' Try loading the downloaded file into a text editor to view the contents.
+    On Error Resume Next
+    ThisDrawing.Application.Documents.Open DestFile
+    If Err.Number &lt;&gt; 0 Then
+        MsgBox "Error loading downloaded file as a drawing: " & Err.Description & vbCrLf & vbCrLf & _
+               "This is probably not a valid drawing file!"
+    End If
+    On Error GoTo 0
+    
+    ' Use IsRemoteFile to determine if this file was downloaded from a URL.
+    ' If it was, display the URL it was downloaded from.
+    '
+    ' * Note: Although the results IsRemoteFile will return are already known because
+    ' the file was just downloaded, it is important to know how this
+    ' method can be used.
+    If Utility.IsRemoteFile(DestFile, FileURL) Then
+        MsgBox "The file: " & DestFile & " is a downloaded file and was downloaded from: " & FileURL
+    Else
+        MsgBox "The file: " & DestFile & " is not a downloaded file."
+    End If
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

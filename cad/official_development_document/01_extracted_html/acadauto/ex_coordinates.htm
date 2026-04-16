@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Coordinates Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Coordinates Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Coordinates()
+    ' This example creates a polyline. It then uses the Coordinates
+    ' property to return all the coordinates  in the polyline. It then
+    ' resets one of the vertices using the Coordinates property.
+    
+    Dim plineObj As AcadPolyline
+
+    ' Create Polyline
+    Dim points(5) As Double
+    points(0) = 3: points(1) = 7: points(2) = 0
+    points(3) = 9: points(4) = 2: points(5) = 0
+    Set plineObj = ThisDrawing.ModelSpace.AddPolyline(points)
+    ThisDrawing.Regen True
+
+    ' Return all the coordinates of the polyline
+    Dim retCoord As Variant
+    retCoord = plineObj.Coordinates
+
+    ' Display current coordinates for the second vertex
+    MsgBox "The current coordinates of the second vertex are: " & points(3) & ", " & points(4) & ", " & points(5), vbInformation, "Coordinates Example"
+
+    ' Modify the coordinate of the second vertex to (5,5,0). Note that in
+    ' case of a lightweight Polyline, indices will be different because the points are 2D only.
+    points(3) = 5
+    points(4) = 5
+    points(5) = 0
+    plineObj.Coordinates = points
+
+    ' Update display
+    ThisDrawing.Regen True
+
+    MsgBox "The new coordinates have been set to " & points(3) & ", " & points(4) & ", " & points(5), vbInformation, "Coordinates Example"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

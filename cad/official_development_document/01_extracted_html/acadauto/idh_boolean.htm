@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>Boolean method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Boolean Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Performs a Boolean operation (union, intersect, or subtract) between the object and another 3DSolid or Region object.</P>
+
+<P CLASS="h1-access"><A HREF="boolean_see_also.htm">See Also</A> | <A HREF="ex_boolean.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Boolean(Operation, Object)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_3dsolid_object.htm'>3DSolid</A>, <A HREF='idh_region_object.htm'>Region</A><BR>
+The objects this method applies to.
+<P class="element">Operation</p><p class=element-desc>AcBooleanType enum; input-only
+<P CLASS="Constant">acUnion<SPAN CLASS="BodyText">: Performs a union operation.</SPAN>
+<P CLASS="Constant">acIntersection<SPAN CLASS="BodyText">:
+Performs an intersection operation.</SPAN>
+<P CLASS="Constant-Last">acSubtraction<SPAN CLASS="BodyText">:
+Performs a subtraction operation.</SPAN>
+<P class="element">Object</p><p class=element-desc>Object; input-only<BR>
+The object the operation is performed against.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The first object is modified as a result of the 
+operation.</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top><TD><P CLASS="body"><IMG SRC='img/boolean.gif' BORDER=0></TD>
+<TD><P CLASS="body"><IMG SRC='img/boolean2.gif' BORDER=0></TD></TR>
+
+<TR VALIGN=top><TD><I>Solids before Boolean<BR>
+intersection</I>&nbsp;</TD>
+<TD><I>Resulting solid from Boolean<BR>
+intersection</I>&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body"><span class=NoteChar>NOTE</span> If there is no result from the operation, the first object is not changed. For example, when finding the intersection between two non-intersecting objects, there is no change to the first object.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Thickness Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Thickness Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Thickness()
+    ' This example creates a circle in model space
+    ' and changes the thickness of the circle.
+   
+    Dim circleObj As AcadCircle
+    Dim centerPoint(0 To 2) As Double
+    Dim radius As Double
+    
+    ' Define the circle
+    centerPoint(0) = 0#: centerPoint(1) = 0#: centerPoint(2) = 0#
+    radius = 5#
+    
+    ' Create the Circle object in model space
+    Set circleObj = ThisDrawing.ModelSpace.AddCircle(centerPoint, radius)
+    ZoomAll
+    
+    ' Find the current thickness of the circle
+    Dim currThickness As Double
+    currThickness = circleObj.Thickness
+    MsgBox "The thickness of the circle is " & circleObj.Thickness, vbInformation, "Thickness Example"
+    
+    ' Change the thickness of the circle
+    circleObj.Thickness = currThickness + 3
+    circleObj.Update
+    
+    ' Change the direction of the viewport so that you can
+    ' view the change made to the thickness. Once you change
+    ' the direction, you must reset the active viewport.
+    Dim NewDirection(0 To 2) As Double
+    NewDirection(0) = -1: NewDirection(1) = -1: NewDirection(2) = 1
+    ThisDrawing.ActiveViewport.direction = NewDirection
+    ThisDrawing.ActiveViewport = ThisDrawing.ActiveViewport
+    MsgBox "The thickness of the circle is now " & circleObj.Thickness, vbInformation, "Thickness Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

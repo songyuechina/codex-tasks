@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>Open method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Open Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Opens an existing drawing file (DWG) and makes it the active document. </P>
+
+<P CLASS="h1-access"><A HREF="open_see_also.htm">See Also</A> | <A HREF="ex_open.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Open Name[, ReadOnly][, Password]
+<P class="element">Object</p><p class=element-desc><A HREF='idh_documents_collection.htm'>Documents</A>, <A HREF='idh_document_object.htm'>Document</A><BR>
+The objects this method applies to.
+<P class="element">Name</p><p class=element-desc>String<BR>
+The full path and file name, or a valid URL address, of the drawing file
+to open. If the drawing is in the folder specified by the
+<A HREF="idh_supportpath.htm">SupportPath</A> property, then the path is not needed
+and the file name is sufficient.
+<P class="element">ReadOnly</p><p class=element-desc>Variant; input-only; optional; Documents collection only<BR>
+Default setting: FALSE
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: Opens the drawing as a read-only drawing.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: Opens the drawing as a read-write drawing.</SPAN>
+<P class="element">Password</p><p class=element-desc>Variant; optional<BR>
+Password to open an encrypted drawing.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">It is recommended that you save the current drawing before calling this method.
+<P CLASS="body">This method opens AutoCAD drawing files only. Use the Import method to open  SAT, EPS, DXF, WMF, or BMP format files.
+<P CLASS="body">When working in MDI mode, you should always use the Open method from the Documents collection. 
+<P CLASS="body">When accessing a secure URL, a dialog box prompts the user for the necessary password information. Message boxes appear if the user has not suppressed this activity in the browser.
+<P CLASS="body">When downloading a file, AutoCAD creates a temporary file for internal processing. Do not attempt to access this temporary file. Information in this file is deleted at the end of the AutoCAD session.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

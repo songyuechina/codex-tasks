@@ -1,0 +1,135 @@
+{
+  "script": "cad_runtime_guard.py",
+  "functions": [
+    {
+      "name": "now_iso",
+      "signature": "def now_iso() -> str:",
+      "procedure": [
+        "调用 time.strftime 生成带时区偏移的字符串"
+      ]
+    },
+    {
+      "name": "ensure_dirs",
+      "signature": "def ensure_dirs() -> None:",
+      "procedure": [
+        "创建 runtime 目录",
+        "创建事件文件父目录"
+      ]
+    },
+    {
+      "name": "is_already_running",
+      "signature": "def is_already_running() -> bool:",
+      "procedure": [
+        "若无锁文件则直接返回 False",
+        "读取 PID 并确认该 PID 是否仍存活",
+        "核对目标进程命令行是否仍是 cad_runtime_guard",
+        "若锁文件失效则清理并返回 False"
+      ]
+    },
+    {
+      "name": "create_lock",
+      "signature": "def create_lock() -> None:",
+      "procedure": [
+        "将当前进程 PID 写入锁文件"
+      ]
+    },
+    {
+      "name": "remove_lock",
+      "signature": "def remove_lock() -> None:",
+      "procedure": [
+        "删除锁文件，允许下一次启动"
+      ]
+    },
+    {
+      "name": "read_json",
+      "signature": "def read_json(path: Path, default: Any) -> Any:",
+      "procedure": [
+        "若文件不存在则返回默认值",
+        "尝试解析 JSON",
+        "失败时吞掉解析异常并返回默认值"
+      ]
+    },
+    {
+      "name": "write_json",
+      "signature": "def write_json(path: Path, payload: dict[str, Any]) -> None:",
+      "procedure": [
+        "确保父目录存在",
+        "以 utf-8 写入格式化 JSON"
+      ]
+    },
+    {
+      "name": "append_event",
+      "signature": "def append_event(payload: dict[str, Any]) -> None:",
+      "procedure": [
+        "确保事件文件父目录存在",
+        "以 jsonl 形式追加一行"
+      ]
+    },
+    {
+      "name": "classify_action",
+      "signature": "def classify_action(status: str, streak: int) -> tuple[str, str]:",
+      "procedure": [
+        "healthy_tarch -> info/none",
+        "no_active_cad -> info/observe",
+        "cad_busy/cad_doc_unavailable/runtime_uncertain -> 根据 WARN_STREAK 升级到 pause_and_verify",
+        "suspected_plain_cad -> 先 warning，再按 CRITICAL_STREAK 升到 pause_and_recover"
+      ]
+    },
+    {
+      "name": "build_state",
+      "signature": "def build_state(snapshot: dict[str, Any], streak: int, previous_status: str) -> dict[str, Any]:",
+      "procedure": [
+        "先调用 classify_action 推导 severity 与建议动作",
+        "若从异常态恢复到 healthy_tarch，则改写 code 为 RUNTIME_RECOVERED",
+        "组装统一状态字典并附带 probe 原始快照"
+      ]
+    },
+    {
+      "name": "should_emit_event",
+      "signature": "def should_emit_event(current: dict[str, Any], previous: dict[str, Any]) -> bool:",
+      "procedure": [
+        "首轮无 previous 时直接发事件",
+        "比较 current_status、severity、recommended_action、code",
+        "任一关键字段变化则发事件"
+      ]
+    },
+    {
+      "name": "monitor_loop",
+      "signature": "def monitor_loop() -> None:",
+      "procedure": [
+        "初始化目录、上一状态和 heartbeat 时间",
+        "循环调用 inspect_cad_runtime",
+        "累计 suspicious_streak",
+        "写入当前 state JSON",
+        "必要时生成并追加事件",
+        "按 HEARTBEAT_INTERVAL 打日志",
+        "sleep CHECK_INTERVAL 后继续下一轮"
+      ],
+      "must_keep": [
+        "它只观察，不恢复",
+        "streak 的积累与清零规则不能轻率改"
+      ]
+    },
+    {
+      "name": "run_once",
+      "signature": "def run_once() -> int:",
+      "procedure": [
+        "确保目录存在",
+        "执行一轮 inspect_cad_runtime",
+        "构建并写入状态 JSON",
+        "打印结果后返回 0"
+      ]
+    },
+    {
+      "name": "main",
+      "signature": "def main() -> int:",
+      "procedure": [
+        "解析 --once",
+        "once 模式直接走 run_once",
+        "常驻模式先判断单实例",
+        "创建锁文件并进入 monitor_loop",
+        "收到 KeyboardInterrupt 时正常退出并清理锁文件"
+      ]
+    }
+  ]
+}

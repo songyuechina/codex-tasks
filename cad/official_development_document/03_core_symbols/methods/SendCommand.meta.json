@@ -1,0 +1,51 @@
+{
+  "symbol": "SendCommand",
+  "kind": "method",
+  "source_terms": [
+    "sendcommand"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "sendcommand_fallback",
+    "switch_to_target_layout",
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "C.doc.SendCommand(command + '\\n')",
+  "risk_tags": [
+    "异步、时序、命令态冲突"
+  ],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_coordination.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "path_md": "03_core_symbols/methods/SendCommand.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_sendcommand.htm",
+    "01_extracted_html/acadauto/sendcommand_see_also.htm",
+    "01_extracted_html/acadauto/idh_sendcommand.htm"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_coordination.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/sendcommand_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_sendcommand",
+    "acadauto:idh_sendcommand",
+    "acadauto:sendcommand_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_sendcommand.htm",
+    "01_extracted_html/acadauto/idh_sendcommand.htm",
+    "01_extracted_html/acadauto/sendcommand_see_also.htm"
+  ]
+}

@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>PlotHidden Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">PlotHidden Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_PlotHidden()
+    ' This example will access the Layouts collection for the current drawing
+    ' and display whether the objects for each layout are to be hidden during a plot.
+    ' It will then toggle the state of PlotHidden for "Layout1" and re-display the
+    ' PlotHidden state for each Layout.
+
+    Dim Layouts As AcadLayouts, Layout As ACADLayout
+    Dim msg As String
+    Dim IsHidden As String
+    
+    ' Get layouts collection from document object
+    Set Layouts = ThisDrawing.Layouts
+    
+    ' Display current hidden information
+    GoSub DISPLAY
+    
+    ' Toggle object hidden state for Layout1
+    Layouts("Layout1").PlotHidden = Not (Layouts("Layout1").PlotHidden)
+    
+    ' Display new hidden information
+    GoSub DISPLAY
+    
+    Exit Sub
+    
+<PRE CLASS="Code">DISPLAY:
+    msg = ""    ' Clear message
+    
+    ' Determine whether the objects for each layout are hidden during a plot
+    For Each Layout In Layouts
+        ' Are these objects hidden?
+        IsHidden = IIf(Layout.PlotHidden, " are hidden ", " are not hidden ")
+        
+        ' Format for display
+        msg = msg & "Objects for " & Layout.name & IsHidden & "during a plot." & vbCrLf
+    Next
+    
+    ' Display layout information
+    MsgBox msg
+    
+    Return
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

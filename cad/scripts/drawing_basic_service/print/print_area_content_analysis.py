@@ -416,6 +416,38 @@ def analyze_jobs_content(jobs_by_space: dict[str, list[Any]]) -> dict[str, Any]:
         if not jobs:
             continue
         owner_btr_name = str(_job_get(jobs[0], "owner_btr", ""))
+        if owner_btr_name.startswith("layout_viewport:"):
+            rows: list[dict[str, Any]] = []
+            for job in jobs:
+                row = {
+                    "handle": str(_job_get(job, "handle", "")),
+                    "entity_count": 0,
+                    "text_count": 0,
+                    "simple_geometry_count": 0,
+                    "complex_entity_count": 0,
+                    "block_reference_count": 0,
+                    "layer_count": 0,
+                    "text_chars": 0,
+                    "bbox_fill_ratio": 0.0,
+                    "complexity_score": 0.0,
+                    "sequence_no": int(_job_get(job, "sequence_no", 0)),
+                    "paper_code": str(_job_get(job, "paper_code", "")),
+                    "ratio": str(_job_get(job, "ratio", "")),
+                    "output_path": str(_job_get(job, "output_path", "")),
+                    "layout_name": str(_job_get(job, "layout_name", layout_name)),
+                    "space_kind": str(_job_get(job, "space_kind", "")),
+                    "owner_btr": owner_btr_name,
+                    "pseudo_candidate": 0,
+                    "reasons": ["layout_viewport_passthrough"],
+                    "complexity_baseline": 0.0,
+                    "entity_baseline": 0,
+                }
+                rows.append(row)
+                page_key = f"{layout_name}-{int(row['sequence_no']):02d}"
+                all_rows.append({"page_key": page_key, **row})
+            rows_by_space[layout_name] = rows
+            continue
+
         snapshots = collect_space_entity_snapshots(owner_btr_name)
         snapshot_count += len(snapshots)
 

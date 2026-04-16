@@ -1,0 +1,46 @@
+{
+  "symbol": "variant_array",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "variant arrays",
+    "converting arrays to variants",
+    "using variants for array data"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "build_selection_set",
+    "get_bounding_box_and_object_counts"
+  ],
+  "pywin32_signature": "VARIANT(VT_ARRAY | base_type, data)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/pywin32_type_rules.md",
+    "05_pywin32_bridge/point_array_rules.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/variant_array.md",
+  "source_topic_ids": [
+    "acad_aag:GUID_5004997B_3086_4D07_A0A1_AEB32B7727A2",
+    "acad_aag:GUID_192B537E_8F89_4F21_BD5D_28B9E3918C88",
+    "acad_aag:GUID_F6B0A90B_B484_4B2E_A0E1_FE6B7441ADBC",
+    "acad_aag:GUID_CC394595_C4A3_47D4_A040_C58C16B92918"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-5004997B-3086-4D07-A0A1-AEB32B7727A2.htm",
+    "01_extracted_html/acad_aag/GUID-192B537E-8F89-4F21-BD5D-28B9E3918C88.htm",
+    "01_extracted_html/acad_aag/GUID-F6B0A90B-B484-4B2E-A0E1-FE6B7441ADBC.htm",
+    "01_extracted_html/acad_aag/GUID-CC394595-C4A3-47D4-A040-C58C16B92918.htm"
+  ]
+}

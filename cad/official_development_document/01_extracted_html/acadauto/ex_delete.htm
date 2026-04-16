@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Delete Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Delete Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Delete()
+    ' This example creates a Layer named "TEST".
+    ' It then iterates the Layers collection and displays
+    ' the names of the available layers.
+    ' It then deletes the layer "TEST", and again iterates
+    ' the layers collection and displays the names of
+    ' available layers.
+    
+    Dim layerObj As AcadLayer
+    
+    ' Create the new layer
+    Set layerObj = ThisDrawing.Layers.Add("TEST")
+    
+    ' Display the names of the layers in the drawing
+    GoSub DISPLAYLAYERS
+    
+    ' Delete the layer "TEST"
+    layerObj.Delete
+    
+    ' Display the names of the layers remaining in the drawing
+    GoSub DISPLAYLAYERS
+    
+    Exit Sub
+    
+<PRE CLASS="Code">DISPLAYLAYERS:
+    Dim entry As AcadLayer
+    Dim layerNames As String
+    layerNames = ""
+    For Each entry In ThisDrawing.Layers
+       layerNames = layerNames & entry.name & ", "
+    Next
+    MsgBox "The drawing consists of the following layers:" & vbCr & layerNames, , "Delete Example"
+    Return
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

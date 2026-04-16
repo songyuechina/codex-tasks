@@ -1,0 +1,56 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/official_development_document",
+  "role": "cad2021-pywin32-doc-retrieval-system",
+  "summary": "围绕 acad_aag.chm 与 acadauto.chm 建立的本地智能检索体系，主入口面向施工图自动化、打印、编目录、插图签等高频任务。",
+  "entry_points": [
+    "AGENTS.md",
+    "README.md",
+    "00_readme/README_Codex_Workflow.md",
+    "00_readme/PROMOTION_POLICY.md",
+    "04_task_cards/task_index.json",
+    "04_task_cards/",
+    "03_core_symbols/",
+    "05_pywin32_bridge/",
+    "07_validation/hotspot_candidates.json",
+    "tools/search_cad_help.py"
+  ],
+  "source_assets": [
+    "acad_aag.chm",
+    "acadauto.chm",
+    "01_extracted_html/"
+  ],
+  "main_outputs": [
+    "02_manifest/page_manifest.jsonl",
+    "03_core_symbols/",
+    "04_task_cards/",
+    "06_on_demand_index/",
+    "07_validation/"
+  ],
+  "focus_topics": [
+    "连接 AutoCAD / 获取活动文档",
+    "布局枚举与切换",
+    "模型空间 / 图纸空间判断",
+    "选择集与对象遍历",
+    "块属性读取",
+    "图签插入与属性回写",
+    "目录生成与目录图签更新",
+    "布局打印与 SendCommand 回退"
+  ],
+  "deprioritized_topics": [
+    "高级 3D 实体",
+    "曲面 / loft / 材质 / 渲染",
+    "与当前施工图自动化主链弱相关的低频事件系统"
+  ],
+  "agent_usage_rules": [
+    "优先先查任务卡，再查核心符号，再查 pywin32 规则层",
+    "任务卡主索引以 task_id / symbol / owner / project_function / module_path 为精确入口",
+    "aliases_en 是主要自然语言扩展，aliases_zh / keywords_zh 只作辅助 alias",
+    "对低频主题优先查 06_on_demand_index，而不是继续扩大量 Markdown",
+    "当低频对象在真实任务中阻塞打印/布局/图签/目录等主链任务时，必须触发晋升评估",
+    "写 pywin32 命令方法时必须把项目实现路径、顺序约束、验证步骤和回退策略一并组织出来",
+    "项目内优先路径优先指向 licad/CAD_core/CAD_selection/print/CAD_basic 的既有稳定函数",
+    "不要把 CHM 原始目录结构当成主入口"
+  ]
+}

@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>RefreshPlotDeviceInfo Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">RefreshPlotDeviceInfo Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_RefreshPlotDeviceInfo()
+    ' This example gets the current plot device information,
+    ' and then displays the list of plot device names,
+    ' media names, localized media names, and plot style
+    ' table entries.
+    Dim Layout As ACADLayout
+    Set Layout = ThisDrawing.ModelSpace.Layout
+    
+    ' Refresh the current plot information for
+    ' this session.
+    Layout.RefreshPlotDeviceInfo
+    
+    ' List all the valid device names for the system
+    Dim plotDevices As Variant
+    plotDevices = Layout.GetPlotDeviceNames()
+    
+    Dim x As Integer
+    For x = LBound(plotDevices) To UBound(plotDevices)
+        MsgBox plotDevices(x)
+    Next
+    
+    ' List all the media names and their localized version
+    Dim mediaNames As Variant
+    mediaNames = Layout.GetCanonicalMediaNames()
+    
+    For x = LBound(mediaNames) To UBound(mediaNames)
+        MsgBox mediaNames(x)
+        MsgBox Layout.GetLocaleMediaName(mediaNames(x))
+    Next
+    
+    ' List all the entries in the plot style table
+    Dim styleNames As Variant
+    styleNames = Layout.GetPlotStyleTableNames()
+    
+    For x = LBound(styleNames) To UBound(styleNames)
+        MsgBox styleNames(x)
+    Next
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

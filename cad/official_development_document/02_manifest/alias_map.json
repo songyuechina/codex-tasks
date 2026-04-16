@@ -1,0 +1,73 @@
+{
+  "titleblock": {
+    "aliases_en": [
+      "title block",
+      "block attribute",
+      "attribute block"
+    ],
+    "aliases_zh": [
+      "图签"
+    ],
+    "keywords_zh": [
+      "图签属性",
+      "属性块"
+    ]
+  },
+  "catalog": {
+    "aliases_en": [
+      "drawing list",
+      "catalog",
+      "table of contents"
+    ],
+    "aliases_zh": [
+      "目录"
+    ],
+    "keywords_zh": [
+      "目录图签",
+      "目录页"
+    ]
+  },
+  "print": {
+    "aliases_en": [
+      "print",
+      "plot",
+      "pdf"
+    ],
+    "aliases_zh": [
+      "布局输出"
+    ],
+    "keywords_zh": [
+      "打印",
+      "出图"
+    ]
+  },
+  "layout": {
+    "aliases_en": [
+      "layout",
+      "paperspace",
+      "modelspace",
+      "space"
+    ],
+    "aliases_zh": [
+      "布局"
+    ],
+    "keywords_zh": [
+      "模型空间",
+      "图纸空间"
+    ]
+  },
+  "selection": {
+    "aliases_en": [
+      "selection",
+      "selectionset",
+      "window select"
+    ],
+    "aliases_zh": [
+      "选择集"
+    ],
+    "keywords_zh": [
+      "选择",
+      "窗口选"
+    ]
+  }
+}

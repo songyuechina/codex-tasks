@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>MenuGroup object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "MenuGroup object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="MenuGroups Collection;idh_menugroups_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadMenuGroup;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; MenuGroup object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">An AutoCAD menu group.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadMenuGroup&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">MenuGroups.Load&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">MenuGroups.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">A menu group contains menus and toolbars, some or all of which may be currently displayed in AutoCAD. 
+<P CLASS="body">Each menu group contains a 
+<A HREF="idh_popupmenus_collection.htm">PopupMenus</A> collection and a 
+<A HREF="idh_toolbars_collection.htm">Toolbars</A> collection. The PopupMenus collection contains all the menus 
+within the menu group and can be accessed through the 
+<A HREF="idh_menus.htm">Menus</A> property. Likewise, the Toolbars collection contains 
+all the toolbars within the menu group and can be accessed through the 
+<A HREF="idh_toolbars.htm">Toolbars</A> property.
+<P CLASS="body">Menu groups are loaded into the AutoCAD session using the 
+<A HREF="idh_load.htm">Load</A> method. This method loads a specified 
+customization file that contains the menu group. The menu group is then added to 
+the <A HREF="idh_menugroups_collection.htm">MenuGroups</A> collection. Once loaded, individual menus can be inserted 
+into the menu bar and toolbars can be displayed. The Load method also 
+provides a mechanism to load the menu group as the base menu in the same 
+manner as the <A HREF='ms-its:acad180.chm::/menu.htm'>MENU</A>
+command in AutoCAD. When a menu group is loaded as the 
+base menu, the Type property for that menu group will be set to 
+<SPAN CLASS="constant-char">acBaseMenuGroup</SPAN>. 
+
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_save.htm"><P CLASS="body">Save</A>
+<A HREF="idh_saveas.htm"><P CLASS="body">SaveAs</A>
+<A HREF="idh_unload.htm"><P CLASS="body">Unload</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_menufilename.htm"><P CLASS="body">MenuFileName</A>
+<A HREF="idh_menus.htm"><P CLASS="body">Menus</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_parent.htm"><P CLASS="body">Parent</A>
+<A HREF="idh_toolbars.htm"><P CLASS="body">Toolbars</A>
+<A HREF="idh_type.htm"><P CLASS="body">Type</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

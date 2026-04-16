@@ -1,0 +1,56 @@
+{
+  "symbol": "AddPolyline",
+  "kind": "method",
+  "source_terms": [
+    "addpolyline",
+    "addlightweightpolyline"
+  ],
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_basic_geometry_smoke"
+  ],
+  "pywin32_signature": "space.AddPolyline(points)",
+  "risk_tags": [
+    "坐标数组格式错误"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/methods/AddPolyline.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_addpolyline.htm",
+    "01_extracted_html/acadauto/ex_addlightweightpolyline.htm",
+    "01_extracted_html/acadauto/idh_addlightweightpolyline.htm",
+    "01_extracted_html/acadauto/idh_addpolyline.htm",
+    "01_extracted_html/acadauto/addlightweightpolyline_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/pywin32_type_rules.md",
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_addpolyline",
+    "acadauto:ex_addlightweightpolyline",
+    "acadauto:idh_addlightweightpolyline",
+    "acadauto:idh_addpolyline",
+    "acadauto:addlightweightpolyline_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_addpolyline.htm",
+    "01_extracted_html/acadauto/ex_addlightweightpolyline.htm",
+    "01_extracted_html/acadauto/idh_addlightweightpolyline.htm",
+    "01_extracted_html/acadauto/idh_addpolyline.htm",
+    "01_extracted_html/acadauto/addlightweightpolyline_see_also.htm"
+  ]
+}

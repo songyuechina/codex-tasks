@@ -1,0 +1,53 @@
+{
+  "symbol": "Plot",
+  "kind": "object",
+  "source_terms": [
+    "plot"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "C.doc.Plot",
+  "risk_tags": [
+    "设备未刷新",
+    "输出文件被占用"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/objects/Plot.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/topichead_9.htm",
+    "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+    "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+    "01_extracted_html/acadauto/ex_defaultplotstyleforlayer.htm",
+    "01_extracted_html/acad_aag/GUID-9091E614-25B8-452E-A67A-301939B52161.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:topichead_9",
+    "acad_aag:GUID_9091E614_25B8_452E_A67A_301939B52161",
+    "acadauto:ex_layoutshowplotsetup",
+    "acadauto:ex_setlayoutstoplot",
+    "acadauto:ex_defaultplotstyleforlayer"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/topichead_9.htm",
+    "01_extracted_html/acad_aag/GUID-9091E614-25B8-452E-A67A-301939B52161.htm",
+    "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+    "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+    "01_extracted_html/acadauto/ex_defaultplotstyleforlayer.htm"
+  ]
+}

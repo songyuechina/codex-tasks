@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>Split method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Split Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Splits a viewport into the given number of views.</P>
+
+<P CLASS="h1-access"><A HREF="split_see_also.htm">See Also</A> | <A HREF="ex_split.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Split NumWins 
+<P class="element">Object</p><p class=element-desc><A HREF='idh_viewport_object.htm'>Viewport</A><BR>
+The object this method applies to.
+<P class="element">NumWins</p><p class=element-desc>AcViewportSplitType enum; input-only
+<P CLASS="Constant">acViewport2Horizontal
+<P CLASS="Constant">acViewport2Vertical
+<P CLASS="Constant">acViewport3Left
+<P CLASS="Constant">acViewport3Right
+<P CLASS="Constant">acViewport3Horizontal
+<P CLASS="Constant">acViewport3Vertical
+<P CLASS="Constant">acViewport3Above
+<P CLASS="Constant">acViewport3Below
+<P CLASS="Constant-Last">acViewport4
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Although the Split method has been called, the changes 
+will not appear until the <A HREF="idh_activeviewport.htm">ActiveViewport</A> property 
+has been used to make the viewport active. This is required even if 
+the viewport was active before the call to Split. 
+<P CLASS="body">A viewport does not have to be active for this method to work, however, it must be reset to active to see the results of this method.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

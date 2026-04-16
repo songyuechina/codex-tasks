@@ -1,0 +1,54 @@
+{
+  "symbol": "Block",
+  "kind": "object",
+  "source_terms": [
+    "block"
+  ],
+  "owners": [
+    "Blocks",
+    "Layout"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_block_attributes",
+    "insert_block_or_dwg"
+  ],
+  "pywin32_signature": "layout.Block",
+  "risk_tags": [
+    "把块定义和块参照混淆"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/objects/Block.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+    "01_extracted_html/acad_aag/GUID-F9C39B22-6AF1-4501-9EE8-928C1B4AAA21.htm",
+    "01_extracted_html/acadauto/ex_addminsertblock.htm",
+    "01_extracted_html/acadauto/ex_blockattribute.htm",
+    "01_extracted_html/acadauto/ex_insertblock.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+    "acadauto:ex_blockattribute",
+    "acad_aag:GUID_F9C39B22_6AF1_4501_9EE8_928C1B4AAA21",
+    "acadauto:ex_addminsertblock",
+    "acadauto:ex_insertblock"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+    "01_extracted_html/acadauto/ex_blockattribute.htm",
+    "01_extracted_html/acad_aag/GUID-F9C39B22-6AF1-4501-9EE8-928C1B4AAA21.htm",
+    "01_extracted_html/acadauto/ex_addminsertblock.htm",
+    "01_extracted_html/acadauto/ex_insertblock.htm"
+  ]
+}

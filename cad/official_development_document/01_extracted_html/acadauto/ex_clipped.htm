@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Clipped Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Clipped Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Clipped()
+    ' This example scans the current drawing paper space Viewports
+    ' and displays whether or not any of them are clipped.
+    
+    Dim pviewportObj As Object
+    Dim msg As String, ClippedState As String
+    
+    ' Make sure this drawing contains paper space viewports before continuing
+    If ThisDrawing.PaperSpace.count = 0 Then
+        MsgBox "There are no paper space viewports in the current drawing."
+        Exit Sub
+    End If
+    
+    ' Go through each PViewport object in the drawing paper space
+    ' and determine whether the paper space viewport is clipped or not
+    
+    For Each pviewportObj In ThisDrawing.PaperSpace
+        
+        ' Determine if this is a paper space viewport
+        If TypeName(pviewportObj) = "IAcadPViewport" Then
+            
+            ' Determine if this paper space viewport is clipped
+            ClippedState = IIf(pviewportObj.Clipped, " is clipped", " is not clipped")
+            msg = msg & "PViewport ID " & pviewportObj.objectID & ClippedState & vbCrLf
+        
+        End If
+    
+    Next
+
+    ' Display clipped state of paper space Viewports
+    MsgBox msg
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

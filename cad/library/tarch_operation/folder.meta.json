@@ -1,0 +1,36 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/library/tarch_operation",
+  "role": "tarch-special-operation-workspace",
+  "summary": "天正专项操作工作区。当前沉淀天正单行文字与图名标注写入能力，统一通过本地模板 DWG 保持对象类型与默认样式稳定。",
+  "entry_docs": [
+    "README.md",
+    "WORK_STATE.md",
+    "__init__.py",
+    "tarch_api.py",
+    "single_line_text.py",
+    "drawing_name.py"
+  ],
+  "assets": [
+    "system_files/天.dwg：天正单行文字系统模板，TDbText，外包盒左下角已对齐到原点",
+    "system_files/图名标注.dwg：天正图名标注系统模板，TDbDrawingName，外包盒左下角已对齐到原点"
+  ],
+  "public_api": [
+    "list_public_functions",
+    "write_tarch_drawing_name",
+    "write_tarch_text",
+    "write_tarch_single_line_text",
+    "write_tarch_title_mark"
+  ],
+  "rules": [
+    "连接统一通过 system.licad.C",
+    "默认假定健康的天正 CAD 运行时已由外部受控入口预先启动，本目录函数不负责启动或重建 CAD",
+    "默认要求当前只有 1 个健康的天正 CAD 进程；检测到 0 个或多个 CAD 进程时应直接拒绝执行",
+    "测试运行必须同时启动 cad/system/cad_test_supervisor.py，并确认 cad_dialog_killer.py 已运行",
+    "一个测试任务完成后，应通过 CAD_core.py 的受控关闭入口关闭天正 CAD 会话",
+    "默认通过插入并炸开 system_files/天.dwg 生成天正文字，而不是复制整个模板文件",
+    "默认通过插入并炸开 system_files/图名标注.dwg 生成天正图名标注，而不是复制整个模板文件",
+    "对外提供单函数入口，内部允许拆成多文件实现"
+  ]
+}

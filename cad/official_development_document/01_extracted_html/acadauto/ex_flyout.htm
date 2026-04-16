@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Flyout Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Flyout Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Flyout()
+    ' This example uses MenuGroups to obtain a reference to the AutoCAD main menu.
+    ' It then creates a new Toolbar(TestMenu) with a Toolbar button that will act
+    ' as a flyout.  The examples sets the Flyout menu to an existing Toolbar menu.
+    ' The Toolbar will automatically be displayed and will display the UCS menu
+    ' as a flyout.
+        
+    Dim currMenuGroup As acadMenuGroup
+    Dim newToolBar As AcadToolbar, newToolBarFlyoutButton As AcadToolbarItem
+    
+    On Error GoTo ERRORTRAP
+    
+    ' Use MenuGroups property to obtain reference to main AutoCAD menu
+    Set currMenuGroup = ThisDrawing.Application.MenuGroups.Item("ACAD")
+    
+    ' Create a new Toolbar in this group
+    Set newToolBar = currMenuGroup.Toolbars.Add("TestMenu")
+    
+    ' Add new button to TestMenu that will link to the Flyout menu
+    '
+    ' * NOTE: Set the macro name to the name of the flyout toolbar because
+    ' setting it to an empty string causes an error.  The paremeter
+    ' is actually ignored when the style is flyout, but must have any value other than "".
+    Set newToolBarFlyoutButton = newToolBar.AddToolbarButton(newToolBar.count + 1, "Flyout", "Flyout", "UCS", True)
+    
+    ' Link the existing toolbar "UCS" as the flyout for the new toolbar button
+    '
+    ' * NOTE: To change the flyout, simply change the MenuGroup and Toolbar name below
+    newToolBarFlyoutButton.AttachToolbarToFlyout "ACAD", "UCS"
+   
+    MsgBox "The flyout attached to the Test menu is " & newToolBarFlyoutButton.Flyout.name
+    
+    Exit Sub
+
+<PRE CLASS="Code">ERRORTRAP:
+    MsgBox "The following error has occurred: " & Err.Description
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

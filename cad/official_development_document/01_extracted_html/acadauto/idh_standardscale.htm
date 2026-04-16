@@ -1,0 +1,323 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>StandardScale property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">StandardScale Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the standard scale for the layout, viewport, or plot configuration. </P>
+
+<P CLASS="h1-access"><A HREF="standardscale_see_also.htm">See Also</A> | <A HREF="ex_standardscale.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.StandardScale
+<P class="element">object</p>
+<p class=element-desc><A HREF='idh_layout_object.htm'>Layout</A>,
+<A HREF='idh_pviewport_object.htm'>PViewport</A>, 
+<A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A><BR>
+The object this property applies to.
+<P class="element">StandardScale</p>
+<p class=element-desc>For Layout and PlotConfiguration objects, use 
+acPlotScale. For the PViewport object, use acViewportScale.
+<P>&nbsp;
+<p class=element-desc>acViewportScale enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acVpScaleToFit</TD>		
+  <TD><P class="constant-desc">Scale to fit</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVpCustomScale</TD>
+  <TD><P class="constant-desc">Custom</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_128in_1ft</TD>
+  <TD><P class="constant-desc">1/128"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_64in_1ft</TD>
+  <TD><P class="constant-desc">1/64"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_32in_1ft</TD>	
+  <TD><P class="constant-desc">1/32"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_16in_1ft</TD>	
+  <TD><P class="constant-desc">1/16"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp3_32in_1ft</TD>	
+  <TD><P class="constant-desc">3/32"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_8in_1ft</TD>
+  <TD><P class="constant-desc">1/8" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp3_16in_1ft</TD>	
+  <TD><P class="constant-desc">3/16"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_4in_1ft</TD>
+  <TD><P class="constant-desc">1/4" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp3_8in_1ft</TD>	
+  <TD><P class="constant-desc">3/8" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_2in_1ft</TD>	
+  <TD><P class="constant-desc">1/2" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp3_4in_1ft</TD>
+  <TD><P class="constant-desc">3/4" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1in_1ft</TD>
+  <TD><P class="constant-desc">1"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1and1_2in_1ft</TD>
+  <TD><P class="constant-desc">1-1/2"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp3in_1ft</TD>
+  <TD><P class="constant-desc">3"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp6in_1ft</TD>	
+  <TD><P class="constant-desc">6"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1ft_1ft</TD>	
+  <TD><P class="constant-desc">1'= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_1</TD>
+  <TD><P class="constant-desc">1:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_2</TD>
+  <TD><P class="constant-desc">1:2</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_4</TD>
+  <TD><P class="constant-desc">1:4</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_8</TD>
+  <TD><P class="constant-desc">1:8</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_10</TD>
+  <TD><P class="constant-desc">1:10</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_16</TD>
+  <TD><P class="constant-desc">1:16</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_20</TD>	
+  <TD><P class="constant-desc">1:20</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_30</TD>
+  <TD><P class="constant-desc">1:30</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_40</TD>
+  <TD><P class="constant-desc">1:40</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_50</TD>
+  <TD><P class="constant-desc">1:50</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp1_100</TD>	
+  <TD><P class="constant-desc">1:100</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp2_1</TD>	
+  <TD><P class="constant-desc">2:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp4_1</TD>
+  <TD><P class="constant-desc">4:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp8_1</TD>
+  <TD><P class="constant-desc">8:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp10_1</TD>	
+  <TD><P class="constant-desc">10:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acVp100_1</TD>	
+  <TD><P class="constant-desc">100:1</TD>
+</TR>
+</TABLE>
+<P>&nbsp;
+<p class=element-desc>acPlotScale enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acScaleToFit</TD>	
+  <TD><P class="constant-desc">Scale to Fit</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_128in_1ft</TD>
+  <TD><P class="constant-desc">1/128"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_64in_1ft</TD>
+  <TD><P class="constant-desc">1/64"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_32in_1ft</TD>
+  <TD><P class="constant-desc">1/32"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_16in_1ft</TD>
+  <TD><P class="constant-desc">1/16"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac3_32in_1ft</TD>	
+  <TD><P class="constant-desc">3/32"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_8in_1ft</TD>
+  <TD><P class="constant-desc">1/8" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac3_16in_1ft</TD>
+  <TD><P class="constant-desc">3/16"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_4in_1ft</TD>
+  <TD><P class="constant-desc">1/4" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac3_8in_1ft</TD>
+  <TD><P class="constant-desc">3/8" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_2in_1ft</TD>	
+  <TD><P class="constant-desc">1/2" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac3_4in_1ft</TD>
+  <TD><P class="constant-desc">3/4" = 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1in_1ft</TD>	
+  <TD><P class="constant-desc">1"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac3in_1ft</TD>
+  <TD><P class="constant-desc">3"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac6in_1ft</TD>
+  <TD><P class="constant-desc">6"= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1ft_1ft</TD>	
+  <TD><P class="constant-desc">1'= 1'</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_1</TD>
+  <TD><P class="constant-desc">1:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_2</TD>
+  <TD><P class="constant-desc">1:2</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_4</TD>
+  <TD><P class="constant-desc">1:4</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_8</TD>	
+  <TD><P class="constant-desc">1:8</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_10</TD>
+  <TD><P class="constant-desc">1:10</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_16</TD>
+  <TD><P class="constant-desc">1:16</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_20</TD>
+  <TD><P class="constant-desc">1:20</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_30</TD>
+  <TD><P class="constant-desc">1:30</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_40</TD>
+  <TD><P class="constant-desc">1:40</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_50</TD>
+  <TD><P class="constant-desc">1:50</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac1_100</TD>
+  <TD><P class="constant-desc">1:100</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2_1</TD>
+  <TD><P class="constant-desc">2:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac4_1</TD>
+  <TD><P class="constant-desc">4:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac8_1</TD>
+  <TD><P class="constant-desc">8:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac10_1</TD>
+  <TD><P class="constant-desc">10:1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac100_1</TD>
+  <TD><P class="constant-desc">100:1</TD>
+</TR>
+</TABLE>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">To set the viewport to a custom scale, set this property 
+to <SPAN CLASS="constant-char">acVpCustomScale</SPAN> and then use the 
+<A HREF="idh_customscale.htm">CustomScale</A> 
+property to define the custom scale value.
+<P CLASS="body">Changes to this property will not be visible until after a regeneration of the drawing. 
+Use the <A HREF="idh_regen.htm">Regen</A> method to regenerate the drawing. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

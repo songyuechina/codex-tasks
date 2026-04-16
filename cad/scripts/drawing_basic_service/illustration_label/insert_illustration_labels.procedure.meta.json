@@ -1,0 +1,16 @@
+{
+  "script": "insert_illustration_labels.py",
+  "workflow": [
+    "定位 codex-tasks 根目录并补齐 sys.path",
+    "解析 --target / --title-source / --match-mode / --names 等参数",
+    "设置日志级别后调用 apply_illustration_labels，并把结果以 JSON 输出"
+  ],
+  "failure_paths": [
+    "根目录定位失败时立即报错",
+    "业务服务抛错时返回 ok=false 的 JSON 结构并退出非零码"
+  ],
+  "verification_signals": [
+    "标准输出为结构化 JSON",
+    "失败时包含 target_file、title_block_source_file、match_mode、block_names"
+  ]
+}

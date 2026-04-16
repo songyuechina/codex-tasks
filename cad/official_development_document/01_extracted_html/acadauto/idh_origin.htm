@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+<TITLE>Origin property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Origin Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the origin of the UCS, block, layout, hatch, or raster image in WCS coordinates.</P>
+
+<P CLASS="h1-access"><A HREF="origin_see_also.htm">See Also</A> | <A HREF="ex_origin.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Origin
+<P class="element">object</p><p class=element-desc><A HREF='idh_block_object.htm'>Block</A>, <A HREF='idh_hatch_object.htm'>Hatch</A>, <A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A>, <A HREF='idh_raster_object.htm'>Raster</A>, <A HREF='idh_ucs_object.htm'>UCS</A>, <A HREF="IDH_IACADWIPEOUT_INTERFACE.htm">Wipeout</A><BR>
+The objects this property applies to.
+<P class="element">Origin</p><p class=element-desc>Variant (three-element array of doubles); read-write<BR>
+A 3D WCS coordinate specifying the origin of the object.<BR>
+<BR>
+For the Layout and PlotConfiguration objects:<BR>
+Variant (two-element array of doubles); read-write<BR>
+The <I>X</I> and <I>Y</I> values representing the origin relative to the lower-left corner of the media.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>Layout</I>, <I>PlotConfiguration:</I> The origin is
+offset from the media edge by the paper margin. Use the
+<A HREF="idh_getpapermargins.htm">GetPaperMargins</A> method to query the margins. The origin is given in paper
+units. The units can be queried or set with the
+<A HREF="idh_paperunits.htm">PaperUnits</A> property.
+
+<P CLASS="body"><I>Hatch:</I> This property is the origin coordinates for the pattern of the hatch entity.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

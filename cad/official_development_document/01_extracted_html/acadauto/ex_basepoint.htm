@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<TITLE>BasePoint Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">BasePoint Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_BasePoint()
+    ' This example creates a ray object. It then finds the
+    ' base point of the ray, changes the base point, and
+    ' queries the new base point.
+    Dim basePoint(0 To 2) As Double
+    Dim directionVec(0 To 2) As Double
+    Dim rayObj As AcadRay
+    
+    ' Establish the base point and directional vector for the ray
+    basePoint(0) = 3#: basePoint(1) = 3#: basePoint(2) = 0#
+    directionVec(0) = 1#: directionVec(1) = 1#: directionVec(2) = 0#
+    
+    ' Create a Ray object in model space
+    Set rayObj = ThisDrawing.ModelSpace.AddRay(basePoint, directionVec)
+    
+    ThisDrawing.Regen True
+    MsgBox "A new Ray has been added.", vbInformation
+    
+    ' Define a new base point
+    Dim newBase(0 To 2) As Double
+    newBase(0) = 4#: newBase(1) = 2#: newBase(2) = 0#
+    
+    ' Update the ray using the new base point
+    rayObj.basePoint = newBase
+            
+    ' Query the new basepoint for the Ray
+    Dim currBase As Variant      ' Note that return from basepoint property is Variant and not a SafeArray
+    Dim msg As String
+    currBase = rayObj.basePoint
+    msg = currBase(0) & ", " & currBase(1) & ", " & currBase(2)
+    
+    ThisDrawing.Regen True
+    MsgBox "We've just changed the basepoint of the new Ray to: " & msg, vbInformation
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

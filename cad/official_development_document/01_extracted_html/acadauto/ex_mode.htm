@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Mode Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Mode Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Mode()
+    ' This example creates an attribute definition in model space.
+    ' It then queries the initial value of the Mode property,
+    ' changes that value, and finally resets the value.
+    
+    Dim attributeObj As AcadAttribute
+    Dim height As Double
+    Dim mode As Long
+    Dim prompt As String
+    Dim insertionPoint(0 To 2) As Double
+    Dim tag As String
+    Dim value As String
+    
+    ' Define the attribute definition
+    height = 1#
+    mode = acAttributeModeVerify
+    prompt = "New Prompt"
+    insertionPoint(0) = 5#: insertionPoint(1) = 5#: insertionPoint(2) = 0
+    tag = "New Tag"
+    value = "New Value"
+    
+    ' Create the attribute definition object in model space
+    Set attributeObj = ThisDrawing.ModelSpace.AddAttribute(height, mode, prompt, insertionPoint, tag, value)
+    ZoomAll
+    
+    ' Return the current field length of the attribute
+    Dim currMode As Integer
+    Dim constant As String
+    currMode = attributeObj.mode
+    GoSub GETCONSTANT
+    MsgBox "The Mode of the attribute is " & constant, vbInformation, "Mode Example"
+    
+    ' Change the field length
+    attributeObj.mode = acAttributeModeInvisible
+    GoSub GETCONSTANT
+    attributeObj.Update
+    MsgBox "The new Mode of the attribute is " & constant, vbInformation, "Mode Example"
+    
+    ' Reset the field length to the original value
+    attributeObj.mode = currMode
+    GoSub GETCONSTANT
+    attributeObj.Update
+    MsgBox "The Mode of the attribute is reset to " & constant, vbInformation, "Mode Example"
+    Exit Sub
+    
+<PRE CLASS="Code">GETCONSTANT:
+    ' Get the constant that corresponds to the current mode
+    constant = Choose(attributeObj.mode, "acAttributeModeInvisible", "acAttributeModeConstant", "", "acAttributeModeVerify", "", "", "", "acAttributeModePreset")
+    Return
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

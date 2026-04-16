@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>TempXRefPath Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">TempXRefPath Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_TempXRefPath()
+    ' This example returns the current setting of
+    ' TempXRefPath. It then changes the value, and finally
+    ' it resets the value back to the original setting.
+    
+    Dim preferences As AcadPreferences
+    Dim currTempXRefPath As String
+    Dim newTempXRefPath As String
+    
+    Set preferences = ThisDrawing.Application.preferences
+    
+    ' Retrieve the current TempXRefPath value
+    currTempXRefPath = preferences.Files.TempXrefPath
+    MsgBox "The current value for TempXRefPath is " & currTempXRefPath, vbInformation, "TempXRefPath Example"
+    
+    ' Change the value for TempXRefPath
+    newTempXRefPath = "TestTempXRefPath"
+    preferences.Files.TempXrefPath = newTempXRefPath
+    MsgBox "The new value for TempXRefPath is " & newTempXRefPath, vbInformation, "TempXRefPath Example"
+    
+    ' Reset TempXRefPath to its original value
+    preferences.Files.TempXrefPath = currTempXRefPath
+    MsgBox "The TempXRefPath value is reset to " & currTempXRefPath, vbInformation, "TempXRefPath Example"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

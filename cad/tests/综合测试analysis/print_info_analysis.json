@@ -1,0 +1,23 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试.dwg",
+  "analysis_dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\work\\work-case-7448e33135.dwg",
+  "plan_json_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\print_plan.json",
+  "content_json_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\content_analysis.json",
+  "print_mode": "purified_adaptive",
+  "requested_handles": [],
+  "excluded_handle_count": 9,
+  "total_jobs": 0,
+  "inner_frame_found_count": 0,
+  "title_block_found_count": 0,
+  "attribute_block_count": 0,
+  "with_title_count": 0,
+  "with_drawing_no_count": 0,
+  "with_number_count": 0,
+  "with_project_count": 0,
+  "with_subproject_count": 0,
+  "print_info_dict": {},
+  "print_info_dict_by_space": {},
+  "page_info_dict": {},
+  "jobs_by_space": {},
+  "excel_path": "D:\\codex-tasks\\cad\\tests\\综合测试analysis\\print_info_analysis.xlsx"
+}

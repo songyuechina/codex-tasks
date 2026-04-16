@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="prop.doc" KEYWORDS="drawings, saving; incremental saves; IncrementalSavePercent property; IncrementalSavePercent property, ISAVEPERCENT system variable; saving drawings, incremental saves; ISAVEPERCENT system variable; system variables, ISAVEPERCENT; IncrementalSavePercent property, PreferencesOpenSave object; PreferencesOpenSave object, IncrementalSavePercent property" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:25:01 AM">
+<TITLE>IncrementalSavePercent property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">IncrementalSavePercent Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the percentage of wasted space allowed in a drawing file. </P>
+
+<P CLASS="h1-access"><A HREF="incrementalsavepercent_see_also.htm">See Also</A> | <A HREF="ex_incrementalsavepercent.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.IncrementalSavePercent
+<P class="element">object</p><p class=element-desc><A HREF='idh_preferencesopensave_object.htm'>PreferencesOpenSave</A><BR>
+The object this property applies to.
+<P class="element">IncrementalSavePercent</p><p class=element-desc>Integer; read-write<BR>
+The valid range is 0 to 100.
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The value of this property is stored in the <A HREF='ms-its:acad180.chm::/isavepercent.htm'>ISAVEPERCENT</A> system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value of this property is 50.
+<P CLASS="body">When the specified percentage is reached, AutoCAD performs a full save instead of an incremental save. Full saves eliminate wasted space. If you set this property to 0, every save is a full save.
+<P CLASS="body">Although incremental saves increase the size of your drawing, do not set a very low value. For optimum performance, set the value to 50. If memory becomes an issue, set the value to 25. If you set the value to 20 or less, performance slows significantly. Low values lower the program's performance because AutoCAD performs time-consuming full saves more often.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

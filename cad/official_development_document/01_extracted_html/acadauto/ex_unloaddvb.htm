@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>UnloadDVB Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">UnloadDVB Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_UnloadDVB()
+    ' This example loads a DVB file and runs a macro
+    ' contained in the file using the RunMacro method.
+    '
+    ' This example uses a DVB file named drawline.dvb.
+    ' You should change the example to use a file on your computer.
+    '
+    ' * Note: If you open a DVB file and then run the example to load it, there will be an error
+    ' when the DVB file is unloaded.
+
+    Dim FileName As String
+    
+    FileName = "c:\drawline.dvb"
+    
+    ' Load a sample VBA project DVB file
+    LoadDVB FileName
+    
+    ' Run the drawline sample macro
+    RunMacro "Module1.Drawline"
+    
+    ' Unload the drawline VBA project DVB file now that we are done
+    UnloadDVB FileName
+    
+    MsgBox "The DVB file has been run!"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

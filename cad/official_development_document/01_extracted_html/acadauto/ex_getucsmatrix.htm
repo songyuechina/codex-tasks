@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetUCSMatrix Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetUCSMatrix Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_GetUCSMatrix()
+    ' This example creates a new UCS and finds the UCS matrix for it.
+    ' It then creates a circle using WCS coordinates and
+    ' transforms the circle for the UCS.
+    
+    ' Define a new UCS and turn on the UCS icon at the origin.
+    Dim ucsObj As AcadUCS
+    Dim origin(0 To 2) As Double
+    Dim xAxisPoint(0 To 2) As Double
+    Dim yAxisPoint(0 To 2) As Double
+    
+    origin(0) = 2: origin(1) = 2: origin(2) = 0
+    xAxisPoint(0) = 3: xAxisPoint(1) = 2: xAxisPoint(2) = 0
+    yAxisPoint(0) = 2: yAxisPoint(1) = 3: yAxisPoint(2) = 0
+    
+    Set ucsObj = ThisDrawing.UserCoordinateSystems.Add(origin, xAxisPoint, yAxisPoint, "UCS1")
+    ThisDrawing.ActiveUCS = ucsObj
+    ThisDrawing.ActiveViewport.UCSIconOn = True
+    ThisDrawing.ActiveViewport.UCSIconAtOrigin = True
+    ThisDrawing.ActiveViewport = ThisDrawing.ActiveViewport
+    
+    ' Create a circle using WCS coordinates
+    Dim circleObj As AcadCircle
+    Dim center(0 To 2) As Double
+    Dim radius As Double
+    center(0) = 1: center(1) = 1: center(2) = 0
+    radius = 0.5
+    Set circleObj = ThisDrawing.ModelSpace.AddCircle(center, radius)
+    ZoomAll
+    
+    ' Get the UCS transformation matrix
+    Dim TransMatrix As Variant
+    TransMatrix = ucsObj.GetUCSMatrix()
+    
+    ' Transform the circle to the UCS coordinates
+    MsgBox "Transform the circle.", , "GetUCSMatrix Example"
+    circleObj.TransformBy (TransMatrix)
+    circleObj.Update
+    
+    MsgBox "The circle is transformed.", , "GetUCSMatrix Example"
+        
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

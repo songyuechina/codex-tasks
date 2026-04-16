@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetCorner method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetCorner Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets a corner of a rectangle.</P>
+
+<P CLASS="h1-access"><A HREF="getcorner_see_also.htm">See Also</A> | <A HREF="ex_getcorner.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = GetCorner(Point[, Prompt])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Point</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the base point of the rectangle.
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text used to prompt the user for input.
+<P class="element">RetVal</p><p class=element-desc>Variant (three-element array of doubles)<BR>
+The 3D WCS coordinates representing the corner of the rectangle.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD pauses for user input of the corner of a rectangle, and sets the return value to the value of the selected point. The Point parameter specifies the base point of the rectangle in the 3D WCS coordinates; this parameter is required. The Prompt parameter specifies a string that AutoCAD displays before it pauses. The prompt is optional. 
+<P CLASS="body">The AutoCAD user can specify the corner by entering a point in the WCS coordinate format; GetCorner treats Point as a three-dimensional point. The user can specify the corner also by specifying a location on the graphics screen. AutoCAD draws a dynamically sized rectangle from Point to the current crosshair position to help the user visualize the location of the second corner. The rectangle is drawn in the <I>XY</I> plane of the WCS. When the pointing device is used, GetCorner ignores the <I>Z</I> field of Point and sets the <I>Z</I> field of result to the current elevation.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

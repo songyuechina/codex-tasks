@@ -1,0 +1,19 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/tests",
+  "role": "cad-real-test-assets",
+  "summary": "整个 cad 目录统一的真实 DWG 测试资产目录。真实回归、烟测、块处理测试、图签测试、打印测试优先使用这里的文件，并在改写前先做备份。",
+  "entry_docs": [
+    "../folder.meta.json",
+    "../../AGENTS.md",
+    "../../thoughtway/CAD_RUNTIME_GUARD_RULES.md"
+  ],
+  "usage_rules": [
+    "真实 DWG 测试文件统一放在本目录",
+    "测试前若会改写原文件，优先在 备份/ 子目录保留副本",
+    "真实测试默认并行运行 cad/system/cad_runtime_guard.py",
+    "不要把 temp、桌面或业务目录私有测试文件当作长期规则"
+  ]
+}
+

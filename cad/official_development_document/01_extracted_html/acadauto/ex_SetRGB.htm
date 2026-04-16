@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetRGB Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetRGB Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">Sub Example_SetRGB()
+    ' This example draws a line and returns the RGB values
+    Dim color As AcadAcCmColor
+    Set color = AcadApplication.GetInterfaceObject("AutoCAD.AcCmColor.18")
+    Call color.SetRGB(80, 100, 244)
+    
+    Dim line As AcadLine
+    Dim startPoint(0 To 2) As Double
+    Dim endPoint(0 To 2) As Double
+        
+    startPoint(0) = 1#: startPoint(1) = 1#: startPoint(2) = 0#
+    endPoint(0) = 5#: endPoint(1) = 5#: endPoint(2) = 0#
+        
+    Set line = ThisDrawing.ModelSpace.AddLine(startPoint, endPoint)
+    ZoomAll
+    
+    line.TrueColor = color
+    Dim retcolor As AcadAcCmColor
+    Set retcolor = line.TrueColor
+    
+    MsgBox "Red = " & retcolor.Red
+    MsgBox "Green = " & retcolor.Green
+    MsgBox "Blue = " & retcolor.Blue    
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,333 @@
+<HTML>
+<HEAD>
+<META>
+<TITLE>Table object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Table object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="This is the root object.;none.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadTable;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0>
+<tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Table object</SPAN></A>
+
+</td>
+</tr>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">AutoCAD table object.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadTable&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">
+Dim customObj as AcadTable&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">AcadTable</TD></TR>
+
+</TABLE>
+<P CLASS="body">A table contains data in rows and columns. You can use the Table object to add and modify tables in a drawing.
+<P CLASS="body">To add a table to a drawing, use the <A HREF="idh_addtable.htm">AddTable</A> method. After you add a table, you can modify the number of columns, the number of rows, and other settings.
+<P CLASS="body">All methods that change the Table object do the following:
+<OL>
+<LI>Open the Table object in write mode
+<LI>Modify the Table object based on the input parameters
+<LI>Close the Table object, which recomputes the Table
+</OL>
+<P CLASS="body">Recomputing large tables consumes a lot of time and memory because the Table object is reconstructed from scratch. If you are making multiple calls to update a table, you can improve performance by setting <A HREF="idh_regeneratetablesuppressed.htm">RegenerateTableSuppressed</A> before and after making the modifications.
+
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_arraypolar.htm"><P CLASS="body">ArrayPolar</A>
+<A HREF="idh_arrayrectangular.htm"><P CLASS="body">ArrayRectangular</A>
+<A HREF="idh_createcontent.htm"><P CLASS="body">CreateContent</A>
+<A HREF="idh_table_clearsubselection.htm"><P CLASS="body">ClearSubSelection</A>
+<A HREF="idh_table_cleartablestyleoverrides.htm"><P CLASS="body">ClearTableStyleOverrides</A>
+<A HREF="idh_copy.htm"><P CLASS="body">Copy</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_table_deletecellcontent.htm"><P CLASS="body">DeleteCellContent</A>
+<A HREF="idh_table_deletecolumns.htm"><P CLASS="body">DeleteColumns</A>
+<A HREF="idh_DeleteContent.htm"><P CLASS="body">DeleteContent</A>
+<A HREF="idh_table_deleterows.htm"><P CLASS="body">DeleteRows</A>
+<A HREF="idh_EnableMergeAll.htm"><P CLASS="body">EnableMergeAll</A>
+<A HREF="idh_FormatValue.htm"><P CLASS="body">FormatValue</A>
+<A HREF="idh_table_generatelayout.htm"><P CLASS="body">GenerateLayout</A>
+<A HREF="idh_TS_GetAlignment.htm"><P CLASS="body">GetAlignment</A>
+<A HREF="idh_GetAlignment.htm"><P CLASS="body">GetAlignment2</A>
+<A HREF="idh_table_attachmentpoint.htm"><P CLASS="body">GetAttachmentPoint</A>
+<A HREF="idh_table_getautoscale.htm"><P CLASS="body">GetAutoScale</A>
+<A HREF="idh_getautoscale2.htm"><P CLASS="body">GetAutoScale2</A>
+<A HREF="idh_TS_GetBkColor.htm"><P CLASS="body">GetBackgroundColor</A>
+<A HREF="idh_TS_GetBkColorNone.htm"><P CLASS="body">GetBackgroundColorNone</A>
+<A HREF="idh_table_getblockattributevalue.htm"><P CLASS="body">GetBlockAttributeValue</A>
+<A HREF="idh_getblockattributevalue2.htm"><P CLASS="body">GetBlockAttributeValue2</A>
+<A HREF="idh_getblockattributevalue232.htm"><P CLASS="body">GetBlockAttributeValue232</A>
+<A HREF="idh_table_getblockrotation.htm"><P CLASS="body">GetBlockRotation</A>
+<A HREF="idh_table_getblockscale.htm"><P CLASS="body">GetBlockScale</A>
+<A HREF="idh_table_getblocktablerecordid.htm"><P CLASS="body">GetBlockTableRecordId</A>
+<A HREF="idh_getblocktablerecordid2.htm"><P CLASS="body">GetBlockTableRecordId2</A>
+<A HREF="idh_getblocktablerecordid32.htm"><P CLASS="body">GetBlockTableRecordId32</A>
+<A HREF="idh_getboundingbox.htm"><P CLASS="body">GetBoundingBox</A>
+<A HREF="idh_table_getcellalignment.htm"><P CLASS="body">GetCellAlignment</A>
+<A HREF="idh_table_getcellbkcolor.htm"><P CLASS="body">GetCellBackgroundColor</A>
+<A HREF="idh_table_getcellbkcolornone.htm"><P CLASS="body">GetCellBackgroundColorNone</A>
+<A HREF="idh_table_getcellcontentcolor.htm"><P CLASS="body">GetCellContentColor</A>
+<A HREF="idh_getcellcontentcolor2.htm"><P CLASS="body">GetCellContentColor2</A>
+<A HREF="idh_getcelldatatype.htm"><P CLASS="body">GetCellDataType</A>
+<A HREF="idh_table_getcellextents.htm"><P CLASS="body">GetCellExtents</A>
+<A HREF="idh_getcellformat.htm"><P CLASS="body">GetCellFormat</A>
+<A HREF="idh_table_getcellgridcolor.htm"><P CLASS="body">GetCellGridColor</A>
+<A HREF="idh_table_getcellgridlineweight.htm"><P CLASS="body">GetCellGridLineWeight</A>
+<A HREF="idh_table_getcellgridvisibility.htm"><P CLASS="body">GetCellGridVisibility</A>
+<A HREF="idh_getcellstate.htm"><P CLASS="body">GetCellState</A>
+<A HREF="idh_getcellstyle.htm"><P CLASS="body">GetCellStyle</A>
+<A HREF="idh_table_cellstyleoverrides.htm"><P CLASS="body">GetCellStyleOverrides</A>
+<A HREF="idh_table_getcelltextheight.htm"><P CLASS="body">GetCellTextHeight</A>
+<A HREF="idh_table_getcelltextstyle.htm"><P CLASS="body">GetCellTextStyle</A>
+<A HREF="idh_table_getcelltype.htm"><P CLASS="body">GetCellType</A>
+<A HREF="idh_getcellValue.htm"><P CLASS="body">GetCellValue</A>
+<A HREF="idh_getcolumnname.htm"><P CLASS="body">GetColumnName</A>
+<A HREF="idh_table_getcolumnwidth.htm"><P CLASS="body">GetColumnWidth</A>
+<A HREF="idh_table_getcontentcolor.htm"><P CLASS="body">GetContentColor</A>
+<A HREF="idh_getcustomdata.htm"><P CLASS="body">GetCustomData</A>
+<A HREF="idh_getdataformat.htm"><P CLASS="body">GetDataFormat</A>
+<A HREF="idh_getdatalink.htm"><P CLASS="body">GetDataLink</A>
+<A HREF="idh_getdatalink32.htm"><P CLASS="body">GetDataLink32</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getfieldid.htm"><P CLASS="body">GetFieldId</A>
+<A HREF="idh_getfieldid2.htm"><P CLASS="body">GetFieldId2</A>
+<A HREF="idh_getfieldid32.htm"><P CLASS="body">GetFieldId32</A>
+<A HREF="idh_getformat.htm"><P CLASS="body">GetFormat</A>
+<A HREF="idh_getformula.htm"><P CLASS="body">GetFormula</A>
+<A HREF="idh_TS_GetGridColor.htm"><P CLASS="body">GetGridColor</A>
+<A HREF="idh_GetGridColor2.htm"><P CLASS="body">GetGridColor2</A>
+<A HREF="idh_GetGridDoubleLineSpacing.htm"><P CLASS="body">GetGridDoubleLineSpacing</A>
+<A HREF="idh_GetGridLineStyle.htm"><P CLASS="body">GetGridLineStyle</A>
+<A HREF="idh_GetGridLineType.htm"><P CLASS="body">GetGridLineType</A>
+<A HREF="idh_GetGridLineType32.htm"><P CLASS="body">GetGridLineType32</A>
+<A HREF="idh_TS_GetGridLineWeight.htm"><P CLASS="body">GetGridLineWeight</A>
+<A HREF="idh_TS_GetGridVisibility.htm"><P CLASS="body">GetGridVisibility</A>
+<A HREF="idh_GetGridVisibility2.htm"><P CLASS="body">GetGridVisibility2</A>
+<A HREF="idh_GetHasDataLink.htm"><P CLASS="body">GetHasDataLink</A>
+<A HREF="idh_GetHasFormula.htm"><P CLASS="body">GetHasFormula</A>
+<A HREF="idh_GetMargin.htm"><P CLASS="body">GetMargin</A>
+<A HREF="idh_table_getminimumcolumnwidth.htm"><P CLASS="body">GetMinimumColumnWidth</A>
+<A HREF="idh_table_getminimumrowheight.htm"><P CLASS="body">GetMinimumRowHeight</A>
+<A HREF="idh_getoverride.htm"><P CLASS="body">GetOverride</A>
+<A HREF="idh_getrotation.htm"><P CLASS="body">GetRotation</A>
+<A HREF="idh_table_getrowheight.htm"><P CLASS="body">GetRowHeight</A>
+<A HREF="idh_table_getrowtype.htm"><P CLASS="body">GetRowType</A>
+<A HREF="idh_getscale.htm"><P CLASS="body">GetScale</A>
+<A HREF="idh_table_getsubselection.htm"><P CLASS="body">GetSubSelection</A>
+<A HREF="idh_table_gettextstring.htm"><P CLASS="body">GetText</A>
+<A HREF="idh_TS_GetTextHeight.htm"><P CLASS="body">GetTextHeight</A>
+<A HREF="idh_GetTextHeight2.htm"><P CLASS="body">GetTextHeight2</A>
+<A HREF="idh_table_gettextrotation.htm"><P CLASS="body">GetTextRotation</A>
+<A HREF="idh_GetTextString.htm"><P CLASS="body">GetTextString</A>
+<A HREF="idh_TS_GetTextStyle.htm"><P CLASS="body">GetTextStyle</A>
+<A HREF="idh_GetTextStyle2.htm"><P CLASS="body">GetTextStyle2</A>
+<A HREF="idh_GetValue.htm"><P CLASS="body">GetValue</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_highlight.htm"><P CLASS="body">Highlight</A>
+<A HREF="idh_table_hittest.htm"><P CLASS="body">HitTest</A>
+<A HREF="idh_table_insertcolumns.htm"><P CLASS="body">InsertColumns</A>
+<A HREF="idh_InsertColumnsAndInherit.htm"><P CLASS="body">InsertColumnsAndInherit</A>
+<A HREF="idh_table_insertrows.htm"><P CLASS="body">InsertRows</A>
+<A HREF="idh_InsertRowsAndInherit.htm"><P CLASS="body">InsertRowsAndInherit</A>
+<A HREF="idh_IntegerersectWith.htm"><P CLASS="body">IntegerersectWith</A>
+<A HREF="idh_IsContentEditable.htm"><P CLASS="body">IsContentEditable</A>
+<A HREF="idh_Isempty.htm"><P CLASS="body">IsEmpty</A>
+<A HREF="idh_IsFormatEditable.htm"><P CLASS="body">IsFormatEditable</A>
+<A HREF="idh_IsMergeAllEnabled.htm"><P CLASS="body">IsMergeAllEnabled</A>
+<A HREF="idh_table_ismergedcell.htm"><P CLASS="body">IsMergedCell</A>
+<A HREF="idh_materialprop.htm"><P CLASS="body">Material</A>
+<A HREF="idh_table_mergecells.htm"><P CLASS="body">MergeCells</A>
+<A HREF="idh_mirror.htm"><P CLASS="body">Mirror</A>
+<A HREF="idh_mirror3d.htm"><P CLASS="body">Mirror3D</A>
+<A HREF="idh_move.htm"><P CLASS="body">Move</A>
+<A HREF="idh_movecontent.htm"><P CLASS="body">Move Content</A>
+<A HREF="idh_table_recomputetableblock.htm"><P CLASS="body">RecomputeTableBlock</A>
+<A HREF="idh_table_reselectsubregion.htm"><P CLASS="body">ReselectSubRegion</A>
+<A HREF="idh_rotate.htm"><P CLASS="body">Rotate</A>
+<A HREF="idh_rotate3d.htm"><P CLASS="body">Rotate3D</A>
+<A HREF="idh_scaleentity.htm"><P CLASS="body">ScaleEntity</A>
+<A HREF="idh_table_select.htm"><P CLASS="body">Select</A>
+<A HREF="idh_table_selectsubregion.htm"><P CLASS="body">SelectSubRegion</A>
+<A HREF="idh_TS_SetAlignment.htm"><P CLASS="body">SetAlignment</A>
+<A HREF="idh_SetAlignment2.htm"><P CLASS="body">SetAlignment2</A>
+<A HREF="idh_table_setautoscale.htm"><P CLASS="body">SetAutoScale</A>
+<A HREF="idh_Setautoscale2.htm"><P CLASS="body">SetAutoScale2</A>
+<A HREF="idh_TS_SetBkColor.htm"><P CLASS="body">SetBackgroundColor</A>
+<A HREF="idh_TS_SetBkColorNone.htm"><P CLASS="body">SetBackgroundColorNone</A>
+<A HREF="idh_table_Setblockattributevalue.htm"><P CLASS="body">SetBlockAttributeValue</A>
+<A HREF="idh_setblockattributevalue2.htm"><P CLASS="body">SetBlockAttributeValue2</A>
+<A HREF="idh_setblockattributevalue232.htm"><P CLASS="body">SetBlockAttributeValue232</A>
+<A HREF="idh_table_setblockrotation.htm"><P CLASS="body">SetBlockRotation</A>
+<A HREF="idh_table_setblockscale.htm"><P CLASS="body">SetBlockScale</A>
+<A HREF="idh_table_setblocktablerecordid.htm"><P CLASS="body">SetBlockTableRecordId</A>
+<A HREF="idh_setblocktablerecordid2.htm"><P CLASS="body">SetBlockTableRecordId2</A>
+<A HREF="idh_setblocktablerecordid32.htm"><P CLASS="body">SetBlockTableRecordId32</A>
+<A HREF="idh_table_setcellalignment.htm"><P CLASS="body">SetCellAlignment</A>
+<A HREF="idh_table_setcellbkcolor.htm"><P CLASS="body">SetCellBackgroundColor</A>
+<A HREF="idh_table_setcellbkcolornone.htm"><P CLASS="body">SetCellBackgroundColorNone</A>
+<A HREF="idh_table_setcellcontentcolor.htm"><P CLASS="body">SetCellContentColor</A>
+<A HREF="idh_setcellcontentcolor2.htm"><P CLASS="body">SetCellContentColor2</A>
+<A HREF="idh_setcelldatatype.htm"><P CLASS="body">SetCellDataType</A>
+<A HREF="idh_setcelldataformat.htm"><P CLASS="body">SetCellFormat</A>
+<A HREF="idh_table_setcellgridcolor.htm"><P CLASS="body">SetCellGridColor</A>
+<A HREF="idh_table_setcellgridlineweight.htm"><P CLASS="body">SetCellGridLineWeight</A>
+<A HREF="idh_table_setcellgridvisibility.htm"><P CLASS="body">SetCellGridVisibility</A>
+<A HREF="idh_table_setcelltextheight.htm"><P CLASS="body">SetCellTextHeight</A>
+<A HREF="idh_setcellstate.htm"><P CLASS="body">SetCellState</A>
+<A HREF="idh_setcellstyle.htm"><P CLASS="body">SetCellStyle</A>
+<A HREF="idh_table_setcelltextstyle.htm"><P CLASS="body">SetCellTextStyle</A>
+<A HREF="idh_table_setcelltype.htm"><P CLASS="body">SetCellType</A>
+<A HREF="idh_setcelldatavalue.htm"><P CLASS="body">SetCellValue</A>
+<A HREF="idh_setcolumnname.htm"><P CLASS="body">SetColumnName</A>
+<A HREF="idh_table_setcolumnwidth.htm"><P CLASS="body">SetColumnWidth</A>
+<A HREF="idh_table_setcontentcolor.htm"><P CLASS="body">SetContentColor</A>
+<A HREF="idh_setcustomdata.htm"><P CLASS="body">SetCustomData</A>
+<A HREF="idh_Setdataformat.htm"><P CLASS="body">SetDataFormat</A>
+<A HREF="idh_Setdatalink.htm"><P CLASS="body">SetDataLink</A>
+<A HREF="idh_Setdatalink32.htm"><P CLASS="body">SetDataLink32</A>
+<A HREF="idh_table_setfieldid.htm"><P CLASS="body">SetFieldId</A>
+<A HREF="idh_setfieldid2.htm"><P CLASS="body">SetFieldId2</A>
+<A HREF="idh_setfieldid32.htm"><P CLASS="body">SetFieldId32</A>
+<A HREF="idh_setformat.htm"><P CLASS="body">SetFormat</A>
+<A HREF="idh_setformula.htm"><P CLASS="body">SetFormula</A>
+<A HREF="idh_TS_SetGridColor.htm"><P CLASS="body">SetGridColor</A>
+<A HREF="idh_SetGridColor2.htm"><P CLASS="body">SetGridColor2</A>
+<A HREF="idh_SetGridDoubleLineSpacing.htm"><P CLASS="body">SetGridDoubleLineSpacing</A>
+<A HREF="idh_SetGridLineStyle.htm"><P CLASS="body">SetGridLineStyle</A>
+<A HREF="idh_SetGridLineType.htm"><P CLASS="body">SetGridLineType</A>
+<A HREF="idh_SetGridLineType32.htm"><P CLASS="body">SetGridLineType32</A>
+<A HREF="idh_SetGridLineWeight.htm"><P CLASS="body">SetGridLineWeight</A>
+<A HREF="idh_SetGridVisibility.htm"><P CLASS="body">SetGridVisibility</A>
+<A HREF="idh_setGridVisibility2.htm"><P CLASS="body">SetGridVisibility2</A>
+<A HREF="idh_SetMargin.htm"><P CLASS="body">SetMargin</A>
+<A HREF="idh_setoverride.htm"><P CLASS="body">SetOverride</A>
+<A HREF="idh_setrotation.htm"><P CLASS="body">SetRotation</A>
+<A HREF="idh_table_setrowheight.htm"><P CLASS="body">SetRowHeight</A>
+<A HREF="idh_setscale.htm"><P CLASS="body">SetScale</A>
+<A HREF="idh_table_setsubselection.htm"><P CLASS="body">SetSubSelection</A>
+<A HREF="idh_table_settextstring.htm"><P CLASS="body">SetText</A>
+<A HREF="idh_TS_SetTextHeight.htm"><P CLASS="body">SetTextHeight</A>
+<A HREF="idh_SetTextHeight2.htm"><P CLASS="body">SetTextHeight2</A>
+<A HREF="idh_table_settextrotation.htm"><P CLASS="body">SetTextRotation</A>
+<A HREF="idh_SetTextString.htm"><P CLASS="body">SetTextString</A>
+<A HREF="idh_TS_SetTextStyle.htm"><P CLASS="body">SetTextStyle</A>
+<A HREF="idh_SetTextStyle2.htm"><P CLASS="body">SetTextStyle2</A>
+<A HREF="idh_settooltip.htm"><P CLASS="body">SetToolTip</A>
+<A HREF="idh_setValue.htm"><P CLASS="body">SetValue</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_transformby.htm"><P CLASS="body">TransformBy</A>
+<A HREF="idh_table_unmergecells.htm"><P CLASS="body">UnmergeCells</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+&nbsp;</TD>
+
+<TD><P CLASS="Heading-2">Properties
+<a href="idh_AllowManualHeights.htm"><p class="body">AllowManualHeights</p></a>
+<a href="idh_AllowManualPositions.htm"><p class="body">AllowManualPositions</p></a>
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_BreaksEnabled.htm"><P CLASS="body">BreaksEnabled</A>
+<A HREF="idh_BreakSpacing.htm"><P CLASS="body">BreakSpacing</A>
+<A HREF="idh_table_columns.htm"><P CLASS="body">Columns</A>
+<A HREF="idh_table_setuniformcolumnwidth.htm"><P CLASS="body">ColumnWidth</A>
+<A HREF="idh_direction.htm"><P CLASS="body">Direction</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_TS_FlowDirection.htm"><P CLASS="body">FlowDirection</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_table_hassubselection.htm"><P CLASS="body">HasSubSelection</A>
+<A HREF="idh_TS_Header_Suppress.htm"><P CLASS="body">HeaderSuppressed</A>
+<A HREF="idh_table_height.htm"><P CLASS="body">Height</A>
+<A HREF="idh_TS_Horzcell_Margin.htm"><P CLASS="body">HorzCellMargin</A>
+<A HREF="idh_hyperlinks.htm"><P CLASS="body">Hyperlinks</A>
+<A HREF="idh_insertionpoint.htm"><P CLASS="body">InsertionPoint</A>
+<A HREF="idh_layer.htm"><P CLASS="body">Layer</A>
+<A HREF="idh_linetype.htm"><P CLASS="body">Linetype</A>
+<A HREF="idh_linetypescale.htm"><P CLASS="body">LinetypeScale</A>
+<A HREF="idh_lineweight.htm"><P CLASS="body">Lineweight</A>
+<A HREF="idh_table_getminimumtableheight.htm"><P CLASS="body">MinimumTableHeight</A>
+<A HREF="idh_table_getminimumtablewidth.htm"><P CLASS="body">MinimumTableWidth</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_plotstylename.htm"><P CLASS="body">PlotStyleName</A>
+<A HREF="idh_regeneratetablesuppressed.htm"><P CLASS="body">RegenerateTableSuppressed</A>
+<A HREF="idh_RepeatTopLabels.htm"><P CLASS="body">RepeatTopLabels</A>
+<A HREF="idh_RepeatBottomLabels.htm"><P CLASS="body">RepeatBottomLabels</A>
+<A HREF="idh_table_setuniformrowheight.htm"><P CLASS="body">RowHeight</A>
+<A HREF="idh_table_rows.htm"><P CLASS="body">Rows</A>
+<A HREF="idh_table_stylename.htm"><P CLASS="body">StyleName</A>
+<A HREF="idh_TableBreakFlowDirection.htm"><P CLASS="body">TableBreakFlowDirection</A>
+<A HREF="idh_table_tablestyleoverrides.htm"><P CLASS="body">TableStyleOverrides</A>
+<A HREF="idh_TS_Title_Suppress.htm"><P CLASS="body">TitleSuppressed</A>
+<A HREF="idh_TrueColor_property.htm"><P CLASS="body">TrueColor</A>
+<A HREF="idh_TS_Vertcell_Margin.htm"><P CLASS="body">VertCellMargin</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<A HREF="idh_table_width.htm"><P CLASS="body">Width</A>
+&nbsp;</TD>
+
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SendCommand method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SendCommand Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Sends a command string from a VB or VBA application to the document for processing. </P>
+
+<P CLASS="h1-access"><A HREF="sendcommand_see_also.htm">See Also</A> | <A HREF="ex_sendcommand.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SendCommand(Command)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A><BR>
+The object this method applies to.
+<P class="element">Command</p><p class=element-desc>String; input-only<BR>
+The command to send to the document.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Use a space or the ASCII carriage return character (vbCr) at the end of
+the command string to end the command; this is equivalent to pressing ENTER on the keyboard.
+<P CLASS="body">This method processes any AutoCAD command-line function, including LISP expressions. 
+<P CLASS="body">If the drawing specified is not active, it will be made active.
+<P CLASS="body">This method is generally synchronous. However, if the command sent with this method requires any user interaction (such as picking a point on the screen) then this method will continue as soon as the user input begins. The command will then continue to be processed asynchronously.
+<P CLASS="body">When this method is called from an event handler it is processed asynchronously.
+<P CLASS="body">You should never use this method to issue a command for 
+which there is an ActiveX method available. For example, do not use 
+<span class=code-char>SendCommand "VBALOAD "</SPAN>. 
+Instead, use the LoadDVB method.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

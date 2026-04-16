@@ -1,0 +1,113 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-73EC319D-9D7D-43FF-91B7-78CF36284028"><meta name="topic-subtype" content="activex"><meta name="description" content="To update a code example for use with VB, you must first reference the AutoCAD type library."><meta name="indexterm" content="Visual Basic"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-B94D1C10-4704-4D60-9CA4-F7BB4B974C85"><title>About Converting the VBA Code to VB (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Using Other Programming Languages (VBA/ActiveX)</div><a href="GUID-B94D1C10-4704-4D60-9CA4-F7BB4B974C85.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Using Other Programming Languages (VBA/ActiveX)</div><a href="GUID-B94D1C10-4704-4D60-9CA4-F7BB4B974C85.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Prompting for User Input (VBA/ActiveX)</div><a href="GUID-2F1938FE-DE63-456B-9C29-612DA4539EB0.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_2.htm">ActiveX Automation Basics</a>&nbsp;&gt;&nbsp;<a href="GUID-B94D1C10-4704-4D60-9CA4-F7BB4B974C85.htm">About Using Other Programming Languages (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-09F52888-1AE0-4735-829D-D46F69DFC129"></a></span><h1>About Converting the VBA Code to VB (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-73EC319D-9D7D-43FF-91B7-78CF36284028"></a></span><p class="blurb"> To update a code example for use with VB, you must first reference the AutoCAD type library. 
+  </p><!--Body--><p><span style="display:none"><a name="GUID-8DDB7213-F19B-4150-9DAA-5613E5786A24"></a></span> To do this in VB, select the References option from the Project menu to launch the References dialog box. From the References dialog box, choose the type library for AutoCAD, and then click OK. 
+	 </p><p><span style="display:none"><a name="GUID-EC7EDA22-117C-4A18-89F1-1CAE4D18C4FA"></a></span>Next, in the code example, replace all references to 
+		<span class="code">ThisDrawing</span> with a user-specified variable referencing the active document. To do this, define a variable for the AutoCAD application (<span class="code">acadApp</span>) and for the current document (<span class="code">acadDoc</span>). Then, set the application variable to the current AutoCAD application. 
+	 </p><p><span style="display:none"><a name="GUID-A3D29318-2D9E-491C-BE9C-73249062B2B8"></a></span>If AutoCAD is running, the VB 
+		<span class="code">GetObject</span> function retrieves the AutoCAD Application object when you specify the AutoCAD version number. If AutoCAD is not running, an error occurs that (in this example) is trapped, then cleared. The 
+		<span class="code">CreateObject</span> function then attempts to create an AutoCAD Application object. If it succeeds, AutoCAD is started; if it fails, a message box displays a description of the error. 
+	 </p><p><span style="display:none"><a name="GUID-E0BA5220-4134-40E2-9C8A-B449C3B6361B"></a></span>When running multiple sessions of AutoCAD, the 
+		<span class="code">GetObject</span> function will return the first instance of AutoCAD in the Windows Running Object Table. See the Microsoft VBA documentation on the Running Object Table (ROT) and the 
+		<span class="code">GetObject</span> function for more information on verifying the session returned by 
+		<span class="code">GetObject</span>. 
+	 </p><p><span style="display:none"><a name="GUID-11C8873C-C6DE-4804-B8A8-347BA676A1CC"></a></span>You must set the AutoCAD application's 
+		<span class="code">Visible</span> property to TRUE in order to display the AutoCAD drawing window. 
+	 </p><p><span style="display:none"><a name="GUID-D7279C7B-94FA-4E40-9BF5-CCC8BDB82976"></a></span>If 
+		<span class="code">GetObject</span> creates a new instance of AutoCAD (that is, AutoCAD was not already running when you issued 
+		<span class="code">GetObject</span>), failure to set 
+		<span class="code">Visible</span> to TRUE results in an invisible AutoCAD application; AutoCAD will not even appear on the Windows taskbar. 
+	 </p><div><span style="display:none"><a name="GUID-0BDD67A5-BCB9-406B-8D9B-A20F99FD2472"></a></span><div class="note-note"><span class="label">Note</span>Use version-dependent ProgIDs. If a 
+		<span class="code">CreateObject</span> or 
+		<span class="code">GetObject</span> function uses a version-independent ProgID, change the function to use a version-dependent ProgID. For example, if you are using 
+		<span class="code">CreateObject</span>, you change 
+		<span class="code">CreateObject("AutoCAD.Application")</span> to 
+		<span class="code">CreateObject("<span class="charspan-msgph">AutoCAD.Application.24</span>")</span>. Additionally, if a 
+		<span class="code">GetInterfaceObject</span> method uses a version-independent ProgID, the method must be changed to use a version-dependent ProgID. 
+	 </div></div><div class="section"><span style="display:none"><a name="SECTION_354ACF6C792240328D2B9E44BD7204B3"></a></span> <h2><a name="TOC_ENTRY__d24e11618"></a><span style="display:none"><a name="GUID-052F4208-94BD-491F-B80E-7BDB48D48462"></a></span>Connect to AutoCAD from Visual Basic 6 and Later</h2> <p><span style="display:none"><a name="GUID-5562538B-31B2-4C5F-847D-BE9D0A7DF8C1"></a></span>The following code example uses the 
+		  <span class="code">Clear</span> and 
+		  <span class="code">Description</span> properties of 
+		  <span class="code">Err</span>. If your coding environment does not support these properties, you will need to modify the example appropriately: 
+		</p> <div class="codeBlock"><pre>Sub Ch2_ConnectToAcad()
+    Dim acadApp As AcadApplication
+    On Error Resume Next
+
+    Set acadApp = GetObject(, "<span class="charspan-msgph">AutoCAD.Application.24</span>")
+    If Err Then
+        Err.Clear
+        Set acadApp = CreateObject("<span class="charspan-msgph">AutoCAD.Application.24</span>")
+        If Err Then
+ MsgBox Err.Description
+ Exit Sub
+        End If
+    End If
+    MsgBox "Now running " + acadApp.Name + _
+           " version " + acadApp.Version
+End Sub</pre></div> <p><span style="display:none"><a name="GUID-A3D49913-FDFF-43B7-B426-69503F03A844"></a></span>Next, set the document variable to the 
+		  <span class="code">Document</span> object in the AutoCAD application. The 
+		  <span class="code">Document</span> object is returned by the 
+		  <span class="code">ActiveDocument</span> property of the 
+		  <span class="code">Application</span> object. 
+		</p> <div class="codeBlock"><pre>Dim acadDoc as AcadDocument
+Set acadDoc = acadApp.ActiveDocument</pre></div> <p><span style="display:none"><a name="GUID-15A73CA0-CD28-49A9-911F-57D1BC78CA04"></a></span>From this point on, use the 
+		  <span class="code">acadDoc</span> variable to reference the current AutoCAD drawing. 
+		</p> </div><div class="section"><span style="display:none"><a name="SECTION_0EAADC562F4743FC80F5CBCD40A1772D"></a></span> <h2><a name="TOC_ENTRY__d24e11669"></a><span style="display:none"><a name="GUID-31C7C39B-966B-42B1-A97C-48835441A20E"></a></span>VBA versus VB Comparison Code Example</h2> <p><span style="display:none"><a name="GUID-3FE429D6-4FBB-4FCA-9F65-7BE01DC850BF"></a></span>The following code example demonstrates creating a line in both VBA and VB. 
+		</p> <p><span style="display:none"><a name="GUID-4155B69E-7F05-44E5-8D7A-64678B0F8CEF"></a></span>Creating a line using VBA: 
+		</p> <div class="codeBlock"><pre>Sub Ch2_AddLineVBA()
+    ' This example adds a line
+    ' in model space
+    Dim lineObj As AcadLine
+    Dim startPoint(0 To 2) As Double
+    Dim endPoint(0 To 2) As Double
+
+    ' Define the start and end
+    ' points for the line
+    startPoint(0) = 1
+    startPoint(1) = 1
+    startPoint(2) = 0
+    endPoint(0) = 5
+    endPoint(1) = 5
+    endPoint(2) = 0
+
+    ' Create the line in model space
+    Set lineObj = ThisDrawing. _
+        ModelSpace.AddLine _
+        (startPoint, endPoint)
+
+    ' Zoom in on the newly created line
+    ZoomAll
+End Sub</pre></div> <p><span style="display:none"><a name="GUID-746C4DC0-86FA-4F09-A57E-BBB595D5EA81"></a></span>Creating a line using VB: 
+		</p> <div class="codeBlock"><pre>Sub Ch2_AddLineVB()
+    On Error Resume Next
+
+    ' Connect to the AutoCAD application
+    Dim acadApp As AcadApplication
+    Set acadApp = GetObject(, "<span class="charspan-msgph">AutoCAD.Application.24</span>")
+    If Err Then
+        Err.Clear
+        Set acadApp = CreateObject("<span class="charspan-msgph">AutoCAD.Application.24</span>")
+        If Err Then
+            MsgBox Err.Description
+            Exit Sub
+        End If
+    End If
+
+    ' Connect to the AutoCAD drawing
+    Dim acadDoc As AcadDocument
+    Set acadDoc = acadApp.ActiveDocument
+
+    ' Establish the endpoints of the line
+    Dim lineObj As AcadLine
+    Dim startPoint(0 To 2) As Double
+    Dim endPoint(0 To 2) As Double
+    startPoint(0) = 1
+    startPoint(1) = 1
+    startPoint(2) = 0
+    endPoint(0) = 5
+    endPoint(1) = 5
+    endPoint(2) = 0
+    ' Create a Line object in model space
+    Set lineObj = acadDoc.ModelSpace.AddLine(startPoint, endPoint)
+    ZoomAll
+    acadApp.visible = True
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-D1E1CE43-F42B-4D8E-9B42-FDA9D8CCB6B9.htm" title=" AutoCAD automation objects can be accessed from projects created with Microsoft Visual Studio. &#xA;  ">About Using ActiveX Automation with the Microsoft .NET Framework (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-B94D1C10-4704-4D60-9CA4-F7BB4B974C85.htm" title=" Most of the ActiveX related topics were written for use with the VBA programming language. To use the code in other programming environments, you must update it for the chosen environment. &#xA;  ">About Using Other Programming Languages (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-20482A17-F2D1-4AFB-80F5-B7C61779F8F1.htm" title=" Comparison between the AutoLISP functions, and the similar ActiveX and VBA functions and operators. ">AutoLISP and ActiveX/VBA Comparison Reference (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

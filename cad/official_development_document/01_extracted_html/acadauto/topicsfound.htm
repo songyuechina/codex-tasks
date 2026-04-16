@@ -1,0 +1,82 @@
+<html>
+<!--
+
+WHAT IS THIS FILE?
+
+This file is needed to fix an apparent bug in the HTML Help index mechanism.
+When you have at least one "see also" entry under a parent entry and you select
+the parent entry, you get the "Topics Found" dialog listing all of the child
+entries (this is the way our index is set up). One of the entries listed will be
+the *first* HTML file listed in the FILES section of the HHP. This was causing
+a topic called "ANSWERWORKS" in some cases to appear in the list, when that item
+was selected you got a script error (since that file was not intended to be viewed
+outside of a frameset). We decided that having a file with the title "Zze Secret File"
+would look less like a bug than some random file. Also the title starting with two Zs
+forces it to be at the bottom of the list, making it less likely that it will be seen.
+
+Perhaps this is due to something strange that we're doing, but based on my testing,
+it looked like a genuine bug. --Scott
+
+-->
+<head>
+<title>zz [Blank Topic]</title>
+<link rel="StyleSheet" href="ac.acad_ak.css" type="text/css">
+</head>
+<body bgcolor="#ffffff">
+
+<div class="HeadingDiv">
+<table width=103% cellpadding=0 cellspacing=0 border=0 class="HeadingTable">
+<tr valign=top>
+ <td height=29 class=BookTitleCell>
+  <div class=BookTitle>&nbsp;</div>
+ </td>
+ <td align=right>
+  <table class=HeadNavTable cellpadding=0 cellspacing=0 border=0>
+   <tr >
+    <td>&nbsp;</td>
+   </tr>
+  </table> </td>
+</tr>
+<tr>
+ <td colspan=2>
+  <div class="TopHead" >Blank Topic</div>
+ </td>
+</tr>
+<tr valign=bottom>
+ <td colspan=2 height=33>
+
+ </td>
+</tr>
+</table>
+</div>
+
+<p>This topic intentionally left blank.
+
+
+<pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+
+
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;</td>
+</tr></table>&nbsp;
+
+
+
+</body>
+</html>

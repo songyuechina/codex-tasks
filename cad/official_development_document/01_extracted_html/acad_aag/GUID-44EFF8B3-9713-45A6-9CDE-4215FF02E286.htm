@@ -1,0 +1,325 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-44EFF8B3-9713-45A6-9CDE-4215FF02E286"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2006 and AutoCAD 2006-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2006 API History Reference (ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2007 API History Reference (ActiveX)</div><a href="GUID-CC6BE90C-5ABE-4DE5-9390-B36FDCFF798B.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">AutoCAD 2005 API History Reference (ActiveX)</div><a href="GUID-4570302D-8416-402B-902C-5948068B4B7E.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-A60AE6C5-5DE4-4BB2-8499-E379ADEB889C"></a></span><h1>AutoCAD 2006 API History Reference (ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-44EFF8B3-9713-45A6-9CDE-4215FF02E286"></a></span><p class="blurb">Additions and changes made to the ActiveX API in AutoCAD 2006 and AutoCAD 2006-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_9D16A0F548C241F7A6964B4D3A3CF4C3"></a></span> <h2><a name="TOC_ENTRY__d24e6510"></a><span style="display:none"><a name="GUID-E54D5821-21B3-4A43-B91F-222B613ED6AF"></a></span>Enums</h2> <div class="codeBlock"><pre>AcEntityName (Changed)
+        acDimArcLength = 44 (New)
+        acDimRadialLarge = 45 (New)
+AcDimArcLengthSymbol (New)
+        acSymInFront = 0
+        acSymAbove = 1
+        acSymNone = 2
+AcViewportScale (Changed)
+        acVp1_1 = 2 (Removed)
+        acVp1_2 = 3 (Removed)
+        acVp1_4 = 4 (Removed)
+        acVp1_8 = 5 (Removed)
+        acVp1_10 = 6 (Removed)
+        acVp1_16 = 7 (Removed)
+        acVp1_20 = 8 (Removed)
+        acVp1_30 = 9 (Removed)
+        acVp1_40 = 10 (Removed)
+        acVp1_50 = 11 (Removed)
+        acVp1_100 = 12 (Removed)
+        acVp2_1 = 13 (Removed)
+        acVp4_1 = 14 (Removed)
+        acVp8_1 = 15 (Removed)
+        acVp10_1 = 16 (Removed)
+        acVp100_1 = 17 (Removed)
+        acVp1_128in_1ft = 18 (Removed)
+        acVp1_64in_1ft = 19 (Removed)
+        acVp1_32in_1ft = 20 (Removed)
+        acVp1_16in_1ft = 21 (Removed)
+        acVp3_32in_1ft = 22 (Removed)
+        acVp1_8in_1ft = 23 (Removed)
+        acVp3_16in_1ft = 24 (Removed)
+        acVp1_4in_1ft = 25 (Removed)
+        acVp3_8in_1ft = 26 (Removed)
+        acVp1_2in_1ft = 27 (Removed)
+        acVp3_4in_1ft = 28 (Removed)
+        acVp1in_1ft = 29 (Removed)
+        acVp1and1_2in_1ft = 30 (Removed)
+        acVp3in_1ft = 31 (Removed)
+        acVp6in_1ft = 32 (Removed)
+        acVp1ft_1ft = 33 (Removed)
+        acVp1 = 2 (New)
+        acVp2 = 3 (New)
+        acVp3 = 4 (New)
+        acVp4 = 5 (New)
+        acVp5 = 6 (New)
+        acVp6 = 7 (New)
+        acVp7 = 8 (New)
+        acVp8 = 9 (New)
+        acVp9 = 10 (New)
+        acVp10 = 11 (New)
+        acVp11 = 12 (New)
+        acVp12 = 13 (New)
+        acVp13 = 14 (New)
+        acVp14 = 15 (New)
+        acVp15 = 16 (New)
+        acVp16 = 17 (New)
+        acVp17 = 18 (New)
+        acVp18 = 19 (New)
+        acVp19 = 20 (New)
+        acVp20 = 21 (New)
+        acVp21 = 22 (New)
+        acVp22 = 23 (New)
+        acVp23 = 24 (New)
+        acVp24 = 25 (New)
+        acVp25 = 26 (New)
+        acVp26 = 27 (New)
+        acVp27 = 28 (New)
+        acVp28 = 29 (New)
+        acVp29 = 30 (New)
+        acVp30 = 31 (New)
+        acVp31 = 32 (New)
+        acVp32 = 33 (New)
+        acVp33 = 34 (New)
+        acVp34 = 35 (New)
+        acVp35 = 36 (New)
+        acVp36 = 37 (New)
+        acVp37 = 38 (New)
+        acVp38 = 39 (New)
+        acVp39 = 40 (New)
+        acVp40 = 41 (New)
+        acVp41 = 42 (New)
+        acVp42 = 43 (New)
+        acVp43 = 44 (New)
+        acVp44 = 45 (New)
+        acVp45 = 46 (New)
+        acVp46 = 47 (New)
+        acVp47 = 48 (New)
+        acVp48 = 49 (New)
+        acVp49 = 50 (New)
+        acVp50 = 51 (New)
+        acVp51 = 52 (New)
+        acVp52 = 53 (New)
+        acVp53 = 54 (New)
+        acVp54 = 55 (New)
+        acVp55 = 56 (New)
+        acVp56 = 57 (New)
+        acVp57 = 58 (New)
+        acVp58 = 59 (New)
+        acVp59 = 60 (New)
+        acVp60 = 61 (New)
+        acVp61 = 62 (New)
+        acVp62 = 63 (New)
+        acVp63 = 64 (New)
+        acVp64 = 65 (New)
+        acVp65 = 66 (New)
+        acVp66 = 67 (New)
+        acVp67 = 68 (New)
+        acVp68 = 69 (New)
+        acVp69 = 70 (New)
+        acVp70 = 71 (New)
+        acVp71 = 72 (New)
+        acVp72 = 73 (New)
+        acVp73 = 74 (New)
+        acVp74 = 75 (New)
+        acVp75 = 76 (New)
+        acVp76 = 77 (New)
+        acVp77 = 78 (New)
+        acVp78 = 79 (New)
+        acVp79 = 80 (New)
+        acVp80 = 81 (New)
+        acVp81 = 82 (New)
+        acVp82 = 83 (New)
+        acVp83 = 84 (New)
+        acVp84 = 85 (New)
+        acVp85 = 86 (New)
+        acVp86 = 87 (New)
+        acVp87 = 88 (New)
+        acVp88 = 89 (New)
+        acVp89 = 90 (New)
+        acVp90 = 91 (New)
+        acVp91 = 92 (New)
+        acVp92 = 93 (New)
+        acVp93 = 94 (New)
+        acVp94 = 95 (New)
+        acVp95 = 96 (New)
+        acVp96 = 97 (New)
+        acVp97 = 98 (New)
+        acVp98 = 99 (New)
+        acVp99 = 100 (New)
+        acVp100 = 101 (New)
+AcMLineJustification (New)
+        acTop = 0
+        acZero = 1
+        acBottom = 2
+AcBlockScaling (New)
+        acAny = 0
+        acUniform = 1
+AcDynamicBlockReferencePropertyUnitsType (New)
+        acNoUnits = 0
+        acAngular = 1
+        acDistance = 2
+        acArea = 3</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_F3A5E3DF89484920B7D3051CA61E41E3"></a></span> <h2><a name="TOC_ENTRY__d24e6518"></a><span style="display:none"><a name="GUID-082E3187-3ADC-4EDB-9AC8-A8428DAD1ABD"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadDynamicBlockReferenceProperty (New)
+        PropertyName - Property
+        ReadOnly - Property
+        Show - Property
+        Description - Property
+        AllowedValues - Property
+        Value - Property
+        UnitsType - Property
+IAcadAttribute2 (New)
+        LockPosition - Property
+IAcadAttributeReference2 (New)
+        LockPosition - Property
+IAcadBlockReference2 (New)
+        EffectiveName - Property
+        IsDynamicBlock - Property
+        GetDynamicBlockProperties - Method
+        ResetBlock - Method
+        ConvertToAnonymousBlock - Method
+        ConvertToStaticBlock - Method
+        XEffectiveScaleFactor - Property
+        YEffectiveScaleFactor - Property
+        ZEffectiveScaleFactor - Property
+        InsUnits - Property
+        InsUnitsFactor - Property
+IAcadHatch2 (New)
+        Area - Property
+        Origin - Property
+IAcadMInsertBlock2 (New)
+        EffectiveName - Property
+        IsDynamicBlock - Property
+        GetDynamicBlockProperties - Method
+        ResetBlock - Method
+        ConvertToAnonymousBlock - Method
+        ConvertToStaticBlock - Method
+        XEffectiveScaleFactor - Property
+        YEffectiveScaleFactor - Property
+        ZEffectiveScaleFactor - Property
+        InsUnits - Property
+        InsUnitsFactor - Property
+IAcadMLine2 (New)
+        Justification - Property
+        MLineScale - Property
+IAcadExternalReference2 (New)
+        XEffectiveScaleFactor - Property
+        YEffectiveScaleFactor - Property
+        ZEffectiveScaleFactor - Property
+        InsUnits - Property
+        InsUnitsFactor - Property
+IAcadTable2 (New)
+        RegenerateTableSuppressed - Property
+IAcadDimArcLength (New)
+        AltUnits - Property
+        AltUnitsPrecision - Property
+        AltUnitsScale - Property
+        AltRoundDistance - Property
+        AltTolerancePrecision - Property
+        AltUnitsFormat - Property
+        AltTextPrefix - Property
+        AltTextSuffix - Property
+        DimensionLineColor - Property
+        ExtensionLineColor - Property
+        PrimaryUnitsPrecision - Property
+        DimensionLineExtend - Property
+        ExtensionLineExtend - Property
+        Fit - Property
+        FractionFormat - Property
+        HorizontalTextPosition - Property
+        LinearScaleFactor - Property
+        UnitsFormat - Property
+        ExtensionLineWeight - Property
+        RoundDistance - Property
+        DimLine1Suppress - Property
+        DimLine2Suppress - Property
+        ExtLine1Suppress - Property
+        ExtLine2Suppress - Property
+        DimLineInside - Property
+        TextInsideAlign - Property
+        TextInside - Property
+        ForceLineInside - Property
+        TextOutsideAlign - Property
+        ExtensionLineOffset - Property
+        AltSuppressLeadingZeros - Property
+        AltSuppressTrailingZeros - Property
+        AltSuppressZeroFeet - Property
+        AltSuppressZeroInches - Property
+        AltToleranceSuppressLeadingZeros - Property
+        AltToleranceSuppressTrailingZeros - Property
+        AltToleranceSuppressZeroFeet - Property
+        AltToleranceSuppressZeroInches - Property
+        SuppressZeroFeet - Property
+        SuppressZeroInches - Property
+        ToleranceSuppressZeroFeet - Property
+        ToleranceSuppressZeroInches - Property
+        DimensionLineWeight - Property
+        ArrowheadSize - Property
+        Arrowhead1Type - Property
+        Arrowhead2Type - Property
+        Measurement - Property
+        Arrowhead1Block - Property
+        Arrowhead2Block - Property
+        ArcPoint - Property
+        ExtLine1Point - Property
+        ExtLine2Point - Property
+        CenterPoint - Property
+        Leader1Point - Property
+        Leader2Point - Property
+        IsPartial - Property
+        ArcStartParam - Property
+        ArcEndParam - Property
+        HasLeader - Property
+        SymbolPosition - Property
+IAcadDimRadialLarge (New)
+        AltUnits - Property
+        AltUnitsPrecision - Property
+        AltUnitsScale - Property
+        AltRoundDistance - Property
+        AltTolerancePrecision - Property
+        AltUnitsFormat - Property
+        AltTextPrefix - Property
+        AltTextSuffix - Property
+        CenterType - Property
+        CenterMarkSize - Property
+        DimensionLineColor - Property
+        PrimaryUnitsPrecision - Property
+        FractionFormat - Property
+        Fit - Property
+        LinearScaleFactor - Property
+        UnitsFormat - Property
+        RoundDistance - Property
+        DimLineSuppress - Property
+        TextInsideAlign - Property
+        TextInside - Property
+        ForceLineInside - Property
+        TextOutsideAlign - Property
+        AltSuppressLeadingZeros - Property
+        AltSuppressTrailingZeros - Property
+        AltSuppressZeroFeet - Property
+        AltSuppressZeroInches - Property
+        AltToleranceSuppressLeadingZeros - Property
+        AltToleranceSuppressTrailingZeros - Property
+        AltToleranceSuppressZeroFeet - Property
+        AltToleranceSuppressZeroInches - Property
+        SuppressZeroFeet - Property
+        SuppressZeroInches - Property
+        ToleranceSuppressZeroFeet - Property
+        ToleranceSuppressZeroInches - Property
+        DimensionLineWeight - Property
+        ArrowheadSize - Property
+        ArrowheadType - Property
+        Measurement - Property
+        ArrowheadBlock - Property
+        OverrideCenter - Property
+        JogLocation - Property
+        JogAngle - Property
+        Center - Property
+        ChordPoint - Property
+IAcadBlock3 (New)
+        Comments - Property
+        Units - Property
+        Explodable - Property
+        BlockScaling - Property
+        IsDynamicBlock - Property
+        AddDimArc - Method
+        AddDimRadialLarge - Method
+IAcadModelSpace3 (New)
+        AddDimArc - Method
+        AddDimRadialLarge - Method
+IAcadPaperSpace3 (New)
+        AddDimArc - Method
+        AddDimRadialLarge - Method
+IAcadUtility2 (New)
+        SendModelessOperationStart - Property</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

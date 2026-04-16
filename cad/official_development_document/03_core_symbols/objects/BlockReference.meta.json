@@ -1,0 +1,44 @@
+{
+  "symbol": "BlockReference",
+  "kind": "object",
+  "source_terms": [
+    "blockreference"
+  ],
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_block_attributes",
+    "update_titleblock_fields"
+  ],
+  "pywin32_signature": "if ent.ObjectName == 'AcDbBlockReference': ...",
+  "risk_tags": [
+    "动态块名/匿名块",
+    "属性块与无属性块混在一起"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/objects/BlockReference.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/idh_dynamicblockreferenceproperty_object.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:idh_dynamicblockreferenceproperty_object"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_dynamicblockreferenceproperty_object.htm"
+  ]
+}

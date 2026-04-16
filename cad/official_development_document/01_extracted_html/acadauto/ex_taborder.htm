@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>TabOrder Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">TabOrder Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_TabOrder()
+    ' This example creates two new Layouts, sets the TabOrder of the Layouts to be
+    ' in alphabetic order, and displays a list of Layouts in the order they appear
+    ' in the tabs.
+    
+    Dim Layout1 As ACADLayout, Layout2 As ACADLayout
+    Dim SortLayoutRight As ACADLayout, SortLayoutLeft As ACADLayout
+    Dim SortIt As New Collection
+    Dim TabCount As Long, SortCount As Long, TabOrder As Long
+    Dim TabName As String, SortText As String, msg As String
+    Dim tempLayout As ACADLayout
+    Dim AddedTab As Boolean
+        
+    ' Create new Layouts
+    On Error Resume Next
+    Set Layout1 = ThisDrawing.Layouts.Add("Z VIEW")
+    Set Layout2 = ThisDrawing.Layouts.Add("A VIEW")
+    On Error GoTo 0
+    
+    ' Alphabetize internally
+    For TabCount = 0 To (ThisDrawing.Layouts.count - 1)
+        AddedTab = False
+        
+        TabName = ThisDrawing.Layouts(TabCount).name
+        
+        If TabName = "Model" Then GoTo SKIP                 ' Skip modelspace
+        
+        If SortIt.count = 0 Then
+            SortIt.Add TabName                              ' Add to beginning of list
+        Else
+            For SortCount = 1 To SortIt.count               ' Add to list by string
+                SortText = SortIt(SortCount)
+                If StrComp(TabName, SortText, vbTextCompare) = -1 Then
+                    If SortCount = 1 Then
+                        SortIt.Add TabName                  ' Add as first item
+                    Else
+                        SortIt.Add TabName, , SortCount     ' Add as previous item
+                    End If
+                    AddedTab = True
+                    Exit For
+                End If
+            Next
+            
+            If Not (AddedTab) Then SortIt.Add TabName, , , SortIt.count  ' Add if we haven't yet
+        End If
+<PRE CLASS="Code">SKIP:
+    Next
+    
+    ' Write new ACAD tab order
+    For SortCount = 1 To SortIt.count
+        Set tempLayout = ThisDrawing.Layouts(SortIt(SortCount))
+        tempLayout.TabOrder = SortCount
+    Next
+    
+    '-------------------------------
+    ' Read and display New Tab Order
+    '-------------------------------
+    msg = "The tab order is now set to: " & vbCrLf & vbCrLf
+    For TabCount = 0 To (ThisDrawing.Layouts.count - 1)
+        TabName = ThisDrawing.Layouts(TabCount).name
+        If TabName = "Model" Then GoTo SKIP2                ' Don't show modelspace
+        TabOrder = ThisDrawing.Layouts(TabCount).TabOrder
+        msg = msg & "(" & TabOrder & ")" & vbTab & TabName & vbCrLf
+<PRE CLASS="Code">SKIP2:
+    Next
+    
+    MsgBox msg, vbInformation
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

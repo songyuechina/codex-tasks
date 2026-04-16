@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-04-12",
+  "items": [
+    {
+      "symbol": "ConfigName",
+      "owner": "Layout",
+      "current_level": "core",
+      "usage_count": 2,
+      "fallback_count": 2,
+      "last_seen_task": "execute_layout_plot",
+      "blocker_level": "high",
+      "suggested_action": "promoted_to_core",
+      "state": "promoted",
+      "reason": "真实打印任务要求先锁定设备，再读取可用纸张；原低频信息已不足以支撑主链。"
+    },
+    {
+      "symbol": "CanonicalMediaName",
+      "owner": "Layout",
+      "current_level": "core",
+      "usage_count": 2,
+      "fallback_count": 2,
+      "last_seen_task": "execute_layout_plot",
+      "blocker_level": "high",
+      "suggested_action": "promoted_to_core",
+      "state": "promoted",
+      "reason": "与设备绑定的纸张介质名直接影响页面尺寸，已从低频索引晋升为主干。"
+    },
+    {
+      "symbol": "PlotType",
+      "owner": "Layout",
+      "current_level": "defer",
+      "usage_count": 1,
+      "fallback_count": 1,
+      "last_seen_task": "execute_layout_plot",
+      "blocker_level": "medium",
+      "suggested_action": "promote_to_core",
+      "state": "candidate",
+      "reason": "窗口打印必须切到 acWindow，但当前说明仍主要停留在低频索引。"
+    },
+    {
+      "symbol": "CenterPlot",
+      "owner": "Layout",
+      "current_level": "defer",
+      "usage_count": 1,
+      "fallback_count": 1,
+      "last_seen_task": "execute_layout_plot",
+      "blocker_level": "medium",
+      "suggested_action": "watch_and_enrich",
+      "state": "candidate",
+      "reason": "与 PlotRotation、窗口打印组合后会影响最终版面，应继续观察。"
+    }
+  ]
+}

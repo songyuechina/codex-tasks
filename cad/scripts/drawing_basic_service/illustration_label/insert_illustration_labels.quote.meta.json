@@ -1,0 +1,18 @@
+{
+  "script": "insert_illustration_labels.py",
+  "role": "illustration-label-cli-entry",
+  "summary": "插图签第二阶段入口脚本，负责参数解析、日志级别设置、调用图框图签服务并输出 JSON 结果。",
+  "public_api": [
+    "build_parser",
+    "main"
+  ],
+  "key_dependencies": [
+    "illustration_frame_service.apply_illustration_labels",
+    "illustration_block_service.DEFAULT_BLOCK_NAMES",
+    "system.common_logger.set_debug_mode"
+  ],
+  "boundaries": [
+    "只负责 bootstrap、CLI 参数解析和顶层异常兜底",
+    "不承载 CAD 业务逻辑"
+  ]
+}

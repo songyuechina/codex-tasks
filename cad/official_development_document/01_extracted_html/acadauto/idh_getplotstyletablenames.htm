@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetPlotStyleTableNames method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetPlotStyleTableNames Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets all available plot style table names.</P>
+
+<P CLASS="h1-access"><A HREF="getplotstyletablenames_see_also.htm">See Also</A> | <A HREF="ex_getplotstyletablenames.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.GetPlotStyleTableNames()
+<P class="element">Object</p><p class=element-desc><A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A><BR>
+The objects this method applies to.
+<P class="element">RetVal</p><p class=element-desc>Variant (array of strings)<BR>
+The array of available plot style table names for the system.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">You should call 
+<A HREF="idh_refreshplotdeviceinfo.htm">RefreshPlotDeviceInfo</A> 
+before the first time you use this method. Once you have called RefreshPlotDeviceInfo, you don't need to call it again unless your plot device information changes during the session.
+<P CLASS="body">GetPlotStyleTableNames returns all available plot style tables found on the system, including both CTB and STB files. To filter the results for one type of plot style table, use the <A HREF='ms-its:acad180.chm::/pstylemode.htm'>PSTYLEMODE</A> system variable.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

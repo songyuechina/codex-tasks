@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ArrowheadType Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ArrowheadType Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ArrowHeadType()
+    ' This example creates a Leader object in model space with an associated Annotation
+    ' and then alters the visible appearance (shape) of its arrowhead
+    ' using the ArrowHeadType property
+
+    Dim leaderObj As AcadLeader, MTextObj As AcadMText
+    Dim points(0 To 8) As Double, insertionPoint(0 To 2) As Double, iTextWidth As Double
+    Dim leaderType As Integer
+    Dim annotationObject As Object
+    Dim textString As String
+    
+    ' Define the new MText object
+    textString = "Hello, World."
+    insertionPoint(0) = 5: insertionPoint(1) = 5: insertionPoint(2) = 0
+    iTextWidth = 2
+    
+    ' Create the MText object in model space
+    Set MTextObj = ThisDrawing.ModelSpace.AddMText(insertionPoint, iTextWidth, textString)
+    
+    ' Data for Leader
+    points(0) = 0: points(1) = 0: points(2) = 0
+    points(3) = 4: points(4) = 4: points(5) = 0
+    points(6) = 4: points(7) = 5: points(8) = 0
+    leaderType = acLineWithArrow
+       
+    ' Create the Leader object in model space and Associate new MText object
+    ' with new Leader by making the MText object the annotation for the Leader
+    Set annotationObject = MTextObj
+    Set leaderObj = ThisDrawing.ModelSpace.AddLeader(points, annotationObject, leaderType)
+    ThisDrawing.Application.ZoomAll
+
+    ' Read and display current arrowhead type
+    MsgBox "The arrowhead type for this object is: " & leaderObj.ArrowheadType
+
+    ' Alter the arrowhead type property for this object
+    leaderObj.ArrowheadType = acArrowBoxBlank
+    ThisDrawing.Application.ZoomAll
+    
+    ' Read and display current arrowhead type
+    MsgBox "The arrowhead type for this object is now set to: " & leaderObj.ArrowheadType
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

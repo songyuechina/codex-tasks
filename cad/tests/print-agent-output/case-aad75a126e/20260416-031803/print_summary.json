@@ -1,0 +1,59 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803",
+  "work_dwg": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\work\\work-case-aad75a126e.dwg",
+  "process_token": "case-aad75a126e",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\work\\work-case-aad75a126e.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\pdf",
+    "source_stem": "plot-case-aad75a126e",
+    "mode": "purified_adaptive",
+    "total_jobs": 1,
+    "landscape_count": 1,
+    "portrait_count": 0,
+    "jobs_by_space": {
+      "平面分割图": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\work\\work-case-aad75a126e.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "layout_viewport:平面分割图",
+          "handle": "23D9",
+          "lower_left": [
+            -3718.6139460308477,
+            -2513.333759865258
+          ],
+          "upper_right": [
+            7059.99185548909,
+            2230.667153324218
+          ],
+          "short_side": 4744.000913189476,
+          "long_side": 10778.605801519938,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:25",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 0,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\pdf\\平面分割图\\plot-case-aad75a126e-平面分割图-01.pdf"
+        }
+      ]
+    }
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\case-aad75a126e\\20260416-031803\\scope_analysis.json",
+  "scope_filter": null,
+  "started_at": "2026-04-16 03:17:50",
+  "execution": null,
+  "verification": null,
+  "finished_at": "2026-04-16 03:18:23",
+  "elapsed_seconds": 33.526,
+  "stage_durations": {
+    "runtime_prepare_seconds": 13.546,
+    "prepare_work_dwg_seconds": 7.509,
+    "scope_analysis_seconds": 13.916,
+    "build_plan_seconds": 6.049
+  }
+}

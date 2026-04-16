@@ -1,0 +1,52 @@
+{
+  "symbol": "Layers",
+  "kind": "object",
+  "source_terms": [
+    "layers"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "manage_layers"
+  ],
+  "pywin32_signature": "C.doc.Layers",
+  "risk_tags": [
+    "当前活动图层被冻结或锁定"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/Scheme_drawing/draw_building_outline.py"
+  ],
+  "path_md": "03_core_symbols/objects/Layers.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-D86DF08B-BBD3-4E0F-AB75-13B2C4AD972C.htm",
+    "01_extracted_html/acad_aag/GUID-72E0EC31-B232-4688-BFFF-CA10F42E1034.htm",
+    "01_extracted_html/acad_aag/GUID-5B2CCA06-1A61-46F6-BABE-6B8BEA1DF20D.htm",
+    "01_extracted_html/acad_aag/GUID-463948A3-EE1E-4448-B3A6-B0B67B8902F1.htm",
+    "01_extracted_html/acad_aag/GUID-A1815C41-7753-45F5-B8BC-31F67F79F138.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/Scheme_drawing/draw_building_outline.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:GUID_D86DF08B_BBD3_4E0F_AB75_13B2C4AD972C",
+    "acad_aag:GUID_72E0EC31_B232_4688_BFFF_CA10F42E1034",
+    "acad_aag:GUID_5B2CCA06_1A61_46F6_BABE_6B8BEA1DF20D",
+    "acad_aag:GUID_463948A3_EE1E_4448_B3A6_B0B67B8902F1",
+    "acad_aag:GUID_A1815C41_7753_45F5_B8BC_31F67F79F138"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-D86DF08B-BBD3-4E0F-AB75-13B2C4AD972C.htm",
+    "01_extracted_html/acad_aag/GUID-72E0EC31-B232-4688-BFFF-CA10F42E1034.htm",
+    "01_extracted_html/acad_aag/GUID-5B2CCA06-1A61-46F6-BABE-6B8BEA1DF20D.htm",
+    "01_extracted_html/acad_aag/GUID-463948A3-EE1E-4448-B3A6-B0B67B8902F1.htm",
+    "01_extracted_html/acad_aag/GUID-A1815C41-7753-45F5-B8BC-31F67F79F138.htm"
+  ]
+}

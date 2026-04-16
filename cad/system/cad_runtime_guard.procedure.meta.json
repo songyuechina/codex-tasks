@@ -1,0 +1,22 @@
+{
+  "script": "cad_runtime_guard.py",
+  "workflow": [
+    "启动时定位 cad 根目录并配置日志输出",
+    "检查锁文件，若已有 guard 活跃则直接退出",
+    "monitor_loop 周期性调用 inspect_cad_runtime() 获取被动快照",
+    "根据状态和 streak 生成 state JSON",
+    "状态发生关键变化时追加 runtime_events.jsonl",
+    "持续 heartbeat，直到收到中断并清理锁文件"
+  ],
+  "failure_paths": [
+    "无法获取活动 CAD 时写 no_active_cad 状态，而不是主动拉起 CAD",
+    "状态文件或事件文件写入失败时不应破坏单实例治理",
+    "若锁文件残留但目标进程不存在，应自动清理旧锁"
+  ],
+  "verification_signals": [
+    "cad_runtime_guard.json 持续刷新 last_seen",
+    "状态切换时 runtime_events.jsonl 有新增事件",
+    "--once 模式能直接输出一轮 JSON"
+  ]
+}
+

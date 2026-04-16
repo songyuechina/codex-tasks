@@ -1,0 +1,52 @@
+{
+  "symbol": "Handle",
+  "kind": "property",
+  "source_terms": [
+    "handle"
+  ],
+  "owners": [
+    "Entity"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "traverse_objects_and_read_identity",
+    "build_print_plan_and_info"
+  ],
+  "pywin32_signature": "str(getattr(ent, 'Handle', ''))",
+  "risk_tags": [
+    "高频批量读取会慢"
+  ],
+  "project_paths": [
+    "cad/system/content_analysis_dwg_file.py",
+    "cad/scripts/drawing_basic_service/print/print_policy.py"
+  ],
+  "path_md": "03_core_symbols/properties/Handle.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-2FF2F1B5-FFAC-420A-A741-15D1FC1A571E.htm",
+    "01_extracted_html/acadauto/ex_handle.htm",
+    "01_extracted_html/acadauto/ex_handletoobject.htm",
+    "01_extracted_html/acadauto/idh_handle.htm",
+    "01_extracted_html/acadauto/idh_handletoobject.htm"
+  ],
+  "project_refs": [
+    "cad/system/content_analysis_dwg_file.py",
+    "cad/scripts/drawing_basic_service/print/print_policy.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_handle",
+    "acadauto:idh_handle",
+    "acad_aag:GUID_2FF2F1B5_FFAC_420A_A741_15D1FC1A571E",
+    "acadauto:ex_handletoobject",
+    "acadauto:idh_handletoobject"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_handle.htm",
+    "01_extracted_html/acadauto/idh_handle.htm",
+    "01_extracted_html/acad_aag/GUID-2FF2F1B5-FFAC-420A-A741-15D1FC1A571E.htm",
+    "01_extracted_html/acadauto/ex_handletoobject.htm",
+    "01_extracted_html/acadauto/idh_handletoobject.htm"
+  ]
+}

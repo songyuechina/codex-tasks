@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>OLEQuality Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">OLEQuality Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_OLEQuality()
+    ' This example reads and modifies the preference value that controls
+    ' the plot quality of OLE objects. When finished, this example resets
+    ' the preference value back to its original value.
+    
+    Dim ACADPref As AcadPreferencesOutput
+    Dim originalValue As Variant, DisplayValue As String
+    
+    ' Get the output preferences object
+    Set ACADPref = ThisDrawing.Application.preferences.Output
+    
+    ' Store original value
+    originalValue = ACADPref.OLEQuality
+    
+    ' Read and display the original value
+    GoSub GETVALUE
+    MsgBox "The OLEQuality preference is currently set to: " & DisplayValue
+
+    ' Modify the OLEQuality preference by changing it to High Quality Photographic
+    ACADPref.OLEQuality = acOQHighPhoto
+    GoSub GETVALUE
+    MsgBox "The OLEQuality preference has been set to: " & DisplayValue
+
+    ' Reset the preference back to its original value
+    '
+    ' * Note: Comment out this last section to leave the change to
+    '         this preference in effect
+    ACADPref.OLEQuality = originalValue
+    GoSub GETVALUE
+    MsgBox "The OLEQuality preference was reset back to: " & DisplayValue
+
+    Exit Sub
+    
+<PRE CLASS="Code">GETVALUE:
+    ' Convert the value of this setting to a meaningful text string
+    DisplayValue = ACADPref.OLEQuality
+    Select Case DisplayValue
+        Case acOQLineArt: DisplayValue = "Line Art"
+        Case acOQText: DisplayValue = "Text"
+        Case acOQGraphics: DisplayValue = "Graphics"
+        Case acOQPhoto: DisplayValue = "Photo"
+        Case acOQHighPhoto: DisplayValue = "High Photo"
+    End Select
+    
+    Return
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

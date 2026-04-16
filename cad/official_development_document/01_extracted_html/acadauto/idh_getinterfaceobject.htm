@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetInterfaceObject method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetInterfaceObject Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Accepts a program ID and attempts to load it into AutoCAD as an in-process server.</P>
+
+<P CLASS="h1-access"><A HREF="getinterfaceobject_see_also.htm">See Also</A> | <A HREF="ex_getinterfaceobject.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.GetInterfaceObject(ProgID)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A><BR>
+The object this method applies to.
+<P class="element">ProgID</p><p class=element-desc>String; input-only<BR>
+The program ID of the interface object to return.
+<P class="element">RetVal</p><p class=element-desc>Object<BR>
+The interface object matching the program ID.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Although the object will be loaded into AutoCAD, it will not show up in its type library. The object will have its own type library. This method lets you connect to an ActiveX Automation server.
+<P CLASS="body">If possible, use version-dependent ProgIDs. If a GetInterfaceObject method uses a version-independent ProgID, change the method to use a version-dependent ProgID. For example, you would change AutoCAD.AcadLayerStateManager to AutoCAD.AcadLayerStateManager.16. 
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

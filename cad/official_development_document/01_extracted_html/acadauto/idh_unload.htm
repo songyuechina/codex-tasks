@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>Unload method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Unload Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Unloads the menu group or external reference.</P>
+
+<P CLASS="h1-access"><A HREF="unload_see_also.htm">See Also</A> | <A HREF="ex_unload.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Unload
+<P class="element">Object</p><p class=element-desc><A HREF='idh_block_object.htm'>Block</A>, <A HREF='idh_menugroup_object.htm'>MenuGroup</A><BR>
+The object this method applies to.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>ExternalReference block:</I> When an ExternalReference object (xref) is unloaded from the drawing, the drawing opens faster and uses less memory. An unloaded xref is not displayed and the xref-dependent symbol table information does not appear in the drawing. However, all the information can be restored by reloading the xref using the Reload method.
+<P CLASS="body">To unload an external reference, you must unload the 
+block that defines the external reference. For example, the following 
+line of VBA code unloads an external reference that is stored in the 
+xrefInserted variable:
+<P CLASS="body"><SPAN CLASS="code-char">ThisDrawing.Blocks.Item(xrefInserted.name).Unload</SPAN>
+<P CLASS="body"><I>MenuGroup:</I> When a menu group is unloaded from the drawing, any references to the menus and toolbars within that group become invalid. Always delete or set to NULL any references to toolbars and menus that are in the menu group to be unloaded before you unload the menu group.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

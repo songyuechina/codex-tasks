@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>BeginCommand event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">BeginCommand Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered immediately after a command is issued, but before it completes.</P>
+
+<P CLASS="h1-access"><A HREF="begincommand_see_also.htm">See Also</A> | <A HREF="ex_begincommand.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.BeginCommand(CommandName)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A><BR>
+An object expression that evaluates to a valid container object.
+In this case, the only valid container is the application.
+<P class="element">CommandName</p><p class=element-desc>String<BR>
+The name of the command being issued.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The BeginCommand event is triggered as soon as 
+AutoCAD receives a request to issue a command. This request can 
+come either interactively by a user through the AutoCAD user 
+interface or programmatically. The BeginCommand event is followed 
+by the <A HREF="idh_endcommand.htm">EndCommand</A> event after AutoCAD completes processing 
+the command. If the user cancels out of the command, the 
+EndCommand event will not be triggered.
+<P CLASS="body">The BeginCommand event will be fired for any basic 
+AutoCAD command, or any command registered on the AutoCAD command 
+stack via an ObjectARX application, or the Visual LISP <span class="Courier">vlax-add-cmd</span> function.
+<P CLASS="body">This event will not be fired for LISP functions 
+defined as external subroutines via the LISP 
+<span class="Courier">vl-acad-defun</span> function.
+These functions are not exposed to the command stack, 
+even though you execute them from the AutoCAD command line. 
+Instead, these functions will trigger the 
+<A HREF="idh_beginlisp.htm">BeginLISP</A> and <A HREF="idh_endlisp.htm">EndLISP</A> 
+events. If you need LISP commands to be recognized when they 
+execute you will need to use the Visual LISP vlax-add-cmd
+function to register the command correctly to the AutoCAD command stack.
+<P CLASS="body">If you undefine an AutoCAD command and then 
+redefine it via the LISP vl-acad-defun function, the BeginCommand 
+event may not be triggered until an actual AutoCAD 
+command is called (command "_.LINE" ...) for instance.
+<P CLASS="body">AutoCAD commands are stored in groups in the 
+command stack. One instance of the command stack is created per 
+AutoCAD session. This stack consists of the native AutoCAD 
+commands, as well as any custom commands you add to it.
+<P CLASS="body">No events will be fired while a modal dialog is 
+being displayed.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

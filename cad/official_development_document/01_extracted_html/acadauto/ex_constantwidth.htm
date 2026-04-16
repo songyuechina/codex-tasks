@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ConstantWidth Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ConstantWidth Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ConstantWidth()
+     ' This example creates a lightweight polyline in model space and
+     ' uses the ConstantWidth property to determine if the polyline comprises
+     ' equal width segments.  If the segments are not equal,
+     ' use the ConstantWidth property to set all the segments to the same
+     ' width.
+    
+    Dim plineObj As AcadLWPolyline
+    Dim points(0 To 9) As Double
+    Dim msg As String, CWidth As Double
+    
+    ' Define the 2D polyline points
+    points(0) = 1: points(1) = 1
+    points(2) = 1: points(3) = 2
+    points(4) = 2: points(5) = 2
+    points(6) = 3: points(7) = 2
+    points(8) = 4: points(9) = 4
+        
+    ' Create a lightweight Polyline object in model space
+    '
+    ' * Note: Return the new PolyLine object into a Module
+    ' level variable, which allows events associated
+    ' with that particular object to be intercepted.
+    Set plineObj = ThisDrawing.ModelSpace.AddLightWeightPolyline(points)
+    ThisDrawing.Application.ZoomAll
+    
+    ' Display segment information before altering the width of segment 1
+    GoSub DISPLAYSEGMENTS
+    
+    ' Set the first segment width
+    plineObj.SetWidth 1, 0.1, 0.3
+    ThisDrawing.Regen acAllViewports
+    
+    ' Display segment information after altering the width of segment 1
+    GoSub DISPLAYSEGMENTS
+    
+    ' Make all segments uniform in width
+    plineObj.ConstantWidth = 0.1
+    ThisDrawing.Regen acAllViewports
+    
+    ' Display segment information after making the segments uniform
+    GoSub DISPLAYSEGMENTS
+    
+    Exit Sub
+    
+<PRE CLASS="Code">DISPLAYSEGMENTS:
+    On Error Resume Next
+    
+    ' Check to see if the segment widths are uniform
+    CWidth = plineObj.ConstantWidth
+    
+    ' If ConstantWidth returns an error, the
+    ' segments are not all the same width
+    If Err.Description = "Invalid input" Then
+        msg = " are not equal."
+    Else
+        msg = " are all equal."
+    End If
+    On Error GoTo 0
+    
+    MsgBox "The segments of the new polyline" & msg
+    
+    Return
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

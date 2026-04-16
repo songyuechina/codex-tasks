@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SecondPoint Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SecondPoint Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_SecondPoint()
+    ' This example creates a ray object. It then finds the
+    ' second point of the ray, changes the second point, and
+    ' queries the new second point.
+    
+    Dim basePoint(0 To 2) As Double
+    Dim directionVec(0 To 2) As Double
+    Dim rayObj As AcadRay
+    Dim currSecondPoint As Variant
+    Dim msg As String
+    Dim newSecondPoint(0 To 2) As Double
+    
+    ' Establish the base point and directional vector for the ray
+    basePoint(0) = 3: basePoint(1) = 3: basePoint(2) = 0
+    directionVec(0) = 1:    directionVec(1) = 1: directionVec(2) = 0
+    
+    ' Create a Ray object in model space
+    Set rayObj = ThisDrawing.ModelSpace.AddRay(basePoint, directionVec)
+    
+    ThisDrawing.Regen True
+    MsgBox "A new Ray has been added.", vbInformation
+    
+    ' Define a new second point
+    newSecondPoint(0) = 4: newSecondPoint(1) = 2: newSecondPoint(2) = 0
+    
+    ' Update the ray using the new second point
+    rayObj.SecondPoint = newSecondPoint
+            
+    ' Query the new second point for the Ray
+    currSecondPoint = rayObj.SecondPoint
+    msg = currSecondPoint(0) & vbCrLf & _
+          currSecondPoint(1) & vbCrLf & _
+          currSecondPoint(2)
+    
+    ThisDrawing.Regen True
+    MsgBox "We've just changed the second point of the new Ray to: " & vbCrLf & msg, vbInformation
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

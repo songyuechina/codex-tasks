@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<TITLE>LayerStateManager object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "LayerStateManager OBJECT";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadLayerStateManager;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; LayerStateManager object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">Saves and restores layer settings.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+  <TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+    <TD><P CLASS="Bullet2">LayerStateManager&nbsp;
+	</TD>
+  </TR>
+
+  <TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Access via:</TH>
+    <TD><P CLASS="Bullet2">GetInterfaceObject("AutoCAD.AcadLayerStateManager.18")&nbsp;
+	</TD>
+  </TR>
+
+</TABLE>
+
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+  <TR VALIGN=top>
+    <TD><P CLASS="Heading-2">Methods
+      <A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+      <A HREF="idh_export.htm"><P CLASS="body">Export</A>
+      <A HREF="idh_import.htm"><P CLASS="body">Import</A>
+      <A HREF="idh_rename.htm"><P CLASS="body">Rename</A>
+      <A HREF="idh_restore.htm"><P CLASS="body">Restore</A>
+      <A HREF="idh_save.htm"><P CLASS="body">Save</A>
+      <A HREF="idh_setdatabase.htm"><P CLASS="body">SetDatabase</A>
+    </TD>
+
+    <TD><P CLASS="Heading-2">Properties
+      <A HREF="idh_mask.htm"><P CLASS="body">Mask</A>
+    </TD>
+
+    <TD><P CLASS="Heading-2">Events
+      &nbsp;
+    </TD>
+  </TR>
+
+</TABLE>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The LayerStateManager object provides a set of functions for working with
+saved layer settings. The LayerStateManager manipulates
+<A HREF="idh_xrecord_object.htm">XRecord</A> objects
+that define the properties of a layer. These XRecords are stored in the
+ACAD_LAYERSTATE dictionary, which is an extension dictionary in the
+drawing's <A HREF="idh_layers_collection.htm">Layers</A> collection.
+(An extension dictionary is a mechanism
+for attaching data to objects. Every object can have an extension
+dictionary.) For more information about how AutoCAD saves layer settings,
+see "Understand How AutoCAD Saves Layer Settings" in the <em class="Emphasis">ActiveX and VBA Developer's Guide</em>.
+<P CLASS="body">After you retrieve the LayerStateManager object, you must
+associate a database with it before you can access the object's methods.
+Use the <A HREF="idh_setdatabase.htm">SetDatabase</A> method to associate
+a database with the LayerStateManager object.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

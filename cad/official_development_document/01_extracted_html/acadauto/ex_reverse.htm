@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+<TITLE>Reverse Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Reverse Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Reverse()
+    ' This example creates a spline in model space.
+    ' It then reverses the spline and therefore the
+    ' control point data.
+    
+    Dim splineObj As AcadSpline
+    Dim startTan(0 To 2) As Double
+    Dim endTan(0 To 2) As Double
+    Dim fitPoints(0 To 8) As Double
+    Dim msg As String
+    
+    startTan(0) = 0.5: startTan(1) = 0.5: startTan(2) = 0
+    endTan(0) = 0.5: endTan(1) = 0.5: endTan(2) = 0
+    fitPoints(0) = 0: fitPoints(1) = 0: fitPoints(2) = 0
+    fitPoints(3) = 5: fitPoints(4) = 5: fitPoints(5) = 0
+    fitPoints(6) = 10: fitPoints(7) = 0: fitPoints(8) = 0
+    Set splineObj = ThisDrawing.ModelSpace.AddSpline(fitPoints, startTan, endTan)
+    
+    ZoomAll
+    GoSub GETPOINTS
+    MsgBox "Before the reverse the first control point is " & msg
+
+    ' Reverse the Spline and therefore control point data
+    splineObj.Reverse
+
+    ThisDrawing.Regen True
+    GoSub GETPOINTS
+    MsgBox "After the reverse the first control point is " & msg
+
+    Exit Sub
+<PRE CLASS="Code">GETPOINTS:
+    msg = ""
+    ' Get the coordinates from the first control point again
+    Dim count As Integer
+    For count = 0 To 2
+        msg = msg & splineObj.GetControlPoint(0)(count) & ", "
+    Next
+    msg = VBA.Left(msg, Len(msg) - 2)
+    Return
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>RemoveFromMenuBar Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">RemoveFromMenuBar Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_RemoveFromMenuBar()
+    ' This example creates a new menu called TestMenu and inserts a menu item
+    ' into it. The menu is then displayed on the menu bar, and then
+    ' removed from the menu bar.
+    
+    Dim currMenuGroup As acadMenuGroup
+    Set currMenuGroup = ThisDrawing.Application.MenuGroups.Item(0)
+    
+    ' Create the new menu
+    Dim newMenu As AcadPopupMenu
+    Set newMenu = currMenuGroup.Menus.Add("TestMenu")
+    
+    ' Add a menu item to the new menu
+    Dim newMenuItem As AcadPopupMenuItem
+    Dim openMacro As String
+    ' Assign the macro string the VB equivalent of "ESC ESC _open "
+    openMacro = Chr(3) & Chr(3) & Chr(95) & "open" & Chr(32)
+    
+    Set newMenuItem = newMenu.AddMenuItem(newMenu.count + 1, "Open", openMacro)
+    
+    ' Display the menu on the menu bar
+    newMenu.InsertInMenuBar (ThisDrawing.Application.MenuBar.count + 1)
+    GoSub QUERYMENU
+    
+    ' Remove the menu from the menu bar
+    newMenu.RemoveFromMenuBar
+    GoSub QUERYMENU
+    Exit Sub
+    
+<PRE CLASS="Code">QUERYMENU:
+    If newMenu.OnMenuBar Then
+        MsgBox "The menu called " & newMenu.name & " is on the menu bar."
+    Else
+        MsgBox "The menu called " & newMenu.name & " is not on the menu bar."
+    End If
+    Return
+        
+End Sub</PRE>
+
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

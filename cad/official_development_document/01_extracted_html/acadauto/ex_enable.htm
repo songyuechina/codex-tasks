@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Enable Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Enable Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Enable()
+    ' This example creates a new menu called TestMenu and inserts two menu items
+    ' into it. The second menu item is then disabled.
+    ' The menu is displayed on the menu bar.
+    ' To remove the menu after execution of this macro, use the Customize Menu
+    ' option from the Tools menu.
+    
+    Dim currMenuGroup As acadMenuGroup
+    Set currMenuGroup = ThisDrawing.Application.MenuGroups.Item(0)
+    
+    ' Create the new menu
+    Dim newMenu As AcadPopupMenu
+    Set newMenu = currMenuGroup.Menus.Add("TestMenu")
+    
+    ' Add two menu items to the new menu
+    Dim MenuEnable As AcadPopupMenuItem
+    Dim MenuDisable As AcadPopupMenuItem
+    Dim MenuSeparator As AcadPopupMenuItem
+    Dim openMacro As String
+    
+    ' Assign the macro string the VB equivalent of "ESC ESC _open "
+    openMacro = Chr(3) & Chr(3) & Chr(95) & "open" & Chr(32)
+    
+    Set MenuEnable = newMenu.AddMenuItem(newMenu.count + 1, "OpenEnabled", openMacro)
+    Set MenuSeparator = newMenu.AddSeparator("")
+    Set MenuDisable = newMenu.AddMenuItem(newMenu.count + 1, "OpenDisabled", openMacro)
+    
+    ' Disable the new menu item
+    MenuDisable.Enable = False
+    
+    ' Display the menu on the menu bar
+    newMenu.InsertInMenuBar (ThisDrawing.Application.MenuBar.count + 1)
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

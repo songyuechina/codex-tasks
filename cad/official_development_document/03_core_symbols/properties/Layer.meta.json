@@ -1,0 +1,53 @@
+{
+  "symbol": "Layer",
+  "kind": "property",
+  "source_terms": [
+    "layer"
+  ],
+  "owners": [
+    "Entity"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "traverse_objects_and_read_identity",
+    "manage_layers"
+  ],
+  "pywin32_signature": "str(getattr(ent, 'Layer', ''))",
+  "risk_tags": [
+    "图层名存在大小写/历史命名差异"
+  ],
+  "project_paths": [
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"
+  ],
+  "path_md": "03_core_symbols/properties/Layer.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-D86DF08B-BBD3-4E0F-AB75-13B2C4AD972C.htm",
+    "01_extracted_html/acad_aag/GUID-72E0EC31-B232-4688-BFFF-CA10F42E1034.htm",
+    "01_extracted_html/acadauto/ex_defaultplotstyleforlayer.htm",
+    "01_extracted_html/acad_aag/GUID-5B2CCA06-1A61-46F6-BABE-6B8BEA1DF20D.htm",
+    "01_extracted_html/acad_aag/GUID-463948A3-EE1E-4448-B3A6-B0B67B8902F1.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:GUID_52B191C9_B183_4B20_96FD_AE3F44FA9AFA",
+    "acad_aag:GUID_435FABFF_D469_4004_AB1E_A47295959AB1",
+    "acad_aag:GUID_49A4B783_D344_497B_BF37_3B4925813B31",
+    "acad_aag:GUID_D86DF08B_BBD3_4E0F_AB75_13B2C4AD972C",
+    "acad_aag:GUID_72E0EC31_B232_4688_BFFF_CA10F42E1034"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-52B191C9-B183-4B20-96FD-AE3F44FA9AFA.htm",
+    "01_extracted_html/acad_aag/GUID-435FABFF-D469-4004-AB1E-A47295959AB1.htm",
+    "01_extracted_html/acad_aag/GUID-49A4B783-D344-497B-BF37-3B4925813B31.htm",
+    "01_extracted_html/acad_aag/GUID-D86DF08B-BBD3-4E0F-AB75-13B2C4AD972C.htm",
+    "01_extracted_html/acad_aag/GUID-72E0EC31-B232-4688-BFFF-CA10F42E1034.htm"
+  ]
+}

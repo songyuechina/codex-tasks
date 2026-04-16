@@ -1,0 +1,27 @@
+{
+  "script": "cad_runtime_guard.py",
+  "role": "runtime-guard-observer",
+  "summary": "运行监督链中的被动观察脚本。负责单实例运行、读取 CAD 运行态、生成结构化状态与事件，不直接接管恢复。",
+  "public_api": [
+    "run_once",
+    "monitor_loop",
+    "main"
+  ],
+  "key_dependencies": [
+    "system.CAD_core.inspect_cad_runtime",
+    "dwg_agents_ops/agent_control/runtime/cad_runtime_guard.json",
+    "dwg_agents_ops/agent_control/runtime_events.jsonl"
+  ],
+  "boundaries": [
+    "不主动 Dispatch 新建 CAD",
+    "不直接调用 litz() 做恢复",
+    "不替代 cad_dialog_killer.py 或 cad_command_monitor.py"
+  ],
+  "must_keep_experience": [
+    "只用 GetActiveObject 观察当前活动 CAD",
+    "通过状态文件与事件流向上层监督链提供事实",
+    "单实例锁文件必须保留，避免多个 guard 互相污染状态",
+    "对 suspected_plain_cad 采用渐进升级，而不是首次可疑就直接恢复"
+  ]
+}
+

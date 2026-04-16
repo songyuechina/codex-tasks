@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddDimAngular method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddDimAngular Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates an angular dimension for an arc, two lines, or a circle.</P>
+
+<P CLASS="h1-access"><A HREF="adddimangular_see_also.htm">See Also</A> | <A HREF="ex_adddimangular.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddDimAngular(AngleVertex, FirstEndPoint, SecondEndPoint, TextPoint)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">AngleVertex</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the center of the circle or arc, or the common vertex between the two dimensioned lines.
+<P class="element">FirstEndPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the point through which the first extension line passes.
+<P class="element">SecondEndPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the point through which the second extension line passes.
+<P class="element">TextPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the point at which the dimension text is to be displayed.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_dimangular_object.htm'>DimAngular</A> object<BR>
+The newly created angular dimension.
+<P CLASS="Heading-2">Remarks</P>
+<TABLE CLASS="simple">
+<TR VALIGN=top>
+<TD><P CLASS="body"><IMG SRC='img/dimang.gif' BORDER=0>&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">The AngleVertex is the center of the circle or arc, or the common vertex between the two lines being dimensioned. FirstEndPoint and SecondEndPoint are the points through which the two extension lines pass.
+<P CLASS="body">The AngleVertex can be the same as one of the angle endpoints. If you need extension lines, they will be added automatically. The endpoints provided are used as origin points for the extension lines.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,36 @@
+{
+  "total_pages": 4112,
+  "status_counts": {
+    "keep": 17,
+    "defer": 1381,
+    "skip": 2714
+  },
+  "project_tag_counts": {
+    "layout": 26,
+    "titleblock": 82,
+    "print": 58,
+    "construction": 101,
+    "document": 38,
+    "selection": 16,
+    "fallback": 6
+  },
+  "top_keep_titles": [
+    "About Layouts and Blocks (VBA/ActiveX)",
+    "Define and Plot Layouts",
+    "About Assigning Layers, Colors, and Linetypes to Objects (VBA/ActiveX)",
+    "About Sorting Layers and Linetypes (VBA/ActiveX)",
+    "About Using Blocks and Attributes (VBA/ActiveX)",
+    "About Creating and Naming Layers (VBA/ActiveX)",
+    "About Deleting Layers (VBA/ActiveX)",
+    "About Freezing and Thawing Layers (VBA/ActiveX)",
+    "About Layouts (VBA/ActiveX)",
+    "About Locking and Unlocking Layers (VBA/ActiveX)",
+    "About Turning Layers on and off (VBA/ActiveX)",
+    "About Using the LayerStateManager to Manage Layer Settings (VBA/ActiveX)",
+    "About Working with Layers (VBA/ActiveX)",
+    "About Working with No Documents Open (VBA/ActiveX)",
+    "About the Preferences, Plot, and Utility Objects (VBA/ActiveX)",
+    "About Assigning a Linetype to a Layer (VBA/ActiveX)",
+    "About Changing the Layer, Boundary Color, and Boundary Linetype for an Image (VBA/ActiveX)"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "symbol": "TILEMODE",
+  "kind": "system_variable",
+  "owners": [
+    "Document"
+  ],
+  "source_terms": [
+    "tilemode",
+    "active space"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "determine_space_and_layout",
+    "switch_to_target_layout",
+    "read_layout_plot_info"
+  ],
+  "pywin32_signature": "C.doc.GetVariable(\"TILEMODE\") / C.doc.SetVariable(\"TILEMODE\", 0)",
+  "risk_tags": [
+    "把 TILEMODE 与浮动视口内编辑态混淆",
+    "切换后立刻读取布局状态可能未同步"
+  ],
+  "project_paths": [
+    "cad/system/CAD_core.py",
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "project_refs": [
+    "cad/system/CAD_core.py",
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/common_patterns.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/system_variables/TILEMODE.md",
+  "source_topic_ids": [
+    "acadauto:ex_activespace",
+    "acad_aag:GUID_4EAB8372_859A_4C6E_BEE5_B2C8EBA31AD7",
+    "acad_aag:GUID_9DCF17E7_717B_4766_AFFE_D3C9ED506BB8"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_activespace.htm",
+    "01_extracted_html/acad_aag/GUID-4EAB8372-859A-4C6E-BEE5-B2C8EBA31AD7.htm",
+    "01_extracted_html/acad_aag/GUID-9DCF17E7-717B-4766-AFFE-D3C9ED506BB8.htm"
+  ]
+}

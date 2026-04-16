@@ -23,7 +23,9 @@
   ],
   "dependencies": [
     "system.licad",
-    "system.CAD_com_utils"
+    "system.CAD_com_utils",
+    "system.CAD_selection",
+    "system.CAD_coordination"
   ],
   "quality": {
     "status": "refactored",

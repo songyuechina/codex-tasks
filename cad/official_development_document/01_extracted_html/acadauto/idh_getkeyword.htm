@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+<TITLE>GetKeyword Method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetKeyword Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets a keyword string from the user.</P>
+<P CLASS="h1-access"><A HREF="getkeyword_see_also.htm">See Also</A> | <A HREF="ex_getkeyword.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = GetKeyword([Prompt])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text used to prompt the user for input.
+<P class="element">RetVal</p><p class=element-desc>String<BR>
+The keyword returned from the user.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD pauses for user input of a keyword and sets the return value to the keyword that was entered. The Prompt parameter specifies a string that AutoCAD displays before it pauses. The prompt is optional. The maximum length of the return value is 511 characters.
+<P CLASS="body">The AutoCAD user can enter the keyword from the keyboard. The 
+list of keywords that this method will accept is set by a prior call
+to the <A HREF='idh_initializeuserinput.htm'>InitializeUserInput</A> method.
+If the user enters a string not specified in the call to InitializeUserInput, AutoCAD displays an error message and tries again (and redisplays the prompt, if one was specified). If the user doesn't enter anything but presses the ENTER key, GetKeyword returns an empty string ("") unless the call to InitializeUserInput also disallowed NULL input.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

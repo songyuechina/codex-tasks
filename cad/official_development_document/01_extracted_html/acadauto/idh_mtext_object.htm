@@ -1,0 +1,155 @@
+<HTML>
+<HEAD>
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="object.doc" KEYWORDS="bounding boxes, defining MText boundaries; MText object; MText object, creating; MText object, editing; MText object, methods; MText object, properties; object, creating text; object, text editing; paragraph text. See MText object; RTF text; text, paragraph text. See MText object; text boundaries; MText object, querying; object, querying text; AcadMText. See MText object; MText object, events" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:41:39 AM">
+<TITLE>MText object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "MText object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Block;idh_block_object.htm">
+    <PARAM name="Item2" value="ModelSpace Collection;idh_modelspace_collection.htm">
+    <PARAM name="Item3" value="PaperSpace Collection;idh_paperspace_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadMText2;none.htm">
+    <PARAM name="Item2" value="IAcadEntity;idh_iacadentity_interface.htm">
+    <PARAM name="Item3" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item4" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; MText object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">A paragraph of alphanumeric characters that fits within a nonprinting text boundary. </P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadMtext&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">ModelSpace.AddMText<BR>
+PaperSpace.AddMText<BR>
+Block.AddMText&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">ModelSpace.Item<BR>
+PaperSpace.Item<BR>
+Block.Item<BR>
+SelectionSet.Item<BR>
+Group.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">You define the text boundary, which specifies the width and alignment of the paragraph. Each MText object is a single object, regardless of the number of lines it contains. The text boundary, although not plotted or printed, remains part of the object's framework.
+<P CLASS="body">MText objects use word wrap to break long lines into paragraphs. AutoCAD automatically breaks lines at the edge of the text boundary, as specified by the Width property.
+<P CLASS="body">Note that RTF text isn't recognized. Text from other programs with embedded formatting will lose formatting when imported into an mtext paragraph.
+<P CLASS="body">To create an MText object use the <A HREF="idh_addmtext.htm">AddMText</A> method. To edit or query an MText object, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_arraypolar.htm"><P CLASS="body">ArrayPolar</A>
+<A HREF="idh_arrayrectangular.htm"><P CLASS="body">ArrayRectangular</A>
+<A HREF="idh_copy.htm"><P CLASS="body">Copy</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_FieldCode.htm"><P CLASS="body">FieldCode</A>
+<A HREF="idh_getboundingbox.htm"><P CLASS="body">GetBoundingBox</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_highlight.htm"><P CLASS="body">Highlight</A>
+<A HREF="idh_intersectwith.htm"><P CLASS="body">IntersectWith</A>
+<A HREF="idh_mirror.htm"><P CLASS="body">Mirror</A>
+<A HREF="idh_mirror3d.htm"><P CLASS="body">Mirror3D</A>
+<A HREF="idh_move.htm"><P CLASS="body">Move</A>
+<A HREF="idh_rotate.htm"><P CLASS="body">Rotate</A>
+<A HREF="idh_rotate3d.htm"><P CLASS="body">Rotate3D</A>
+<A HREF="idh_scaleentity.htm"><P CLASS="body">ScaleEntity</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_transformby.htm"><P CLASS="body">TransformBy</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_attachmentpoint.htm"><P CLASS="body">AttachmentPoint</A>
+<A HREF="idh_BackgroundFill.htm"><P CLASS="body">BackgroundFill</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_drawingdirection.htm"><P CLASS="body">DrawingDirection</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_height.htm"><P CLASS="body">Height</A>
+<A HREF="idh_hyperlinks.htm"><P CLASS="body">Hyperlinks</A>
+<A HREF="idh_insertionpoint.htm"><P CLASS="body">InsertionPoint</A>
+<A HREF="idh_layer.htm"><P CLASS="body">Layer</A>
+<A HREF="idh_LineSpacingDistance.htm"><P CLASS="body">LineSpacingDistance</A>
+<A HREF="idh_linespacingfactor.htm"><P CLASS="body">LineSpacingFactor</A>
+<A HREF="idh_linespacingstyle.htm"><P CLASS="body">LineSpacingStyle</A>
+<A HREF="idh_linetype.htm"><P CLASS="body">Linetype</A>
+<A HREF="idh_linetypescale.htm"><P CLASS="body">LinetypeScale</A>
+<A HREF="idh_lineweight.htm"><P CLASS="body">Lineweight</A>
+<A HREF="idh_normal.htm"><P CLASS="body">Normal</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_plotstylename.htm"><P CLASS="body">PlotStyleName</A>
+<A HREF="idh_rotation.htm"><P CLASS="body">Rotation</A>
+<A HREF="idh_stylename.htm"><P CLASS="body">StyleName</A>
+<A HREF="idh_textstring.htm"><P CLASS="body">TextString</A>
+<A HREF="idh_TrueColor_property.htm"><P CLASS="body">TrueColor</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<A HREF="idh_width.htm"><P CLASS="body">Width</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

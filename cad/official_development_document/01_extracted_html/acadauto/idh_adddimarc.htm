@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddDimArc method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddDimArc Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates an arc length dimension for an arc.</P>
+
+<P CLASS="h1-access"><A HREF="adddimarc_see_also.htm">See Also</A> | <A HREF="ex_adddimarc.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddDimArc(ArcCenter, FirstEndPoint, SecondEndPoint, ArcPoint)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">ArcCenter</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the center of the arc.
+<P class="element">FirstEndPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the point through which the first extension line passes.
+<P class="element">SecondEndPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the point through which the second extension line passes.
+<P class="element">ArcPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying a point on the arc.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_dimarclength_object.htm'>DimArcLength</A> object<BR>
+The newly created arc length dimension.
+<P CLASS="Heading-2">Remarks</P>
+<TABLE CLASS="simple">
+<TR VALIGN=top>
+<TD><P CLASS="body"><IMG SRC='img/dimarclength.gif' BORDER=0>&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">The ArcCenter is the center of the arc being dimensioned. FirstEndPoint and SecondEndPoint are the points through which the two extension lines pass.
+<P CLASS="body"><b>Note</b> To access this method, use the AcadBlock, AcadModelSpace, or AcadPaperSpace interface.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

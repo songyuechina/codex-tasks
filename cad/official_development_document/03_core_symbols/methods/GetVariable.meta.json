@@ -1,0 +1,47 @@
+{
+  "symbol": "GetVariable",
+  "kind": "method",
+  "source_terms": [
+    "getvariable"
+  ],
+  "owners": [
+    "Document",
+    "Application",
+    "Utility"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "sendcommand_fallback",
+    "determine_space_and_layout"
+  ],
+  "pywin32_signature": "C.doc.GetVariable(name)",
+  "risk_tags": [
+    "返回值类型不固定"
+  ],
+  "project_paths": [
+    "cad/system/CAD_core.py"
+  ],
+  "path_md": "03_core_symbols/methods/GetVariable.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_getvariable.htm",
+    "01_extracted_html/acadauto/idh_getvariable.htm",
+    "01_extracted_html/acadauto/getvariable_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_core.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_getvariable",
+    "acadauto:idh_getvariable",
+    "acadauto:getvariable_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_getvariable.htm",
+    "01_extracted_html/acadauto/idh_getvariable.htm",
+    "01_extracted_html/acadauto/getvariable_see_also.htm"
+  ]
+}

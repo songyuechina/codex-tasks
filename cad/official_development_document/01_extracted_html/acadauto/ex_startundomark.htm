@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>StartUndoMark Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">StartUndoMark Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_StartUndoMark()
+    ' This example creates a series of lines, each with an undo marker
+    ' defined for it. After lines are created, you can switch to AutoCAD and type
+    ' the Undo command, and only one line at a time will be undone. If StartUndoMark
+    ' call is not made, an undo in AutoCAD will undo all the lines at once.
+    
+    Dim line As AcadLine
+    Dim stPnt(0 To 2) As Double
+    Dim endPnt(0 To 2) As Double
+    stPnt(0) = 1: stPnt(1) = 2: stPnt(2) = 0
+    endPnt(0) = 2: stPnt(1) = 1: stPnt(2) = 0
+    
+    ' Create the lines
+    Dim j As Integer
+    For j = 0 To 3
+        ThisDrawing.StartUndoMark
+        Set line = ThisDrawing.ModelSpace.AddLine(stPnt, endPnt)
+        stPnt(0) = stPnt(0) + 3
+        endPnt(0) = endPnt(0) + 3
+        ThisDrawing.EndUndoMark
+    Next
+    ZoomAll
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

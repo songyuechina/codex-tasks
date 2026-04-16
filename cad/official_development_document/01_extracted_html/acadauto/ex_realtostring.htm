@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>RealToString Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">RealToString Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_RealToString()
+    ' This example converts values in a given format to their string equivalents.
+    
+    Dim unit As Long
+    Dim valueAsStr As String
+    Dim precision As Integer
+    Dim valueAsReal As Double
+    precision = 6
+    
+    ' Convert a real value 17.5 using Scientific mode to a String
+    unit = acScientific
+    valueAsStr = ThisDrawing.Utility.RealToString(17.5, unit, precision)
+    MsgBox "17.5 in scientific format is " & valueAsStr, , "RealToString Example"
+    
+    ' Convert a real value 17.5 using Decimal mode to a String
+    unit = acDecimal
+    valueAsStr = ThisDrawing.Utility.RealToString(17.5, unit, precision)
+    MsgBox "17.5 in decimal format is " & valueAsStr, , "RealToString Example"
+    
+    ' Convert a real value 17.5 using Engineering mode to a String
+    unit = acEngineering
+    valueAsStr = ThisDrawing.Utility.RealToString(17.5, unit, precision)
+    MsgBox "17.5 in engineering format is " & valueAsStr, , "RealToString Example"
+    
+    ' Convert a real value 17.5 using Architectural mode to a String
+    unit = acArchitectural
+    valueAsStr = ThisDrawing.Utility.RealToString(17.5, unit, precision)
+    MsgBox "17.5 in architectural format is " & valueAsStr, , "RealToString Example"
+    
+    ' Converts a real value 17.5 using fractional mode to a String
+    unit = acFractional
+    valueAsStr = ThisDrawing.Utility.RealToString(17.5, unit, precision)
+    MsgBox "17.5 in fractional format is " & valueAsStr, , "RealToString Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

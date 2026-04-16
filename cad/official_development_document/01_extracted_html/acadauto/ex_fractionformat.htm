@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>FractionFormat Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">FractionFormat Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_FractionFormat()
+   ' This example creates an aligned dimension in model space and
+   ' uses FractionFormat to cycle through some fractional formats
+   ' for the dimension.
+   ' * Note the appearance of the "1/2" component of the dimension
+
+    Dim dimObj As AcadDimAligned
+    Dim point1(0 To 2) As Double, point2(0 To 2) As Double
+    Dim location(0 To 2) As Double
+    
+    ' Define the dimension
+    point1(0) = 0: point1(1) = 5: point1(2) = 0
+    point2(0) = 5.5: point2(1) = 5: point2(2) = 0
+    location(0) = 5: location(1) = 7: location(2) = 0
+    
+    ' Create an aligned dimension object in model space
+    Set dimObj = ThisDrawing.ModelSpace.AddDimAligned(point1, point2, location)
+    ThisDrawing.Application.ZoomAll
+    
+    ' Switch to a mode that works with the FractionFormat property
+    dimObj.UnitsFormat = acDimLArchitectural
+      
+    ' Cycle through some common fractional formats
+    
+    dimObj.FractionFormat = acDiagonal      ' Change format to Diagonal
+    ThisDrawing.Regen acAllViewports
+    MsgBox "The dimension format is now set to diagonal"
+    
+    dimObj.FractionFormat = acHorizontal    ' Change format to Horizontal
+    ThisDrawing.Regen acAllViewports
+    MsgBox "The dimension format is now set to horizontal"
+
+    dimObj.FractionFormat = acNotStacked    ' Change format to NotStacked
+    ThisDrawing.Regen acAllViewports
+    MsgBox "The dimension format is now unstacked"
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

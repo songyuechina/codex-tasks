@@ -46,6 +46,7 @@ from system.CAD_core import (
 from system.licad import C
 
 from print_info_analysis import run_print_info_case
+from print_pdf_naming import copy_named_pdfs_from_print_info
 from print_runner import _close_document_by_path, _normalize_path, run_print_case
 
 
@@ -490,6 +491,12 @@ def run_directory_dispatch(
     summary_root: Path,
     output_root: Path,
     mode: str,
+    project_name: str = "",
+    subproject_name: str = "",
+    drawing_no_prefix: str = "",
+    include_model: bool = True,
+    include_layouts: bool = True,
+    only_layouts: list[str] | None = None,
 ) -> dict[str, Any]:
     batch_stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     batch_root = output_root / f"batch-{batch_stamp}"
@@ -498,6 +505,7 @@ def run_directory_dispatch(
     summary_rows: list[dict[str, Any]] = []
     for dwg_path in dwg_files:
         sys_logger.info(f"开始处理: {dwg_path}")
+        case_started_at = datetime.now()
         row: dict[str, Any] | None = None
         primary_work_dwg: Path | None = None
         case_cleanup_paths: set[Path] = {dwg_path}
@@ -508,6 +516,10 @@ def run_directory_dispatch(
             row = {
                 "dwg_path": str(dwg_path),
                 "mode": mode,
+                "include_model": bool(include_model),
+                "include_layouts": bool(include_layouts),
+                "only_layouts": list(only_layouts or []),
+                "started_at": case_started_at.strftime("%Y-%m-%d %H:%M:%S"),
                 "final_pdf_dir": str(public_dirs["pdf_dir"]),
                 "analysis_dir": str(public_dirs["analysis_dir"]),
                 "process_dir": str(public_dirs["process_run_dir"]),
@@ -516,12 +528,19 @@ def run_directory_dispatch(
                 dwg_path,
                 runs_root,
                 mode=mode,
+                include_model=include_model,
+                include_layouts=include_layouts,
+                only_layouts=only_layouts,
                 keep_open=False,
             )
             primary_work_dwg = Path(print_summary["work_dwg"])
             case_cleanup_paths.add(primary_work_dwg)
             row["initial_run_root"] = print_summary["run_root"]
             row["initial_print_summary"] = str(Path(print_summary["summary_path"]))
+            row["initial_started_at"] = print_summary.get("started_at", "")
+            row["initial_finished_at"] = print_summary.get("finished_at", "")
+            row["initial_elapsed_seconds"] = float(print_summary.get("elapsed_seconds", 0.0) or 0.0)
+            row["initial_stage_durations"] = print_summary.get("stage_durations", {}) or {}
             row["initial_total_jobs"] = int((print_summary.get("plan") or {}).get("total_jobs", 0) or 0)
             verification = print_summary.get("verification") or {}
             existing = verification.get("existing", []) or []
@@ -537,7 +556,7 @@ def run_directory_dispatch(
             row["blank_pdf_suspects"] = blank_suspects
 
             repaired_summary: dict[str, Any] | None = None
-            if blank_suspects:
+            if blank_suspects and include_model:
                 repaired_dir = public_dirs["process_run_dir"] / "blank-fix"
                 repaired_dwg = repaired_dir / f"{dwg_path.stem}__blankfix.dwg"
                 case_cleanup_paths.add(repaired_dwg)
@@ -557,6 +576,9 @@ def run_directory_dispatch(
                 else:
                     row["repaired_run_root"] = ""
                     row["repaired_print_summary"] = ""
+            elif blank_suspects:
+                row["blank_fix_applied"] = False
+                row["blank_fix_skipped_reason"] = "model_space_not_selected"
             else:
                 row["blank_fix_applied"] = False
 
@@ -570,6 +592,9 @@ def run_directory_dispatch(
                 plan_json_path=plan_json_path,
                 content_json_path=content_json_path,
                 mode=mode,
+                include_model=include_model,
+                include_layouts=include_layouts,
+                only_layouts=only_layouts,
             )
             row["analysis_json"] = str(analysis_output)
             row["analysis_excel"] = str(Path(analysis["excel_path"]))
@@ -626,12 +651,36 @@ def run_directory_dispatch(
                     plan_json_path=plan_json_path,
                     content_json_path=content_json_path,
                     mode=mode,
+                    include_model=include_model,
+                    include_layouts=include_layouts,
+                    only_layouts=only_layouts,
                     requested_handles=set(row["selected_handles"]),
                 )
                 row["analysis_total_jobs"] = int(analysis["total_jobs"])
                 row["analysis_with_title_count"] = int(analysis["with_title_count"])
                 row["analysis_with_drawing_no_count"] = int(analysis["with_drawing_no_count"])
                 row["analysis_with_project_count"] = int(analysis["with_project_count"])
+
+            try:
+                named_copy = copy_named_pdfs_from_print_info(
+                    print_info=analysis,
+                    output_dir=public_dirs["pdf_dir"] / "named",
+                    pdf_paths=row.get("final_output_paths", []) or [],
+                    selected_handles=row.get("selected_handles", []) or [],
+                    project_name=project_name,
+                    subproject_name=subproject_name,
+                    drawing_no_prefix=drawing_no_prefix,
+                )
+            except Exception as exc:
+                named_copy = {
+                    "named_pdf_dir": str(public_dirs["pdf_dir"] / "named"),
+                    "named_pdf_count": 0,
+                    "named_pdf_paths": [],
+                    "named_pdf_items": [],
+                    "named_pdf_unresolved": [{"reason": "named_pdf_copy_failed", "error": str(exc)}],
+                }
+                sys_logger.warning(f"按打印信息命名 PDF 副本失败: dwg={dwg_path} err={exc}")
+            row.update(named_copy)
 
             if row["initial_total_jobs"] == 0 and row["analysis_total_jobs"] == 0:
                 row["status"] = "completed_no_valid_print_areas"
@@ -671,6 +720,9 @@ def run_directory_dispatch(
                 row["cleanup_failed_count"] = cleanup["failed_count"]
                 row["cleanup_remaining_count"] = cleanup["remaining_count"]
                 row["post_case_runtime_reset"] = _normalize_cad_runtime_after_case()
+                case_finished_at = datetime.now()
+                row["finished_at"] = case_finished_at.strftime("%Y-%m-%d %H:%M:%S")
+                row["elapsed_seconds"] = round((case_finished_at - case_started_at).total_seconds(), 3)
             else:
                 _normalize_cad_runtime_after_case()
             _write_batch_summary(
@@ -713,10 +765,18 @@ def main() -> None:
     parser.add_argument("--dwg", default="", help="single dwg file path")
     parser.add_argument("--output-root", default="", help="batch output root")
     parser.add_argument("--mode", default="purified_adaptive", help="print mode")
+    parser.add_argument("--project-name", default="", help="project name used for named pdf copies")
+    parser.add_argument("--subproject-name", default="", help="subproject name used for named pdf copies")
+    parser.add_argument("--drawing-no-prefix", default="", help="prefix added before drawing number in named pdf copies")
+    parser.add_argument("--layout", action="append", default=None, help="only print/analyze specified layout, repeatable")
+    parser.add_argument("--no-model", action="store_true", help="skip model space")
+    parser.add_argument("--no-layouts", action="store_true", help="skip layout spaces")
     args = parser.parse_args()
 
     if bool(args.input_dir) == bool(args.dwg):
         raise SystemExit("必须且只能提供 --input-dir 或 --dwg 之一")
+    if args.layout and args.no_layouts:
+        raise SystemExit("--layout 与 --no-layouts 不能同时使用")
 
     if args.dwg:
         dwg_path = Path(args.dwg)
@@ -733,6 +793,12 @@ def main() -> None:
         summary_root=summary_root,
         output_root=output_root,
         mode=args.mode,
+        project_name=args.project_name,
+        subproject_name=args.subproject_name,
+        drawing_no_prefix=args.drawing_no_prefix,
+        include_model=not args.no_model,
+        include_layouts=not args.no_layouts,
+        only_layouts=args.layout,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="object.doc" KEYWORDS="active document. See Document object; Application object; Application object, methods; Application object, properties; AutoCAD, exiting; AutoCAD application. See Application object; Document object (active document); Document object (active document), accessing; exiting AutoCAD;AcadApplication. See Application object; Application object, events" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:41:33 AM">
+<TITLE>Application object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Application object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="This is the root object.;none.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Documents;idh_documents_collection.htm">
+    <PARAM name="Item2" value="Preferences;idh_preferences_object.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadApplication;none.htm">
+    <PARAM name="Item2" value="_DAcadApplicationEvents;idh__dacadapplicationevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Application object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">An instance of the AutoCAD application.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadApplication&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">For VB:<BR>
+GetObject("AutoCAD.Application.18")<BR>
+CreateObject("AutoCAD.Application.18")<BR>
+For AutoCAD VBA:<BR>
+Not applicable. The application is always available.&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">Application property&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">The properties that are associated with the Application object reflect the properties of the main application window. The methods control the loading or listing of the currently loaded external applications and interface objects.
+<P CLASS="body">The active document (AutoCAD drawing) can be accessed with the <A HREF="idh_activedocument.htm">ActiveDocument</A> property.
+<P CLASS="body">To access the Application object from VBA, use Thisdrawing.Application. To access the Application object from VB, use the Visual Basic 6 functions GetObject or CreateObject.
+<P CLASS="body">If AutoCAD is running, the GetObject function will retrieve the current AutoCAD Application object. When running multiple sessions of AutoCAD, the GetObject function will return the first instance of AutoCAD in the Windows Running Object Table. See the Microsoft Visual Basic 6 documentation for the Running Object Table (ROT) and the GetObject function (for more information about verifying the session returned by GetObject).
+<P CLASS="body">Use version-dependent ProgIDs. If a CreateObject or GetObject function uses a version-independent ProgID, change the function to use a version-dependent ProgID. For example, you would change CreateObject ("AutoCAD.Application") to CreateObject ("AutoCAD.Application.18").
+<P CLASS="body">The application object is also the Global object for the ActiveX interface. This means that all the methods and properties for the Application object are available in the global name space.
+<P CLASS="body">Use the <A HREF="idh_quit.htm">Quit</A> method to end the AutoCAD session.
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_eval.htm"><P CLASS="body">Eval</A>
+<A HREF="idh_getacadstate.htm"><P CLASS="body">GetAcadState</A>
+<A HREF="idh_getInterfaceobject.htm"><P CLASS="body">GetInterfaceObject</A>
+<A HREF="idh_listarx.htm"><P CLASS="body">ListARX</A>
+<A HREF="idh_loadarx.htm"><P CLASS="body">LoadARX</A>
+<A HREF="idh_loaddvb.htm"><P CLASS="body">LoadDVB</A>
+<A HREF="idh_quit.htm"><P CLASS="body">Quit</A>
+<A HREF="idh_runmacro.htm"><P CLASS="body">RunMacro</A>
+<A HREF="idh_statusid.htm"><P CLASS="body">StatusID</A>
+<A HREF="idh_unloadarx.htm"><P CLASS="body">UnloadARX</A>
+<A HREF="idh_unloaddvb.htm"><P CLASS="body">UnloadDVB</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+<A HREF="idh_zoomall.htm"><P CLASS="body">ZoomAll</A>
+<A HREF="idh_zoomcenter.htm"><P CLASS="body">ZoomCenter</A>
+<A HREF="idh_zoomextents.htm"><P CLASS="body">ZoomExtents</A>
+<A HREF="idh_zoompickwindow.htm"><P CLASS="body">ZoomPickWindow</A>
+<A HREF="idh_zoomprevious.htm"><P CLASS="body">ZoomPrevious</A>
+<A HREF="idh_zoomscaled.htm"><P CLASS="body">ZoomScaled</A>
+<A HREF="idh_zoomwindow.htm"><P CLASS="body">ZoomWindow</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_activedocument.htm"><P CLASS="body">ActiveDocument</A>
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_caption.htm"><P CLASS="body">Caption</A>
+<A HREF="idh_documents.htm"><P CLASS="body">Documents</A>
+<A HREF="idh_fullname.htm"><P CLASS="body">FullName</A>
+<A HREF="idh_height.htm"><P CLASS="body">Height</A>
+<A HREF="idh_hwnd.htm"><P CLASS="body">HWND</A>
+<A HREF="idh_hwnd32.htm"><P CLASS="body">HWND32</A>
+<A HREF="idh_localeid.htm"><P CLASS="body">LocaleID</A>
+<A HREF="idh_menubar.htm"><P CLASS="body">MenuBar</A>
+<A HREF="idh_menugroups.htm"><P CLASS="body">MenuGroups</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_path.htm"><P CLASS="body">Path</A>
+<A HREF="idh_preferences.htm"><P CLASS="body">Preferences</A>
+<A HREF="idh_statusid.htm"><P CLASS="body">StatusID</A>
+<A HREF="idh_vbe.htm"><P CLASS="body">VBE</A>
+<A HREF="idh_version.htm"><P CLASS="body">Version</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<A HREF="idh_width.htm"><P CLASS="body">Width</A>
+<A HREF="idh_windowleft.htm"><P CLASS="body">WindowLeft</A>
+<A HREF="idh_windowstate.htm"><P CLASS="body">WindowState</A>
+<A HREF="idh_windowtop.htm"><P CLASS="body">WindowTop</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_appactivate.htm"><P CLASS="body">AppActivate</A>
+<A HREF="idh_appdeactivate.htm"><P CLASS="body">AppDeactivate</A>
+<A HREF="idh_arxloaded.htm"><P CLASS="body">ARXLoaded</A>
+<A HREF="idh_arxunloaded.htm"><P CLASS="body">ARXUnloaded</A>
+<A HREF="idh_begincommand.htm"><P CLASS="body">BeginCommand</A>
+<A HREF="idh_beginfiledrop.htm"><P CLASS="body">BeginFileDrop</A>
+<A HREF="idh_beginlisp.htm"><P CLASS="body">BeginLISP</A>
+<A HREF="idh_beginmodal.htm"><P CLASS="body">BeginModal</A>
+<A HREF="idh_beginopen.htm"><P CLASS="body">BeginOpen</A>
+<A HREF="idh_beginplot.htm"><P CLASS="body">BeginPlot</A>
+<A HREF="idh_beginquit.htm"><P CLASS="body">BeginQuit</A>
+<A HREF="idh_beginsave.htm"><P CLASS="body">BeginSave</A>
+<A HREF="idh_endcommand.htm"><P CLASS="body">EndCommand</A>
+<A HREF="idh_endlisp.htm"><P CLASS="body">EndLISP</A>
+<A HREF="idh_endmodal.htm"><P CLASS="body">EndModal</A>
+<A HREF="idh_endopen.htm"><P CLASS="body">EndOpen</A>
+<A HREF="idh_endplot.htm"><P CLASS="body">EndPlot</A>
+<A HREF="idh_endsave.htm"><P CLASS="body">EndSave</A>
+<A HREF="idh_lispcancelled.htm"><P CLASS="body">LISPCancelled</A>
+<A HREF="idh_newdrawing.htm"><P CLASS="body">NewDrawing</A>
+<A HREF="idh_sysvarchanged.htm"><P CLASS="body">SysVarChanged</A>
+<A HREF="idh_windowchanged.htm"><P CLASS="body">WindowChanged</A>
+<A HREF="idh_windowmovedorresized.htm"><P CLASS="body">WindowMovedOrResized</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

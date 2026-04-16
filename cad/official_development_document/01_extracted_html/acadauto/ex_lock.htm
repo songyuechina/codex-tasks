@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Lock Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Lock Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Lock()
+    ' This example creates a new layer called "Lock".
+    ' It then displays the status of the Lock property
+    ' for the new layer, toggles the status of the
+    ' Lock property, and again displays its status.
+    ' After running this example, you can check the layer
+    ' control on the Object Properties tool bar. It will
+    ' show the new layer and the latest Lock status.
+    
+    Dim layerObj As AcadLayer
+    
+    ' Create the new layer
+    Set layerObj = ThisDrawing.Layers.Add("Lock")
+    
+    ' Display the Lock status of the new layer
+    GoSub DISPLAYSTATUS
+    
+    ' Toggle the status of the Lock property for the layer
+    layerObj.Lock = Not (layerObj.Lock)
+    
+    ' Display the Lock status of the new layer
+    GoSub DISPLAYSTATUS
+    Exit Sub
+    
+<PRE CLASS="Code">DISPLAYSTATUS:
+    If layerObj.Lock Then
+        MsgBox "Layer " & layerObj.name & " is locked.", , "Lock Example"
+    Else
+        MsgBox "Layer " & layerObj.name & " is unlocked.", , "Lock Example"
+    End If
+    Return
+        
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

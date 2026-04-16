@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ExtLine1Point Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ExtLine1Point Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ExtLine1Point()
+    ' This example creates an aligned dimension and then changes the
+    ' ExtLine1Point property for that dimension.
+
+    Dim dimObj As AcadDimAligned
+    Dim point1(0 To 2) As Double
+    Dim point2(0 To 2) As Double
+    Dim location(0 To 2) As Double
+    
+    ' Define the dimension
+    point1(0) = 5#: point1(1) = 5#: point1(2) = 0#
+    point2(0) = 10#: point2(1) = 5#: point2(2) = 0#
+    location(0) = 5#: location(1) = 7#: location(2) = 0#
+    
+    ' Create an aligned dimension object in model space
+    Set dimObj = ThisDrawing.ModelSpace.AddDimAligned(point1, point2, location)
+    ZoomAll
+    MsgBox "The current value for ExtLine1Point is " & dimObj.ExtLine1Point(0) & ", " & dimObj.ExtLine1Point(1) & ", " & dimObj.ExtLine1Point(2), vbInformation, "ExtLine1Point Example"
+    
+    ' Change the endpoint of the first extension line
+    point1(0) = 2: point1(1) = 5: point1(2) = 0
+    dimObj.ExtLine1Point = point1
+    dimObj.Update
+    
+    ' Return the endpoint of the first extension line
+    ' Note that the return value is a Variant
+    Dim retPnt As Variant
+    retPnt = dimObj.ExtLine1Point
+    
+    MsgBox "The new value for ExtLine1Point is " & dimObj.ExtLine1Point(0) & ", " & dimObj.ExtLine1Point(1) & ", " & dimObj.ExtLine1Point(2), vbInformation, "ExtLine1Point Example"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

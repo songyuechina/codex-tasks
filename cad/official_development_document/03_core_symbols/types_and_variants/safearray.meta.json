@@ -1,0 +1,40 @@
+{
+  "symbol": "safearray",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "safearray",
+    "variant arrays"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "build_selection_set",
+    "create_basic_geometry_smoke"
+  ],
+  "pywin32_signature": "通常经 VARIANT(VT_ARRAY | base_type, data) 间接接触 SAFEARRAY",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/pywin32_type_rules.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/safearray.md",
+  "source_topic_ids": [
+    "acad_aag:GUID_5004997B_3086_4D07_A0A1_AEB32B7727A2",
+    "acad_aag:GUID_192B537E_8F89_4F21_BD5D_28B9E3918C88"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-192B537E-8F89-4F21-BD5D-28B9E3918C88.htm",
+    "01_extracted_html/acad_aag/GUID-5004997B-3086-4D07-A0A1-AEB32B7727A2.htm"
+  ]
+}

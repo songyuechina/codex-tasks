@@ -1,0 +1,36 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-7C422979-2B2F-40A8-A717-2361C80CFC6D"><meta name="topic-subtype" content="activex"><meta name="description" content="The outline of the path can be drawn using the location and half width of the path acquired with the gpuser subroutine."><meta name="indexterm" content="AddLightweightPolyline method: example code"><meta name="indexterm" content="PolarPoint method: example code"><meta name="indexterm" content="Garden Path tutorial: PolarPoint method"><meta name="indexterm" content="Garden Path tutorial: determing corners"><meta name="indexterm" content="Garden Path tutorial: AddLightweightPolyline method"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-25772D8C-5C80-43DC-8315-A8759F59A916"><meta name="workflow-parent-id" content="GUID-25772D8C-5C80-43DC-8315-A8759F59A916"><title>Drawing the Outline of the Garden Path</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><img src="images/nav-null-xp.gif" border="0"></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">Tutorial: Designing a Garden Path (VBA/ActiveX)</div><a href="GUID-25772D8C-5C80-43DC-8315-A8759F59A916.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><img src="images/nav-null-xp.gif" border="0"></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_14.htm">ActiveX/VBA Tutorial: Design the Garden Path</a>&nbsp;&gt;&nbsp;<a href="GUID-25772D8C-5C80-43DC-8315-A8759F59A916.htm">Tutorial: Designing a Garden Path (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-DA9D5EB0-4838-46F3-BBF5-D458A001F11F"></a></span><h1>Drawing the Outline of the Garden Path</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-7C422979-2B2F-40A8-A717-2361C80CFC6D"></a></span><p class="blurb">The outline of the path can be drawn using the location and half width of the path acquired with the <span class="code">gpuser</span> subroutine. </p><!--Body--><p><span style="display:none"><a name="GUID-33AECDB2-2C7F-4901-A94C-E8760D0B54F0"></a></span>In this subroutine, the outline of the garden path is drawn based on the values obtained with the <span class="code">gpuser</span> subroutine and stored in the global variables defined earlier. </p><!--OList--><span style="display:none"><a name="OL_39B70624AD224BC9B026BA044C25A7DD"></a></span><ol start="1"><li>In the Code window, click after the <span class="code">End Sub</span> statement of the <span class="code">gpuser</span> subroutine and press Enter twice. </li><li>Type the following code: <div class="codeBlock"><pre>' Draw the outline of the path
+Private Sub drawout()
+  ' Create an array of four 2D points
+  Dim points(0 To 7) As Double
+
+  Dim varRet As Variant
+  
+  ' Define the start point
+  varRet = ThisDrawing.Utility.PolarPoint(sp, angm90, hwidth)
+  points(0) = varRet(0)
+  points(1) = varRet(1)
+
+  ' Define the second point
+  varRet = ThisDrawing.Utility.PolarPoint(varRet, pangle, plength)
+  points(2) = varRet(0)
+  points(3) = varRet(1)
+
+  ' Define the third point
+  varRet = ThisDrawing.Utility.PolarPoint(varRet, angp90, totalwidth)
+  points(4) = varRet(0)
+  points(5) = varRet(1)
+
+  ' Define the fourth point
+  varRet = ThisDrawing.Utility.PolarPoint(varRet, pangle + dtr(180), plength)
+  points(6) = varRet(0)
+  points(7) = varRet(1)
+
+  ' Draw the outline of the garden path in Model space with a lightweight polyline
+  Dim pline As AcadLWPolyline
+  Set pline = ThisDrawing.ModelSpace.AddLightWeightPolyline(points)
+  
+  ' Close the polyline
+  pline.Closed = True
+End Sub</pre></div> </li><li>Save the project. </li></ol><div class="familylinks"><div class="parentlink"><strong>Parent topic: </strong><a href="GUID-25772D8C-5C80-43DC-8315-A8759F59A916.htm" title="This tutorial demonstrates the fundamentals of using ActiveX and Visual Basic for Applications (VBA), and create a macro for use in the AutoCAD drawing environment. ">Tutorial: Designing a Garden Path (VBA/ActiveX)</a></div><div class="previouslink"><strong>Previous topic: </strong><a href="GUID-17924929-1A87-4B6B-A8A0-AD6762581335.htm" title="The gpuser subroutine prompts the user for information necessary to draw a garden path. ">Defining the Command Prompt Interaction and Calculating Values</a></div><div class="nextlink"><strong>Next topic: </strong><a href="GUID-70F5AF35-B093-405F-83E5-DC67BC567A7A.htm" title=" The drawtiles and drow subroutines are used to draw and calculate the circular tiles for the path. ">Drawing the Tiles within the Garden Path</a></div></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

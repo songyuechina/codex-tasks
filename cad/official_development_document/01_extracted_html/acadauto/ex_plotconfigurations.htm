@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>PlotConfigurations Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">PlotConfigurations Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_PlotConfigurations()
+    ' This example will access the PlotConfigurations collection for the current drawing,
+    ' add a plot configuration, and list basic information about the
+    ' plot configurations in the drawing.
+
+    Dim PlotConfigurations As AcadPlotConfigurations
+    Dim PlotConfiguration As AcadPlotConfiguration
+    Dim msg As String
+    
+    ' Get PlotConfigurations collection from document object
+    Set PlotConfigurations = ThisDrawing.PlotConfigurations
+    
+    ' If there aren't any plot configurations, then add one
+    If PlotConfigurations.count = 0 Then
+        '*** Customize the new configuration to your satisfaction ***
+        PlotConfigurations.Add "NEW_CONFIGURATION"
+    End If
+    
+    msg = vbCrLf & vbCrLf   ' Start with a space
+    
+    ' Get the names of the plot configurations in this drawing
+    For Each PlotConfiguration In PlotConfigurations
+        msg = msg & PlotConfiguration.name & vbCrLf
+    Next
+    
+    ' Display a list of available plot configurations
+    MsgBox "There are " & PlotConfigurations.count & " plot configuration(s) in " & _
+            ThisDrawing.WindowTitle & ":" & msg
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

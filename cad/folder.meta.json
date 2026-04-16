@@ -30,6 +30,12 @@
       "summary": "函数分析、调用图、spec/virtual 生成与一致性检查工具。"
     },
     {
+      "path": "tests",
+      "role": "cad-test-assets",
+      "priority": "high",
+      "summary": "整个 cad 目录统一的真实 DWG 测试资产目录。真实 CAD 回归、烟测与验证文件应优先放在这里。"
+    },
+    {
       "path": "scripts/drawing_basic_service/print",
       "role": "current-primary-domain",
       "priority": "highest",
@@ -51,11 +57,14 @@
   "do_not_assume": [
     "不要把 library 看成 system 的替代品",
     "不要跳过 licad.py 在业务层直接分散连接 CAD",
-    "不要把 tools 生成的虚资产当成源码替身"
+    "不要把 tools 生成的虚资产当成源码替身",
+    "不要把真实测试文件散落到 temp、桌面或业务目录私有角落",
+    "不要在真实 CAD 执行时省略 cad_runtime_guard.py"
   ],
   "refresh_rules": [
     "system 脚本职责变化后，同步更新四层 meta",
     "新增高层业务能力时，优先进 library，而不是继续堆进 CAD_core.py",
-    "print 主链变化后，更新 print 目录文档与 folder.meta.json"
+    "print 主链变化后，更新 print 目录文档与 folder.meta.json",
+    "tests 目录职责变化时，补充对应 folder.meta.json 或说明文档"
   ]
 }

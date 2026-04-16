@@ -1,0 +1,29 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/scripts/drawing_basic_service/illustration_label",
+  "role": "domain-workspace-illustration-label",
+  "summary": "插图签执行工作区。当前已具备三类服务：替换目标 DWG 中的 A0/A1/A2/A3 同名块定义、按净化适配模式为打印区域补标准图框、以及从 A0_H/A1_H/A2_H/A3_H 内部导入真实图签块定义后按内框锚点插入图签块。真实执行默认挂接 runtime guard 监督链。",
+  "entry_docs": [
+    "README.md",
+    "AGENTS.md",
+    "illustration_frame_service.quote.meta.json",
+    "illustration_frame_service.procedure.meta.json"
+  ],
+  "main_scripts": [
+    "replace_defined_blocks.py",
+    "illustration_block_service.py",
+    "insert_illustration_labels.py",
+    "insert_illustration_title_blocks.py",
+    "illustration_frame_service.py"
+  ],
+  "usage_rules": [
+    "真实执行前先通过 CAD_core.litz() 明确受控入口",
+    "优先接入 launch_cad_guardians()/cad_runtime_guard.py 再做真实 DWG 操作",
+    "测试文件统一放在 D:/codex-tasks/cad/tests，执行前应先保留备份",
+    "入口脚本负责 bootstrap 和参数解析，业务逻辑分别收束到 illustration_block_service.py 与 illustration_frame_service.py",
+    "A0_H/A1_H/A2_H/A3_H 只作为真实图签块定义的来源，不能把外层文件块错误地当成最终图签结果",
+    "真实图签块定义必须校验 Defpoints 图层两根多段线及其红绿颜色特征",
+    "新能力进入后，同步更新 README.md 与本目录 meta"
+  ]
+}

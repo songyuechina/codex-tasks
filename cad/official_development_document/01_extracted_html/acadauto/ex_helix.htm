@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Helix Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Helix Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Helix_BaseRadius()
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("TEST_HELIX")
+    Dim mode As Integer
+    
+    ssetObj.SelectOnScreen
+    
+    Dim obj As AcadEntity
+    Dim helix As AcadHelix
+    Dim helixBaseRadius As Double
+    Dim objName As String
+    For Each obj In ssetObj
+        objName = obj.ObjectName
+            If TypeOf obj Is AcadHelix Then
+            Set helix = obj
+            helix.BaseRadius = helix.BaseRadius * 2
+            MsgBox "Baseradius of helix is doubled to " & helix.BaseRadius * 2
+            End If
+    Next
+    ssetObj.Delete
+End Sub
+
+Sub Example_Helix_TopRadius()
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("TEST_HELIX")
+    Dim mode As Integer
+    
+    ssetObj.SelectOnScreen
+    
+    Dim obj As AcadEntity
+    Dim helix As AcadHelix
+    Dim helixBaseRadius As Double
+    Dim objName As String
+    For Each obj In ssetObj
+        objName = obj.ObjectName
+            If TypeOf obj Is AcadHelix Then
+            Set helix = obj
+            helix.TopRadius = helix.TopRadius * 0.5
+            MsgBox "Top radius of helix is halved to " & helix.TopRadius * 0.5
+            End If
+    Next
+    ssetObj.Delete
+End Sub
+
+Sub Example_Helix_Direction()
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("TEST_HELIX")
+    Dim mode As Integer
+    
+    ssetObj.SelectOnScreen
+    
+    Dim obj As AcadEntity
+    Dim helix As AcadHelix
+    Dim helixBaseRadius As Double
+    Dim objName As String
+    For Each obj In ssetObj
+        objName = obj.ObjectName
+            If TypeOf obj Is AcadHelix Then
+            Set helix = obj
+            If helix.Twist = acCCW Then
+                helix.Twist = acCW
+            Else
+                helix.Twist = acCCW
+            End If
+            MsgBox "Direction is reversed"
+            End If
+    Next
+    ssetObj.Delete
+End Sub
+
+Sub Example_Helix_Height()
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("TEST_HELIX")
+    Dim mode As Integer
+    
+    ssetObj.SelectOnScreen
+    
+    Dim obj As AcadEntity
+    Dim helix As AcadHelix
+    Dim helixBaseRadius As Double
+    Dim objName As String
+    For Each obj In ssetObj
+        objName = obj.ObjectName
+            If TypeOf obj Is AcadHelix Then
+            Set helix = obj
+            helix.Constrain = acHeight
+            helix.Height = helix.Height * 2
+            MsgBox "Height doubled"
+            End If
+    Next
+    ssetObj.Delete
+End Sub
+
+Sub Example_Helix_Turns()
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("TEST_HELIX")
+    Dim mode As Integer
+    
+    ssetObj.SelectOnScreen
+    
+    Dim obj As AcadEntity
+    Dim helix As AcadHelix
+    Dim helixBaseRadius As Double
+    Dim objName As String
+    For Each obj In ssetObj
+        objName = obj.ObjectName
+            If TypeOf obj Is AcadHelix Then
+            Set helix = obj
+            helix.Constrain = acTurns
+            helix.Turns = helix.Turns * 2
+            MsgBox "Turns doubled"
+            End If
+    Next
+    ssetObj.Delete
+End Sub
+
+Sub Example_Helix_TurnHeight()
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("TEST_HELIX")
+    Dim mode As Integer
+    
+    ssetObj.SelectOnScreen
+    
+    Dim obj As AcadEntity
+    Dim helix As AcadHelix
+    Dim helixBaseRadius As Double
+    Dim objName As String
+    For Each obj In ssetObj
+        objName = obj.ObjectName
+            If TypeOf obj Is AcadHelix Then
+            Set helix = obj
+            helix.Constrain = acTurnHeight
+            helix.TurnHeight = helix.TurnHeight * 2
+            MsgBox "Turns height doubled"
+            End If
+    Next
+    ssetObj.Delete
+End Sub
+
+</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

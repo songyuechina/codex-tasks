@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>EntityColor Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">EntityColor Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">Sub Example_EntityColor()
+    Dim color As AcadAcCmColor
+    Set color = AcadApplication.GetInterfaceObject("AutoCAD.AcCmColor.18")
+    Dim y As Long
+    y = MakeLong(MakeWord(194, 122), MakeWord(133, 144))
+    color.EntityColor = y
+    Dim line As AcadLine
+    Set line = CreateLine
+    line.TrueColor = color
+    Dim retcolor As AcadAcCmColor
+    Set retcolor = line.TrueColor
+    
+    Dim x As Long
+    x = retcolor.EntityColor
+    
+    Dim BreakLong(3) As Byte
+    BreakLong(0) = x And &HFF&
+    BreakLong(1) = (x And &HFF00&) \ &H100&
+    BreakLong(2) = (x And &HFF0000) \ &H10000
+    BreakLong(3) = (x And &H7F000000) \ &H1000000
+    If x &lt; 0 Then BreakLong(3) = BreakLong(3) Or &H80
+    
+    MsgBox "ColorMethod = " & BreakLong(3) & vbCrLf & _
+     "Red = " & BreakLong(2) & vbCrLf & _
+     "Green = " & BreakLong(1) & vbCrLf & _
+     "Blue = " & BreakLong(0)
+End Sub
+
+Private Function CreateLine() As AcadLine
+    Dim lineObj As AcadLine
+    Dim startPoint(0 To 2) As Double
+    Dim endPoint(0 To 2) As Double
+    
+    startPoint(0) = 1#: startPoint(1) = 1#: startPoint(2) = 0#
+    endPoint(0) = 5#: endPoint(1) = 5#: endPoint(2) = 0#
+    
+    Set lineObj = ThisDrawing.ModelSpace.AddLine(startPoint, endPoint)
+    Set CreateLine = lineObj
+    ZoomAll
+End Function
+
+Private Function MakeLong(WordHi As Variant, WordLo As Integer) As Long
+
+   ' High word is coerced to a variant on the call, to allow
+   ' it to overflow the limits of multiplication, which shifts
+   ' it left.
+
+   MakeLong = (WordHi * &H10000) + (WordLo And &HFFFF&)
+End Function
+
+Private Function MakeWord(ByteHi As Byte, ByteLo As Byte) As Integer
+   ' If the high byte would push the final result out of the
+   ' signed integer range, it must be slid back.
+
+   If ByteHi &gt; &H7F Then
+      MakeWord = ((ByteHi * &H100&) + ByteLo) - &H10000
+   Else
+      MakeWord = (ByteHi * &H100&) + ByteLo
+   End If
+End Function</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

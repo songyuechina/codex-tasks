@@ -1,0 +1,54 @@
+{
+  "symbol": "CMDACTIVE",
+  "kind": "system_variable",
+  "owners": [
+    "Document"
+  ],
+  "source_terms": [
+    "cmdactive",
+    "sendcommand",
+    "command"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "sendcommand_fallback",
+    "switch_to_target_layout",
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "C.doc.GetVariable(\"CMDACTIVE\")",
+  "risk_tags": [
+    "误解位掩码",
+    "把命令态噪声误判为真正失败"
+  ],
+  "project_paths": [
+    "cad/system/CAD_coordination.py",
+    "cad/system/licad.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "project_refs": [
+    "cad/system/CAD_coordination.py",
+    "cad/system/licad.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/sendcommand_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/system_variables/CMDACTIVE.md",
+  "source_topic_ids": [
+    "acadauto:ex_getvariable",
+    "acadauto:ex_sendcommand",
+    "acadauto:idh_sendcommand",
+    "acad_aag:GUID_0A56CD7D_C18E_4A94_B0A7_6F70956A21A9",
+    "acad_aag:GUID_ABEEEBC2_3EBE_4AB5_B082_6C736D677965",
+    "acad_aag:GUID_17924929_1A87_4B6B_A8A0_AD6762581335"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_sendcommand.htm",
+    "01_extracted_html/acadauto/idh_sendcommand.htm",
+    "01_extracted_html/acad_aag/GUID-0A56CD7D-C18E-4A94-B0A7-6F70956A21A9.htm",
+    "01_extracted_html/acad_aag/GUID-ABEEEBC2-3EBE-4AB5-B082-6C736D677965.htm",
+    "01_extracted_html/acad_aag/GUID-17924929-1A87-4B6B-A8A0-AD6762581335.htm",
+    "01_extracted_html/acadauto/ex_getvariable.htm"
+  ]
+}

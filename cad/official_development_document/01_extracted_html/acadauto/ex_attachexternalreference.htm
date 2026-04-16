@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>AttachExternalReference Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AttachExternalReference Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_AttachExternalReference()
+    ' This example displays all the blocks in the current drawing
+    ' before and after adding an external reference.
+    '
+    ' This example uses the "city map.dwg" found in the Sample
+    ' directory. If you do not have this drawing, or if it is 
+    ' in a different directory, insert a valid path and file name
+    ' for the PathName variable below.
+    
+    Dim InsertPoint(0 To 2) As Double
+    Dim insertedBlock As AcadExternalReference
+    Dim tempBlock As AcadBlock
+    Dim msg As String, PathName As String
+    
+    ' Define external reference to be inserted
+    InsertPoint(0) = 1: InsertPoint(1) = 1: InsertPoint(2) = 0
+    PathName = "c:\program files\autocad\sample\city map.dwg"
+    
+    ' Display current Block information for this drawing
+    GoSub ListBlocks
+    
+    ' Add the external reference to the drawing
+    Set insertedBlock = ThisDrawing.ModelSpace.AttachExternalReference(PathName, "XREF_IMAGE", InsertPoint, 1, 1, 1, 0, False)
+        
+    ThisDrawing.Application.ZoomAll
+    
+    ' Display new Block information for this drawing
+    GoSub ListBlocks
+    
+    Exit Sub
+
+<PRE CLASS="Code">ListBlocks:
+    msg = vbCrLf    ' Reset message
+    
+    For Each tempBlock In ThisDrawing.Blocks
+        msg = msg & tempBlock.name & vbCrLf     ' Add Block to list
+    Next
+    
+    MsgBox "The current blocks in this drawing are: " & msg
+    
+    Return
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

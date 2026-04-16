@@ -1,0 +1,42 @@
+{
+  "symbol": "AttributeReference",
+  "kind": "object",
+  "source_terms": [
+    "attributereference"
+  ],
+  "owners": [
+    "BlockReference"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_block_attributes",
+    "update_titleblock_fields"
+  ],
+  "pywin32_signature": "for attr in block_ref.GetAttributes(): ...",
+  "risk_tags": [
+    "TextString 含格式前缀",
+    "属性值为空"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/objects/AttributeReference.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/idh_attributeref_object.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:idh_attributeref_object"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_attributeref_object.htm"
+  ]
+}

@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>DistanceToReal Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">DistanceToReal Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_DistanceToReal()
+    ' This example passes several different distances in
+    ' different units to be converted to real values.
+    
+    Dim distAsString As String
+    Dim unit As Long
+    Dim distAsReal As Double
+    
+    ' Convert the distance to a real in scientific units
+    unit = acScientific
+    distAsString = "1.75E+01"
+    distAsReal = ThisDrawing.Utility.DistanceToReal(distAsString, unit)
+    MsgBox "1.75E+01 converts to " & distAsReal & " in scientific units.", , "DistanceToReal Example"
+    
+    ' Convert the distance to a real in decimal units
+    unit = acDecimal
+    distAsString = "17.5"
+    distAsReal = ThisDrawing.Utility.DistanceToReal(distAsString, unit)
+    MsgBox "1.75 converts to " & distAsReal & " in decimal units.", , "DistanceToReal Example"
+    
+    ' Convert the distance to a real in engineering units
+    unit = acEngineering
+    distAsString = "1'-5.50"""
+    distAsReal = ThisDrawing.Utility.DistanceToReal(distAsString, unit)
+    MsgBox "1'-5.50"" converts to " & distAsReal & " in engineering units.", , "DistanceToReal Example"
+    
+    
+    ' Convert the distance to a real in architectural units
+    unit = acArchitectural
+    distAsString = "1'-5 1/2"""
+    distAsReal = ThisDrawing.Utility.DistanceToReal(distAsString, unit)
+    MsgBox "1'-5 1/2"" converts to " & distAsReal & " in architectural units.", , "DistanceToReal Example"
+    
+    ' Convert the distance to a real in fractional units
+    unit = acFractional
+    distAsString = "17 1/2"
+    distAsReal = ThisDrawing.Utility.DistanceToReal(distAsString, unit)
+    MsgBox "1'-5 1/2"" converts to " & distAsReal & " in fractional units.", , "DistanceToReal Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

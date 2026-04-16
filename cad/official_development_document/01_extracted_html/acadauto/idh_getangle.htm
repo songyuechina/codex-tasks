@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetAngle method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetAngle Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the angle specified. Considers the setting of the ANGBASE system variable.</P>
+
+<P CLASS="h1-access"><A HREF="getangle_see_also.htm">See Also</A> | <A HREF="ex_getangle.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = GetAngle([Point][, Prompt])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Point</p><p class=element-desc>Variant (three-element array of doubles); input-only; optional<BR>
+The 3D WCS coordinates specifying the first point.
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text used to prompt the user for input.
+<P class="element">RetVal</p><p class=element-desc>Double<BR>
+The angle specified.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD pauses for user input of an angle and sets the return value to the value of the selected angle. The Point parameter specifies an angle base point in the two-dimensional WCS. The Prompt parameter specifies a string that AutoCAD displays before it pauses. Both Point and Prompt are optional.
+<P CLASS="body">The AutoCAD user can specify the angle by entering a number in the current angular units format. The user can set the angle also by specifying two 2D locations on the graphics screen. AutoCAD draws a rubber-band line from the first point to the current crosshair position to help the user visualize the angle. If the Point parameter is provided, AutoCAD uses this value as the first of the two points. The angle is measured in the <I>XY</I> plane of the WCS (GetAngle ignores the <I>Z</I> field of Point).
+<P CLASS="body">Regardless of the method used to specify the angle, GetAngle always sets the return value to a value expressed in radians. The direction of angular increase is always counterclockwise.
+<P CLASS="body">This function is almost identical to 
+<A HREF="idh_getorientation.htm">GetOrientation</A>, but it takes into account the 
+current value of the <A HREF='ms-its:acad180.chm::/angbase.htm'>ANGBASE</A> system variable. For GetOrientation, the zero angle is always to the right: "east" or "three o'clock." For GetAngle, the zero angle is the value of ANGBASE, which can be set to any of the four 90-degree quadrants. Both GetAngle and GetOrientation return a (real) angle value in radians measured counterclockwise from a base (zero) angle. For GetAngle, the base equals ANGBASE; for GetOrientation, the base is at the right. Both functions honor the current value of ANGDIR, which affects the value the user enters but not the value that these functions return.
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="body">User input (degrees)</TH>
+<TH ALIGN=LEFT><P CLASS="body">GetAngle returns</TH>
+<TH ALIGN=LEFT><P CLASS="body">GetOrientation returns</TH></TR>
+
+<TR VALIGN=top ALIGN=center><TD><P CLASS="body">0&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">0.0&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">1.5708&nbsp;</TD></TR>
+
+<TR VALIGN=top ALIGN=center><TD><P CLASS="body">-90&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">1.5708&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">3.14159&nbsp;</TD></TR>
+
+<TR VALIGN=top ALIGN=center><TD><P CLASS="body">180&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">3.14159&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">4.71239&nbsp;</TD></TR>
+
+<TR VALIGN=top ALIGN=center><TD><P CLASS="body">90&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">4.71239&nbsp;</TD>
+<TD ALIGN=center><P CLASS="body">0.0&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">You can use GetAngle to obtain a rotation amount for a block insertion, because an input of 0 degrees always returns 0 radians. You can use GetOrientation to obtain the baseline angle for a text entity to be aligned with other objects.
+<P CLASS="body">If a keyword is returned instead of an angle, AutoCAD will generate the error message "User input keyword." Use the <A HREF="idh_getinput.htm">GetInput</A> method to obtain the keyword from the return value.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

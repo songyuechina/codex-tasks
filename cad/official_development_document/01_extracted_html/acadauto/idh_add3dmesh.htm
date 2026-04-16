@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="method.doc" KEYWORDS="3D meshes. See PolygonMesh object; Add3DMesh method;  meshes. See PolygonMesh object; polygon meshes. See PolygonMesh object; PolygonMesh object; PolygonMesh object, closing; PolygonMesh object, creating; ModelSpace Collection, adding 3DMesh objects; PaperSpace Collection, adding 3DMesh objects; Block object, adding 3DMesh objects
+" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 5:06:44 PM">
+<TITLE>Add3dMesh method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Add3DMesh Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a free-form 3D mesh, given the number of points in the <I>M</I> and <I>N</I> directions and the coordinates of the points in the <I>M</I> and <I>N</I> directions. </P>
+
+<P CLASS="h1-access"><A HREF="add3dmesh_see_also.htm">See Also</A> | <A HREF="ex_add3dmesh.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.Add3Dmesh(M, N, PointsMatrix)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">M, N</p><p class=element-desc>Integer; input-only<BR>
+Dimensions of the point array. The size of the mesh in both the <I>M</I> and <I>N</I> directions is limited to between 2 and 256.
+<P class="element">PointsMatrix</p><p class=element-desc>Variant (array of doubles); input-only<BR>
+<I>M</I> x <I>N</I> matrix of 3D WCS coordinates. Defining vertices begins with vertex (0,0). Supplying the coordinate locations for each vertex in row <I>M</I> must be done before specifying vertices in row <I>M </I>+ 1.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_polygonmesh_object.htm'>PolygonMesh</A> object<BR>
+A PolygonMesh as the newly created 3DMesh object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Vertices may be any distance from each other. 
+<P CLASS="body"><IMG SRC='img/3Dmesh.gif' BORDER=0>
+<P CLASS="body">A PolygonMesh is always open in both <I>M</I> and <I>N</I> directions. A mesh can be closed after creation 
+by using the <A HREF="idh_mclose.htm">MClose</A> and <A HREF="idh_nclose.htm">NClose</A> properties on the PolygonMesh object.
+<P CLASS="body">A PolygonMesh is always created as a simple mesh. A mesh can be smoothed 
+after creation by using the <A HREF="idh_type.htm">Type</A> property.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

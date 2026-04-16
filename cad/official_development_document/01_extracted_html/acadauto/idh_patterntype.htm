@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>PatternType property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">PatternType Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the pattern type used for the hatch.</P>
+
+<P CLASS="h1-access"><A HREF="patterntype_see_also.htm">See Also</A> | <A HREF="ex_patterntype.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.PatternType
+<P class="element">object</p><p class=element-desc><A HREF='idh_hatch_object.htm'>Hatch</A><BR>
+The object this property applies to.
+<P class="element">PatternType</p><p class=element-desc>acPatternType enum; read-only
+<P CLASS="Constant">acHatchPatternTypePreDefined
+<P CLASS="Constant">acHatchPatternTypeUserDefined
+<P CLASS="Constant-Last">acHatchPatternTypeCustomDefined
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The hatch pattern type is defined by one of the following settings:
+<P CLASS="body"><I>PreDefined:</I> Selects the pattern name from those defined in the <I>acad.pat</I> file.
+<P CLASS="body"><I>UserDefined:</I> Defines a pattern of lines using the current linetype.
+<P CLASS="body"><I>CustomDefined:</I> Selects the pattern name from a PAT file other than the <I>acad.pat</I> file.
+<P CLASS="body">The pattern type for a hatch can only be set by the 
+<A HREF="idh_addhatch.htm">AddHatch</A> method for hatch creation, or by the 
+<A HREF="idh_setpattern.htm">SetPattern</A> method.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

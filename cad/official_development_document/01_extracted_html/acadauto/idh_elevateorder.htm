@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>ElevateOrder method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ElevateOrder Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Elevates the order of the spline to the given order.</P>
+
+<P CLASS="h1-access"><A HREF="elevateorder_see_also.htm">See Also</A> | <A HREF="ex_elevateorder.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.ElevateOrder Order
+<P class="element">Object</p><p class=element-desc><A HREF='idh_spline_object.htm'>Spline</A>
+<P class="element">Order</p><p class=element-desc>Integer; input-only<BR>
+A positive value greater than the current order. The maximum order is 26.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The order of a spline is equal to the degree of the 
+spline plus one (+1). You can query the degree of the spline by using 
+the <A HREF="idh_degree.htm">Degree</A> property.
+<P CLASS="body">Entering a value greater than the current value increases the number of control points uniformly across the spline for more localized control. Once a spline order has been elevated, it cannot be reduced.
+<P CLASS="body">When a spline is elevated, it is converted from an 
+interpolated (fit) spline to a control point spline. This means that 
+after elevation, the spline no longer has fit tangents and the 
+<A HREF="idh_starttangent.htm">StartTangent</A> and <A HREF="idh_endtangent.htm">EndTangent</A> properties 
+for the spline are no longer accessible. The only way to edit a 
+control point spline is through the 
+<A HREF="idh_controlpoints.htm">ControlPoints</A> property, or the 
+<A HREF="idh_setcontrolpoint.htm">SetControlPoint</A> or 
+<A HREF="idh_getcontrolpoint.htm">GetControlPoint</A> methods. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

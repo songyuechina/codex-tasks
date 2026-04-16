@@ -1,0 +1,416 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-95D92244-7CC8-46A7-88AB-C5755EF779FE"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2008 and AutoCAD 2008-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2008 API History Reference (ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2009 API History Reference (ActiveX)</div><a href="GUID-694FF5D1-C5E9-4B6E-8292-B8B2F3FFE75F.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">AutoCAD 2007 API History Reference (ActiveX)</div><a href="GUID-CC6BE90C-5ABE-4DE5-9390-B36FDCFF798B.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-E982F77B-D737-498F-A7AE-24E81A603B49"></a></span><h1>AutoCAD 2008 API History Reference (ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-95D92244-7CC8-46A7-88AB-C5755EF779FE"></a></span><p class="blurb">Additions and changes made to the ActiveX API in AutoCAD 2008 and AutoCAD 2008-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_016370C19FFC49F5905ED1A083C56395"></a></span> <h2><a name="TOC_ENTRY__d24e6442"></a><span style="display:none"><a name="GUID-255CD6F7-D964-43D8-BFD4-6D3E525732D3"></a></span>Enums</h2> <div class="codeBlock"><pre>AcEntityName (Changed)
+        acMLeader = 48 (New)
+AcAttributeMode (Changed)
+        acAttributeModeLockPosition = 16 (New)
+        acAttributeModeMultipleLine = 32 (New)
+AcMergeCellStyleOption (New)
+        acMergeCellStyleNone = 0
+        acMergeCellStyleCopyDuplicates = 1
+        acMergeCellStyleOverwriteDuplicates = 2
+        acMergeCellStyleConvertDuplicatesToOverrides = 4
+        acMergeCellStyleIgnoreNewStyles = 8
+AcUnderlayLayerOverrideType (New)
+        acNoOverrides = 0
+        acApplied = 1
+AcTableFlowDirection (New)
+        acTableFlowRight = 1
+        acTableFlowDownOrUp = 2
+        acTableFlowLeft = 4
+AcCellMargin (New)
+        acCellMarginTop = 1
+        acCellMarginLeft = 2
+        acCellMarginBottom = 4
+        acCellMarginRight = 8
+        acCellMarginHorzSpacing = 16
+        acCellMarginVertSpacing = 32
+AcCellContentLayout (New)
+        acCellContentLayoutFlow = 1
+        acCellContentLayoutStackedHorizontal = 2
+        acCellContentLayoutStackedVertical = 4
+AcCellProperty (New)
+        acInvalidCellProperty = 0
+        acLock = 1
+        acDataType = 2
+        acDataFormat = 4
+        acRotation = 8
+        acScale = 16
+        acAlignmentProperty = 32
+        acContentColor = 64
+        acBackgroundColor = 128
+        acTextStyle = 256
+        acTextHeight = 512
+        acMarginLeft = 1024
+        acMarginTop = 2048
+        acMarginRight = 4096
+        acMarginBottom = 8192
+        acEnableBackgroundColor = 16384
+        acAutoScale = 32768
+        acMergeAll = 0x00010000
+        acFlowDirBtoT = 0x00020000
+        acContentLayout = 0x00040000
+        acDataTypeAndFormat = 6
+        acContentProperties = 33662
+        acBitProperties = 0x0003c000
+        acAllCellProperties = 0x0007ffff
+AcGridLineStyle (New)
+        acGridLineStyleSingle = 1
+        acGridLineStyleDouble = 2
+AcDataLinkUpdateDirection (New)
+        acUpdateDataFromSource = 1
+        acUpdateSourceFromData = 2
+AcDataLinkUpdateOption (New)
+        acUpdateOptionNone = 0
+        acUpdateOptionOverwriteContentModifiedAfterUpdate = 0x00020000
+        acUpdateOptionOverwriteFormatModifiedAfterUpdate = 0x00040000
+        acUpdateOptionUpdateFullSourceRange = 0x00080000
+        acUpdateOptionIncludeXrefs = 0x00100000
+AcCellContentType (New)
+        acCellContentTypeUnknown = 0
+        acCellContentTypeValue = 1
+        acCellContentTypeField = 2
+        acCellContentTypeBlock = 4
+AcCellState (New)
+        acCellStateNone = 0
+        acCellStateContentLocked = 1
+        acCellStateContentReadOnly = 2
+        acCellStateFormatLocked = 4
+        acCellStateFormatReadOnly = 8
+        acCellStateLinked = 16
+        acCellStateContentModified = 32
+        acCellStateFormatModified = 64
+AcCellOption (New)
+        kCellOptionNone = 0
+        kInheritCellFormat = 1
+AcTextAttachmentType (New)
+        acAttachmentTopOfTop = 0
+        acAttachmentMiddleOfTop = 1
+        acAttachmentBottomOfTop = 2
+        acAttachmentBottomOfTopLine = 3
+        acAttachmentMiddle = 4
+        acAttachmentMiddleOfBottom = 5
+        acAttachmentBottomOfBottom = 6
+        acAttachmentBottomLine = 7
+        acAttachmentAllLine = 8
+AcMLeaderType (New)
+        acStraightLeader = 1
+        acSplineLeader = 2
+        acInVisibleLeader = 0
+AcMLeaderContentType (New)
+        acNoneContent = 0
+        acBlockContent = 1
+        acMTextContent = 2
+AcTextAlignmentType (New)
+        acLeftAlignment = 0
+        acCenterAlignment = 1
+        acRightAlignment = 2
+AcTextAngleType (New)
+        acInsertAngle = 0
+        acHorizontalAngle = 1
+        acAlwaysRightReadingAngle = 2
+AcBlockConnectionType (New)
+        acConnectExtents = 0
+        acConnectBase = 1
+AcPredefBlockType (New)
+        acBlockImperial = 0
+        acBlockSlot = 1
+        acBlockCircle = 2
+        acBlockBox = 3
+        acBlockHexagon = 4
+        acBlockTriangle = 5
+        acBlockUserDefined = 6
+AcDrawLeaderOrderType (New)
+        acDrawLeaderHeadFirst = 0
+        acDrawLeaderTailFirst = 1
+AcDrawMLeaderOrderType (New)
+        acDrawContentFirst = 0
+        acDrawLeaderFirst = 1
+AcSegmentAngleType (New)
+        acDegreesAny = 0
+        acDegrees15 = 1
+        acDegrees30 = 2
+        acDegrees45 = 3
+        acDegrees60 = 4
+        acDegrees90 = 6
+        acDegreesHorz = 12</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_BDBE6174975C41979F6B512FAA668307"></a></span> <h2><a name="TOC_ENTRY__d24e6450"></a><span style="display:none"><a name="GUID-2FC9E567-BBF2-484F-98B4-91CE0EACE506"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadObject (Changed)
+        ObjectID - Property (Changed to support 64-bit)
+        OwnerID - Property (Changed to support 64-bit)
+        ObjectID32 - Property (New)
+        OwnerID32 - Property (New)
+IAcadDatabase (Changed)
+        ObjectIdToObject - Method (Changed to support 64-bit)
+        ObjectIdToObject32 - Method (Changed)
+IAcadTable (Changed)
+        GetBlockTableRecordId - Method (Changed to support 64-bit)
+        SetBlockTableRecordId - Method (Changed to support 64-bit)
+        GetBlockAttributeValue - Method (Changed to support 64-bit)
+        SetBlockAttributeValue - Method (Changed to support 64-bit)
+        GetFieldId - Method (Changed to support 64-bit)
+        SetFieldId - Method (Changed to support 64-bit)
+        GetBlockTableRecordId32 - Method (New)
+        SetBlockTableRecordId32 - Method (New)
+        GetBlockAttributeValue32 - Method (New)
+        SetBlockAttributeValue32 - Method (New)
+        GetFieldId32 - Method (New)
+        SetFieldId32 - Method (New)
+IAcadPViewport (Changed)
+        LabelBlockId - Property (Changed to support 64-bit)
+        LabelBlockId32 - Property (New)
+IAcadView (Changed)
+        LayoutId - Property (Changed to support 64-bit)
+        LayoutId32 - Property (New)
+IAcadSectionTypeSettings2 (New)
+        IntersectionBoundaryVisible - Property (New)
+IAcadIdPair (Changed)
+        key - Property (Changed to support 64-bit)
+        Value - Property (Changed to support 64-bit)
+        Key32 - Property (New)
+        Value32 - Property (New)
+IAcadTableStyle2 (New)
+        CreateCellStyle - Method
+        CreateCellStyleFromStyle - Method
+        RenameCellStyle - Method
+        DeleteCellStyle - Method
+        GetUniqueCellStyleName - Method
+        GetIsCellStyleInUse - Method
+        NumCellStyles - Property
+        GetCellStyles - Method
+        GetTextStyleId - Method
+        SetTextStyleId - Method
+        GetTextHeight2 - Method
+        SetTextHeight2 - Method
+        GetAlignment2 - Method
+        SetAlignment2 - Method
+        GetColor2 - Method
+        SetColor2 - Method
+        GetBackgroundColor2 - Method
+        SetBackgroundColor2 - Method
+        GetDataType2 - Method
+        SetDataType2 - Method
+        GetFormat2 - Method
+        SetFormat2 - Method
+        GetCellClass - Method
+        SetCellClass - Method
+        GetRotation - Method
+        SetRotation - Method
+        GetIsMergeAllEnabled - Method
+        EnableMergeAll - Method
+        GetGridLineWeight2 - Method
+        SetGridLineWeight2 - Method
+        GetGridColor2 - Method
+        SetGridColor2 - Method
+        GetGridVisibility2 - Method
+        SetGridVisibility2 - Method
+        TemplateId - Property
+        SetTemplateId - Method
+        GetTextStyleId32 - Method
+        SetTextStyleId32 - Method
+        TemplateId32 - Property
+        SetTemplateId32 - Method
+IAcadMLeaderStyle (New)
+        Name - Property
+        Description - Property
+        BitFlags - Property
+        ContentType - Property
+        DrawMLeaderOrderType - Property
+        DrawLeaderOrderType - Property
+        MaxLeaderSegmentsPoints - Property
+        FirstSegmentAngleConstraint - Property
+        SecondSegmentAngleConstraint - Property
+        LeaderLineType - Property
+        LeaderLineColor - Property
+        LeaderLineTypeId - Property
+        LeaderLineWeight - Property
+        EnableLanding - Property
+        LandingGap - Property
+        EnableDogleg - Property
+        DoglegLength - Property
+        ArrowSymbol - Property
+        ArrowSize - Property
+        TextStyle - Property
+        TextLeftAttachmentType - Property
+        TextRightAttachmentType - Property
+        TextColor - Property
+        TextHeight - Property
+        EnableFrameText - Property
+        AlignSpace - Property
+        Block - Property
+        BlockColor - Property
+        EnableBlockScale - Property
+        BlockScale - Property
+        EnableBlockRotation - Property
+        BlockRotation - Property
+        BlockConnectionType - Property
+        ScaleFactor - Property
+        OverwritePropChanged - Property
+        Annotative - Property
+        BreakSize - Property
+        TextString - Property
+        TextAngleType - Property
+        TextAlignmentType - Property
+IAcadAttribute2 (New)
+        MTextAttribute - Property
+        MTextAttributeContent - Property
+        UpdateMTextAttribute - Method
+        MTextBoundaryWidth - Property
+        MTextDrawingDirection - Property
+IAcadAttributeReference2 (New)
+        MTextAttribute - Property
+        MTextAttributeContent - Property
+        UpdateMTextAttribute - Method
+        MTextBoundaryWidth - Property
+        MTextDrawingDirection - Property
+IAcadMLeader (New)
+        ScaleFactor - Property
+        LeaderType - Property
+        LeaderLineColor - Property
+        LeaderLineType - Property
+        LeaderLineWeight - Property
+        ArrowheadType - Property
+        ArrowheadSize - Property
+        DogLegged - Property
+        DoglegLength - Property
+        ContentBlockName - Property
+        BlockConnectionType - Property
+        TextString - Property
+        TextStyleName - Property
+        TextJustify - Property
+        TextDirection - Property
+        TextWidth - Property
+        TextHeight - Property
+        TextRotation - Property
+        TextLineSpacingFactor - Property
+        TextLineSpacingDistance - Property
+        TextLineSpacingStyle - Property
+        TextBackgroundFill - Property
+        TextLeftAttachmentType - Property
+        TextRightAttachmentType - Property
+        LandingGap - Property
+        ArrowheadBlock - Property
+        ContentBlockType - Property
+        LeaderCount - Property
+        AddLeader - Method
+        RemoveLeader - Method
+        AddLeaderLine - Method
+        AddLeaderLineEx - Method
+        RemoveLeaderLine - Method
+        SetLeaderLineVertices - Method
+        GetLeaderLineVertices - Method
+        ContentType - Property
+        GetLeaderIndex - Method
+        GetLeaderLineIndexes - Method
+        GetVertexCount - Method
+        TextFrameDisplay - Property
+        StyleName - Property
+        GetDoglegDirection - Method
+        SetDoglegDirection - Method
+        GetBlockAttributeValue - Method
+        SetBlockAttributeValue - Method
+        GetBlockAttributeValue32 - Method
+        SetBlockAttributeValue32 - Method
+IAcadPViewport2 (New)
+        LayerPropertyOverrides - Property
+IAcadTable2 (New)
+        IsEmpty - Method
+        CreateContent - Method
+        MoveContent - Method
+        DeleteContent - Method
+        GetValue - Method
+        SetValue - Method
+        SetValueFromText - Method
+        GetDataFormat - Method
+        SetDataFormat - Method
+        GetTextString - Method
+        SetTextString - Method
+        GetFieldId2 - Method
+        SetFieldId2 - Method
+        GetBlockTableRecordId2 - Method
+        SetBlockTableRecordId2 - Method
+        GetBlockAttributeValue2 - Method
+        SetBlockAttributeValue2 - Method
+        GetCustomData - Method
+        SetCustomData - Method
+        GetCellStyle - Method
+        SetCellStyle - Method
+        GetContentColor2 - Method
+        SetContentColor2 - Method
+        GetDataType2 - Method
+        SetDataType2 - Method
+        GetTextStyle2 - Method
+        SetTextStyle2 - Method
+        GetTextHeight2 - Method
+        SetTextHeight2 - Method
+        GetRotation - Method
+        SetRotation - Method
+        GetAutoScale2 - Method
+        SetAutoScale2 - Method
+        GetScale - Method
+        SetScale - Method
+        RemoveAllOverrides - Method
+        GetGridLineWeight2 - Method
+        SetGridLineWeight2 - Method
+        GetGridLinetype - Method
+        SetGridLinetype - Method
+        GetGridColor2 - Method
+        SetGridColor2 - Method
+        GetGridVisibility2 - Method
+        SetGridVisibility2 - Method
+        GetGridDoubleLineSpacing - Method
+        SetGridDoubleLineSpacing - Method
+        EnableBreak - Property
+        GetBreakHeight - Method
+        SetBreakHeight - Method
+        GetContentType - Method
+        GetMargin - Method
+        SetMargin - Method
+        GetContentLayout - Method
+        SetContentLayout - Method
+        GetOverride - Method
+        SetOverride - Method
+        GetGridLineStyle - Method
+        SetGridLineStyle - Method
+        InsertRowsAndInherit - Method
+        InsertColumnsAndInherit - Method
+        GetHasFormula - Method
+        GetFormula - Method
+        SetFormula - Method
+        IsContentEditable - Method
+        IsFormatEditable - Method
+        GetCellState - Method
+        SetCellState - Method
+        EnableMergeAll - Method
+        IsMergeAllEnabled - Method
+        BreaksEnabled - Property
+        RepeatTopLabels - Property
+        RepeatBottomLabels - Property
+        TableBreakFlowDirection - Property
+        AllowManualPositions - Property
+        AllowManualHeights - Property
+        TableBreakHeight - Property
+        BreakSpacing - Property
+        GetColumnName - Method
+        SetColumnName - Method
+        SetToolTip - Method
+        GetFieldId232 - Method
+        SetFieldId232 - Method
+        GetBlockTableRecordId232 - Method
+        SetBlockTableRecordId232 - Method
+        GetBlockAttributeValue232 - Method
+        SetBlockAttributeValue232 - Method
+        GetGridLinetype32 - Method
+        SetGridLinetype32 - Method
+IAcadUnderlay2 (New)
+        UnderlayLayerOverrideApplied - Property
+IAcadBlock2 (New)
+        AddMLeader - Method
+IAcadModelSpace2 (New)
+        AddMLeader - Method
+IAcadPaperSpace2 (New)
+        AddMLeader - Method
+IAcadDocument (Changed)
+        HWND - Property (Changed to support 64-bit)
+        HWND32 - Property (New)
+IAcadApplication (Changed)
+        HWND - Property (Changed to support 64-bit)
+        HWND32 - Property (New)</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

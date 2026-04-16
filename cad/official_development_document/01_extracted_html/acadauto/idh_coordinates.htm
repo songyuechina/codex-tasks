@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="prop.doc" KEYWORDS="coordinates, vertex coordinate matrices; Coordinates property; Coordinates property, 3DFace object; Coordinates property, 3DPoly object; Coordinates property, Leader object; Coordinates property, LightweightPolyline object; Coordinates property, MLine object; Coordinates property, Point object; Coordinates property, PolyfaceMesh object; Coordinates property, PolygonMesh object; Coordinates property, Polyline object; Coordinates property, Solid object; Coordinates property, Trace object; 3DFace object, Coordinates property; 3DPoly object, Coordinates property; Leader object, Coordinates property; LightweightPolyline object, Coordinates property; MLine object, Coordinates property; Point object, Coordinates property; PolyfaceMesh object, Coordinates property; PolygonMesh object, Coordinates property; Polyline object, Coordinates property; Solid object, Coordinates property; Trace object, Coordinates property" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:24:53 AM">
+<TITLE>Coordinates property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Coordinates Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the coordinates for each vertex in the object. </P>
+
+<P CLASS="h1-access"><A HREF="coordinates_see_also.htm">See Also</A> | <A HREF="ex_coordinates.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Coordinates
+<P class="element">object</p><p class=element-desc><A HREF='idh_3dface_object.htm'>3DFace</A>, <A HREF='idh_3dpoly_object.htm'>3DPolyline </A>, <A HREF='idh_leader_object.htm'>Leader</A>, <A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_mline_object.htm'>MLine</A>, <A HREF='idh_point_object.htm'>Point</A>, <A HREF='idh_polyfacemesh_object.htm'>PolyfaceMesh</A>, <A HREF='idh_polygonmesh_object.htm'>PolygonMesh</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_solid_object.htm'>Solid</A>, <A HREF='idh_trace_object.htm'>Trace</A><BR>
+The objects this property applies to.
+<P class="element">Coordinates</p><p class=element-desc>Variant (array of doubles); read-write<BR>
+The array of points.<BR>
+<BR>
+LightweightPolyline objects: The variant is an array of 2D points in OCS. <BR>
+<BR>
+Polyline objects: The variant is an array of 3D points: the <I>X</I> and <I>Y</I> coordinates are in OCS; the <I>Z</I> coordinate is ignored.<BR>
+<BR>
+All other objects: The variant is an array of 3D points in WCS.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This property will replace any existing coordinates for the specified object. Use standard array-handling techniques to process the coordinates contained in this property.
+<P CLASS="body">You cannot change the number of coordinates in the object by using this property. You can change only the location of existing coordinates.
+<P CLASS="body">For the following objects, the <I>Z</I> coordinate will always default to 0 on the active UCS: 3DFace, Leader, MLine, PolyfaceMesh, and Trace. 
+<P CLASS="body"><I>3DPolyline , Polyline, PolygonMesh:</I> For simple polylines (not splined or curve fit), this property specifies simple vertices. For splined or curve-fit polylines, this property specifies control point vertices.
+<P CLASS="body">When setting the coordinates for a polyline, if you supply fewer coordinates than the object currently possesses, the polyline will be truncated. Any fit points applying to the truncated vertices will also be truncated. If you supply more coordinates than the object currently possesses, the extra vertices will be appended to the polyline.
+<P CLASS="body">The OCS coordinates for the Polyline and LightweightPolyline objects can be converted to and from other coordinate systems using the 
+<A HREF="idh_translatecoordinates.htm">TranslateCoordinates</A> method.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

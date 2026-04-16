@@ -1,0 +1,34 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-68988D57-F867-41C3-AE2B-8BD20607BF33"><meta name="topic-subtype" content="activex"><meta name="description" content="With the ArrayRectangular method, you can create a rectangular array in 3D."><meta name="indexterm" content="3D modeling: rectangular arrays (illustration)"><meta name="indexterm" content="rectangular arrays: in 3D (illustration)"><meta name="indexterm" content="rectangular arrays: creating in 3D"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81"><title>About Arraying in 3D (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Rotating in 3D (VBA/ActiveX)</div><a href="GUID-3FEB0A3C-E4B1-40DF-A4DF-CAB22F1E2A92.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Editing in 3D (VBA/ActiveX)</div><a href="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Mirroring Objects Along a Plane (VBA/ActiveX)</div><a href="GUID-851EC3D2-1B07-4452-8BAB-FB7AE44C426C.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_8.htm">Work in Three-Dimensional Space</a>&nbsp;&gt;&nbsp;<a href="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81.htm">About Editing in 3D (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-4463E972-DAE3-4A01-950C-C4946EB2458A"></a></span><h1>About Arraying in 3D (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-68988D57-F867-41C3-AE2B-8BD20607BF33"></a></span><p class="blurb"> With the <span class="code">ArrayRectangular</span> method, you can create a rectangular array in 3D. </p><!--Body--><p><span style="display:none"><a name="GUID-116BF23B-D7FB-4168-8A01-59E23994C010"></a></span> In addition to specifying the number of columns (<em class="mild">X</em> direction) and rows (<em class="mild">Y</em> direction), you also specify the number of levels (<em class="mild">Z</em> direction). </p><div class="section"><span style="display:none"><a name="SECTION_902408793CE44B74BD8AFE8E73F397BA"></a></span> <h2><a name="TOC_ENTRY__d24e34766"></a><span style="display:none"><a name="GUID-14368B59-35CC-40BB-8054-6DDCE81F3BA1"></a></span>Create a 3D rectangular array</h2> <p><span style="display:none"><a name="GUID-D95BA3B8-4729-420C-8F48-337A968E6748"></a></span>This example creates a circle and then uses that circle to create a rectangular array of four rows, four columns, and three levels of circles. </p> <div class="codeBlock"><pre>Sub Ch8_CreateRectangularArray()
+    ' Create the circle
+    Dim circleObj As AcadCircle
+    Dim center(0 To 2) As Double
+    Dim radius As Double
+    center(0) = 2: center(1) = 2: center(2) = 0
+    radius = 0.5
+    Set circleObj = ThisDrawing.ModelSpace. _
+ AddCircle(center, radius)
+
+    ' Define the rectangular array
+    Dim numberOfRows As Long
+    Dim numberOfColumns As Long
+    Dim numberOfLevels As Long
+    Dim distanceBwtnRows As Double
+    Dim distanceBwtnColumns As Double
+    Dim distanceBwtnLevels As Double
+    numberOfRows = 4
+    numberOfColumns = 4
+    numberOfLevels = 3
+    distanceBwtnRows = 1
+    distanceBwtnColumns = 1
+    distanceBwtnLevels = 4
+
+    ' Create the array of objects
+    Dim retObj As Variant
+    retObj = circleObj.ArrayRectangular _
+        (numberOfRows, numberOfColumns, _
+         numberOfLevels, distanceBwtnRows, _
+         distanceBwtnColumns, distanceBwtnLevels)
+    ZoomAll
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-reference"><h4 class="related">Related References</h4><ul><li class="topiclist-litem"><a href="GUID-34726D12-C973-47E4-86A1-DBD410FE1477.htm">ArrayPolar Method (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-D8F15232-7297-4C90-86A4-0A0887D4938B.htm">ArrayRectangular Method (ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-A9DC9E3A-6A3C-48C8-877F-8A14A05DAB81.htm" title=" This section describes how to edit 3D objects by, for example, rotating, arraying, and mirroring. ">About Editing in 3D (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

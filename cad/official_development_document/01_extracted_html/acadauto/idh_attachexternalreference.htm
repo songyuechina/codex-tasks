@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AttachExternalReference method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AttachExternalReference Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Attaches an external reference (xref) to the drawing.</P>
+
+<P CLASS="h1-access"><A HREF="attachexternalreference_see_also.htm">See Also</A> | <A HREF="ex_attachexternalreference.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AttachExternalReference (PathName, Name, InsertionPoint, XScale, YScale, ZScale, Rotation, bOverlay [, Password])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">PathName</p><p class=element-desc>String; input-only<BR>
+The full path and file name of the drawing to be referenced.
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name for the xref to be created.
+<P class="element">InsertionPoint</p><p class=element-desc>Variant (three-element array of Doubles); input-only<BR>
+The 3D WCS coodinates specifying the point at which an ExternalReference instance is inserted into the drawing. The insertion point in the current drawing is aligned with the point defined by the <A HREF="ms-its:acad180.chm::/BAS.htm">BASE</A> system variable in the referenced file.
+<P class="element">XScale</p><p class=element-desc>Double; input-only<BR>
+The <I>X</I> scaling factor for the xref instance.
+<P class="element">YScale</p><p class=element-desc>Double; input-only<BR>
+The <I>Y</I> scaling factor for the xref instance.
+<P class="element">ZScale</p><p class=element-desc>Double; input-only<BR>
+The <I>Z</I> scaling factor for the xref instance.
+<P class="element">Rotation</p><p class=element-desc>Double; input-only<BR>
+The rotation angle for the xref instance. This angle is specified in radians.
+<P class="element">bOverlay</p><p class=element-desc>Boolean; input-only
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: The xref instance is an overlay.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: The xref instance is an attachment.</SPAN>
+<P class="element">Password</p><p class=element-desc>Variant; input-only; optional<BR>
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_externalreference_object.htm'>ExternalReference</A> object<BR>
+The newly created ExternalReference object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Like Block objects, attached ExternalReference objects can be nested. If another person is editing the drawing to be referenced, the drawing attached is based on the most recently saved version.
+<P CLASS="body">If the referenced file is missing or corrupt, its data is not displayed in the current drawing.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+
+<TITLE>Modified event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Modified Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered when an object or collection in the drawing has been modified.</P>
+
+<P CLASS="h1-access"><A HREF="modified_see_also.htm">See Also</A> | <A HREF="ex_modified.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.Modified(Entity)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing objects</A>, <A HREF='idh_block_object.htm'>Block</A>, <A HREF='idh_blocks_collection.htm'>Blocks</A>, <A HREF='idh_dictionary_object.htm'>Dictionary</A>, <A HREF='idh_dictionaries_collection.htm'>Dictionaries</A>, <A HREF='idh_dimstyle_object.htm'>DimStyle</A>, <A HREF='idh_dimstyles_collection.htm'>DimStyles</A>, <A HREF='idh_group_object.htm'>Group</A>, <A HREF='idh_groups_collection.htm'>Groups</A>, <A HREF='idh_hyperlink_object.htm'>Hyperlink</A>, <A HREF='idh_hyperlinks_collection.htm'>Hyperlinks</A>, <A HREF='idh_layer_object.htm'>Layer</A>, <A HREF='idh_layers_collection.htm'>Layers</A>, <A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_layouts_collection.htm'>Layouts</A>, <A HREF='idh_linetype_object.htm'>Linetype</A>, <A HREF='idh_linetypes_collection.htm'>Linetypes</A>, <A HREF='idh_modelspace_collection.htm'>ModelSpace</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace</A>, <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A>, <A HREF='idh_plotconfigurations_collection.htm'>PlotConfigurations</A>, <A HREF='idh_registeredapp_object.htm'>RegisteredApplication</A>, <A HREF='idh_registeredapps_collection.htm'>RegisteredApplications</A>, <A HREF='idh_selectionset_object.htm'>SelectionSet</A>, <A HREF='idh_selectionsets_collection.htm'>SelectionSets</A>, <A HREF='idh_textstyle_object.htm'>TextStyle</A>, <A HREF='idh_textstyles_collection.htm'>TextStyles</A>, <A HREF='idh_ucs_object.htm'>UCS</A>, <A HREF='idh_ucss_collection.htm'>UCSs</A>, <A HREF='idh_view_object.htm'>View</A>, <A HREF='idh_views_collection.htm'>Views</A>, <A HREF='idh_viewport_object.htm'>Viewport</A>, <A HREF='idh_viewports_collection.htm'>Viewports</A>, <A HREF='idh_xrecord_object.htm'>XRecord</A><BR>
+An object expression that evaluates to a valid container object.
+<P class="element">Entity</p><p class=element-desc><A HREF="all_drawing_objects.htm">A Drawing Object</A><BR>
+The object in the drawing that is modified can be any one of the drawing objects.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This event will be triggered whenever the object is modified. Modification includes whenever the value of a property is set, even if the new value is equal to the current value.
+<P CLASS="body">When coding in VBA, you must provide an event handler for all objects enabled for the Modified event. If you do not provide a handler, VBA may terminate unexpectedly.
+<P CLASS="body">No events will be fired while a modal dialog is being displayed.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

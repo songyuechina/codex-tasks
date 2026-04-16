@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>Mdensity property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">MDensity Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the surface density of a PolygonMesh in the <I>M</I> direction.</P>
+
+<P CLASS="h1-access"><A HREF="mdensity_see_also.htm">See Also</A> | <A HREF="ex_mdensity.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.MDensity
+<P class="element">object</p><p class=element-desc><A HREF='idh_polygonmesh_object.htm'>PolygonMesh</A><BR>
+The object this property applies to.
+<P class="element">MDensity</p><p class=element-desc>Integer; read-write<BR>
+An integer value between 2 and 256. 
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The <I>M</I> surface density is the number of vertices in 
+the <I>M</I> direction for PolygonMesh objects that are of the following 
+types: <SPAN CLASS="constant-char">acQuadSurfaceMesh</SPAN>, 
+<SPAN CLASS="constant-char">acCubicSurfaceMesh</SPAN>, or <SPAN CLASS="constant-char">acBezierSurfaceMesh</SPAN>. 
+<P CLASS="body">The initial value for this property is derived from the value in the <A HREF='ms-its:acad180.chm::/surfu.htm'>SURFU</A> system variable + 1. Therefore, if the current value of SURFU is 6, the MDensity for a mesh after a surface fit operation would be 7. To perform a surface fit operation on a mesh, change the mesh type using the Type property.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

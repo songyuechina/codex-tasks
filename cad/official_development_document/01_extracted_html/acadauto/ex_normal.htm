@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Normal Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Normal Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Normal()
+    ' This example creates a circle in model space.
+    ' It then finds the current normal to that circle
+    ' and changes the normal.
+    
+    ' Define a circle
+    Dim circleObj As AcadCircle
+    Dim center(0 To 2) As Double
+    Dim radius As Double
+    center(0) = 4: center(1) = 4: center(2) = 0
+    radius = 1
+    
+    ' Add the circle to model space
+    Set circleObj = ThisDrawing.ModelSpace.AddCircle(center, radius)
+    ZoomAll
+    
+    ' Find the normal for the circle
+    Dim currNormal As Variant
+    currNormal = circleObj.Normal
+    MsgBox "The current normal for the circle is " & circleObj.Normal(0) & ", " & circleObj.Normal(1) & ", " & circleObj.Normal(2), , "Normal Example"
+    
+    ' Change the normal for the circle
+    Dim newNormal(0 To 2) As Double
+    newNormal(0) = 1: newNormal(1) = 1: newNormal(2) = -1
+    circleObj.Normal = newNormal
+    circleObj.Update
+    MsgBox "The current normal for the circle is " & circleObj.Normal(0) & ", " & circleObj.Normal(1) & ", " & circleObj.Normal(2), , "Normal Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

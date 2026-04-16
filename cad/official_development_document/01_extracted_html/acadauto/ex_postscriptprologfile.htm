@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>PostScriptPrologFile Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">PostScriptPrologFile Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_PostScriptPrologFile()
+    ' This example returns the current setting of
+    ' PostScriptPrologFile. It then changes the value, and finally
+    ' it resets the value back to the original setting.
+    
+    Dim preferences As AcadPreferences
+    Dim currPostScriptPrologFile As String
+    Dim newPostScriptPrologFile As String
+    
+    Set preferences = ThisDrawing.Application.preferences
+    
+    ' Retrieve the current PostScriptPrologFile value
+    currPostScriptPrologFile = preferences.Files.PostScriptPrologFile
+    If currPostScriptPrologFile = "" Then
+        MsgBox "PostScriptPrologFile is not currently set.", vbInformation, "PostScriptPrologFile Example"
+    Else
+        MsgBox "The current value for PostScriptPrologFile is " & currPostScriptPrologFile, vbInformation, "PostScriptPrologFile Example"
+    End If
+    
+    ' Change the value for PostScriptPrologFile
+    newPostScriptPrologFile = "TestPostScriptPrologFile"
+    preferences.Files.PostScriptPrologFile = newPostScriptPrologFile
+    MsgBox "The new value for PostScriptPrologFile is " & newPostScriptPrologFile, vbInformation, "PostScriptPrologFile Example"
+    
+    ' Reset PostScriptPrologFile to its original value
+    preferences.Files.PostScriptPrologFile = currPostScriptPrologFile
+    If currPostScriptPrologFile = "" Then
+        MsgBox "PostScriptPrologFile is reset to NULL.", vbInformation, "PostScriptPrologFile Example"
+    Else
+        MsgBox "The PostScriptPrologFile value is reset to " & currPostScriptPrologFile, vbInformation, "PostScriptPrologFile Example"
+    End If
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

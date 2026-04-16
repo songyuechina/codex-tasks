@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ExtLine2StartPoint Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ExtLine2StartPoint Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ExtLine2StartPoint()
+    ' This example creates an angular dimension. It then changes
+    ' the location of the ExtLine2StartPoint.
+    
+    Dim dimObj As AcadDimAngular
+    Dim angVert(0 To 2) As Double
+    Dim FirstPoint(0 To 2) As Double
+    Dim SecondPoint(0 To 2) As Double
+    Dim TextPoint(0 To 2) As Double
+    
+    ' Define the dimension
+    angVert(0) = 0#: angVert(1) = 5#: angVert(2) = 0#
+    FirstPoint(0) = 1#: FirstPoint(1) = 7#: FirstPoint(2) = 0#
+    SecondPoint(0) = 1#: SecondPoint(1) = 3#: SecondPoint(2) = 0#
+    TextPoint(0) = 3#: TextPoint(1) = 5#: TextPoint(2) = 0#
+    
+    ' Create the angular dimension in model space
+    Set dimObj = ThisDrawing.ModelSpace.AddDimAngular(angVert, FirstPoint, SecondPoint, TextPoint)
+    ZoomAll
+    MsgBox "The current value of ExtLine2StartPoint is " & dimObj.ExtLine2StartPoint(0) & ", " & dimObj.ExtLine2StartPoint(1) & ", " & dimObj.ExtLine2StartPoint(2), vbInformation, "ExtLine2StartPoint Example"
+    
+    ' Change the start point of the second extension line
+    FirstPoint(0) = 1: FirstPoint(1) = 4: FirstPoint(2) = 0
+    dimObj.ExtLine2StartPoint = FirstPoint
+    dimObj.Update
+    
+    ' Return the start point of the second extension line
+    ' Note that the return value is a Variant
+    Dim retPnt As Variant
+    retPnt = dimObj.ExtLine2StartPoint
+    MsgBox "The new value of ExtLine2StartPoint is " & dimObj.ExtLine2StartPoint(0) & ", " & dimObj.ExtLine2StartPoint(1) & ", " & dimObj.ExtLine2StartPoint(2), vbInformation, "ExtLine2StartPoint Example"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

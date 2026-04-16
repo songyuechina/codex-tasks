@@ -1,0 +1,33 @@
+{
+  "script": "illustration_frame_service.py",
+  "role": "illustration-label-frame-and-title-service",
+  "summary": "负责在受控 CAD 入口下分析 DWG 打印区域，判定是否已有内框，并按标准模板插入图框与图签块。",
+  "public_api": [
+    "DEFAULT_MATCH_MODE",
+    "SUPPORTED_MATCH_MODES",
+    "apply_illustration_labels",
+    "PrintAreaLabelResult"
+  ],
+  "key_dependencies": [
+    "illustration_block_service.prepare_cad_runtime",
+    "illustration_block_service.replace_single_block_definition",
+    "print.print_area_analysis.get_print_area_polylines",
+    "print.print_area_analysis.match_standard_print_by_mode",
+    "system.CAD_core.open_file",
+    "system.runtime_guard_bridge.assert_runtime_guard_ok"
+  ],
+  "boundaries": [
+    "不负责 sys.path bootstrap",
+    "不重写 print_area_analysis.py 的打印区域判定规则",
+    "不绕开 runtime guard 直接执行真实 DWG 操作"
+  ],
+  "must_keep_experience": [
+    "默认匹配模式是 purified_adaptive，basic 仅在用户显式指定时启用",
+    "标准图框按打印区域外框进行非等比缩放和二次平移，保证外包盒精确贴合",
+    "图签块按内框锚点对齐，横向取右下角、竖向取左下角，并随内框尺寸做等比例缩放",
+    "图签块不能直接把 A0_H/A1_H/A2_H/A3_H 外层文件块留在目标图里，而要使用这些文件内部的 A0/A1/A2/A3 块定义",
+    "真实图签块定义必须通过 Defpoints 图层两根多段线及红绿颜色特征校验",
+    "user_frame 缺省时从 standard_drawing_frame 回填默认 A0_H/A1_H/A2_H/A3_H，使用完成后清空",
+    "用户给出自定义 A0/A1/A2/A3 源 DWG 时，目标文件中同名块定义要做到有则替换、无则导入"
+  ]
+}

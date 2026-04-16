@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetCustomByKey Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetCustomByKey Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">Sub Example_SetCustomByKey()
+	' This example shows how to access drawing properties
+            
+	' Add and display standard properties
+	ThisDrawing.SummaryInfo.Author = "John Doe"
+	ThisDrawing.SummaryInfo.Comments = "Includes all ten levels of Building Five"
+	ThisDrawing.SummaryInfo.HyperlinkBase = "http://www.autodesk.com"
+	ThisDrawing.SummaryInfo.Keywords = "Building Complex"
+	ThisDrawing.SummaryInfo.LastSavedBy = "JD"
+	ThisDrawing.SummaryInfo.RevisionNumber = "4"
+	ThisDrawing.SummaryInfo.Subject = "Plan for Building Five"
+	ThisDrawing.SummaryInfo.Title = "Building Five"
+
+	Author = ThisDrawing.SummaryInfo.Author
+	Comments = ThisDrawing.SummaryInfo.Comments
+	HLB = ThisDrawing.SummaryInfo.HyperlinkBase
+	KW = ThisDrawing.SummaryInfo.Keywords
+	LSB = ThisDrawing.SummaryInfo.LastSavedBy
+	RN = ThisDrawing.SummaryInfo.RevisionNumber
+	Subject = ThisDrawing.SummaryInfo.Subject
+	Title = ThisDrawing.SummaryInfo.Title
+	MsgBox "The standard drawing properties are " & vbCrLf & _
+		    "Author = " & Author & vbCrLf & _
+		    "Comments = " & Comments & vbCrLf & _
+		    "HyperlinkBase = " & HLB & vbCrLf & _
+		    "Keywords = " & KW & vbCrLf & _
+		    "LastSavedBy = " & LSB & vbCrLf & _
+		    "RevisionNumber = " & RN & vbCrLf & _
+		    "Subject = " & Subject & vbCrLf & _
+		    "Title = " & Title & vbCrLf
+
+	' Add and display custom properties
+	Dim Key0 As String
+	Dim Value0 As String
+	Dim Key1 As String
+	Dim Value1 As String
+	Dim CustomPropertyBranch As String
+	Dim PropertyBranchValue As String
+	Dim CustomPropertyZone As String
+	Dim PropertyZoneValue As String
+
+	CustomPropertyBranch = "Branch"
+	PropertyBranchValue = "Main"
+	CustomPropertyZone = "Zone"
+	PropertyZoneValue = "Industrial"
+
+	' Add custom properties
+	If (ThisDrawing.SummaryInfo.NumCustomInfo >= 1) Then
+		ThisDrawing.SummaryInfo.SetCustomByIndex 0, CustomPropertyBranch, PropertyBranchValue
+	Else
+		ThisDrawing.SummaryInfo.AddCustomInfo CustomPropertyBranch, PropertyBranchValue
+	End If
+
+	If (ThisDrawing.SummaryInfo.NumCustomInfo >= 2) Then
+		 ThisDrawing.SummaryInfo.SetCustomByKey CustomPropertyBranch, "Satellite"
+	Else
+		 ThisDrawing.SummaryInfo.AddCustomInfo CustomPropertyZone, PropertyZoneValue
+	End If
+
+	'Get custom properties
+	ThisDrawing.SummaryInfo.GetCustomByIndex 0, Key0, Value0
+	Key1 = CustomPropertyZone
+	ThisDrawing.SummaryInfo.GetCustomByKey Key1, Value1
+
+	MsgBox "The custom drawing properties are " & vbCrLf & _
+		    "First property name = " & Key0 & vbCrLf & _
+		    "First property value = " & Value0 & vbCrLf & _
+		    "Second property name = " & Key1 & vbCrLf & _
+		    "Second property value = " & Value1 & vbCrLf
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddRaster method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddRaster Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a new raster image based on an existing image file.</P>
+
+<P CLASS="h1-access"><A HREF="addraster_see_also.htm">See Also</A> | <A HREF="ex_addraster.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddRaster(ImageFileName, InsertionPoint, ScaleFactor, RotationAngle)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">ImageFileName</p><p class=element-desc>String; input-only<BR>
+The full path and file name of the image.
+<P class="element">InsertionPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates in the drawing where the raster image will be created.
+<P class="element">ScaleFactor</p><p class=element-desc>Double; input-only<BR>
+The raster image scale factor. The default image scale factor is 1. The scale factor must be a positive number. You can set the scale of the image to the scale of the geometry created in the AutoCAD drawing.
+<P class="element">RotationAngle</p><p class=element-desc>Double; input-only<BR>
+The rotation angle in radians for the raster image.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_raster_object.htm'>Raster</A> object<BR>
+The newly created Raster object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Images placed through the AddRaster method are not actually 
+part of the drawing file. The raster image is linked to the drawing file 
+through a path name or document ID. Linked image paths can be changed or 
+removed at any time by using the <A HREF="idh_supportpath.htm">SupportPath</A> property. By attaching 
+images using linked image paths, you place images in your drawing without 
+increasing the file size of the drawing.
+<P CLASS="body">You can add the same raster image file to your drawing file multiple times. Each instance has its own clip boundary and its own settings for brightness, contrast, fade, and transparency. A single image can be cut into multiple pieces that can be rearranged independently in your drawing.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+<TITLE>ConfigName property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ConfigName Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the plotter configuration name.</P>
+
+<P CLASS="h1-access"><A HREF="configname_see_also.htm">See Also</A> | <A HREF="ex_configname.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.ConfigName
+<P class="element">object</p><p class=element-desc><A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A><BR>
+The objects this property applies to.
+<P class="element">ConfigName</p><p class=element-desc>String; read-write<BR>
+The name of the PC3 file or print device to be used by the layout or plot configuration. 
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This property does not take a fully qualified path, 
+only the file name for the configuration file. Use the 
+<A HREF="idh_printerconfigpath.htm">PrinterConfigPath</A> property to specify the path for 
+printer configuration files.
+<P CLASS="body">Use the <A HREF='idh_refreshplotdeviceinfo.htm'>RefreshPlotDeviceInfo</A> method before trying to change the ConfigName property.
+<P CLASS="body">Do not assign the ConfigName property a value of
+"None." Attempting to do so results in unexpected behavior.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

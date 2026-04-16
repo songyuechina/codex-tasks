@@ -1,0 +1,159 @@
+这次的任务包含三个，请按顺序逐一完成。
+
+第一，完善编目录处理。
+
+编目录的最后dwg文件成果，应该把第二个用来填写目录内容的打印区域删掉，因为没有用到它。模板文件包含了两个打印区域共四排表格用于填写目录内容，当目录内容不多，即目标文件的打印区域不多，
+第二个打印区域实际上用不到，所以应该删除。只有很多内容，需要填写在第二个区域时才保留。而且这个情况还会直接影响目录内容的书写，第一行必须是给图纸目录的，第二行决定于目录成果文件的第二个
+打印区域是否需要保留。请优化。
+
+另外，优化上述问题后，继续做一个优化：把保留下来的编好目录的打印区域，复制到原来的目标dwg文件第一个打印区域的前面，两个打印区域的间距为“目标dwg文件第一个打印区域”外包盒水平长度的1/8.
+如果目录成果文件保留了两个打印区域，则它们拷贝到原来的目标dwg文件时应该保持原来的顺序，即操作完后新的打印区域，第一个打印区域是新加进来的目录成果dwg文件的左边第一个打印区域的内容，第二个
+打印区域是新加进来的目录成果dwg文件的第二个打印区域，然后才是原来的第一个打印区域，注意保持它们外包盒左下角点在同一水平高度上对齐。
+
+继续用上次任务的测试文件测试验证。
+
+
+第二，完成D:\codex-tasks\cad\scripts\drawing_basic_service\print打印功能在图纸空间某个布局上的拓展实现。
+
+然后按照下面的指示实现打印区域在图纸空间某个布局的拓展。这个问题并不复杂，你可以直接参考
+
+下面用于图纸空间布局的窗口函数
+def export_layout_window_lisp_fit(
+        point_a,
+        point_b,
+        pdf_fullpath,
+        layout_name,
+        *,
+        device="DWG To PDF.pc3",
+        media="ISO_A3_(420.00_x_297.00_MM)",
+        ctb="monochrome.ctb",
+        rotation=0
+):
+    """
+    【函数编号】: PRINT-LAYOUT-ANTI-TARCH (天正穿透版)
+    【修复原理】: 使用 ._-plot 强制绕过天正软件的命令劫持。
+    """
+    import time
+    from system.CAD_coordination import wait_quiescent
+
+    doc = C.doc
+
+    # 路径与坐标处理
+    pdf_path_final = pdf_fullpath.replace("\\", "/")
+    p1_str = f"{point_a[0]},{point_a[1]}"
+    p2_str = f"{point_b[0]},{point_b[1]}"
+    orientation_str = "Portrait" if rotation == 1 else "Landscape"
+
+    # ———————————————— 1. 构造指令队列 ————————————————
+    # 🔥 核心修改：使用 ._-plot 绕过天正劫持
+    commands_sequence = [
+        "._-plot",         # <--- 关键修改！加点(.)强制使用原生命令，加下划线(_)适配中文版
+        "Yes",             # 详细配置
+        layout_name,       # 布局名称
+        device,            # 打印机
+        media,             # 纸张
+        "Millimeters",     # 单位
+        orientation_str,   # 方向
+        "No",              # 反向?
+        "Window",          # 窗口模式
+        p1_str,            # 角点1
+        p2_str,            # 角点2
+        "Fit",             # 比例:布满
+        "Center",          # 居中
+        "Yes",             # 打印样式?
+        ctb,               # 样式表
+        "Yes",             # 线宽?
+        "No",              # 缩放线宽? (Fit模式下)
+        "No",              # 先打图纸空间?
+        "No",              # 隐藏对象?
+        pdf_path_final,    # 文件名
+        "No",              # 保存设置?
+        "Yes"              # 继续?
+    ]
+
+    sys_logger.info(f"🛡️ [天正穿透] 正在向 {layout_name} 发送打印指令...")
+
+    # ———————————————— 2. 激活窗口 ————————————————
+    try:
+        if doc.WindowState == 2: # 如果最小化了
+            doc.WindowState = 1  # 恢复正常
+        doc.Activate()
+    except: pass
+
+    # ———————————————— 2.5. 等待CAD就绪 ————————————————
+    if not wait_quiescent(min_quiet=0.5, timeout=10.0):
+        sys_logger.warning("⚠️ CAD未完全就绪，尝试继续...")
+
+    # ———————————————— 2.6. 切换到目标布局 ————————————————
+    from scripts.CAD_file_operations import switch_to_layout
+    if not switch_to_layout(layout_name):
+        sys_logger.error(f"❌ 无法切换到布局: {layout_name}")
+        return False
+
+    # 布局切换后等待稳定
+    time.sleep(1.0)
+
+    # ———————————————— 3. 步进发送循环 ————————————————
+    try:
+        # 清理命令行（如果失败则跳过）
+        try:
+            doc.SendCommand("\x1b\x1b")
+            time.sleep(0.2)
+        except Exception as esc_err:
+            sys_logger.debug(f"⚠️ ESC命令失败（已忽略）: {esc_err}")
+            time.sleep(0.2)
+        
+        for i, cmd in enumerate(commands_sequence):
+            # 简单的防错处理：给包含空格的名称加引号
+            send_str = cmd
+            if " " in str(cmd) and "," not in str(cmd) and not str(cmd).startswith("."):
+                 send_str = f'"{cmd}"'
+            
+            try:
+                doc.SendCommand(send_str + "\n")
+            except Exception as e:
+                # 🔥 天正特异性处理：
+                # 天正有时会抛出 "输入无效" 但实际上命令已经进入缓冲区。
+                # 如果是第一条命令报错，可能是真报错；如果是中间报错，可能是假警报。
+                err_msg = str(e)
+                if "天正" in err_msg or "输入无效" in err_msg:
+                    sys_logger.info(f"   ⚠️ 无视天正干扰报错 (Step {i}): {cmd}")
+                    time.sleep(0.2)
+                    continue # 尝试继续发下一条
+                else:
+                    raise e # 其他错误正常抛出
+            
+            # 保持 0.15s 步进延迟
+            time.sleep(0.15) 
+            
+    except Exception as e:
+        sys_logger.info(f"❌ 发送指令致命中断: {e}")
+        return False
+
+    # ———————————————— 4. 等待结果 ————————————————
+    max_wait = 20
+    start_time = time.time()
+    while time.time() - start_time < max_wait:
+        if os.path.exists(pdf_fullpath):
+            try:
+                os.rename(pdf_fullpath, pdf_fullpath)
+                sys_logger.info(f"✅ [输出成功] {os.path.basename(pdf_fullpath)}")
+                return True
+            except OSError:
+                time.sleep(0.5) 
+                continue
+        time.sleep(0.5)
+    
+    sys_logger.info(f"❌ 超时未生成: {os.path.basename(pdf_fullpath)}")
+    return False
+
+
+继续用上次任务的测试文件测试验证。
+
+第三，使用本地已有的GitNexus对整个D:\codex-tasks\cad\scripts\drawing_basic_service进行分析，建立相关文档以帮助智能体搞清脚本依赖关系等。同时，根据目前实际的py脚本，完善所有的meta.json。又根据
+当前状况，重新修正各个目录的AGENTS.md等文档。
+
+由于目前的D:\codex-tasks\cad\scripts\drawing_basic_service体系已经基本完善，我们现在更关心的是，这个体系运行过程中的一些关键数据，关键脚本，关键行为等。默认情况下，不应该反复出现插错图签块的事情，
+不应该出现不运行监督脚本从而造成天正cad系统运行崩溃的事情，等等。而今，我非常关心的最重要的问题是，按照已有的文档体系，我们在执行针对一个目标dwg文件进行打印，插图签，编目录这些任务的时候，从开始到
+结束，应该汇报任务完成花了多少时间。经历了那几个主要步骤，分别花了多少时间。这样，我们不仅能看到实际完成的成果，也知道具体任务所花费的时间，就能进一步观察分析整个文档体系还需要改进什么。
+

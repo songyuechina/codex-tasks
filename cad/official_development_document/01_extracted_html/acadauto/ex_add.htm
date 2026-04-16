@@ -1,0 +1,196 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Add Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Add Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Add()
+    ' This example adds a block, dictionary, dimension style,
+    ' group, layer, registered application, selection set,
+    ' textstyle, view, viewport and UCS using the Add method.
+    
+    GoSub ADDBLOCK
+    GoSub ADDDICTIONARY
+    GoSub ADDDIMSTYLE
+    GoSub ADDGROUP
+    GoSub ADDLAYER
+    GoSub ADDREGISTEREDAPP
+    GoSub ADDSELECTIONSET
+    GoSub ADDTEXTSTYLE
+    GoSub ADDVIEW
+    GoSub ADDVIEWPORT
+    GoSub ADDUCS
+	GoSub ADDMATERIAL
+    Exit Sub
+    
+<PRE CLASS="Code">ADDBLOCK:
+    ' Create a new block called "New_Block"
+    Dim blockObj As AcadBlock
+    
+    ' Define the block
+    Dim insertionPnt(0 To 2) As Double
+    insertionPnt(0) = 0#: insertionPnt(1) = 0#: insertionPnt(2) = 0#
+    
+    ' Add the block to the blocks collection
+    Set blockObj = ThisDrawing.Blocks.Add(insertionPnt, "New_Block")
+    MsgBox blockObj.name & " has been added." & vbCrLf & _
+            "Origin: " & blockObj.origin(0) & ", " & blockObj.origin(1) _
+            & ", " & blockObj.origin(2), , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDDICTIONARY:
+    ' Create a new dictionary called "New_Dictionary"
+    Dim dictObj As AcadDictionary
+    
+    ' Add the dictionary to the dictionaries collection
+    Set dictObj = ThisDrawing.Dictionaries.Add("New_Dictionary")
+    MsgBox dictObj.name & " has been added.", , "Add Example"
+    Return
+
+<PRE CLASS="Code">ADDDIMSTYLE:
+    ' Create a new dimension style called "New_Dimstyle" in current drawing
+    Dim DimStyleObj As AcadDimStyle
+    
+    ' Add the dimstyle to the dimstyles collection
+    Set DimStyleObj = ThisDrawing.DimStyles.Add("New_Dimstyle")
+    MsgBox DimStyleObj.name & " has been added.", , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDGROUP:
+    ' Create a new group called "New_Group" in current drawing
+    Dim groupObj As AcadGroup
+    
+    ' Add the group to the groups collection
+    Set groupObj = ThisDrawing.Groups.Add("New_Group")
+    MsgBox groupObj.name & " has been added.", , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDLAYER:
+    ' This example creates a new layer called "New_Layer"
+    Dim layerObj As AcadLayer
+    
+    ' Add the layer to the layers collection
+    Set layerObj = ThisDrawing.Layers.Add("New_Layer")
+    
+    ' Make the new layer the active layer for the drawing
+    ThisDrawing.ActiveLayer = layerObj
+    
+    ' Display the status of the new layer
+     MsgBox layerObj.name & " has been added." & vbCrLf & _
+            "LayerOn Status: " & layerObj.LayerOn & vbCrLf & _
+            "Freeze Status: " & layerObj.Freeze & vbCrLf & _
+            "Lock Status: " & layerObj.Lock & vbCrLf & _
+            "Color: " & layerObj.Color, , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDREGISTEREDAPP:
+    ' Create a registered application named "New_RegApp" in current drawing
+    Dim RegAppObj As AcadRegisteredApplication
+    
+    ' Add the registered application to the registered applications collection
+    Set RegAppObj = ThisDrawing.RegisteredApplications.Add("New_RegApp")
+    MsgBox RegAppObj.name & " has been added.", , "Add Example"
+    Return
+
+<PRE CLASS="Code">ADDSELECTIONSET:
+    ' Create a selectionset named "New_SelectionSet" in current drawing
+    Dim ssetObj As AcadSelectionSet
+    
+    ' Add the selection set to the selection sets collection
+    Set ssetObj = ThisDrawing.SelectionSets.Add("New_SelectionSet")
+    MsgBox ssetObj.name & " has been added." & vbCrLf & _
+           "The number of items in the selection set is " & ssetObj.count _
+           , , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDTEXTSTYLE:
+    ' Create a textstyle named "New_Textstyle" in current drawing
+    Dim txtStyleObj As AcadTextStyle
+    
+    ' Add the textstyle to the textstyles collection
+    Set txtStyleObj = ThisDrawing.TextStyles.Add("New_Textstyle")
+    MsgBox txtStyleObj.name & " has been added." & vbCrLf & _
+           "Height: " & txtStyleObj.height & vbCrLf & _
+           "Width: " & txtStyleObj.width, , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDVIEW:
+    ' Create a view named "New_View" in current drawing
+    Dim viewObj As AcadView
+    
+    ' Add the view to the views collection
+    Set viewObj = ThisDrawing.Views.Add("New_View")
+    MsgBox viewObj.name & " has been added." & vbCrLf & _
+           "Height: " & viewObj.height & vbCrLf & _
+           "Width: " & viewObj.width, , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDVIEWPORT:
+    ' Create a viewport named "New_Viewport" in current drawing
+    Dim vportObj As AcadViewport
+    
+    ' Add the viewport to the viewports collection
+    Set vportObj = ThisDrawing.Viewports.Add("New_Viewport")
+    MsgBox vportObj.name & " has been added." & vbCrLf & _
+           "GridOn Status: " & vportObj.GridOn & vbCrLf & _
+           "OrthoOn Status: " & vportObj.OrthoOn & vbCrLf & _
+           "SnapOn Status: " & vportObj.SnapOn, , "Add Example"
+    Return
+    
+<PRE CLASS="Code">ADDUCS:
+    ' Create a UCS named "New_UCS" in current drawing
+    Dim ucsObj As AcadUCS
+    Dim origin(0 To 2) As Double
+    Dim xAxisPnt(0 To 2) As Double
+    Dim yAxisPnt(0 To 2) As Double
+    
+    ' Define the UCS
+    origin(0) = 4#: origin(1) = 5#: origin(2) = 3#
+    xAxisPnt(0) = 5#: xAxisPnt(1) = 5#: xAxisPnt(2) = 3#
+    yAxisPnt(0) = 4#: yAxisPnt(1) = 6#: yAxisPnt(2) = 3#
+    
+    ' Add the UCS to the UserCoordinatesSystems collection
+    Set ucsObj = ThisDrawing.UserCoordinateSystems.Add(origin, xAxisPnt, yAxisPnt, "New_UCS")
+    MsgBox ucsObj.name & " has been added." & vbCrLf & _
+            "Origin: " & ucsObj.origin(0) & ", " & ucsObj.origin(1) _
+            & ", " & ucsObj.origin(2), , "Add Example"
+    Return
+
+<PRE CLASS="Code">ADDMATERIAL:    
+	Dim oMaterial As AcadMaterial
+    Dim oMaterials As AcadMaterials
+    Set oMaterial = ThisDrawing.Materials.Add("TestMaterial")
+    oMaterial.Description = "This example demonstrates how to add a material to a database."
+    ThisDrawing.ActiveMaterial = oMaterial
+        ' Display the status of the new layer
+    MsgBox oMaterial.Name & " has been added." & vbCrLf & _
+            "Name: " & oMaterial.Name & vbCrLf & vbCrLf & _
+            "Description: " & vbCrLf & vbCrLf & _
+            oMaterial.Description
+	Return
+	
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

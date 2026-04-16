@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetVariable Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetVariable Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_SetVariable()
+    ' This example sets various system variables, each of
+    ' a different data type.
+    
+    Dim sysVarName As String
+    Dim sysVarData As Variant
+    Dim DataType As Integer
+    
+    ' Set FILEDIA system variable (data type Integer) to 1. NOTE that
+    ' you need to declare a variable as the data type of system variable,
+    ' assign data to that variable and then make it variant type
+    Dim intData As Integer
+    sysVarName = "FILEDIA"
+    intData = 1
+    sysVarData = intData    ' Integer data
+    ThisDrawing.SetVariable sysVarName, sysVarData
+    
+    ' Check the variable using GetVariable
+    sysVarData = ThisDrawing.GetVariable(sysVarName)
+    MsgBox sysVarName & " = " & sysVarData, , "SetVariable Example"
+    
+    ' Set DCTCUST system variable (data type String) to "My Custom Dictionary"
+    Dim strData As String
+    sysVarName = "DCTCUST"
+    strData = "My Custom Dictionary"
+    sysVarData = strData        ' String data
+    ThisDrawing.SetVariable sysVarName, sysVarData
+    
+    ' Check the variable using GetVariable
+    sysVarData = ThisDrawing.GetVariable(sysVarName)
+    MsgBox sysVarName & " = " & sysVarData, , "SetVariable Example"
+   
+    ' Set CHAMFERA system variable (data type Double) to 1.5
+    Dim dataDouble As Double
+    sysVarName = "CHAMFERA"
+    dataDouble = 1.5
+    sysVarData = dataDouble ' Double data
+    ThisDrawing.SetVariable sysVarName, sysVarData
+    ' Check the variable using GetVariable
+    sysVarData = ThisDrawing.GetVariable(sysVarName)
+    MsgBox sysVarName & " = " & sysVarData, , "SetVariable Example"
+   
+    ' Set INSBASE system variable (data type array) to (1.0,1.0,0)
+    Dim arrayData3D(0 To 2) As Double
+    sysVarName = "INSBASE"
+    arrayData3D(0) = 1#: arrayData3D(1) = 1#: arrayData3D(2) = 0
+    sysVarData = arrayData3D    ' 3D array data
+    ThisDrawing.SetVariable sysVarName, sysVarData
+    ' Check the variable using GetVariable
+    sysVarData = ThisDrawing.GetVariable(sysVarName)
+    MsgBox sysVarName & " = " & sysVarData(0) & ", " & sysVarData(1) & ", " & sysVarData(2), , "SetVariable Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

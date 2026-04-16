@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Mirror3D Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Mirror3D Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Mirror3D()
+    ' This example creates a box in model space, and mirrors the box about a plane.
+    
+    Dim boxObj As Acad3DSolid
+    Dim length As Double, width As Double, height As Double
+    Dim center(0 To 2) As Double
+    
+    ' Define the box
+    center(0) = 5#: center(1) = 5#: center(2) = 0
+    length = 5#: width = 7: height = 10#
+    
+    ' Create the box (3DSolid) object in model space
+    Set boxObj = ThisDrawing.ModelSpace.AddBox(center, length, width, height)
+    
+    ' Define the mirroring plane with three points
+    Dim mirrorPt1(0 To 2) As Double
+    Dim mirrorPt2(0 To 2) As Double
+    Dim mirrorPt3(0 To 2) As Double
+    
+    mirrorPt1(0) = 1.25: mirrorPt1(1) = 0: mirrorPt1(2) = 0
+    mirrorPt2(0) = 1.25: mirrorPt2(1) = 2: mirrorPt2(2) = 0
+    mirrorPt3(0) = 1.25: mirrorPt3(1) = 2: mirrorPt3(2) = 2
+    
+    ' Mirror the box
+    Dim mirrorBoxObj As Acad3DSolid
+    Set mirrorBoxObj = boxObj.Mirror3D(mirrorPt1, mirrorPt2, mirrorPt3)
+    
+    ' Change the viewing direction of the viewport
+    Dim NewDirection(0 To 2) As Double
+    NewDirection(0) = -1: NewDirection(1) = -1: NewDirection(2) = 1
+    ThisDrawing.ActiveViewport.direction = NewDirection
+    ThisDrawing.ActiveViewport = ThisDrawing.ActiveViewport
+    ZoomAll
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

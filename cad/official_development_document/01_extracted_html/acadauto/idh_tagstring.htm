@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>TagString property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">TagString Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the tag string of the object.</P>
+
+<P CLASS="h1-access"><A HREF="tagstring_see_also.htm">See Also</A> | <A HREF="ex_tagstring.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.TagString
+<P class="element">object</p><p class=element-desc><A HREF='idh_attribute_object.htm'>Attribute</A>, <A HREF='idh_attributeref_object.htm'>AttributeReference</A>, <A HREF='idh_popupmenu_object.htm'>PopupMenu</A>, <A HREF='idh_popupmenuitem_object.htm'>PopupMenuItem</A>, <A HREF='idh_toolbar_object.htm'>Toolbar</A>, <A HREF='idh_toolbaritem_object.htm'>ToolbarItem</A><BR>
+The object this property applies to.
+<P class="element">TagString</p><p class=element-desc>String; read-write (read-only for PopupMenu and Toolbar objects)<BR>
+The tag string of the object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>Attribute, AttributeReference:</I> This string identifies each occurrence of the attribute. Enter any characters except spaces or exclamation points. AutoCAD changes lowercase letters to uppercase.
+<P CLASS="body"><I>PopupMenu, PopupMenuItem, Toolbar, ToolbarItem:</I> A tag, or name tag, is a string consisting of alphanumeric and underscore (_) characters. This string uniquely identifies the item within a given customization file. This string is automatically assigned when the object is created and is used internally by AutoCAD for toolbar and menu identification. Most developers do not need this level of identification and can safely ignore the TagString property.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SaveAsType property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SaveAsType Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the drawing type for saving the drawing.</P>
+
+<P CLASS="h1-access"><A HREF="saveastype_see_also.htm">See Also</A> | <A HREF="ex_saveastype.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SaveAsType
+<P class="element">object</p><p class=element-desc><A HREF='idh_preferencesopensave_object.htm'>PreferencesOpenSave</A><BR>
+The object this property applies to.
+<P class="element">SaveAsType</p><p class=element-desc>acSaveAsType enum; read-write</P>
+
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acR14_dwg</TD>
+  <TD><P class="constant-desc">AutoCAD R14 DWG (*.dwg)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2000_dwg</TD>
+  <TD><P class="constant-desc">AutoCAD 2000 DWG (*.dwg)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2000_dxf</TD>
+  <TD><P class="constant-desc">AutoCAD 2000 DXF (*.dxf)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2000_Template</TD>
+  <TD><P class="constant-desc">AutoCAD 2000 Drawing Template File (*.dwt)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2004_dwg</TD>
+  <TD><P class="constant-desc">AutoCAD 2004 DWG (*.dwg)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2004_dxf</TD>
+  <TD><P class="constant-desc">AutoCAD 2004 DXF (*.dxf)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2004_Template</TD>
+  <TD><P class="constant-desc">AutoCAD 2004 Drawing Template File (*.dwt)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2007_dwg</TD>	
+  <TD><P class="constant-desc">AutoCAD 2007 DWG (*.dwg)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2007_dxf</TD>	
+  <TD><P class="constant-desc">AutoCAD 2007 DXF (*.dxf)</TD>	
+</TR>
+<TR VALIGN=top>
+<TD><P class="constant">ac2007_Template</TD>	
+<TD><P class="constant-desc">AutoCAD 2007 Drawing Template File (*.dwt)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acNative</TD>
+  <TD><P class="constant-desc">A synonym for the current drawing release 
+      format. If you want your application to save the drawing in the 
+	  format of whatever version of AutoCAD the application is running 
+	  on, then use the <SPAN CLASS="constant-char">acNative</SPAN> format.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">AcUnknown</TD>
+  <TD><P class="constant-desc">Read-only. The drawing type is unknown or invalid.</TD>
+</TR>
+</TABLE>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value for this property is 
+<SPAN CLASS="constant-char">ac2007_dwg</SPAN>. The following values are obsolete: <SPAN CLASS="constant-char">acR13_DWG</SPAN>, <SPAN CLASS="constant-char">acR13_DXF</SPAN>, <SPAN CLASS="constant-char">acR14_DWG</SPAN>, and <SPAN CLASS="constant-char">acR14_DXF</SPAN>.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

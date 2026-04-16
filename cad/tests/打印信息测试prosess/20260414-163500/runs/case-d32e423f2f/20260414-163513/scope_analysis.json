@@ -1,0 +1,34 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\tests\\打印信息测试prosess\\20260414-163500\\runs\\case-d32e423f2f\\20260414-163513\\work\\work-case-d32e423f2f.dwg",
+  "total_pseudo_maximal_count": 1,
+  "rows_by_space": {
+    "model": [
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "586F",
+        "bbox": [
+          -719119.7395876575,
+          -372247.3391927229,
+          768813.3627083459,
+          88793.30377439572
+        ],
+        "area": 685997634174.6089
+      }
+    ]
+  },
+  "largest_scope": {
+    "space_key": "model",
+    "layout_name": "model",
+    "owner_btr": "*MODEL_SPACE",
+    "handle": "586F",
+    "bbox": [
+      -719119.7395876575,
+      -372247.3391927229,
+      768813.3627083459,
+      88793.30377439572
+    ],
+    "area": 685997634174.6089
+  }
+}

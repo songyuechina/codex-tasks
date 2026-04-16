@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>RegenerateTableSuppressed property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">RegenerateTableSuppressed Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Enables or disables regeneration of the table block. </P>
+
+<P CLASS="h1-access"><A HREF="ex_regeneratetablesuppressed.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.RegenerateTableSuppressed
+<P class="element">object</p><p class=element-desc><A HREF='idh_Table_Object.htm'>Table</A><BR>
+The object this property applies to.
+<P class="element">RegenerateTableSuppressed</p><p class=element-desc>Boolean; read-write
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: Regeneration of the table is suppressed.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: Regeneration of the table is not suppressed.</SPAN>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">All methods that change the Table object do the following:
+<OL>
+<LI>Open the Table object in write mode
+<LI>Modify the Table object based on the input parameters
+<LI>Close the Table object, which recomputes the Table
+</OL>
+<P CLASS="body">Recomputing large tables consumes a lot of time and memory because the Table object is reconstructed from scratch.
+
+<P CLASS="body">To avoid performance problems, you should temporarily disable the regeneration of the Table object when modifying large tables through the VBA APIs, then apply the modifications and re-enable regeneration.
+
+<P CLASS="body"><b>Note</b> To access this property, use the IAcadTable interface.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

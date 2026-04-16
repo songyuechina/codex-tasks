@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>PlotToDevice method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">PlotToDevice Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Plots a layout to a device. </P>
+
+<P CLASS="h1-access"><A HREF="plottodevice_see_also.htm">See Also</A> | <A HREF="ex_plottodevice.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.PlotToDevice [plotConfig]
+<P class="element">Object</p><p class=element-desc><A HREF='idh_plot_object.htm'>Plot</A><BR>
+The object this method applies to.
+<P class="element">plotConfig</p><p class=element-desc>String; input-only; optional<BR>
+The full path and file name of the PC3 file to use instead of the current configuration. If this parameter is not provided, the current configuration will be used. If the configuration file is not found at the specified path, AutoCAD will search the printer configuration path for the file before it defaults to the current configuration.
+<P class="element">RetVal</p><p class=element-desc>Boolean
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: The plot was successfully sent to the device.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: The plot was not sent to the device. There was either a plot process failure or the plot was cancelled.</SPAN>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The drawing from which the plot is initiated must be active for the plot to succeed.
+<P CLASS="body">To plot in the foreground using VBA, you must set the BACKGROUNDPLOT system variable to 0. Otherwise, plotting occurs in the background.
+<P CLASS="body">The plot device is specified using the 
+<A HREF="idh_configname.htm">ConfigName</A> property for the layout or plot configuration.
+<P CLASS="body">If the PC3 file specified or the current plot configuration contains plot-to-file information, this method may actually send the plot to a file instead of to a device. Be careful to review all current plot configuration information for the specified layout. To plot several layouts, you can use the <A HREF="idh_SetLayoutsToPlot.htm">SetLayoutsToPlot</A> method before invoking the PlotToDevice method.
+<P CLASS="body">To create a new configured plotter (PC3) file, use the 
+Add-a-Plotter wizard in AutoCAD. For more information about PC3 files, see "Set Up Plotters and Printers" in the AutoCAD <em class="Emphasis">Driver and Peripheral Guide</em>.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

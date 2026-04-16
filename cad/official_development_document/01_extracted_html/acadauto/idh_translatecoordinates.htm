@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>TranslateCoordinates method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">TranslateCoordinates Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Translates a point from one coordinate system to another.</P>
+
+<P CLASS="h1-access"><A HREF="translatecoordinates_see_also.htm">See Also</A> | <A HREF="ex_translatecoordinates.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.TranslateCoordinates(OriginalPoint, From, To, Disp[, OCSNormal])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">OriginalPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the original coordinates to be translated. This parameter can be treated as a point or a displacement vector depending on the value of Disp.
+<P class="element">From</p><p class=element-desc>AcCoordinateSystem enum; input-only<BR>
+The coordinate system from which the point originates.
+<P CLASS="Constant">acWorld
+<P CLASS="Constant">acUCS
+<P CLASS="Constant">acOCS
+<P CLASS="Constant">acDisplayDCS
+<P CLASS="Constant-Last">acPaperSpaceDCS
+<P class="element">To</p><p class=element-desc>AcCoordinateSystem enum; input-only<BR>
+The coordinate system to which the point will be converted.
+<P CLASS="Constant">acWorld
+<P CLASS="Constant">acUCS
+<P CLASS="Constant">acOCS
+<P CLASS="Constant">acDisplayDCS
+<P CLASS="Constant-Last">acPaperSpaceDCS
+<P class="element">Disp</p><p class=element-desc>Integer; input-only<BR>
+A displacement vector flag.
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: OriginalPoint is treated as a displacement vector.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: OriginalPoint is treated as a point.</SPAN>
+<P class="element">OCSNormal</p><p class=element-desc>Variant (three-element array of doubles); input-only;optional<BR>
+The normal for the OCS.
+<P class="element">RetVal</p><p class=element-desc>Variant (three-element array of doubles)<BR>
+The translated 3D coordinate.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">You cannot directly translate a coordinate from one OCS to another OCS. To do this, first translate the coordinate from one OCS to an intermediary coordinate system such as the WCS. Then translate that coordinate into the second OCS.
+<P CLASS="body">To translate a point on a 
+<A HREF="idh_polyline_object.htm">Polyline</A> or 
+<A HREF="idh_lightweightpolyline_object.htm">LightWeightPolyline</A>
+object from OCS to WCS:
+<P CLASS="body">1. Get the <i>X </i>and <i>Y</i> coordinates of the OCS point from the 
+<A HREF="idh_coordinate.htm">Coordinate</A> or 
+<A HREF="idh_coordinates.htm">Coordinates</A> property.
+<P CLASS="body">2. Get the <i>Z</i> coordinate of the OCS point from the 
+<A HREF="idh_elevation.htm">Elevation</A> property.
+<P CLASS="body">3. Get the Normal for the polyline from the 
+<A HREF="idh_normal.htm">Normal</A> property.
+<P CLASS="body">4. Call TranslateCoordinates using the <I>X</I>, <I>Y</I>, <I>Z</I> coordinates and the Normal.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

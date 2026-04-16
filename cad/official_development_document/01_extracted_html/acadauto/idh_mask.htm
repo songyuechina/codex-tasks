@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+
+<TITLE>Mask property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Mask Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the layer properties to be restored.</P>
+
+<P CLASS="h1-access"><A HREF="mask_see_also.htm">See Also</A> | <A HREF="ex_mask.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Mask
+<P class="element">object</p><p class=element-desc><A HREF='idh_layerstatemanager.htm'>LayerStateManager</A><BR>
+A LayerStateManager object.
+<P class="element">Mask</p><p class=element-desc>enum; input-only<BR>
+A number representing the layer properties to be restored. 
+Use the constants in the following table to identify layer properties:
+<BR>
+<table border="1" bordercolorlight="#FFFFFF" bordercolordark="#000000" cellpadding="5" cellspacing="0">
+<tr bgcolor="#CCCCCC">
+    <th><div class="CellHeading">Constant</div></th>
+    <th><div class="CellHeading">Layer Property</div></th>
+    <th><div class="CellHeadingRight">Numeric Value</div></th>
+ </tr> 
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsAll&nbsp;</span></TD>
+  <TD CLASS="constant-desc">All layer properties&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">65535</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsColor&nbsp;</span></TD>
+  <TD CLASS="constant-desc">Color&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">32</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsFrozen&nbsp;</span></TD>
+  <TD CLASS="constant-desc">Frozen or thawed&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">2</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsLineType&nbsp;</span></TD>
+  <TD CLASS="constant-desc">Linetype&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">64</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsLineWeight&nbsp;</span></TD>
+  <TD CLASS="constant-desc">Lineweight&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">128</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsLocked&nbsp;</span></TD>
+  <TD CLASS="constant-desc">Locked or unlocked&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">4</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsNewViewport&nbsp;</span></TD>
+  <TD CLASS="constant-desc">New viewport layers frozen or thawed&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">16</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsNone&nbsp;</span></TD>
+  <TD CLASS="constant-desc">None&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">0</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsOn&nbsp;</span></TD>
+  <TD CLASS="constant-desc">On or off&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">1</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsPlot&nbsp;</span></TD>
+  <TD CLASS="constant-desc">Plotting on or off&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">8</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><SPAN CLASS="syntax">acLsPlotStyle&nbsp;</span></TD>
+  <TD CLASS="constant-desc">Plot style&nbsp;</TD>
+  <TD ALIGN="right" CLASS="constant-desc">256</TD>
+</TR>
+</TABLE>
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">
+The LayerStateManager Restore method uses the Mask property to identify which 
+layer properties are to be restored. You first set the Mask property
+when saving layer settings with the LayerStateManager 
+<A HREF="idh_save.htm">Save</A> method.
+However, the Save method actually saves all properties of each 
+drawing layer. You can update the Mask property any time prior to 
+restoring layer settings, thereby changing which layer properties are restored.
+<P CLASS="body-code-begin">To specify multiple layer properties in the Mask, add 
+the constants representing those properties. For example, to save the 
+Color and LineType properties, specify the following:</P>
+<PRE CLASS="Code">acLsColor + acLsLineType</PRE>
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

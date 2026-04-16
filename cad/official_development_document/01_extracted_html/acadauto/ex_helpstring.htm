@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>HelpString Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">HelpString Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_HelpString()
+    ' This example creates a new toolbar called "TestToolbar" and inserts a
+    ' button into it. The HelpString property of the toolbar is then
+    ' read and changed.
+    ' To remove the toolbar after execution of this macro, use the Customize Menu
+    ' option from the Tools menu.
+    
+    Dim currMenuGroup As acadMenuGroup
+    Set currMenuGroup = ThisDrawing.Application.MenuGroups.Item(0)
+    
+    ' Create the new toolbar
+    Dim newToolBar As AcadToolbar
+    Set newToolBar = currMenuGroup.Toolbars.Add("TestToolbar")
+    
+    ' Add a button to the new toolbar.
+    Dim newButton1 As AcadToolbarItem
+    Dim openMacro As String
+    
+    ' Assign the macro string the VB equivalent of "ESC ESC _open "
+    openMacro = Chr(3) & Chr(3) & Chr(95) & "open" & Chr(32)
+    
+    Set newButton1 = newToolBar.AddToolbarButton("", "NewButton1", "Open a file.", openMacro)
+    
+    ' Display the toolbar
+    newToolBar.Visible = True
+    
+    ' Read the current value of the Help string
+    MsgBox "The current HelpString for the toolbar button is: " & newButton1.HelpString
+    
+    ' Change the value of the Help string
+    newButton1.HelpString = "Use this toolbar button to Open a file."
+    
+    ' Read the new value of the Help string
+    MsgBox "The new HelpString for the toolbar button is: " & newButton1.HelpString
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

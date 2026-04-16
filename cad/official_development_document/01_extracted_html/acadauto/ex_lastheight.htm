@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>LastHeight Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">LastHeight Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_LastHeight()
+    ' This example finds the current value for LastHeight.
+    ' It then changes that value, and resets it again.
+
+    Dim txtStyleObj As AcadTextStyle
+    Set txtStyleObj = ThisDrawing.ActiveTextStyle
+    
+    ' Set and retrieve the LastHeight property
+    Dim currHeight As Double
+    Dim newHeight As Double
+    
+    ' Retrieve current LastHeight property
+    currHeight = txtStyleObj.lastHeight
+    MsgBox "The current value for LastHeight is " & txtStyleObj.lastHeight, , "LastHeight Example"
+    
+    ' Set LastHeight to a new value
+    txtStyleObj.lastHeight = 4#
+    
+    ' Retrieve the current LastHeight value
+    newHeight = txtStyleObj.lastHeight
+    MsgBox "The new value for LastHeight is " & txtStyleObj.lastHeight, , "LastHeight Example"
+    
+    ' Finally reset LastHeight to its default value
+    txtStyleObj.lastHeight = currHeight
+    MsgBox "The value for LastHeight has been reset to " & txtStyleObj.lastHeight, , "LastHeight Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+
+<TITLE>Normal property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Normal Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the three-dimensional normal unit vector for the object. </P>
+
+<P CLASS="h1-access"><A HREF="normal_see_also.htm">See Also</A> | <A HREF="ex_normal.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Normal
+<P class="element">object</p><p class=element-desc><A HREF='idh_arc_object.htm'>Arc</A>, <A HREF='idh_attribute_object.htm'>Attribute</A>, <A HREF='idh_attributeref_object.htm'>AttributeReference</A>, <A HREF='idh_blockref_object.htm'>BlockRef</A>, <A HREF='idh_circle_object.htm'>Circle</A>, <A HREF='idh_dim3pointangular_object.htm'>Dim3PointAngular</A>, <A HREF='idh_dimaligned_object.htm'>DimAligned</A>, <A HREF='idh_dimangular_object.htm'>DimAngular</A>, <A HREF='idh_dimarclength_object.htm'>DimArcLength</A>, <A HREF='idh_dimdiametric_object.htm'>DimDiametric</A>, <A HREF='idh_dimordinate_object.htm'>DimOrdinate</A>, <A HREF='idh_dimradial_object.htm'>DimRadial</A>, <A HREF='idh_dimradiallarge_object.htm'>DimRadialLarge</A>, <A HREF='idh_dimrotated_object.htm'>DimRotated</A>, <A HREF='idh_ellipse_object.htm'>Ellipse</A>, <A HREF='idh_externalreference_object.htm'>ExternalReference</A>, <A HREF='idh_hatch_object.htm'>Hatch</A>, <A HREF='idh_leader_object.htm'>Leader</A>, <A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_line_object.htm'>Line</A>, <A HREF='idh_minsertblock_object.htm'>MInsertBlock</A>, <A HREF='idh_mtext_object.htm'>MText</A>, <A HREF='idh_point_object.htm'>Point</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_region_object.htm'>Region</A>, <A HREF='idh_section_object.htm'>Section</A>, <A HREF='idh_shape_object.htm'>Shape</A>, <A HREF='idh_solid_object.htm'>Solid</A>, <A HREF='idh_text_object.htm'>Text</A>, <A HREF='idh_tolerance_object.htm'>Tolerance</A>, <A HREF='idh_trace_object.htm'>Trace</A><BR>
+The objects this property applies to.
+<P class="element">Normal</p><p class=element-desc>Variant (three-element array of doubles); read-write<BR>
+A 3D normal unit vector in WCS.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This normal vector defines the <I>Z</I> axis for the 
+given object. Although the normal is returned in WCS, it can be used to 
+determine the OCS for the object. Use this property as the OCSNormal in the 
+<A HREF="idh_translatecoordinates.htm">TranslateCoordinates</A> method when converting 
+coordinates to and from OCS.
+<P CLASS="body"><IMG SRC='img/normal.gif' BORDER=0>
+<P CLASS="body">Note that this property specifies a vector, not a point. The vector defines the direction of the normal, not a location in space. You can add this normal vector to a point to obtain another point.
+<P CLASS="body"><I>Tolerance:</I> The normal vector must be perpendicular to the direction of the Tolerance object. A normal that is not perpendicular to the Tolerance object will generate an error.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

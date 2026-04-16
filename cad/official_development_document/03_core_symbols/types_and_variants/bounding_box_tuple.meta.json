@@ -1,0 +1,42 @@
+{
+  "symbol": "bounding_box_tuple",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "getboundingbox",
+    "bounding box"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "get_bounding_box_and_object_counts",
+    "read_layout_plot_info"
+  ],
+  "pywin32_signature": "entity.GetBoundingBox(min_pt, max_pt) -> bbox tuple",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/bounding_box_tuple.md",
+  "source_topic_ids": [
+    "acadauto:ex_getboundingbox",
+    "acadauto:idh_getboundingbox",
+    "acadauto:getboundingbox_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_getboundingbox.htm",
+    "01_extracted_html/acadauto/idh_getboundingbox.htm",
+    "01_extracted_html/acadauto/getboundingbox_see_also.htm"
+  ]
+}

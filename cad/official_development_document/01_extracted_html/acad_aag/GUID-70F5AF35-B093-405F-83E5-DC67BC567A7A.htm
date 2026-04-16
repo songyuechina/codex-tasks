@@ -1,0 +1,64 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-70F5AF35-B093-405F-83E5-DC67BC567A7A"><meta name="topic-subtype" content="activex"><meta name="description" content="The drawtiles and drow subroutines are used to draw and calculate the circular tiles for the path."><meta name="indexterm" content="Garden Path tutorial: locating rows"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-25772D8C-5C80-43DC-8315-A8759F59A916"><meta name="workflow-parent-id" content="GUID-25772D8C-5C80-43DC-8315-A8759F59A916"><title>Drawing the Tiles within the Garden Path</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><img src="images/nav-null-xp.gif" border="0"></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">Tutorial: Designing a Garden Path (VBA/ActiveX)</div><a href="GUID-25772D8C-5C80-43DC-8315-A8759F59A916.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><img src="images/nav-null-xp.gif" border="0"></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_14.htm">ActiveX/VBA Tutorial: Design the Garden Path</a>&nbsp;&gt;&nbsp;<a href="GUID-25772D8C-5C80-43DC-8315-A8759F59A916.htm">Tutorial: Designing a Garden Path (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-E46557BE-7C2E-4965-8412-2F95E80DF9E1"></a></span><h1>Drawing the Tiles within the Garden Path</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-70F5AF35-B093-405F-83E5-DC67BC567A7A"></a></span><p class="blurb"> The <span class="code">drawtiles</span> and <span class="code">drow</span> subroutines are used to draw and calculate the circular tiles for the path. </p><!--Body--><div class="section"><span style="display:none"><a name="SECTION_EF5BBFB519E5434BB74ADBB0556206CC"></a></span> <h2><a name="TOC_ENTRY__d24e44735"></a><span style="display:none"><a name="GUID-B1A8C4CD-F223-4A97-B0A2-1DA2BA1DC130"></a></span>Drawing a Row of Circular Tiles</h2> <p><span style="display:none"><a name="GUID-C5D3EBF0-1652-4EE1-BD51-931289B4C634"></a></span>The circular tiles are drawn at a given distance along the path specified by its first argument and the row is offset perpendicular to the path by a distance specified by its second argument. Each circular tile is drawn within the outline of the garden path based on the values obtained with the <span class="code">gpuser</span> subroutine and stored in the global variables defined earlier. As each row of tiles is drawn, each successive row that is drawn is offset to cover more space and make a more pleasing arrangement. </p> <img src="GUID-DE1ED7A1-A498-4CD5-86F4-BA2C07F8D62C-low.png"> <!--OList--><span style="display:none"><a name="OL_8ACB30E3A6C24AF2ACF6150BBFEF1132"></a></span><ol start="1"><li>In the Code window, click after the <span class="code">End Sub</span> statement of the <span class="code">drawout</span> subroutine and press Enter twice. </li><li>Type the following code: <div class="codeBlock"><pre>' Place one row of tiles the given distance along path
+' and possibly offset it
+Private Sub drow(pd As Double, offset As Double)
+  Dim pfirst(0 To 2) As Double
+  Dim pctile(0 To 2) As Double
+  Dim pltile(0 To 2) As Double
+  Dim cir As AcadCircle
+
+  Dim varRet As Variant
+  varRet = ThisDrawing.Utility.PolarPoint(sp, pangle, pd)
+  pfirst(0) = varRet(0)
+  pfirst(1) = varRet(1)
+  pfirst(2) = varRet(2)
+
+  varRet = ThisDrawing.Utility.PolarPoint(pfirst, angp90, offset)
+  pctile(0) = varRet(0)
+  pctile(1) = varRet(1)
+  pctile(2) = varRet(2)
+
+  pltile(0) = pctile(0)
+  pltile(1) = pctile(1)
+  pltile(2) = pctile(2)
+
+  Do While distance(pfirst, pltile) &lt; (hwidth - trad)
+    Set cir = ThisDrawing.ModelSpace.AddCircle(pltile, trad)
+    varRet = ThisDrawing.Utility.PolarPoint(pltile, angp90, (tspac + trad + trad))
+    pltile(0) = varRet(0)
+    pltile(1) = varRet(1)
+    pltile(2) = varRet(2)
+  Loop
+
+  varRet = ThisDrawing.Utility.PolarPoint(pctile, angm90, tspac + trad + trad)
+  pltile(0) = varRet(0)
+  pltile(1) = varRet(1)
+  pltile(2) = varRet(2)
+
+  Do While distance(pfirst, pltile) &lt; (hwidth - trad)
+    Set cir = ThisDrawing.ModelSpace.AddCircle(pltile, trad)
+    varRet = ThisDrawing.Utility.PolarPoint( _
+    pltile, angm90, (tspac + trad + trad))
+    pltile(0) = varRet(0)
+    pltile(1) = varRet(1)
+    pltile(2) = varRet(2)
+  Loop
+End Sub</pre></div> </li><li>Save the project. </li></ol> </div><div class="section"><span style="display:none"><a name="SECTION_27064A777CCD40539F10A4E6D8863447"></a></span> <h2><a name="TOC_ENTRY__d24e44765"></a><span style="display:none"><a name="GUID-4C4A5611-9285-4BE9-8334-2BE27D807A5F"></a></span>Calculating the Rows of Circular Tiles</h2> <p><span style="display:none"><a name="GUID-8689976F-6315-418C-8C1C-49B0F1739F24"></a></span>The <span class="code">drow</span> subroutine draws only a single row of circular tiles, but can be used with a While loop to repeatedly draw all the circular tile rows. Tiles in adjacent rows form equilateral triangles, as shown in the previous illustration. The edges of these triangles are equal to twice the tile radius plus the spacing between the tiles. Therefore, by trigonometry, the distance along the path between rows is the sine of 60 degrees multiplied by this quantity, and the offset for odd rows is the cosine of 60 degrees multiplied by this quantity. </p> <p><span style="display:none"><a name="GUID-88E90475-CE1F-406E-8EFB-AC0540846598"></a></span>An If statement is used to force the offsetting of every other row. If the <span class="code">offset</span> variable is equal to 0, set it to the spacing between the centers of tiles multiplied by the cosine of 60 degrees, as explained earlier. If the <span class="code">offset</span> variable is not equal to 0, set it to 0. This alternates the offset on the rows as you want. </p> <!--OList--><span style="display:none"><a name="OL_11E13F87C8CB494F857E2F29DDCC7B1C"></a></span><ol start="1"><li>In the Code window, click after the <span class="code">End Sub</span> statement of the <span class="code">drow</span> subroutine and press Enter twice. </li><li>Type the following code: <div class="codeBlock"><pre>' Draw the rows of tiles
+Private Sub drawtiles()
+  Dim pdist As Double
+  Dim offset As Double
+  pdist = trad + tspac
+  offset = 0
+
+  Do While pdist &lt;= (plength - trad)
+    drow pdist, offset
+    pdist = pdist + ((tspac + trad + trad) * Sin(dtr(60)))
+
+    If offset = 0 Then
+      offset = (tspac + trad + trad) * Cos(dtr(60))
+    Else
+      offset = 0
+    End If
+  Loop
+End Sub</pre></div> </li><li>Save the project. </li></ol> </div><div class="familylinks"><div class="parentlink"><strong>Parent topic: </strong><a href="GUID-25772D8C-5C80-43DC-8315-A8759F59A916.htm" title="This tutorial demonstrates the fundamentals of using ActiveX and Visual Basic for Applications (VBA), and create a macro for use in the AutoCAD drawing environment. ">Tutorial: Designing a Garden Path (VBA/ActiveX)</a></div><div class="previouslink"><strong>Previous topic: </strong><a href="GUID-7C422979-2B2F-40A8-A717-2361C80CFC6D.htm" title="The outline of the path can be drawn using the location and half width of the path acquired with the gpuser subroutine. ">Drawing the Outline of the Garden Path</a></div><div class="nextlink"><strong>Next topic: </strong><a href="GUID-E0D935E8-8D40-45E9-A0F3-B5C025F64435.htm" title="Writing small subroutines allows for them to be used as building blocks to define a macro which the user can execute. ">Putting it All Together</a></div></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

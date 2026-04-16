@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<TITLE>PopupMenu object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "PopupMenu object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="MenuBar;idh_menubar_object.htm">
+    <PARAM name="Item2" value="PopupMenus;idh_popupmenus_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="PopupMenuItem;idh_popupmenuitem_object.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadPopupMenu;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; PopupMenu object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">An AutoCAD cascading menu.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadPopupMenu&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">PopupMenus.Add&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">PopupMenus.Item<BR>
+MenuBar.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">There are two types of AutoCAD menus: 
+<UL>
+<LI CLASS="bullet-1-begin">Pull-down menus (menus accessed from the AutoCAD menu bar)
+<LI CLASS="bullet-1-end">Shortcut menus (menus accessed from a mouse right-click)
+</UL>
+<P CLASS="body">A pull-down menu can contain up to 999 menu items. A shortcut menu can contain up to 499 menu items. If the number of menu items in a menu exceed these limits, AutoCAD ignores the extra items. If a pull-down or shortcut menu is taller than the available space on the graphics screen, it is truncated to fit on the screen.
+<P CLASS="body">The shortcut menu is a special menu in the base menu group. You can identify the shortcut menu by using the ShortcutMenu property. 
+<P CLASS="body">To create a new menu, use the <A HREF="idh_add.htm">Add</A> method to add a new PopupMenu object to the PopupMenus collection. To create a new shortcut menu, you must first delete any existing shortcut menu. There can be only one shortcut menu per menu group. If there is no other shortcut menu in a menu group, you can then add a menu with the label "POP0". This label will tell AutoCAD that you want to create a shortcut menu. 
+<P CLASS="body">You can add new menu entries or separators to the menu using the <A HREF="idh_addmenuitem.htm">AddMenuItem</A> and <A HREF="idh_addseparator.htm">AddSeparator</A> methods. You can create submenus using the <A HREF="idh_addsubmenu.htm">AddSubmenu</A> method.
+<P CLASS="body">You can add the menu to the menu bar using the <A HREF="idh_insertinmenubar.htm">InsertInMenuBar</A> method. Conversly, you can remove menus from the menu bar by using the <A HREF="idh_removefrommenubar.htm">RemoveFromMenuBar</A> method.
+<P CLASS="body">To edit or query a menu, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_addmenuitem.htm"><P CLASS="body">AddMenuItem</A>
+<A HREF="idh_addseparator.htm"><P CLASS="body">AddSeparator</A>
+<A HREF="idh_addsubmenu.htm"><P CLASS="body">AddSubmenu</A>
+<A HREF="idh_insertinmenubar.htm"><P CLASS="body">InsertInMenuBar</A>
+<A HREF="idh_item.htm"><P CLASS="body">Item</A>
+<A HREF="idh_removefrommenubar.htm"><P CLASS="body">RemoveFromMenuBar</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_count.htm"><P CLASS="body">Count</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_namenomnemonic.htm"><P CLASS="body">NameNoMnemonic</A>
+<A HREF="idh_onmenubar.htm"><P CLASS="body">OnMenuBar</A>
+<A HREF="idh_parent.htm"><P CLASS="body">Parent</A>
+<A HREF="idh_shortcutmenu.htm"><P CLASS="body">ShortcutMenu</A>
+<A HREF="idh_tagstring.htm"><P CLASS="body">TagString</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

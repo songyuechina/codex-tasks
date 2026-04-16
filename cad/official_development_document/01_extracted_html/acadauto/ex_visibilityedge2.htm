@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>VisibilityEdge2 Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">VisibilityEdge2 Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_VisibilityEdge2()
+    ' This example creates a 3D Face in model space and allows the user to
+    ' control the visibility of the edges
+    
+    Dim faceObj As Acad3DFace
+    Dim point1(0 To 2) As Double, point2(0 To 2) As Double, _
+        point3(0 To 2) As Double, point4(0 To 2) As Double
+    Dim Edge1Msg As String, Edge2Msg As String, _
+        Edge3Msg As String, Edge4Msg As String
+    
+    ' Define the four coordinates of the face
+    point1(0) = 0: point1(1) = 0: point1(2) = 0
+    point2(0) = 5: point2(1) = 0: point2(2) = 1
+    point3(0) = 1: point3(1) = 10: point3(2) = 0
+    point4(0) = 5: point4(1) = 5: point4(2) = 1
+    
+    ' Create the 3DFace object in model space
+    Set faceObj = ThisDrawing.ModelSpace.Add3DFace(point1, point2, point3, point4)
+    ThisDrawing.Application.ZoomAll
+    
+    ' Display information about the visibility of the edges for this object
+<PRE CLASS="Code">DisplayEdgeInformation:
+    Edge1Msg = IIf(faceObj.VisibilityEdge1, "Edge1 of the new 3DFace is visible", "Edge1 of the new 3DFace is not visible")
+    Edge2Msg = IIf(faceObj.VisibilityEdge2, "Edge2 of the new 3DFace is visible", "Edge2 of the new 3DFace is not visible")
+    Edge3Msg = IIf(faceObj.VisibilityEdge3, "Edge3 of the new 3DFace is visible", "Edge3 of the new 3DFace is not visible")
+    Edge4Msg = IIf(faceObj.VisibilityEdge4, "Edge4 of the new 3DFace is visible", "Edge4 of the new 3DFace is not visible")
+    
+    MsgBox Edge1Msg & vbCrLf & _
+           Edge2Msg & vbCrLf & _
+           Edge3Msg & vbCrLf & _
+           Edge4Msg
+            
+    ' Allow user to toggle the visibility of one of the edges
+    Select Case InputBox("Which edge of the 3DFace would you like to toggle the visibility of?", "Toggle Edge Visibility", 1)
+        Case "1": faceObj.VisibilityEdge1 = Not (faceObj.VisibilityEdge1)
+        Case "2": faceObj.VisibilityEdge2 = Not (faceObj.VisibilityEdge2)
+        Case "3": faceObj.VisibilityEdge3 = Not (faceObj.VisibilityEdge3)
+        Case "4": faceObj.VisibilityEdge4 = Not (faceObj.VisibilityEdge4)
+        Case "":  Exit Sub
+        Case Else: MsgBox "You must enter the number of an edge (1-4)", vbInformation
+    End Select
+            
+    ' Refresh view
+    ThisDrawing.Regen acAllViewports
+    
+    ' Return to display information about the edges
+    GoTo DisplayEdgeInformation
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

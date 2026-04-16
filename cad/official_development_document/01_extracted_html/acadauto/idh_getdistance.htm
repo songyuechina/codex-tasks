@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetDistance method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetDistance Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the distance from the prompt line or a selected set of points on the screen.</P>
+
+<P CLASS="h1-access"><A HREF="getdistance_see_also.htm">See Also</A> | <A HREF="ex_getdistance.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = GetDistance([Point][, Prompt])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Point</p><p class=element-desc>Variant (three-element array of doubles); input-only; optional<BR>
+The 3D WCS coordinates specifying the base point. If this point is not provided, the user must input two points.
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text to display to prompt the user for input.
+<P class="element">RetVal</p><p class=element-desc>Variant (double or array of doubles)<BR>
+The distance from the prompt line or a selected set of points on the screen.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD pauses for user input of a linear distance and sets the return value to the value of the selected distance. The Point parameter specifies a base point in WCS coordinates. The Prompt parameter specifies a string that AutoCAD displays before it pauses. Both Point and Prompt are optional.
+<P CLASS="body">The AutoCAD user can specify the distance by entering a number in the current units format. The user can also set the distance by specifying two locations on the graphics screen. AutoCAD draws a rubber-band line from the first point to the current crosshair position to help the user visualize the distance. If the Point parameter is provided, AutoCAD uses this value as the first of the two points.
+<P CLASS="body">By default, GetDistance treats Point and the return 
+value as three-dimensional points. A prior call to the 
+<A HREF="idh_initializeuserinput.htm">InitializeUserInput</A> method can force Point 
+to be two-dimensional, ensuring that this method returns a planar distance.
+<P CLASS="body">Regardless of the method used to specify the distance or the current linear units (for example, feet and inches), this method always sets the return value to a double-precision floating-point value.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

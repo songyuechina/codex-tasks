@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>CreateEntry method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">CreateEntry Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a new entry in the File Dependency List.</P>
+
+<P CLASS="h1-access"><A HREF="CreateEntry_see_also.htm">See Also</A> | <A HREF="ex_CreateEntry.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.CreateEntry (Feature, FullFileName, AffectsGraphics, noIncrement)
+<P class="element">object</p><p class=element-desc><A HREF='idh_FileDependencies.htm'>FileDependencies</A> <BR>
+The object this method applies to.
+
+<P class="element">Feature</p><p class=element-desc>String; input-only<BR>
+Description of the application or feature creating the entry.
+
+<P class="element">FullFileName</p><p class=element-desc>String; input-only<BR>
+Name of the file to be stored in the File Dependency List (must be an existing file).
+
+<P class="element">AffectsGraphics</p><p class=element-desc>Boolean; input-only<BR>
+True means that the entry affects the on-screen view of the drawing file, specifically the graphics cache; false means it does not affect the on-screen view.
+
+<P class="element">noIncrement</p><p class=element-desc>Boolean; input-only<BR>
+True does not increment the reference count on existing entries; false increments the reference count when an existing entry is added.
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This method takes a string indicating a feature description. The string is stored with the File Dependency List (FDL) entry and identifies the application or feature that created this entry, such as Acad::xref.  No unique-application-name checking is done on the feature string. This method also takes a parameter to indicate the name of the file stored in the FDL, and the stored path, if any, can be included. If no path is included, AutoCAD searches for the file in the current directory and the AutoCAD support file search path, and the found is stored with the entry. If the file cannot be found or if it cannot be opened, no entry is created and 0 is returned. If the file is found, its time/date and file size are stored with the entry, and a unique index is assigned to the entry and is returned.
+<P CLASS="body">You can use this method to recreate a set of entries by setting <i>noIncrement</i> to True. This prevents the increment of the reference count when an entry already is in the FDL. If <i>noIncrement</i> is set to False, then the same entry can be added multiple times. In this case, the reference count is incremented for the entry to record the number of times the entry is referenced in the FDL. Duplicate records are never created. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

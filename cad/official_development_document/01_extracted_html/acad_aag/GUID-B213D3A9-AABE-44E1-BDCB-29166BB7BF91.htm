@@ -1,0 +1,36 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-B213D3A9-AABE-44E1-BDCB-29166BB7BF91"><meta name="topic-subtype" content="activex"><meta name="description" content="Use any of the Block object methods and properties to redefine a block."><meta name="indexterm" content="block references: redefining"><meta name="indexterm" content="Blocks: redefining"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6"><title>About Redefining a Block (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Exploding a Block Reference (VBA/ActiveX)</div><a href="GUID-77744360-91AB-4289-8287-7F861522A0DF.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Working with Blocks (VBA/ActiveX)</div><a href="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Working with Attributes (VBA/ActiveX)</div><a href="GUID-2133E7A1-44FA-4F69-A79D-1220B889CA06.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_10.htm">Advanced Drawing and Organizational Techniques</a>&nbsp;&gt;&nbsp;<a href="GUID-F9C39B22-6AF1-4501-9EE8-928C1B4AAA21.htm">About Using Blocks and Attributes (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;<a href="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6.htm">About Working with Blocks (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-9888DC77-262B-4642-BB91-4AB57F7C4664"></a></span><h1>About Redefining a Block (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-B213D3A9-AABE-44E1-BDCB-29166BB7BF91"></a></span><p class="blurb"> Use any of the <span class="code">Block</span> object methods and properties to redefine a block. </p><!--Body--><p><span style="display:none"><a name="GUID-F7379422-3F91-45C0-87A6-7B4C087BD856"></a></span> When you redefine a block, all the references to that block in the drawing are immediately updated to reflect the new definition. </p><p><span style="display:none"><a name="GUID-C9B372D2-7E66-4640-9193-94D8DBF4B3A3"></a></span>Redefinition affects previous and future insertions of a block. Constant attributes are lost and replaced by any new constant attributes. Variable attributes remain unchanged, even if the new block has no attributes. </p><div class="section"><span style="display:none"><a name="SECTION_25B5867C1F3948ADB70C63C0131D83C3"></a></span> <h2><a name="TOC_ENTRY__d24e38794"></a><span style="display:none"><a name="GUID-2E687546-192A-4387-85FA-D9BFA92FE369"></a></span>Redefine the objects in a block definition</h2> <p><span style="display:none"><a name="GUID-EDE50404-88C6-4693-9E2B-8F8FDD8D625E"></a></span>This example creates a block and adds a circle to the definition of the block. The block is then inserted into the drawing as a block reference. The circle in the block definition is updated, and the block reference is updated automatically. </p> <div class="codeBlock"><pre>Sub Ch10_RedefiningABlock()
+ ' Define the block
+ Dim blockObj As AcadBlock
+ Dim insertionPnt(0 To 2) As Double
+ insertionPnt(0) = 0
+ insertionPnt(1) = 0
+ insertionPnt(2) = 0
+ Set blockObj = ThisDrawing.Blocks.Add _
+ (insertionPnt, "CircleBlock")
+ 
+ ' Add a circle to the block
+ Dim circleObj As AcadCircle
+ Dim center(0 To 2) As Double
+ Dim radius As Double
+ center(0) = 0
+ center(1) = 0
+ center(2) = 0
+ radius = 1
+ Set circleObj = blockObj.AddCircle(center, radius)
+ 
+ ' Insert the block
+ Dim blockRefObj As AcadBlockReference
+ insertionPnt(0) = 2
+ insertionPnt(1) = 2
+ insertionPnt(2) = 0
+ Set blockRefObj = ThisDrawing.ModelSpace.InsertBlock _
+ (insertionPnt, "CircleBlock", 1#, 1#, 1#, 0)
+ ZoomAll
+ 
+ ' Redefine the circle in the block,
+ ' and update the block reference
+ circleObj.radius = 3
+ blockRefObj.Update
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-888C0CC5-AE4B-4BE4-BF34-B2A3A9DC38A9.htm" title=" To create a new block, use the Add method. ">About Defining Blocks (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-6FBF3CBD-AA1C-441D-B548-D3F0B3C851C6.htm" title=" A block is a collection of objects you can associate together to form a single object, or a block reference. ">About Working with Blocks (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

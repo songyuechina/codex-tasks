@@ -142,6 +142,12 @@
 
 若当前架构未被明确，不应把打印主链误判为裸执行脚本。
 
+凡是涉及真实 CAD / DWG 的测试、回归、烟测，还必须再明确第四件事：
+
+4. 本次测试文件是否统一放在 `D:/codex-tasks/cad/tests/`
+
+若测试资产散落在临时目录、用户桌面或脚本私有目录，不应视为符合本项目规则。
+
 ---
 
 # 4. 关于 meta.json 的根本理解（已升级为四层结构）
@@ -271,6 +277,28 @@ bootstrap / `sys.path` 引导只由入口脚本负责。
 - 允许等待与重试
 - 必要时执行环境重建、自愈、回滚
 - 但不能把真正致命错误无限吞掉
+
+## 6.5 测试资产规则
+真实 CAD / DWG 测试、回归、烟测所使用的文件，默认统一放在：
+
+- `D:/codex-tasks/cad/tests/`
+
+原则：
+
+- 临时测试 DWG 优先落在 `cad/tests/`
+- 测试前若会改写原文件，应优先放入 `cad/tests/备份/`
+- 不再把测试文件散落到 `temp`、用户桌面或各业务目录私有角落
+
+## 6.6 运行监督链规则
+凡是真实 CAD / DWG 执行，不仅是打印任务，默认都应同时运行：
+
+- `D:/codex-tasks/cad/system/cad_runtime_guard.py`
+
+推荐做法：
+
+- 通过 `CAD_core.launch_cad_guardians()` 统一挂载守护脚本组
+- 至少在关键节点读取 runtime guard 状态或事件
+- 若 guard 给出 `pause_and_verify / pause_and_recover`，不得无视继续推进
 
 ---
 

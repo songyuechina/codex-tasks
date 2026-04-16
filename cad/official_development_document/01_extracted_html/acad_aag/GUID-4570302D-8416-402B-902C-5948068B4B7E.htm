@@ -1,0 +1,340 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-4570302D-8416-402B-902C-5948068B4B7E"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2005 and AutoCAD 2005-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2005 API History Reference (ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2006 API History Reference (ActiveX)</div><a href="GUID-44EFF8B3-9713-45A6-9CDE-4215FF02E286.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">AutoCAD 2004 API History Reference (ActiveX)</div><a href="GUID-82A124B3-1F6D-44EF-A3AE-CA269A5BC5CB.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-3B634570-3FF7-4FED-B966-33162B292599"></a></span><h1>AutoCAD 2005 API History Reference (ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-4570302D-8416-402B-902C-5948068B4B7E"></a></span><p class="blurb">Additions and changes made to the ActiveX API in AutoCAD 2005 and AutoCAD 2005-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_F4AD36DA1C5844C1B79A295FFA6424E2"></a></span> <h2><a name="TOC_ENTRY__d24e6541"></a><span style="display:none"><a name="GUID-70F21963-FFB0-437D-9021-EDAB63D572F1"></a></span>Enums</h2> <div class="codeBlock"><pre>AcEntityName (Changed)
+        acTable = 43 (New)
+AcTableDirection (New)
+        acTableTopToBottom = 0
+        acTableBottomToTop = 1
+AcCellAlignment (New)
+        acTopLeft = 1
+        acTopCenter = 2
+        acTopRight = 3
+        acMiddleLeft = 4
+        acMiddleCenter = 5
+        acMiddleRight = 6
+        acBottomLeft = 7
+        acBottomCenter = 8
+        acBottomRight = 9
+AcRowType (New)
+        acUnknownRow = 0
+        acDataRow = 1
+        acTitleRow = 2
+        acHeaderRow = 4
+AcGridLineType (New)
+        acInvalidGridLine = 0
+        acHorzTop = 1
+        acHorzInside = 2
+        acHorzBottom = 4
+        acVertLeft = 8
+        acVertInside = 16
+        acVertRight = 32
+AcCellType (New)
+        acUnknownCell = 0
+        acTextCell = 1
+        acBlockCell = 2
+AcCellEdgeMask (New)
+        acTopMask = 1
+        acRightMask = 2
+        acBottomMask = 4
+        acLeftMask = 8
+AcRotationAngle (New)
+        acDegreesUnknown = 0xffffffff
+        acDegrees000 = 0
+        acDegrees090 = 1
+        acDegrees180 = 2
+        acDegrees270 = 3
+AcSelectType (New)
+        acTableSelectWindow = 1
+        acTableSelectCrossing = 2
+AcOleType (New)
+        acOTLink = 1
+        acOTEmbedded = 2
+        acOTStatic = 3
+AcOlePlotQuality (New)
+        acOPQMonochrome = 0
+        acOPQLowGraphics = 1
+        acOPQHighGraphics = 2
+AcTableStyleOverrides (New)
+        acTitleSuppressed = 1
+        acHeaderSuppressed = 2
+        acFlowDirection = 3
+        acHorzCellMargin = 4
+        acVertCellMargin = 5
+        acTitleRowColor = 6
+        acHeaderRowColor = 7
+        acDataRowColor = 8
+        acTitleRowFillNone = 9
+        acHeaderRowFillNone = 10
+        acDataRowFillNone = 11
+        acTitleRowFillColor = 12
+        acHeaderRowFillColor = 13
+        acDataRowFillColor = 14
+        acTitleRowAlignment = 15
+        acHeaderRowAlignment = 16
+        acDataRowAlignment = 17
+        acTitleRowTextStyle = 18
+        acHeaderRowTextStyle = 19
+        acDataRowTextStyle = 20
+        acTitleRowTextHeight = 21
+        acHeaderRowTextHeight = 22
+        acDataRowTextHeight = 23
+        acTitleHorzTopColor = 40
+        acTitleHorzInsideColor = 41
+        acTitleHorzBottomColor = 42
+        acTitleVertLeftColor = 43
+        acTitleVertInsideColor = 44
+        acTitleVertRightColor = 45
+        acHeaderHorzTopColor = 46
+        acHeaderHorzInsideColor = 47
+        acHeaderHorzBottomColor = 48
+        acHeaderVertLeftColor = 49
+        acHeaderVertInsideColor = 50
+        acHeaderVertRightColor = 51
+        acDataHorzTopColor = 52
+        acDataHorzInsideColor = 53
+        acDataHorzBottomColor = 54
+        acDataVertLeftColor = 55
+        acDataVertInsideColor = 56
+        acDataVertRightColor = 57
+        acTitleHorzTopLineWeight = 70
+        acTitleHorzInsideLineWeight = 71
+        acTitleHorzBottomLineWeight = 72
+        acTitleVertLeftLineWeight = 73
+        acTitleVertInsideLineWeight = 74
+        acTitleVertRightLineWeight = 75
+        acHeaderHorzTopLineWeight = 76
+        acHeaderHorzInsideLineWeight = 77
+        acHeaderHorzBottomLineWeight = 78
+        acHeaderVertLeftLineWeight = 79
+        acHeaderVertInsideLineWeight = 80
+        acHeaderVertRightLineWeight = 81
+        acDataHorzTopLineWeight = 82
+        acDataHorzInsideLineWeight = 83
+        acDataHorzBottomLineWeight = 84
+        acDataVertLeftLineWeight = 85
+        acDataVertInsideLineWeight = 86
+        acDataVertRightLineWeight = 87
+        acTitleHorzTopVisibility = 100
+        acTitleHorzInsideVisibility = 101
+        acTitleHorzBottomVisibility = 102
+        acTitleVertLeftVisibility = 103
+        acTitleVertInsideVisibility = 104
+        acTitleVertRightVisibility = 105
+        acHeaderHorzTopVisibility = 106
+        acHeaderHorzInsideVisibility = 107
+        acHeaderHorzBottomVisibility = 108
+        acHeaderVertLeftVisibility = 109
+        acHeaderVertInsideVisibility = 110
+        acHeaderVertRightVisibility = 111
+        acDataHorzTopVisibility = 112
+        acDataHorzInsideVisibility = 113
+        acDataHorzBottomVisibility = 114
+        acDataVertLeftVisibility = 115
+        acDataVertInsideVisibility = 116
+        acDataVertRightVisibility = 117
+        acCellAlign = 130
+        acCellBackgroundFillNone = 131
+        acCellBackgroundColor = 132
+        acCellContentColor = 133
+        acCellTextStyle = 134
+        acCellTextHeight = 135
+        acCellTopGridColor = 136
+        acCellRightGridColor = 137
+        acCellBottomGridColor = 138
+        acCellLeftGridColor = 139
+        acCellTopGridLineWeight = 140
+        acCellRightGridLineWeight = 141
+        acCellBottomGridLineWeight = 142
+        acCellLeftGridLineWeight = 143
+        acCellTopVisibility = 144
+        acCellRightVisibility = 145
+        acCellBottomVisibility = 146
+        acCellLeftVisibility = 147</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_F3EC8E38D0ED4413B69DD38D0ECE3044"></a></span> <h2><a name="TOC_ENTRY__d24e6549"></a><span style="display:none"><a name="GUID-52C20FB5-E11A-4930-9CF6-F3E5DA5392E8"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadSortentsTable (New)
+        MoveToBottom - Method
+        MoveToTop - Method
+        MoveBelow - Method
+        MoveAbove - Method
+        SwapOrder - Method
+        Block - Method
+        GetFullDrawOrder - Method
+        GetRelativeDrawOrder - Method
+        SetRelativeDrawOrder - Method
+IAcadLayer2 (New)
+        Description - Property
+        Used - Property
+IAcadView2 (New)
+        CategoryName - Property
+        LayoutId - Property
+        LayerState - Property
+        HasVpAssociation - Property
+IAcadTableStyle (New)
+        Name - Property
+        Description - Property
+        BitFlags - Property
+        FlowDirection - Property
+        HorzCellMargin - Property
+        VertCellMargin - Property
+        TitleSuppressed - Property
+        HeaderSuppressed - Property
+        GetTextStyle - Method
+        SetTextStyle - Method
+        GetTextHeight - Method
+        SetTextHeight - Method
+        GetAlignment - Method
+        SetAlignment - Method
+        GetColor - Method
+        SetColor - Method
+        GetBackgroundColor - Method
+        SetBackgroundColor - Method
+        GetBackgroundColorNone - Method
+        SetBackgroundColorNone - Method
+        GetGridLineWeight - Method
+        SetGridLineWeight - Method
+        GetGridColor - Method
+        SetGridColor - Method
+        GetGridVisibility - Method
+        SetGridVisibility - Method
+IAcadLayers2 (New)
+        GenerateUsageData - Method
+IAcadMText2 (New)
+        BackgroundFill - Property
+        FieldCode - Method
+IAcadText2 (New)
+        FieldCode - Method
+IAcadPViewport2 (New)
+        ModelView - Property
+        SheetView - Property
+        LabelBlockId - Property
+        HasSheetView - Property
+        SyncModelView - Method
+IAcadTable (New)
+        StyleName - Property
+        Rows - Property
+        Columns - Property
+        FlowDirection - Property
+        Width - Property
+        Height - Property
+        VertCellMargin - Property
+        HorzCellMargin - Property
+        InsertionPoint - Property
+        GetColumnWidth - Method
+        SetColumnWidth - Method
+        ColumnWidth - Method
+        GetRowHeight - Method
+        SetRowHeight - Method
+        RowHeight - Method
+        GetMinimumColumnWidth - Method
+        GetMinimumRowHeight - Method
+        MinimumTableWidth - Property
+        MinimumTableHeight - Property
+        Direction - Property
+        TitleSuppressed - Property
+        HeaderSuppressed - Property
+        GetAlignment - Method
+        SetAlignment - Method
+        GetBackgroundColorNone - Method
+        SetBackgroundColorNone - Method
+        GetBackgroundColor - Method
+        SetBackgroundColor - Method
+        GetContentColor - Method
+        SetContentColor - Method
+        GetTextStyle - Method
+        SetTextStyle - Method
+        GetTextHeight - Method
+        SetTextHeight - Method
+        GetGridLineWeight - Method
+        SetGridLineWeight - Method
+        GetGridColor - Method
+        SetGridColor - Method
+        GetGridVisibility - Method
+        SetGridVisibility - Method
+        TableStyleOverrides - Property
+        ClearTableStyleOverrides - Method
+        GetCellType - Method
+        SetCellType - Method
+        GetCellExtents - Method
+        GetAttachmentPoint - Method
+        GetCellAlignment - Method
+        SetCellAlignment - Method
+        GetCellBackgroundColorNone - Method
+        SetCellBackgroundColorNone - Method
+        GetCellBackgroundColor - Method
+        SetCellBackgroundColor - Method
+        GetCellContentColor - Method
+        SetCellContentColor - Method
+        GetCellStyleOverrides - Method
+        DeleteCellContent - Method
+        GetRowType - Method
+        GetText - Method
+        SetText - Method
+        GetCellTextStyle - Method
+        SetCellTextStyle - Method
+        GetCellTextHeight - Method
+        SetCellTextHeight - Method
+        GetTextRotation - Method
+        SetTextRotation - Method
+        GetAutoScale - Method
+        SetAutoScale - Method
+        GetBlockTableRecordId - Method
+        SetBlockTableRecordId - Method
+        GetBlockScale - Method
+        SetBlockScale - Method
+        GetBlockRotation - Method
+        SetBlockRotation - Method
+        GetBlockAttributeValue - Method
+        SetBlockAttributeValue - Method
+        GetCellGridLineWeight - Method
+        SetCellGridLineWeight - Method
+        GetCellGridColor - Method
+        SetCellGridColor - Method
+        GetCellGridVisibility - Method
+        SetCellGridVisibility - Method
+        InsertColumns - Method
+        DeleteColumns - Method
+        InsertRows - Method
+        DeleteRows - Method
+        MergeCells - Method
+        UnmergeCells - Method
+        IsMergedCell - Method
+        GetFieldId - Method
+        SetFieldId - Method
+        GenerateLayout - Method
+        RecomputeTableBlock - Method
+        HitTest - Method
+        Select - Method
+        SelectSubRegion - Method
+        ReselectSubRegion - Method
+        GetSubSelection - Method
+        SetSubSelection - Method
+        ClearSubSelection - Method
+        HasSubSelection - Property
+IAcadOle (New)
+        InsertionPoint - Property
+        Rotation - Property
+        Width - Property
+        Height - Property
+        ScaleWidth - Property
+        ScaleHeight - Property
+        LockAspectRatio - Property
+        OleItemType - Property
+        OlePlotQuality - Property
+        OleSourceApp - Property
+IAcadBlock2 (New)
+        AddTable - Method
+        Path - Property
+IAcadModelSpace2 (New)
+        AddTable - Method
+IAcadPaperSpace2 (New)
+        AddTable - Method
+_DAcadApplicationEvents (Changed)
+        BeginFileDrop - Event (Changed the last parameter to accept and return a value)
+IAcadPreferencesFiles2 (New)
+        QNewTemplateFile - Property (New)
+        PlotLogFilePath - Property (New)
+        PageSetupOverridesTemplateFile - Property (New)
+IAcadPreferencesOutput2 (New)
+        ContinuousPlotLog - Property (New)
+        AutomaticPlotLog - Property (New)
+        DefaultPlotToFilePath - Property (New)
+_DAcadDocumentEvents (Changed)
+        BeginDocClose - Event (New)</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetXdata Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetXData Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_SetXdata()
+    ' This example creates a line and attaches extended data to that line.
+    
+    ' Create the line
+    Dim lineObj As AcadLine
+    Dim startPt(0 To 2) As Double, endPt(0 To 2) As Double
+    startPt(0) = 1#: startPt(1) = 1#: startPt(2) = 0#
+    endPt(0) = 5#: endPt(1) = 5#: endPt(2) = 0#
+    Set lineObj = ThisDrawing.ModelSpace.AddLine(startPt, endPt)
+    ZoomAll
+
+    ' Initialize all the xdata values. Note that first data in the list should be
+    ' application name and first datatype code should be 1001
+    Dim DataType(0 To 9) As Integer
+    Dim Data(0 To 9) As Variant
+    Dim reals3(0 To 2) As Double
+    Dim worldPos(0 To 2) As Double
+    
+    DataType(0) = 1001: Data(0) = "Test_Application"
+    DataType(1) = 1000: Data(1) = "This is a test for xdata"
+
+    DataType(2) = 1003: Data(2) = "0"                   ' layer
+    DataType(3) = 1040: Data(3) = 1.23479137438413E+40  ' real
+    DataType(4) = 1041: Data(4) = 1237324938            ' distance
+    DataType(5) = 1070: Data(5) = 32767                 ' 16 bit Integer
+    DataType(6) = 1071: Data(6) = 32767                 ' 32 bit Integer
+    DataType(7) = 1042: Data(7) = 10                    ' scaleFactor
+
+    reals3(0) = -2.95: reals3(1) = 100: reals3(2) = -20
+    DataType(8) = 1010: Data(8) = reals3                ' real
+    
+    worldPos(0) = 4: worldPos(1) = 400.99999999: worldPos(2) = 2.798989
+    DataType(9) = 1011: Data(9) = worldPos              ' world space position
+    
+    ' Attach the xdata to the line
+    lineObj.SetXData DataType, Data
+    
+    ' Return the xdata for the line
+    Dim xdataOut As Variant
+    Dim xtypeOut As Variant
+    lineObj.GetXData "", xtypeOut, xdataOut
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

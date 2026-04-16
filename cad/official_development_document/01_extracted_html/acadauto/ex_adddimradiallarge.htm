@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>AddDimRadialLarge Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddDimRadialLarge Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_AddDimRadialLarge()
+    Dim PI As Double: PI = 3.141592
+    Dim oMS As AcadModelSpace
+    Set oMS = ThisDrawing.ModelSpace
+    
+    Dim ptCenter(2) As Double
+    Dim oA As AcadArc
+    Set oA = oMS.AddArc(ptCenter, 10, PI / 3, PI * 3 / 4)
+
+    Dim ptChordPoint(2) As Double
+    ptChordPoint(0) = 0: ptChordPoint(1) = 10: ptChordPoint(2) = 0
+
+    Dim ptOverrideCenter(2) As Double
+    ptOverrideCenter(0) = -3: ptOverrideCenter(1) = -6: ptOverrideCenter(2) = 0
+    
+    Dim ptJogPoint(2) As Double
+    ptJogPoint(0) = 0: ptJogPoint(1) = 5: ptJogPoint(2) = 0
+
+    Dim oDimRadialLarge As AcadDimRadialLarge
+    Set oDimRadialLarge = oMS.AddDimRadialLarge(oA.Center, ptChordPoint, ptOverrideCenter, ptJogPoint, PI / 4)
+
+    Dim ptTextPosition(2) As Double
+    ptTextPosition(0) = 0: ptTextPosition(1) = 6: ptTextPosition(2) = 0
+    oDimRadialLarge.TextPosition = ptTextPosition
+    
+    Update
+    ZoomExtents
+End Sub
+</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

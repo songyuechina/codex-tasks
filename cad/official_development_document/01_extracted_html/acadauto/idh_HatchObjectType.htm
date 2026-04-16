@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>HatchObjectType property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">HatchObjectType Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the type of the hatch, classic or gradient.</P>
+
+<P CLASS="h1-access"><A HREF="HatchObjectType_see_also.htm">See Also</A> | <A HREF="ex_HatchObjectType.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.HatchObjectType
+<P class="element">object</p><p class=element-desc><A HREF='idh_hatch_object.htm'>Hatch</A> <BR>
+The object this property applies to.
+<P class="element">HatchObjectType</p><p class=element-desc>AcHatchObjectType enum; read-write. Specify one of the following constants.</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">AcHatchObject</TD>
+  <TD><P class="constant-desc">0</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">AcGradientObject</TD>
+  <TD><P class="constant-desc">1</TD>
+</TR>
+</TABLE>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The default value of this property is 0, <SPAN CLASS="constant-char">acHatchObject</SPAN>, which creates a classic hatch. 
+<P CLASS="body">If the value of this property is 1, <SPAN CLASS="constant-char">acGradientObject</SPAN>, a gradient is created by the 
+<A HREF="idh_addhatch.htm">AddHatch</A> method for hatch creation. If a gradient is created, then <A HREF="idh_patterntype.htm">PatternType</A> should be <SPAN CLASS="constant-char">AcGradientPatternType</SPAN> and <A HREF="idh_patternname.htm">PatternName</A> should contain a gradient pattern name of LINEAR, CYLINDER, INVCYLINDER, SPHERICAL, HEMISPHERICAL, CURVED, INVSPHERICAL, INVHEMISPHERICAL, or INVCURVED.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

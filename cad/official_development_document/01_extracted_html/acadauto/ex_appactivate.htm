@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+
+<TITLE>AppActivate Example  [: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AppActivate Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Public WithEvents ACADApp As AcadApplication    ' Use with Application Event Examples
+<PRE CLASS="Code">Sub Example_AcadApplication_Events()
+    ' This example initializes the public variable (ACADApp), which will be used
+    ' to intercept AcadApplication Events
+    '
+    ' The VBA WithEvents statement makes it possible to intercept a generic object
+    ' with the events associated with that object.
+    '
+    ' Before you will be able to trigger any of the AcadApplication events,
+    ' you will need to run this procedure.
+
+    ' We could get the application from the ThisDocument object, but that would
+    ' require having a drawing open, so we get it from the system.
+    Set ACADApp = GetObject(, "AutoCAD.Application.18")
+End Sub</PRE>
+<PRE CLASS="Code">Private Sub ACADApp_AppActivate()
+    ' This example intercepts an Application AppActivate event.
+    '
+    ' This event is triggered when the AutoCAD application receives focus
+    '
+    ' To trigger this example event:
+    '     1) Make sure to run the example that initializes
+    '     the public variable (named ACADApp) linked to this event.
+    '
+    '     2) Switch focus from AutoCAD to another Windows application
+    '     and then back again.
+
+      MsgBox "AutoCAD was just activated!"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

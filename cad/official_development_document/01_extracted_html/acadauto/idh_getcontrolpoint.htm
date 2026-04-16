@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetControlPoint method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetControlPoint Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the coordinates of the control point at a given index.</P>
+
+<P CLASS="h1-access"><A HREF="getcontrolpoint_see_also.htm">See Also</A> | <A HREF="ex_getcontrolpoint.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.GetControlPoint(Index)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_spline_object.htm'>Spline</A><BR>
+The object this method applies to.
+<P class="element">Index</p><p class=element-desc>Integer; input-only<BR>
+The index location of the control point you wish to query. The index must be a positive integer beginning with zero.
+<P class="element">RetVal</p><p class=element-desc>Variant (three-element array of doubles)<BR>
+The 3D WCS coordinates of the control point at the given index location.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Control points fine-tune a spline definition by adding weight to a portion of the spline curve.
+<P CLASS="body">You can query the total number of control points in a 
+spline using the <A HREF="idh_numberofcontrolpoints.htm">NumberOfControlPoints</A> 
+property. You can set a new coordinate location for a control point 
+by using the <A HREF="idh_setcontrolpoint.htm">SetControlPoint</A> method. 
+You can set a new weight for a control point by using the 
+<A HREF="idh_setweight.htm">SetWeight</A> method.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

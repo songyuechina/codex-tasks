@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+
+<TITLE>Block Attribute Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Block Attribute Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Blockttribute()
+    ' This example creates an MLeader object and gets and sets values for
+    ' the block attribute type.
+
+    Dim points(0 To 5) As Double
+
+    points(0) = 0: points(1) = 4: points(2) = 0
+    points(3) = 1.5: points(4) = 5: points(5) = 0
+
+    Dim i As Long
+
+    Dim oML As AcadMLeader
+    Set oML = ThisDrawing.ModelSpace.AddMLeader(points, i)
+    
+    oML.ContentType = acBlockContent
+    oML.ContentBlockType = acBlockBox
+
+    Dim sBlock As String
+
+    sBlock = oML.ContentBlockName
+
+    Dim o As AcadEntity
+    For Each o In ThisDrawing.Blocks(sBlock)
+        If o.ObjectName = "AcDbAttributeDefinition" Then
+            Call oML.SetBlockAttributeValue(o.ObjectID, "123")
+            MsgBox oML.GetBlockAttributeValue(o.ObjectID)
+        End If
+    Next o
+    Update
+    ZoomExtents
+
+End Sub
+</PRE>
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

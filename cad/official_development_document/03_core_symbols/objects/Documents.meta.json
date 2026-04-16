@@ -1,0 +1,50 @@
+{
+  "symbol": "Documents",
+  "kind": "object",
+  "source_terms": [
+    "documents"
+  ],
+  "owners": [
+    "Application"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "open_save_close_document"
+  ],
+  "pywin32_signature": "C.acad.Documents",
+  "risk_tags": [
+    "刚启动 CAD 时 Documents.Count 可能为 0"
+  ],
+  "project_paths": [
+    "cad/system/licad.py"
+  ],
+  "path_md": "03_core_symbols/objects/Documents.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+    "01_extracted_html/acadauto/ex_documents.htm",
+    "01_extracted_html/acadauto/ex_loadacadlspinalldocuments.htm",
+    "01_extracted_html/acadauto/idh_documents_collection.htm",
+    "01_extracted_html/acadauto/idh_documents.htm"
+  ],
+  "project_refs": [
+    "cad/system/licad.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+    "acadauto:ex_documents",
+    "acadauto:ex_loadacadlspinalldocuments",
+    "acadauto:idh_documents_collection",
+    "acadauto:idh_documents"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+    "01_extracted_html/acadauto/ex_documents.htm",
+    "01_extracted_html/acadauto/ex_loadacadlspinalldocuments.htm",
+    "01_extracted_html/acadauto/idh_documents_collection.htm",
+    "01_extracted_html/acadauto/idh_documents.htm"
+  ]
+}

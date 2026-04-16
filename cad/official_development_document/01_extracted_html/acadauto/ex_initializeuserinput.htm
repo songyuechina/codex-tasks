@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>InitializeUserInput Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">InitializeUserInput Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_InitializeUserInput()
+    ' This example prompts for user input of a point. By using the
+    ' InitializeUserInput method to define a keyword list, it can also
+    ' return keywords entered by the user.
+    
+    On Error Resume Next
+    
+    ' Define the valid keywords
+    Dim keywordList As String
+    keywordList = "Keyword1 Keyword2"
+    
+    ' Call InitializeUserInput to setup the keywords
+    ThisDrawing.Utility.InitializeUserInput 128, keywordList
+    
+    ' Get the user input
+    Dim returnPnt As Variant
+    returnPnt = ThisDrawing.Utility.GetPoint(, "Enter a point(Keyword1, Keyword2): ")
+    If Err Then
+         If StrComp(Err.Description, "User input is a keyword", 1) = 0 Then
+         ' One of the keywords was entered
+             Dim inputString As String
+             Err.Clear
+             inputString = ThisDrawing.Utility.GetInput
+             MsgBox "You entered the keyword: " & inputString
+         Else
+             MsgBox "Error selecting the point: " & Err.Description
+             Err.Clear
+         End If
+    Else
+        ' Display point coordinates
+        MsgBox "The WCS of the point is: " & returnPnt(0) & ", " & returnPnt(1) & ", " & returnPnt(2), , "GetInput Example"
+    End If
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

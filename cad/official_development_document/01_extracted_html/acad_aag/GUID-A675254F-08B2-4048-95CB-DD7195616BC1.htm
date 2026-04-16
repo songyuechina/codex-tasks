@@ -1,0 +1,74 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-A675254F-08B2-4048-95CB-DD7195616BC1"><meta name="topic-subtype" content="activex"><meta name="description" content="You can use extended data (xdata) as a means for linking information with objects in a drawing."><meta name="indexterm" content="extended data: example code: assigning"><meta name="indexterm" content="extended data: retrieving"><meta name="indexterm" content="extended data: example code: viewing"><meta name="indexterm" content="xdata: example code: assigning"><meta name="indexterm" content="xdata: retrieving"><meta name="indexterm" content="xdata: example code: viewing"><meta name="indexterm" content="SetXData method: example code"><meta name="indexterm" content="GetXData method: example code"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="topichead_10"><title>About Assigning and Retrieving Extended Data (VBA/ActiveX) </title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Demand Loading and Xref Performance (VBA/ActiveX)</div><a href="GUID-31577C7F-55C4-4137-9D05-3F6C0F18DA79.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">Advanced Drawing and Organizational Techniques</div><a href="topichead_10.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">Interact with Other Applications and Window APIs</div><a href="topichead_11.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_10.htm">Advanced Drawing and Organizational Techniques</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-D4769163-0A77-4B0F-9342-71B5B75F34E6"></a></span><h1>About Assigning and Retrieving Extended Data (VBA/ActiveX) </h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-A675254F-08B2-4048-95CB-DD7195616BC1"></a></span><p class="blurb"> You can use extended data (xdata) as a means for linking information with objects in a drawing. </p><!--Body--><div class="section"><span style="display:none"><a name="SECTION_C671E439569543FEACD745F0DDE57714"></a></span> <h2><a name="TOC_ENTRY__d24e40279"></a><span style="display:none"><a name="GUID-9757EDBA-77C5-4763-8D58-7C400105FAA4"></a></span>Assign xdata to all objects in a selection set</h2> <p><span style="display:none"><a name="GUID-0F34091F-F110-48A8-B6AD-06EFE68D18ED"></a></span>This example prompts the user to select objects from the drawing. The selected objects are placed into a selection set, and the specified xdata is attached to all objects in that selection set. </p> <div class="codeBlock"><pre>Sub Ch10_AttachXDataToSelectionSetObjects()
+ ' Create the selection set
+ Dim sset As Object
+ Set sset = ThisDrawing.SelectionSets.Add("SS1")
+ 
+ ' Prompt the user to select objects
+ sset.SelectOnScreen
+ 
+ ' Define the xdata
+ Dim appName As String, xdataStr As String
+ appName = "MY_APP"
+ xdataStr = "This is some xdata"
+ Dim xdataType(0 To 1) As Integer
+ Dim xdata(0 To 1) As Variant
+ 
+ ' Define the values for each array
+ '1001 indicates the appName
+ xdataType(0) = 1001
+ xdata(0) = appName
+ '1000 indicates a string value
+ xdataType(1) = 1000
+ xdata(1) = xdataStr
+ 
+ ' Loop through all entities in the selection
+ ' set and assign the xdata to each entity
+ Dim ent As Object
+ For Each ent In sset
+ ent.SetXData xdataType, xdata
+ Next ent
+End Sub</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_3AB106E33CA146E08C430FB0208F4311"></a></span> <h2><a name="TOC_ENTRY__d24e40290"></a><span style="display:none"><a name="GUID-A63CBC87-0AB2-48C2-8E94-E0790E1EB4E7"></a></span>View the xdata of all objects in a selection set</h2> <p><span style="display:none"><a name="GUID-576EF356-C201-453F-A430-10BD35A8E73C"></a></span>This example displays the xdata attached with the previous example. If you attach xdata other than strings (type 1000), you will need to revise this code. </p> <div class="codeBlock"><pre>Sub Ch10_ViewXData()
+ ' Find the selection created in previous example
+ Dim sset As Object
+ Set sset = ThisDrawing.SelectionSets.Item("SS1")
+ 
+ ' Define the xdata variables to hold xdata information
+ Dim xdataType As Variant
+ Dim xdata As Variant
+ Dim xd As Variant
+ 
+ 'Define index counter
+ Dim xdi As Integer
+ xdi = 0
+ 
+ ' Loop through the objects in the selection set
+ ' and retrieve the xdata for the object
+ Dim msgstr As String
+ Dim appName As String
+ Dim ent As AcadEntity
+ appName = "MY_APP"
+ For Each ent In sset
+ msgstr = ""
+ xdi = 0
+ 
+ ' Retrieve the appName xdata type and value
+ ent.GetXData appName, xdataType, xdata
+ 
+ ' If the xdataType variable is not initialized, there
+ ' was no appName xdata to retrieve for that entity
+ If VarType(xdataType) &lt;&gt; vbEmpty Then
+ For Each xd In xdata
+ msgstr = msgstr &amp; vbCrLf &amp; xdataType(xdi) _
+ &amp; ": " &amp; xd
+ xdi = xdi + 1
+ Next xd
+ End If
+ 
+ ' If the msgstr variable is NULL, there was no xdata
+ If msgstr = "" Then msgstr = vbCrLf &amp; "NONE"
+ MsgBox appName &amp; " xdata on " &amp; ent.ObjectName &amp; _
+ ":" &amp; vbCrLf &amp; msgstr
+ Next ent
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-68D6EFA7-ED2D-482C-BBA6-EB22F2854348.htm" title=" An object is the main building block of the AutoCAD ActiveX interface. ">About the AutoCAD Object Model (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

@@ -1,0 +1,20 @@
+• 已经记下来了，而且本轮测试后的天正会话也已经按受控入口关闭。
+
+  关闭结果是：调用了 CAD_core.close_tarch_CAD_system()，之后运行态已经回到 no_active_cad。
+
+  我把续做信息落在了当前目录这三个文件里：
+
+  - /D:/codex-tasks/cad/library/tarch_operation/README.md
+  - /D:/codex-tasks/cad/library/tarch_operation/WORK_STATE.md
+  - /D:/codex-tasks/cad/library/tarch_operation/folder.meta.json
+
+  里面已经明确写了这些关键约束：
+
+  - 已完成的两个函数统一收口在 /D:/codex-tasks/cad/library/tarch_operation/tarch_api.py
+  - 它们都应能对指定的任意 DWG 文件操作
+  - 它们默认假定天正 CAD 已经运行，不能自行启动或恢复
+  - 测试运行必须同时启动 /D:/codex-tasks/cad/system/cad_test_supervisor.py
+  - 测试结束后必须通过 CAD_core.py 的受控关闭入口关闭 CAD
+  - brute_dump_tarch_props() 可以作为天正对象属性异常时的暴力探针
+
+  下次进入这个目录，先读 /D:/codex-tasks/cad/library/tarch_operation/WORK_STATE.md 就能直接续上。

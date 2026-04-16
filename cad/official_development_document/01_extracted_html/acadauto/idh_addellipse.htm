@@ -1,0 +1,76 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddEllipse method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddEllipse Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates an ellipse in the <I>XY</I> plane of the WCS given the center point, a point on the major axis, and the radius ratio. </P>
+
+<P CLASS="h1-access"><A HREF="addellipse_see_also.htm">See Also</A> | <A HREF="ex_addellipse.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddEllipse(Center, MajorAxis, RadiusRatio)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">Center</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the center of the ellipse.
+<P class="element">MajorAxis</p><p class=element-desc>Variant (double); input-only<BR>
+A positive value defining the length of the major axis of the ellipse.
+<P class="element">RadiusRatio</p><p class=element-desc>Double; input-only<BR>
+A positive value defining the major to minor axis ratio of an ellipse. 
+A radius ratio of 1.0 defines a circle.
+<BR><BR>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+<TD><P CLASS="body"><I>Radius ratio = 0.25<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
+Radius ratio = 0.75</I>&nbsp;</TD>
+<TD><P CLASS="body"><IMG SRC='img/radratio.gif' BORDER=0>&nbsp;</TD>
+</TR>
+</TABLE>
+</P>
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_ellipse_object.htm'>Ellipse</A> object<BR>
+The newly created Ellipse object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The ellipse may be closed, or open (elliptical arc), and is created on the <I>XY</I> plane of the current WCS. 
+<P CLASS="body">This object represents a true ellipse, not a polyline approximation.</P>
+<TABLE CLASS="simple">
+<TR VALIGN=top>
+<TD><P CLASS="body">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<I>Minor axis</I>&nbsp;</TD>
+</TR>
+<TR VALIGN=top>
+<TD><P CLASS="body"><IMG SRC='img/ellipse.gif' BORDER=0>&nbsp;</TD>
+<TD><P CLASS="body"><BR>
+<BR><BR>
+<I>Major axis</I>&nbsp;
+</TD>
+</TR>
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

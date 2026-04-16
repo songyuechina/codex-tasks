@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>PlotPolicy property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">PlotPolicy Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Determines whether an object's color property is associated with its plot style name when a new drawing is created.</P>
+
+<P CLASS="h1-access"><A HREF="plotpolicy_see_also.htm">See Also</A> | <A HREF="ex_plotpolicy.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.PlotPolicy
+<P class="element">object</p><p class=element-desc><A HREF='idh_preferencesoutput_object.htm'>PreferencesOutput</A><BR>
+The object this property applies to.
+<P class="element">PlotPolicy</p><p class=element-desc>acPlotPolicy enum; read-write</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acPolicyLegacy</TD>
+  <TD><P class="constant-desc">An object's plot style name is associated 
+      with its color per the naming convention ACI<i>x</i>, where <i>x</i> is the color 
+	  number of the object according to the AutoCAD Color Index.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPolicyNamed</TD>
+  <TD><P class="constant-desc">No association is made between color and 
+      plot style name. Plot style name for each object is set to the 
+	  default defined in the <A HREF="idh_defaultplotstyleforobjects.htm">DefaultPlotStyleForObjects</A> property.</TD>
+</TR>
+</TABLE>
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The value for this property is stored in the <A HREF='ms-its:acad180.chm::/pstylepolicy.htm'>PSTYLEPOLICY</A> system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value for this property is <SPAN CLASS="constant-char">acPolicyNamed</SPAN>.
+<P CLASS="body">If you want to change the default plot style behavior for a drawing, enter either 
+<SPAN CLASS="constant-char">acPolicyLegacy</SPAN> or <SPAN CLASS="constant-char">acPolicyNamed</SPAN> 
+before opening or creating the drawing. Changing the default plot style 
+behavior using this property only affects new drawings or drawings created 
+in a previous release of AutoCAD that have never been saved in AutoCAD 2000 or later 
+format. This setting is saved with the drawing. You can change the default 
+behavior for a drawing from <SPAN CLASS="constant-char">acPolicyLegacy</SPAN> to 
+<SPAN CLASS="constant-char">acPolicyNamed</SPAN> once it is saved by using a 
+migration utility. However, once a drawing is saved with 
+<SPAN CLASS="constant-char">acPolicyNamed</SPAN> as the default behavior, you cannot 
+change it to <SPAN CLASS="constant-char">acPolicyLegacy</SPAN>.
+<P CLASS="DefConstHead">acPolicyLegacy
+<P CLASS="DefineText">Specifies color-dependent plot styles in both new drawings and drawings created in earlier versions of AutoCAD. Color-dependent plot styles use the numbers from the AutoCAD color index to create a plot style table with a CTB file extension. Each color is defined by a name or number ranging from 1 to 255. You can assign each color number to a different pen on a pen plotter to achieve different property settings in the plotted drawing. If this option is entered, a plot style is created for each color setting. 
+<P CLASS="DefConstHead">acPolicyNamed
+<P CLASS="DefineText">Specifies named plot styles in both new drawings and drawings created in earlier versions of AutoCAD. AutoCAD plots the drawing according to the property settings you specify in the plot style definition. The plot style is defined in the plot style table attached to the layout or viewport. Named plot style tables are files with the file extension STB. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

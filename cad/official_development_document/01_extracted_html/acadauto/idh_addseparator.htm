@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>AddSeparator method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddSeparator Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Adds a separator to an existing menu or toolbar. </P>
+
+<P CLASS="h1-access"><A HREF="addseparator_see_also.htm">See Also</A> | <A HREF="ex_addseparator.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddSeparator(Index)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_popupmenu_object.htm'>PopupMenu</A>, <A HREF='idh_toolbar_object.htm'>Toolbar</A><BR>
+The objects this method applies to.
+<P class="element">Index</p><p class=element-desc>Variant; input-only<BR>
+The index location in the menu or toolbar where the item is to be added.
+<P class="element"></p><p class=element-desc>If an integer is used to specify 
+a given location in the menu or toolbar, the index must be between 1 and <I>N</I>-1, 
+where <I>N</I> is the number of objects in the popup menu or in the toolbar. The separator 
+will be added immediately before the specified index location. To add the 
+separator to the end of a menu or toolbar, set the index to be greater than <I>N</I>.
+<P class="element"></p><p class=element-desc>If a string is specified and the indexed item does not exist, then the separator is added at the end of the menu or toolbar.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_popupmenuitem_object.htm'>PopupMenuItem</A> object or <A HREF='idh_toolbaritem_object.htm'>ToolbarItem</A> object<BR>
+The newly created separator item.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The first item in a menu or toolbar cannot be a separator, therefore you cannot add a separator into index position 0. 
+<P CLASS="body">You cannot add a separator immediately next to another separator.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

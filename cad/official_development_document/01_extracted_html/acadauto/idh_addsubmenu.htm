@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddSubMenu method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddSubMenu Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Adds a submenu to an existing menu.</P>
+
+<P CLASS="h1-access"><A HREF="addsubmenu_see_also.htm">See Also</A> | <A HREF="ex_addsubmenu.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddSubMenu(Index, Label)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_popupmenu_object.htm'>PopupMenu</A><BR>
+The object this method applies to.
+<P class="element">Index</p><p class=element-desc>Variant; input-only<BR>
+The index location in the menu where the item is to be added.
+<P class="element"></p><p class=element-desc>If an integer is used to specify a 
+given location in the menu, the index must be between 0 and <I>N</I>-1, 
+where <I>N</I> is the number of objects in the popup menu. The new item 
+will be added immediately before the specified index location. To add the 
+new menu item to the end of a menu, set the index to be greater than <I>N</I>.
+<P class="element"></p><p class=element-desc>If a string is specified and the indexed item does not exist, then the new menu item is added at the end of the menu.
+<P class="element">Label</p><p class=element-desc>String; input-only<BR>
+The label for the menu item. The label may contain DIESEL string expressions. Labels also identify the accelerator keys (keyboard key sequences) that correspond to the menu item by placing an ampersand (&) in front of the accelerator character.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_popupmenu_object.htm'>PopupMenu</A> object<BR>
+The newly created submenu. This new cascading menu is blank, and can be populated with standard menu handling techniques.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This method creates a new PopupMenuItem object and adds it to the designated menu. This special kind of PopupMenuItem object is assigned the type of acSubmenu.
+<P CLASS="body">In the following example menu, the Align Text menu item has 
+been inserted into the Dimension menu at the 17th index. The Align Text 
+menu item is of the type acSubmenu. All other menu entries in the example 
+are of the type acMenuItem or acMenuSeparator. The small cascading menu 
+that is displayed when Align Text is selected is the new menu that was returned 
+by the AddSubmenu method. It has been populated using the 
+<A HREF="idh_addmenuitem.htm">AddMenuItem</A> and <A HREF="idh_addseparator.htm">AddSeparator</A> methods.
+<P CLASS="body"><IMG SRC='img/cascademenu.gif' BORDER=0>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+
+<TITLE>CreateBackup property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">CreateBackup Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the use of a backup file.</P>
+
+<P CLASS="h1-access"><A HREF="createbackup_see_also.htm">See Also</A> | <A HREF="ex_createbackup.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.CreateBackup
+<P class="element">object</p><p class=element-desc><A HREF='idh_preferencesopensave_object.htm'>PreferencesOpenSave</A><BR>
+The object this property applies to.
+<P class="element">CreateBackup</p><p class=element-desc>Boolean; read-write
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: A backup file is created.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: No backup file is created (even for a full save).</SPAN>
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The value of this property is stored in the <A HREF="ms-its:acad180.chm::/ISAVEBA.htm">ISAVEBAK</A> system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value for this property is TRUE.
+<P CLASS="body">This property improves the speed of incremental saves by creating a backup file (.<I>bak</I>). In Windows, copying the file data to create a backup file for large drawings takes a major portion of the incremental save time.
+<P CLASS="body"><span class=WarningChar>WARNING!</span> In the case of a problem (such as a power failure in the middle of a save), it's possible that drawing data can be lost.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<TITLE>Plot object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Plot object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Document;idh_document_object.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadPlot;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Plot object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">The set of methods and properties used for plotting layouts.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadPlot&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">N/A&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">Document.Plot&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">This object contains the methods and properties that initiate a plot of specified layouts. You can choose to:
+
+<UL>
+<LI CLASS="bullet-1-begin">Display a plot preview
+<LI CLASS="bullet-1">Plot to a file
+<LI CLASS="bullet-1-end">Plot to a plot device
+</UL>
+<P CLASS="body">To plot in the foreground using VBA, you must set the BACKGROUNDPLOT system variable to 0. Otherwise, plotting occurs in the background.
+<P CLASS="body">To specify the layouts to plot, use the SetLayoutsToPlot method. This method must be called before each PlotToDevice or PlotToFile method. If SetLayoutsToPlot is not called, or is called with a NULL input, the active layout will be plotted.
+<P CLASS="body">The NumberOfCopies property specifies the number of copies to plot. If this property is not reset before each PlotToDevice call, the last value specified in the NumberOfCopies property will be used.
+<P CLASS="body">You cannot create a configured plotter (PC3) file using ActiveX. To create a PC3 file, use the Add-a-Plotter wizard in AutoCAD. If you want to use a PC3 file for plotting, the file should be located in the <i>Plotters</i> folder. For more information, see the AutoCAD user documentation.
+
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_displayplotpreview.htm"><P CLASS="body">DisplayPlotPreview</A>
+<A HREF="idh_plottodevice.htm"><P CLASS="body">PlotToDevice</A>
+<A HREF="idh_plottofile.htm"><P CLASS="body">PlotToFile</A>
+<A HREF="idh_setlayoutstoplot.htm"><P CLASS="body">SetLayoutsToPlot</A>
+<A HREF="idh_startbatchmode.htm"><P CLASS="body">StartBatchMode</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_quieterrormode.htm"><P CLASS="body">QuietErrorMode</A>
+<A HREF="idh_numberofcopies.htm"><P CLASS="body">NumberOfCopies</A>
+<A HREF="idh_batchplotprogress.htm"><P CLASS="body">BatchPlotProgress</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

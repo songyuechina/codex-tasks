@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetBitmaps Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetBitmaps Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_SetBitmaps()
+    ' This example uses MenuGroups to obtain a reference to the AutoCAD main menu.
+    ' It then creates a new Toolbar (TestMenu) and inserts a ToolBarButton
+    ' with a custom icon. The menu is automatically shown.
+    '
+    ' * NOTE: The paths of the icons for the new toolbar should be updated
+    ' before running this example.
+        
+    Dim currMenuGroup As acadMenuGroup
+    Dim newToolBar As AcadToolbar, newToolBarButton As AcadToolbarItem
+    Dim openMacro As String
+    Dim SmallBitmapName  As String, LargeBitmapName  As String
+    
+    On Error GoTo ERRORTRAP
+    
+    ' Use MenuGroups property to obtain reference to main AutoCAD menu
+    Set currMenuGroup = ThisDrawing.Application.MenuGroups.Item("ACAD")
+    
+    ' Create the new Toolbar in this group
+    Set newToolBar = currMenuGroup.Toolbars.Add("TestMenu")
+    
+    ' Add an item to the new Toolbar and assign an Open macro
+    ' (VBA equivalent of: "ESC ESC _open ")
+    openMacro = Chr(3) & Chr(3) & Chr(95) & "open" & Chr(32)
+    Set newToolBarButton = newToolBar.AddToolbarButton(newToolBar.count + 1, "Open", "Open Macro", openMacro, False)
+   
+    ' Read icon paths for this Toolbar button
+    GoSub READPATHS
+    
+    ' Change the default icon (smile face) for the new toolbar button
+    SmallBitmapName = "c:\images\16x16.bmp"     ' Use a 16x16 pixel .BMP image
+    LargeBitmapName = "c:\images\32x32.bmp"     ' Use a 32x32 pixel .BMP image
+    newToolBarButton.SetBitmaps SmallBitmapName, LargeBitmapName
+    
+    ' Read icon paths for this Toolbar button
+    GoSub READPATHS
+    
+    Exit Sub
+    
+<PRE CLASS="Code">READPATHS:
+    ' Read icon paths for this Toolbar button
+    newToolBarButton.GetBitmaps SmallBitmapName, LargeBitmapName
+    MsgBox "The new Toolbar uses the following icon files: " & _
+           vbCrLf & vbCrLf & "Small Bitmap: " & SmallBitmapName & vbCrLf & _
+           "Large Bitmap: " & LargeBitmapName
+    Return
+
+<PRE CLASS="Code">ERRORTRAP:
+    MsgBox "The following error has occurred: " & Err.Description
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

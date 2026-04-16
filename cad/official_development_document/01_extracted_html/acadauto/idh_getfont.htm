@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetFont method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetFont Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the definition data of the font for the TextStyle.</P>
+
+<P CLASS="h1-access"><A HREF="getfont_see_also.htm">See Also</A> | <A HREF="ex_getfont.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.GetFont Typeface, Bold, Italic, CharSet, PitchAndFamily
+<P class="element">Object</p><p class=element-desc><A HREF='idh_textstyle_object.htm'>TextStyle</A><BR>
+The object this method applies to.
+<P class="element">Typeface</p><p class=element-desc>String; output-only<BR>
+The typeface (font name) of the TextStyle you queried.
+<P class="element">Bold</p><p class=element-desc>Boolean; output-only<BR>
+Specifies if the TextStyle is bold.
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: The TextStyle is bold.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: The TextStyle is not bold.</SPAN>
+<P class="element">Italic</p><p class=element-desc>Boolean; output-only<BR>
+Specifies if the TextStyle is italic.
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: The TextStyle is italic.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: The TextStyle is not italic.</SPAN>
+<P class="element">CharSet</p><p class=element-desc>Long; output-only<BR>
+The character set for the font. (See the available values in the Remarks section.)
+<P class="element">PitchAndFamily</p><p class=element-desc>Long; output-only<BR>
+The pitch and family definitions for the font. (See the available values in the Remarks section.)
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This section provides definitions for constants to use with this method. To use these constants, copy the definitions you need and paste them into the Declarations section of your application. A complete list of the constants that are available from Microsoft can be found in the file <I>win32api.txt</I>, which is provided with the Visual Basic Development Environment.</P>
+<P CLASS="body">The CharSet parameter specifies the character set for the font. To use the following constants in your VB or VBA application, copy the definitions into the Declaration section of your code. 
+<PRE CLASS="Code">
+
+Public Const ANSI_CHARSET = 0
+Public Const DEFAULT_CHARSET = 1
+Public Const SYMBOL_CHARSET = 2
+Public Const SHIFTJIS_CHARSET = 128
+Public Const OEM_CHARSET = 255
+</PRE>
+<P CLASS="body">The PitchAndFamily parameter specifies the pitch and family values for the font. The value is determined by a combination of three different settings. By choosing a setting from each of the three categories and using the Boolean operator OR to combine them, you achieve the PitchAndFamily value. A setting is required from the first two categories: the pitch and the family. The third category, the TrueType Flag, is used only when you are specifying a TrueType font.
+<PRE CLASS="Code">
+
+' Pitch Values
+Public Const DEFAULT_PITCH = 0
+Public Const FIXED_PITCH = 1
+Public Const VARIABLE_PITCH = 2
+</PRE>
+<PRE CLASS="Code">
+
+' Family Values
+Public Const FF_DONTCARE = 0    '  Don't care or don't know.
+Public Const FF_ROMAN = 16      '  Variable stroke width, serifed.
+Public Const FF_SWISS = 32      '  Variable stroke width, sans-serifed.
+Public Const FF_MODERN = 48     '  Constant stroke width, serifed or sans-serifed.
+Public Const FF_SCRIPT = 64     '  Cursive, etc.
+Public Const FF_DECORATIVE = 80 '  Old English, etc.
+</PRE>
+<PRE CLASS="Code">
+
+' TrueType Flag
+Public Const TMPF_TRUETYPE = &H4
+</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

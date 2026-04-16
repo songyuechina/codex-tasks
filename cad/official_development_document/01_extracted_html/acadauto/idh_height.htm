@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+<TITLE>Height property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Height Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Changes the height of the attribute, helix, shape, text, or underlay object, the view toolbar, or the main application window. </P>
+
+<P CLASS="h1-access"><A HREF="height_see_also.htm">See Also</A> | <A HREF="ex_height.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Height
+<P class="element">object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A>, <A HREF='idh_attribute_object.htm'>Attribute</A>, <A HREF='idh_attributeref_object.htm'>AttributeReference</A>, <A HREF='idh_dwfunderlay_object.htm'>DwfUnderlay</A>, <A HREF='idh_helix_object.htm'>Helix</A>, <A HREF='idh_mtext_object.htm'>MText</A>, <A HREF='idh_pviewport_object.htm'>PViewport</A>, <A HREF='idh_raster_object.htm'>Raster</A>, <A HREF='idh_shape_object.htm'>Shape</A>, <A HREF='idh_text_object.htm'>Text</A>, <A HREF='idh_textstyle_object.htm'>TextStyle</A>, <A HREF='idh_toolbar_object.htm'>Toolbar</A>, <A HREF='idh_viewport_object.htm'>Viewport</A>, <A HREF='idh_view_object.htm'>View </A>, <A HREF="IDH_IACADWIPEOUT_INTERFACE.htm">Wipeout</A><BR>
+The objects this property applies to.
+<P class="element">Height</p><p class=element-desc>Double (except for the Application and Toolbar objects for which it is an integer)<BR>
+Read-write (except for the Toolbar and Raster objects that are read-only)<BR>
+This must be a positive, non-negative number.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>Application: </I>The height of the main application window in pixels.
+<P CLASS="body"><I>MText, Text:</I> The height of the uppercase text. Height is measured in the current units. The Height property is used as a scale factor for both the height and width of the text.</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top><TD><P CLASS="body"><IMG SRC='img/height.gif' BORDER=0>&nbsp;</TD>
+<TD><P CLASS="body"><I>Height</I>&nbsp;</TD></TR>
+
+</TABLE>
+
+<P CLASS="body"><I>Raster: </I>The height of the raster image in pixels.
+<P CLASS="body"><I>Viewport:</I> The height of a viewport is the <I>Y</I> axis measurement of the viewport frame.
+<P CLASS="body"><I>View:</I> The height of a view is the <I>Y</I> axis measurement of the area within a viewport that is used to display the model.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

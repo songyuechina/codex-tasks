@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>MenuBar Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">MenuBar Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_MenuBar()
+    ' This example uses MenuBar to obtain a reference to the AutoCAD File menu.
+    ' It then creates a new menu item and inserts it at the bottom of the File menu.
+    '
+    ' The menu item will be automatically removed when AutoCAD is restarted
+    
+    Dim menu As AcadPopupMenu, newMenuItem As AcadPopupMenuItem
+    Dim openMacro As String
+    
+    On Error GoTo ERRORTRAP
+        
+    ' Use MenuBar property to obtain reference to the AutoCAD File menu
+    Set menu = ThisDrawing.Application.MenuBar.Item("&File")
+    
+    ' Add a menu item to the new menu and
+    ' assign an Open macro (VBA equivalent of: "ESC ESC _open ")
+    openMacro = Chr(3) & Chr(3) & Chr(95) & "open" & Chr(32)
+    
+    ' Add a menu separator
+    menu.AddSeparator (menu.count + 1)
+    
+    ' Add new menu item to File menu
+    Set newMenuItem = menu.AddMenuItem(menu.count + 1, "NEW MENU ITEM", openMacro)
+   
+    MsgBox "A new menu item has been added to the File menu!"
+   
+    Exit Sub
+    
+<PRE CLASS="Code">ERRORTRAP:
+    MsgBox "The following error has occurred: " & Err.Description
+   
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

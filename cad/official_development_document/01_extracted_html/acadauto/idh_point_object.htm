@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Point object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Point object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Block;idh_block_object.htm">
+    <PARAM name="Item2" value="ModelSpace Collection;idh_modelspace_collection.htm">
+    <PARAM name="Item3" value="PaperSpace Collection;idh_paperspace_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadPoint;none.htm">
+    <PARAM name="Item2" value="IAcadEntity;idh_iacadentity_interface.htm">
+    <PARAM name="Item3" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item4" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Point object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">A point marker appearing as a dot, square, circle, <I>X</I>, tick, or plus sign (+); or as a combination of these. </P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadPoint&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">ModelSpace.AddPoint<BR>
+PaperSpace.AddPoint<BR>
+Block.AddPoint&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">ModelSpace.Item<BR>
+PaperSpace.Item<BR>
+Block.Item<BR>
+SelectionSet.Item<BR>
+Group.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">You can specify a full 3D location for a point. The current elevation is assumed if you omit the <I>Z</I> coordinate.
+<P CLASS="body">Points can act as nodes to which you can snap objects. Also, the Coordinates property provides an array that can be used in any method requiring a point as an input parameter.
+<P CLASS="Heading-2">Controlling the Appearance of Points
+<P CLASS="body">The <A HREF='ms-its:acad180.chm::/pdmode.htm'>PDMODE</A> and <A HREF='ms-its:acad180.chm::/pdsize.htm'>PDSIZE</A> system variables control the appearance of point objects. PDMODE values 0, 2, 3, and 4 specify a figure to draw through the point. A value of 1 selects nothing to be displayed. 
+<P CLASS="body">	<IMG SRC='img/acw1613u.gif' BORDER=0>
+<P CLASS="body">Adding 32, 64, or 96 to the values above selects a shape to draw around the point in addition to the figure drawn through it:
+<P CLASS="body">	<IMG SRC='img/acw1614u.gif' BORDER=0>
+<P CLASS="body">	<IMG SRC='img/acw1615u.gif' BORDER=0>
+<P CLASS="body">	<IMG SRC='img/acw1616u.gif' BORDER=0>
+<P CLASS="body">PDSIZE controls the size of the point figures, except for PDMODE values 0 and 1. A 0 setting generates the point at 5 percent of the graphics area height. A positive PDSIZE value specifies an absolute size for the point figures. A negative value is interpreted as a percentage of the viewport size. The size of all points is recalculated when the drawing is regenerated.
+<P CLASS="body">After you change PDMODE and PDSIZE, the appearance of existing points changes the next time AutoCAD regenerates the drawing.
+<P CLASS="Heading-2">Creating and Editing Points
+<P CLASS="body">To create a point, use the <A HREF="idh_addpoint.htm">AddPoint</A> method. To edit or query a point, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_arraypolar.htm"><P CLASS="body">ArrayPolar</A>
+<A HREF="idh_arrayrectangular.htm"><P CLASS="body">ArrayRectangular</A>
+<A HREF="idh_copy.htm"><P CLASS="body">Copy</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_getboundingbox.htm"><P CLASS="body">GetBoundingBox</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_highlight.htm"><P CLASS="body">Highlight</A>
+<A HREF="idh_intersectwith.htm"><P CLASS="body">IntersectWith</A>
+<A HREF="idh_mirror.htm"><P CLASS="body">Mirror</A>
+<A HREF="idh_mirror3d.htm"><P CLASS="body">Mirror3D</A>
+<A HREF="idh_move.htm"><P CLASS="body">Move</A>
+<A HREF="idh_rotate.htm"><P CLASS="body">Rotate</A>
+<A HREF="idh_rotate3d.htm"><P CLASS="body">Rotate3D</A>
+<A HREF="idh_scaleentity.htm"><P CLASS="body">ScaleEntity</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_transformby.htm"><P CLASS="body">TransformBy</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_coordinate.htm"><P CLASS="body">Coordinate</A>
+<A HREF="idh_coordinates.htm"><P CLASS="body">Coordinates</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_hyperlinks.htm"><P CLASS="body">Hyperlinks</A>
+<A HREF="idh_layer.htm"><P CLASS="body">Layer</A>
+<A HREF="idh_linetype.htm"><P CLASS="body">Linetype</A>
+<A HREF="idh_linetypescale.htm"><P CLASS="body">LinetypeScale</A>
+<A HREF="idh_lineweight.htm"><P CLASS="body">Lineweight</A>
+<A HREF="idh_normal.htm"><P CLASS="body">Normal</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_thickness.htm"><P CLASS="body">Thickness</A>
+<A HREF="idh_TrueColor_property.htm"><P CLASS="body">TrueColor</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

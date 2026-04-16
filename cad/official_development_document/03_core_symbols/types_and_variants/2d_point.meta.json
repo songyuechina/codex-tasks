@@ -1,0 +1,46 @@
+{
+  "symbol": "2d_point",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "setwindowtoplot",
+    "getwindowtoplot"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "execute_layout_plot",
+    "get_bounding_box_and_object_counts"
+  ],
+  "pywin32_signature": "(x, y) -> 项目内先归一，再决定是否补 z",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/2d_point.md",
+  "source_topic_ids": [
+    "acadauto:ex_setwindowtoplot",
+    "acadauto:ex_getwindowtoplot",
+    "acadauto:idh_getwindowtoplot",
+    "acadauto:idh_setwindowtoplot",
+    "acadauto:getwindowtoplot_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+    "01_extracted_html/acadauto/ex_getwindowtoplot.htm",
+    "01_extracted_html/acadauto/idh_getwindowtoplot.htm",
+    "01_extracted_html/acadauto/idh_setwindowtoplot.htm",
+    "01_extracted_html/acadauto/getwindowtoplot_see_also.htm"
+  ]
+}

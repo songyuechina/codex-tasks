@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Modified Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Modified Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Public WithEvents PLine As AcadLWPolyline    ' Use with Modified Event Example
+<PRE CLASS="Code">Sub Example_Modified()
+     ' This example creates a lightweight polyline in model space and
+     ' references the PolyLine using the public variable (PLine) which
+     ' is set up to intercept Modified events.
+     '
+     ' This example then modifies the new object, triggering the code
+     ' in the Modified event.
+    
+    Dim points(0 To 9) As Double
+    
+    ' Define the 2D polyline points
+    points(0) = 1: points(1) = 1
+    points(2) = 1: points(3) = 2
+    points(4) = 2: points(5) = 2
+    points(6) = 3: points(7) = 2
+    points(8) = 4: points(9) = 4
+        
+    ' Create a lightweight Polyline object in model space
+    '
+    ' * Note: We are returning the new PolyLine object into a Module
+    ' level variable.  This allows us to intercept events associated
+    ' with that particular object.
+    Set PLine = ThisDrawing.ModelSpace.AddLightWeightPolyline(points)
+    
+    ThisDrawing.Application.ZoomAll
+    
+    ' Modify object to trigger event.
+    '
+    ' * Note: The event code for the PolyLine modification will be triggered
+    ' before we move forward and refresh the view, so the line will not
+    ' appear blue when the event message box is displayed.
+    Dim color As AcadAcCmColor
+    Set color = AcadApplication.GetInterfaceObject("AutoCAD.AcCmColor.18")
+    Call color.SetRGB(80, 100, 244)
+    PLine.TrueColor = color
+
+    ThisDrawing.Regen acAllViewports
+    
+End Sub</PRE>
+
+<PRE CLASS="Code">Private Sub PLine_Modified(ByVal pObject As AutoCAD.IAcadObject)
+    ' This example intercepts an object's Modified event.
+    '
+    ' This event is triggered when an object supporting this event is modified.
+    '
+    ' To trigger this code: Modify an object connected to this event
+    ' * Note: By connected, we mean the object set up to intercept events using
+    ' the VBA WithEvents statement
+
+    ' Use the "pObject" variable to determine which object was modified
+    MsgBox "You just modified an object with an ID of: " & pObject.ObjectID
+    
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

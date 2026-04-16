@@ -1,0 +1,32 @@
+{
+  "script": "illustration_block_service.py",
+  "role": "illustration-label-block-definition-replace-service",
+  "summary": "负责在受控 CAD 入口下，将目标 DWG 中的同名图签块定义替换为源 DWG 的块定义，并把旧块实例切换到新定义。",
+  "public_api": [
+    "DEFAULT_BLOCK_NAMES",
+    "prepare_cad_runtime",
+    "replace_single_block_definition",
+    "replace_defined_blocks",
+    "BlockReplaceResult"
+  ],
+  "key_dependencies": [
+    "system.CAD_core.litz",
+    "system.CAD_core.open_file",
+    "system.CAD_core.launch_cad_guardians",
+    "system.CAD_coordination.wait_quiescent",
+    "system.runtime_guard_bridge.assert_runtime_guard_ok",
+    "library.cad_blocks.attsync_block_instance"
+  ],
+  "boundaries": [
+    "不负责 sys.path bootstrap",
+    "不自行启动新的 CAD 连接入口",
+    "不处理整图插入或打印逻辑"
+  ],
+  "must_keep_experience": [
+    "先让旧块定义让位，再创建新同名定义",
+    "跨文档复制时复制块定义中的实体，不直接复制整个 Block 对象",
+    "旧实例需要显式改指向新定义，不能只改块定义内容就假设实例自动切换",
+    "真实执行前后要经过 runtime guard 检查点"
+  ]
+}
+

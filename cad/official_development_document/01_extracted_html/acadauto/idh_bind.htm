@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>Bind method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Bind Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Binds an external reference (xref) to a drawing.</P>
+
+<P CLASS="h1-access"><A HREF="bind_see_also.htm">See Also</A> | <A HREF="ex_bind.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Bind(bPrefixName)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_block_object.htm'>Block</A><BR>
+The object this method applies to.
+<P class="element">bPrefixName</p><p class=element-desc>Boolean; input-only
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: Symbol names are not prefixed.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: Symbol names are prefixed with <I>&lt;blockname&gt;$x$</I>.</SPAN>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Binding an xref to a drawing makes the xref a permanent part of the drawing and no longer an externally referenced file. The externally referenced information becomes a block. When the externally referenced drawing is updated, the bound xref is not updated. This method binds the entire drawing's database, including all of its dependent symbols. Dependent symbols are named objects such as blocks, dimension styles, layers, linetypes, and text styles. Binding the xref allows named objects from the xref to be used in the current drawing. 
+<P CLASS="body">If the bPrefixName parameter is set to FALSE, the symbol names of the 
+xref drawing are prefixed in the current drawing with <I>&lt;blockname&gt;$x$</I>, 
+where <I>x</I> is an integer that is automatically incremented to avoid overriding 
+existing block definitions. If the bPrefixName parameter is set to TRUE, the symbol 
+names of the xref drawing are merged into the current drawing without the prefix. If 
+duplicate names exist, AutoCAD uses the symbols already defined in the local drawing. 
+If you are unsure whether your drawing contains duplicate symbol names, it is 
+recommended that you set bPrefixName to FALSE.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,41 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-52C230A9-E7FA-4D97-86D3-362D08C4BEF4"><meta name="topic-subtype" content="activex"><meta name="description" content="A rectangular mesh (PolygonMesh object) represents an object's surface using planar facets."><meta name="indexterm" content="3DMesh object: example code"><meta name="indexterm" content="ActiveViewport property: example code"><meta name="indexterm" content="MClose property"><meta name="indexterm" content="NClose property"><meta name="indexterm" content="PolygonMesh object"><meta name="indexterm" content="Add3DMesh method: creating rectangular meshes"><meta name="indexterm" content="Add3DMesh method: example code"><meta name="indexterm" content="Direction property: example code"><meta name="indexterm" content="meshes: rectangular: defined"><meta name="indexterm" content="meshes: density: defined"><meta name="indexterm" content="meshes: and wireframes"><meta name="indexterm" content="meshes: and solids"><meta name="indexterm" content="PolygonMesh object"><meta name="indexterm" content="Viewport object: example code"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-56DB9D0F-81AF-486B-9D0B-677B56604764"><title>About Creating Meshes (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Creating Wireframes (VBA/ActiveX)</div><a href="GUID-CBF044D6-BE1C-47DA-B0D7-AB3883790FF7.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Creating 3D Objects (VBA/ActiveX)</div><a href="GUID-56DB9D0F-81AF-486B-9D0B-677B56604764.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Creating Polyface Meshes (VBA/ActiveX)</div><a href="GUID-BABD9CAC-4586-4AB0-8AA5-07BB652A88FD.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_8.htm">Work in Three-Dimensional Space</a>&nbsp;&gt;&nbsp;<a href="GUID-56DB9D0F-81AF-486B-9D0B-677B56604764.htm">About Creating 3D Objects (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-976CCB7A-E9E8-4A64-A88A-F1212D4BDD03"></a></span><h1>About Creating Meshes (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-52C230A9-E7FA-4D97-86D3-362D08C4BEF4"></a></span><p class="blurb"> A rectangular mesh (<span class="code">PolygonMesh</span> object) represents an object's surface using planar facets. </p><!--Body--><p><span style="display:none"><a name="GUID-8182A2D8-8B1F-45D5-BC19-6E856CE64A0B"></a></span> The mesh density, or number of facets, is defined in terms of a matrix of <em class="mild">M</em> and <em class="mild">N</em> vertices, similar to a grid consisting of columns and rows. <em class="mild">M</em> and <em class="mild">N</em> specify the column and row position, respectively, of any given vertex. You can create meshes in both 2D and 3D, but they are used primarily for 3D. </p><p><span style="display:none"><a name="GUID-69C1525D-5D74-4279-A13C-75C3F28B2F7B"></a></span>Use the <span class="code">Add3DMesh</span> method for creating rectangular meshes. This method takes three values as input: the number of vertices in the <em class="mild">M</em> direction, the number of vertices in the <em class="mild">N</em> direction, and a variant array containing coordinates for all the vertices in the mesh. </p><p><span style="display:none"><a name="GUID-32F8B8BA-6B84-4CEC-AF84-5209E7D647D8"></a></span>Once the <span class="code">PolygonMesh</span> is created, use the <span class="code">MClose</span> and <span class="code">NClose</span> properties to close the mesh. </p><div class="section"><span style="display:none"><a name="SECTION_6B148CA712C5443F9C70A676425F448C"></a></span> <h2><a name="TOC_ENTRY__d24e34141"></a><span style="display:none"><a name="GUID-02066993-88F3-412F-A9CC-AC0C061DF245"></a></span>Create a polygon mesh</h2> <p><span style="display:none"><a name="GUID-F80109E1-904D-4DF7-ADC3-032731880588"></a></span>This example creates a 4×4 polygon mesh. The direction of the active viewport is then adjusted so that the three-dimensional nature of the mesh is more easily viewed. </p> <div class="codeBlock"><pre>Sub Ch8_Create3DMesh()
+    Dim meshObj As AcadPolygonMesh
+    Dim mSize, nSize, Count As Integer
+    Dim points(0 To 47) As Double
+
+    ' create the matrix of points
+    points(0) = 0: points(1) = 0: points(2) = 0
+    points(3) = 2: points(4) = 0: points(5) = 1
+    points(6) = 4: points(7) = 0: points(8) = 0
+    points(9) = 6: points(10) = 0: points(11) = 1
+    points(12) = 0: points(13) = 2: points(14) = 0
+    points(15) = 2: points(16) = 2: points(17) = 1
+    points(18) = 4: points(19) = 2: points(20) = 0
+    points(21) = 6: points(22) = 2: points(23) = 1
+    points(24) = 0: points(25) = 4: points(26) = 0
+    points(27) = 2: points(28) = 4: points(29) = 1
+    points(30) = 4: points(31) = 4: points(32) = 0
+    points(33) = 6: points(34) = 4: points(35) = 0
+    points(36) = 0: points(37) = 6: points(38) = 0
+    points(39) = 2: points(40) = 6: points(41) = 1
+    points(42) = 4: points(43) = 6: points(44) = 0
+    points(45) = 6: points(46) = 6: points(47) = 0
+
+    mSize = 4: nSize = 4
+
+    ' creates a 3Dmesh in model space
+    Set meshObj = ThisDrawing.ModelSpace. _
+ Add3DMesh(mSize, nSize, points)
+
+    ' Change the viewing direction of the viewport
+    ' to better see the cylinder
+    Dim NewDirection(0 To 2) As Double
+    NewDirection(0) = -1
+    NewDirection(1) = -1
+    NewDirection(2) = 1
+    ThisDrawing.ActiveViewport.Direction = NewDirection
+    ThisDrawing.ActiveViewport = ThisDrawing.ActiveViewport
+    ZoomAll
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-reference"><h4 class="related">Related References</h4><ul><li class="topiclist-litem"><a href="GUID-AEE2A5BA-D35B-4C92-881B-2B327F656B93.htm">PolygonMesh Object (ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-56DB9D0F-81AF-486B-9D0B-677B56604764.htm" title=" AutoCAD supports three types of 3D modeling. ">About Creating 3D Objects (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

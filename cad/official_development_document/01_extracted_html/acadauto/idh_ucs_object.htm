@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="object.doc" KEYWORDS="UCS object; UCS object, adding; UCS object, editing; UCS object, getting transformation matrices associated with; UCS object, methods; UCS object, properties; user coordinate systems. See UCS object; UCS object, querying; AcadUCS. See UCS object; UCS object, accessing; UCS object; active UCS, UCS object; WCS coordinates. See UCS object" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:41:44 AM">
+<TITLE>UCS object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "User Coordinate System ";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="UCSs Collection;idh_ucss_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadUCS;none.htm">
+    <PARAM name="Item2" value="IAcadObject;idh_iacadobject_interface.htm">
+    <PARAM name="Item3" value="IAcadObjectEvents;idh_iacadobjectevents_interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; User Coordinate System object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+<P CLASS="1-liner">A user-defined coordinate system that determines the orientation of the <I>X, Y, </I>and <I>Z</I> axes in 3D space.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadUCS&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">UCSs.Add&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">UCSs.Item<BR>
+Document.ActiveUCS&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">You define a UCS to change the location of the (0, 0, 0) origin point and the orientation of the <I>XY</I> plane and the <I>Z</I> axis. You can locate and orient a UCS anywhere in 3D space, and you can define as many UCSs as you require. 
+<P CLASS="body">All coordinates in ActiveX Automation are entered in the world coordinate system (WCS). Use the <A HREF="idh_getucsmatrix.htm">GetUCSMatrix</A> method to return the transformation matrix of a given UCS. Use this transformation matrix to find the equivalent WCS coordinates.
+<P CLASS="body">Use the <A HREF="idh_ucsiconon.htm">UCSIconOn</A> property to turn the UCS icon on or off for a given viewport.
+<P CLASS="body">To make a UCS active, use the <A HREF="idh_activeucs.htm">ActiveUCS</A> property on the Document object. If changes are made to the active UCS, the new UCS object must be reset as the active UCS for the changes to appear. To reset the active UCS, simply call the ActiveUCS property again with the updated UCS object.
+<P CLASS="body">To add a new UCS to the drawing, use the <A HREF="idh_add.htm">Add</A> method off the UCSs Collection. To edit or query an existing UCS, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_getucsmatrix.htm"><P CLASS="body">GetUCSMatrix</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_objectname.htm"><P CLASS="body">ObjectName</A>
+<A HREF="idh_origin.htm"><P CLASS="body">Origin</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_xvector.htm"><P CLASS="body">XVector</A>
+<A HREF="idh_yvector.htm"><P CLASS="body">YVector</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

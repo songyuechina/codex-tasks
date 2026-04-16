@@ -16,6 +16,7 @@
     "CAD_com_utils.py：COM busy / rejected 重试与包装",
     "CAD_coordination.py：命令同步、等待空闲与事务保护",
     "cad_runtime_guard.py：运行环境守护与事件产出",
+    "cad_test_supervisor.py：测试期被动监督脚本，监控 CAD 进程数和 cad_dialog_killer 是否已运行",
     "runtime_guard_bridge.py：主执行链读取监督状态的桥接层",
     "content_analysis_dwg_file.py：DWG 内容分析与前后对比"
   ],

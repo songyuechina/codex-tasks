@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>AngleToString Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AngleToString Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_AngleToString()
+    ' This example converts a radian value to several different
+    ' strings representing the value in different units.
+    
+    Dim angAsRad As Double
+    Dim unit As Integer
+    Dim precision As Long
+    Dim angAsString As String
+    angAsRad = 0.785398163397448
+    unit = acDegrees
+    precision = 6
+    
+    ' Convert the radian value to degrees with a precision of 6
+    angAsString = ThisDrawing.Utility.AngleToString(angAsRad, unit, precision)
+    MsgBox "0.785398163397448 radians =  " & angAsString & " degrees", , "AngleAsString Example"
+    
+    ' Convert the radian value to degrees/Minutes/Seconds with a precision of 6
+    unit = acDegreeMinuteSeconds
+    angAsString = ThisDrawing.Utility.AngleToString(angAsRad, unit, precision)
+    MsgBox "0.785398163397448 radians =  " & angAsString, , "AngleAsString Example"
+    
+    ' Convert the radian value to grads with a precision of 6
+    unit = acGrads
+    angAsString = ThisDrawing.Utility.AngleToString(angAsRad, unit, precision)
+    MsgBox "0.785398163397448 radians =  " & angAsString, , "AngleAsString Example"
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

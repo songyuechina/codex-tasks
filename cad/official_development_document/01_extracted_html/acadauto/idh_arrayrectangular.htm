@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>ArrayRectangular method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ArrayRectangular Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a 2D or 3D rectangular array of objects.</P>
+
+<P CLASS="h1-access"><A HREF="arrayrectangular_see_also.htm">See Also</A> | <A HREF="ex_arrayrectangular.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.ArrayRectangular (NumberOfRows, NumberOfColumns, NumberOfLevels, DistBetweenRows, DistBetweenColumns, DistBetweenLevels)
+<P class="element">Object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing Objects</A><BR>
+The object this method applies to.
+<P class="element">NumberOfRows</p><p class=element-desc>Integer; input-only<BR>
+The number of rows in the rectangular array. This must be a positive number. If this number is 1, then NumberOfColumns must be greater than 1.
+<P class="element">NumberOfColumns</p><p class=element-desc>Integer; input-only<BR>
+The number of columns in the rectangular array. This must be a positive number. If this number is 1, then NumberOfRows must be greater than 1.
+<P class="element">NumberOfLevels</p><p class=element-desc>Integer; input-only<BR>
+The number of levels in a 3D array.
+<P class="element">DistBetweenRows</p><p class=element-desc>Double; input-only<BR>
+The distance between the rows. If the distance between rows is a positive number, rows are added upward from the base entity. If the distance is a negative number, rows are added downward.
+<P class="element">DistBetweenColumns</p><p class=element-desc>Double; input-only<BR>
+The distance between the columns. If the distance between columns is a positive number, columns are added to the right of the base entity. If the distance is a negative number, columns are added to the left.
+<P class="element">DistBetweenLevels</p><p class=element-desc>Double; input-only <BR>
+The distance between the array levels. If the distance between levels is a positive number, levels are added in the positive direction from the base entity. If the distance is a negative number, levels are added in the negative direction.
+<P class="element">RetVal</p><p class=element-desc>Variant Array (array of objects)<BR>
+The array of newly created objects.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">For a 2D array, specify the NumberOfRows, NumberOfColumns, DistBetweenRow, and DistBetweenColumns. For creating a 3D array, specify the NumberOfLevels and DistBetweenLevels as well. 
+<P CLASS="body">A rectangular array is constructed by replicating the object in the selection set the appropriate number of times. If you define one row, you must specify more than one column and vice versa.
+<P CLASS="body">The object in the selection set is assumed to be in the lower left-hand corner, and the array is generated up and to the right. If the distance between rows is a negative number, rows are added downward. If the distance between columns is a negative number, the columns are added to the left.
+<P CLASS="body">AutoCAD builds the rectangular array along a 
+baseline defined by the current snap rotation angle. This 
+angle is zero by default, so the rows and columns of a rectangular 
+array are orthogonal with respect to the <I>X</I> and <I>Y</I> 
+drawing axes. You can change this angle and create a rotated array 
+by setting the snap rotation angle to a nonzero value. To do this, 
+use the <A HREF="idh_snaprotangle.htm">SnapRotationAngle</A> property.
+<P CLASS="body"><IMG SRC='img/arayrect.gif' BORDER=0>
+<P CLASS="body"><I>Rectangular array with NumberOfRows = 4,<BR>
+NumberOfColumns = 3, DistBetweenRows = a,<BR>
+DistBetweenColumns = b.<BR>
+The base entity is represented in blue.</I>
+<P CLASS="body"><span class=NoteChar>NOTE</span> You cannot execute this method while simultaneously iterating through a collection. An iteration will open the work space for a read-only operation, while this method attempts to perform a read-write operation. Complete any iteration before you call this method.
+<P CLASS="body"><I>AttributeReference</I>: You should not attempt 
+to use this method on <A HREF="idh_attributeref_object.htm">AttributeReference</A> objects. 
+AttributeReference objects inherit this method because they are 
+one of the drawing objects, however, it is not feasible to 
+perform this operation on an attribute reference. 
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

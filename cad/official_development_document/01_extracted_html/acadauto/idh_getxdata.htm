@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+
+<TITLE>GetXdata method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetXData Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the extended data (XData) associated with an object.</P>
+
+<P CLASS="h1-access"><A HREF="getxdata_see_also.htm">See Also</A> | <A HREF="ex_getxdata.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.GetXData AppName, XDataType, XDataValue
+<P class="element">Object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing Objects</A> , <A HREF='idh_attributeref_object.htm'>AttributeReference</A>, <A HREF='idh_block_object.htm'>Block</A>, <A HREF='idh_dictionary_object.htm'>Dictionary</A>, <A HREF='idh_dimstyle_object.htm'>DimStyle</A>, <A HREF='idh_group_object.htm'>Group</A>, <A HREF='idh_layer_object.htm'>Layer</A>, <A HREF='idh_linetype_object.htm'>Linetype</A>, <A HREF='idh_plotconfigurations_collection.htm'>PlotConfigurations</A>, <A HREF='idh_registeredapp_object.htm'>RegisteredApplication</A>, <A HREF='idh_textstyle_object.htm'>TextStyle</A>, <A HREF='idh_ucs_object.htm'>UCS</A>, <A HREF='idh_view_object.htm'>View</A>, <A HREF='idh_viewport_object.htm'>Viewport</A>; <A HREF='idh_xrecord_object.htm'>XRecord</A><BR>
+The object this method applies to.
+<P class="element">AppName</p><p class=element-desc>String; input-only<BR>
+A NULL string will return all the data attached to the object, regardless of the application that created it. Supplying an application name will return only the data that was created by the specified application.
+<P class="element">XDataType</p><p class=element-desc>Variant (array of shorts); output-only
+<P class="element">XDataValue</p><p class=element-desc>Variant (array of variants); output-only
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Extended data is an example of instance-specific data created by applications written with ObjectARX or AutoLISP. This data can be added to any object. This data follows the object's definition data, and is maintained in the order that it was saved into the document. (AutoCAD maintains this information, but doesn't use it.)
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SaveAs method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SaveAs Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Saves the document to a specified file; no longer supported for menu groups. </P>
+
+<P CLASS="h1-access"><A HREF="saveas_see_also.htm">See Also</A> | <A HREF="ex_saveas.htm">Example</A></P>
+<P CLASS="Heading-2">Signatures
+<P CLASS="syntax">object.SaveAs FileName, FileType [, SecurityParams]
+<P class="element">Object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A>, <A HREF='idh_menugroup_object.htm'>MenuGroup</A><BR>
+The objects this method applies to.
+<P class="element">&nbsp;</p><p class=element-desc><b>Note</b> This method has no effect for menu groups.</P>
+<P class="element">FileName</p><p class=element-desc>String; input-only<BR>
+The full path and file name, or valid URL address, for the file. The active document takes on the new name. 
+<P class="element">FileType</p>
+<P class="element"></p><p class=element-desc>AcSaveAsType enum; input-only; optional for Document objects</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acR14_dwg</TD>
+  <TD><P class="constant-desc">AutoCAD R14 DWG (*.dwg)</TD>
+</TR><TR VALIGN=top>
+  <TD><P class="constant">ac2000_dwg</TD>
+  <TD><P class="constant-desc">AutoCAD 2000 DWG (*.dwg)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2000_dxf</TD>
+  <TD><P class="constant-desc">AutoCAD 2000 DXF (*.dxf)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2000_Template</TD>
+  <TD><P class="constant-desc">AutoCAD 2000 Drawing Template File (*.dwt)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2004_dwg</TD>
+  <TD><P class="constant-desc">AutoCAD 2004 DWG (*.dwg)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2004_dxf</TD>
+  <TD><P class="constant-desc">AutoCAD 2004 DXF (*.dxf)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ac2004_Template</TD>
+  <TD><P class="constant-desc">AutoCAD 2004 Drawing Template File (*.dwt)</TD>
+</TR>
+<TR VALIGN=top>
+<TD><P class="constant">ac2007_dwg</TD>	
+<TD><P class="constant-desc">AutoCAD 2007 DWG (*.dwg)</TD>
+</TR>
+<TR VALIGN=top>
+<TD><P class="constant">ac2007_dxf</TD>	
+<TD><P class="constant-desc">AutoCAD 2007 DXF (*.dxf)</TD>	
+</TR>
+<TR VALIGN=top>
+<TD><P class="constant">ac2007_Template</TD>	
+<TD><P class="constant-desc">AutoCAD 2007 Drawing Template File (*.dwt)</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acNative</TD>
+  <TD><P class="constant-desc">A synonym for the latest drawing release. In this release, this value equals <SPAN CLASS="constant-char">ac2007_dwg</SPAN>.</TD>
+</TR>
+</TABLE>
+<P class="element">SecurityParams</p><p class=element-desc><A HREF='idh_securityparams.htm'>SecurityParams</A> object; variant; optional for Document objects<BR>
+Security settings for an encrypted drawing. 
+
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The default file type for documents is <SPAN CLASS="constant-char">ac2007_dwg</SPAN>. The value <SPAN CLASS="constant-char">acR14_dxf</SPAN> is obsolete.
+<P CLASS="body">Documents can be saved only as files with the extensions indicated above. To save a document in a different file type, use the <A HREF="idh_export.htm">Export</A> method.
+<P CLASS="body">When saving to a secure URL, a dialog box prompts the user for the necessary password information. Message boxes appear if the user has not suppressed this activity in the browser. 
+<P CLASS="body">Menu groups cannot be saved in AutoCAD 2006 and later releases. This method will be removed from the MenuGroup object in a future release.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

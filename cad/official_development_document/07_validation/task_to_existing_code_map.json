@@ -1,0 +1,2088 @@
+{
+  "CAD2021-TASK-001": {
+    "slug": "connect_active_document",
+    "title": "任务卡：连接 AutoCAD 并获取活动文档",
+    "path": "04_task_cards/01_connect_and_document/connect_active_document.md",
+    "symbols": [
+      "Application",
+      "Documents",
+      "Document"
+    ],
+    "owners": [
+      "Application",
+      "Documents",
+      "Document"
+    ],
+    "project_functions": [
+      "get_acad_doc"
+    ],
+    "module_paths": [
+      "cad/system/licad.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "get_acad_doc",
+        "module_path": "cad/system/licad.py"
+      }
+    ],
+    "aliases_en": [
+      "connect active document",
+      "get active document",
+      "attach cad document",
+      "connect autocad session"
+    ],
+    "aliases_zh": [
+      "连接CAD",
+      "获取活动文档",
+      "连接AutoCAD"
+    ],
+    "keywords_zh": [
+      "活动文档",
+      "连接",
+      "受控入口"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/common_patterns.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "project_refs": [
+      "cad/system/licad.py",
+      "cad/system/CAD_core.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/common_patterns.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/pywin32_type_rules.md",
+      "05_pywin32_bridge/collection_rules.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_9C66C307_9ED1_492B_9CE5_F81F73671C88",
+      "acad_aag:GUID_BCE7E749_DCCB_4914_9E52_CC1265A3574F",
+      "acad_aag:GUID_FD48FD40_1077_4054_8A15_CA55DADF821F",
+      "acad_aag:GUID_A2018D0D_2778_4823_A4A2_1A467A807F42",
+      "acad_aag:GUID_C584A219_3E90_4D1B_B382_6000F00CE9B0",
+      "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+      "acadauto:ex_documents",
+      "acadauto:ex_loadacadlspinalldocuments",
+      "acadauto:idh_documents_collection",
+      "acadauto:idh_documents",
+      "acad_aag:GUID_45654BC7_F6B5_48E9_82FD_CED83FB956C4",
+      "acad_aag:GUID_4F4377B1_07C8_4DDA_94D9_23DBF493C871",
+      "acad_aag:GUID_675CFE8A_2256_4808_A1C8_186E68A69496",
+      "acad_aag:GUID_679FBC1A_DE7B_44BA_9F8B_CD6FF1660D67"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-9C66C307-9ED1-492B-9CE5-F81F73671C88.htm",
+      "01_extracted_html/acad_aag/GUID-BCE7E749-DCCB-4914-9E52-CC1265A3574F.htm",
+      "01_extracted_html/acad_aag/GUID-FD48FD40-1077-4054-8A15-CA55DADF821F.htm",
+      "01_extracted_html/acad_aag/GUID-A2018D0D-2778-4823-A4A2-1A467A807F42.htm",
+      "01_extracted_html/acad_aag/GUID-C584A219-3E90-4D1B-B382-6000F00CE9B0.htm",
+      "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+      "01_extracted_html/acadauto/ex_documents.htm",
+      "01_extracted_html/acadauto/ex_loadacadlspinalldocuments.htm",
+      "01_extracted_html/acadauto/idh_documents_collection.htm",
+      "01_extracted_html/acadauto/idh_documents.htm",
+      "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+      "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm",
+      "01_extracted_html/acad_aag/GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm",
+      "01_extracted_html/acad_aag/GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
+    ],
+    "reference_objects": [
+      "Application",
+      "Document"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-002": {
+    "slug": "open_save_close_document",
+    "title": "任务卡：打开 / 保存 / 关闭文档",
+    "path": "04_task_cards/01_connect_and_document/open_save_close_document.md",
+    "symbols": [
+      "Documents",
+      "Document",
+      "Application"
+    ],
+    "owners": [
+      "Documents",
+      "Document"
+    ],
+    "project_functions": [
+      "open_file",
+      "save_file",
+      "close_file",
+      "close_dwg_by_name"
+    ],
+    "module_paths": [
+      "cad/system/licad.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "open_file",
+        "module_path": "cad/system/licad.py"
+      },
+      {
+        "project_function": "save_file",
+        "module_path": "cad/system/licad.py"
+      },
+      {
+        "project_function": "close_file",
+        "module_path": "cad/system/licad.py"
+      },
+      {
+        "project_function": "close_dwg_by_name",
+        "module_path": "cad/system/licad.py"
+      }
+    ],
+    "aliases_en": [
+      "open save close document",
+      "document lifecycle",
+      "open drawing file",
+      "close active drawing"
+    ],
+    "aliases_zh": [
+      "打开保存关闭文档",
+      "DWG 生命周期",
+      "打开图纸",
+      "关闭图纸"
+    ],
+    "keywords_zh": [
+      "打开",
+      "保存",
+      "关闭",
+      "文档"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/common_patterns.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/licad.py",
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_runner.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/common_patterns.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/collection_rules.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+      "acadauto:ex_documents",
+      "acadauto:ex_loadacadlspinalldocuments",
+      "acadauto:idh_documents_collection",
+      "acadauto:idh_documents",
+      "acad_aag:GUID_45654BC7_F6B5_48E9_82FD_CED83FB956C4",
+      "acad_aag:GUID_4F4377B1_07C8_4DDA_94D9_23DBF493C871",
+      "acad_aag:GUID_675CFE8A_2256_4808_A1C8_186E68A69496",
+      "acad_aag:GUID_679FBC1A_DE7B_44BA_9F8B_CD6FF1660D67",
+      "acad_aag:GUID_9C66C307_9ED1_492B_9CE5_F81F73671C88",
+      "acad_aag:GUID_BCE7E749_DCCB_4914_9E52_CC1265A3574F",
+      "acad_aag:GUID_FD48FD40_1077_4054_8A15_CA55DADF821F",
+      "acad_aag:GUID_A2018D0D_2778_4823_A4A2_1A467A807F42",
+      "acad_aag:GUID_C584A219_3E90_4D1B_B382_6000F00CE9B0"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+      "01_extracted_html/acadauto/ex_documents.htm",
+      "01_extracted_html/acadauto/ex_loadacadlspinalldocuments.htm",
+      "01_extracted_html/acadauto/idh_documents_collection.htm",
+      "01_extracted_html/acadauto/idh_documents.htm",
+      "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+      "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm",
+      "01_extracted_html/acad_aag/GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm",
+      "01_extracted_html/acad_aag/GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm",
+      "01_extracted_html/acad_aag/GUID-9C66C307-9ED1-492B-9CE5-F81F73671C88.htm",
+      "01_extracted_html/acad_aag/GUID-BCE7E749-DCCB-4914-9E52-CC1265A3574F.htm",
+      "01_extracted_html/acad_aag/GUID-FD48FD40-1077-4054-8A15-CA55DADF821F.htm",
+      "01_extracted_html/acad_aag/GUID-A2018D0D-2778-4823-A4A2-1A467A807F42.htm",
+      "01_extracted_html/acad_aag/GUID-C584A219-3E90-4D1B-B382-6000F00CE9B0.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
+    ],
+    "reference_objects": [
+      "Documents",
+      "Document"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-003": {
+    "slug": "determine_space_and_layout",
+    "title": "任务卡：判断模型空间 / 图纸空间 / 当前布局",
+    "path": "04_task_cards/02_space_and_layout/determine_space_and_layout.md",
+    "symbols": [
+      "Document",
+      "ModelSpace",
+      "PaperSpace",
+      "ActiveLayout",
+      "GetVariable"
+    ],
+    "owners": [
+      "Document",
+      "Layout"
+    ],
+    "project_functions": [
+      "get_layout_names",
+      "switch_to_layout",
+      "current_space_only"
+    ],
+    "module_paths": [
+      "cad/system/CAD_core.py",
+      "cad/system/CAD_selection.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "get_layout_names",
+        "module_path": "cad/system/CAD_core.py"
+      },
+      {
+        "project_function": "switch_to_layout",
+        "module_path": "cad/system/CAD_core.py"
+      },
+      {
+        "project_function": "current_space_only",
+        "module_path": "cad/system/CAD_selection.py"
+      }
+    ],
+    "aliases_en": [
+      "determine space and layout",
+      "detect modelspace paperspace",
+      "check current layout context"
+    ],
+    "aliases_zh": [
+      "判断模型空间图纸空间当前布局",
+      "检查当前布局上下文"
+    ],
+    "keywords_zh": [
+      "模型空间",
+      "图纸空间",
+      "布局",
+      "上下文"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/common_patterns.md",
+      "05_pywin32_bridge/collection_rules.md"
+    ],
+    "project_refs": [
+      "cad/system/CAD_selection.py",
+      "cad/system/CAD_core.py",
+      "cad/system/licad.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/common_patterns.md",
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+      "acad_aag:GUID_45654BC7_F6B5_48E9_82FD_CED83FB956C4",
+      "acad_aag:GUID_4F4377B1_07C8_4DDA_94D9_23DBF493C871",
+      "acad_aag:GUID_675CFE8A_2256_4808_A1C8_186E68A69496",
+      "acad_aag:GUID_679FBC1A_DE7B_44BA_9F8B_CD6FF1660D67",
+      "acadauto:ex_modelspace",
+      "acadauto:ex_elevationmodelspace",
+      "acadauto:idh_modelspace_collection",
+      "acadauto:idh_modelspace",
+      "acadauto:idh_elevationmodelspace",
+      "acadauto:ex_paperspace",
+      "acadauto:ex_elevationpaperspace",
+      "acadauto:idh_paperspace_collection",
+      "acadauto:idh_paperspace",
+      "acadauto:idh_elevationpaperspace",
+      "acadauto:ex_activelayout",
+      "acadauto:idh_activelayout",
+      "acadauto:activelayout_see_also",
+      "acadauto:ex_getvariable",
+      "acadauto:idh_getvariable",
+      "acadauto:getvariable_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+      "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+      "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm",
+      "01_extracted_html/acad_aag/GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm",
+      "01_extracted_html/acad_aag/GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm",
+      "01_extracted_html/acadauto/ex_modelspace.htm",
+      "01_extracted_html/acadauto/ex_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/idh_modelspace_collection.htm",
+      "01_extracted_html/acadauto/idh_modelspace.htm",
+      "01_extracted_html/acadauto/idh_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/ex_paperspace.htm",
+      "01_extracted_html/acadauto/ex_elevationpaperspace.htm",
+      "01_extracted_html/acadauto/idh_paperspace_collection.htm",
+      "01_extracted_html/acadauto/idh_paperspace.htm",
+      "01_extracted_html/acadauto/idh_elevationpaperspace.htm",
+      "01_extracted_html/acadauto/ex_activelayout.htm",
+      "01_extracted_html/acadauto/idh_activelayout.htm",
+      "01_extracted_html/acadauto/activelayout_see_also.htm",
+      "01_extracted_html/acadauto/ex_getvariable.htm",
+      "01_extracted_html/acadauto/idh_getvariable.htm",
+      "01_extracted_html/acadauto/getvariable_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
+    ],
+    "reference_objects": [
+      "Document",
+      "Layout",
+      "ModelSpace",
+      "PaperSpace"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-004": {
+    "slug": "enumerate_layouts",
+    "title": "任务卡：枚举所有布局",
+    "path": "04_task_cards/02_space_and_layout/enumerate_layouts.md",
+    "symbols": [
+      "Layouts",
+      "Layout",
+      "Document"
+    ],
+    "owners": [
+      "Layouts",
+      "Layout",
+      "Document"
+    ],
+    "project_functions": [
+      "get_layout_names"
+    ],
+    "module_paths": [
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "get_layout_names",
+        "module_path": "cad/system/CAD_core.py"
+      },
+      {
+        "project_function": "get_layout_names",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+      }
+    ],
+    "aliases_en": [
+      "enumerate layouts",
+      "list layouts",
+      "get layout names"
+    ],
+    "aliases_zh": [
+      "枚举所有布局",
+      "获取布局列表"
+    ],
+    "keywords_zh": [
+      "布局",
+      "枚举",
+      "列表"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py",
+      "cad/system/licad.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+      "acad_aag:topichead_9",
+      "acad_aag:GUID_10344852_4888_4237_8EB6_5EBE24D5C87C",
+      "acadauto:ex_layoutshowplotsetup",
+      "acadauto:ex_setlayoutstoplot",
+      "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+      "acad_aag:GUID_45654BC7_F6B5_48E9_82FD_CED83FB956C4",
+      "acad_aag:GUID_4F4377B1_07C8_4DDA_94D9_23DBF493C871",
+      "acad_aag:GUID_675CFE8A_2256_4808_A1C8_186E68A69496",
+      "acad_aag:GUID_679FBC1A_DE7B_44BA_9F8B_CD6FF1660D67"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+      "01_extracted_html/acad_aag/topichead_9.htm",
+      "01_extracted_html/acad_aag/GUID-10344852-4888-4237-8EB6-5EBE24D5C87C.htm",
+      "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+      "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+      "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+      "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+      "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm",
+      "01_extracted_html/acad_aag/GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm",
+      "01_extracted_html/acad_aag/GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
+    ],
+    "reference_objects": [
+      "Layouts",
+      "Layout"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-005": {
+    "slug": "switch_to_target_layout",
+    "title": "任务卡：切换到指定布局",
+    "path": "04_task_cards/02_space_and_layout/switch_to_target_layout.md",
+    "symbols": [
+      "ActiveLayout",
+      "Layouts",
+      "Layout",
+      "SendCommand"
+    ],
+    "owners": [
+      "Document",
+      "Layouts",
+      "Layout"
+    ],
+    "project_functions": [
+      "switch_to_layout",
+      "send_cmd_with_sync"
+    ],
+    "module_paths": [
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+      "cad/system/CAD_coordination.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "switch_to_layout",
+        "module_path": "cad/system/CAD_core.py"
+      },
+      {
+        "project_function": "switch_to_layout",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+      },
+      {
+        "project_function": "send_cmd_with_sync",
+        "module_path": "cad/system/CAD_coordination.py"
+      }
+    ],
+    "aliases_en": [
+      "switch to target layout",
+      "activate layout",
+      "change active layout"
+    ],
+    "aliases_zh": [
+      "切换到指定布局",
+      "切换布局",
+      "激活布局"
+    ],
+    "keywords_zh": [
+      "布局切换",
+      "目标布局",
+      "激活"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/sendcommand_rules.md",
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+      "cad/system/CAD_coordination.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py",
+      "cad/system/licad.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/sendcommand_rules.md",
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_activelayout",
+      "acadauto:idh_activelayout",
+      "acadauto:activelayout_see_also",
+      "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+      "acad_aag:topichead_9",
+      "acad_aag:GUID_10344852_4888_4237_8EB6_5EBE24D5C87C",
+      "acadauto:ex_layoutshowplotsetup",
+      "acadauto:ex_setlayoutstoplot",
+      "acadauto:ex_sendcommand",
+      "acadauto:idh_sendcommand",
+      "acadauto:sendcommand_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_activelayout.htm",
+      "01_extracted_html/acadauto/idh_activelayout.htm",
+      "01_extracted_html/acadauto/activelayout_see_also.htm",
+      "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+      "01_extracted_html/acad_aag/topichead_9.htm",
+      "01_extracted_html/acad_aag/GUID-10344852-4888-4237-8EB6-5EBE24D5C87C.htm",
+      "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+      "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+      "01_extracted_html/acadauto/ex_sendcommand.htm",
+      "01_extracted_html/acadauto/idh_sendcommand.htm",
+      "01_extracted_html/acadauto/sendcommand_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "Document",
+      "Layout"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-006": {
+    "slug": "build_selection_set",
+    "title": "任务卡：构造选择集 / 选择对象",
+    "path": "04_task_cards/03_selection/build_selection_set.md",
+    "symbols": [
+      "SelectionSets",
+      "SelectionSet",
+      "Select",
+      "SendCommand"
+    ],
+    "owners": [
+      "SelectionSets",
+      "SelectionSet"
+    ],
+    "project_functions": [
+      "ss_select",
+      "select_entities_in_window",
+      "send_cmd_with_sync"
+    ],
+    "module_paths": [
+      "cad/system/CAD_selection.py",
+      "cad/system/CAD_coordination.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "ss_select",
+        "module_path": "cad/system/CAD_selection.py"
+      },
+      {
+        "project_function": "select_entities_in_window",
+        "module_path": "cad/system/CAD_selection.py"
+      },
+      {
+        "project_function": "send_cmd_with_sync",
+        "module_path": "cad/system/CAD_coordination.py"
+      }
+    ],
+    "aliases_en": [
+      "build selection set",
+      "select objects by window",
+      "cad selection workflow"
+    ],
+    "aliases_zh": [
+      "构造选择集",
+      "窗口选择对象",
+      "选择对象"
+    ],
+    "keywords_zh": [
+      "选择集",
+      "窗口选",
+      "对象选择"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/sendcommand_rules.md"
+    ],
+    "project_refs": [
+      "cad/system/CAD_selection.py",
+      "cad/system/CAD_core.py",
+      "cad/system/CAD_coordination.py",
+      "cad/system/licad.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/sendcommand_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_selectionsets",
+      "acadauto:idh_selectionsets_collection",
+      "acadauto:idh_selectionsets",
+      "acadauto:selectionsets_see_also",
+      "acadauto:ex_activeselectionset",
+      "acadauto:ex_pickfirstselectionset",
+      "acadauto:idh_selectionset_object",
+      "acadauto:idh_activeselectionset",
+      "acadauto:ex_select",
+      "acadauto:idh_select",
+      "acadauto:ex_sendcommand",
+      "acadauto:idh_sendcommand",
+      "acadauto:sendcommand_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_selectionsets.htm",
+      "01_extracted_html/acadauto/idh_selectionsets_collection.htm",
+      "01_extracted_html/acadauto/idh_selectionsets.htm",
+      "01_extracted_html/acadauto/selectionsets_see_also.htm",
+      "01_extracted_html/acadauto/ex_activeselectionset.htm",
+      "01_extracted_html/acadauto/ex_pickfirstselectionset.htm",
+      "01_extracted_html/acadauto/idh_selectionset_object.htm",
+      "01_extracted_html/acadauto/idh_activeselectionset.htm",
+      "01_extracted_html/acadauto/ex_select.htm",
+      "01_extracted_html/acadauto/idh_select.htm",
+      "01_extracted_html/acadauto/ex_sendcommand.htm",
+      "01_extracted_html/acadauto/idh_sendcommand.htm",
+      "01_extracted_html/acadauto/sendcommand_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "SelectionSet",
+      "AcDbPolyline",
+      "AcDbBlockReference"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-007": {
+    "slug": "traverse_objects_and_read_identity",
+    "title": "任务卡：遍历对象并读取 ObjectName / Handle / Layer",
+    "path": "04_task_cards/03_selection/traverse_objects_and_read_identity.md",
+    "symbols": [
+      "ObjectName",
+      "Handle",
+      "Layer",
+      "SelectionSet"
+    ],
+    "owners": [
+      "Entity",
+      "SelectionSet"
+    ],
+    "project_functions": [
+      "collect_space_entity_snapshots",
+      "get_dwg_graphics_summary"
+    ],
+    "module_paths": [
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/system/content_analysis_dwg_file.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "collect_space_entity_snapshots",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"
+      },
+      {
+        "project_function": "get_dwg_graphics_summary",
+        "module_path": "cad/system/content_analysis_dwg_file.py"
+      }
+    ],
+    "aliases_en": [
+      "traverse objects and read identity",
+      "read objectname handle layer",
+      "entity identity scan"
+    ],
+    "aliases_zh": [
+      "遍历对象并读取标识",
+      "读取ObjectName Handle Layer"
+    ],
+    "keywords_zh": [
+      "对象遍历",
+      "句柄",
+      "图层",
+      "类型识别"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/CAD_selection.py",
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/system/content_analysis_dwg_file.py",
+      "cad/scripts/drawing_basic_service/print/print_policy.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_objectname",
+      "acadauto:idh_objectname",
+      "acadauto:objectname_see_also",
+      "acadauto:ex_handle",
+      "acadauto:idh_handle",
+      "acad_aag:GUID_2FF2F1B5_FFAC_420A_A741_15D1FC1A571E",
+      "acadauto:ex_handletoobject",
+      "acadauto:idh_handletoobject",
+      "acad_aag:GUID_52B191C9_B183_4B20_96FD_AE3F44FA9AFA",
+      "acad_aag:GUID_435FABFF_D469_4004_AB1E_A47295959AB1",
+      "acad_aag:GUID_49A4B783_D344_497B_BF37_3B4925813B31",
+      "acad_aag:GUID_D86DF08B_BBD3_4E0F_AB75_13B2C4AD972C",
+      "acad_aag:GUID_72E0EC31_B232_4688_BFFF_CA10F42E1034",
+      "acadauto:ex_selectionsets",
+      "acadauto:ex_activeselectionset",
+      "acadauto:ex_pickfirstselectionset",
+      "acadauto:idh_selectionset_object",
+      "acadauto:idh_activeselectionset"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_objectname.htm",
+      "01_extracted_html/acadauto/idh_objectname.htm",
+      "01_extracted_html/acadauto/objectname_see_also.htm",
+      "01_extracted_html/acadauto/ex_handle.htm",
+      "01_extracted_html/acadauto/idh_handle.htm",
+      "01_extracted_html/acad_aag/GUID-2FF2F1B5-FFAC-420A-A741-15D1FC1A571E.htm",
+      "01_extracted_html/acadauto/ex_handletoobject.htm",
+      "01_extracted_html/acadauto/idh_handletoobject.htm",
+      "01_extracted_html/acad_aag/GUID-52B191C9-B183-4B20-96FD-AE3F44FA9AFA.htm",
+      "01_extracted_html/acad_aag/GUID-435FABFF-D469-4004-AB1E-A47295959AB1.htm",
+      "01_extracted_html/acad_aag/GUID-49A4B783-D344-497B-BF37-3B4925813B31.htm",
+      "01_extracted_html/acad_aag/GUID-D86DF08B-BBD3-4E0F-AB75-13B2C4AD972C.htm",
+      "01_extracted_html/acad_aag/GUID-72E0EC31-B232-4688-BFFF-CA10F42E1034.htm",
+      "01_extracted_html/acadauto/ex_selectionsets.htm",
+      "01_extracted_html/acadauto/ex_activeselectionset.htm",
+      "01_extracted_html/acadauto/ex_pickfirstselectionset.htm",
+      "01_extracted_html/acadauto/idh_selectionset_object.htm",
+      "01_extracted_html/acadauto/idh_activeselectionset.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "AcDbEntity",
+      "AcDbBlockReference",
+      "SelectionSet"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-008": {
+    "slug": "get_bounding_box_and_object_counts",
+    "title": "任务卡：获取边界框和对象统计",
+    "path": "04_task_cards/03_selection/get_bounding_box_and_object_counts.md",
+    "symbols": [
+      "BoundingBox",
+      "Coordinates",
+      "ObjectName",
+      "Handle"
+    ],
+    "owners": [
+      "Entity",
+      "SelectionSet",
+      "BlockReference"
+    ],
+    "project_functions": [
+      "collect_area_content_metrics",
+      "get_dwg_graphics_summary"
+    ],
+    "module_paths": [
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/system/content_analysis_dwg_file.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "collect_area_content_metrics",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"
+      },
+      {
+        "project_function": "get_dwg_graphics_summary",
+        "module_path": "cad/system/content_analysis_dwg_file.py"
+      }
+    ],
+    "aliases_en": [
+      "get bounding box and object counts",
+      "collect bbox metrics",
+      "count objects by type"
+    ],
+    "aliases_zh": [
+      "获取边界框和对象统计",
+      "边界框统计",
+      "对象计数"
+    ],
+    "keywords_zh": [
+      "边界框",
+      "统计",
+      "计数",
+      "打印框"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/content_analysis_dwg_file.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+      "cad/system/CAD_selection.py",
+      "cad/scripts/drawing_basic_service/print/print_policy.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_getboundingbox",
+      "acadauto:idh_getboundingbox",
+      "acadauto:getboundingbox_see_also",
+      "acad_aag:GUID_06B18EED_D4E3_4B81_ACB8_037E884CB93D",
+      "acad_aag:GUID_6954AAF3_7107_4D93_A2CE_FE859F3F9902",
+      "acadauto:ex_coordinates",
+      "acadauto:idh_coordinates",
+      "acadauto:ex_translatecoordinates",
+      "acadauto:ex_objectname",
+      "acadauto:idh_objectname",
+      "acadauto:objectname_see_also",
+      "acadauto:ex_handle",
+      "acadauto:idh_handle",
+      "acad_aag:GUID_2FF2F1B5_FFAC_420A_A741_15D1FC1A571E",
+      "acadauto:ex_handletoobject",
+      "acadauto:idh_handletoobject"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_getboundingbox.htm",
+      "01_extracted_html/acadauto/idh_getboundingbox.htm",
+      "01_extracted_html/acadauto/getboundingbox_see_also.htm",
+      "01_extracted_html/acad_aag/GUID-06B18EED-D4E3-4B81-ACB8-037E884CB93D.htm",
+      "01_extracted_html/acad_aag/GUID-6954AAF3-7107-4D93-A2CE-FE859F3F9902.htm",
+      "01_extracted_html/acadauto/ex_coordinates.htm",
+      "01_extracted_html/acadauto/idh_coordinates.htm",
+      "01_extracted_html/acadauto/ex_translatecoordinates.htm",
+      "01_extracted_html/acadauto/ex_objectname.htm",
+      "01_extracted_html/acadauto/idh_objectname.htm",
+      "01_extracted_html/acadauto/objectname_see_also.htm",
+      "01_extracted_html/acadauto/ex_handle.htm",
+      "01_extracted_html/acadauto/idh_handle.htm",
+      "01_extracted_html/acad_aag/GUID-2FF2F1B5-FFAC-420A-A741-15D1FC1A571E.htm",
+      "01_extracted_html/acadauto/ex_handletoobject.htm",
+      "01_extracted_html/acadauto/idh_handletoobject.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "AcDbPolyline",
+      "AcDbBlockReference",
+      "AcDbText",
+      "AcDbMText"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-009": {
+    "slug": "create_basic_geometry_smoke",
+    "title": "任务卡：创建基础几何对象",
+    "path": "04_task_cards/04_entities_create/create_basic_geometry_smoke.md",
+    "symbols": [
+      "ModelSpace",
+      "AddLine",
+      "AddPolyline",
+      "AddText",
+      "AddMText"
+    ],
+    "owners": [
+      "ModelSpace",
+      "PaperSpace",
+      "Block"
+    ],
+    "project_functions": [
+      "draw_outline",
+      "ensure_layer",
+      "get_acad_doc"
+    ],
+    "module_paths": [
+      "cad/scripts/Scheme_drawing/draw_building_outline.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/licad.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "draw_outline",
+        "module_path": "cad/scripts/Scheme_drawing/draw_building_outline.py"
+      },
+      {
+        "project_function": "ensure_layer",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "get_acad_doc",
+        "module_path": "cad/system/licad.py"
+      }
+    ],
+    "aliases_en": [
+      "create basic geometry smoke",
+      "geometry smoke test",
+      "add line polyline text"
+    ],
+    "aliases_zh": [
+      "创建基础几何对象",
+      "几何烟雾测试",
+      "添加直线文字多段线"
+    ],
+    "keywords_zh": [
+      "基础几何",
+      "直线",
+      "多段线",
+      "文字"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "project_refs": [
+      "cad/system/licad.py",
+      "cad/scripts/Scheme_drawing/draw_building_outline.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_selection.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/pywin32_type_rules.md",
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_modelspace",
+      "acadauto:ex_elevationmodelspace",
+      "acadauto:idh_modelspace_collection",
+      "acadauto:idh_modelspace",
+      "acadauto:idh_elevationmodelspace",
+      "acadauto:ex_addline",
+      "acadauto:idh_addline",
+      "acadauto:addline_see_also",
+      "acadauto:ex_addpolyline",
+      "acadauto:ex_addlightweightpolyline",
+      "acadauto:idh_addlightweightpolyline",
+      "acadauto:idh_addpolyline",
+      "acadauto:addlightweightpolyline_see_also",
+      "acadauto:ex_addtext",
+      "acadauto:idh_addtext",
+      "acadauto:addtext_see_also",
+      "acadauto:ex_addmtext",
+      "acadauto:idh_addmtext",
+      "acadauto:addmtext_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_modelspace.htm",
+      "01_extracted_html/acadauto/ex_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/idh_modelspace_collection.htm",
+      "01_extracted_html/acadauto/idh_modelspace.htm",
+      "01_extracted_html/acadauto/idh_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/ex_addline.htm",
+      "01_extracted_html/acadauto/idh_addline.htm",
+      "01_extracted_html/acadauto/addline_see_also.htm",
+      "01_extracted_html/acadauto/ex_addpolyline.htm",
+      "01_extracted_html/acadauto/ex_addlightweightpolyline.htm",
+      "01_extracted_html/acadauto/idh_addlightweightpolyline.htm",
+      "01_extracted_html/acadauto/idh_addpolyline.htm",
+      "01_extracted_html/acadauto/addlightweightpolyline_see_also.htm",
+      "01_extracted_html/acadauto/ex_addtext.htm",
+      "01_extracted_html/acadauto/idh_addtext.htm",
+      "01_extracted_html/acadauto/addtext_see_also.htm",
+      "01_extracted_html/acadauto/ex_addmtext.htm",
+      "01_extracted_html/acadauto/idh_addmtext.htm",
+      "01_extracted_html/acadauto/addmtext_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
+    ],
+    "reference_objects": [
+      "ModelSpace",
+      "AcDbLine",
+      "AcDbPolyline",
+      "AcDbText"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-010": {
+    "slug": "read_block_attributes",
+    "title": "任务卡：读取块属性",
+    "path": "04_task_cards/05_blocks_and_attributes/read_block_attributes.md",
+    "symbols": [
+      "BlockReference",
+      "HasAttributes",
+      "GetAttributes",
+      "AttributeReference"
+    ],
+    "owners": [
+      "BlockReference",
+      "AttributeReference"
+    ],
+    "project_functions": [
+      "get_block_attributes_dict",
+      "_extract_attribute_fields"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "get_block_attributes_dict",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "_extract_attribute_fields",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+      }
+    ],
+    "aliases_en": [
+      "read block attributes",
+      "extract title block fields",
+      "get attribute values from block reference"
+    ],
+    "aliases_zh": [
+      "读取块属性",
+      "提取图签字段",
+      "获取属性值"
+    ],
+    "keywords_zh": [
+      "块属性",
+      "图签",
+      "属性字段"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/scripts/CAD_basic.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:idh_dynamicblockreferenceproperty_object",
+      "acadauto:ex_hasattributes",
+      "acadauto:idh_hasattributes",
+      "acadauto:hasattributes_see_also",
+      "acadauto:ex_getattributes",
+      "acadauto:idh_getattributes",
+      "acadauto:getattributes_see_also",
+      "acadauto:idh_attributeref_object"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/idh_dynamicblockreferenceproperty_object.htm",
+      "01_extracted_html/acadauto/ex_hasattributes.htm",
+      "01_extracted_html/acadauto/idh_hasattributes.htm",
+      "01_extracted_html/acadauto/hasattributes_see_also.htm",
+      "01_extracted_html/acadauto/ex_getattributes.htm",
+      "01_extracted_html/acadauto/idh_getattributes.htm",
+      "01_extracted_html/acadauto/getattributes_see_also.htm",
+      "01_extracted_html/acadauto/idh_attributeref_object.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "AcDbBlockReference",
+      "AcDbAttribute",
+      "AcDbMText"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-011": {
+    "slug": "insert_block_or_dwg",
+    "title": "任务卡：插入块或插入 DWG",
+    "path": "04_task_cards/05_blocks_and_attributes/insert_block_or_dwg.md",
+    "symbols": [
+      "InsertBlock",
+      "Block",
+      "BlockReference",
+      "ModelSpace",
+      "PaperSpace"
+    ],
+    "owners": [
+      "Block",
+      "BlockReference",
+      "ModelSpace",
+      "PaperSpace"
+    ],
+    "project_functions": [
+      "insert_block_into_autocad",
+      "insert_file_exploded"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_core.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "insert_block_into_autocad",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "insert_file_exploded",
+        "module_path": "cad/system/CAD_core.py"
+      }
+    ],
+    "aliases_en": [
+      "insert block or dwg",
+      "insert title block template",
+      "insert external drawing"
+    ],
+    "aliases_zh": [
+      "插入块或插入DWG",
+      "插入图签模板",
+      "插入外部图纸"
+    ],
+    "keywords_zh": [
+      "插块",
+      "插入DWG",
+      "炸开"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/CAD_core.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/system/licad.py",
+      "cad/system/CAD_selection.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/collection_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_insertblock",
+      "acadauto:ex_addminsertblock",
+      "acadauto:idh_insertblock",
+      "acadauto:idh_addminsertblock",
+      "acadauto:idh_minsertblock_object",
+      "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+      "acadauto:ex_blockattribute",
+      "acad_aag:GUID_F9C39B22_6AF1_4501_9EE8_928C1B4AAA21",
+      "acadauto:idh_dynamicblockreferenceproperty_object",
+      "acadauto:ex_modelspace",
+      "acadauto:ex_elevationmodelspace",
+      "acadauto:idh_modelspace_collection",
+      "acadauto:idh_modelspace",
+      "acadauto:idh_elevationmodelspace",
+      "acadauto:ex_paperspace",
+      "acadauto:ex_elevationpaperspace",
+      "acadauto:idh_paperspace_collection",
+      "acadauto:idh_paperspace",
+      "acadauto:idh_elevationpaperspace"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_insertblock.htm",
+      "01_extracted_html/acadauto/ex_addminsertblock.htm",
+      "01_extracted_html/acadauto/idh_insertblock.htm",
+      "01_extracted_html/acadauto/idh_addminsertblock.htm",
+      "01_extracted_html/acadauto/idh_minsertblock_object.htm",
+      "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+      "01_extracted_html/acadauto/ex_blockattribute.htm",
+      "01_extracted_html/acad_aag/GUID-F9C39B22-6AF1-4501-9EE8-928C1B4AAA21.htm",
+      "01_extracted_html/acadauto/idh_dynamicblockreferenceproperty_object.htm",
+      "01_extracted_html/acadauto/ex_modelspace.htm",
+      "01_extracted_html/acadauto/ex_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/idh_modelspace_collection.htm",
+      "01_extracted_html/acadauto/idh_modelspace.htm",
+      "01_extracted_html/acadauto/idh_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/ex_paperspace.htm",
+      "01_extracted_html/acadauto/ex_elevationpaperspace.htm",
+      "01_extracted_html/acadauto/idh_paperspace_collection.htm",
+      "01_extracted_html/acadauto/idh_paperspace.htm",
+      "01_extracted_html/acadauto/idh_elevationpaperspace.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "Block",
+      "AcDbBlockReference"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-012": {
+    "slug": "update_titleblock_fields",
+    "title": "任务卡：更新图签属性字段",
+    "path": "04_task_cards/05_blocks_and_attributes/update_titleblock_fields.md",
+    "symbols": [
+      "BlockReference",
+      "AttributeReference",
+      "GetAttributes",
+      "HasAttributes",
+      "AddMText"
+    ],
+    "owners": [
+      "BlockReference",
+      "AttributeReference"
+    ],
+    "project_functions": [
+      "process_drawing_names_and_fill_titleblocks",
+      "update_catalog_titleblocks_from_excel",
+      "fill_block_attributes_with_tag_name"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "process_drawing_names_and_fill_titleblocks",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "update_catalog_titleblocks_from_excel",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "fill_block_attributes_with_tag_name",
+        "module_path": "cad/scripts/CAD_basic.py"
+      }
+    ],
+    "aliases_en": [
+      "update titleblock fields",
+      "fill title block attributes",
+      "write drawing info to title block"
+    ],
+    "aliases_zh": [
+      "更新图签属性字段",
+      "回写图签字段",
+      "填写图签属性"
+    ],
+    "keywords_zh": [
+      "图签",
+      "回写",
+      "属性字段",
+      "图名图号"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/CAD_basic.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:idh_dynamicblockreferenceproperty_object",
+      "acadauto:idh_attributeref_object",
+      "acadauto:ex_getattributes",
+      "acadauto:idh_getattributes",
+      "acadauto:getattributes_see_also",
+      "acadauto:ex_hasattributes",
+      "acadauto:idh_hasattributes",
+      "acadauto:hasattributes_see_also",
+      "acadauto:ex_addmtext",
+      "acadauto:idh_addmtext",
+      "acadauto:addmtext_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/idh_dynamicblockreferenceproperty_object.htm",
+      "01_extracted_html/acadauto/idh_attributeref_object.htm",
+      "01_extracted_html/acadauto/ex_getattributes.htm",
+      "01_extracted_html/acadauto/idh_getattributes.htm",
+      "01_extracted_html/acadauto/getattributes_see_also.htm",
+      "01_extracted_html/acadauto/ex_hasattributes.htm",
+      "01_extracted_html/acadauto/idh_hasattributes.htm",
+      "01_extracted_html/acadauto/hasattributes_see_also.htm",
+      "01_extracted_html/acadauto/ex_addmtext.htm",
+      "01_extracted_html/acadauto/idh_addmtext.htm",
+      "01_extracted_html/acadauto/addmtext_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "AcDbBlockReference",
+      "AcDbAttribute"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-013": {
+    "slug": "manage_layers",
+    "title": "任务卡：读取 / 创建 / 切换图层",
+    "path": "04_task_cards/06_layers_and_styles/manage_layers.md",
+    "symbols": [
+      "Layers",
+      "Layer",
+      "Document"
+    ],
+    "owners": [
+      "Layers",
+      "Layer",
+      "Document"
+    ],
+    "project_functions": [
+      "ensure_layer",
+      "draw_outline"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py",
+      "cad/scripts/Scheme_drawing/draw_building_outline.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "ensure_layer",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "draw_outline",
+        "module_path": "cad/scripts/Scheme_drawing/draw_building_outline.py"
+      }
+    ],
+    "aliases_en": [
+      "manage layers",
+      "create switch layer",
+      "ensure drawing layer"
+    ],
+    "aliases_zh": [
+      "读取创建切换图层",
+      "图层管理",
+      "确保图层存在"
+    ],
+    "keywords_zh": [
+      "图层",
+      "创建图层",
+      "切换图层"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/Scheme_drawing/draw_building_outline.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_selection.py",
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/system/licad.py",
+      "cad/system/CAD_core.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_D86DF08B_BBD3_4E0F_AB75_13B2C4AD972C",
+      "acad_aag:GUID_72E0EC31_B232_4688_BFFF_CA10F42E1034",
+      "acad_aag:GUID_5B2CCA06_1A61_46F6_BABE_6B8BEA1DF20D",
+      "acad_aag:GUID_463948A3_EE1E_4448_B3A6_B0B67B8902F1",
+      "acad_aag:GUID_A1815C41_7753_45F5_B8BC_31F67F79F138",
+      "acad_aag:GUID_52B191C9_B183_4B20_96FD_AE3F44FA9AFA",
+      "acad_aag:GUID_435FABFF_D469_4004_AB1E_A47295959AB1",
+      "acad_aag:GUID_49A4B783_D344_497B_BF37_3B4925813B31",
+      "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+      "acad_aag:GUID_45654BC7_F6B5_48E9_82FD_CED83FB956C4",
+      "acad_aag:GUID_4F4377B1_07C8_4DDA_94D9_23DBF493C871",
+      "acad_aag:GUID_675CFE8A_2256_4808_A1C8_186E68A69496",
+      "acad_aag:GUID_679FBC1A_DE7B_44BA_9F8B_CD6FF1660D67"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-D86DF08B-BBD3-4E0F-AB75-13B2C4AD972C.htm",
+      "01_extracted_html/acad_aag/GUID-72E0EC31-B232-4688-BFFF-CA10F42E1034.htm",
+      "01_extracted_html/acad_aag/GUID-5B2CCA06-1A61-46F6-BABE-6B8BEA1DF20D.htm",
+      "01_extracted_html/acad_aag/GUID-463948A3-EE1E-4448-B3A6-B0B67B8902F1.htm",
+      "01_extracted_html/acad_aag/GUID-A1815C41-7753-45F5-B8BC-31F67F79F138.htm",
+      "01_extracted_html/acad_aag/GUID-52B191C9-B183-4B20-96FD-AE3F44FA9AFA.htm",
+      "01_extracted_html/acad_aag/GUID-435FABFF-D469-4004-AB1E-A47295959AB1.htm",
+      "01_extracted_html/acad_aag/GUID-49A4B783-D344-497B-BF37-3B4925813B31.htm",
+      "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+      "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+      "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm",
+      "01_extracted_html/acad_aag/GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm",
+      "01_extracted_html/acad_aag/GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
+    ],
+    "reference_objects": [
+      "Layers",
+      "Layer"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-014": {
+    "slug": "read_layout_plot_info",
+    "title": "任务卡：读取布局打印信息",
+    "path": "04_task_cards/07_plot_and_output/read_layout_plot_info.md",
+    "symbols": [
+      "Layout",
+      "Plot",
+      "RefreshPlotDeviceInfo",
+      "SetWindowToPlot",
+      "ActiveLayout"
+    ],
+    "owners": [
+      "Layout",
+      "Plot"
+    ],
+    "project_functions": [
+      "analyze_print_info_jobs",
+      "collect_print_jobs"
+    ],
+    "module_paths": [
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/scripts/drawing_basic_service/print/print_policy.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "analyze_print_info_jobs",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+      },
+      {
+        "project_function": "collect_print_jobs",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_policy.py"
+      }
+    ],
+    "aliases_en": [
+      "read layout plot info",
+      "inspect plot configuration",
+      "read layout paper and window"
+    ],
+    "aliases_zh": [
+      "读取布局打印信息",
+      "读取打印配置",
+      "读取纸张窗口范围"
+    ],
+    "keywords_zh": [
+      "打印信息",
+      "布局打印",
+      "纸张",
+      "打印窗口"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/scripts/drawing_basic_service/print/print_policy.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+      "acad_aag:topichead_9",
+      "acadauto:ex_layoutshowplotsetup",
+      "acadauto:ex_setlayoutstoplot",
+      "acad_aag:GUID_10344852_4888_4237_8EB6_5EBE24D5C87C",
+      "acad_aag:GUID_9091E614_25B8_452E_A67A_301939B52161",
+      "acadauto:ex_defaultplotstyleforlayer",
+      "acadauto:ex_refreshplotdeviceinfo",
+      "acadauto:idh_refreshplotdeviceinfo",
+      "acadauto:refreshplotdeviceinfo_see_also",
+      "acadauto:ex_setwindowtoplot",
+      "acadauto:idh_setwindowtoplot",
+      "acadauto:setwindowtoplot_see_also",
+      "acadauto:ex_activelayout",
+      "acadauto:idh_activelayout",
+      "acadauto:activelayout_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+      "01_extracted_html/acad_aag/topichead_9.htm",
+      "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+      "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+      "01_extracted_html/acad_aag/GUID-10344852-4888-4237-8EB6-5EBE24D5C87C.htm",
+      "01_extracted_html/acad_aag/GUID-9091E614-25B8-452E-A67A-301939B52161.htm",
+      "01_extracted_html/acadauto/ex_defaultplotstyleforlayer.htm",
+      "01_extracted_html/acadauto/ex_refreshplotdeviceinfo.htm",
+      "01_extracted_html/acadauto/idh_refreshplotdeviceinfo.htm",
+      "01_extracted_html/acadauto/refreshplotdeviceinfo_see_also.htm",
+      "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+      "01_extracted_html/acadauto/idh_setwindowtoplot.htm",
+      "01_extracted_html/acadauto/setwindowtoplot_see_also.htm",
+      "01_extracted_html/acadauto/ex_activelayout.htm",
+      "01_extracted_html/acadauto/idh_activelayout.htm",
+      "01_extracted_html/acadauto/activelayout_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "Layout",
+      "Plot",
+      "AcDbBlockReference"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-015": {
+    "slug": "execute_layout_plot",
+    "title": "任务卡：执行布局窗口打印",
+    "path": "04_task_cards/07_plot_and_output/execute_layout_plot.md",
+    "symbols": [
+      "Plot",
+      "Layout",
+      "SetWindowToPlot",
+      "RefreshPlotDeviceInfo",
+      "SendCommand"
+    ],
+    "owners": [
+      "Layout",
+      "Plot",
+      "Document"
+    ],
+    "project_functions": [
+      "execute_print_plan",
+      "export_layout_window_lisp_fit",
+      "send_cmd_with_sync"
+    ],
+    "module_paths": [
+      "cad/scripts/drawing_basic_service/print/print_executor.py",
+      "cad/system/CAD_coordination.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "execute_print_plan",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_executor.py"
+      },
+      {
+        "project_function": "export_layout_window_lisp_fit",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_executor.py"
+      },
+      {
+        "project_function": "send_cmd_with_sync",
+        "module_path": "cad/system/CAD_coordination.py"
+      }
+    ],
+    "aliases_en": [
+      "execute layout plot",
+      "plot layout to pdf",
+      "export layout window"
+    ],
+    "aliases_zh": [
+      "执行布局窗口打印",
+      "输出布局PDF",
+      "导出打印窗口"
+    ],
+    "keywords_zh": [
+      "打印PDF",
+      "布局输出",
+      "打印执行"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/sendcommand_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/drawing_basic_service/print/print_executor.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_coordination.py",
+      "cad/system/CAD_core.py",
+      "cad/system/licad.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/sendcommand_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/collection_rules.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:topichead_9",
+      "acad_aag:GUID_9091E614_25B8_452E_A67A_301939B52161",
+      "acadauto:ex_layoutshowplotsetup",
+      "acadauto:ex_setlayoutstoplot",
+      "acadauto:ex_defaultplotstyleforlayer",
+      "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+      "acad_aag:GUID_10344852_4888_4237_8EB6_5EBE24D5C87C",
+      "acadauto:ex_setwindowtoplot",
+      "acadauto:idh_setwindowtoplot",
+      "acadauto:setwindowtoplot_see_also",
+      "acadauto:ex_refreshplotdeviceinfo",
+      "acadauto:idh_refreshplotdeviceinfo",
+      "acadauto:refreshplotdeviceinfo_see_also",
+      "acadauto:ex_sendcommand",
+      "acadauto:idh_sendcommand",
+      "acadauto:sendcommand_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/topichead_9.htm",
+      "01_extracted_html/acad_aag/GUID-9091E614-25B8-452E-A67A-301939B52161.htm",
+      "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+      "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+      "01_extracted_html/acadauto/ex_defaultplotstyleforlayer.htm",
+      "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+      "01_extracted_html/acad_aag/GUID-10344852-4888-4237-8EB6-5EBE24D5C87C.htm",
+      "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+      "01_extracted_html/acadauto/idh_setwindowtoplot.htm",
+      "01_extracted_html/acadauto/setwindowtoplot_see_also.htm",
+      "01_extracted_html/acadauto/ex_refreshplotdeviceinfo.htm",
+      "01_extracted_html/acadauto/idh_refreshplotdeviceinfo.htm",
+      "01_extracted_html/acadauto/refreshplotdeviceinfo_see_also.htm",
+      "01_extracted_html/acadauto/ex_sendcommand.htm",
+      "01_extracted_html/acadauto/idh_sendcommand.htm",
+      "01_extracted_html/acadauto/sendcommand_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "Layout",
+      "Plot",
+      "AcDbPolyline"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-016": {
+    "slug": "build_print_plan_and_info",
+    "title": "任务卡：构建打印计划和打印信息",
+    "path": "04_task_cards/07_plot_and_output/build_print_plan_and_info.md",
+    "symbols": [
+      "Layout",
+      "Handle",
+      "ObjectName",
+      "GetAttributes",
+      "Plot"
+    ],
+    "owners": [
+      "Layout",
+      "BlockReference",
+      "Plot"
+    ],
+    "project_functions": [
+      "collect_print_jobs",
+      "build_print_plan",
+      "analyze_print_info_jobs"
+    ],
+    "module_paths": [
+      "cad/scripts/drawing_basic_service/print/print_policy.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "collect_print_jobs",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_policy.py"
+      },
+      {
+        "project_function": "build_print_plan",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_policy.py"
+      },
+      {
+        "project_function": "analyze_print_info_jobs",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+      }
+    ],
+    "aliases_en": [
+      "build print plan and info",
+      "collect print jobs",
+      "assemble plot execution plan"
+    ],
+    "aliases_zh": [
+      "构建打印计划和打印信息",
+      "收集打印作业",
+      "组装打印计划"
+    ],
+    "keywords_zh": [
+      "打印计划",
+      "打印信息",
+      "作业收集"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/drawing_basic_service/print/print_policy.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py",
+      "cad/system/content_analysis_dwg_file.py",
+      "cad/system/CAD_selection.py",
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/scripts/CAD_basic.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+      "acad_aag:topichead_9",
+      "acadauto:ex_layoutshowplotsetup",
+      "acadauto:ex_setlayoutstoplot",
+      "acad_aag:GUID_10344852_4888_4237_8EB6_5EBE24D5C87C",
+      "acadauto:ex_handle",
+      "acadauto:idh_handle",
+      "acad_aag:GUID_2FF2F1B5_FFAC_420A_A741_15D1FC1A571E",
+      "acadauto:ex_handletoobject",
+      "acadauto:idh_handletoobject",
+      "acadauto:ex_objectname",
+      "acadauto:idh_objectname",
+      "acadauto:objectname_see_also",
+      "acadauto:ex_getattributes",
+      "acadauto:idh_getattributes",
+      "acadauto:getattributes_see_also",
+      "acad_aag:GUID_9091E614_25B8_452E_A67A_301939B52161",
+      "acadauto:ex_defaultplotstyleforlayer"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+      "01_extracted_html/acad_aag/topichead_9.htm",
+      "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+      "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+      "01_extracted_html/acad_aag/GUID-10344852-4888-4237-8EB6-5EBE24D5C87C.htm",
+      "01_extracted_html/acadauto/ex_handle.htm",
+      "01_extracted_html/acadauto/idh_handle.htm",
+      "01_extracted_html/acad_aag/GUID-2FF2F1B5-FFAC-420A-A741-15D1FC1A571E.htm",
+      "01_extracted_html/acadauto/ex_handletoobject.htm",
+      "01_extracted_html/acadauto/idh_handletoobject.htm",
+      "01_extracted_html/acadauto/ex_objectname.htm",
+      "01_extracted_html/acadauto/idh_objectname.htm",
+      "01_extracted_html/acadauto/objectname_see_also.htm",
+      "01_extracted_html/acadauto/ex_getattributes.htm",
+      "01_extracted_html/acadauto/idh_getattributes.htm",
+      "01_extracted_html/acadauto/getattributes_see_also.htm",
+      "01_extracted_html/acad_aag/GUID-9091E614-25B8-452E-A67A-301939B52161.htm",
+      "01_extracted_html/acadauto/ex_defaultplotstyleforlayer.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "Layout",
+      "AcDbPolyline",
+      "AcDbBlockReference"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-017": {
+    "slug": "sendcommand_fallback",
+    "title": "任务卡：SendCommand 命令回退",
+    "path": "04_task_cards/08_command_fallback/sendcommand_fallback.md",
+    "symbols": [
+      "SendCommand",
+      "GetVariable",
+      "SetVariable",
+      "Document"
+    ],
+    "owners": [
+      "Document"
+    ],
+    "project_functions": [
+      "send_cmd_with_sync",
+      "SendCommand"
+    ],
+    "module_paths": [
+      "cad/system/CAD_coordination.py",
+      "cad/system/licad.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "send_cmd_with_sync",
+        "module_path": "cad/system/CAD_coordination.py"
+      },
+      {
+        "project_function": "SendCommand",
+        "module_path": "cad/system/licad.py"
+      }
+    ],
+    "aliases_en": [
+      "sendcommand fallback",
+      "command line fallback",
+      "synchronize sendcommand"
+    ],
+    "aliases_zh": [
+      "SendCommand命令回退",
+      "命令行回退",
+      "同步命令发送"
+    ],
+    "keywords_zh": [
+      "命令回退",
+      "SendCommand",
+      "同步等待"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/sendcommand_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/licad.py",
+      "cad/system/CAD_coordination.py",
+      "cad/system/CAD_selection.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py",
+      "cad/system/CAD_core.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/sendcommand_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/collection_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_sendcommand",
+      "acadauto:idh_sendcommand",
+      "acadauto:sendcommand_see_also",
+      "acadauto:ex_getvariable",
+      "acadauto:idh_getvariable",
+      "acadauto:getvariable_see_also",
+      "acadauto:ex_setvariable",
+      "acadauto:idh_setvariable",
+      "acadauto:setvariable_see_also",
+      "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+      "acad_aag:GUID_45654BC7_F6B5_48E9_82FD_CED83FB956C4",
+      "acad_aag:GUID_4F4377B1_07C8_4DDA_94D9_23DBF493C871",
+      "acad_aag:GUID_675CFE8A_2256_4808_A1C8_186E68A69496",
+      "acad_aag:GUID_679FBC1A_DE7B_44BA_9F8B_CD6FF1660D67"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_sendcommand.htm",
+      "01_extracted_html/acadauto/idh_sendcommand.htm",
+      "01_extracted_html/acadauto/sendcommand_see_also.htm",
+      "01_extracted_html/acadauto/ex_getvariable.htm",
+      "01_extracted_html/acadauto/idh_getvariable.htm",
+      "01_extracted_html/acadauto/getvariable_see_also.htm",
+      "01_extracted_html/acadauto/ex_setvariable.htm",
+      "01_extracted_html/acadauto/idh_setvariable.htm",
+      "01_extracted_html/acadauto/setvariable_see_also.htm",
+      "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+      "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+      "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm",
+      "01_extracted_html/acad_aag/GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm",
+      "01_extracted_html/acad_aag/GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "Document",
+      "Layout"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-018": {
+    "slug": "insert_company_title_block",
+    "title": "任务卡：插入公司通用图签",
+    "path": "04_task_cards/09_misc_common_tasks/insert_company_title_block.md",
+    "symbols": [
+      "InsertBlock",
+      "BlockReference",
+      "GetAttributes"
+    ],
+    "owners": [
+      "BlockReference",
+      "Block"
+    ],
+    "project_functions": [
+      "insert_company_label_common_block",
+      "insert_block_into_autocad"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "insert_company_label_common_block",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "insert_block_into_autocad",
+        "module_path": "cad/scripts/CAD_basic.py"
+      }
+    ],
+    "aliases_en": [
+      "insert company title block",
+      "insert company label block",
+      "place standard title block"
+    ],
+    "aliases_zh": [
+      "插入公司通用图签",
+      "插入公司图签块",
+      "放置标准图签"
+    ],
+    "keywords_zh": [
+      "公司图签",
+      "插入图签",
+      "标准图签"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/collection_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_insertblock",
+      "acadauto:ex_addminsertblock",
+      "acadauto:idh_insertblock",
+      "acadauto:idh_addminsertblock",
+      "acadauto:idh_minsertblock_object",
+      "acadauto:idh_dynamicblockreferenceproperty_object",
+      "acadauto:ex_getattributes",
+      "acadauto:idh_getattributes",
+      "acadauto:getattributes_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_insertblock.htm",
+      "01_extracted_html/acadauto/ex_addminsertblock.htm",
+      "01_extracted_html/acadauto/idh_insertblock.htm",
+      "01_extracted_html/acadauto/idh_addminsertblock.htm",
+      "01_extracted_html/acadauto/idh_minsertblock_object.htm",
+      "01_extracted_html/acadauto/idh_dynamicblockreferenceproperty_object.htm",
+      "01_extracted_html/acadauto/ex_getattributes.htm",
+      "01_extracted_html/acadauto/idh_getattributes.htm",
+      "01_extracted_html/acadauto/getattributes_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "AcDbBlockReference",
+      "AcDbAttribute"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-019": {
+    "slug": "generate_or_update_catalog",
+    "title": "任务卡：生成目录或更新目录图签",
+    "path": "04_task_cards/09_misc_common_tasks/generate_or_update_catalog.md",
+    "symbols": [
+      "AddText",
+      "AddMText",
+      "BlockReference",
+      "GetAttributes",
+      "InsertBlock"
+    ],
+    "owners": [
+      "BlockReference",
+      "AttributeReference",
+      "ModelSpace"
+    ],
+    "project_functions": [
+      "write_catalog_from_excel_to_cad",
+      "update_catalog_titleblocks_from_excel"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "write_catalog_from_excel_to_cad",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "update_catalog_titleblocks_from_excel",
+        "module_path": "cad/scripts/CAD_basic.py"
+      }
+    ],
+    "aliases_en": [
+      "generate or update catalog",
+      "write drawing list from excel",
+      "update catalog title blocks"
+    ],
+    "aliases_zh": [
+      "生成目录或更新目录图签",
+      "从Excel写目录",
+      "更新目录图签"
+    ],
+    "keywords_zh": [
+      "目录",
+      "Excel",
+      "目录图签",
+      "目录页"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/CAD_basic.py",
+      "cad/scripts/Scheme_drawing/draw_building_outline.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/system/CAD_core.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/collection_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:ex_addtext",
+      "acadauto:idh_addtext",
+      "acadauto:addtext_see_also",
+      "acadauto:ex_addmtext",
+      "acadauto:idh_addmtext",
+      "acadauto:addmtext_see_also",
+      "acadauto:idh_dynamicblockreferenceproperty_object",
+      "acadauto:ex_getattributes",
+      "acadauto:idh_getattributes",
+      "acadauto:getattributes_see_also",
+      "acadauto:ex_insertblock",
+      "acadauto:ex_addminsertblock",
+      "acadauto:idh_insertblock",
+      "acadauto:idh_addminsertblock",
+      "acadauto:idh_minsertblock_object"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/ex_addtext.htm",
+      "01_extracted_html/acadauto/idh_addtext.htm",
+      "01_extracted_html/acadauto/addtext_see_also.htm",
+      "01_extracted_html/acadauto/ex_addmtext.htm",
+      "01_extracted_html/acadauto/idh_addmtext.htm",
+      "01_extracted_html/acadauto/addmtext_see_also.htm",
+      "01_extracted_html/acadauto/idh_dynamicblockreferenceproperty_object.htm",
+      "01_extracted_html/acadauto/ex_getattributes.htm",
+      "01_extracted_html/acadauto/idh_getattributes.htm",
+      "01_extracted_html/acadauto/getattributes_see_also.htm",
+      "01_extracted_html/acadauto/ex_insertblock.htm",
+      "01_extracted_html/acadauto/ex_addminsertblock.htm",
+      "01_extracted_html/acadauto/idh_insertblock.htm",
+      "01_extracted_html/acadauto/idh_addminsertblock.htm",
+      "01_extracted_html/acadauto/idh_minsertblock_object.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "AcDbText",
+      "AcDbMText",
+      "AcDbBlockReference"
+    ],
+    "stability_level": "medium"
+  }
+}

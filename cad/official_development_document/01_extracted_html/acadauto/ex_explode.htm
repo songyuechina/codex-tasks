@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Explode Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Explode Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Explode()
+    ' This example creates a lightweight polyline in model space.
+    ' It then explodes the polyline.
+    
+    Dim plineObj As AcadLWPolyline
+    Dim points(0 To 11) As Double
+    
+    ' Define the 2D polyline points
+    points(0) = 1: points(1) = 1
+    points(2) = 1: points(3) = 2
+    points(4) = 2: points(5) = 2
+    points(6) = 3: points(7) = 2
+    points(8) = 4: points(9) = 4
+    points(10) = 4: points(11) = 1
+        
+    ' Create a lightweight Polyline object in model space
+    Set plineObj = ThisDrawing.ModelSpace.AddLightWeightPolyline(points)
+    
+    ' Set the bulge on one segment to vary the
+    ' type of objects in the polyline
+    plineObj.SetBulge 3, -0.5
+    ZoomAll
+    
+    ' Explode the polyline
+    MsgBox "Explode the polyline?", , "Explode Example"
+    Dim explodedObjects As Variant
+    explodedObjects = plineObj.Explode
+    
+    ' Loop through the exploded objects
+    Dim I As Integer
+    For I = 0 To UBound(explodedObjects)
+        explodedObjects(I).Update
+        MsgBox "Exploded Object " & I & ": " & explodedObjects(I).ObjectName, , "Explode Example"
+        explodedObjects(I).Color = acByLayer
+        explodedObjects(I).Update
+    Next
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

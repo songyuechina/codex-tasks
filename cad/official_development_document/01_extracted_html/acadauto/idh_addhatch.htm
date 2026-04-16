@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>AddHatch method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddHatch Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a Hatch object.</P>
+
+<P CLASS="h1-access"><A HREF="addhatch_see_also.htm">See Also</A> | <A HREF="ex_addhatch.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddHatch(PatternType, PatternName, Associativity [, HatchObjectType])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">PatternType</p><p class=element-desc>AcPatternType or AcGradientPatternType enum; input-only<BR>
+If the HatchObjectType enum value is acHatchObject, then use the AcPatternType enum; if the HatchObjectType enum value is 
+AcGradientObject, then use the AcGradientPatternType enum.
+<P class="element">PatternName</p><p class=element-desc>String; input-only<BR>
+If the HatchObjectType enum value is acHatchObject, then PatternName should contain the hatch pattern name. If the HatchObjectType enum value is acGradientObject, then PatternName should contain one of the the gradient pattern names listed in <A HREF='idh_GradientName.htm'>GradientName</A>.
+<P class="element">Associativity</p><p class=element-desc>Boolean; input-only
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: The hatch will be associative.</SPAN>
+<P CLASS="Constant-Last">FALSE<SPAN CLASS="BodyText">: The hatch will not be associative.</SPAN>
+<P class="element">HatchObjectType</p><p class=element-desc><A HREF='idh_HatchObjectType.htm'>HatchObjectType</A>; optional; input-only<BR>
+The default value is the AcHatchObjectType enum value of AcHatchObject. If the AcHatchObjectType enum value is AcGradientObject, then <A HREF='idh_PatternType.htm'>PatternType</A> should be of type AcGradientPatternType, and <A HREF='idh_PatternName.htm'>PatternName</A> should contain the gradient pattern name.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_hatch_object.htm'>Hatch</A> object<BR>
+The newly created Hatch object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The PatternType constant values are as follows: 
+<P CLASS="DefConstHead">acHatchPatternTypePredefined</P>
+<P CLASS="DefineText">Selects the pattern name from those defined in the <I>acad.pat</I> file.</P>
+<P CLASS="DefConstHead">acHatchPatternTypeUserDefined</P>
+<P CLASS="DefineText">Defines a pattern of lines using the current linetype.</P>
+<P CLASS="DefConstHead">acHatchPatternTypeCustomDefined</P>
+<P CLASS="DefineText">Selects the pattern name from a PAT file other than the <I>acad.pat</I> file.</P>
+<P CLASS="body">After the Hatch object is created, you must add the outer loop using the <A HREF="idh_appendouterloop.htm">AppendOuterLoop method</A>. The outer loop 
+must be closed and must be created before any inner loops can be created. Inner loops are created one at a time, using the AppendInnerLoop method.
+<P CLASS="body"><span class=WarningChar>WARNING!</span> Once the Hatch 
+object has been created, you <B>must</B> <B>append the outer loop</B> to 
+the Hatch object for it to become a valid AutoCAD object. If you attempt 
+any operation other than calling the AppendOuterLoop method, 
+AutoCAD will enter an unpredictable state.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

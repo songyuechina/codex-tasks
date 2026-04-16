@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>BeginShortcutMenuDefault event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">BeginShortcutMenuDefault Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered after the user right-clicks on the drawing window, and before the shortcut menu appears in default mode.</P>
+
+<P CLASS="h1-access"><A HREF="beginshortcutmenudefault_see_also.htm">See Also</A> | <A HREF="ex_beginshortcutmenudefault.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.BeginShortcutMenuDefault(ShortcutMenu)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_document_object.htm'>Document</A> object<BR>
+An object expression that evaluates to a valid container object.
+In this case, the only valid container is a document.
+<P class="element">ShortcutMenu</p><p class=element-desc><A HREF='idh_popupmenu_object.htm'>PopupMenu</A> object; input/output from the handler<BR>
+The shortcut menu about to be displayed. 
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This event allows you to make changes to the 
+shortcut menu before it is displayed. To make changes to the 
+shortcut menu, edit the PopupMenu object that is passed in to 
+your handler from the event. This same PopupMenu object is passed 
+out as the current shortcut menu. Use the <A HREF="idh_endshortcutmenu.htm">EndShortcutMenu</A> event 
+to perform any cleanup work on the shortcut menu.
+<P CLASS="body">There is no selection set active and no command in process when this event is triggered.
+<P CLASS="body">This event is triggered after all shortcut menu elements, including any ObjectARX command additions, have occurred.
+<P CLASS="body">No events will be fired while a modal dialog is being displayed.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

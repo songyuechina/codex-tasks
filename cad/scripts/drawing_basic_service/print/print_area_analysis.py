@@ -45,6 +45,7 @@ sys.path.insert(0, str(current))
 
 from system.project_setup import PathConfig  # noqa: F401
 from system.licad import C
+from system.CAD_com_utils import retry_on_busy
 
 # CAD_selection 提供的选择与早绑定 get/set
 from system.CAD_selection import (
@@ -60,9 +61,21 @@ def get_obj_loc(obj: Any) -> int:
     doc = C.doc
     owner_btr = doc.ObjectIdToObject(obj.OwnerID)
     btr_name = owner_btr.Name
+    layout_block_names = set()
+    try:
+        for layout in doc.Layouts:
+            try:
+                layout_name = str(layout.Name or "")
+                if layout_name.lower() == "model":
+                    continue
+                layout_block_names.add(str(layout.Block.Name or ""))
+            except Exception:
+                continue
+    except Exception:
+        pass
     if str(btr_name).upper() == "*MODEL_SPACE":
         return 1
-    if str(btr_name).upper().startswith("*PAPER_SPACE"):
+    if str(btr_name).upper().startswith("*PAPER_SPACE") or str(btr_name) in layout_block_names:
         return 0
     return -1
 
@@ -350,8 +363,78 @@ def is_rectangular_polyline(poly: Any) -> Tuple[bool, Dict[str, Any]]:
 # selection: get polylines in current doc (two kinds)
 # -----------------------------------------------------------------------------
 
+POLYLINE_OBJECT_NAMES = {
+    "AcDbPolyline",
+    "AcDbLwPolyline",
+    "AcDb2dPolyline",
+    "AcDb3dPolyline",
+    "Polyline",
+    "LWPOLYLINE",
+}
+
+
+@retry_on_busy(max_retries=10, base_delay=0.2)
+def _get_collection_count(collection: Any) -> int:
+    return int(collection.Count)
+
+
+@retry_on_busy(max_retries=10, base_delay=0.2)
+def _get_collection_item(collection: Any, index: int) -> Any:
+    return collection.Item(index)
+
+
+def _iter_collection_entities(collection: Any):
+    try:
+        count = _get_collection_count(collection)
+    except Exception:
+        return
+    for index in range(count):
+        try:
+            yield _get_collection_item(collection, index)
+        except Exception:
+            continue
+
+
+def _collect_all_doc_polylines() -> List[Any]:
+    """直接枚举 ModelSpace + 每个 Layout.Block，避免只取当前活动空间。"""
+    doc = C.doc
+    out: List[Any] = []
+
+    for ent in _iter_collection_entities(doc.ModelSpace):
+        try:
+            if str(getattr(ent, "ObjectName", "")) in POLYLINE_OBJECT_NAMES:
+                out.append(ent)
+        except Exception:
+            continue
+
+    try:
+        layouts = doc.Layouts
+    except Exception:
+        layouts = None
+
+    if layouts is not None:
+        for layout in layouts:
+            try:
+                layout_name = str(layout.Name or "")
+                if layout_name.lower() == "model":
+                    continue
+                block = layout.Block
+            except Exception:
+                continue
+            for ent in _iter_collection_entities(block):
+                try:
+                    if str(getattr(ent, "ObjectName", "")) in POLYLINE_OBJECT_NAMES:
+                        out.append(ent)
+                except Exception:
+                    continue
+
+    return out
+
 def select_all_polylines(autocast: bool = True) -> List[Any]:
-    """获取两种类型多段线（快速选择）。"""
+    """获取全图多段线，覆盖模型空间与全部布局空间。"""
+    collected = _collect_all_doc_polylines()
+    if collected:
+        return collected
     lb1 = select_polyline(autocast=autocast) or []
     lb2 = select_polyline_chuantong(autocast=autocast) or []
     return list(lb1) + list(lb2)
@@ -374,6 +457,18 @@ def get_rect_polylines_by_space(polylines: List[Any]) -> Dict[str, Any]:
     备注：paper space 这里按 owner BTR 名称分组（能覆盖多个布局/视口场景）。
     """
     doc = C.doc
+    layout_block_names: set[str] = set()
+    try:
+        for layout in doc.Layouts:
+            try:
+                layout_name = str(layout.Name or "")
+                if layout_name.lower() == "model":
+                    continue
+                layout_block_names.add(str(layout.Block.Name or ""))
+            except Exception:
+                continue
+    except Exception:
+        pass
     out_model: List[Any] = []
     out_other: List[Any] = []
     out_papers: Dict[str, List[Any]] = {}
@@ -398,7 +493,7 @@ def get_rect_polylines_by_space(polylines: List[Any]) -> Dict[str, Any]:
 
         if btr_name.upper() == "*MODEL_SPACE":
             out_model.append(pl)
-        elif btr_name.upper().startswith("*PAPER_SPACE"):
+        elif btr_name.upper().startswith("*PAPER_SPACE") or btr_name in layout_block_names:
             out_papers.setdefault(btr_name, []).append(pl)
         else:
             out_other.append(pl)

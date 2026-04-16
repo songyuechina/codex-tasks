@@ -1,0 +1,26 @@
+{
+  "input_dir": "D:\\codex-tasks\\cad\\tests",
+  "output_root": "D:\\codex-tasks\\cad\\tests\\print-agent-output\\batch-20260414-151827",
+  "mode": "purified_adaptive",
+  "dwg_count": 1,
+  "items": [
+    {
+      "dwg_path": "D:\\codex-tasks\\cad\\tests\\鎵撳嵃淇℃伅娴嬭瘯_1.dwg",
+      "mode": "purified_adaptive",
+      "status": "failed",
+      "error": "D:\\codex-tasks\\cad\\tests\\鎵撳嵃淇℃伅娴嬭瘯_1.dwg",
+      "final_pdf_dir": "",
+      "analysis_dir": "",
+      "process_dir": "",
+      "cleanup_closed_count": 0,
+      "cleanup_failed_count": 0,
+      "cleanup_remaining_count": 0,
+      "post_case_runtime_reset": {
+        "attempted": true,
+        "ok": true,
+        "target_state": "one_process_one_blank_tarch",
+        "action": "cad_zt_oneb"
+      }
+    }
+  ]
+}

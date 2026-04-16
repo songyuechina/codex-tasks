@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>AngleVertex Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AngleVertex Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_AngleVertex()
+    ' This example creates a Dim3PointAngular object in model space
+    ' and then alters its angle vertex
+    
+    Dim DimPointAngularObj As AcadDim3PointAngular
+    Dim AngleVertex(0 To 2) As Double, NewAngleVertex(0 To 2) As Double
+    Dim FirstPoint(0 To 2) As Double, SecondPoint(0 To 2) As Double
+    Dim TextPoint(0 To 2) As Double
+    Dim CurrentVertex As Variant
+    
+    ' Define the new Dim3PointAngular object
+    AngleVertex(0) = 0: AngleVertex(1) = 0: AngleVertex(2) = 0
+    NewAngleVertex(0) = 1: NewAngleVertex(1) = 1: NewAngleVertex(2) = 0
+    FirstPoint(0) = 2: FirstPoint(1) = 2: FirstPoint(2) = 0
+    SecondPoint(0) = 1: SecondPoint(1) = 4: SecondPoint(2) = 0
+    TextPoint(0) = 6: TextPoint(1) = 6: TextPoint(2) = 0
+
+    ' Create the new Dim3PointAngular object in model space
+    Set DimPointAngularObj = ThisDrawing.ModelSpace.AddDim3PointAngular(AngleVertex, FirstPoint, SecondPoint, TextPoint)
+    ThisDrawing.Application.ZoomAll
+
+    ' Display current vertex
+    CurrentVertex = DimPointAngularObj.AngleVertex
+    MsgBox "The angle vertex of the new object is set to:" & vbCrLf & _
+            CurrentVertex(0) & vbCrLf & _
+            CurrentVertex(1) & vbCrLf & _
+            CurrentVertex(2)
+
+    ' Alter vertex setting for this object
+    DimPointAngularObj.AngleVertex = NewAngleVertex
+    ThisDrawing.Regen acAllViewports
+    
+    ' Display new vertex settings
+    CurrentVertex = DimPointAngularObj.AngleVertex
+    MsgBox "The angle vertex of the object has been reset to:" & vbCrLf & _
+            CurrentVertex(0) & vbCrLf & _
+            CurrentVertex(1) & vbCrLf & _
+            CurrentVertex(2)
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

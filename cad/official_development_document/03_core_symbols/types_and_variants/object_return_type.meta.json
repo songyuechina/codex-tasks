@@ -1,0 +1,50 @@
+{
+  "symbol": "object_return_type",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "insertblock",
+    "getattributes",
+    "selectionsets"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "insert_block_or_dwg",
+    "read_block_attributes",
+    "build_selection_set"
+  ],
+  "pywin32_signature": "result = com_method(...); 用对象属性/方法继续处理",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/object_return_type.md",
+  "source_topic_ids": [
+    "acadauto:ex_insertblock",
+    "acadauto:ex_getattributes",
+    "acadauto:ex_selectionsets",
+    "acadauto:ex_addminsertblock",
+    "acadauto:idh_getattributes"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_getattributes.htm",
+    "01_extracted_html/acadauto/ex_insertblock.htm",
+    "01_extracted_html/acadauto/ex_selectionsets.htm",
+    "01_extracted_html/acadauto/ex_addminsertblock.htm",
+    "01_extracted_html/acadauto/idh_getattributes.htm"
+  ]
+}

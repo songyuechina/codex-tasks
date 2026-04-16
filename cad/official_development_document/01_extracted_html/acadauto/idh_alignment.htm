@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>Alignment property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Alignment Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies both the vertical and horizontal alignments for the attribute, attribute reference, or text.</P>
+
+<P CLASS="h1-access"><A HREF="alignment_see_also.htm">See Also</A> | <A HREF="ex_alignment.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Alignment
+<P class="element">object</p><p class=element-desc><A HREF='idh_attribute_object.htm'>Attribute</A>, <A HREF='idh_attributeref_object.htm'>AttributeRef</A>, <A HREF='idh_text_object.htm'>Text</A><BR>
+The objects this property applies to.
+<P class="element">Alignment</p><p class=element-desc>acAlignment enum; read-write
+<P CLASS="Constant">acAlignmentLeft
+<P CLASS="Constant">acAlignmentCenter
+<P CLASS="Constant">acAlignmentRight
+<P CLASS="Constant">acAlignmentAligned
+<P CLASS="Constant">acAlignmentMiddle
+<P CLASS="Constant">acAlignmentFit
+<P CLASS="Constant">acAlignmentTopLeft
+<P CLASS="Constant">acAlignmentTopCenter
+<P CLASS="Constant">acAlignmentTopRight
+<P CLASS="Constant">acAlignmentMiddleLeft
+<P CLASS="Constant">acAlignmentMiddleCenter
+<P CLASS="Constant">acAlignmentMiddleRight
+<P CLASS="Constant">acAlignmentBottomLeft
+<P CLASS="Constant">acAlignmentBottomCenter
+<P CLASS="Constant">acAlignmentBottomRight
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Text aligned to <SPAN CLASS="constant-char">acAlignmentLeft</span> uses the 
+<A HREF="idh_insertionpoint.htm">InsertionPoint</A> property to position the text.
+<P CLASS="body">Text aligned to <SPAN CLASS="constant-char">acAlignmentAligned</span>, or 
+<SPAN CLASS="constant-char">acAlignmentFit</span> 
+uses both the <A HREF="idh_insertionpoint.htm">InsertionPoint</A> and 
+<A HREF="idh_textalignmentpoint.htm">TextAlignmentPoint</A> properties to 
+position the text.
+<P CLASS="body">Text aligned to any other position uses the 
+<A HREF="idh_textalignmentpoint.htm">TextAlignmentPoint</A> property to position the text.
+<P CLASS="figure-anchor"><IMG SRC='img/auw0819u.gif' BORDER=0>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

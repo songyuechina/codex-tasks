@@ -1,0 +1,26 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\tests\\综合测试_布局链prosess\\20260416-002216\\runs\\case-aad75a126e\\20260416-002230",
+  "work_dwg": "D:\\codex-tasks\\cad\\tests\\综合测试_布局链prosess\\20260416-002216\\runs\\case-aad75a126e\\20260416-002230\\work\\work-case-aad75a126e.dwg",
+  "process_token": "case-aad75a126e",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\tests\\综合测试_布局链prosess\\20260416-002216\\runs\\case-aad75a126e\\20260416-002230\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试_布局链prosess\\20260416-002216\\runs\\case-aad75a126e\\20260416-002230\\work\\work-case-aad75a126e.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\tests\\综合测试_布局链prosess\\20260416-002216\\runs\\case-aad75a126e\\20260416-002230\\pdf",
+    "source_stem": "plot-case-aad75a126e",
+    "mode": "purified_adaptive",
+    "total_jobs": 0,
+    "landscape_count": 0,
+    "portrait_count": 0,
+    "jobs_by_space": {}
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\tests\\综合测试_布局链prosess\\20260416-002216\\runs\\case-aad75a126e\\20260416-002230\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\tests\\综合测试_布局链prosess\\20260416-002216\\runs\\case-aad75a126e\\20260416-002230\\scope_analysis.json",
+  "scope_filter": {
+    "applied": false,
+    "reason": "no_pseudo_maximal_scope",
+    "selected_scope": null
+  },
+  "execution": null,
+  "verification": null
+}

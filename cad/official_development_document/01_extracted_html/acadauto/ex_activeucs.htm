@@ -1,0 +1,70 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ActiveUCS Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ActiveUCS Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ActiveUCS()
+    ' This example returns the current saved UCS (or saves a new one dynamically)
+    ' and then sets a new UCS.
+    ' Finally, it returns the UCS to the previous setting.
+    
+    Dim newUCS As AcadUCS
+    Dim currUCS As AcadUCS
+    Dim origin(0 To 2) As Double
+    Dim xAxis(0 To 2) As Double
+    Dim yAxis(0 To 2) As Double
+    
+    ' Get the current saved UCS of the active document. If the current UCS is
+    ' not saved, then add a new UCS to the UserCoordinateSystems collection
+    If ThisDrawing.GetVariable("UCSNAME") = "" Then
+        ' Current UCS is not saved so get the data and save it
+        With ThisDrawing
+            Set currUCS = .UserCoordinateSystems.Add( _
+                            .GetVariable("UCSORG"), _
+                            .Utility.TranslateCoordinates(.GetVariable("UCSXDIR"), acUCS, acWorld, 0), _
+                            .Utility.TranslateCoordinates(.GetVariable("UCSYDIR"), acUCS, acWorld, 0), _
+                            "OriginalUCS")
+        End With
+    Else
+        Set currUCS = ThisDrawing.ActiveUCS  'current UCS is saved
+    End If
+    
+    MsgBox "The current UCS is " & currUCS.name, vbInformation, "ActiveUCS Example"
+    
+    ' Create a UCS and make it current
+    origin(0) = 0: origin(1) = 0: origin(2) = 0
+    xAxis(0) = 1: xAxis(1) = 1: xAxis(2) = 0
+    yAxis(0) = -1: yAxis(1) = 1: yAxis(2) = 0
+    Set newUCS = ThisDrawing.UserCoordinateSystems.Add(origin, xAxis, yAxis, "TestUCS")
+    ThisDrawing.ActiveUCS = newUCS
+    MsgBox "The new UCS is " & newUCS.name, vbInformation, "ActiveUCS Example"
+    
+    ' Reset the UCS to its previous setting
+    ThisDrawing.ActiveUCS = currUCS
+    MsgBox "The UCS is reset to " & currUCS.name, vbInformation, "ActiveUCS Example"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

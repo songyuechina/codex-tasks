@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+
+<TITLE>Modified Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Surfaces Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub SurfaceProperties()
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("SURFACES2")
+    Dim mode As Integer
+
+    ssetObj.SelectOnScreen
+
+    Dim obj As AcadEntity
+    Dim extrude As AcadExtrudedSurface
+    Dim objName As String
+    Dim LayerName As String
+    For Each obj In ssetObj
+        objName = obj.ObjectName
+        If TypeOf obj Is AcadExtrudedSurface Then
+            ExtrudedSurfaceProperties obj
+        ElseIf TypeOf obj Is AcadRevolvedSurface Then
+            RevolvedSurfaceProperties obj
+        ElseIf TypeOf obj Is AcadLoftedSurface Then
+            LoftedSurfaceProperties obj
+        ElseIf TypeOf obj Is AcadSweptSurface Then
+            SweptSurfaceProperties obj
+        ElseIf TypeOf obj Is AcadPlaneSurface Then
+            PlaneSurfaceProperties obj
+        End If
+    Next
+    ssetObj.Delete
+End Sub
+Private Sub ExtrudedSurfaceProperties(extrude As AcadExtrudedSurface)
+    GetSurfaceBoundingBox extrude
+    MsgBox "SurfaceType: " & extrude.SurfaceType & vbCr & _
+            "Height: " & extrude.Height & vbCr & _
+            "TaperAngle: " & extrude.TaperAngle & vbCr & _
+            "Direction: " & extrude.Direction & vbCr & _
+            "Material: " & extrude.Material & vbCr & _
+            "UIsolineDensity: " & extrude.UIsolineDensity & vbCr & _
+            "VIsolineDensity: " & extrude.VIsolineDensity
+    'Now change the configurable properties
+    extrude.Height = extrude.Height * 1.5
+    extrude.TaperAngle = extrude.TaperAngle * (3.14 / 2)
+    extrude.UIsolineDensity = extrude.UIsolineDensity * 2#
+    extrude.VIsolineDensity = extrude.VIsolineDensity * 0.5
+    ThisDrawing.Regen acActiveViewport
+    Utility.GetString 0, "Press return to continue..."
+    'Now change the properties back to their original values
+    extrude.Height = extrude.Height / 1.5
+    extrude.TaperAngle = extrude.TaperAngle / (3.14 / 2)
+    extrude.UIsolineDensity = extrude.UIsolineDensity / 2#
+    extrude.VIsolineDensity = extrude.VIsolineDensity / 0.5
+End Sub
+Private Sub RevolvedSurfaceProperties(revolve As AcadRevolvedSurface)
+    GetSurfaceBoundingBox revolve
+    MsgBox "SurfaceType: " & revolve.SurfaceType & vbCr & _
+            "RevolutionAngle: " & revolve.RevolutionAngle & vbCr & _
+            "AxisPosition: " & revolve.AxisPosition & vbCr & _
+            "AxisDirection: " & revolve.AxisDirection & vbCr & _
+            "Material: " & revolve.Material & vbCr & _
+            "UIsolineDensity: " & revolve.UIsolineDensity & vbCr & _
+            "VIsolineDensity: " & revolve.VIsolineDensity
+    'Now change the configurable properties
+    revolve.RevolutionAngle = revolve.RevolutionAngle * (3.14 / 2)
+
+    revolve.UIsolineDensity = revolve.UIsolineDensity * 2#
+    revolve.VIsolineDensity = revolve.VIsolineDensity * 0.5
+
+    ThisDrawing.Regen acActiveViewport
+    Utility.GetString 0, "Press return to continue..."
+
+    'Now change the properties back to their original values
+    revolve.RevolutionAngle = revolve.RevolutionAngle / (3.14 / 2)
+    revolve.UIsolineDensity = revolve.UIsolineDensity / 2#
+    revolve.VIsolineDensity = revolve.VIsolineDensity / 0.5
+End Sub
+Private Sub LoftedSurfaceProperties(lofted As AcadLoftedSurface)
+    GetSurfaceBoundingBox lofted
+    MsgBox "SurfaceType: " & lofted.SurfaceType & vbCr & _
+            "NumCrossSections: " & lofted.NumCrossSections & vbCr & _
+            "NumGuidePaths: " & lofted.NumGuidePaths & vbCr & _
+            "SurfaceNormals: " & lofted.SurfaceNormals & vbCr & _
+            "StartDraftAngle: " & lofted.StartDraftAngle & vbCr & _
+            "StartDraftMagnitude: " & lofted.StartDraftMagnitude & vbCr & _
+            "EndDraftAngle: " & lofted.EndDraftAngle & vbCr & _
+            "EndDraftMagnitude: " & lofted.EndDraftMagnitude & vbCr & _
+            "Closed: " & lofted.Closed & vbCr & _
+            "Material: " & lofted.Material & vbCr & _
+            "UIsolineDensity: " & lofted.UIsolineDensity & vbCr & _
+            "VIsolineDensity: " & lofted.VIsolineDensity
+    'Now change the configurable properties
+    lofted.StartDraftAngle = lofted.StartDraftAngle * (3.14 / 2)
+    lofted.EndDraftAngle = lofted.EndDraftAngle * (3.14 / 4)
+    lofted.UIsolineDensity = lofted.UIsolineDensity * 2#
+    lofted.VIsolineDensity = lofted.VIsolineDensity * 0.5
+
+    ThisDrawing.Regen acActiveViewport
+    Utility.GetString 0, "Press return to continue..."
+
+    'Now change the properties back to their original values
+    lofted.StartDraftAngle = lofted.StartDraftAngle / (3.14 / 2)
+    lofted.EndDraftAngle = lofted.EndDraftAngle / (3.14 / 4)
+    lofted.UIsolineDensity = lofted.UIsolineDensity / 2#
+    lofted.VIsolineDensity = lofted.VIsolineDensity / 0.5
+End Sub
+Private Sub SweptSurfaceProperties(swept As AcadSweptSurface)
+    GetSurfaceBoundingBox swept
+    MsgBox "SurfaceType: " & swept.SurfaceType & vbCr & _
+            "ProfileRotation: " & swept.ProfileRotation & vbCr & _
+            "Bank: " & swept.Bank & vbCr & _
+            "Twist: " & swept.Twist & vbCr & _
+            "scale: " & swept.scale & vbCr & _
+            "Length: " & swept.Length & vbCr & _
+            "Material: " & swept.Material & vbCr & _
+            "UIsolineDensity: " & swept.UIsolineDensity & vbCr & _
+            "VIsolineDensity: " & swept.VIsolineDensity
+
+    swept.ProfileRotation = swept.ProfileRotation * 3.14 * 0.25
+    swept.Bank = Not swept.Bank
+    swept.Twist = swept.Twist * 3.14 * -0.5
+    swept.UIsolineDensity = swept.UIsolineDensity * 2#
+    swept.VIsolineDensity = swept.VIsolineDensity * 0.5
+
+    ThisDrawing.Regen acActiveViewport
+    Utility.GetString 0, "Press return to continue..."
+
+    'Now change the properties back to their original values
+    swept.ProfileRotation = swept.ProfileRotation / (3.14 * 0.25)
+    swept.Bank = Not swept.Bank
+    swept.Twist = swept.Twist / (3.14 * -0.5)
+    swept.UIsolineDensity = swept.UIsolineDensity / 2#
+    swept.VIsolineDensity = swept.VIsolineDensity / 0.5
+End Sub
+Private Sub PlaneSurfaceProperties(planar As AcadPlaneSurface)
+    GetSurfaceBoundingBox planar
+    MsgBox "SurfaceType: " & planar.SurfaceType & vbCr & _
+            "UIsolineDensity: " & planar.UIsolineDensity & vbCr & _
+            "VIsolineDensity: " & planar.VIsolineDensity
+
+    planar.UIsolineDensity = planar.UIsolineDensity * 2#
+    planar.VIsolineDensity = planar.VIsolineDensity * 0.5
+
+    ThisDrawing.Regen acActiveViewport
+    Utility.GetString 0, "Press return to continue..."
+
+    'Now change the properties back to their original values
+    planar.UIsolineDensity = planar.UIsolineDensity / 2#
+    planar.VIsolineDensity = planar.VIsolineDensity / 0.5
+End Sub
+Private Sub GetSurfaceBoundingBox(surf As AcadSurface)
+    Dim MinPoint As Variant
+    Dim MaxPoint As Variant
+
+    surf.GetBoundingBox MinPoint, MaxPoint
+
+    ' Print the min and max extents
+    MsgBox "The extents of the bounding box for the surface are:" & vbCrLf _
+    & "Min Point: " & MinPoint(0) & "," & MinPoint(1) & "," & MinPoint(2) _
+    & vbCrLf & "Max Point: " & MaxPoint(0) & "," & MaxPoint(1) & "," & MaxPoint(2), vbInformation, "GetBoundingBox of Surface"
+End Sub
+
+</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

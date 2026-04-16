@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SnapOn property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SnapOn Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the status of snap. </P>
+
+<P CLASS="h1-access"><A HREF="snapon_see_also.htm">See Also</A> | <A HREF="ex_snapon.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SnapOn
+<P class="element">object</p><p class=element-desc><A HREF='idh_viewport_object.htm'>Viewport</A  , <A HREF='idh_pviewport_object.htm'>PViewport</A><BR>
+The objects this property applies to.
+<P class="element">SnapOn</p><p class=element-desc>Boolean; read-write
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: Snap is on.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: Snap is off.</SPAN>
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The value of this property is stored in the 
+<A HREF='ms-its:acad180.chm::/snapmode.htm'>SNAPMODE</A> system variable. To change the snap 
+style, use the <A HREF='ms-its:acad180.chm::/snapstyl.htm'>SNAPSTYL</A> system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">SnapOn activates Snap mode using the current snap grid 
+resolution, rotation, and style. To change the snap grid resolution, use 
+the <A HREF="idh_setsnapspacing.htm">SetSnapSpacing</A> method. To change the snap 
+rotation, use the <A HREF="idh_snaprotangle.htm">SnapRotationAngle</A> property. 
+<P CLASS="body">The snap grid is invisible. Use the 
+<A HREF="idh_gridon.htm">GridOn</A> property to display a separate visible grid.
+<P CLASS="body">AutoCAD ignores the Snap mode in perspective views. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

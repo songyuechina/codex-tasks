@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>ClipBoundary method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ClipBoundary Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the clipping boundary for a raster image or an underlay.</P>
+
+<P CLASS="h1-access"><A HREF="clipboundary_see_also.htm">See Also</A> | <A HREF="ex_clipboundary.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.ClipBoundary PointsArray
+<P class="element">Object</p><p class=element-desc><A HREF='idh_raster_object.htm'>Raster</A>, <A HREF='idh_dwfunderlay_object.htm'>DwfUnderlay</A>, <A HREF="IDH_IACADWIPEOUT_INTERFACE.htm">Wipeout</A><BR>
+The objects this method applies to.
+<P class="element">PointsArray</p><p class=element-desc>Variant (array of two-element array of doubles); input-only<BR>
+An array of 2D WCS coordinates specifying the clipping boundary of a raster image or underlay.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">You can define a region of an image or underlay object for display and plotting by clipping the object. Multiple instances of the same object can have different boundaries.
+<P CLASS="body">The clipping boundary must be a closed 2D polygon or rectangle with vertices constrained to lie within the boundaries of the image or underlay.
+<P CLASS="body">To clip an image or underlay, the object's boundary must be
+visible. Use the <A HREF="idh_clippingenabled.htm">ClippingEnabled</A> property to turn the
+clipping boundary on or off.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

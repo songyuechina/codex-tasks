@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>PlotOrigin Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">PlotOrigin Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_PlotOrigin()
+    ' This example reads and modifies the PlotOrigin
+    ' Layout value.
+    ' When finished, this example resets the  value back to
+    ' its original value.
+    
+    Dim ACADLayout As ACADLayout
+    Dim originalValue As Variant
+    Dim newValue(0 To 1) As Double
+    
+    ' Get the layout object
+    Set ACADLayout = ThisDrawing.ActiveLayout
+    
+    ' Read and display the original value
+    originalValue = ACADLayout.PlotOrigin
+    MsgBox "The PlotOrigin value is set to: " & originalValue(0) & " ," & originalValue(1)
+
+    ' Modify the PlotOrigin preference by toggling the value
+    newValue(0) = originalValue(0) + 20
+    newValue(1) = originalValue(1) - 20
+    ACADLayout.PlotOrigin = newValue
+    MsgBox "The PlotOrigin value is set to: " & newValue(0) & " ," & newValue(1)
+
+    ' Reset the preference back to its original value
+    ACADLayout.PlotOrigin = originalValue
+    MsgBox "The PlotOrigin value is set to: " & originalValue(0) & " ," & originalValue(1)
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

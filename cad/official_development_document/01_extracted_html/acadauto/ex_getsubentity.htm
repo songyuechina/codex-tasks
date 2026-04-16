@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetSubEntity Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetSubEntity Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_GetSubEntity()
+    ' This example prompts the user to select on object on the screen with a mouse click,
+    ' and returns some information about the selected object.
+    
+    Dim Object As Object
+    Dim PickedPoint As Variant, TransMatrix As Variant, ContextData As Variant
+    Dim HasContextData As String
+    
+    On Error GoTo NOT_ENTITY
+        
+<PRE CLASS="Code">TRYAGAIN:
+        
+    MsgBox "Use the mouse to click on an object in the current drawing after dismissing this dialog box."
+        
+    ' Get information about selected object
+    ThisDrawing.Utility.GetSubEntity Object, PickedPoint, TransMatrix, ContextData
+    
+    ' Process and display selected object properties
+    HasContextData = IIf(VarType(ContextData) = vbEmpty, " does not ", " does ")
+    
+    MsgBox "The object you chose was an: " & TypeName(Object) & vbCrLf & _
+            "Your point of selection was: " & PickedPoint(0) & ", " & _
+                                              PickedPoint(1) & ", " & _
+                                              PickedPoint(2) & vbCrLf & _
+            "This object" & HasContextData & "have nested objects."
+    
+    Exit Sub
+    
+<PRE CLASS="Code">NOT_ENTITY:
+    ' If you click on empty space or do not select an entity,
+    ' this error will be generated
+    If MsgBox("You have not selected an object.  Click OK to try again.", _
+               vbOKCancel & vbInformation) = vbOK Then
+        Resume TRYAGAIN
+    End If
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

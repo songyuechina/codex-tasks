@@ -1,0 +1,50 @@
+{
+  "symbol": "Regen",
+  "kind": "method",
+  "source_terms": [
+    "regen"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "C.doc.Regen(mode)",
+  "risk_tags": [
+    "频繁调用拖慢批处理"
+  ],
+  "project_paths": [
+    "cad/system/CAD_core.py"
+  ],
+  "path_md": "03_core_symbols/methods/Regen.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_objectsortbyregens.htm",
+    "01_extracted_html/acadauto/ex_regen.htm",
+    "01_extracted_html/acadauto/ex_regeneratetablesuppressed.htm",
+    "01_extracted_html/acadauto/idh_objectsortbyregens.htm",
+    "01_extracted_html/acadauto/idh_regen.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_core.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_regen",
+    "acadauto:idh_regen",
+    "acadauto:ex_objectsortbyregens",
+    "acadauto:ex_regeneratetablesuppressed",
+    "acadauto:idh_objectsortbyregens"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_regen.htm",
+    "01_extracted_html/acadauto/idh_regen.htm",
+    "01_extracted_html/acadauto/ex_objectsortbyregens.htm",
+    "01_extracted_html/acadauto/ex_regeneratetablesuppressed.htm",
+    "01_extracted_html/acadauto/idh_objectsortbyregens.htm"
+  ]
+}

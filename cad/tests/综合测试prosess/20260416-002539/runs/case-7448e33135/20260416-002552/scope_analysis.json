@@ -1,0 +1,749 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\work\\work-case-7448e33135.dwg",
+  "total_pseudo_maximal_count": 56,
+  "rows_by_space": {
+    "model": [
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54A6",
+        "bbox": [
+          380662.0,
+          3073909.0,
+          380872.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54A5",
+        "bbox": [
+          380892.0,
+          3073909.0,
+          381102.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54A4",
+        "bbox": [
+          381122.0,
+          3073909.0,
+          381332.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54A3",
+        "bbox": [
+          381351.0,
+          3073909.0,
+          381561.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54A2",
+        "bbox": [
+          381587.0,
+          3073909.0,
+          381797.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54A1",
+        "bbox": [
+          381825.0,
+          3073909.0,
+          382035.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "54A0",
+        "bbox": [
+          382054.0,
+          3073908.0,
+          382264.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "549F",
+        "bbox": [
+          382287.0,
+          3073908.0,
+          382497.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "549E",
+        "bbox": [
+          382515.0,
+          3073908.0,
+          382725.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "549D",
+        "bbox": [
+          382746.0,
+          3073908.0,
+          382956.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "549C",
+        "bbox": [
+          382968.0,
+          3073908.0,
+          383178.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "549B",
+        "bbox": [
+          380662.0,
+          3073712.5,
+          380872.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "549A",
+        "bbox": [
+          380892.0,
+          3073712.5,
+          381102.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5499",
+        "bbox": [
+          381122.0,
+          3073712.5,
+          381332.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5498",
+        "bbox": [
+          381351.0,
+          3073712.5,
+          381561.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5497",
+        "bbox": [
+          381587.0,
+          3073712.5,
+          381797.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5496",
+        "bbox": [
+          381825.0,
+          3073712.5,
+          382035.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5495",
+        "bbox": [
+          382054.0,
+          3073711.5,
+          382264.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5494",
+        "bbox": [
+          382287.0,
+          3073711.5,
+          382497.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5493",
+        "bbox": [
+          382515.0,
+          3073711.5,
+          382725.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5492",
+        "bbox": [
+          382746.0,
+          3073711.5,
+          382956.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5491",
+        "bbox": [
+          382968.0,
+          3073711.5,
+          383178.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "5490",
+        "bbox": [
+          383196.0,
+          3073711.5,
+          383406.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "548F",
+        "bbox": [
+          383205.0,
+          3073908.0,
+          383415.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "548E",
+        "bbox": [
+          383434.0,
+          3073908.0,
+          383644.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "548D",
+        "bbox": [
+          383667.0,
+          3073908.0,
+          383877.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "548C",
+        "bbox": [
+          383895.0,
+          3073908.0,
+          384105.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "548B",
+        "bbox": [
+          384126.0,
+          3073908.0,
+          384336.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3F28",
+        "bbox": [
+          384126.0,
+          3073908.0,
+          384336.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3F25",
+        "bbox": [
+          383895.0,
+          3073908.0,
+          384105.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3F01",
+        "bbox": [
+          383667.0,
+          3073908.0,
+          383877.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3EF4",
+        "bbox": [
+          383434.0,
+          3073908.0,
+          383644.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3EF1",
+        "bbox": [
+          383205.0,
+          3073908.0,
+          383415.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C69",
+        "bbox": [
+          383196.0,
+          3073711.5,
+          383406.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C66",
+        "bbox": [
+          382968.0,
+          3073711.5,
+          383178.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C63",
+        "bbox": [
+          382746.0,
+          3073711.5,
+          382956.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C60",
+        "bbox": [
+          382515.0,
+          3073711.5,
+          382725.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C5D",
+        "bbox": [
+          382287.0,
+          3073711.5,
+          382497.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C5A",
+        "bbox": [
+          382054.0,
+          3073711.5,
+          382264.0,
+          3073860.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C57",
+        "bbox": [
+          381825.0,
+          3073712.5,
+          382035.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C54",
+        "bbox": [
+          381587.0,
+          3073712.5,
+          381797.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C51",
+        "bbox": [
+          381351.0,
+          3073712.5,
+          381561.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C4E",
+        "bbox": [
+          381122.0,
+          3073712.5,
+          381332.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C4C",
+        "bbox": [
+          380892.0,
+          3073712.5,
+          381102.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C49",
+        "bbox": [
+          380662.0,
+          3073712.5,
+          380872.0,
+          3073861.0
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C43",
+        "bbox": [
+          382968.0,
+          3073908.0,
+          383178.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C40",
+        "bbox": [
+          382746.0,
+          3073908.0,
+          382956.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C3D",
+        "bbox": [
+          382515.0,
+          3073908.0,
+          382725.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C33",
+        "bbox": [
+          382287.0,
+          3073908.0,
+          382497.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C30",
+        "bbox": [
+          382054.0,
+          3073908.0,
+          382264.0,
+          3074056.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C2D",
+        "bbox": [
+          381825.0,
+          3073909.0,
+          382035.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3C2A",
+        "bbox": [
+          381587.0,
+          3073909.0,
+          381797.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3BEE",
+        "bbox": [
+          381351.0,
+          3073909.0,
+          381561.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3BEB",
+        "bbox": [
+          381122.0,
+          3073909.0,
+          381332.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3B85",
+        "bbox": [
+          380892.0,
+          3073909.0,
+          381102.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      },
+      {
+        "space_key": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "3A4B",
+        "bbox": [
+          380662.0,
+          3073909.0,
+          380872.0,
+          3074057.5
+        ],
+        "area": 31185.0
+      }
+    ]
+  },
+  "largest_scope": {
+    "space_key": "model",
+    "layout_name": "model",
+    "owner_btr": "*MODEL_SPACE",
+    "handle": "54A6",
+    "bbox": [
+      380662.0,
+      3073909.0,
+      380872.0,
+      3074057.5
+    ],
+    "area": 31185.0
+  }
+}

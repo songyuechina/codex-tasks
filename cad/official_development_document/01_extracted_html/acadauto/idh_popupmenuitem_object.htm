@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<TITLE>PopupMenuItem object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "PopupMenuItem object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="PopupMenu;idh_popupmenu_object.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadPopupMenuItem;none.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; PopupMenuItem object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">A single menu item on an AutoCAD pull-down menu.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadPopupMenuItem&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">PopupMenu.AddMenuItem<BR>
+PopupMenu.AddSeparator<BR>
+PopupMenu.AddSubmenu&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">PopupMenu.Item&nbsp;</TD></TR>
+</TABLE>
+
+<P CLASS="body">A popup menu item represents an entry in a menu.
+There are three types of popup menu items available:
+<UL>
+<LI CLASS="bullet-1-begin">Simple menu item (a menu that contains no submenu items)
+<LI CLASS="bullet-1">Separator (a border that appears on a menu)
+<LI CLASS="bullet-1-end">Submenu (a menu containing submenu items)
+</UL>
+</P>
+<P CLASS="body">Simple menu items have an index, a label, a tag, and a macro. The index is the position on the menu where the individual menu item is located. The label is a string that defines the content and formatting of the menu item as it appears to the user. The tag is a string consisting of alphanumeric and underscore (_) characters. This tag uniquely identifies the menu item within a given menu. Menu items may have identical labels within the menu, but they cannot have identical tags. The end user does not see the tag. The macro is a series of commands that execute specific actions when a menu item is selected.
+<P CLASS="body">Submenu items also have an index, a label, and a tag. They do not have a macro associated with them. Instead, they have an entire PopupMenu object associated with them. This PopupMenu object is the menu that appears when the user selects the submenu item. To find a PopupMenu object associated with a submenu item, use the SubMenu property.
+<P CLASS="body">Separators have only an index. The index for a separator specifies where on the menu the separator is to appear.
+<P CLASS="body">To add a new menu item, use the <A HREF="idh_addmenuitem.htm">AddMenuItem</A>, <A HREF="idh_addseparator.htm">AddSeparator</A>, or <A HREF="idh_addsubmenu.htm">AddSubmenu</A> methods. To edit or query an existing menu item, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_caption.htm"><P CLASS="body">Caption</A>
+<A HREF="idh_check.htm"><P CLASS="body">Check</A>
+<A HREF="idh_enable.htm"><P CLASS="body">Enable</A>
+<A HREF="idh_endsubmenulevel.htm"><P CLASS="body">EndSubMenuLevel</A>
+<A HREF="idh_helpstring.htm"><P CLASS="body">HelpString</A>
+<A HREF="idh_index.htm"><P CLASS="body">Index</A>
+<A HREF="idh_label.htm"><P CLASS="body">Label</A>
+<A HREF="idh_macro.htm"><P CLASS="body">Macro</A>
+<A HREF="idh_parent.htm"><P CLASS="body">Parent</A>
+<A HREF="idh_submenu.htm"><P CLASS="body">SubMenu</A>
+<A HREF="idh_tagstring.htm"><P CLASS="body">TagString</A>
+<A HREF="idh_type.htm"><P CLASS="body">Type</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

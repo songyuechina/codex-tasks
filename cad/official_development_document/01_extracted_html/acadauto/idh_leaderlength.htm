@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+
+<TITLE>LeaderLength property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">LeaderLength Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the length of the leader on the diameter or radius dimension.</P>
+
+<P CLASS="h1-access"><A HREF="leaderlength_see_also.htm">See Also</A> | <A HREF="ex_leaderlength.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.LeaderLength
+<P class="element">object</p><p class=element-desc><A HREF='idh_dimdiametric_object.htm'>DimDiametric</A>, <A HREF='idh_dimradial_object.htm'>DimRadial</A><BR>
+The objects this property applies to.
+<P class="element">LeaderLength</p><p class=element-desc>Double; write-only<BR>
+The length of the leader.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The LeaderLength is the distance from the ChordPoint dimension definition point out to where the dimension will do a horizontal dogleg to the annotation text (or stop if no dogleg is necessary). 
+(See the <A HREF="idh_adddimdiametric.htm">AddDimDiametric</A> or <A HREF="idh_adddimradial.htm">AddDimRadial</A> 
+method for more information.)
+<P CLASS="body"><span class=WarningChar>WARNING!</span> The LeaderLength setting will be used only during the creation of the dimension. After the dimension has been saved, changing the LeaderLength value will not affect how the dimension displays. The LeaderLength property is used to calculate the leader location. The value is not saved, and therefore will always return a zero if read. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

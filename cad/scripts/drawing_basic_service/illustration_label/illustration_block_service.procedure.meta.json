@@ -1,0 +1,19 @@
+{
+  "script": "illustration_block_service.py",
+  "workflow": [
+    "prepare_cad_runtime: 可选挂载守护链 -> litz -> wait_quiescent -> runtime guard 检查",
+    "replace_defined_blocks: 打开源 DWG 与目标 DWG -> 逐块名调用 replace_single_block_definition -> 保存目标文件",
+    "replace_single_block_definition: 读取源块定义 -> 将目标旧定义改名让位 -> 创建新同名定义 -> 从源块定义深拷贝实体 -> 批量把旧实例切到新定义 -> 可选 ATTSYNC -> 清理旧定义"
+  ],
+  "failure_paths": [
+    "源文件或目标文件不存在时立即报错",
+    "源块定义缺失或为空时立即报错",
+    "旧实例切换后仍残留旧块引用时视为失败",
+    "runtime guard 返回 pause_and_verify / pause_and_recover 时中止执行"
+  ],
+  "verification_signals": [
+    "目标文件成功保存",
+    "每个块名都返回 source_entity_count / reassigned_reference_count",
+    "旧备份块定义可删除或至少明确记录删除失败"
+  ]
+}

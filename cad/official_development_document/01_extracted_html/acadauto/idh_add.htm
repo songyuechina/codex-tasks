@@ -1,0 +1,128 @@
+<HTML>
+<HEAD>
+<TITLE>Add method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Add Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a member object and adds it to the appropriate collection. </P>
+
+<P CLASS="h1-access"><A HREF="add_see_also.htm">See Also</A> | <A HREF="ex_add.htm">Example</A></P>
+
+<P CLASS="Heading-2">Signatures: Overview
+<P CLASS="element">Blocks&nbsp;</P>
+<P CLASS="element-desc">RetVal = object.Add(InsertionPoint, Name)&nbsp;</P>
+
+<P CLASS="element">UCSs&nbsp;</P>
+<P CLASS="element-desc">RetVal = object.Add(Origin, XAxisPoint, YAxisPoint, Name)&nbsp;</P>
+
+<P CLASS="element">Hyperlinks&nbsp;</P>
+<P CLASS="element-desc">RetVal = object.Add(Name[, Description][, NamedLocation])&nbsp;</P>
+
+<P CLASS="element">PlotConfigurations&nbsp;</P>
+<P CLASS="element-desc">RetVal = object.Add(Name[, ModelType])&nbsp;</P>
+
+<P CLASS="element">Dictionaries,</P> 
+<P CLASS="element-cont">DimStyles, Documents,<BR>
+   Groups; Layers,<BR>
+   Layouts, Linetypes,<BR>
+   Materials,<BR>
+   PlotConfigurations,<BR>
+   PopupMenus, Projects,<BR> 
+   RegisteredApplications,<BR>
+   SelectionSets,<BR>
+   TextStyles, Toolbars,<BR>
+   Views, Viewports&nbsp;</P>
+<P CLASS="element-desc">RetVal = object.Add(Name)&nbsp;</P>
+
+<P CLASS="Heading-2">Signatures: Detail
+
+<P CLASS="syntax">RetVal = object.Add(InsertionPoint, Name)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_blocks_collection.htm'>Blocks</A><BR>
+The collection to add the new object to. 
+<P class="element">InsertionPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying where the Blocks Collection object will be added.
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name of the block to add to the collection.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_block_object.htm'>Block</A> object<BR>
+The newly added Block object.
+<HR CLASS="thin">
+
+<P CLASS="syntax">RetVal = object.Add(Origin, XAxisPoint, YAxisPoint, Name)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_ucss_collection.htm'>UCSs</A><BR>
+The collection to add the new object to.
+<P class="element">Origin</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying where the UCS is to be added. 
+<P class="element">XAxisPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying a point on the positive <I>X </I>axis of the UCS. The XAxisPoint and YAxisPoint together cannot specify the same location as the Origin.
+<P class="element">YAxisPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying a point on the positive <I>Y</I> axis of the UCS.<BR>
+(The <I>Z</I> axis follows by applying the right-hand rule.)
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name of the UCS to add to the collection.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_ucs_object.htm'>UCS</A> object<BR>
+The newly added UCS object.
+<HR CLASS="thin">
+
+<P CLASS="syntax">RetVal = object.Add(Name[, Description][, NamedLocation])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_hyperlinks_collection.htm'>Hyperlinks</A><BR>
+The collection to add the new object to. 
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name of the hyperlink to add. 
+<P class="element">Description</p><p class=element-desc>Variant; input-only; optional<BR>
+The description of the hyperlink to add.
+<P class="element">NamedLocation</p><p class=element-desc>Variant; input-only; optional<BR>
+A given location, such as a named view in AutoCAD or a bookmark in a word processing program. If you specify a named view to jump to in an AutoCAD drawing, AutoCAD restores that view when the hyperlink is opened.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_hyperlink_object.htm'>Hyperlink</A><BR>
+The newly added object. 
+<HR CLASS="thin">
+
+<P CLASS="syntax">RetVal = object.Add(Name[, ModelType])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_plotconfigurations_collection.htm'>PlotConfigurations</A><BR>
+The collection to add the new object to. 
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name of the object to add to the collection. 
+<P class="element">ModelType</p><p class=element-desc>Boolean; input-only; optional
+<BR><SPAN CLASS="syntax">TRUE</span>: The plot configuration applies only to the Model tab.</SPAN>
+<BR><SPAN CLASS="syntax">FALSE</span>: The plot configuration applies to all layouts.</SPAN>
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A><BR>
+The newly added object. 
+<HR CLASS="thin">
+
+<P CLASS="syntax">RetVal = object.Add(Name)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_dictionaries_collection.htm'>Dictionaries</A>, <A HREF='idh_dimstyles_collection.htm'>DimStyles</A>, <A HREF='idh_documents_collection.htm'>Documents</A>, <A HREF='idh_groups_collection.htm'>Groups</A>; <A HREF='idh_layers_collection.htm'>Layers</A>, <A HREF='idh_layouts_collection.htm'>Layouts</A>, <A HREF='idh_linetypes_collection.htm'>Linetypes</A>, <A HREF='idh_popupmenus_collection.htm'>PopupMenus</A>, <A HREF='idh_registeredapps_collection.htm'>RegisteredApplications</A>, <A HREF='idh_selectionsets_collection.htm'>SelectionSets</A>, <A HREF='idh_textstyles_collection.htm'>TextStyles</A>, <A HREF='idh_toolbars_collection.htm'>Toolbars</A>, <A HREF='idh_views_collection.htm'>Views</A>, <A HREF='idh_viewports_collection.htm'>Viewports</A><BR>
+The collection to add the new object to. 
+<P class="element">Name</p><p class=element-desc>String; input-only; optional for the Documents collection.<BR>
+The name of the object to add to the collection. For the Documents collection, this name represents the name of the drawing template to use and will accept a URL address or a fully qualified path and file name.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_dictionary_object.htm'>Dictionary</A>, <A HREF='idh_dimstyle_object.htm'>DimStyle</A>, <A HREF='idh_document_object.htm'>Document</A>, <A HREF='idh_group_object.htm'>Group</A>, <A HREF='idh_layer_object.htm'>Layer</A>, <A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_linetype_object.htm'>Linetype</A>, <A HREF='idh_popupmenu_object.htm'>PopupMenu</A>, <A HREF='idh_registeredapp_object.htm'>RegisteredApp</A>, <A HREF='idh_selectionset_object.htm'>SelectionSet</A>, <A HREF='idh_textstyle_object.htm'>TextStyle</A>, <A HREF='idh_toolbar_object.htm'>Toolbar</A>, <A HREF='idh_view_object.htm'>View</A>, <A HREF='idh_viewport_object.htm'>Viewport</A><BR>
+The newly added object. 
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Although you can create a linetype and add it to the Linetypes Collection object using this method, it will be created with the default properties only. Because you cannot edit properties of the Linetype object with this release of ActiveX Automation, use the Load method to load existing linetypes into your drawing.
+<P CLASS="body">Layers are created with default color and linetype properties. The default color is white, and the default linetype is standard.
+<P CLASS="body"><I>Documents collection: </I>When accessing a secure URL, a dialog box will be posted that prompts the user for the necessary password information. Message boxes may also be displayed if the user has not suppressed this activity in the browser. When downloading a file, AutoCAD creates a temporary file for internal processing. Do not attempt to access this temporary file. Information in this file is deleted at the end of the AutoCAD session.
+<P CLASS="body"><I>Group object: </I>You should not specify
+a Name that is excessively long or contains spaces, because these 
+names are not handled well in the Group dialog box and cannot be 
+entered at the command line.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

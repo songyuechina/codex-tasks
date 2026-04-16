@@ -1,0 +1,237 @@
+<HTML>
+<HEAD>
+<TITLE>Document object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "Document object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Documents Collection;idh_documents_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Blocks Collection;idh_blocks_collection.htm">
+    <PARAM name="Item2" value="Dictionaries Collection;idh_dictionaries_collection.htm">
+    <PARAM name="Item3" value="DimStyles Collection;idh_dimstyles_collection.htm">
+    <PARAM name="Item4" value="Groups Collection;idh_groups_collection.htm">
+    <PARAM name="Item5" value="Layers Collection;idh_layers_collection.htm">
+    <PARAM name="Item6" value="Linetypes Collection;idh_linetypes_collection.htm">
+    <PARAM name="Item7" value="ModelSpace Collection;idh_modelspace_collection.htm">
+    <PARAM name="Item8" value="PaperSpace Collection;idh_paperspace_collection.htm">
+    <PARAM name="Item9" value="Plot;idh_plot_object.htm">
+    <PARAM name="Item10" value="RegisteredApplications Collection;idh_registeredapps_collection.htm">
+    <PARAM name="Item11" value="SelectionSets Collection;idh_selectionsets_collection.htm">
+    <PARAM name="Item12" value="TextStyles Collection;idh_textstyles_collection.htm">
+    <PARAM name="Item13" value="UCSs Collection;idh_ucss_collection.htm">
+    <PARAM name="Item14" value="Utility;idh_utility_object.htm">
+    <PARAM name="Item15" value="Viewports Collection;idh_viewports_collection.htm">
+    <PARAM name="Item16" value="Views Collection;idh_views_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadDocument;none.htm">
+    <PARAM name="Item2" value="IAcadDatabase;idh_iacaddatabase_Interface.htm">
+    <PARAM name="Item3" value="_DAcadDocumentEvents;idh__dacaddocumentevents_Interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; Document object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">An AutoCAD drawing. </P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadDocument&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">Documents.Add<BR>
+Documents.Open<BR>
+Document.New&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">Documents.Item<BR>
+Application.ActiveDocument&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">The active document (AutoCAD drawing) can be accessed
+using ThisDrawing in VBA, or through the
+<A HREF="idh_activedocument.htm">ActiveDocument</A> property in VB.
+Because AutoCAD works with only one document at a time, and that
+document represents one database, the active document can be thought
+of as the current database as well as the current document.
+<P CLASS="body">Certain objects in the drawing establish the format,
+location, or style that new objects being added to the drawing will
+adopt. These objects include the
+<A HREF="idh_dimstyle_object.htm">DimensionStyle</A>,
+<A HREF="idh_textstyle_object.htm">TextStyle</A>,
+<A HREF="idh_linetype_object.htm">Linetype</A>,
+<A HREF="idh_viewport_object.htm">Viewport</A>, and
+<A HREF="idh_layer_object.htm">Layer</A> objects.
+A drawing may contain many of these types of objects, but only one may
+be active at a time. For example, there may be several linetypes
+available in a drawing, but only one, designated as the active one,
+will be used when creating a new entity. The Document object contains
+the references to these active objects. To set an existing object as
+the active object, use the properties listed below.
+<P CLASS="body">The Document object also contains a property (or link)
+for all the collections. From these collections, you can iterate
+through every object in the drawing.
+<P CLASS="body">To access drawing properties such as Title, Subject,
+Author, and Keywords, the IAcadSummaryInfo interface, accessible as a property
+of the Document object, must be used.
+<P CLASS="Heading-2">Using Paper Space and Model Space
+<P CLASS="body">From the Document object, you control the model space and paper space settings. By default, a drawing is opened in the model space, with the tiled viewport setting. Use the ActiveSpace property, MSpace property, and the Display method to control the model space and paper space settings. See the <A HREF='idh_pviewport_object.htm'>PViewport</A> object for more information about using these properties and methods.
+<P CLASS="Heading-2">Resetting Active Objects
+<P CLASS="body">Changes to most active objects, such as the active layer and active linetype, are displayed immediately. However, several objects must be reset for changes to appear. These objects are the active textstyle, active UCS, and the active viewport. To reset the objects, simply call the ActiveTextStyle, ActiveUCS, or ActiveViewport property, using the updated object.
+<P CLASS="body">To create or open a Document object, use the <A HREF="idh_open.htm">Open</A> method. To edit or query a Document object, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="idh_activate_method.htm"><P CLASS="body">Activate</A>
+<A HREF="idh_auditinfo.htm"><P CLASS="body">AuditInfo</A>
+<A HREF="idh_close.htm"><P CLASS="body">Close</A>
+<A HREF="idh_copyobjects.htm"><P CLASS="body">CopyObjects</A>
+<A HREF="idh_endundomark.htm"><P CLASS="body">EndUndoMark</A>
+<A HREF="idh_export.htm"><P CLASS="body">Export</A>
+<A HREF="idh_getvariable.htm"><P CLASS="body">GetVariable</A>
+<A HREF="idh_handletoobject.htm"><P CLASS="body">HandleToObject</A>
+<A HREF="idh_import.htm"><P CLASS="body">Import</A>
+<A HREF="idh_loadshapefile.htm"><P CLASS="body">LoadShapeFile</A>
+<A HREF="idh_objectidtoobject.htm"><P CLASS="body">ObjectIDToObject</A>
+<A HREF="idh_open.htm"><P CLASS="body">Open</A>
+<A HREF="idh_purgeall.htm"><P CLASS="body">PurgeAll</A>
+<A HREF="idh_regen.htm"><P CLASS="body">Regen</A>
+<A HREF="idh_save.htm"><P CLASS="body">Save</A>
+<A HREF="idh_saveas.htm"><P CLASS="body">SaveAs</A>
+<A HREF="idh_sendcommand.htm"><P CLASS="body">SendCommand</A>
+<A HREF="idh_setvariable.htm"><P CLASS="body">SetVariable</A>
+<A HREF="idh_startundomark.htm"><P CLASS="body">StartUndoMark</A>
+<A HREF="idh_wblock.htm"><P CLASS="body">WBlock</A>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_active.htm"><P CLASS="body">Active</A>
+<A HREF="idh_activedimstyle.htm"><P CLASS="body">ActiveDimStyle</A>
+<A HREF="idh_activelayer.htm"><P CLASS="body">ActiveLayer</A>
+<A HREF="idh_activelayout.htm"><P CLASS="body">ActiveLayout</A>
+<A HREF="idh_activelinetype.htm"><P CLASS="body">ActiveLinetype</A>
+<A HREF="idh_ActiveMaterial.htm"><P CLASS="body">ActiveMaterial</A>
+<A HREF="idh_activepviewport.htm"><P CLASS="body">ActivePViewport</A>
+<A HREF="idh_activeselectionset.htm"><P CLASS="body">ActiveSelectionSet</A>
+<A HREF="idh_activespace.htm"><P CLASS="body">ActiveSpace</A>
+<A HREF="idh_activetextstyle.htm"><P CLASS="body">ActiveTextStyle</A>
+<A HREF="idh_activeucs.htm"><P CLASS="body">ActiveUCS</A>
+<A HREF="idh_activeviewport.htm"><P CLASS="body">ActiveViewport</A>
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_blocks.htm"><P CLASS="body">Blocks</A>
+<A HREF="idh_database.htm"><P CLASS="body">Database</A>
+<A HREF="idh_dictionaries.htm"><P CLASS="body">Dictionaries</A>
+<A HREF="idh_dimstyles.htm"><P CLASS="body">DimStyles</A>
+<A HREF="idh_elevationmodelspace.htm"><P CLASS="body">ElevationModelSpace</A>
+<A HREF="idh_elevationpaperspace.htm"><P CLASS="body">ElevationPaperSpace</A>
+<A HREF="idh_fullname.htm"><P CLASS="body">FullName</A>
+<A HREF="idh_groups.htm"><P CLASS="body">Groups</A>
+<A HREF="idh_hwnd.htm"><P CLASS="body">HWND</A>
+<A HREF="idh_hwnd32.htm"><P CLASS="body">HWND32</A>
+<A HREF="idh_layers.htm"><P CLASS="body">Layers</A>
+<A HREF="idh_layouts.htm"><P CLASS="body">Layouts</A>
+<A HREF="idh_limits.htm"><P CLASS="body">Limits</A>
+<A HREF="idh_linetypes.htm"><P CLASS="body">Linetypes</A>
+<A HREF="idh_modelspace.htm"><P CLASS="body">ModelSpace</A>
+<A HREF="idh_mspace.htm"><P CLASS="body">MSpace</A>
+<A HREF="idh_name.htm"><P CLASS="body">Name</A>
+<A HREF="idh_objectsnapmode.htm"><P CLASS="body">ObjectSnapMode</A>
+<A HREF="idh_paperspace.htm"><P CLASS="body">PaperSpace</A>
+<A HREF="idh_path.htm"><P CLASS="body">Path</A>
+<A HREF="idh_pickfirstselectionset.htm"><P CLASS="body">PickfirstSelectionSet</A>
+<A HREF="idh_plot.htm"><P CLASS="body">Plot</A>
+<A HREF="idh_plotconfigurations.htm"><P CLASS="body">PlotConfigurations</A>
+<A HREF="idh_preferences.htm"><P CLASS="body">Preferences</A>
+<A HREF="idh_readonly.htm"><P CLASS="body">ReadOnly</A>
+<A HREF="idh_registeredapps_collection.htm"><P CLASS="body">RegisteredApplications</A>
+<A HREF="idh_saved.htm"><P CLASS="body">Saved</A>
+<A HREF="idh_selectionsets.htm"><P CLASS="body">SelectionSets</A>
+<A HREF="idh_SummaryInfo_Interface.htm"><P CLASS="body">SummaryInfo</A>
+<A HREF="idh_textstyles.htm"><P CLASS="body">TextStyles</A>
+<A HREF="idh_usercoordinatesystems.htm"><P CLASS="body">UserCoordinateSystems</A>
+<A HREF="idh_utility.htm"><P CLASS="body">Utility</A>
+<A HREF="idh_viewports.htm"><P CLASS="body">Viewports</A>
+<A HREF="idh_views.htm"><P CLASS="body">Views</A>
+<A HREF="idh_windowstate.htm"><P CLASS="body">WindowState</A>
+<A HREF="idh_windowtitle.htm"><P CLASS="body">WindowTitle</A>
+&nbsp;</TD>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_activate.htm"><P CLASS="body">Activate</A>
+<A HREF="idh_beginclose.htm"><P CLASS="body">BeginClose</A>
+<A HREF="idh_begincommand.htm"><P CLASS="body">BeginCommand</A>
+<A HREF="idh_BeginDocClose.htm"><P CLASS="body">BeginDocClose</A>
+<A HREF="idh_beginDoubleclick.htm"><P CLASS="body">BeginDoubleClick</A>
+<A HREF="idh_beginlisp.htm"><P CLASS="body">BeginLISP</A>
+<A HREF="idh_beginplot.htm"><P CLASS="body">BeginPlot</A>
+<A HREF="idh_beginrightclick.htm"><P CLASS="body">BeginRightClick</A>
+<A HREF="idh_beginsave.htm"><P CLASS="body">BeginSave</A>
+<A HREF="idh_beginshortcutmenucommand.htm"><P CLASS="body">BeginShortcutMenuCommand</A>
+<A HREF="idh_beginshortcutmenudefault.htm"><P CLASS="body">BeginShortcutMenuDefault</A>
+<A HREF="idh_beginshortcutmenuedit.htm"><P CLASS="body">BeginShortcutMenuEdit</A>
+<A HREF="idh_beginshortcutmenugrip.htm"><P CLASS="body">BeginShortcutMenuGrip</A>
+<A HREF="idh_beginshortcutmenuosnap.htm"><P CLASS="body">BeginShortcutMenuOSnap</A>
+<A HREF="idh_deactivate.htm"><P CLASS="body">Deactivate</A>
+<A HREF="idh_endcommand.htm"><P CLASS="body">EndCommand</A>
+<A HREF="idh_endlisp.htm"><P CLASS="body">EndLISP</A>
+<A HREF="idh_endplot.htm"><P CLASS="body">EndPlot</A>
+<A HREF="idh_endsave.htm"><P CLASS="body">EndSave</A>
+<A HREF="idh_endshortcutmenu.htm"><P CLASS="body">EndShortcutMenu</A>
+<A HREF="idh_layoutswitched.htm"><P CLASS="body">LayoutSwitched</A>
+<A HREF="idh_lispcancelled.htm"><P CLASS="body">LISPCancelled</A>
+<A HREF="idh_objectadded.htm"><P CLASS="body">ObjectAdded</A>
+<A HREF="idh_objecterased.htm"><P CLASS="body">ObjectErased</A>
+<A HREF="idh_objectmodified.htm"><P CLASS="body">ObjectModified</A>
+<A HREF="idh_selectionchanged.htm"><P CLASS="body">SelectionChanged</A>
+<A HREF="idh_windowchanged.htm"><P CLASS="body">WindowChanged</A>
+<A HREF="idh_windowmovedorresized.htm"><P CLASS="body">WindowMovedOrResized</A>
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

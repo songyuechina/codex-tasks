@@ -4521,3 +4521,198 @@ Excel 当前包含三张表：
 
 - 之前的问题不是“阈值没设”，而是“只关窗、不真正退出 WPS 进程”
 - 当前这轮修补已经把该问题压到可接受状态，可作为后续继续跑 51 张完整案例的基线
+
+## 2026-04-14 CAD 文字内容统一获取修补
+
+### 本轮目标
+
+- 让 `cad/library/cad_annotation.py` 的 `get_text_content()` 能统一读取标准 CAD 文字与天正文字符号
+- 补齐 `TDbText` 与 `TDbMText` 的真实读取路径
+
+### 本轮修补
+
+已在：
+
+- `D:\codex-tasks\cad\library\cad_annotation.py`
+- `D:\codex-tasks\cad\library\meta\cad_annotation.meta.json`
+
+中完成以下收束：
+
+- `AcDbText / AcDbMText` 改为统一走 `CAD_selection.get_attr()`
+- `TDbText` 改为通过属性 `Text` 读取
+- `TDbMText` 新增“副本炸开 + 精确选中 + EXPLODE + Y/X 排序”的自足提取逻辑
+- 去掉对旧链路里隐式全局 `li()` 的依赖，避免调用后直接吞异常返回空串
+
+### 本轮专项验证
+
+受控入口与恢复口径：
+
+- 连接/启动：`CAD_core.launch_cad_guardians()` + `CAD_core.litz()` + `CAD_core.open_file()`
+- 偏航恢复：`CAD_core.litz()` 后重新 `open_file()`
+- 收尾归一：`CAD_core.cad_zt_oneb()`
+
+测试文件：
+
+- `D:\codex-tasks\cad\tests\文字内容获取测试.dwg`
+
+实测对象与结果：
+
+- `AcDbText` `2B5` -> `CAD单行文字`
+- `AcDbMText` `2B7` -> `\pxt9;CAD多行文字`
+- `TDbText` `2B2` -> `A0-天正单行文字`
+- `TDbMText` `2B3` -> `嘻嘻嘻-天正多行文字`
+
+补充发现：
+
+- 旧的 `library.cad_blocks.explode_single_object_marker()` 在当前导入路径下会因隐式全局 `li()` 缺失触发 `NameError`
+- 这正是 `TDbMText` 统一读取入口先前返回空串的直接原因
+
+### 后续补充
+
+随后又把 `get_text_content()` 收束为“纯文本口径”：
+
+- `AcDbMText` 不再原样返回 `TextString`
+- 会剥离 `\pxt9;`、`\W...;`、`\C...;`、`\P` 等常见排版控制码
+- 当前测试图中的 `AcDbMText` 已从 `\pxt9;CAD多行文字` 收束为 `CAD多行文字`
+
+## 2026-04-14 print 工作区文档与打印信息主链沉淀
+
+### 本轮目标
+
+- 把 `print_info_analysis.py` 的当前权威口径沉淀进 `print/` 文档体系
+- 为 `D:\codex-tasks\cad\scripts\drawing_basic_service\print` 建立本地 GitNexus 索引
+- 让后续“打印并获取打印信息”与“只获取打印信息”都能按同一套文档快速接手
+
+### 本轮结构沉淀
+
+已在：
+
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\.gitnexus`
+
+建立 `print` 级 GitNexus 索引。
+
+已确认的结构关系：
+
+- `print_batch_dispatch.py` 是统一调度入口
+- `print_batch_dispatch.py` 直接导入 `print_info_analysis.py`
+- `print_info_analysis.py` 直接依赖：
+  - `print_policy.py`
+  - `print_area_analysis.py`
+  - `print_area_content_analysis.py`
+
+### 本轮规则沉淀
+
+“获取打印信息”当前统一口径如下：
+
+1. 先确定最终待分析打印区域
+2. 再按内框线角点寻找对齐图签块
+3. 横向看右下角；竖向按旋转 `-90` 的观察口径看左下角
+4. 角点对齐块外包盒即 `graphic_info_area`
+5. `graphic_info_area` 内对象统一用 `CAD_selection.select_entities_in_window(...)` 取样
+6. 文字内容统一用 `cad_annotation.get_text_content()` 取纯文本
+7. 图纸名称 / 图纸编号判定顺序固定为：
+   - `layer_named`
+   - `guide_rectangles`
+   - `fallback_regex`
+
+### 本轮稳定性修补
+
+为 `print_info_analysis.py` 新增单页级 COM busy / rejected 重试包装：
+
+- 遇到 `0x80010001 / -2147418111` 一类瞬时拒绝调用时，先重试，不直接记成错误页
+- 单页最终失败时仍允许降级为错误行，避免整批崩溃
+
+### 本轮测试结果
+
+测试文件：
+
+- `D:\codex-tasks\cad\tests\打印信息测试_1.dwg`
+
+运行方式：
+
+- 先用 `print_batch_dispatch.py --mode purified_adaptive` 完成打印
+- 再用 `print_info_analysis.py` 基于 `work-case-*.dwg + print_plan.json + content_analysis.json` 生成最终打印信息结果
+
+最终结果：
+
+- `45/45` 打印成功
+- 最新 `print_info_analysis.json` 中：
+  - `total_jobs = 45`
+  - `with_title_count = 45`
+  - `with_drawing_no_count = 43`
+  - `analysis_error = 0`
+
+### 本轮文档更新
+
+已同步更新：
+
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\AGENTS.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\README.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\PRINT_WORKFLOW.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\PRINT_OUTPUT_SPEC.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\PRINT_KNOWLEDGE.md`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\folder.meta.json`
+
+## 2026-04-14 print_info 分类展示与 PDF 命名副本
+
+### 本轮目标
+
+- 让 `print_info_analysis.json` 更明确区分图纸名称对象与图纸编号对象
+- 让 `print_info_analysis.xlsx` 更适合人类直接复核
+- 新增根据 `print_info_analysis.json` 复制并重命名 PDF 的能力
+
+### 本轮代码收束
+
+已更新：
+
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\print_info_analysis.py`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\print_batch_dispatch.py`
+- `D:\codex-tasks\cad\scripts\drawing_basic_service\print\print_pdf_naming.py`
+
+新增 / 强化内容：
+
+- 单页 JSON 新增：
+  - `subproject_name`
+  - `drawing_title_record_count`
+  - `drawing_no_record_count`
+  - `drawing_title_handles`
+  - `drawing_no_handles`
+  - `classified_text_records`
+- `classified_text_records` 会对整块采样文字明确标注：
+  - `drawing_title`
+  - `drawing_no`
+  - `other`
+- Excel 新增人类复核页：
+  - `drawing_title_records`
+  - `drawing_no_records`
+- `text_records` 页也新增“归类角色”列
+- 新增 `print_pdf_naming.py`：
+  - 基于 `print_info_analysis.json` 与最终 PDF 目录
+  - 复制一份 PDF 到 `pdf/named/`
+  - 默认命名规则为 `项目名称 + 子项目名称 + 图纸名称 + 图纸编号`
+  - 若项目名称 / 子项目名称为空，则直接跳过
+
+### 本轮结果验证
+
+基于现有测试产物已完成：
+
+- 更新 `D:\codex-tasks\cad\tests\打印信息测试analysis\print_info_analysis.json`
+- 生成分类版 Excel：
+  - `D:\codex-tasks\cad\tests\打印信息测试analysis\print_info_analysis.classified.xlsx`
+- 生成命名副本目录：
+  - `D:\codex-tasks\cad\tests\打印信息测试pdf\named`
+
+结果：
+
+- `named` 目录内共生成 `45` 份命名副本
+- 当前测试案例中项目名称 / 子项目名称均为空，因此命名主要由 `图纸名称 + 图纸编号` 组成
+
+### 额外说明
+
+标准文件：
+
+- `D:\codex-tasks\cad\tests\打印信息测试analysis\print_info_analysis.xlsx`
+
+本轮未能直接覆盖，原因是目标文件当时处于占用状态，因此临时另存为：
+
+- `D:\codex-tasks\cad\tests\打印信息测试analysis\print_info_analysis.classified.xlsx`

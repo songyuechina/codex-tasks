@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddShape method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddShape Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a Shape object based on a template identified by name, at the given insertion point, scale factor, and rotation.</P>
+
+<P CLASS="h1-access"><A HREF="addshape_see_also.htm">See Also</A> | <A HREF="ex_addshape.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddShape(Name, InsertionPoint, ScaleFactor, Rotation)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">Name</p><p class=element-desc>String; input-only<BR>
+The name of the shape to insert.
+<P class="element">InsertionPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates at which to insert the shape.
+<P class="element">ScaleFactor</p><p class=element-desc>Double; input-only<BR>
+The scale factor to be applied to the shape. Use 1.0 to specify no scale. Must be a positive number.
+<P class="element">Rotation</p><p class=element-desc>Double; input-only<BR>
+The angle of rotation in radians to be applied to the shape.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_shape_object.htm'>Shape</A> object<BR>
+The newly created Shape object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Before adding a Shape object, you must load the file 
+containing the desired shape using the <A HREF="idh_loadshapefile.htm">LoadShapeFile</A> method.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

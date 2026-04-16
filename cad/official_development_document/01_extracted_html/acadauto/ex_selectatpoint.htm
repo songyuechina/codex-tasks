@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SelectAtPoint Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SelectAtPoint Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_SelectAtPoint()
+    ' This example adds objects to a selection set by identifying a point.
+    ' At first all objects at the point are added to the selection set. Then
+    ' only circle objects at the point are added to the selection set.
+    
+    ' Create the selection set
+    Dim ssetObj As AcadSelectionSet
+    Set ssetObj = ThisDrawing.SelectionSets.Add("TEST_SSET1")
+   
+    ' Add to the selection set all the objects that lie at point(6.8,9.4,0) 
+    Dim point(0 To 2) As Double
+    point(0) = 6.8: point(1) = 9.4: point(2) = 0
+    ssetObj.SelectAtPoint point
+    
+    ' Add to the selection set all the Circles that lie at point (6.8,9.4,0) 
+    Dim gpCode(0) As Integer
+    Dim dataValue(0) As Variant
+    gpCode(0) = 0
+    dataValue(0) = "Circle"
+    
+    Dim groupCode As Variant, dataCode As Variant
+    groupCode = gpCode
+    dataCode = dataValue
+    
+    ssetObj.SelectAtPoint point, groupCode, dataCode
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

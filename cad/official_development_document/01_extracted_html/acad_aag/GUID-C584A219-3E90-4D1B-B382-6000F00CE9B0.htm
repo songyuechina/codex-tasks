@@ -1,0 +1,48 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-C584A219-3E90-4D1B-B382-6000F00CE9B0"><meta name="topic-subtype" content="activex"><meta name="description" content="Before you can use application level events you must create a new class module and declare an object of type AcadApplication with events."><meta name="indexterm" content="application level events: declaring objects with events"><meta name="indexterm" content="root object: example code"><meta name="indexterm" content="Application object: example code"><meta name="indexterm" content="Application object: declaring objects with events"><meta name="indexterm" content="BeginFileDrop event: example code"><meta name="indexterm" content="GetObject method: example code"><meta name="indexterm" content="application-level events: enabling"><meta name="indexterm" content="enabling: application-level events"><meta name="indexterm" content="WithEvents: GetObject method, VBA"><meta name="indexterm" content="WithEvents: declaring objects with events"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-07494559-EA6C-4D84-B494-A49930C67E91"><title>About Enabling Application Level Events (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Handling Application Level Events (VBA/ActiveX)</div><a href="GUID-07494559-EA6C-4D84-B494-A49930C67E91.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Handling Application Level Events (VBA/ActiveX)</div><a href="GUID-07494559-EA6C-4D84-B494-A49930C67E91.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">To Create a New Class and Declare an Application Object with Events (VBA/ActiveX)</div><a href="GUID-5AB42CC1-54A4-4FEA-AE61-2621BD9CF721.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_7.htm">Use Events</a>&nbsp;&gt;&nbsp;<a href="GUID-07494559-EA6C-4D84-B494-A49930C67E91.htm">About Handling Application Level Events (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-0D9EC340-E3BD-41A0-9B9C-382575B59CF6"></a></span><h1>About Enabling Application Level Events (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-C584A219-3E90-4D1B-B382-6000F00CE9B0"></a></span><p class="blurb"> Before you can use application level events you must create a new class module and declare an object of type 
+	 <span class="code">AcadApplication</span> with events. 
+  </p><!--Body--><p><span style="display:none"><a name="GUID-263F256B-BDD2-4DA0-A735-17563001F21C"></a></span> For example, assume that a new class module is created and called EventClassModule. The new class module contains the declaration of the application with the VBA keyword 
+		<span class="code">WithEvents</span>. 
+	 </p><div class="section"><span style="display:none"><a name="SECTION_442B45B3A75241058F6523A162BCF565"></a></span> <h2><a name="TOC_ENTRY__d24e32390"></a><span style="display:none"><a name="GUID-F9588F3B-E70B-4D30-87E5-BC717328735E"></a></span>Prompt to continue when a drawing is dropped into AutoCAD</h2> <p><span style="display:none"><a name="GUID-175F5107-BCA9-4D99-9D8F-C51A6AA7F439"></a></span>This example intercepts the load process when a file has been dragged and dropped into AutoCAD. A message box containing the name of the file that was dropped and Yes/No/Continue buttons that allow the user to decide if the file should continue to be loaded or displayed. If the user chooses to cancel out of the operation, that decision is returned through the 
+		  <em class="mild">Cancel</em> parameter of the 
+		  <span class="code">BeginFileDrop</span> event and the file is not loaded. 
+		</p> <div class="codeBlock"><pre>Public WithEvents ACADApp As AcadApplication
+
+Sub Example_AcadApplication_Events()
+ ' This example intializes the public variable (ACADApp)
+ ' which will be used to intercept AcadApplication Events
+ '
+ ' Run this procedure FIRST!
+
+ ' We could get the application from the ThisDocument
+ ' object, but that would require having a drawing open,
+ ' so we grab it from the system.
+ Set ACADApp = GetObject(, "<span class="charspan-msgph">AutoCAD.Application.24</span>")
+End Sub
+
+Private Sub ACADApp_BeginFileDrop _
+ (ByVal FileName As String, Cancel As Boolean)
+ ' This example intercepts an Application BeginFileDrop event.
+ '
+ ' This event is triggered when a drawing file is dragged
+ ' into AutoCAD.
+ '
+ ' To trigger this example event:
+ '     1) Make sure to run the example that initializes
+ '     the public variable (named ACADApp) linked to this event.
+ '
+ '     2) Drag an AutoCAD drawing file into the AutoCAD
+ '        application from either the Windows Desktop
+ '        or Windows Explorer
+
+ ' Use the "Cancel" variable to stop the loading of the
+ ' dragged file, and the "FileName" variable to  notify
+ ' the user which file is about to be dragged in.
+
+ If MsgBox("AutoCAD is about to load " &amp; FileName &amp; vbCrLf _
+ &amp; "Do you want to continue loading this file?", _
+ vbYesNoCancel + vbQuestion) &lt;&gt; vbYes Then
+ Cancel = True
+ End If
+End Sub</pre></div> </div><span class="noindex"><div class="topic-list"><h4 class="related">Topics in this section</h4><ul class="jumplist"><li><a href="GUID-5AB42CC1-54A4-4FEA-AE61-2621BD9CF721.htm">To Create a New Class and Declare an Application Object with Events (VBA/ActiveX)</a><p> You can declare a variable for a specific object type using the WithEvents keyword to get notified when an event is executed. </p></li><li><a href="GUID-BD2DDACD-F650-4691-B73C-BCCEE82B1CE6.htm">To Connect the Declared Object to the Application Object (VBA/ActiveX)</a><p> Before a procedure related to the event of an object is executed, you must connect the declared object in the class module with the Application object. </p></li></ul></div></span><div class="related-topics"><span class="noindex"><div class="related-task"><h4 class="related">Related Tasks</h4><ul><li class="topiclist-litem"><a href="GUID-5AB42CC1-54A4-4FEA-AE61-2621BD9CF721.htm" title=" You can declare a variable for a specific object type using the WithEvents keyword to get notified when an event is executed. ">To Create a New Class and Declare an Application Object with Events (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-BD2DDACD-F650-4691-B73C-BCCEE82B1CE6.htm" title=" Before a procedure related to the event of an object is executed, you must connect the declared object in the class module with the Application object. ">To Connect the Declared Object to the Application Object (VBA/ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-07494559-EA6C-4D84-B494-A49930C67E91.htm" title=" Application level events are not persistent in AutoCAD VBA. ">About Handling Application Level Events (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>AddPolyline method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddPolyline Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a polyline from a list of vertices. </P>
+
+<P CLASS="h1-access"><A HREF="addpolyline_see_also.htm">See Also</A> | <A HREF="ex_addpolyline.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddPolyline(VerticesList)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">VerticesList</p><p class=element-desc>Variant (array of doubles); input-only<BR>
+An array of OCS coordinates used to create the polyline vertices. Each vertex is represented with three elements, with the first two being the X and <I>Y</I> coodinates in OCS; the third element is ignored. At least two points (six elements) are required for constructing a polyline object. The array size must be a multiple of three. 
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_polyline_object.htm'>Polyline</A> object<BR>
+The newly created Polyline object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">To create a polyline containing arcs, first create the 
+straight polyline, and then set the bulge at specific vertices using the 
+<A HREF="idh_setbulge.htm">SetBulge</A> method.
+<P CLASS="body">This method exists for backward compatibility only. Use 
+the <A HREF="idh_addlightweightpolyline.htm">AddLightweightPolyline</A> method to create polylines with an optimized format that saves memory and disk space.
+<P CLASS="body">Coordinates can be converted to and from the OCS using the 
+<A HREF="idh_translatecoordinates.htm">TranslateCoordinates</A> method.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

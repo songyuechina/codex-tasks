@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetCustomScale Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetCustomScale Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_GetCustomScale()
+    ' This example will access the Layouts collection for the current drawing
+    ' and list basic information about the custom scale for each Layout.
+    ' It will then change the custom scale information for model space and re-display
+    ' the scale information.
+
+    Dim Layouts As AcadLayouts, Layout As ACADLayout
+    Dim msg As String
+    Dim Numerator As Double, Denominator As Double
+    Dim Measurement As String
+    
+    ' Display current scale information
+    GoSub DISPLAY_SCALE_INFO
+    
+    ' Modify scale
+    Numerator = 1
+    Denominator = 1
+    
+    ThisDrawing.Layouts("Model").SetCustomScale Numerator, Denominator
+    ThisDrawing.Regen acAllViewports
+            
+    ' Display new scale information
+    GoSub DISPLAY_SCALE_INFO
+        
+    Exit Sub
+    
+<PRE CLASS="Code">DISPLAY_SCALE_INFO:
+    ' Get layouts collection from document object
+    Set Layouts = ThisDrawing.Layouts
+    
+    msg = vbCrLf & vbCrLf   ' Start with a space
+    
+    ' Get the scale information of every layout in this drawing
+    For Each Layout In Layouts
+        msg = msg & Layout.name & vbCrLf
+        
+        ' Get scale information
+        Layout.GetCustomScale Numerator, Denominator
+        
+        ' Are we using inches or millimeters
+        Measurement = IIf(Layout.PaperUnits = acInches, " inch(es)", " millimeter(s)")
+        
+        ' Format for display
+        msg = msg & vbTab & "Contains " & Numerator & Measurement & vbCrLf
+        msg = msg & vbTab & "Contains " & Denominator & " drawing units" & vbCrLf
+        msg = msg & "_____________________" & vbCrLf
+        
+    Next
+    
+    ' Display custom scale information
+    MsgBox "Custom scale information for the current drawing is: " & msg
+    
+    Return
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

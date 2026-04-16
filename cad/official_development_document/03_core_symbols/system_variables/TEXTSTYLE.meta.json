@@ -1,0 +1,50 @@
+{
+  "symbol": "TEXTSTYLE",
+  "kind": "system_variable",
+  "owners": [
+    "Document"
+  ],
+  "source_terms": [
+    "textstyle",
+    "activetextstyle",
+    "unicode"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "update_titleblock_fields",
+    "generate_or_update_catalog",
+    "create_basic_geometry_smoke"
+  ],
+  "pywin32_signature": "C.doc.GetVariable(\"TEXTSTYLE\") / C.doc.ActiveTextStyle",
+  "risk_tags": [
+    "中文字体缺失导致显示异常",
+    "模板样式不一致导致回写效果不稳定"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/common_patterns.md",
+    "05_pywin32_bridge/pywin32_type_rules.md"
+  ],
+  "path_md": "03_core_symbols/system_variables/TEXTSTYLE.md",
+  "source_topic_ids": [
+    "acadauto:ex_activetextstyle",
+    "acad_aag:GUID_29E096AD_6237_4B26_8964_A55DDF7197F8",
+    "acadauto:idh_activetextstyle",
+    "acadauto:ex_textstyle",
+    "acad_aag:GUID_004B0417_AB7A_46A2_AAD0_1B2E90C9F3ED"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_activetextstyle.htm",
+    "01_extracted_html/acadauto/idh_activetextstyle.htm",
+    "01_extracted_html/acadauto/ex_textstyle.htm",
+    "01_extracted_html/acad_aag/GUID-004B0417-AB7A-46A2-AAD0-1B2E90C9F3ED.htm",
+    "01_extracted_html/acad_aag/GUID-29E096AD-6237-4B26-8964-A55DDF7197F8.htm"
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "symbol": "ConfigName",
+  "kind": "property",
+  "source_terms": [
+    "configname",
+    "plot device",
+    "printer"
+  ],
+  "owners": [
+    "Layout"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_layout_plot_info",
+    "execute_layout_plot",
+    "build_print_plan_and_info"
+  ],
+  "pywin32_signature": "layout.ConfigName = printer_name",
+  "risk_tags": [
+    "未先 RefreshPlotDeviceInfo 时可能读取到旧设备上下文",
+    "设备切换后通常需要再次 RefreshPlotDeviceInfo 再设置纸张介质"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "path_md": "03_core_symbols/properties/ConfigName.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_configname.htm",
+    "01_extracted_html/acadauto/idh_configname.htm",
+    "01_extracted_html/acadauto/configname_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/plot_layout_rules.md",
+    "05_pywin32_bridge/common_failures.md",
+    "05_pywin32_bridge/common_patterns.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_configname",
+    "acadauto:idh_configname",
+    "acadauto:configname_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_configname.htm",
+    "01_extracted_html/acadauto/idh_configname.htm",
+    "01_extracted_html/acadauto/configname_see_also.htm"
+  ]
+}

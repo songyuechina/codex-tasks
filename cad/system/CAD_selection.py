@@ -970,16 +970,41 @@ def set_attr(obj, name, value):
 def get_object_property(obj, property_name): return get_attr(obj, property_name)
 def set_object_property(obj, property_name, value): return set_attr(obj, property_name, value)
 
-def brute_dump_tarch_props(ent, max_dispid=64):
-    ole = ent._oleobj_
-    print(f"Scanning {getattr(ent, 'ObjectName', '?')}...")
+def brute_dump_tarch_props(ent, max_dispid=64, *, echo=True):
+    """
+    Brutally scan a TArch entity's DISPIDs and return readable hits.
+
+    Use this as a diagnostic fallback when normal property mapping is missing or
+    a TArch object refuses regular get/set access.
+    """
+    rows = []
+    ole = getattr(ent, "_oleobj_", None)
+    if ole is None:
+        return rows
+
+    object_name = getattr(ent, "ObjectName", "?")
+    if echo:
+        print(f"Scanning {object_name}...")
+
     for i in range(1, max_dispid + 1):
         try:
             val = ole.Invoke(i, 0, pythoncom.DISPATCH_PROPERTYGET, True)
-            if val is not None:
-                print(f"ID {i:2d}: {val} ({type(val).__name__})")
-        except: pass
+        except Exception:
+            continue
+        if val is None:
+            continue
+        row = {
+            "object_name": object_name,
+            "dispid": i,
+            "value": val,
+            "value_type": type(val).__name__,
+        }
+        rows.append(row)
+        if echo:
+            print(f"ID {i:2d}: {val} ({type(val).__name__})")
+    return rows
 
 if __name__ == '__main__':
     print("CAD Selection Library Loaded.")
+
 

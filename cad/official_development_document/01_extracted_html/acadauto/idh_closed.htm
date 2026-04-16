@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+
+<TITLE>Closed property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Closed Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies whether the 3D polyline, lightweight polyline, lofted surface, polyline, or spline is open or closed.</P>
+
+<P CLASS="h1-access"><A HREF="closed_see_also.htm">See Also</A> | <A HREF="ex_closed.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Closed
+<P class="element">object</p><p class=element-desc><A HREF='idh_3dpoly_object.htm'>3DPolyline </A>, <A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_loftedsurface_object.htm'>LoftedSurface</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_spline_object.htm'>Spline</A><BR>
+The objects this property applies to.
+<P class="element">Closed</p><p class=element-desc>Boolean; read-only for spline objects; read-write for all others
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: The object is closed.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: The object is open (default).</SPAN></P>
+<!--
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">When you close a spline, you make it tangent-continuous at both ends. If the spline's start point and endpoint are already the same, closing the spline makes it tangent-continuous at both points.
+<P CLASS="body">When you open a closed spline, if the spline's start point and endpoint were the same before the close, this property returns the spline to its original state. The start point and endpoint remain the same, but lose their tangent continuity.
+<P CLASS="body">When you open a closed spline, if the spline's start point and endpoint were not the same before the close, this property returns the spline to its original state and removes tangent continuity.</P>
+-->
+<TABLE CLASS="Simple">
+<TR VALIGN=top><TD><P CLASS="body"><IMG SRC='img/3Dpoly.gif' BORDER=0>&nbsp;</TD>
+<TD><P CLASS="body"><IMG SRC='img/clsdPoly.gif' BORDER=0>&nbsp;</TD></TR>
+
+<TR VALIGN=top><TD><I>An open 3D polyline</I>&nbsp;</TD>
+<TD><I>A closed 3D polyline</I>&nbsp;</TD></TR>
+</TABLE>
+<p class="body">A lofted surface is closed if the cross-section curves that determine its profile are closed. For instance, if an arc is used in the lofting profile, the resulting surface is open. If closed curves such as circles are used for lofting, the resulting surface is closed.</p>
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

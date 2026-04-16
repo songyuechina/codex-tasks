@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+
+<TITLE>ShadowDisplay Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ShadowDisplay Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">
+Sub Example_ShadowDisplay()
+
+    ' This example creates a cone in model space and changes its shadow display setting.
+
+    Dim coneObj As Acad3DSolid
+    Dim centerPoint(0 To 2) As Double
+    Set coneObj = ThisDrawing.ModelSpace.AddCone(centerPoint, 5, 20)
+
+    Dim shadowObj As IAcadShadowDisplay
+    Dim EnableShadowDisplayStatus As Long
+    Dim ShadowDisplay As AcShadowDisplayType
+    Dim displaySettingDesc As String
+    Set shadowObj = coneObj
+
+    EnableShadowDisplayStatus = shadowObj.EnableShadowDisplay
+    ShadowDisplay = shadowObj.ShadowDisplay
+
+    displaySettingDesc = DescribeShadowDisplay(ShadowDisplay)
+    If EnableShadowDisplayStatus = 1 Then
+        MsgBox "Shadow display is currently enabled for this object." & vbCr & _
+            "Current shadow display setting is: " & displaySettingDesc
+    Else
+        MsgBox "Shadow display is disabled for this object."
+    End If
+
+    shadowObj.ShadowDisplay = acCastsShadows
+    displaySettingDesc = DescribeShadowDisplay(shadowObj.ShadowDisplay)
+    MsgBox "New shadow display setting is: " & displaySettingDesc
+End Sub
+
+Private Function DescribeShadowDisplay(acShadow As AcShadowDisplayType) As String
+    Select Case acShadow
+        Case acCastsAndReceivesShadows:
+            DescribeShadowDisplay = "cast and receive shadows."
+        Case acCastsShadows:
+            DescribeShadowDisplay = "cast shadows only."
+        Case acReceivesShadows:
+            DescribeShadowDisplay = "receive shadows only."
+        Case acIgnoreShadows:
+            DescribeShadowDisplay = "ignore shadows."
+    End Select
+End Function
+</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

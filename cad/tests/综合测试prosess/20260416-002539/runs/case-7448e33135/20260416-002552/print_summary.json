@@ -1,0 +1,38 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552",
+  "work_dwg": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\work\\work-case-7448e33135.dwg",
+  "process_token": "case-7448e33135",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\work\\work-case-7448e33135.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\pdf",
+    "source_stem": "plot-case-7448e33135",
+    "mode": "purified_adaptive",
+    "total_jobs": 0,
+    "landscape_count": 0,
+    "portrait_count": 0,
+    "jobs_by_space": {}
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260416-002539\\runs\\case-7448e33135\\20260416-002552\\scope_analysis.json",
+  "scope_filter": {
+    "applied": false,
+    "reason": "no_jobs_inside_scope",
+    "selected_scope": {
+      "space_key": "model",
+      "layout_name": "model",
+      "owner_btr": "*MODEL_SPACE",
+      "handle": "54A6",
+      "bbox": [
+        380662.0,
+        3073909.0,
+        380872.0,
+        3074057.5
+      ],
+      "area": 31185.0
+    }
+  },
+  "execution": null,
+  "verification": null
+}

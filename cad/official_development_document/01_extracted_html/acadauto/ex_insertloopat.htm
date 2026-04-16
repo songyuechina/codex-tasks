@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>InsertLoopAt Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">InsertLoopAt Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_InsertLoopAt()
+    ' This example creates an associative hatch in model space.
+    ' A Loop is then inserted into the hatch.
+    Dim hatchObj As AcadHatch
+    Dim patternName As String
+    Dim PatternType As Long
+    Dim bAssociativity As Boolean
+    
+    ' Define the hatch
+    patternName = "ANSI31"
+    PatternType = 0
+    bAssociativity = True
+    
+    ' Create the associative Hatch object
+    Set hatchObj = ThisDrawing.ModelSpace.AddHatch(PatternType, patternName, bAssociativity)
+    
+    ' Create the outer loop for the hatch.
+    ' An arc and a line are used to create a closed loop.
+    Dim outerLoop(0 To 1) As AcadEntity
+    Dim center(0 To 2) As Double
+    Dim radius As Double
+    Dim startAngle As Double
+    Dim endAngle As Double
+    center(0) = 5: center(1) = 3: center(2) = 0
+    radius = 3
+    startAngle = 0
+    endAngle = 3.141592
+    Set outerLoop(0) = ThisDrawing.ModelSpace.AddArc(center, radius, startAngle, endAngle)
+    Set outerLoop(1) = ThisDrawing.ModelSpace.AddLine(outerLoop(0).startPoint, outerLoop(0).endPoint)
+        
+    ' Append the outer loop to the hatch object
+    hatchObj.AppendOuterLoop (outerLoop)
+    
+    ' Append the first circle as one inner loop
+    Dim innerLoop1(0) As AcadEntity
+    center(0) = 5: center(1) = 4.5: center(2) = 0
+    radius = 1
+    Set innerLoop1(0) = ThisDrawing.ModelSpace.AddCircle(center, radius)
+    hatchObj.AppendInnerLoop (innerLoop1)
+    
+    ' Evaluate and display the hatch
+    hatchObj.Evaluate
+    ThisDrawing.Regen True
+    
+    
+    MsgBox "Insert another loop.", , "InsertLoopAt Example"
+    
+    ' Insert the second circle as the other inner loop
+    Dim LoopObj(0) As AcadEntity
+    radius = 0.5
+    Set LoopObj(0) = ThisDrawing.ModelSpace.AddCircle(center, radius)
+    hatchObj.InsertLoopAt hatchObj.NumberOfLoops, acHatchLoopTypeDefault, LoopObj
+    
+    ' Evaluate and display the hatch
+    hatchObj.Evaluate
+    ThisDrawing.Regen True
+    
+    MsgBox "Loop inserted.", , "InsertLoopAt Example"
+                       
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

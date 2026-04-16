@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>MVertexCount property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">MVertexCount Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the vertex count in the <I>M</I> direction for a PolygonMesh.</P>
+
+<P CLASS="h1-access"><A HREF="mvertexcount_see_also.htm">See Also</A> | <A HREF="ex_mvertexcount.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.MVertexCount
+<P class="element">object</p><p class=element-desc><A HREF='idh_polygonmesh_object.htm'>PolygonMesh</A><BR>
+The object this property applies to.
+<P class="element">MVertexCount</p><p class=element-desc>Integer; read-only<BR>
+A positive integer value between 2 and 256.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This is the number of vertices that will be used to make 
+up an <I>M</I> row in the PolygonMesh if the Type property is 
+<SPAN CLASS="constant-char">acSimpleMesh</SPAN>. For any other PolygonMesh type, 
+the <A HREF="idh_mdensity.htm">MDensity</A> value will be used as the row size.
+<P CLASS="body">The number of vertices can't be changed for a simple mesh.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

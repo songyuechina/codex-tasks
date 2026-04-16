@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>GetSubEntity method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetSubEntity Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets an object or subentity interactively.</P>
+
+<P CLASS="h1-access"><A HREF="getsubentity_see_also.htm">See Also</A> | <A HREF="ex_getsubentity.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.GetSubEntity Object, PickedPoint, TransMatrix, ContextData[, Prompt]
+<P class="element">Object</p><p class=element-desc><A HREF='idh_utility_object.htm'>Utility</A><BR>
+The object this method applies to.
+<P class="element">Object</p><p class=element-desc>Object; output-only<BR>
+The picked object or subentity. Can be one of any of the <A HREF="all_drawing_objects.htm">Drawing Objects</A>.
+<P class="element">PickedPoint</p><p class=element-desc>Variant (three-element array of doubles); output-only<BR>
+A 3D WCS coordinate specifying the point that was selected.
+<P class="element">TransMatrix</p><p class=element-desc>Variant (4x4 array of doubles); output-only<BR>
+The translation matrix applied to this entity.
+<P class="element">ContextData</p><p class=element-desc>Variant (array of longs); output-only<BR>
+An array of object IDs for any nested objects in the selected object.
+<P class="element">Prompt</p><p class=element-desc>Variant (string); input-only; optional<BR>
+The text to display to prompt the user for input.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This method requires the AutoCAD user to select an object by picking a point on the graphics screen. If an object or subentity is picked, it is returned in the first parameter, and the second parameter will contain the point picked in WCS coordinates. If the pick point is not on an object the method will fail.
+<P CLASS="body">This method can retrieve an object even if it is not visible on the screen or if it is on a frozen layer. 
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

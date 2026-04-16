@@ -1,0 +1,46 @@
+{
+  "symbol": "SetWindowToPlot",
+  "kind": "method",
+  "source_terms": [
+    "setwindowtoplot"
+  ],
+  "owners": [
+    "Layout"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "layout.SetWindowToPlot(lower_left, upper_right)",
+  "risk_tags": [
+    "布局空间下顺序/刷新不对时容易失效"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "path_md": "03_core_symbols/methods/SetWindowToPlot.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+    "01_extracted_html/acadauto/setwindowtoplot_see_also.htm",
+    "01_extracted_html/acadauto/idh_setwindowtoplot.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/drawing_basic_service/print/print_executor.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_setwindowtoplot",
+    "acadauto:idh_setwindowtoplot",
+    "acadauto:setwindowtoplot_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+    "01_extracted_html/acadauto/idh_setwindowtoplot.htm",
+    "01_extracted_html/acadauto/setwindowtoplot_see_also.htm"
+  ]
+}

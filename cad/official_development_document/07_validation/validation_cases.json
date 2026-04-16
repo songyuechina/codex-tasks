@@ -1,0 +1,30 @@
+[
+  {
+    "id": "VAL-001",
+    "query": "切换到指定布局",
+    "expected_hits": [
+      "04_task_cards/02_space_and_layout/switch_to_target_layout.md",
+      "03_core_symbols/properties/ActiveLayout.md",
+      "03_core_symbols/objects/Layouts.md",
+      "05_pywin32_bridge/sendcommand_rules.md"
+    ]
+  },
+  {
+    "id": "VAL-002",
+    "query": "读取图签属性",
+    "expected_hits": [
+      "04_task_cards/05_blocks_and_attributes/read_block_attributes.md",
+      "03_core_symbols/methods/GetAttributes.md",
+      "03_core_symbols/properties/HasAttributes.md"
+    ]
+  },
+  {
+    "id": "VAL-003",
+    "query": "打印布局窗口",
+    "expected_hits": [
+      "04_task_cards/07_plot_and_output/execute_layout_plot.md",
+      "03_core_symbols/objects/Plot.md",
+      "03_core_symbols/methods/SetWindowToPlot.md"
+    ]
+  }
+]

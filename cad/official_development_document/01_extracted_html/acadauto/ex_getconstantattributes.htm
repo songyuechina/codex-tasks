@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>GetConstantAttributes Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">GetConstantAttributes Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_GetConstantAttributes()
+    ' This example creates a constant attribute definition on a block.
+    ' It then queries the block to return the attribute.
+    
+    ' Create the block to hold the attribute
+    Dim blockObj As AcadBlock
+    Dim insertionPnt(0 To 2) As Double
+    insertionPnt(0) = 0#: insertionPnt(1) = 0#: insertionPnt(2) = 0#
+    Set blockObj = ThisDrawing.Blocks.Add(insertionPnt, "New_Block")
+    
+    ' Define the attribute definition
+    Dim attributeObj As AcadAttribute
+    Dim height As Double
+    Dim mode As Long
+    Dim prompt As String
+    Dim tag As String
+    Dim value As String
+    height = 1#
+    mode = acAttributeModeConstant
+    prompt = "Constant Prompt"
+    insertionPnt(0) = 5#: insertionPnt(1) = 5#: insertionPnt(2) = 0#
+    tag = "Constant Tag"
+    value = "Constant Value"
+    
+    ' Create the attribute definition object on the block
+    Set attributeObj = blockObj.AddAttribute(height, mode, prompt, insertionPnt, tag, value)
+    ZoomAll
+    
+    ' Insert the block into the drawing
+    Dim blockRefObj As AcadBlockReference
+    insertionPnt(0) = 2#: insertionPnt(1) = 2#: insertionPnt(2) = 0
+    Set blockRefObj = ThisDrawing.ModelSpace.InsertBlock(insertionPnt, "New_Block", 1#, 1#, 1#, 0)
+    
+    ' Get the constant attribute definition from the block
+    Dim queryAttribute As Variant
+    queryAttribute = blockRefObj.GetConstantAttributes
+    
+    Dim count As Integer
+    count = UBound(queryAttribute) - LBound(queryAttribute)
+    MsgBox "The block reference has " & count & " constant attributes."
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

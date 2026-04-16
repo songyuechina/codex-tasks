@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddObject method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddObject Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Adds an object to a named dictionary.</P>
+
+<P CLASS="h1-access"><A HREF="addobject_see_also.htm">See Also</A> | <A HREF="ex_addobject.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddObject(Keyword, ObjectName)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_dictionary_object.htm'>Dictionary</A><BR>
+The object this method applies to.
+<P class="element">Keyword</p><p class=element-desc>String; input-only<BR>
+The keyword to be listed in the dictionary for this object.
+<P class="element">ObjectName</p><p class=element-desc>String; input-only<BR>
+The rxClassName of the object to be created in the dictionary.
+<P class="element">RetVal</p><p class=element-desc>Object<BR>
+The newly created object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This method adds a new entry specified by ObjectName to the dictionary. If the entry already exists, it is replaced by the new object. The name of the object is specified by Keyword. 
+<P CLASS="body">For example, an object with the Keyword "ThirdKeyword" and an object type "Object3" can be added to MyDictionary to create the following:</P>
+<PRE CLASS="Code">
+MyDictionary
+Keyword	Object
+FirstKeyword	Object1
+SecondKeyword	Object2
+ThirdKeyword	Object3
+</PRE>
+<P CLASS="body"><span class=NoteChar>NOTE</span> The ObjectARX application that 
+defines the object must be loaded for this method to function correctly. 
+See the <A HREF="idh_loadarx.htm">LoadARX</A> method for information on loading ObjectARX applications.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

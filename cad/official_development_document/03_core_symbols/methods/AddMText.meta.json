@@ -1,0 +1,50 @@
+{
+  "symbol": "AddMText",
+  "kind": "method",
+  "source_terms": [
+    "addmtext"
+  ],
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "generate_or_update_catalog",
+    "update_titleblock_fields"
+  ],
+  "pywin32_signature": "space.AddMText(insert_point, width, text)",
+  "risk_tags": [
+    "格式控制码影响读取"
+  ],
+  "project_paths": [
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/methods/AddMText.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_addmtext.htm",
+    "01_extracted_html/acadauto/idh_addmtext.htm",
+    "01_extracted_html/acadauto/addmtext_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/pywin32_type_rules.md",
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_addmtext",
+    "acadauto:idh_addmtext",
+    "acadauto:addmtext_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_addmtext.htm",
+    "01_extracted_html/acadauto/idh_addmtext.htm",
+    "01_extracted_html/acadauto/addmtext_see_also.htm"
+  ]
+}

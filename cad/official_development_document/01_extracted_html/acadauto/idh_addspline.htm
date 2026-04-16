@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddSpline method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddSpline Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a quadratic or cubic NURBS (nonuniform rational B-spline) curve.</P>
+
+<P CLASS="h1-access"><A HREF="addspline_see_also.htm">See Also</A> | <A HREF="ex_addspline.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddSpline(PointsArray, StartTangent, EndTangent)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">PointsArray</p><p class=element-desc>Variant (array of doubles); input-only<BR>
+An array of 3D WCS coordinates defining the spline curve. At least two points (six elements) are required for constructing a Spline object. The array size must be in multiples of three. 
+<P class="element">StartTangent</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+A 3D vector specifying the tangency of the spline curve at the first point.
+<P class="element">EndTangent</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+A 3D vector specifying the tangency of the spline curve at the last point.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_spline_object.htm'>Spline</A> object<BR>
+The newly created Spline object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The StartTangent and EndTangent parameters specify the 
+tangents at the two ends of the spline. By default, a spline is created open. 
+The read-only <A HREF="idh_closed.htm">Closed</A> property indicates whether the spline is open or closed.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SetWindowToPlot method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetWindowToPlot Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Sets the coordinates that define the portion of the layout to plot.</P>
+
+<P CLASS="h1-access"><A HREF="setwindowtoplot_see_also.htm">See Also</A> | <A HREF="ex_setwindowtoplot.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SetWindowToPlot(LowerLeft, UpperRight)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_layout_object.htm'>Layout</A  , <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A><BR>
+The objects this method applies to.
+<P class="element">LowerLeft</p><p class=element-desc>Variant (two-element array of doubles); input-only<BR>
+The <I>X</I> and <I>Y</I> values for the lower-left window.
+<P class="element">UpperRight</p><p class=element-desc>Variant (two-element array of doubles); input-only<BR>
+The <I>X</I> and <I>Y</I> values for the upper-right window.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The window coordinates are taken from the origin.
+<P CLASS="body">The units for these values are specified by the 
+<A HREF="idh_paperunits.htm">PaperUnits</A> property.
+<P CLASS="body">The <A HREF="idh_plottype.htm">PlotType</A>
+property must be set to <SPAN CLASS="constant-char">acWindow</SPAN>
+for these coordinates to be used for the plot.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

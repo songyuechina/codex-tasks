@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>IntersectWith method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">IntersectWith Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Gets the points where one object intersects another object in the drawing.</P>
+
+<P CLASS="h1-access"><A HREF="intersectwith_see_also.htm">See Also</A> | <A HREF="ex_intersectwith.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.IntersectWith(IntersectObject, ExtendOption)
+<P class="element">Object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing Objects</A> (Except Pviewport and PolygonMesh)<BR>
+The object this method applies to.
+<P class="element">IntersectObject</p><p class=element-desc>Object, input-only; <BR>
+The object can be one of <A HREF="all_drawing_objects.htm">All Drawing Objects</A>.<BR>
+
+<P class="element">ExtendOption</p><p class=element-desc>AcExtendOption enum; input-only<BR>
+This option specifies if none, one or both, of the objects are to be extended in order to attempt an intersection.</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acExtendNone</TD>
+  <TD><P class="constant-desc">Does not extend either object.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acExtendThisEntity</TD>
+  <TD><P class="constant-desc">Extends the base object.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acExtendOtherEntity</TD>
+  <TD><P class="constant-desc">Extends the object passed as an argument.</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acExtendBoth</TD>
+  <TD><P class="constant-desc">Extends both objects.</TD>
+</TR>
+</TABLE>
+
+<P class="element">RetVal</p><p class=element-desc>Variant (array of doubles)<BR>
+The array of points where one object intersects another object in the drawing. 
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">If the two objects do not intersect, no data is returned. 
+You can request the point of intersection that would occur if one or both 
+of the objects were extended to meet the other. For example, in the following illustration, Line1 is the base object from which this method was called and line3 is the 
+object passed as a parameter. If the ExtendOption passed is 
+<SPAN CLASS="constant-char">acExtendThisEntity</SPAN>, point A is returned as the point 
+where line1 would intersect line3 if line1 were extended. If the 
+ExtendOption is <SPAN CLASS="constant-char">acExtendOtherEntity</SPAN>, 
+no data is returned because even if line3 were extended, it would not 
+intersect line1.
+<P CLASS="body">If the intersection type is 
+<SPAN CLASS="constant-char">acExtendBothEntities</SPAN> and line2 is passed 
+as the parameter entity, point B is returned. If the ExtendOption is 
+<SPAN CLASS="constant-char">acExtendNone</SPAN> and line2 is the parameter 
+entity, no data is returned.</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top><TD><P CLASS="body"><IMG SRC='img/intrsct.gif' BORDER=0>&nbsp;</TD>
+<TD><P CLASS="italic"><I><BR>
+<BR>
+<BR>
+line3<BR>
+<BR>
+line2</I>&nbsp;</TD></TR>
+
+<TR VALIGN=top>
+   <TD><I>line1</I>&nbsp;</TD>
+   <TD>&nbsp;</TD>
+</TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

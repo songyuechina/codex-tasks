@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>BeginLISP event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">BeginLISP Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered immediately after AutoCAD receives a request to evaluate a LISP expression.</P>
+
+<P CLASS="h1-access"><A HREF="beginlisp_see_also.htm">See Also</A> | <A HREF="ex_beginlisp.htm">Example</A></P>
+<P CLASS="Heading-2">Signatures: Detail
+<PRE CLASS="Code">object.BeginLISP(FirstLine)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A> object , <A HREF='idh_document_object.htm'>Document</A> object<BR>
+An object expression that evaluates to a valid container object.
+In this case, the only valid containers are the application and the document.
+<P class="element">FirstLine</p>
+<p class=element-desc>String; input-only<BR>
+The name of the LISP expression about to be executed by the LISP
+interpreter. FirstLine will not have any case conversion of the 
+alpha characters.
+<P CLASS="element-desc-cont">If the LISP function being executed is 
+defined (with defun) as a C:xxx function and is being executed as an
+AutoCAD command (such as just using the xxx part of the function name
+and no parentheses), then FirstLine will be the complete function 
+name including the C: prefix and will be enclosed inside a pair of 
+parentheses—just the way it would appear when executed as a true 
+LISP function call. Otherwise, FirstLine will be the actual LISP 
+expression that has been typed in at the AutoCAD command line or
+is part of a menu macro.
+<P CLASS="element-desc-cont">For example:
+<UL CLASS="element-desc-cont">
+<LI CLASS="listbullet">If there is a user-defined LISP function loaded called C:TEST, and it is executed by typing "TEST" at the command line, then FirstLine will be (C:TEST)
+<LI CLASS="listbullet">If there is a user defined LISP function loaded called calc and it is executed as (cAlc), then FirstLine will be (cAlc).
+<LI CLASS="listbullet-end">If a menu macro contains (getvar "cmdecho"), then FirstLine will be (get "cmdecho").
+</UL>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">No events will be fired while a modal dialog is being displayed.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Split Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Split Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Split()
+    ' This example creates a new viewport and makes it active.
+    ' Then it splits the viewport into four windows.
+    ' It then takes one of the four windows, and splits that
+    ' window horizontally in half.
+    Dim newViewport As AcadViewport
+       
+    ' Create a new viewport and make it active
+    Set newViewport = ThisDrawing.Viewports.Add("TESTVIEWPORT")
+    ThisDrawing.ActiveViewport = newViewport
+    
+    ' Split the viewport in four windows
+    newViewport.Split acViewport4
+    
+    ' Make the newly split viewport active
+    ThisDrawing.ActiveViewport = newViewport
+    
+    ' Note that current drawing layout will show four windows.
+    ' However, only one of the windows will be active.
+    ' The following code sets the lower-left corner window
+    ' to be the active window and then splits that
+    ' window into two horizontal windows.
+    Dim entry
+    For Each entry In ThisDrawing.Viewports
+        If entry.name = "TESTVIEWPORT" Then
+            Dim lowerLeft
+            lowerLeft = entry.LowerLeftCorner
+            If lowerLeft(0) = 0 And lowerLeft(1) = 0 Then
+                Set newViewport = entry
+                Exit For
+            End If
+        End If
+    Next
+    newViewport.Split acViewport2Horizontal
+    ThisDrawing.ActiveViewport = newViewport
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

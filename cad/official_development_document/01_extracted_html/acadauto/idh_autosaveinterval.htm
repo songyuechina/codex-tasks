@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+
+<TITLE>AutoSaveInterval property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AutoSaveInterval Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies an automatic save interval in minutes.</P>
+
+<P CLASS="h1-access"><A HREF="autosaveinterval_see_also.htm">See Also</A> | <A HREF="ex_autosaveinterval.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.AutoSaveInterval
+<P class="element">object</p><p class=element-desc><A HREF='idh_preferencesopensave_object.htm'>PreferencesOpenSave</A><BR>
+The object this property applies to.
+<P class="element">AutoSaveInterval</p><p class=element-desc>Integer; read-write<BR>
+0 &gt;= AutoSaveInterval &lt;= 600<BR>
+An interval equal to 0 disables automatic save.<BR>
+An interval greater than 0 automatically saves the drawing at the 
+specified intervals.
+<P CLASS="Heading-2">System variables
+<P CLASS="body">This property is also controlled by the 
+<A HREF="ms-its:acad180.chm::/SAVETIM.htm">SAVETIME</A> system 
+variable. The <A HREF="ms-its:acad180.chm::/ISAVEBA.htm">ISAVEBAK</A> 
+system variable (set using the <A HREF="idh_createbackup.htm">CreateBackup</A> property) 
+improves the speed of incremental saves, especially for larger 
+drawings. The <A HREF="ms-its:acad180.chm::/ISAVEPERCEN.htm">ISAVEPERCENT</A> 
+system variable (set using the <A HREF="idh_incrementalsavepercent.htm">IncrementalSavePercent</A> property) 
+determines the amount of wasted space tolerated in a drawing.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial setting for this property is 120.
+<P CLASS="body">The timer starts as soon as you make a change to a 
+drawing. It is reset and restarted whenever the drawing is saved. 
+The current drawing is saved to <I>auto.sv$</I> unless you have 
+specified a different name using the <A HREF="idh_autosavepath.htm">AutoSavePath</A> property.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

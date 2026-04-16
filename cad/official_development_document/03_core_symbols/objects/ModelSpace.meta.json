@@ -1,0 +1,53 @@
+{
+  "symbol": "ModelSpace",
+  "kind": "object",
+  "source_terms": [
+    "modelspace"
+  ],
+  "owners": [
+    "Document"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "determine_space_and_layout",
+    "create_basic_geometry_smoke"
+  ],
+  "pywin32_signature": "C.doc.ModelSpace",
+  "risk_tags": [
+    "把布局空间对象误当作模型空间对象"
+  ],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py"
+  ],
+  "path_md": "03_core_symbols/objects/ModelSpace.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_elevationmodelspace.htm",
+    "01_extracted_html/acadauto/ex_modelspace.htm",
+    "01_extracted_html/acadauto/idh_elevationmodelspace.htm",
+    "01_extracted_html/acadauto/idh_modelspace_collection.htm",
+    "01_extracted_html/acadauto/idh_modelspace.htm"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_selection.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_modelspace",
+    "acadauto:ex_elevationmodelspace",
+    "acadauto:idh_modelspace_collection",
+    "acadauto:idh_modelspace",
+    "acadauto:idh_elevationmodelspace"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_modelspace.htm",
+    "01_extracted_html/acadauto/ex_elevationmodelspace.htm",
+    "01_extracted_html/acadauto/idh_modelspace_collection.htm",
+    "01_extracted_html/acadauto/idh_modelspace.htm",
+    "01_extracted_html/acadauto/idh_elevationmodelspace.htm"
+  ]
+}

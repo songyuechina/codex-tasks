@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>WindowMovedOrResized Example  [: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">WindowMovedOrResized Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Private Sub AcadDocument_WindowMovedOrResized(ByVal HWNDFrame As Long, ByVal bMoved As Boolean)
+    ' This example intercepts a drawing WindowMovedOrResized event.
+    '
+    ' This event is triggered when the drawing window is moved or resized
+    '
+    ' To trigger this example event: Move or resize the drawing window
+
+    Dim CurrentState As String
+
+    ' Use the "bmoved" variable to determine if we moved or sized the drawing window
+    CurrentState = IIf(bMoved, "Moving", "Sizing")
+
+    MsgBox "The drawing window appearance was changed by: " & CurrentState
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

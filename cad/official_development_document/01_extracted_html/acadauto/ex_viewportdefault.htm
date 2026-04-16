@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ViewportDefault Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ViewportDefault Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ViewportDefault()
+    ' This example creates a new layer called "New_Layer".  It then uses
+    ' the ViewportDefault property of each Layer to display whether or not that layer
+    ' is frozen in new viewports.  The user has the ability to toggle whether or not
+    ' each layer will be frozen in new viewports, and the final ViewportDefault status
+    ' for all layers is displayed.
+    
+    Dim layerObj As AcadLayer, tempLayer As AcadLayer
+    Dim msg As String
+
+    ' Add the layer to the layers collection
+    Set layerObj = ThisDrawing.Layers.Add("New_Layer")
+    
+    ' Make the new layer the active layer for the drawing
+    ThisDrawing.ActiveLayer = layerObj
+    
+    ' Cycle through the layers and allow user to make them frozen in new viewports or not
+    
+    For Each tempLayer In ThisDrawing.Layers
+        If tempLayer.ViewportDefault Then     ' Determine if this layer is fozen in new viewports
+            If MsgBox("The layer '" & tempLayer.name & "' will be frozen in new viewports.  Would you like to make this layer unfrozen in new viewports?", vbYesNo & vbQuestion) = vbYes Then
+                tempLayer.ViewportDefault = False     ' Change frozen state
+            End If
+        Else
+            If MsgBox("The layer '" & tempLayer.name & "' will not be frozen in new viewports.  Would you like to make this layer frozen in new viewports?", vbYesNo & vbQuestion) = vbYes Then
+                tempLayer.ViewportDefault = True      ' Change frozen state
+            End If
+        End If
+    Next
+    
+    ' Display the new viewport freeze status of the layers in this drawing
+    
+    For Each tempLayer In ThisDrawing.Layers
+        ' Determine if this layer is frozen in new viewports
+        If tempLayer.ViewportDefault Then
+            msg = msg & "The layer '" & tempLayer.name & "' will be frozen in new viewports." & vbCrLf
+        Else
+            msg = msg & "The layer '" & tempLayer.name & "' will not be frozen in new viewports." & vbCrLf
+        End If
+    Next
+
+    MsgBox msg
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

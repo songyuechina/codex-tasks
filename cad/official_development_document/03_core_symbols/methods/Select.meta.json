@@ -1,0 +1,53 @@
+{
+  "symbol": "Select",
+  "kind": "method",
+  "source_terms": [
+    "select"
+  ],
+  "owners": [
+    "SelectionSet"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "build_selection_set"
+  ],
+  "pywin32_signature": "ss.Select(mode, p1, p2, filter_types, filter_data)",
+  "risk_tags": [
+    "过滤类型不兼容",
+    "坐标窗口错位"
+  ],
+  "project_paths": [
+    "cad/system/CAD_selection.py",
+    "cad/system/CAD_core.py"
+  ],
+  "path_md": "03_core_symbols/methods/Select.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_selectionsets.htm",
+    "01_extracted_html/acadauto/ex_activeselectionset.htm",
+    "01_extracted_html/acadauto/ex_pickfirstselectionset.htm",
+    "01_extracted_html/acad_aag/GUID-2709CA2D-509E-4C55-AD48-3F8303AF6E8D.htm",
+    "01_extracted_html/acad_aag/GUID-F23DA291-5F68-4DAA-BA2B-A92A4A8D2942.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_selection.py",
+    "cad/system/CAD_core.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_selectionsets",
+    "acadauto:ex_activeselectionset",
+    "acadauto:ex_pickfirstselectionset",
+    "acadauto:ex_select",
+    "acadauto:idh_select"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_selectionsets.htm",
+    "01_extracted_html/acadauto/ex_activeselectionset.htm",
+    "01_extracted_html/acadauto/ex_pickfirstselectionset.htm",
+    "01_extracted_html/acadauto/ex_select.htm",
+    "01_extracted_html/acadauto/idh_select.htm"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "symbol": "collection_iteration",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "iterating through a collection object",
+    "collection objects"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "enumerate_layouts",
+    "build_selection_set",
+    "read_block_attributes"
+  ],
+  "pywin32_signature": "for item in collection / collection.Item(name_or_index)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/CAD_core.py",
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "project_refs": [
+    "cad/system/CAD_core.py",
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/collection_iteration.md",
+  "source_topic_ids": [
+    "acad_aag:GUID_589F246A_41BE_4D38_AA91_9FDA3ABABEA6",
+    "acad_aag:GUID_05AC034B_3E51_4EC3_85BE_B3153B8CC40B",
+    "acad_aag:GUID_A73AB626_5DAF_4F03_936A_655F772263E0"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-589F246A-41BE-4D38-AA91-9FDA3ABABEA6.htm",
+    "01_extracted_html/acad_aag/GUID-05AC034B-3E51-4EC3-85BE-B3153B8CC40B.htm",
+    "01_extracted_html/acad_aag/GUID-A73AB626-5DAF-4F03-936A-655F772263E0.htm"
+  ]
+}

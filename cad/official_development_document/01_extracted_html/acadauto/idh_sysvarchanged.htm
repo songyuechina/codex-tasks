@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SysVarChanged event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SysVarChanged Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered when the value of a system variable is changed.</P>
+
+<P CLASS="h1-access"><A HREF="sysvarchanged_see_also.htm">See Also</A> | <A HREF="ex_sysvarchanged.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.SysVarChanged(SysVarName, NewVal)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A><BR>
+An object expression that evaluates to a valid container object.
+In this case, the only valid container is the application.
+<P class="element">SysVarName</p><p class=element-desc>String; input to the handler<BR>
+The name of the system variable whose value has changed.
+<P class="element">NewVal</p><p class=element-desc>Variant; input to the handler<BR>
+The new value of the system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This event indicates an attempt was made to change a system variable. It does not indicate the actual value was changed. In some cases, it is possible to set a system variable without causing its value to change. For example, if FILLMODE was 0 and someone tried to set it to 0, then you would get an event for that system variable even though the call had no actual effect on the value of FILLMODE. 
+<P CLASS="body">No events will be fired while a modal dialog is being displayed.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

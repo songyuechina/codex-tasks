@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>AddVertex method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddVertex Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Adds a vertex to a lightweight polyline or a section.</P>
+
+<P CLASS="h1-access"><A HREF="addvertex_see_also.htm">See Also</A> | <A HREF="ex_addvertex.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.AddVertex Index, Point
+<P class="element">Object</p><p class=element-desc><A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_section_object.htm'>Section</A><BR>
+The objects this method applies to.
+<P class="element">Index</p><p class=element-desc>Integer; input-only<BR>
+The index in the array of vertices where the vertex is to be added. 
+Index must be a positive integer. The first element of the array is
+index 0.
+<P class="element">Point</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D OCS coordinates at which to create the new vertex.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">For lightweight polylines, the vertex specifies the endpoint for a new line segment. 
+To add an arc segment to a lightweight polyline, first create the line segment, and then add a "bulge" to 
+the individual segment that is to become an arc. To add a bulge value to a 
+segment, use the <A HREF="idh_setbulge.htm">SetBulge</A> method.
+<P CLASS="body">For sections, the vertex specifies a point on the section line. 
+<P CLASS="body">Coordinates can be converted to and from the OCS using the 
+<A HREF="idh_translatecoordinates.htm">TranslateCoordinates</A> method.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

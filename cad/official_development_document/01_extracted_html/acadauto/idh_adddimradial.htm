@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddDimRadial method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddDimRadial Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a radial dimension for the selected object at the given location. </P>
+
+<P CLASS="h1-access"><A HREF="adddimradial_see_also.htm">See Also</A> | <A HREF="ex_adddimradial.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddDimRadial(Center, ChordPoint, LeaderLength)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">Center</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the center point on the circle or arc.
+<P class="element">ChordPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the point on the circle or arc to attach the leader line.
+<P class="element">LeaderLength</p><p class=element-desc>Double; input-only<BR>
+The positive value representing the length from the ChordPoint to the annotation text or dogleg.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_dimradial_object.htm'>DimRadial</A> object<BR>
+The newly created radius dimension object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Different types of radial dimensions are created 
+depending on the size of the circle or arc, the 
+<A HREF="idh_textposition.htm">TextPosition</A> property 
+and the values in the <A HREF="ms-its:acad180.chm::/DIMUP.htm">DIMUPT</A>, 
+<A HREF="ms-its:acad180.chm::/DIMTOF.htm">DIMTOFL</A>, 
+<A HREF="ms-its:acad180.chm::/DIMFI.htm">DIMFIT</A>, 
+<A HREF="ms-its:acad180.chm::/DIMTI.htm">DIMTIH</A>, 
+<A HREF="ms-its:acad180.chm::/DIMTO.htm">DIMTOH</A>, 
+<A HREF="ms-its:acad180.chm::/DIMJUS.htm">DIMJUST</A>,  and 
+<A HREF="ms-its:acad180.chm::/DIMTA.htm">DIMTAD</A>  dimension system 
+variables. (System variables can be queried or set using the 
+<A HREF="idh_getvariable.htm">GetVariable</A> and 
+<A HREF="idh_setvariable.htm">SetVariable</A> methods.)
+<P CLASS="body">For horizontal dimension text, if the angle of the dimension line is more than 15 degrees from horizontal, and is outside the circle or arc, AutoCAD draws a hook line, also called a landing or dogleg. The hook line is one arrowhead long, and is placed next to the dimension text, as shown in the first two illustrations.</P>
+<TABLE CLASS="simple">
+<TR VALIGN=top><TD><P CLASS="body"><IMG SRC='img/dimrad.gif' BORDER=0>&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">This method uses length as the distance from the ChordPoint out to where the dimension will do a horizontal dogleg to the annotation text (or stop if no dogleg is necessary).
+<P CLASS="body">The LeaderLength setting will only be used during the creation of the dimension (and even then only if the dimension is set to use the default text position value). After the dimension has been closed for the first time, changing the LeaderLength value will not affect how the dimension displays, but the new setting will be stored and will show up in DXF, LISP, and ADSRX.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>DisplayPlotPreview method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">DisplayPlotPreview Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Displays the Plot Preview dialog box with the full view preview.</P>
+
+<P CLASS="h1-access"><A HREF="displayplotpreview_see_also.htm">See Also</A> | <A HREF="ex_displayplotpreview.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.DisplayPlotPreview Preview
+<P class="element">Object</p><p class=element-desc><A HREF='idh_plot_object.htm'>Plot</A><BR>
+The object this method applies to.
+<P class="element">Preview</p><p class=element-desc>AcPreviewMode enum; input-only
+<P CLASS="Constant-Last">acFullPreview
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The preview is invoked on the active layout.
+<P CLASS="body">Full preview displays the drawing on the screen as it will appear when plotted on paper. This requires a regeneration of the drawing. It is faster than the normal plot regeneration because AutoCAD performs no vector sorting or optimization.
+<P CLASS="body">The <A HREF="idh_numberofcopies.htm">NumberOfCopies</A> property and 
+<A HREF="idh_setlayoutstoplot.htm">SetLayoutsToPlot</A> method settings are ignored during the 
+call to this method.
+<P CLASS="body">This method is not available while in batchmode and will return E_FAIL if called in batchmode.
+<P CLASS="body">The associated drawing is made active when this method 
+is called. This drawing will remain active after completion of the 
+<A HREF="idh_displayplotpreview.htm">DisplayPlotPreview</A> method. 
+<P CLASS="body">This method puts the associated drawing into a special display mode that can only be exited by user interaction. Thus, upon successful return from the DisplayPlotPreview method, the associated drawing will be active, and will be left in plot preview display mode.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

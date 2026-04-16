@@ -1,0 +1,19 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/scripts/drawing_basic_service/compile_catalogue",
+  "role": "catalogue-compilation-workspace",
+  "summary": "基于 print 与 illustration_label 现有能力，为目标 DWG 自动补齐目录所需图签信息并生成目录 DWG。",
+  "entry_docs": [
+    "README.md",
+    "AGENTS.md"
+  ],
+  "entry_scripts": [
+    "compile_catalogue.py",
+    "compile_catalogue_service.py"
+  ],
+  "assets": [
+    "directory_template/目录模板1.dwg",
+    "user_directory/"
+  ]
+}

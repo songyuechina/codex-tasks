@@ -1,0 +1,177 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-E05225CF-89D7-463D-A3BA-A38A52600760"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2011 and AutoCAD 2011-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2011 API History Reference (ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2012 API History Reference (ActiveX)</div><a href="GUID-E778C675-47B3-4623-868E-E863519267A9.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">AutoCAD 2010 API History Reference (ActiveX)</div><a href="GUID-637BD93E-EB14-4B83-A7F6-28197857B8D0.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-E4E43485-99BE-4035-B389-E4B4EBBD19D2"></a></span><h1>AutoCAD 2011 API History Reference (ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-E05225CF-89D7-463D-A3BA-A38A52600760"></a></span><p class="blurb">Additions and changes made to the ActiveX API in AutoCAD 2011 and AutoCAD 2011-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_E0546965797D459184FA1D1435B54711"></a></span> <h2><a name="TOC_ENTRY__d24e6343"></a><span style="display:none"><a name="GUID-008B3479-9323-4399-9DB4-CA2CC59E4AB9"></a></span>Enums</h2> <div class="codeBlock"><pre>AcEntityName (Changed)
+        acNurbSurface = 51 (New)
+AcSaveAsType (Changed)
+        ac2010_dwg = 48 (New)
+        ac2010_dxf = 49 (New)
+        ac2010_Template = 50 (New)
+        acNative = 48 (Changed)
+AcWireframeType (New)
+        acIsolines = 0
+        acIsoparms = 1
+AcSplineKnotParameterizationType (New)
+        acChord = 0
+        acSqrtChord = 1
+        acUniformParam = 2
+        acCustomParameterization = 15
+AcSplineFrameType (New)
+        acShow = 0
+        acHide = 1
+AcSplineMethodType (New)
+        acFit = 0
+        acControlVertices = 1
+AcPointCloudColorType (New)
+        acByColor = 0
+        acPreset = 1</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_9D69E8D3B06A470F80DC00361D7CF839"></a></span> <h2><a name="TOC_ENTRY__d24e6351"></a><span style="display:none"><a name="GUID-46FCEC85-50D2-424B-B122-0E8688B9CB76"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadEntity2 (New)
+        EntityTransparency - Property
+IAcadRasterImage2 (New)
+        EntityTransparency - Property
+IAcad3DFace2 (New)
+        EntityTransparency - Property
+IAcad3DPolyline2 (New)
+        EntityTransparency - Property
+IAcadRegion2 (New)
+        EntityTransparency - Property
+IAcad3DSolid2 (New)
+        EntityTransparency - Property
+IAcadArc2 (New)
+        EntityTransparency - Property
+IAcadAttribute2 (New)
+        EntityTransparency - Property
+IAcadBlockReference2 (New)
+        EntityTransparency - Property
+IAcadCircle2 (New)
+        EntityTransparency - Property
+IAcadEllipse2 (New)
+        EntityTransparency - Property
+IAcadHatch2 (New)
+        BackgroundColor - Property
+        EntityTransparency - Property
+IAcadLeader2 (New)
+        EntityTransparency - Property
+IAcadMLeader2 (New)
+        EntityTransparency - Property
+IAcadLWPolyline2 (New)
+        EntityTransparency - Property
+IAcadLine2 (New)
+        EntityTransparency - Property
+IAcadMText2 (New)
+        EntityTransparency - Property
+IAcadPoint2 (New)
+        EntityTransparency - Property
+IAcadPolyline2 (New)
+        EntityTransparency - Property
+IAcadPolygonMesh2 (New)
+        EntityTransparency - Property
+IAcadRay2 (New)
+        EntityTransparency - Property
+IAcadShape2 (New)
+        EntityTransparency - Property
+IAcadSolid2 (New)
+        EntityTransparency - Property
+IAcadSpline2 (New)
+        KnotParameterization - Property
+        SplineFrame - Property
+        SplineMethod - Property
+        Degree2 - Property
+        Closed2 - Property
+        EntityTransparency - Property
+IAcadText2 (New)
+        EntityTransparency - Property
+IAcadTolerance2 (New)
+        EntityTransparency - Property
+IAcadTrace2 (New)
+        EntityTransparency - Property
+IAcadXline2 (New)
+        EntityTransparency - Property
+IAcadPViewport2 (New)
+        EntityTransparency - Property
+IAcadPolyfaceMesh2 (New)
+        EntityTransparency - Property
+IAcadMLine2 (New)
+        EntityTransparency - Property
+IAcadExternalReference2 (New)
+        EntityTransparency - Property
+IAcadTable2 (New)
+        EntityTransparency - Property
+IAcadOle2 (New)
+        EntityTransparency - Property
+IAcadHelix2 (New)
+        EntityTransparency - Property
+IAcadSurface2 (New)
+        WireframeType - Property
+        MaintainAssociativity - Property
+        ShowAssociativity - Property
+        EdgeExtensionDistances - Property
+        EntityTransparency - Property
+IAcadPlaneSurface2 (New)
+        WireframeType - Property
+        MaintainAssociativity - Property
+        ShowAssociativity - Property
+        EdgeExtensionDistances - Property
+        EntityTransparency - Property
+IAcadExtrudedSurface2 (New)
+        WireframeType - Property
+        MaintainAssociativity - Property
+        ShowAssociativity - Property
+        EdgeExtensionDistances - Property
+        EntityTransparency - Property
+IAcadRevolvedSurface2 (New)
+        WireframeType - Property
+        MaintainAssociativity - Property
+        ShowAssociativity - Property
+        EdgeExtensionDistances - Property
+        EntityTransparency - Property
+IAcadSweptSurface2 (New)
+        WireframeType - Property
+        MaintainAssociativity - Property
+        ShowAssociativity - Property
+        EdgeExtensionDistances - Property
+        EntityTransparency - Property
+IAcadLoftedSurface2 (New)
+        StartSmoothMagnitude - Property
+        EndSmoothMagnitude - Property
+        StartSmoothContinuity - Property
+        EndSmoothContinuity - Property
+        Periodic - Property
+        WireframeType - Property
+        MaintainAssociativity - Property
+        ShowAssociativity - Property
+        EdgeExtensionDistances - Property
+        EntityTransparency - Property
+IAcadWipeout2 (New)
+        EntityTransparency - Property
+IAcadSubDMesh2 (New)
+        EntityTransparency - Property
+IAcadNurbSurface (New)
+        CvHullDisplay - Property
+        WireframeType - Property
+        MaintainAssociativity - Property
+        ShowAssociativity - Property
+        EdgeExtensionDistances - Property
+        EntityTransparency - Property
+IAcadDimAligned2 (New)
+        EntityTransparency - Property
+IAcadDimAngular2 (New)
+        EntityTransparency - Property
+IAcadDimDiametric2 (New)
+        EntityTransparency - Property
+IAcadDimOrdinate2 (New)
+        EntityTransparency - Property
+IAcadDimRadial2 (New)
+        EntityTransparency - Property
+IAcadDimRotated2 (New)
+        EntityTransparency - Property
+IAcadDim3PointAngular2 (New)
+        EntityTransparency - Property
+IAcadDimArcLength2 (New)
+        EntityTransparency - Property
+IAcadDimRadialLarge2 (New)
+        EntityTransparency - Property
+IAcadPointCloud (New)
+        InsertionPoint - Property
+        scale - Property
+        Rotation - Property
+        UseEntityColor - Property
+        Locked - Property</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

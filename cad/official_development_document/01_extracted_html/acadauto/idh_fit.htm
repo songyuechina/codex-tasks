@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+
+<TITLE>Fit property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Fit Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the placement of text and arrowheads inside or outside extension lines, based on the available space between the extension lines.</P>
+
+<P CLASS="h1-access"><A HREF="fit_see_also.htm">See Also</A> | <A HREF="ex_fit.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Fit
+<P class="element">object</p><p class=element-desc><A HREF='idh_dim3pointangular_object.htm'>Dim3PointAngular</A>, <A HREF='idh_dimaligned_object.htm'>DimAligned</A>, <A HREF='idh_dimangular_object.htm'>DimAngular</A>, <A HREF='idh_dimarclength_object.htm'>DimArcLength</A>, <A HREF='idh_dimdiametric_object.htm'>DimDiametric</A>, <A HREF='idh_dimradial_object.htm'>DimRadial</A>, <A HREF='idh_dimradiallarge_object.htm'>DimRadialLarge</A>, <A HREF='idh_dimrotated_object.htm'>DimRotated</A><BR>
+The objects this property applies to.
+<P class="element">Fit</p><p class=element-desc>acDimFit enum; read-write
+<P CLASS="Constant">acTextAndArrows
+<P CLASS="Constant">acArrowsOnly
+<P CLASS="Constant">acTextOnly
+<P CLASS="Constant">acBestFit
+<P CLASS="Heading-2">System variables
+<P CLASS="body">This property overrides the value of the DIMATFIT system variable for the given dimension.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The initial value for this property is 
+<SPAN CLASS="constant-char">acBestFit</SPAN>.
+<P CLASS="body">The Fit property sets priorities for moving text and arrowheads when space is not available to fit both within the extension lines. 
+<P CLASS="DefConstHead">acTextAndArrows
+<P CLASS="DefineText">This option places both the text and arrowheads inside the extension lines.
+<P CLASS="DefConstHead">acArrowsOnly
+<P CLASS="DefineText">This option places only the arrowheads inside 
+the extension lines. The text is placed outside the arrowheads.
+<P CLASS="DefConstHead">acTextOnly
+<P CLASS="DefineText">This option places only the text inside the 
+extension lines. The arrowheads are placed outside the extension lines.
+<P CLASS="DefConstHead">acBestFit
+<P CLASS="DefineText">This option places the text and arrowheads in 
+the best fit location given the space available.
+<P CLASS="DefineText">When enough space is available for text and 
+arrowheads, this option places both between the extension lines.
+<P CLASS="DefineText"><IMG SRC='img/dim_fit1.gif' BORDER=0>
+<P CLASS="DefineText">When enough space is available for text only, 
+this option places the text between the extension lines and places 
+the arrowheads outside the extension lines.
+<P CLASS="DefineText"><IMG SRC='img/dim_fit3.gif' BORDER=0>
+<P CLASS="DefineText">When enough space is available for arrowheads 
+only, this option places them between the extension lines and places 
+the text outside the extension lines.
+<P CLASS="DefineText"><IMG SRC='img/dim_fit2.gif' BORDER=0>
+<P CLASS="DefineText">When space is available for neither text nor 
+arrowheads, this option places them both outside the extension lines.
+<P CLASS="DefineText"><IMG SRC='img/dim_fit4.gif' BORDER=0>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

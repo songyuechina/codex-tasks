@@ -1,0 +1,50 @@
+{
+  "symbol": "AddLine",
+  "kind": "method",
+  "source_terms": [
+    "addline"
+  ],
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_basic_geometry_smoke"
+  ],
+  "pywin32_signature": "space.AddLine(start_point, end_point)",
+  "risk_tags": [
+    "点参数错误",
+    "空间选错"
+  ],
+  "project_paths": [
+    "cad/system/licad.py"
+  ],
+  "path_md": "03_core_symbols/methods/AddLine.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_addline.htm",
+    "01_extracted_html/acadauto/idh_addline.htm",
+    "01_extracted_html/acadauto/addline_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/system/licad.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/pywin32_type_rules.md",
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_addline",
+    "acadauto:idh_addline",
+    "acadauto:addline_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_addline.htm",
+    "01_extracted_html/acadauto/idh_addline.htm",
+    "01_extracted_html/acadauto/addline_see_also.htm"
+  ]
+}

@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetFont Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetFont Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_SetFont()
+    ' This example finds the font information for the active text style.
+    ' It then changes the font to bold.
+    
+    Dim typeFace As String
+    Dim Bold As Boolean
+    Dim Italic As Boolean
+    Dim charSet As Long
+    Dim PitchandFamily As Long
+    
+    ThisDrawing.ActiveTextStyle.GetFont typeFace, Bold, Italic, charSet, PitchandFamily
+    
+    MsgBox "The current text style has the following font properties:" & vbCrLf _
+            & "Typeface: " & typeFace & vbCrLf _
+            & "Bold: " & Bold & vbCrLf _
+            & "Italic: " & Italic & vbCrLf _
+            & "Character set: " & charSet & vbCrLf _
+            & "Pitch and Family: " & PitchandFamily
+            
+    ' Change the bold property
+    Bold = Not Bold
+    
+    ThisDrawing.ActiveTextStyle.SetFont typeFace, Bold, Italic, charSet, PitchandFamily
+    MsgBox "The current text style has the following font properties:" & vbCrLf _
+            & "Typeface: " & typeFace & vbCrLf _
+            & "Bold: " & Bold & vbCrLf _
+            & "Italic: " & Italic & vbCrLf _
+            & "Character set: " & charSet & vbCrLf _
+            & "Pitch and Family: " & PitchandFamily
+            
+    ' Reset the font
+    Bold = Not Bold
+    ThisDrawing.ActiveTextStyle.SetFont typeFace, Bold, Italic, charSet, PitchandFamily
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

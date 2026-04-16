@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetAlignment Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetAlignment Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">Sub Example_SetAlignment()
+    ' This example creates a TableStyle object and sets values for 
+    ' the style name and other attributes.
+    
+      Dim dictionaries As AcadDictionaries
+      Set dictionaries = ThisDrawing.Database.dictionaries
+  
+      Dim dictObj As AcadDictionary
+      Set dictObj = dictionaries.Item("acad_tablestyle")
+  
+      ' Create the custom TableStyle object in the dictionary
+      Dim keyName As String
+      Dim className As String
+      Dim customObj As AcadTableStyle
+      keyName = "NewStyle"
+      className = "AcDbTableStyle"
+      Set customObj = dictObj.AddObject(keyName, className)
+      
+      customObj.Name = "NewStyle"
+      customObj.Description = "New Style for My Tables"
+  
+      customObj.FlowDirection = acTableBottomToTop
+      customObj.HorzCellMargin = 0.22
+      customObj.BitFlags = 1
+      customObj.SetTextHeight AcRowType.acDataRow+AcRowType.acTitleRow, 1.3
+  
+      Dim col As New AcadAcCmColor
+      col.SetRGB 12, 23, 45
+      customObj.SetBackgroundColor AcRowType.acDataRow + AcRowType.acTitleRow, col
+      customObj.SetBackgroundColorNone AcRowType.acDataRow + AcRowType.acTitleRow, False
+      customObj.SetGridVisibility AcGridLineType.acHorzInside + AcGridLineType.acHorzTop _
+            ,AcRowType.acDataRow + AcRowType.acTitleRow, True
+  
+      customObj.SetAlignment AcRowType.acDataRow + AcRowType.acTitleRow, acBottomRight
+      col.SetRGB 244, 0, 0
+      customObj.SetGridColor 3, 1, col
+      
+      MsgBox "Table Style Name = " & customObj.Name & vbCrLf & _
+        "Style Description = " & customObj.Description & vbCrLf & _
+        "Flow Direction = " & customObj.FlowDirection & vbCrLf & _
+        "Horzontal Cell Margin = " & customObj.HorzCellMargin & vbCrLf & _
+        "Bit Flags = " & customObj.BitFlags & vbCrLf & _
+        "Title Row Text Height = " & customObj.GetTextHeight(acTitleRow) & vbCrLf & _
+        "Grid Visibility for HorizontalBottom TitleRow  = " & customObj.GetGridVisibility(acHorzBottom, acTitleRow) & vbCrLf & _
+        "Title Row Alignment = " & customObj.GetAlignment(acTitleRow) & vbCrLf & _
+	"Header Suppression = " & customObj.HeaderSuppressed
+	
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

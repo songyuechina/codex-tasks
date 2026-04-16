@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Nclose Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">NClose Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_NClose()
+    ' This example creates a 4 X 4 polygonmesh in model space.
+    ' It then closes the polymesh in the 'N' direction.
+    Dim meshObj As AcadPolygonMesh
+    Dim mSize, nSize, count As Integer
+    Dim points(0 To 47) As Double
+    
+    ' Create the matrix of points
+    points(0) = 2: points(1) = 2: points(2) = 1
+    points(3) = 2.5: points(4) = 2: points(5) = 0
+    points(6) = 5: points(7) = 2: points(8) = 0
+    points(9) = 5.5: points(10) = 2: points(11) = 1
+    points(12) = 2: points(13) = 4: points(14) = 0.5
+    points(15) = 2.5: points(16) = 4: points(17) = 0
+    points(18) = 5: points(19) = 4: points(20) = 0
+    points(21) = 5.5: points(22) = 4: points(23) = 0.5
+    points(24) = 2: points(25) = 6: points(26) = 0.5
+    points(27) = 2.5: points(28) = 6: points(29) = 0
+    points(30) = 5: points(31) = 6: points(32) = 0
+    points(33) = 5.5: points(34) = 6: points(35) = 0.5
+    points(36) = 2: points(37) = 8: points(38) = 1
+    points(39) = 2.5: points(40) = 8: points(41) = 0
+    points(42) = 5: points(43) = 8: points(44) = 0
+    points(45) = 5.5: points(46) = 8: points(47) = 1
+    
+    mSize = 4: nSize = 4
+    
+    ' Create a 3Dmesh in model space
+    Set meshObj = ThisDrawing.ModelSpace.Add3DMesh(mSize, nSize, points)
+    
+    ' Change the viewing direction of the viewport to better see the cylinder
+    Dim NewDirection(0 To 2) As Double
+    NewDirection(0) = -1: NewDirection(1) = -1: NewDirection(2) = 1
+    ThisDrawing.ActiveViewport.direction = NewDirection
+    ThisDrawing.ActiveViewport = ThisDrawing.ActiveViewport
+    ZoomAll
+    
+    ' Close the polymesh in the 'M' direction
+    MsgBox "The polymesh is " & IIf(meshObj.NClose, "closed", "open") & " in the 'N' direction.", , "NClose Example"
+    meshObj.NClose = True
+    ThisDrawing.Regen acActiveViewport
+    MsgBox "The polymesh is " & IIf(meshObj.NClose, "closed", "open") & " in the 'N' direction.", , "NClose Example"
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>InsertLoopAt method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">InsertLoopAt Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Inserts a loop at a given index of a hatch.</P>
+
+<P CLASS="h1-access"><A HREF="insertloopat_see_also.htm">See Also</A> | <A HREF="ex_insertloopat.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.InsertLoopAt Index, LoopType, Loop
+<P class="element">Object</p><p class=element-desc><A HREF='idh_hatch_object.htm'>Hatch</A><BR>
+The object this method applies to.
+<P class="element">Index</p><p class=element-desc>Integer; input-only<BR>
+The index location in the array of vertices that make up the hatch boundary. The index must be a positive integer beginning with 0.
+<P class="element">LoopType</p><p class=element-desc>AcLoopType enum; input-only
+<P CLASS="Constant">acHatchLoopTypeDefault
+<P CLASS="Constant">acHatchLoopTypeExternal
+<P CLASS="Constant">acHatchLoopTypePolyline
+<P CLASS="Constant">acHatchLoopTypeDerived
+<P CLASS="Constant-Last">acHatchLoopTypeTextbox
+<P class="element">Loop</p><p class=element-desc>Variant (object or array of objects); input-only<BR>
+An object or array of objects forming a closed boundary. If an array of objects is used, their endpoints must coincide for the loop to be created properly. The loop, or the array defining the loop, can consist of the following types of objects:<BR>
+<A href='idh_arc_object.htm'>Arc</A>, <A HREF='idh_line_object.htm'>Line</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_circle_object.htm'>Circle</A>, <A HREF='idh_ellipse_object.htm'>Ellipse</A>, <A HREF='idh_spline_object.htm'>Spline</A>, <A HREF='idh_region_object.htm'>Region</A>.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

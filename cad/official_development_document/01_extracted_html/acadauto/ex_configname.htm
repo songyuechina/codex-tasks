@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>ConfigName Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ConfigName Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_ConfigName()
+    ' This example will add a new plot configuration to the current drawing.
+    ' It will then list the plotter configuration file name for each Layout
+    ' in the current drawing, change the configuration for Layout1 to "DWF Classic.pc3"
+    ' and re-display the configuration information for the drawing.
+    '
+    ' * Note: File names may differ on your system, so be prepared to change
+    ' the configuration file name used in the example to a file that exists
+    ' on your system.
+
+    Dim Layouts As AcadLayouts, Layout As ACADLayout
+    Dim msg As String
+    Dim ACADPref As AcadPreferencesFiles
+    Dim originalValue As Variant
+    
+    ' Get the files preferences object
+    Set ACADPref = ThisDrawing.Application.preferences.Files
+
+    ' Read and display the original value
+    originalValue = ACADPref.PrinterConfigPath
+    
+    ' Get layouts collection from document object
+    Set Layouts = ThisDrawing.Layouts
+    
+    ' Display current plotter configuration information
+    GoSub DISPLAY_CONFIG
+    
+    ' Change plotter configuration file for "Layout1"
+    Layouts("Layout1").ConfigName = "DWF Classic.pc3"
+    
+    ' Display new plotter configuration information
+    GoSub DISPLAY_CONFIG
+    
+    Exit Sub
+        
+<PRE CLASS="Code">DISPLAY_CONFIG:
+    msg = vbCrLf & vbCrLf   ' Start with a space
+    
+    ' Format and display current directory for configuration files
+    msg = msg & vbTab & "Directories that will be scanned for the plotter configuration files are: " _
+                & vbCrLf & vbTab & vbTab & originalValue & vbCrLf & vbCrLf
+    
+    ' Get the plotter configuration name of every layout in this drawing
+    For Each Layout In Layouts
+        ' Format for display
+        msg = msg & vbTab & Layout.name & " is using configuration: " & Layout.ConfigName & vbCrLf
+    Next
+    
+    ' Display paper units information
+    MsgBox "The plotter configuration information used in the current drawing is listed below." & msg
+    
+    Return
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

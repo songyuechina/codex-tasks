@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>XRefDatabase Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">XRefDatabase Example</P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_XRefDatabase()
+    ' This example adds an external reference to the current drawing.
+    ' It then cycles through each Block object in the drawing
+    ' and determines the style of each Block by accessing the
+    ' IsLayout and IsXRef properties of the Block. If the Block is an
+    ' XRef Block, you obtain a reference to the external Database object
+    ' for that Block and display the number of Blocks the Database contains.
+    
+    Dim InsertPoint(0 To 2) As Double
+    Dim insertedBlock As AcadExternalReference
+    Dim tempBlock As AcadBlock
+    Dim msg As String, PathName As String
+    
+    ' Define external reference to be inserted
+    InsertPoint(0) = 1: InsertPoint(1) = 1: InsertPoint(2) = 0
+    PathName = "c:\program files\autocad\sample\city map.dwg"
+    
+    ' Add the external block to model space
+    Set insertedBlock = ThisDrawing.ModelSpace.AttachExternalReference(PathName, "XREF_IMAGE", InsertPoint, 1, 1, 1, 0, False)
+        
+    ThisDrawing.Application.ZoomAll
+    
+    msg = vbCrLf & vbCrLf
+    
+    For Each tempBlock In ThisDrawing.Blocks
+        If tempBlock.IsXRef Then
+            ' Block is an external reference, so add it to list
+            msg = msg & tempBlock.name & " contains " & _
+            tempBlock.XRefDatabase.Blocks.count & " blocks"
+            
+            msg = msg & vbCrLf      ' Insert line
+        End If
+    Next
+        
+    ' Display Block information for the XRefDatabase
+    MsgBox "Externally referenced blocks attached to this drawing have the following block counts: " & msg
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

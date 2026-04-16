@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>Action property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Action Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the security-related operations to be performed on a drawing.</P>
+
+<P CLASS="h1-access"><A HREF="action_see_also.htm">See Also</A> | <A HREF="ex_action.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Action
+<P class="element">object</p><p class=element-desc><A HREF='idh_securityparams.htm'>SecurityParams</A> <BR>
+The object this property applies to.
+<P class="element">Action</p><p class=element-desc>Long; AcadSecurityParamsType enum; read-write. Specify one or more of the following constants for drawing encryption, drawing properties encryption, a digital signature, or a time stamp.</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">ACADSECURITYPARAMS_ENCRYPT_DATA</TD>
+  <TD><P class="constant-desc">0x00000001</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ACADSECURITYPARAMS_ENCRYPT_PROPS</TD>
+  <TD><P class="constant-desc">0x00000002</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ACADSECURITYPARAMS_SIGN_DATA</TD>
+  <TD><P class="constant-desc">0x00000010</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">ACADSECURITYPARAMS_ADD_TIMESTAMP</TD>
+  <TD><P class="constant-desc">0x00000020</TD>
+</TR>
+</TABLE>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Each constant represents a security-related operation. When you use the Action property, at some point in the set of operations you must set the Action property to either the ACADSECURITYPARAMS_ENCRYPT_DATA constant, the ACADSECURITYPARAMS_SIGN_DATA constant, or to both.
+<P CLASS="body-code-begin">To specify multiple security-related operations, add the constants representing the operations. For example, to sign a drawing and use a time stamp, specify the following:
+</P>
+<PRE CLASS="Code">ACADSECURITYPARAMS_SIGN_DATA + ACADSECURITYPARAMS_ADD_TIMESTAMP</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

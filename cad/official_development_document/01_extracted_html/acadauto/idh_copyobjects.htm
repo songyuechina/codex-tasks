@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+
+<TITLE>CopyObjects Method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">CopyObjects Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Duplicates multiple objects (deep cloning).</P>
+<P CLASS="h1-access"><A HREF="copyobjects_see_also.htm">See Also</A> | <A HREF="ex_copyobjects.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.CopyObjects(Objects[, Owner][, IDPairs])
+<P class="element">Object</p><p class=element-desc><A HREF='idh_database_object.htm'>Database</A>, <A HREF='idh_document_object.htm'>Document</A><BR>
+The objects this method applies to.
+<P class="element">Objects</p><p class=element-desc>Variant (array of objects); input-only<BR>
+The array of primary objects to be copied. All the objects must have the same owner, and the owner must belong to the database or document that is calling this method.
+<P class="element">Owner</p><p class=element-desc>Variant (a single object); input-only; optional<BR>
+The new owner for the copied objects. If no owner is specified, the objects will be created with the same owner as the objects in the Objects array.
+<P class="element">IDPairs</p><p class=element-desc>Variant (array of IDPair objects); input-output; optional<BR>
+Information on what happened during the copy and translation process.<BR>
+Input: an empty variant.<BR>
+Output: an array of IDPair objects.
+<P class="element">RetVal</p><p class=element-desc>Variant (array of objects)<BR>
+An array of newly created duplicate objects. Only primary objects are returned in this array. For more information on what occured during the CopyObjects operation, or a list of objects owned by primary objects that were also copied, consult the IDPairs array.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">To copy objects to another open drawing, set the Owner parameter to the other drawing's model space.
+<P CLASS="body">During the CopyObjects operation, objects that are owned or 
+referenced by the primary objects in the Objects parameter will also be copied.
+<P CLASS="body"><span class=NoteChar>NOTE</span> You cannot execute this method while simultaneously iterating through a collection. An iteration will open the work space for a read-only operation, while this method attempts to perform a read-write operation. Complete any iteration before you call this method.
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

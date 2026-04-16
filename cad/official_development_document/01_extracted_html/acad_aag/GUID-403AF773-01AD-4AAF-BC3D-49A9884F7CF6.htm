@@ -1,0 +1,57 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-403AF773-01AD-4AAF-BC3D-49A9884F7CF6"><meta name="topic-subtype" content="activex"><meta name="description" content="This example subroutine finds all the block references in the current drawing."><meta name="indexterm" content="block references: listing attributes"><meta name="indexterm" content="block references: extracting"><meta name="indexterm" content="BlockReference object: example code"><meta name="indexterm" content="block reference: example code"><meta name="indexterm" content="Excel: extracting attributes: example code"><meta name="indexterm" content="GetAttributes method: example code"><meta name="indexterm" content="HasAttributes method: example code"><meta name="indexterm" content="Quit method: example code"><meta name="indexterm" content="spreadsheets: extracting attributes to: example code"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="topichead_11"><title>Example: List AutoCAD attributes on an Excel spreadsheet (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Accessing Windows APIs from VBA (VBA/ActiveX)</div><a href="GUID-CF8A5562-CE8F-422C-84A2-ACF9FB5DDFD4.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">Interact with Other Applications and Window APIs</div><a href="topichead_11.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">Develop Applications with VBA</div><a href="topichead_12.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_11.htm">Interact with Other Applications and Window APIs</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-B70C24AE-718B-47F3-B103-33E4B75D2A3B"></a></span><h1>Example: List AutoCAD attributes on an Excel spreadsheet (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-403AF773-01AD-4AAF-BC3D-49A9884F7CF6"></a></span><p class="blurb"> This example subroutine finds all the block references in the current drawing. </p><!--Body--><p><span style="display:none"><a name="GUID-3C4E010A-AC61-4A43-B05B-CD5196B1BAC1"></a></span> It then finds the attributes attached to those block references and lists them in an Excel spreadsheet. To run this example, do the following: </p><!--OList--><span style="display:none"><a name="OL_DF9393846F904B7BB2FFB6A0EBA60828"></a></span><ol start="1"><li>Open a drawing containing block references with attributes. (The sample drawing <em class="mild">sample/activeX/attrib.dwg</em> contains such block references.) </li><li>At the AutoCAD Command prompt, enter VBAIDE and press Enter. <p><span style="display:none"><a name="GUID-95AD306A-3F87-4CCE-BDC9-5B14CEC12477"></a></span>The VBA IDE is displayed. </p> </li><li>In the VBA IDE, on the menu bar, click the Tools menu <span name="glyph_span" class="glyphArrow"><img src="images/ac.menuaro.gif"></span> References. </li><li>In the References dialog box, select Microsoft Excel <em class="mild">&lt;version_number&gt;</em> Object Model. Click OK. </li><li>Copy the following subroutine into a VBA Code window and run it. <div class="codeBlock"><pre>Sub ExtractAtts()
+  Dim Excel As Excel.Application
+  Dim ExcelSheet As Object
+  Dim ExcelWorkbook As Object
+
+  Dim RowNum As Integer
+  Dim Header As Boolean
+  Dim elem As AcadEntity
+  Dim Array1 As Variant
+  Dim Count As Integer
+
+  ' Launch Excel.
+  Set Excel = New Excel.Application
+
+  ' Create a new workbook and find the active sheet.
+  Set ExcelWorkbook = Excel.Workbooks.Add
+  Set ExcelSheet = Excel.ActiveSheet
+  ExcelWorkbook.SaveAs "Attribute.xls"
+
+  RowNum = 1
+  Header = False
+
+  ' Iterate through model space finding
+  ' all block references.
+  For Each elem In ThisDrawing.ModelSpace
+    With elem
+      ' When a block reference has been found,
+      ' check it for attributes
+      If StrComp(.EntityName, "AcDbBlockReference", 1) = 0 Then
+        If .HasAttributes Then
+          ' Get the attributes
+          Array1 = .GetAttributes
+
+          ' Copy the Tagstrings for the
+          ' Attributes into Excel
+          For Count = LBound(Array1) To UBound(Array1)
+            If Header = False Then
+              If StrComp(Array1(Count).EntityName, "AcDbAttribute", 1) = 0 Then
+                ExcelSheet.Cells(RowNum, Count + 1).value = Array1(Count).TagString
+              End If
+            End If
+          Next Count
+
+          RowNum = RowNum + 1
+          For Count = LBound(Array1) To UBound(Array1)
+            ExcelSheet.Cells(RowNum, Count + 1).value = Array1(Count).textString
+          Next Count
+
+          Header = True
+        End If
+      End If
+    End With
+  Next elem
+  Excel.Application.Quit
+End Sub</pre></div> </li></ol><div class="related-topics"><span class="noindex"><div class="related-task"><h4 class="related">Related Tasks</h4><ul><li class="topiclist-litem"><a href="GUID-8A273A3B-434E-47EC-B2B3-1DAC0478FB1D.htm" title="Third-party libraries that are registered on a workstation can be accessed from a VBA project. ">To make a reference to another application's object library (VBA/ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FD48FD40-1077-4054-8A15-CA55DADF821F.htm" title="Once you have referenced an application's object library you must create an instance of the application. ">About Creating an Instance of the Other Application (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-4CA01114-7DA0-4A6C-8884-E7DF964DF43C.htm" title=" To write code that accesses another application, you must instruct VBA to make the objects in the other application available to you. ">About Referencing the ActiveX Object Library of Other Applications (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-2DB596AC-B4B6-4FA4-89B2-9178D8BF35B7.htm" title="Now that you have referenced the object library and created a new instance of the application, you can create and manipulate objects in that application. ">About Programming with Objects from Other Applications (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

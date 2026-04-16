@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+
+<TITLE>SnapRotationAngle property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SnapRotationAngle Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the snap rotation angle of the viewport relative to the current UCS.</P>
+
+<P CLASS="h1-access"><A HREF="snaprotangle_see_also.htm">See Also</A> | <A HREF="ex_snaprotangle.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SnapRotationAngle
+<P class="element">object</p><p class=element-desc><A HREF='idh_viewport_object.htm'>Viewport</A  , <A HREF='idh_pviewport_object.htm'>PViewport</A><BR>
+The objects this property applies to.
+<P class="element">SnapRotationAngle</p><p class=element-desc>Double; read-write<BR>
+The angle in radians. The valid range is 0 to 6.28.
+<P CLASS="Heading-2">System variables
+<P CLASS="body">The value of this property is stored in the <A HREF='ms-its:acad180.chm::/snapang.htm'>SNAPANG</A> system variable.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">You cannot change the snap base point for the active paper space viewport.
+<P CLASS="body">Changes to this property are not reflected in the 
+drawing until a call to either the <A HREF="idh_update.htm">Update</A> or 
+<A HREF="idh_regen.htm">Regen</A> method is performed.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

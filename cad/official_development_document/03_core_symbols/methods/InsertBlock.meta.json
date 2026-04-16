@@ -1,0 +1,57 @@
+{
+  "symbol": "InsertBlock",
+  "kind": "method",
+  "source_terms": [
+    "insertblock"
+  ],
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "insert_block_or_dwg",
+    "insert_company_title_block"
+  ],
+  "pywin32_signature": "space.InsertBlock(pt, path, sx, sy, sz, rotation)",
+  "risk_tags": [
+    "INSBASE 偏移",
+    "插到错误空间",
+    "需要 Explode 后再处理"
+  ],
+  "project_paths": [
+    "cad/system/CAD_core.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/methods/InsertBlock.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_addminsertblock.htm",
+    "01_extracted_html/acadauto/ex_insertblock.htm",
+    "01_extracted_html/acadauto/idh_addminsertblock.htm",
+    "01_extracted_html/acadauto/idh_insertblock.htm",
+    "01_extracted_html/acadauto/idh_minsertblock_object.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_core.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_insertblock",
+    "acadauto:ex_addminsertblock",
+    "acadauto:idh_insertblock",
+    "acadauto:idh_addminsertblock",
+    "acadauto:idh_minsertblock_object"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_insertblock.htm",
+    "01_extracted_html/acadauto/ex_addminsertblock.htm",
+    "01_extracted_html/acadauto/idh_insertblock.htm",
+    "01_extracted_html/acadauto/idh_addminsertblock.htm",
+    "01_extracted_html/acadauto/idh_minsertblock_object.htm"
+  ]
+}

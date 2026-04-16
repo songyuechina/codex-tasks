@@ -77,6 +77,30 @@ def _parse_log_level(level: Any) -> int:
     return getattr(logging, s, logging.INFO)
 
 
+class _SafeConsoleStream:
+    """Wrap stdout so logging does not crash on non-UTF8 consoles."""
+
+    def __init__(self, stream: Any):
+        self._stream = stream
+
+    def write(self, msg: str) -> int:
+        try:
+            return self._stream.write(msg)
+        except UnicodeEncodeError:
+            encoding = getattr(self._stream, "encoding", None) or "utf-8"
+            safe_msg = msg.encode(encoding, errors="backslashreplace").decode(
+                encoding,
+                errors="ignore",
+            )
+            return self._stream.write(safe_msg)
+
+    def flush(self) -> None:
+        self._stream.flush()
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._stream, name)
+
+
 # ==========================================
 # 3. Logger 构造
 # ==========================================
@@ -122,7 +146,7 @@ def setup_logger(log_file: str = "system_run.log") -> logging.Logger:
         pass
 
     # Console handler
-    ch = logging.StreamHandler(sys.stdout)
+    ch = logging.StreamHandler(_SafeConsoleStream(sys.stdout))
     ch.setFormatter(formatter)
     ch.setLevel(initial_level)
     logger.addHandler(ch)

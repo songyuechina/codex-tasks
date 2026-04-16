@@ -1,0 +1,26 @@
+{
+  "meta_version": "1.0",
+  "meta_scope": "folder",
+  "folder": "D:/codex-tasks/cad/scripts/drawing_basic_service",
+  "role": "domain-workspace-drawing-basic-service",
+  "summary": "drawing_basic_service 领域工作区根目录，当前包含 illustration_label 与 print 两个主要子域。根目录已完成 GitNexus 索引，可用于后续智能体进行结构导航、依赖查询和影响范围分析。",
+  "entry_docs": [
+    "AGENTS.md",
+    "illustration_label/AGENTS.md",
+    "print/AGENTS.md"
+  ],
+  "subdomains": [
+    "illustration_label",
+    "print"
+  ],
+  "analysis_assets": [
+    ".gitnexus/meta.json",
+    ".gitnexus/lbug"
+  ],
+  "usage_rules": [
+    "进入根目录后优先阅读根 AGENTS.md，再进入各子目录 AGENTS.md/README.md",
+    "GitNexus 仅用于结构导航和依赖分析，不替代业务规则与真实 DWG 验证",
+    "若代码结构发生明显变化，可运行 gitnexus analyze D:/codex-tasks/cad/scripts/drawing_basic_service --skip-git --skip-agents-md 刷新索引",
+    "真实 CAD 任务执行仍应回到子目录规则，并接入 runtime guard"
+  ]
+}

@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>CheckInterference Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">CheckInterference Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_CheckInterference()
+    ' This example creates a box and a cylinder in model space.
+    ' It then finds the interference between the two solids and
+    ' creates a new solid from that interference.
+    
+    ' For ease of viewing, different colors are used for the box, the
+    ' cylinder, and the interference solid.
+    
+    Dim color As AcadAcCmColor
+    Set color = AcadApplication.GetInterfaceObject("AutoCAD.AcCmColor.18")
+
+    Dim boxObj As Acad3DSolid
+    Dim boxLength As Double, boxWidth As Double, boxHeight As Double
+    Dim boxCenter(0 To 2) As Double
+    boxCenter(0) = 5#: boxCenter(1) = 5#: boxCenter(2) = 0
+    boxLength = 10#: boxWidth = 7: boxHeight = 10#
+    
+    ' Create the box (3DSolid) object in model space
+    Set boxObj = ThisDrawing.ModelSpace.AddBox(boxCenter, boxLength, boxWidth, boxHeight)
+    Call color.SetRGB(80, 100, 244)
+	boxObj.TrueColor = color
+    
+    ' Define the cylinder
+    Dim cylinderObj As Acad3DSolid
+    Dim cylinderCenter(0 To 2) As Double
+    Dim cylinderRadius As Double
+    Dim cylinderHeight As Double
+    cylinderCenter(0) = 0#: cylinderCenter(1) = 0#: cylinderCenter(2) = 0#
+    cylinderRadius = 5#
+    cylinderHeight = 20#
+    
+    ' Create the Cylinder (3DSolid) object in model space
+    Set cylinderObj = ThisDrawing.ModelSpace.AddCylinder(cylinderCenter, cylinderRadius, cylinderHeight)
+    Call color.SetRGB(244, 150, 50)
+	cylinderObj.TrueColor = color
+    
+    ' Find the interference between the two solids and create a new solid from it
+    Dim solidObj As Acad3DSolid
+    Set solidObj = boxObj.CheckInterference(cylinderObj, True)
+    Call color.SetRGB(200, 150, 244)
+	solidObj.TrueColor = color
+
+    ' Change the viewing direction of the viewport
+    Dim NewDirection(0 To 2) As Double
+    NewDirection(0) = -1: NewDirection(1) = -1: NewDirection(2) = 1
+    ThisDrawing.ActiveViewport.direction = NewDirection
+    ThisDrawing.ActiveViewport = ThisDrawing.ActiveViewport
+    ZoomAll
+    
+    ' You can now delete the box and cylinder in AutoCAD to
+    ' see the interference solid more clearly.
+               
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

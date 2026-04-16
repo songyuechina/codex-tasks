@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>HatchObjectType Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">HatchObjectType Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">Sub Example_HatchObjectType()
+    ' This example changes the value of the HatchObjectType property.
+    ' The example requires that the active drawing contain an existing hatch.
+    
+    Dim ent As AcadHatch ' AcadEntity
+    Dim util As AcadUtility
+    Set util = ThisDrawing.Utility
+    Dim pt As Variant
+    Call util.GetEntity(ent, pt, "Select hatch :")
+    With ent
+        MsgBox "Initial value of HatchObjectType = " & .HatchObjectType
+        .HatchObjectType = acGradientObject
+        .GradientAngle = 3.1415 / 4
+        .GradientCentered = False
+        .GradientName = "SPHERICAL"
+        Dim col1 As AcadAcCmColor, col2 As AcadAcCmColor
+        Set col1 = AcadApplication.GetInterfaceObject("AutoCAD.AcCmColor.18")
+        Set col2 = AcadApplication.GetInterfaceObject("AutoCAD.AcCmColor.18")
+        Call col1.SetRGB(255, 0, 0)
+        Call col2.SetRGB(0, 255, 0)
+        .GradientColor1 = col1
+        .GradientColor2 = col2
+        MsgBox "New value of HatchObjectType = " & .HatchObjectType
+    End With
+End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

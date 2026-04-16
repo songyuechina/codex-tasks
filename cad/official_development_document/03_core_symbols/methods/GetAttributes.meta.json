@@ -1,0 +1,48 @@
+{
+  "symbol": "GetAttributes",
+  "kind": "method",
+  "source_terms": [
+    "getattributes"
+  ],
+  "owners": [
+    "BlockReference"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "read_block_attributes",
+    "update_titleblock_fields"
+  ],
+  "pywin32_signature": "block_ref.GetAttributes()",
+  "risk_tags": [
+    "直接调用报错",
+    "属性文本需清洗"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "path_md": "03_core_symbols/methods/GetAttributes.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_getattributes.htm",
+    "01_extracted_html/acadauto/idh_getattributes.htm",
+    "01_extracted_html/acadauto/getattributes_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_getattributes",
+    "acadauto:idh_getattributes",
+    "acadauto:getattributes_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_getattributes.htm",
+    "01_extracted_html/acadauto/idh_getattributes.htm",
+    "01_extracted_html/acadauto/getattributes_see_also.htm"
+  ]
+}

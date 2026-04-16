@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="prop.doc" KEYWORDS="Color property; colors, for drawing object; colors, for layers; drawing object, coloring; drawing object, properties; Layer object, specifying colors; object, coloring; Color property, all drawing objects; Color property, Group object; Color property, Layer object; All Drawing objects, Color property; Group object, Color property; Layer object, Color property; entity, Color property" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:24:52 AM">
+<TITLE>Color property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Color Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the color of an object or layer.</P>
+
+<P CLASS="h1-access"><A HREF="color_see_also.htm">See Also</A> | <A HREF="ex_color.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Color
+<P class="element">object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing objects</A>, <A HREF='idh_group_object.htm'>Group</A>, <A HREF='idh_layer_object.htm'>Layer</A><BR>
+The object this property applies to.
+<P class="element">Color</p><p class=element-desc>acColor enum; read-write (write-only for the Group object)<BR>
+The default color designation is acByLayer. Use a color index number from 0 to 256, or one of the constants listed here:
+<P CLASS="Constant">acByBlock
+<P CLASS="Constant">acByLayer    (not valid for Layer object)
+<P CLASS="Constant"><IMG SRC='img/red.gif' BORDER=0>  acRed
+<P CLASS="Constant"><IMG SRC='img/yellow.gif' BORDER=0>  acYellow
+<P CLASS="Constant"><IMG SRC='img/green.gif' BORDER=0>  acGreen
+<P CLASS="Constant"><IMG SRC='img/cyan.gif' BORDER=0>  acCyan
+<P CLASS="Constant"><IMG SRC='img/blue.gif' BORDER=0>  acBlue
+<P CLASS="Constant"><IMG SRC='img/magenta.gif' BORDER=0>  acMagenta
+<P CLASS="Constant-Last"><IMG SRC='img/white.gif' BORDER=0>  acWhite
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This property is obsolete and will be removed in a future version. When using this property, colors can be set and read as numeric index values ranging from 0 to 256. Constants are provided for the standard seven colors, as well as for the BYBLOCK and BYLAYER designations.
+<P CLASS="body">If you use <SPAN CLASS="constant-char">acByBlock</SPAN>, AutoCAD draws new objects in the default color (white or black, depending on your configuration) until they are grouped into the block. When the block is inserted in the drawing, the objects in the block inherit the current setting of the color property.
+<P CLASS="body">If you use <SPAN CLASS="constant-char">acByLayer</SPAN>, new objects 
+assume the color of the layer upon which they are drawn. The value <SPAN CLASS="constant-char">acByLayer</SPAN> is not valid for a Layer object.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

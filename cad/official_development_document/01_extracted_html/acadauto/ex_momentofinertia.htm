@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>MomentOfInertia Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">MomentOfInertia Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_MomentOfInertia()
+    ' This example creates a box in model space.
+    ' It then returns the MomentOfInertia for that box.
+        
+    Dim boxObj As Acad3DSolid
+    Dim length As Double, width As Double, height As Double
+    Dim center(0 To 2) As Double
+    
+    ' Define the box
+    center(0) = 5#: center(1) = 5#: center(2) = 0
+    length = 5#: width = 7: height = 10#
+    
+    ' Create the box (3DSolid) object in model space
+    Set boxObj = ThisDrawing.ModelSpace.AddBox(center, length, width, height)
+    
+    ' Change the viewing direction of the viewport to better see the box
+    Dim NewDirection(0 To 2) As Double
+    NewDirection(0) = -1: NewDirection(1) = -1: NewDirection(2) = 1
+    ThisDrawing.ActiveViewport.direction = NewDirection
+    ThisDrawing.ActiveViewport = ThisDrawing.ActiveViewport
+    ZoomAll
+    
+    ' Return the MomentOfInertia for the box
+    Dim momentOfInertia As Variant
+    momentOfInertia = boxObj.momentOfInertia
+    MsgBox "The MomentOfInertia for the box is " & momentOfInertia(0) & ", " & momentOfInertia(1) & ", " & momentOfInertia(2), , "MomentOfInertia Example"
+        
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

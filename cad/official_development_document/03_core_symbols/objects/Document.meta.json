@@ -1,0 +1,55 @@
+{
+  "symbol": "Document",
+  "kind": "object",
+  "source_terms": [
+    "document"
+  ],
+  "owners": [
+    "Application"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "connect_active_document",
+    "switch_to_target_layout",
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "C.doc",
+  "risk_tags": [
+    "Busy 状态",
+    "切换布局后立即读取不稳定"
+  ],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py"
+  ],
+  "path_md": "03_core_symbols/objects/Document.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+    "01_extracted_html/acadauto/ex_documents.htm",
+    "01_extracted_html/acadauto/ex_loadacadlspinalldocuments.htm",
+    "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+    "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/collection_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:GUID_83045B84_E056_4AE6_AEF5_D48AFB4F9F78",
+    "acad_aag:GUID_45654BC7_F6B5_48E9_82FD_CED83FB956C4",
+    "acad_aag:GUID_4F4377B1_07C8_4DDA_94D9_23DBF493C871",
+    "acad_aag:GUID_675CFE8A_2256_4808_A1C8_186E68A69496",
+    "acad_aag:GUID_679FBC1A_DE7B_44BA_9F8B_CD6FF1660D67"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-83045B84-E056-4AE6-AEF5-D48AFB4F9F78.htm",
+    "01_extracted_html/acad_aag/GUID-45654BC7-F6B5-48E9-82FD-CED83FB956C4.htm",
+    "01_extracted_html/acad_aag/GUID-4F4377B1-07C8-4DDA-94D9-23DBF493C871.htm",
+    "01_extracted_html/acad_aag/GUID-675CFE8A-2256-4808-A1C8-186E68A69496.htm",
+    "01_extracted_html/acad_aag/GUID-679FBC1A-DE7B-44BA-9F8B-CD6FF1660D67.htm"
+  ]
+}

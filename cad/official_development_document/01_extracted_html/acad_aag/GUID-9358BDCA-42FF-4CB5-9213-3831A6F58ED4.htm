@@ -1,0 +1,43 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-9358BDCA-42FF-4CB5-9213-3831A6F58ED4"><meta name="topic-subtype" content="activex"><meta name="description" content="You can append or insert loops into the hatch boundaries. Associative hatches are updated to match any changes made to their boundaries. Non-associative hatches are not updated."><meta name="indexterm" content="AppendInnerLoop method: example code"><meta name="indexterm" content="AppendInnerLoop method: hatches"><meta name="indexterm" content="AppendOuterLoop method: example code"><meta name="indexterm" content="AppendOuterLoop method: hatches"><meta name="indexterm" content="InsertLoopAt method"><meta name="indexterm" content="AddHatch method: example code"><meta name="indexterm" content="Evaluate method: example code"><meta name="indexterm" content="Hatch object: example code"><meta name="indexterm" content="Hatch object: Boundary Hatch dialog box"><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-1114B624-5A5E-4B25-8822-E03A7A6E1148"><title>About Editing Hatch Boundaries (VBA/ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">About Editing Hatches (VBA/ActiveX)</div><a href="GUID-1114B624-5A5E-4B25-8822-E03A7A6E1148.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About Editing Hatches (VBA/ActiveX)</div><a href="GUID-1114B624-5A5E-4B25-8822-E03A7A6E1148.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">About Editing Hatch Patterns (VBA/ActiveX)</div><a href="GUID-511B6731-9F5D-4CB6-B96C-8291CE0AAD3E.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_4.htm">Create and Edit AutoCAD Entities</a>&nbsp;&gt;&nbsp;<a href="GUID-027C70E5-B987-4DCC-8A60-6BFA5136DFF5.htm">About Modifying Objects (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;<a href="GUID-1114B624-5A5E-4B25-8822-E03A7A6E1148.htm">About Editing Hatches (VBA/ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-0E35A257-683D-484C-A6BF-52106E8ED709"></a></span><h1>About Editing Hatch Boundaries (VBA/ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-9358BDCA-42FF-4CB5-9213-3831A6F58ED4"></a></span><p class="blurb"> You can append or insert loops into the hatch boundaries. Associative hatches are updated to match any changes made to their boundaries. Non-associative hatches are not updated. </p><!--Body--><p><span style="display:none"><a name="GUID-DD892D85-CF0D-452D-89FA-7AD6926CBFE8"></a></span> To edit a hatch boundary, use one of the following methods: </p><dl><span style="display:none"><a name="GUID-D423DA1F-0619-4D9B-A5FC-50F9BBB47265"></a></span><dt><span class="term"><span style="display:none"><a name="GUID-3B6E6553-EC39-4940-8773-27FB24C40D45"></a></span>AppendInnerLoop </span></dt><dd><div class="definition"><span style="display:none"><a name="GUID-C0366CB5-DD4C-4469-AFE0-69D072D8323C"></a></span>Appends an inner loop to the hatch. </div></dd><span style="display:none"><a name="GUID-0715B47F-B18D-45CE-9E26-9487054ADA39"></a></span><dt><span class="term"><span style="display:none"><a name="GUID-BFC60557-1482-4060-B045-585EC91D2F58"></a></span>AppendOuterLoop </span></dt><dd><div class="definition"><span style="display:none"><a name="GUID-F9E12004-FF89-40FA-9E05-9B0153A2D72F"></a></span>Appends an outer loop to the hatch. </div></dd><span style="display:none"><a name="GUID-944B9127-ABCD-4943-887B-665C9ECA9303"></a></span><dt><span class="term"><span style="display:none"><a name="GUID-F527CFAA-1D55-4230-8B55-AB77D6AC398B"></a></span>InsertLoopAt </span></dt><dd><div class="definition"><span style="display:none"><a name="GUID-A9275CA6-5E91-4CA2-8C60-3D58CCA5CE75"></a></span>Inserts a loop at a given index of a hatch. </div></dd></dl><div class="section"><span style="display:none"><a name="SECTION_4EA629A6615E41BA9BCDDDFF4131B666"></a></span> <h2><a name="TOC_ENTRY__d24e20685"></a><span style="display:none"><a name="GUID-21040679-FF96-4FD2-8378-B3666E3B04D3"></a></span>Append an inner loop to a hatch</h2> <p><span style="display:none"><a name="GUID-2FEBCF74-DD2B-4AD8-B429-54CD44E3D16E"></a></span>This example creates an associative hatch. It then creates a circle and appends the circle as an inner loop to the hatch. </p> <div class="codeBlock"><pre>Sub Ch4_AppendInnerLoopToHatch()
+  Dim hatchObj As AcadHatch
+  Dim patternName As String
+  Dim PatternType As Long
+  Dim bAssociativity As Boolean
+
+  ' Define and create the hatch
+  patternName = "ANSI31"
+  PatternType = 0
+  bAssociativity = True
+  Set hatchObj = ThisDrawing.ModelSpace.AddHatch(PatternType, patternName, bAssociativity)
+
+  ' Create the outer loop for the hatch.
+  Dim outerLoop(0 To 1) As AcadEntity
+  Dim center(0 To 2) As Double
+  Dim radius As Double
+  Dim startAngle As Double
+  Dim endAngle As Double
+  center(0) = 5: center(1) = 3: center(2) = 0
+  radius = 3
+  startAngle = 0
+  endAngle = 3.141592
+  Set outerLoop(0) = ThisDrawing.ModelSpace.AddArc(center, radius, startAngle, endAngle)
+  Set outerLoop(1) = ThisDrawing.ModelSpace.AddLine(outerLoop(0).startPoint, outerLoop(0).endPoint)
+
+  ' Append the outer loop to the hatch object
+  hatchObj.AppendOuterLoop (outerLoop)
+
+  ' Create a circle as the inner loop for the hatch.
+  Dim innerLoop(0) As AcadEntity
+  center(0) = 5: center(1) = 4.5: center(2) = 0
+  radius = 1
+  Set innerLoop(0) = ThisDrawing.ModelSpace.AddCircle(center, radius)
+
+  ' Append the circle as an inner loop to the hatch
+  hatchObj.AppendInnerLoop (innerLoop)
+
+  ' Evaluate and display the hatch
+  hatchObj.Evaluate
+  ThisDrawing.Regen True
+End Sub</pre></div> </div><div class="related-topics"><span class="noindex"><div class="related-reference"><h4 class="related">Related References</h4><ul><li class="topiclist-litem"><a href="GUID-92A2B30F-1B74-4894-850A-5505F3B5944B.htm">Hatch Object (ActiveX)</a></li></ul></div></span></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-1114B624-5A5E-4B25-8822-E03A7A6E1148.htm" title=" You can edit both hatch boundaries and hatch patterns. ">About Editing Hatches (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-511B6731-9F5D-4CB6-B96C-8291CE0AAD3E.htm" title=" You can change the angle or spacing of an existing hatch pattern or replace it with a solid-fill or one of the predefined patterns that AutoCAD offers. ">About Editing Hatch Patterns (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

@@ -1,0 +1,58 @@
+{
+  "symbol": "CTAB",
+  "kind": "system_variable",
+  "owners": [
+    "Document"
+  ],
+  "source_terms": [
+    "ctab",
+    "active layout",
+    "layout"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "determine_space_and_layout",
+    "switch_to_target_layout",
+    "execute_layout_plot"
+  ],
+  "pywin32_signature": "C.doc.GetVariable(\"CTAB\")",
+  "risk_tags": [
+    "布局切换命令刚结束时 CTAB 读数可能尚未稳定"
+  ],
+  "project_paths": [
+    "cad/system/CAD_core.py",
+    "cad/system/CAD_coordination.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "project_refs": [
+    "cad/system/CAD_core.py",
+    "cad/system/CAD_coordination.py",
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/common_patterns.md",
+    "05_pywin32_bridge/sendcommand_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/system_variables/CTAB.md",
+  "source_topic_ids": [
+    "acadauto:ex_getvariable",
+    "acadauto:ex_activelayout",
+    "acad_aag:GUID_A55918B2_0D79_476A_9A20_A1BA80AB2EDD",
+    "acad_aag:GUID_10F797AA_5032_4298_A2A5_C69449275F0E",
+    "acad_aag:topichead_9",
+    "acadauto:ex_layoutshowplotsetup",
+    "acadauto:ex_setlayoutstoplot",
+    "acad_aag:GUID_10344852_4888_4237_8EB6_5EBE24D5C87C"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-10F797AA-5032-4298-A2A5-C69449275F0E.htm",
+    "01_extracted_html/acad_aag/topichead_9.htm",
+    "01_extracted_html/acadauto/ex_layoutshowplotsetup.htm",
+    "01_extracted_html/acadauto/ex_setlayoutstoplot.htm",
+    "01_extracted_html/acad_aag/GUID-10344852-4888-4237-8EB6-5EBE24D5C87C.htm",
+    "01_extracted_html/acadauto/ex_getvariable.htm",
+    "01_extracted_html/acadauto/ex_activelayout.htm",
+    "01_extracted_html/acad_aag/GUID-A55918B2-0D79-476A-9A20-A1BA80AB2EDD.htm"
+  ]
+}

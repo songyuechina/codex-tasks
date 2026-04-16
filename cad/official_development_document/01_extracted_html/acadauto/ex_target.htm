@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Target Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Target Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_Target()
+    ' This example changes the target for a model space viewport.
+    
+    ' Create a new model space viewport
+    Dim viewportObj As AcadViewport
+    Set viewportObj = ThisDrawing.Viewports.Add("NewViewport")
+    
+    ' Add a circle
+    Dim circleObj As AcadCircle
+    Dim center(0 To 2) As Double
+    Dim radius As Double
+    center(0) = 0: center(1) = 0: center(2) = 0
+    radius = 1
+    Set circleObj = ThisDrawing.ModelSpace.AddCircle(center, radius)
+    
+    ' Find the current target
+    Dim currTarget As Variant
+    currTarget = viewportObj.target
+    MsgBox "The current target is " & viewportObj.target(0) & ", " & viewportObj.target(1) & ", " & viewportObj.target(2), , "Target Example"
+    
+    ' Change the target
+    Dim newTarget(0 To 2) As Double
+    newTarget(0) = 2#: newTarget(1) = 2#: newTarget(2) = 0
+    viewportObj.target = newTarget
+    ThisDrawing.ActiveViewport = viewportObj
+    ThisDrawing.Regen acAllViewports
+    MsgBox "The new target is " & viewportObj.target(0) & ", " & viewportObj.target(1) & ", " & viewportObj.target(2), , "Target Example"
+   
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>ArrayPolar method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ArrayPolar Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a polar array of objects given a NumberOfObjects, AngleToFill, and CenterPoint. </P>
+
+<P CLASS="h1-access"><A HREF="arraypolar_see_also.htm">See Also</A> | <A HREF="ex_arraypolar.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.ArrayPolar (NumberOfObjects, AngleToFill, CenterPoint)
+<P class="element">Object</p><p class=element-desc><A HREF="all_drawing_objects.htm">All Drawing Objects</A><BR>
+The object this method applies to.
+<P class="element">NumberOfObjects</p><p class=element-desc>Integer; input-only<BR>
+The number of objects to be created in the polar array. This must be a positive integer greater than 1.
+<P class="element">AngleToFill</p><p class=element-desc>Double; input-only<BR>
+The angle to fill in radians. A positive value specifies counterclockwise rotation. A negative value specifies clockwise rotation. An error is returned for an angle that equals 0.
+<P class="element">CenterPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the center point for the polar array.
+<P class="element">RetVal</p><p class=element-desc>Variant Array (array of objects)<BR>
+The array of new objects.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">AutoCAD determines the distance from the array's center point to a reference point on the last object selected. The reference point used depends on the type of object previously selected. AutoCAD uses the center point of a circle or arc, the insertion point of a block or shape, the start point of text, and one endpoint of a line or trace.
+<P CLASS="body">Note that this method does not support the Rotate While Copying option of the AutoCAD ARRAY command.
+<P CLASS="body"><IMG SRC='img/araypolr.gif' BORDER=0>
+<P CLASS="body"><I>Polar array with NumberOfObjects = 5, AngleToFill = 180, CenterPoint = 0,0,0.</I>
+<P CLASS="body"><span class=NoteChar>NOTE</span> You cannot execute this method while simultaneously iterating through a collection. An iteration will open the work space for a read-only operation, while this method attempts to perform a read-write operation. Complete any iteration before you call this method.
+<P CLASS="body"><I>AttributeReference</I>: You should not attempt 
+to use this method on <A HREF="idh_attributeref_object.htm">AttributeReference</A> objects. 
+AttributeReference objects inherit this method because they are one of the drawing objects, however, it is not feasible to perform this operation on an attribute reference. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

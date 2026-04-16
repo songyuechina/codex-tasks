@@ -34,10 +34,12 @@ if str(MODULE_DIR) not in sys.path:
 
 from system.licad import C
 from system.CAD_core import launch_cad_guardians, li, litz, open_file
+from system.CAD_com_utils import retry_on_busy
 from system.CAD_coordination import wait_quiescent
 from system.runtime_guard_bridge import RuntimeGuardTriggered, assert_runtime_guard_ok, render_guard_error
 from system.CAD_selection import get_attr, select_entities_in_window, ss_select
 from system.common_logger import sys_logger
+from library.cad_annotation import get_text_content
 
 from print_area_content_analysis import analyze_jobs_content
 from print_policy import (
@@ -69,7 +71,9 @@ TEXT_OBJECTS = {
 TITLE_TAG_HINTS = ("图名", "图纸名称", "TITLE", "DWG_NAME", "SHEET_NAME")
 NUMBER_TAG_HINTS = ("图纸编号", "图号", "DWG_NO", "DRAWING_NO", "SHEET_NO", "NO.")
 PROJECT_TAG_HINTS = ("项目名称", "工程名称", "PROJECT", "工程名")
+SUBPROJECT_TAG_HINTS = ("子项目名称", "子项名称", "单项工程", "SUBPROJECT")
 DRAWING_NO_TOKEN_RE = re.compile(r"[A-Za-z0-9０-９]")
+STRICT_DRAWING_NO_RE = re.compile(r"^\s*[A-Za-z]*\s*[-~_]*\s*[\d０-９]+\s*$")
 
 
 EXCEL_MAIN_COLUMNS = [
@@ -82,6 +86,11 @@ EXCEL_MAIN_COLUMNS = [
     ("drawing_title", "图纸名称"),
     ("drawing_no", "图纸编号"),
     ("project_name", "项目名称"),
+    ("subproject_name", "子项目名称"),
+    ("drawing_title_record_count", "图纸名称对象数"),
+    ("drawing_no_record_count", "图纸编号对象数"),
+    ("drawing_title_handles", "图纸名称句柄"),
+    ("drawing_no_handles", "图纸编号句柄"),
     ("ratio", "比例"),
     ("paper_code", "纸张代号"),
     ("media", "纸张名称"),
@@ -91,11 +100,15 @@ EXCEL_MAIN_COLUMNS = [
     ("inner_frame_exists", "有无内框线"),
     ("inner_frame_handle", "内框线句柄"),
     ("inner_frame_bbox", "内框线包围盒"),
+    ("graphic_info_area_bbox", "图签信息区域"),
+    ("graphic_info_area_source", "图签信息区域来源"),
+    ("graphic_orientation", "图签分析方向"),
     ("right_bottom_title_block_exists", "有无右下图签块"),
     ("title_block_kind", "图签块类型"),
     ("title_block_handle", "图签块句柄"),
     ("title_block_name", "图签块名称"),
     ("title_block_bbox", "图签块包围盒"),
+    ("title_no_resolve_method", "编号标题判定方式"),
     ("drawing_title_candidates", "图纸名称候选"),
     ("drawing_no_candidates", "图号候选"),
     ("title_block_texts", "图签块文字"),
@@ -121,6 +134,11 @@ class TextRecord:
     obj_name: str
     bbox: tuple[float, float, float, float]
     layer: str
+    color: int
+    height: float
+    rotation: float
+    insertion_point: tuple[float, float, float] | None
+    source_handles: tuple[str, ...] = ()
 
 
 def _safe_handle(obj: Any) -> str:
@@ -140,6 +158,84 @@ def _bbox_xy(ent: Any) -> tuple[float, float, float, float] | None:
         return min_x, min_y, max_x, max_y
     except Exception:
         return None
+
+
+def _bbox_width(bbox: tuple[float, float, float, float]) -> float:
+    return max(float(bbox[2]) - float(bbox[0]), 0.0)
+
+
+def _bbox_height(bbox: tuple[float, float, float, float]) -> float:
+    return max(float(bbox[3]) - float(bbox[1]), 0.0)
+
+
+def _bbox_union(bboxes: Iterable[tuple[float, float, float, float]]) -> tuple[float, float, float, float] | None:
+    items = [bbox for bbox in bboxes if bbox is not None]
+    if not items:
+        return None
+    return (
+        min(item[0] for item in items),
+        min(item[1] for item in items),
+        max(item[2] for item in items),
+        max(item[3] for item in items),
+    )
+
+
+def _record_sort_key_reading(record: TextRecord) -> tuple[float, float]:
+    return (-float(record.bbox[1]), float(record.bbox[0]))
+
+
+def _record_sort_key_x(record: TextRecord) -> tuple[float, float]:
+    return (float(record.bbox[0]), float(record.bbox[1]))
+
+
+def _record_sort_key_bottom(record: TextRecord) -> tuple[float, float]:
+    return (float(record.bbox[1]), float(record.bbox[0]))
+
+
+def _text_record_to_dict(record: TextRecord) -> dict[str, Any]:
+    return {
+        "handle": record.handle,
+        "text": record.text,
+        "obj_name": record.obj_name,
+        "bbox": record.bbox,
+        "layer": record.layer,
+        "color": record.color,
+        "height": record.height,
+        "rotation": record.rotation,
+        "insertion_point": list(record.insertion_point) if record.insertion_point else None,
+        "source_handles": list(record.source_handles),
+    }
+
+
+def _record_handle_list(records: list[TextRecord]) -> list[str]:
+    handles: list[str] = []
+    for record in records:
+        for handle in (record.source_handles or (record.handle,)):
+            value = str(handle or "").strip()
+            if value and value not in handles:
+                handles.append(value)
+    return handles
+
+
+def _classify_text_record_dicts(
+    text_records: list[TextRecord],
+    drawing_title_records: list[TextRecord],
+    drawing_no_records: list[TextRecord],
+) -> list[dict[str, Any]]:
+    title_handles = set(_record_handle_list(drawing_title_records))
+    number_handles = set(_record_handle_list(drawing_no_records))
+    classified: list[dict[str, Any]] = []
+    for record in text_records:
+        item = _text_record_to_dict(record)
+        handle = str(record.handle or "")
+        if handle in title_handles:
+            item["resolved_role"] = "drawing_title"
+        elif handle in number_handles:
+            item["resolved_role"] = "drawing_no"
+        else:
+            item["resolved_role"] = "other"
+        classified.append(item)
+    return classified
 
 
 def _normalize_path(path: str | Path) -> str:
@@ -268,7 +364,7 @@ def _looks_like_drawing_no_text(text: str) -> bool:
     text = _clean_text(text)
     if not text or _contains_chinese(text):
         return False
-    return bool(DRAWING_NO_TOKEN_RE.search(text))
+    return bool(STRICT_DRAWING_NO_RE.match(text) or DRAWING_NO_TOKEN_RE.search(text))
 
 
 def _clean_text(text: str) -> str:
@@ -285,6 +381,138 @@ def _clean_attr_value(value: str) -> str:
         _, right = text.split(";", 1)
         text = right.strip()
     return text
+
+
+def _layer_contains(layer_name: str, keyword: str) -> bool:
+    return keyword in str(layer_name or "").strip()
+
+
+def _get_color_index(ent: Any) -> int:
+    try:
+        return int(get_attr(ent, "Color", getattr(ent, "Color", 0)) or 0)
+    except Exception:
+        return 0
+
+
+def _is_portrait_job(job: dict[str, Any], inner_bbox: tuple[float, float, float, float] | None = None) -> bool:
+    bbox = inner_bbox or tuple(job["lower_left"] + job["upper_right"])
+    return _bbox_height(bbox) > _bbox_width(bbox)
+
+
+def _select_entities_in_bbox(
+    owner_btr_name: str,
+    bbox: tuple[float, float, float, float],
+) -> list[Any]:
+    if not _activate_space_for_owner(owner_btr_name):
+        return []
+    try:
+        entities = select_entities_in_window(
+            bbox[0],
+            bbox[1],
+            bbox[2],
+            bbox[3],
+            ty=1.0,
+            select_mode="_W",
+        ) or []
+    except Exception:
+        entities = []
+
+    out: list[Any] = []
+    seen: set[str] = set()
+    for ent in entities:
+        handle = _safe_handle(ent)
+        if handle in seen:
+            continue
+        seen.add(handle)
+        out.append(ent)
+    return out
+
+
+def _make_text_record(ent: Any) -> TextRecord | None:
+    obj_name = str(get_attr(ent, "ObjectName", getattr(ent, "ObjectName", "")))
+    if obj_name not in TEXT_OBJECTS:
+        return None
+    ent_bbox = _bbox_xy(ent)
+    if ent_bbox is None:
+        return None
+    text = _clean_text(get_text_content(ent))
+    if not text:
+        return None
+    layer = str(get_attr(ent, "Layer", getattr(ent, "Layer", "")))
+    insertion = get_attr(ent, "InsertionPoint", None)
+    if insertion is not None:
+        try:
+            insertion = tuple(float(v) for v in insertion[:3])
+        except Exception:
+            insertion = None
+    return TextRecord(
+        handle=_safe_handle(ent),
+        text=text,
+        obj_name=obj_name,
+        bbox=ent_bbox,
+        layer=layer,
+        color=_get_color_index(ent),
+        height=_bbox_height(ent_bbox),
+        rotation=float(get_attr(ent, "Rotation", 0.0) or 0.0),
+        insertion_point=insertion,
+        source_handles=(_safe_handle(ent),),
+    )
+
+
+def _combine_text_values(records: list[TextRecord], *, sort_mode: str = "reading", separator: str = "") -> str:
+    if not records:
+        return ""
+    if sort_mode == "x":
+        ordered = sorted(records, key=_record_sort_key_x)
+    elif sort_mode == "bottom":
+        ordered = sorted(records, key=_record_sort_key_bottom)
+    else:
+        ordered = sorted(records, key=_record_sort_key_reading)
+    return separator.join(record.text for record in ordered if record.text).strip()
+
+
+def _merge_text_records(
+    records: list[TextRecord],
+    *,
+    sort_mode: str = "reading",
+    separator: str = "",
+) -> TextRecord | None:
+    if not records:
+        return None
+    if len(records) == 1:
+        return records[0]
+    if sort_mode == "x":
+        ordered = sorted(records, key=_record_sort_key_x)
+    elif sort_mode == "bottom":
+        ordered = sorted(records, key=_record_sort_key_bottom)
+    else:
+        ordered = sorted(records, key=_record_sort_key_reading)
+    merged_bbox = _bbox_union([record.bbox for record in ordered]) or ordered[0].bbox
+    source_handles: list[str] = []
+    for record in ordered:
+        source_handles.extend(record.source_handles or (record.handle,))
+    return TextRecord(
+        handle=ordered[0].handle,
+        text=_combine_text_values(ordered, sort_mode=sort_mode, separator=separator),
+        obj_name=ordered[0].obj_name,
+        bbox=merged_bbox,
+        layer=ordered[0].layer,
+        color=ordered[0].color,
+        height=max(record.height for record in ordered),
+        rotation=ordered[0].rotation,
+        insertion_point=ordered[0].insertion_point,
+        source_handles=tuple(dict.fromkeys(source_handles)),
+    )
+
+
+def _vertical_gap_between_records(a: TextRecord, b: TextRecord) -> float:
+    a_min_y, a_max_y = a.bbox[1], a.bbox[3]
+    b_min_y, b_max_y = b.bbox[1], b.bbox[3]
+    if a_max_y < b_min_y:
+        return b_min_y - a_max_y
+    if b_max_y < a_min_y:
+        return a_min_y - b_max_y
+    return 0.0
 
 
 def _extract_attribute_fields(block_ref: Any) -> dict[str, str]:
@@ -468,47 +696,13 @@ def collect_space_block_snapshots(owner_btr_name: str) -> list[BlockSnapshot]:
 
 
 def select_texts_in_bbox(owner_btr_name: str, bbox: tuple[float, float, float, float]) -> list[TextRecord]:
-    if not _activate_space_for_owner(owner_btr_name):
-        return []
-    try:
-        entities = select_entities_in_window(
-            bbox[0],
-            bbox[1],
-            bbox[2],
-            bbox[3],
-            ty=1.0,
-            select_mode="_W",
-        ) or []
-    except Exception:
-        entities = []
-
+    entities = _select_entities_in_bbox(owner_btr_name, bbox)
     out: list[TextRecord] = []
-    seen: set[str] = set()
     for ent in entities:
-        handle = _safe_handle(ent)
-        if handle in seen:
-            continue
-        seen.add(handle)
-        obj_name = str(get_attr(ent, "ObjectName", getattr(ent, "ObjectName", "")))
-        if obj_name not in TEXT_OBJECTS:
-            continue
-        ent_bbox = _bbox_xy(ent)
-        if ent_bbox is None:
-            continue
-        text = _extract_text_string(ent)
-        if not text:
-            continue
-        layer = str(get_attr(ent, "Layer", getattr(ent, "Layer", "")))
-        out.append(
-            TextRecord(
-                handle=handle,
-                text=text,
-                obj_name=obj_name,
-                bbox=ent_bbox,
-                layer=layer,
-            )
-        )
-    out.sort(key=lambda item: (-item.bbox[1], item.bbox[0]))
+        record = _make_text_record(ent)
+        if record is not None:
+            out.append(record)
+    out.sort(key=_record_sort_key_reading)
     return out
 
 
@@ -546,16 +740,22 @@ def _choose_inner_frame(print_job: dict[str, Any], owner_rects: list[Any]) -> tu
 def _choose_corner_block(
     inner_bbox: tuple[float, float, float, float],
     block_snapshots: list[BlockSnapshot],
+    *,
+    portrait: bool = False,
 ) -> BlockSnapshot | None:
-    target_x, target_y = inner_bbox[2], inner_bbox[1]
+    if portrait:
+        target_x, target_y = inner_bbox[0], inner_bbox[1]
+    else:
+        target_x, target_y = inner_bbox[2], inner_bbox[1]
     tol = _dynamic_tol_from_bbox(inner_bbox)
     best: BlockSnapshot | None = None
     best_distance: float | None = None
 
     for block in block_snapshots:
-        bx2, by1 = block.bbox[2], block.bbox[1]
-        dx = abs(bx2 - target_x)
-        dy = abs(by1 - target_y)
+        block_x = block.bbox[0] if portrait else block.bbox[2]
+        block_y = block.bbox[1]
+        dx = abs(block_x - target_x)
+        dy = abs(block_y - target_y)
         if dx > tol or dy > tol:
             continue
         distance = (dx ** 2 + dy ** 2) ** 0.5
@@ -565,29 +765,210 @@ def _choose_corner_block(
     return best
 
 
-def _classify_text_candidates(records: list[TextRecord]) -> tuple[list[str], list[str]]:
-    drawing_no_candidates: list[str] = []
-    drawing_title_candidates: list[str] = []
-    seen_no: set[str] = set()
-    seen_title: set[str] = set()
+def _explode_block_reference_copy(block_handle: str) -> list[Any]:
+    fragments: list[Any] = []
+    try:
+        block_ref = C.raw_doc.HandleToObject(block_handle)
+    except Exception:
+        return fragments
+    try:
+        copy_ent = block_ref.Copy()
+    except Exception:
+        return fragments
+    try:
+        exploded = copy_ent.Explode()
+        fragments = list(exploded) if exploded else []
+    except Exception:
+        fragments = []
+    finally:
+        try:
+            copy_ent.Delete()
+        except Exception:
+            pass
+    return fragments
 
-    for record in records:
-        text = _clean_text(record.text)
-        if not text:
-            continue
-        if _contains_chinese(text):
-            if text not in seen_title:
-                drawing_title_candidates.append(text)
-                seen_title.add(text)
-        elif _looks_like_drawing_no_text(text):
-            if text not in seen_no:
-                drawing_no_candidates.append(text)
-                seen_no.add(text)
-    return drawing_title_candidates, drawing_no_candidates
+
+def _is_rectangular_polyline(ent: Any, tol: float = 1e-3) -> bool:
+    obj_name = str(get_attr(ent, "ObjectName", getattr(ent, "ObjectName", "")))
+    if obj_name not in {"AcDbPolyline", "AcDb2dPolyline", "Polyline", "LWPOLYLINE"}:
+        return False
+    coords = get_attr(ent, "Coordinates", None)
+    if not coords:
+        return False
+    values = list(coords)
+    if len(values) < 8:
+        return False
+    pairs = []
+    for idx in range(0, len(values) - 1, 2):
+        pairs.append((round(float(values[idx]) / tol) * tol, round(float(values[idx + 1]) / tol) * tol))
+    unique_pairs = list(dict.fromkeys(pairs))
+    if len(unique_pairs) == 5 and unique_pairs[0] == unique_pairs[-1]:
+        unique_pairs = unique_pairs[:-1]
+    xs = {round(item[0] / tol) for item in unique_pairs}
+    ys = {round(item[1] / tol) for item in unique_pairs}
+    return len(xs) == 2 and len(ys) == 2 and len(unique_pairs) in {4, 5}
+
+
+def _extract_guide_rectangles(
+    selected_block: BlockSnapshot | None,
+) -> dict[str, tuple[float, float, float, float]]:
+    if selected_block is None:
+        return {}
+    fragments = _explode_block_reference_copy(selected_block.handle)
+    if not fragments:
+        return {}
+    try:
+        guides: dict[str, tuple[float, float, float, float]] = {}
+        for frag in fragments:
+            layer = str(get_attr(frag, "Layer", getattr(frag, "Layer", "")))
+            if layer != "Defpoints":
+                continue
+            if not _is_rectangular_polyline(frag):
+                continue
+            bbox = _bbox_xy(frag)
+            if bbox is None:
+                continue
+            color = _get_color_index(frag)
+            if color == 1:
+                current = guides.get("red")
+                if current is None or _area_of_bbox(bbox) > _area_of_bbox(current):
+                    guides["red"] = bbox
+            elif color == 3:
+                current = guides.get("green")
+                if current is None or _area_of_bbox(bbox) > _area_of_bbox(current):
+                    guides["green"] = bbox
+        return guides
+    finally:
+        for frag in fragments:
+            try:
+                frag.Delete()
+            except Exception:
+                pass
+
+
+def _resolve_by_named_layers(
+    text_records: list[TextRecord],
+) -> tuple[list[TextRecord], list[TextRecord], str] | None:
+    number_records = [record for record in text_records if _layer_contains(record.layer, "图纸编号")]
+    title_records = [record for record in text_records if _layer_contains(record.layer, "图纸名称")]
+    if not number_records or not title_records:
+        return None
+    merged_number = _merge_text_records(number_records, sort_mode="x", separator="")
+    return title_records, [merged_number] if merged_number else [], "layer_named"
+
+
+def _resolve_by_guide_rectangles(
+    owner_btr_name: str,
+    guide_rectangles: dict[str, tuple[float, float, float, float]],
+) -> tuple[list[TextRecord], list[TextRecord], str] | None:
+    red_bbox = guide_rectangles.get("red")
+    green_bbox = guide_rectangles.get("green")
+    if red_bbox is None or green_bbox is None:
+        return None
+
+    title_records = select_texts_in_bbox(owner_btr_name, red_bbox)
+    number_records = select_texts_in_bbox(owner_btr_name, green_bbox)
+    if len(number_records) == 2:
+        ordered = sorted(number_records, key=_record_sort_key_x)
+        y_gap = _vertical_gap_between_records(ordered[0], ordered[1])
+        threshold = max(min(ordered[0].height, ordered[1].height), 1.0)
+        if y_gap < threshold:
+            merged = _merge_text_records(ordered, sort_mode="x", separator="")
+            number_records = [merged] if merged else ordered
+    return title_records, number_records, "guide_rectangles"
+
+
+def _resolve_by_fallback_rules(
+    text_records: list[TextRecord],
+    graphic_info_area_bbox: tuple[float, float, float, float],
+) -> tuple[list[TextRecord], list[TextRecord], str]:
+    number_candidates = [
+        record for record in text_records
+        if STRICT_DRAWING_NO_RE.match(record.text or "")
+    ]
+    number_candidates.sort(key=_record_sort_key_bottom)
+
+    number_records: list[TextRecord] = []
+    if number_candidates:
+        first = number_candidates[0]
+        if len(number_candidates) == 1:
+            number_records = [first]
+        else:
+            second = number_candidates[1]
+            local_y_1 = first.bbox[1] - graphic_info_area_bbox[1]
+            local_y_2 = second.bbox[1] - graphic_info_area_bbox[1]
+            if ((local_y_1 + first.height) * 2) < local_y_2:
+                number_records = [first]
+            else:
+                merged = _merge_text_records([first, second], sort_mode="x", separator="")
+                number_records = [merged] if merged else [first, second]
+
+    used_handles = {
+        source_handle
+        for record in number_records
+        for source_handle in (record.source_handles or (record.handle,))
+    }
+    title_records = [record for record in text_records if record.handle not in used_handles]
+    return title_records, number_records, "fallback_regex"
 
 
 def _make_page_key(job: dict[str, Any]) -> str:
     return f"{job['layout_name']}-{int(job['sequence_no']):02d}"
+
+
+def _make_analysis_error_row(job: dict[str, Any], error: Exception) -> dict[str, Any]:
+    page_key = _make_page_key(job)
+    return {
+        "page_key": page_key,
+        "sequence_key": f"{int(job['sequence_no']):02d}",
+        "sequence_no": int(job["sequence_no"]),
+        "layout_name": str(job["layout_name"]),
+        "space_kind": str(job["space_kind"]),
+        "print_handle": str(job["handle"]),
+        "drawing_title": "",
+        "drawing_no": "",
+        "project_name": "",
+        "subproject_name": "",
+        "drawing_title_record_count": 0,
+        "drawing_no_record_count": 0,
+        "drawing_title_handles": [],
+        "drawing_no_handles": [],
+        "ratio": str(job.get("ratio", "")),
+        "paper_code": str(job.get("paper_code", "")),
+        "media": str(job.get("media", "")),
+        "rotation": int(job.get("rotation", 0)),
+        "plot_scale": float(job.get("plot_scale", 0.0)),
+        "standard_flag": int(job.get("standard_flag", 0)),
+        "inner_frame_exists": 0,
+        "inner_frame_found": 0,
+        "inner_frame_handle": "",
+        "inner_frame_bbox": None,
+        "graphic_info_area_bbox": None,
+        "graphic_info_area_source": "",
+        "graphic_orientation": "",
+        "right_bottom_title_block_exists": 0,
+        "right_bottom_block_exists": 0,
+        "title_block_found": 0,
+        "title_block_kind": "",
+        "title_block_handle": "",
+        "title_block_name": "",
+        "title_block_is_attribute": 0,
+        "title_block_bbox": None,
+        "title_block_attr_fields": {},
+        "attr_fields": {},
+        "title_no_resolve_method": "",
+        "title_block_texts": [],
+        "title_block_text_records": [],
+        "graphic_info_text_records": [],
+        "classified_text_records": [],
+        "drawing_title_records": [],
+        "drawing_no_records": [],
+        "drawing_title_candidates": [],
+        "drawing_no_candidates": [],
+        "selected_texts": [],
+        "analysis_stop_reason": f"analysis_error:{type(error).__name__}",
+        "analysis_error": str(error),
+    }
 
 
 def analyze_print_job_info(
@@ -600,34 +981,72 @@ def analyze_print_job_info(
     inner_handle, inner_bbox = _choose_inner_frame(job, owner_rects)
     selected_block = None
     attr_fields: dict[str, str] = {}
-    text_records: list[TextRecord] = []
+    graphic_info_text_records: list[TextRecord] = []
+    drawing_title_records: list[TextRecord] = []
+    drawing_no_records: list[TextRecord] = []
     drawing_title_candidates: list[str] = []
     drawing_no_candidates: list[str] = []
     drawing_title = ""
     drawing_no = ""
     project_name = ""
+    subproject_name = ""
     stop_reason = "no_inner_frame"
+    graphic_info_area_bbox: tuple[float, float, float, float] | None = None
+    graphic_info_area_source = ""
+    title_no_resolve_method = ""
+    portrait = _is_portrait_job(job, inner_bbox)
+    graphic_orientation = "portrait" if portrait else "landscape"
 
     if inner_bbox is not None:
-        selected_block = _choose_corner_block(inner_bbox, block_snapshots)
+        selected_block = _choose_corner_block(inner_bbox, block_snapshots, portrait=portrait)
         if selected_block is None:
             stop_reason = "no_corner_block"
-        elif selected_block.is_attribute_block == 1:
-            attr_fields = dict(selected_block.attr_fields)
-            drawing_title = _match_field_from_attrs(attr_fields, TITLE_TAG_HINTS)
-            drawing_no = _match_field_from_attrs(attr_fields, NUMBER_TAG_HINTS)
-            project_name = _match_field_from_attrs(attr_fields, PROJECT_TAG_HINTS)
-            stop_reason = "attribute_block"
         else:
-            text_records = select_texts_in_bbox(selected_block.owner_btr, selected_block.bbox)
-            drawing_title_candidates, drawing_no_candidates = _classify_text_candidates(text_records)
-            drawing_title = drawing_title_candidates[0] if drawing_title_candidates else ""
-            drawing_no = drawing_no_candidates[0] if drawing_no_candidates else ""
-            stop_reason = "block_bbox_texts"
+            graphic_info_area_bbox = selected_block.bbox
+            graphic_info_area_source = "corner_block_bbox"
+            attr_fields = dict(selected_block.attr_fields)
+            project_name = _match_field_from_attrs(attr_fields, PROJECT_TAG_HINTS)
+            subproject_name = _match_field_from_attrs(attr_fields, SUBPROJECT_TAG_HINTS)
+            graphic_info_text_records = select_texts_in_bbox(selected_block.owner_btr, selected_block.bbox)
+
+            resolved = _resolve_by_named_layers(graphic_info_text_records)
+            if resolved is not None:
+                drawing_title_records, drawing_no_records, title_no_resolve_method = resolved
+                stop_reason = "graphic_info_area_layer_named"
+            else:
+                guide_rectangles = _extract_guide_rectangles(selected_block)
+                guide_resolved = _resolve_by_guide_rectangles(selected_block.owner_btr, guide_rectangles)
+                if guide_resolved is not None:
+                    drawing_title_records, drawing_no_records, title_no_resolve_method = guide_resolved
+                    stop_reason = "graphic_info_area_guides"
+                else:
+                    drawing_title_records, drawing_no_records, title_no_resolve_method = _resolve_by_fallback_rules(
+                        graphic_info_text_records,
+                        graphic_info_area_bbox,
+                    )
+                    stop_reason = "graphic_info_area_fallback"
+
+            drawing_title_candidates = [record.text for record in drawing_title_records if record.text]
+            drawing_no_candidates = [record.text for record in drawing_no_records if record.text]
+            drawing_title = _combine_text_values(drawing_title_records, sort_mode="reading", separator="")
+            drawing_no = _combine_text_values(drawing_no_records, sort_mode="x", separator="")
+
+            if not drawing_title and attr_fields:
+                drawing_title = _match_field_from_attrs(attr_fields, TITLE_TAG_HINTS)
+            if not drawing_no and attr_fields:
+                drawing_no = _match_field_from_attrs(attr_fields, NUMBER_TAG_HINTS)
 
     title_block_kind = ""
     if selected_block is not None:
         title_block_kind = "attribute_block" if selected_block.is_attribute_block == 1 else "normal_block"
+
+    drawing_title_handles = _record_handle_list(drawing_title_records)
+    drawing_no_handles = _record_handle_list(drawing_no_records)
+    classified_text_records = _classify_text_record_dicts(
+        graphic_info_text_records,
+        drawing_title_records,
+        drawing_no_records,
+    )
 
     return {
         "page_key": page_key,
@@ -639,6 +1058,11 @@ def analyze_print_job_info(
         "drawing_title": drawing_title,
         "drawing_no": drawing_no,
         "project_name": project_name,
+        "subproject_name": subproject_name,
+        "drawing_title_record_count": len(drawing_title_records),
+        "drawing_no_record_count": len(drawing_no_records),
+        "drawing_title_handles": drawing_title_handles,
+        "drawing_no_handles": drawing_no_handles,
         "ratio": str(job.get("ratio", "")),
         "paper_code": str(job.get("paper_code", "")),
         "media": str(job.get("media", "")),
@@ -649,6 +1073,9 @@ def analyze_print_job_info(
         "inner_frame_found": int(inner_bbox is not None),
         "inner_frame_handle": inner_handle,
         "inner_frame_bbox": inner_bbox,
+        "graphic_info_area_bbox": graphic_info_area_bbox,
+        "graphic_info_area_source": graphic_info_area_source,
+        "graphic_orientation": graphic_orientation,
         "right_bottom_title_block_exists": int(selected_block is not None),
         "right_bottom_block_exists": int(selected_block is not None),
         "title_block_found": int(selected_block is not None),
@@ -659,31 +1086,36 @@ def analyze_print_job_info(
         "title_block_bbox": selected_block.bbox if selected_block else None,
         "title_block_attr_fields": attr_fields,
         "attr_fields": attr_fields,
-        "title_block_texts": [item.text for item in text_records],
-        "title_block_text_records": [
-            {
-                "handle": item.handle,
-                "text": item.text,
-                "obj_name": item.obj_name,
-                "bbox": item.bbox,
-                "layer": item.layer,
-            }
-            for item in text_records
-        ],
+        "title_no_resolve_method": title_no_resolve_method,
+        "title_block_texts": [item.text for item in graphic_info_text_records],
+        "title_block_text_records": [_text_record_to_dict(item) for item in graphic_info_text_records],
+        "graphic_info_text_records": [_text_record_to_dict(item) for item in graphic_info_text_records],
+        "classified_text_records": classified_text_records,
+        "drawing_title_records": [_text_record_to_dict(item) for item in drawing_title_records],
+        "drawing_no_records": [_text_record_to_dict(item) for item in drawing_no_records],
         "drawing_title_candidates": drawing_title_candidates,
         "drawing_no_candidates": drawing_no_candidates,
-        "selected_texts": [
-            {
-                "handle": item.handle,
-                "text": item.text,
-                "obj_name": item.obj_name,
-                "bbox": item.bbox,
-                "layer": item.layer,
-            }
-            for item in text_records
-        ],
+        "selected_texts": [_text_record_to_dict(item) for item in graphic_info_text_records],
         "analysis_stop_reason": stop_reason,
     }
+
+
+@retry_on_busy(max_retries=4, base_delay=0.5)
+def _analyze_print_job_info_with_retry(
+    job: dict[str, Any],
+    *,
+    owner_rects: list[Any],
+    block_snapshots: list[BlockSnapshot],
+) -> dict[str, Any]:
+    try:
+        wait_quiescent(min_quiet=0.2, timeout=10.0)
+    except Exception:
+        pass
+    return analyze_print_job_info(
+        job,
+        owner_rects=owner_rects,
+        block_snapshots=block_snapshots,
+    )
 
 
 def analyze_print_info_jobs(
@@ -701,18 +1133,29 @@ def analyze_print_info_jobs(
     for layout_name, jobs in jobs_by_space.items():
         rows: list[dict[str, Any]] = []
         info_rows: dict[str, dict[str, Any]] = {}
-        for job in jobs:
+        for index, job in enumerate(jobs, start=1):
             handle = str(job.get("handle", ""))
             if handle in excluded_handles:
                 continue
             owner_btr_name = _resolve_owner_btr_name(job)
             if owner_btr_name not in blocks_cache:
                 blocks_cache[owner_btr_name] = collect_space_block_snapshots(owner_btr_name)
-            row = analyze_print_job_info(
-                job,
-                owner_rects=rects_by_owner.get(owner_btr_name, []),
-                block_snapshots=blocks_cache.get(owner_btr_name, []),
-            )
+            try:
+                if index == 1 or index % 6 == 0:
+                    try:
+                        C.li()
+                    except Exception:
+                        pass
+                row = _analyze_print_job_info_with_retry(
+                    job,
+                    owner_rects=rects_by_owner.get(owner_btr_name, []),
+                    block_snapshots=blocks_cache.get(owner_btr_name, []),
+                )
+            except Exception as exc:
+                sys_logger.warning(
+                    f"print_info 单页分析失败: layout={layout_name} handle={handle} seq={job.get('sequence_no')} err={exc}"
+                )
+                row = _make_analysis_error_row(job, exc)
             rows.append(row)
             info_rows[row["sequence_key"]] = row
             page_info_dict[row["page_key"]] = row
@@ -737,6 +1180,7 @@ def analyze_print_info_jobs(
         "with_drawing_no_count": sum(1 for row in all_rows if row["drawing_no"]),
         "with_number_count": sum(1 for row in all_rows if row["drawing_no"]),
         "with_project_count": sum(1 for row in all_rows if row["project_name"]),
+        "with_subproject_count": sum(1 for row in all_rows if row.get("subproject_name")),
         "print_info_dict": print_info_dict,
         "print_info_dict_by_space": print_info_dict_by_space,
         "page_info_dict": page_info_dict,
@@ -786,6 +1230,7 @@ def write_print_info_excel(result: dict[str, Any], output_path: Path) -> Path:
         ("with_title_count", result.get("with_title_count", 0)),
         ("with_drawing_no_count", result.get("with_drawing_no_count", 0)),
         ("with_project_count", result.get("with_project_count", 0)),
+        ("with_subproject_count", result.get("with_subproject_count", 0)),
         ("excluded_handle_count", result.get("excluded_handle_count", 0)),
     ]
     for row_index, (key, value) in enumerate(summary_rows, start=1):
@@ -808,20 +1253,44 @@ def write_print_info_excel(result: dict[str, Any], output_path: Path) -> Path:
             detail_ws.cell(row=row_index, column=col_index, value=_stringify_excel_value(row.get(key)))
 
     text_ws = workbook.create_sheet("text_records")
-    text_headers = ["序号", "页面键", "打印区域句柄", "文字序号", "文字句柄", "文字内容", "对象类型", "图层", "包围盒"]
+    text_headers = [
+        "序号",
+        "页面键",
+        "打印区域句柄",
+        "文字序号",
+        "归类角色",
+        "文字句柄",
+        "文字内容",
+        "对象类型",
+        "图层",
+        "包围盒",
+    ]
     for col_index, title in enumerate(text_headers, start=1):
         cell = text_ws.cell(row=1, column=col_index, value=title)
         cell.font = Font(bold=True)
         cell.alignment = Alignment(horizontal="center", vertical="center")
 
+    title_ws = workbook.create_sheet("drawing_title_records")
+    number_ws = workbook.create_sheet("drawing_no_records")
+    classified_headers = ["序号", "页面键", "打印区域句柄", "对象序号", "文字句柄", "文字内容", "对象类型", "图层", "包围盒"]
+    for ws in (title_ws, number_ws):
+        for col_index, title in enumerate(classified_headers, start=1):
+            cell = ws.cell(row=1, column=col_index, value=title)
+            cell.font = Font(bold=True)
+            cell.alignment = Alignment(horizontal="center", vertical="center")
+
     text_row_index = 2
+    title_row_index = 2
+    number_row_index = 2
     for row in ordered_rows:
-        for text_index, text_row in enumerate(row.get("title_block_text_records", []) or [], start=1):
+        text_records = row.get("classified_text_records", []) or row.get("graphic_info_text_records", []) or []
+        for text_index, text_row in enumerate(text_records, start=1):
             values = [
                 row.get("sequence_no", 0),
                 row.get("page_key", ""),
                 row.get("print_handle", ""),
                 text_index,
+                text_row.get("resolved_role", ""),
                 text_row.get("handle", ""),
                 text_row.get("text", ""),
                 text_row.get("obj_name", ""),
@@ -831,8 +1300,32 @@ def write_print_info_excel(result: dict[str, Any], output_path: Path) -> Path:
             for col_index, value in enumerate(values, start=1):
                 text_ws.cell(row=text_row_index, column=col_index, value=value)
             text_row_index += 1
+        for target_ws, target_records, current_row_index in (
+            (title_ws, row.get("drawing_title_records", []) or [], title_row_index),
+            (number_ws, row.get("drawing_no_records", []) or [], number_row_index),
+        ):
+            local_row_index = current_row_index
+            for item_index, item in enumerate(target_records, start=1):
+                item_values = [
+                    row.get("sequence_no", 0),
+                    row.get("page_key", ""),
+                    row.get("print_handle", ""),
+                    item_index,
+                    item.get("handle", ""),
+                    item.get("text", ""),
+                    item.get("obj_name", ""),
+                    item.get("layer", ""),
+                    _stringify_excel_value(item.get("bbox")),
+                ]
+                for col_index, value in enumerate(item_values, start=1):
+                    target_ws.cell(row=local_row_index, column=col_index, value=value)
+                local_row_index += 1
+            if target_ws is title_ws:
+                title_row_index = local_row_index
+            else:
+                number_row_index = local_row_index
 
-    for ws in (summary_ws, detail_ws, text_ws):
+    for ws in (summary_ws, detail_ws, text_ws, title_ws, number_ws):
         ws.freeze_panes = "A2"
         for column_cells in ws.columns:
             max_len = 0

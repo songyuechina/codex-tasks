@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>SetCustomScale method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetCustomScale Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Sets the custom scale for a layout or plot configuration.</P>
+
+<P CLASS="h1-access"><A HREF="setcustomscale_see_also.htm">See Also</A> | <A HREF="ex_setcustomscale.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.SetCustomScale(Numerator, Denominator)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_layout_object.htm'>Layout</A>, <A HREF='idh_plotconfiguration_object.htm'>PlotConfiguration</A><BR>
+The objects this method applies to.
+<P class="element">Numerator</p><p class=element-desc>Double; input-only<BR>
+A positive number representing the numerator in the scale ratio. This value represents the number of inches or mm for the scale.
+<P class="element">Denominator</p><p class=element-desc>Double; input-only<BR>
+A positive number representing the denominator in the scale ratio. This value represents the number of drawing units for the scale.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The units for the Numerator parameter can be found in the 
+<A HREF="idh_paperunits.htm">PaperUnits</A> property. 
+<P CLASS="body">The Numerator and Denominator values must be greater than zero.
+<P CLASS="body">Changes made by this method will not be visible until 
+after a regeneration of the drawing. Use the 
+<A HREF="idh_regen.htm">Regen</A> method to regenerate the drawing. 
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

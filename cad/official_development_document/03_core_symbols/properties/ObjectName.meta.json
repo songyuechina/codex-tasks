@@ -1,0 +1,46 @@
+{
+  "symbol": "ObjectName",
+  "kind": "property",
+  "source_terms": [
+    "objectname"
+  ],
+  "owners": [
+    "Entity"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "traverse_objects_and_read_identity",
+    "read_block_attributes"
+  ],
+  "pywin32_signature": "getattr(ent, 'ObjectName', '')",
+  "risk_tags": [
+    "天正对象还需配合兼容访问"
+  ],
+  "project_paths": [
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"
+  ],
+  "path_md": "03_core_symbols/properties/ObjectName.md",
+  "source_matches": [
+    "01_extracted_html/acadauto/ex_objectname.htm",
+    "01_extracted_html/acadauto/idh_objectname.htm",
+    "01_extracted_html/acadauto/objectname_see_also.htm"
+  ],
+  "project_refs": [
+    "cad/system/CAD_selection.py",
+    "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acadauto:ex_objectname",
+    "acadauto:idh_objectname",
+    "acadauto:objectname_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_objectname.htm",
+    "01_extracted_html/acadauto/idh_objectname.htm",
+    "01_extracted_html/acadauto/objectname_see_also.htm"
+  ]
+}

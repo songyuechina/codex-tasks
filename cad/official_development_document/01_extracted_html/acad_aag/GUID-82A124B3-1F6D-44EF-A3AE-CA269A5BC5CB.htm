@@ -1,0 +1,158 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=iso8859-1"><meta name="product" content="OARX"><meta name="book" content="Developer"><meta name="created" content="2020-01-13"><meta name="topicid" content="GUID-82A124B3-1F6D-44EF-A3AE-CA269A5BC5CB"><meta name="topic-subtype" content="activex"><meta name="description" content="Additions and changes made to the ActiveX API in AutoCAD 2004 and AutoCAD 2004-based products."><meta name="topic-type" content="concept"><meta name="audience" content="programmer"><meta name="experiencelevel" content="general"><meta name="parent-id" content="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23"><title>AutoCAD 2004 API History Reference (ActiveX)</title><link rel="stylesheet" type="text/css" href="style/adsk.cpm.css"><script type="text/javascript" src="scripts/adsk.strings.js"></script><script type="text/javascript" src="scripts/adsk.common.js"></script></head><body><div class="head"><div class="head-block"><div class="nav-group"><!--browse buttons--><div class="browse"><nobr><!--No Additional browse buttons are defined--><div class="headNavLinkPrev"><div id="prevTitle" style="display:none">AutoCAD 2005 API History Reference (ActiveX)</div><a href="GUID-4570302D-8416-402B-902C-5948068B4B7E.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('prevTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-prev-xp.gif" border="0"></a></div><div class="headNavLinkUp"><div id="parentTitle" style="display:none">About the ActiveX API History (ActiveX)</div><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('parentTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-up-xp.gif" border="0"></a></div><div class="headNavLinkNext"><div id="nextTitle" style="display:none">AutoCAD 2002 API History Reference (ActiveX)</div><a href="GUID-4483C941-5519-4E12-A1C1-8BB845535E5C.htm" class="headNavLink" onmouseover="showInfo(document.getElementById('nextTitle').innerHTML);" onmouseout="hideInfo();"><img src="images/nav-next-xp.gif" border="0"></a></div></nobr></div><!--end browse buttons--></div><div class="button-info"><span id="infoline">&nbsp;</span></div><div class="ancestry"><a href="GUID-36BF58F3-537D-4B59-BEFE-2D0FEF5A4443.htm">Autodesk AutoCAD 2021: ActiveX Developer's Guide</a>&nbsp;&gt;&nbsp;<a href="topichead_0.htm">Introduction</a>&nbsp;&gt;&nbsp;<a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm">About the ActiveX API History (ActiveX)</a>&nbsp;&gt;&nbsp;</div><div class="head-text"><span style="display:none"><a name="GUID-10DB85EE-F0C4-4C89-87BE-0E59515CAF93"></a></span><h1>AutoCAD 2004 API History Reference (ActiveX)</h1></div></div></div><div class="head-margin">&nbsp;</div><div style="line-height: 0pt">&nbsp;</div><div class="head-margin">&nbsp;</div><div class="body_content"><span style="display:none"><a name="GUID-82A124B3-1F6D-44EF-A3AE-CA269A5BC5CB"></a></span><p class="blurb">Additions and changes made to the ActiveX API in AutoCAD 2004 and AutoCAD 2004-based products. </p><div class="bodyReference"><div class="section"><span style="display:none"><a name="SECTION_43F9F40EF2454097A3D890D7D17DDC6F"></a></span> <h2><a name="TOC_ENTRY__d24e6572"></a><span style="display:none"><a name="GUID-80090DC6-22F8-4E5C-B7DE-51F2EC76036B"></a></span>Enums</h2> <div class="codeBlock"><pre>AcViewportScale (Change)
+        acVp1and1_2in_1ft = 30 (Changed)
+        acVp3in_1ft = 31 (Changed)
+        acVp6in_1ft = 32 (Changed)
+        acVp1ft_1ft = 33 (New)
+AcSaveAsType (Changed)
+        ac2000_dwg = 12 (New)
+        ac2000_dxf = 13 (New)
+        ac2000_Template = 14 (New)
+        ac2004_dwg = 24 (New)
+        ac2004_dxf = 25 (New)
+        ac2004_Template = 26 (New)
+        acNative = 24 (Changed)
+        acR18_dwg = 24 (New)
+        acR18_dxf = 25 (New)
+        acR18_Template = 26 (New)
+AcShadePlot (New)
+        acShadePlotAsDisplayed = 0
+        acShadePlotWireframe = 1
+        acShadePlotHidden = 2
+        acShadePlotRendered = 3
+AcHatchObjectType (New)
+        acHatchObject = 0
+        acGradientObject = 1
+AcGradientPatternType (New)
+        acPreDefinedGradient = 0
+        acUserDefinedGradient = 1
+AcColorMethod (New)
+        acColorMethodByLayer = 192
+        acColorMethodByBlock = 193
+        acColorMethodByRGB = 194
+        acColorMethodByACI = 195
+        acColorMethodForeground = 197
+AcadSecurityParamsType (New)
+        ACADSECURITYPARAMS_ENCRYPT_DATA = 1
+        ACADSECURITYPARAMS_ENCRYPT_PROPS = 2
+        ACADSECURITYPARAMS_SIGN_DATA = 16
+        ACADSECURITYPARAMS_ADD_TIMESTAMP = 32
+AcadSecurityParamsConstants (New)
+        ACADSECURITYPARAMS_ALGID_RC4 = 26625
+</pre></div> </div><div class="section"><span style="display:none"><a name="SECTION_6530471DF72A4440B241419D1B1506BE"></a></span> <h2><a name="TOC_ENTRY__d24e6580"></a><span style="display:none"><a name="GUID-FBCC7B71-A1C2-4011-972D-38B60054C5C5"></a></span>Classes</h2> <div class="codeBlock"><pre>IAcadDatabase (Changed)
+        FileDependencies - Property (New)
+        SummaryInfo - Property (New)
+IAcadBlock (Changed)
+        InsertBlock - Method (Changed - Password parameter)
+        AddHatch - Method (Changed - Hatch object type parameter)
+        AddMInsertBlock - Method (Changed - Password parameter)
+        AttachExternalReference - Method (Changed - Password parameter)
+IAcadEntity (Changed)
+        TrueColor - Property (New)
+IAcadAcCmColor (New)
+        EntityColor - Property
+        ColorName - Property
+        BookName - Property
+        SetNames - Method
+        Delete - Method
+        Red - Property
+        Blue - Property
+        Green - Property
+        SetRGB - Method
+        ColorMethod - Property
+        ColorIndex - Property
+        SetColorBookColor - Method
+IAcad3DPolyline (Changed)
+        Length - Property (New)
+IAcadDimension (Changed)
+        TextColor - Property (New)
+IAcadMText (Changed)
+        LineSpacingDistance - Property (New)
+IAcadLWPolyline (Changed)
+        Length - Property (New)
+IAcadPolyline (Changed)
+        Length - Property (New)
+IAcadTolerance (Changed)
+        TextColor - Property (New)
+IAcadHatch (Changed)
+        GradientColor1 - Property (New)
+        GradientColor2 - Property (New)
+        GradientAngle - Property (New)
+        GradientCentered - Property (New)
+        GradientName - Property (New)
+        HatchObjectType - Property (New)
+IAcadPViewport (Changed)
+        RemoveHiddenLines - Property (Hidden)
+        ShadePlot - Property (New)
+IAcadGroup (Changed)
+        TrueColor - Property (New)
+        color - Property (Hidden)
+IAcadLayer
+        color - Property (Hidden)
+        TrueColor - Property (New)
+IAcadFileDependencies (New)
+        Item - Method
+        Application - Property
+        Count - Property
+        CreateEntry - Method
+        IndexOf - Method
+        RemoveEntry - Method
+        UpdateEntry - Method
+IAcadFileDependency (New)
+        FullFileName - Property
+        FileName - Property
+        FoundPath - Property
+        FingerprintGuid - Property
+        VersionGuid - Property
+        Feature - Property
+        IsModified - Property
+        AffectsGraphics - Property
+        Index - Property
+        TimeStamp - Property
+        FileSize - Property
+        ReferenceCount - Property
+IAcadSummaryInfo (New)
+        Author - Property
+        Comments - Property
+        HyperlinkBase - Property
+        Keywords - Property
+        LastSavedBy - Property
+        RevisionNumber - Property
+        Subject - Property
+        Title - Property
+        NumCustomInfo - Method
+        GetCustomByIndex - Method
+        GetCustomByKey - Method
+        SetCustomByIndex - Method
+        SetCustomByKey - Method
+        AddCustomInfo - Method
+        RemoveCustomByIndex - Method
+        RemoveCustomByKey - Method
+IAcadSecurityParams (New)
+        Action - Property
+        Password - Property
+        ProviderType - Property
+        ProviderName - Property
+        Algorithm - Property
+        KeyLength - Property
+        Subject - Property
+        Issuer - Property
+        SerialNumber - Property
+        Comment - Property
+        TimeServer - Property
+IAcadDocument (Changed)
+        Open - Method (Changed - Password parameter)
+        SaveAs - Method (Changed - Password parameter)
+IAcadApplication (Changed)
+        HWND - Property (New)
+IAcadPreferencesFiles (Changed)
+        LicenseServer - Property (Changed to hidden)
+        ObjectARXPath - Property (Changed to hidden)
+        ColorBookPath - Property (New)
+        ToolPalettePath - Property (New)
+IAcadPreferencesUser (Changed)
+        SCMTimeMode - Property (New)
+        SCMTimeValue - Property (New)
+IAcadDocuments (Changed)
+        Open - Method (Changed - Password parameter)</pre></div> </div></div><div class="related-topics"><span class="noindex"><div class="related-concept"><h4 class="related">Related Concepts</h4><ul><li class="topiclist-litem"><a href="GUID-F3522375-9407-48B7-BE25-E24BC07C5F23.htm" title=" There have been a number of changes to the AutoCAD ActiveX API since its first introduction with AutoCAD R14. ">About the ActiveX API History (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-9C082B2D-015E-43C1-9168-623A2EA91D94.htm" title=" AutoCAD® ActiveX® enables you to manipulate AutoCAD programmatically from within or outside AutoCAD. ">About the AutoCAD ActiveX Technology (ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-FF023966-A01D-4B64-8957-7C0F02BF8162.htm" title="In general, an AutoCAD automation project created in the VBA IDE or created with Visual Studio might require some updates before it can be used in &#xA;&#x9; AutoCAD 2021. &#xA;  ">About Migrating Automation Projects (VBA/ActiveX)</a></li><li class="topiclist-litem"><a href="GUID-50F93154-A352-4082-89F2-B0637C7FB952.htm" title=" If you install, reinstall, or uninstall Microsoft Office or other VBA enabled applications after installing AutoCAD, reinstall the AutoCAD VBA extension and reboot your system. ">FAQ: Why does my VBA project no longer run correctly? (VBA/ActiveX)</a></li></ul></div></span></div><div class="footer-block"><a href="javascript:doComments('html/ac.cmtdialog.htm');"><span class="comments-link">Please send us your comment about this page</span></a></div><br></div></body></html>

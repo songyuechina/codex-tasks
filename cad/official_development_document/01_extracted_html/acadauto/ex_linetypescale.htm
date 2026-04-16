@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>LinetypeScale Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">LinetypeScale Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_LinetypeScale()
+    ' This example creates a line and finds the linetype scale
+    ' for the line. It then changes the linetype scale, and finally
+    ' resets the linetype scale back to the original value.
+    Dim startPoint(0 To 2) As Double
+    Dim endPoint(0 To 2) As Double
+    Dim lineObj As AcadLine
+    Dim currLTScale As Double
+
+    ' Create a Line object in model space
+    startPoint(0) = 2#: startPoint(1) = 2#: startPoint(2) = 0#
+    endPoint(0) = 4#: endPoint(1) = 4#: endPoint(2) = 0#
+    Set lineObj = ThisDrawing.ModelSpace.AddLine(startPoint, endPoint)
+    lineObj.Update
+    currLTScale = lineObj.LinetypeScale
+    MsgBox "The linetype scale for the line is:" & lineObj.LinetypeScale, vbInformation, "Linetypes Example"
+
+
+    ' Set the linetype scale of a Line to .5
+    lineObj.LinetypeScale = 0.5
+    lineObj.Update
+    MsgBox "The new linetype scale for the line is:" & lineObj.LinetypeScale, vbInformation, "Linetypes Example"
+    
+    ' Reset the linetype scale of a Line to what is was before
+    lineObj.LinetypeScale = currLTScale
+    lineObj.Update
+    MsgBox "The linetype scale for the line is reset to:" & lineObj.LinetypeScale, vbInformation, "Linetypes Example"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

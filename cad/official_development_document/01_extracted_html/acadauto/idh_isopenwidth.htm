@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>ISOPenWidth property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">ISOPenWidth Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the ISO pen width of an ISO hatch pattern.</P>
+
+<P CLASS="h1-access"><A HREF="isopenwidth_see_also.htm">See Also</A> | <A HREF="ex_isopenwidth.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.ISOPenWidth
+<P class="element">object</p><p class=element-desc><A HREF='idh_hatch_object.htm'>Hatch</A><BR>
+The object this property applies to.
+<P class="element">ISOPenWidth</p><p class=element-desc>acISOPenWidth enum, read-write for all ISO hatch patterns.
+Specify one of the following constants.</P>
+
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth000</TD>
+  <TD><P class="constant-desc">0.00 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth013</TD>
+  <TD><P class="constant-desc">0.13 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth018</TD>
+  <TD><P class="constant-desc">0.18 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth025</TD>
+  <TD><P class="constant-desc">0.25 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth035</TD>
+  <TD><P class="constant-desc">0.35 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth050</TD>
+  <TD><P class="constant-desc">0.50 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth070</TD>
+  <TD><P class="constant-desc">0.70 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth100</TD>
+  <TD><P class="constant-desc">1.00 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth140</TD>
+  <TD><P class="constant-desc">1.40 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidth200</TD>
+  <TD><P class="constant-desc">2.00 mm</TD>
+</TR>
+<TR VALIGN=top>
+  <TD><P class="constant">acPenWidthUnk</TD>
+  <TD><P class="constant-desc">unknown</TD>
+</TR>
+</TABLE>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The first ten values represent the pen width in hundredths 
+of a millimeter.  
+<P CLASS="body">The <SPAN CLASS="constant-char">acPenWidthUnk</SPAN> value identifies an unknown, 
+or non-standard, pen width. When you query a hatch and receive a value of 
+<SPAN CLASS="constant-char">acPenWidthUnk</SPAN>, use the <A HREF="idh_patternscale.htm">PatternScale</A> property 
+to obtain the non-standard value. Setting the pen width of any hatch to 
+<SPAN CLASS="constant-char">acPenWidthUnk</SPAN> has no effect.
+<P CLASS="body">This property shares a 
+relationship with the PatternScale property. When you work with ISO hatch 
+patterns, the standard scale values can be entered through the 
+PatternScale property or through this property. Non-standard pen widths 
+can only be entered using the PatternScale property.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="method.doc" KEYWORDS="drawing object, at offset; object, creating at offset; Offset method; Arc object, creating at offset; Circle object, creating at offset; Ellipse object, creating at offset; Line object, creating at offset; LightweightPolyline object, creating at offset; Polyline object, creating at offset; Spline object, creating at offset; XLine object, creating at offset" CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 5:06:54 PM">
+<TITLE>Offset method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Offset Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a new object at a specified offset distance from an existing object.</P>
+
+<P CLASS="h1-access"><A HREF="offset_see_also.htm">See Also</A> | <A HREF="ex_offset.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.Offset(Distance)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_arc_object.htm'>Arc</A>, <A HREF='idh_circle_object.htm'>Circle</A>, <A HREF='idh_ellipse_object.htm'>Ellipse</A>, <A HREF='idh_line_object.htm'>Line</A>, <A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_spline_object.htm'>Spline</A>, <A HREF='idh_xline_object.htm'>XLine</A><BR>
+The objects this method applies to.
+<P class="element">Distance</p><p class=element-desc>Double; input-only<BR>
+The distance to offset the object. The offset can be a positive or negative number, but it cannot equal zero. If the offset is negative, this is interpreted as being an offset to make a "smaller" curve (that is, for an arc it would offset to a radius that is "Distance less" than the starting curve's radius). If "smaller" has no meaning, then it would offset in the direction of smaller <I>X</I>, <I>Y</I>, and <I>Z</I> WCS coordinates.
+<P class="element">RetVal</p><p class=element-desc>Variant (array of objects)<BR>
+An array of the newly created objects resulting from the offset.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">For many curves, the result of this operation will be a single new curve (which may not be of the same type as the original curve). For example, offsetting an ellipse will result in a spline because the result does not fit the equation of an ellipse. In some cases it may be necessary for the offset result to be several curves.
+<P CLASS="body"><IMG SRC='img/offset.gif' BORDER=0>
+<P CLASS="body"><I>An original object and the object with an offset in red.</I>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddDimOrdinate method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddDimOrdinate Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates an ordinate dimension given the definition point and the leader endpoint.</P>
+
+<P CLASS="h1-access"><A HREF="adddimordinate_see_also.htm">See Also</A> | <A HREF="ex_adddimordinate.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddDimOrdinate(DefinitionPoint, LeaderEndPoint, UseXAxis)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">DefinitionPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the point to be dimensioned.
+<P class="element">LeaderEndPoint</p><p class=element-desc>Variant (three-element array of doubles); input-only<BR>
+The 3D WCS coordinates specifying the endpoint of the leader. This will be the location at which the dimension text is displayed.
+<P class="element">UseXAxis</p><p class=element-desc>Integer; input-only
+<P CLASS="Constant">TRUE<SPAN CLASS=BodyText>: Creates an ordinate dimension displaying the <I>X</I> axis value.</span>
+<P CLASS="Constant-Last">FALSE<SPAN CLASS=BodyText>: Creates an ordinate dimension displaying the <I>Y</I> axis value.</span>
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_dimordinate_object.htm'>DimOrdinate</A> object<BR>
+The newly created ordinate dimension object.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">Ordinate dimensions display the <I>X</I> or <I>Y</I> coordinate of an object along with a simple leader line. The absolute value of the coordinate is used according to the prevailing standards for ordinate dimensions.
+<P CLASS="body"><IMG SRC='img/dimord.gif' BORDER=0>
+<P CLASS="body"><I>An ordinate dimension measuring the absolute <BR></I>X<I> 
+position of a point tangent to a circle</I>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

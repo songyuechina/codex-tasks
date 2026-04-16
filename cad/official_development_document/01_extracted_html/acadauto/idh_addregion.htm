@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddRegion method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddRegion Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Creates a region from a set of entities. The given entities must form a closed coplanar region.</P>
+
+<P CLASS="h1-access"><A HREF="addregion_see_also.htm">See Also</A> | <A HREF="ex_addregion.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddRegion(ObjectList)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_modelspace_collection.htm'>ModelSpace Collection</A>, <A HREF='idh_paperspace_collection.htm'>PaperSpace Collection</A>, <A HREF='idh_block_object.htm'>Block</A><BR>
+The objects this method applies to.
+<P class="element">ObjectList</p><p class=element-desc>Array of Objects<BR>
+The array of objects forming the closed coplanar face to be made into a region. This array may contain the following object types: <A HREF='idh_line_object.htm'>Line</A>, <A HREF='idh_arc_object.htm'>Arc</A>, <A HREF='idh_circle_object.htm'>Circle</A>, <A HREF='idh_ellipse_object.htm'>Elliptical Arc</A>, <A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_spline_object.htm'>Spline</A>.
+<P class="element">RetVal</p><p class=element-desc>Variant<BR>
+This method outputs an array of the newly created <A HREF='idh_region_object.htm'>Region</A> objects. 
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This method will create a region out of every closed loop formed by the input array of curves. AutoCAD converts closed 2D and planar 3D polylines to separate regions, and then converts polylines, lines, and curves that form closed planar loops. If more than two curves share an endpoint, the resultant region might be arbitrary.
+<P CLASS="body">You can explode a region into the individual loops by using 
+the <A HREF="idh_explode.htm">Explode</A> method. 
+The <A HREF="idh_boolean.htm">Boolean</A> method allows you to create 
+composite 3D solids or regions from the intersection, union, or 
+subtraction of a solid or region from another solid or region.
+<P CLASS="body">The total number of Region objects created is Ubound(objRegions) - Lbound(objRegions) + 1.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

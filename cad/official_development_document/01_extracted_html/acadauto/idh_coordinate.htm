@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+
+<TITLE>Coordinate property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Coordinate Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the coordinate of a single vertex in the object. </P>
+
+<P CLASS="h1-access"><A HREF="coordinate_see_also.htm">See Also</A> | <A HREF="ex_coordinate.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Coordinate(index)
+<P class="element">object</p><p class=element-desc><A HREF='idh_3dpoly_object.htm'>3DPoly</A>, <A HREF='idh_leader_object.htm'>Leader</A>, <A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_point_object.htm'>Point</A>, <A HREF='idh_polyfacemesh_object.htm'>PolyfaceMesh</A>, <A HREF='idh_polygonmesh_object.htm'>PolygonMesh</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_section_object.htm'>Section</A>, <A HREF='idh_solid_object.htm'>Solid</A>, <A HREF='idh_trace_object.htm'>Trace</A><BR>
+The objects this property applies to.
+<P class="element">Coordinate</p><p class=element-desc>Variant (three-element or two-element array of doubles); read-write<BR>
+The array of <I>X, Y,</I> and <I>Z</I> coordinates for the specified vertex. <BR>
+<BR>
+LightweightPolyline object: The variant has two elements representing the <I>X</I> and <I>Y</I> coordinates in OCS.
+<BR>
+Polyline object: The variant has three elements, representing the <i>X</i> and <i>Y</i> coordinates in OCS. The <I>Z</I> coordinate is present in the variant but ignored. <BR>
+<BR>
+All other objects: The variant has three elements, representing the <i>X</i> and <i>Y</i> coordinates in WCS; the <I>Z</I> coordinate will default to 0 on the active UCS.
+<P class="element">Index</p><p class=element-desc>Integer<BR>
+The index in the array of vertices for the vertex you want to set or query. The vertex arrays are 0 based.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">This property will replace any existing vertices for the specified object. Use standard array-handling techniques to process the values contained in this property.
+<P CLASS="body"><I>3DPolyline, Polyline, PolygonMesh:</I> For simple polylines (not splined or curve fit), this property specifies simple vertices. For splined or curve-fit polylines, this property specifies control point vertices.
+<P CLASS="body">The OCS coordinates for the Polyline and 
+LightweightPolyline objects can be converted to and from other 
+coordinate systems using the <A HREF="idh_translatecoordinates.htm">TranslateCoordinates</A> method.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

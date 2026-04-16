@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>EndAngle Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">EndAngle Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_EndAngle()
+    ' This example creates an ellipse and enters the start and
+    ' end angles to create an elliptical arc.
+    Dim ellObj As AcadEllipse
+    Dim majAxis(0 To 2) As Double
+    Dim center(0 To 2) As Double
+    Dim radRatio As Double
+    
+    ' Create an ellipse in model space
+    center(0) = 5#: center(1) = 5#: center(2) = 0#
+    majAxis(0) = 10: majAxis(1) = 20#: majAxis(2) = 0#
+    radRatio = 0.3
+    Set ellObj = ThisDrawing.ModelSpace.AddEllipse(center, majAxis, radRatio)
+    
+    'Enter a start angle of 45 degrees, and an end angle of 270 degrees
+    ellObj.startAngle = 45 * (3.14 / 180)
+    ellObj.endAngle = 270 * (3.14 / 180)
+    ZoomAll
+    MsgBox "This ellipse has a start angle of " & ellObj.startAngle * (180 / 3.14) & " and the end angle of " & ellObj.endAngle * (180 / 3.14) & " degrees.", vbInformation, "EndAngle Example"
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

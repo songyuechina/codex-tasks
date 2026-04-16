@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>AddRegion Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddRegion Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">Sub Example_AddRegion()
+    ' This example creates a region from an arc and a line.
+    
+    Dim curves(0 To 1) As AcadEntity
+
+    ' Define the arc
+    Dim centerPoint(0 To 2) As Double
+    Dim radius As Double
+    Dim startAngle As Double
+    Dim endAngle As Double
+    centerPoint(0) = 5#: centerPoint(1) = 3#: centerPoint(2) = 0#
+    radius = 2#
+    startAngle = 0
+    endAngle = 3.141592
+    Set curves(0) = ThisDrawing.ModelSpace.AddArc(centerPoint, radius, startAngle, endAngle)
+    
+    ' Define the line
+    Set curves(1) = ThisDrawing.ModelSpace.AddLine(curves(0).startPoint, curves(0).endPoint)
+        
+    ' Create the region
+    Dim regionObj As Variant
+    regionObj = ThisDrawing.ModelSpace.AddRegion(curves)
+    ZoomAll
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

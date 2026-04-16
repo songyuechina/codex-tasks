@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AddMenuItem method  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AddMenuItem Method</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Adds a popup menu item to a popup menu.</P>
+
+<P CLASS="h1-access"><A HREF="addmenuitem_see_also.htm">See Also</A> | <A HREF="ex_addmenuitem.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">RetVal = object.AddMenuItem(Index, Label, Macro)
+<P class="element">Object</p><p class=element-desc><A HREF='idh_popupmenu_object.htm'>PopupMenu</A><BR>
+The object this method applies to.
+<P class="element">Index</p><p class=element-desc>Variant; input-only<BR>
+The index location in the popup menu where the item is to be added. 
+The index must be either an integer or a string. 
+<P class="element"></p><p class="element-desc">If an integer is
+supplied to 
+specify a given location in the menu, the index must be between 0 and <I>N</I>-1, where <I>N</I> is the number of objects in the popup menu. The new item will be added immediately before the specified index location. To add the new menu item to the end of a menu, set the index to be greater than <I>N</I>.
+<P class="element"></p><p class="element-desc">If a string is specified and the indexed item does not exist, then the new menu item is added at the end of the menu.
+<P class="element">Label</p><p class=element-desc>String; input-only<BR>
+The label for the menu item. The label may contain DIESEL string expressions. Labels also identify the accelerator keys (keyboard key sequences) that correspond to the menu item by placing an ampersand (&) in front of the accelerator character.
+<P class="element">Macro</p><p class=element-desc>String; input-only<BR>
+The name of the macro associated with this menu item.
+<P class="element">RetVal</p><p class=element-desc><A HREF='idh_popupmenuitem_object.htm'>PopupMenuItem</A> object<BR>
+The newly created popup menu item.
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

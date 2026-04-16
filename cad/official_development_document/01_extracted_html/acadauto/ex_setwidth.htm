@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>SetWidth Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">SetWidth Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">
+Sub Example_SetWidth()
+    ' The following code prompts you to select a lightweight
+    ' polyline, and then prompts you for the width to set each 
+    ' segment of the polyline. 
+    ' Pressing ENTER without specifying a width is equivalent to
+    ' entering 0. 
+	  
+    Dim returnObj As AcadObject
+    Dim basePnt As Variant
+    Dim retCoord As Variant
+    Dim StartWidth As Double
+    Dim EndWidth As Double
+    Dim i, j As Long
+    Dim nbr_of_segments As Long
+    Dim nbr_of_vertices As Long
+    Dim segment As Long
+    Dim promptStart As String
+    Dim promptEnd As String
+              
+    On Error Resume Next
+   
+    ThisDrawing.Utility.GetEntity returnObj, basePnt, "Select a polyline"
+       
+    ' Make sure the user selected a polyline.
+    If Err &lt;&gt; 0 Then
+        If returnObj.EntityName &lt;&gt; "AcDbPolyline" Then
+            MsgBox "You did not select a polyline"
+        End If
+        Exit Sub
+    End If
+    
+    ' Obtain the coordinates of each vertex of the selected polyline.
+    ' The coordinates are returned in an array of points.
+    retCoord = returnObj.Coordinates
+    
+    segment = 0
+    i = LBound(retCoord)                 ' Start index of coordinates array
+    j = UBound(retCoord)                 ' End index of coordinates array
+    nbr_of_vertices = ((j - i) \ 2) + 1  ' Number of vertices in the polyline
+    
+    ' Determine the number of segments in the polyline.
+    ' A closed polyline has as many segments as it has vertices.
+    ' An open polyline has one fewer segment than it has vertices.
+    ' Check the Closed property to determine if the polyline is closed.
+    
+    If returnObj.Closed Then
+        nbr_of_segments = nbr_of_vertices
+    Else
+        nbr_of_segments = nbr_of_vertices - 1
+    End If
+    
+    ' Have user set the width for each segment of the polygon
+    Do While nbr_of_segments > 0
+          
+        ' Get width values from the user
+        promptStart = vbCrLf & "Specify the width at the beginning of the segment at " & retCoord(i) & "," & retCoord(i + 1) & " ==> "
+        promptEnd = vbCrLf & "Now specify the width at the end of that segment ==> "
+       
+        StartWidth = ThisDrawing.Utility.GetReal(promptStart)
+        EndWidth = ThisDrawing.Utility.GetReal(promptEnd)
+
+        ' Set the width of the current segment
+        returnObj.SetWidth segment, StartWidth, EndWidth
+     
+        ' Prepare to obtain width of next segment, if any
+        i = i + 2
+        segment = segment + 1
+        nbr_of_segments = nbr_of_segments - 1
+    Loop
+      
+    MsgBox "Segment widths have been set", , "SetWidth Example"
+
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

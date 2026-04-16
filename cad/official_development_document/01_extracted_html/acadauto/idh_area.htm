@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+
+
+<TITLE>Area property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Area Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the enclosed area of an arc, circle, ellipse, hatch, lightweight polyline, polyline, region, or planar-closed spline.</P>
+
+<P CLASS="h1-access"><A HREF="area_see_also.htm">See Also</A> | <A HREF="ex_area.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.Area
+<P class="element">object</p><p class=element-desc><A HREF='idh_arc_object.htm'>Arc</A>, <A HREF='idh_circle_object.htm'>Circle</A>, <A HREF='idh_ellipse_object.htm'>Ellipse</A>, <A HREF='idh_hatch_object.htm'>Hatch</A>, <A HREF='idh_lightweightpolyline_object.htm'>LightweightPolyline</A>, <A HREF='idh_polyline_object.htm'>Polyline</A>, <A HREF='idh_region_object.htm'>Region</A>, <A HREF='idh_spline_object.htm'>Spline</A><BR>
+The objects this property applies to.
+<P class="element">Area</p><p class=element-desc>Double; read-write for Circle objects, read-only for all others<BR>
+The area of the object specified in square drawing units.
+<P CLASS="Heading-2">Remarks
+<P CLASS="body"><I>Hatch objects:</I><BR>
+<b>Note</b> To access this property, use the IAcadHatch2 interface.
+<P CLASS="body"><I>Wide polylines:</I><BR>
+The area is defined by the center of the width.
+<P CLASS="body"><I>Regions:</I><BR>
+The area equals the combined area for all the objects in the region.
+<P CLASS="body"><I>Open objects such as arcs, spline curves, and open polylines:</I><BR>
+The area is computed as though a straight line connects the start point and endpoint.</P>
+<TABLE CLASS="Simple">
+<TR VALIGN=top><TD><P CLASS="body"><IMG SRC='img/area1.gif' BORDER=0>&nbsp;</TD>
+<TD><P CLASS="italic"><I><BR>
+<BR>
+Open polyline</I>&nbsp;</TD></TR>
+
+<TR VALIGN=top><TD><P CLASS="body"><IMG SRC='img/area2.gif' BORDER=0>&nbsp;</TD>
+<TD><P CLASS="italic"><I><BR>
+<BR>
+Area calculated</I>&nbsp;</TD></TR>
+
+</TABLE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

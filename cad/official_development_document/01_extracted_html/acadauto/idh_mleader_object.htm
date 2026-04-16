@@ -1,0 +1,189 @@
+<HTML>
+<HEAD>
+<META COPYRIGHT="Copyright © 1999 Autodesk, Inc." HELP_BUILD="Non-Production Build (for testing only)" DOCFILE="object.doc" KEYWORDS="doglegs (hook lines); hook lines; landings (hook lines); MLeader object; MLeader object, creating; MLeader object, editing; MLeader object, formatting; MLeader object, methods; MLeader object, properties; MLeader object, querying; AcadMLeader. MLeader object; MLeader object, events; MLeader object, methods; MLeader object, properties; arrowheads; lines, MLeader object; system variables, DIMTAD; system variables, DIMCLRD; system variables, DIMBLK; system variables, DIMBLK1; system variables, DIMSCALE; system variables, DIMASZ; system variables, DIMGAP; MLeader object, accessing; MLeader object, arrowheads; MLeader object, lines; MLeader object, color; color, MLeader object; MLeader object, annotation; annotation; DIMTAD system variable, MLeader object; DIMCLRD system variable, MLeader object; DIMBLK system variable, MLeader object; DIMBLK1 system variable, MLeader object; DIMSCALE system variable, MLeader object; DIMASZ system variable, MLeader object; DIMGAP system variable, MLeader object  " CONVERTER="RTFtoHTM v1.51.AX1" TIME_STAMP="11/12/1999 11:41:38 AM">
+<TITLE>MLeader object  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	<!-- ################################################################################## -->
+<SCRIPT LANGUAGE="Javascript" SRC="activex.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+var oname = "MLeader object";
+</SCRIPT>
+
+<OBJECT id=hh1  type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0">
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="Block;idh_block_object.htm">
+    <PARAM name="Item2" value="ModelSpace Collection;idh_modelspace_collection.htm">
+    <PARAM name="Item3" value="PaperSpace Collection;idh_paperspace_collection.htm">
+</OBJECT>
+
+<OBJECT id=hh2 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="None;none.htm">
+</OBJECT>
+
+<OBJECT id=hh3 type="application/x-oleobject"
+        classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11" >
+        codebase="hhctrl.ocx#Version=4,73,8561,0" >
+    <PARAM name="Command" value="Related Topics, MENU">
+    <PARAM name="Flags" value="1">
+    <PARAM name="Item1" value="IAcadLeader;none.htm">
+    <PARAM name="Item2" value="IAcadEntity;idh_iacadentity_Interface.htm">
+    <PARAM name="Item3" value="IAcadObject;idh_iacadobject_Interface.htm">
+    <PARAM name="Item4" value="IAcadObjectEvents;idh_iacadobjectevents_Interface.htm">
+</OBJECT>
+
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<SPAN ID="msg1" STYLE="color: #346; position: absolute; border-top: 0pt; margin-bottom: 1pt; font-size: 8pt; ">&nbsp;</SPAN>
+<BR>
+
+
+
+
+
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back"><SPAN CLASS="Heading-1" >&nbsp; MLeader object</SPAN></A>
+
+</td>
+</table>
+<SPAN ID="mouseout" onmouseover="msgoff();">
+<!-- ################################################################################## -->
+
+
+<P CLASS="1-liner">An object composed of an arrowhead attached to multiple splines or straight line segments.</P>
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">VBA class name:</TH>
+<TD><P CLASS="Bullet2">AcadMLeader&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2">Create using:</TH>
+<TD><P CLASS="Bullet2">ModelSpace.AddMLeader<BR>
+PaperSpace.AddMLeader<BR>
+Block.AddMLeader&nbsp;</TD></TR>
+
+<TR VALIGN=top><TH ALIGN=LEFT><P CLASS="Bullet2-end">Access via:</TH>
+<TD><P CLASS="Bullet2-end">ModelSpace.Item<BR>
+PaperSpace.Item<BR>
+Block.Item<BR>
+SelectionSet.Item<BR>
+Group.Item&nbsp;</TD></TR>
+
+</TABLE>
+<P CLASS="body">A multi-leader line is an object that can be composed of an arrowhead attached to multiple splines or straight line segments. In some cases, a short horizontal line, called a <I>hook line</I>, <I>dogleg</I>, or <I>landing</I>, connects text and feature control frames to the multi-leader line. The MLeader object specifies a complex leader line. In contrast, the MLeader property of the <A HREF='idh_dimdiametric_object.htm'>DimDiametric</A> and <A HREF='idh_dimradial_object.htm'>DimRadial</A> objects specifies a simple leader line.
+<P CLASS="body">Any annotation attached to the end of the leader line is associated with the MLeader object and can be found using the Annotation property.
+<P CLASS="body">To create an mleader, use the <A HREF="idh_AddMLeader.htm">AddMLeader</A> method. To edit or query a leader, use the following methods and properties:
+<TABLE BORDER=0 CELLPADDING=4 CELLSPACING=1>
+<TR VALIGN=top><TD><P CLASS="Heading-2">Methods
+<A HREF="IDH_MLEADER_ADDLEADER.htm"><P CLASS="body">AddLeader</A>
+<A HREF="idh_AddLeaderLine.htm"><P CLASS="body">AddLeaderLine</A>
+<A HREF="idh_AddLeaderLineEx.htm"><P CLASS="body">AddLeaderLineEx</A>
+<A HREF="idh_arraypolar.htm"><P CLASS="body">ArrayPolar</A>
+<A HREF="idh_arrayrectangular.htm"><P CLASS="body">ArrayRectangular</A>
+<A HREF="idh_copy.htm"><P CLASS="body">Copy</A>
+<A HREF="idh_delete.htm"><P CLASS="body">Delete</A>
+<A HREF="idh_evaluate.htm"><P CLASS="body">Evaluate</A>
+<A HREF="idh_getblockattributevalue.htm"><P CLASS="body">GetBlockAttributeValue</A>
+<A HREF="idh_getblockattributevalue32.htm"><P CLASS="body">GetBlockAttributeValue32</A>
+<A HREF="idh_getboundingbox.htm"><P CLASS="body">GetBoundingBox</A>
+<A HREF="idh_GetDoglegDirection.htm"><P CLASS="body">GetDoglegDirection</A>
+<A HREF="idh_getextensiondictionary.htm"><P CLASS="body">GetExtensionDictionary</A>
+<A HREF="idh_GetLeaderIndex.htm"><P CLASS="body">GetLeaderIndex</A>
+<A HREF="idh_GetLeaderLineIndexes.htm"><P CLASS="body">GetLeaderLineIndexes</A>
+<A HREF="idh_GetLeaderLineVertices.htm"><P CLASS="body">GetLeaderLineVertices</A>
+<A HREF="idh_GetVertexCount.htm"><P CLASS="body">GetVertexCount</A>
+<A HREF="idh_getxdata.htm"><P CLASS="body">GetXData</A>
+<A HREF="idh_highlight.htm"><P CLASS="body">Highlight</A>
+<A HREF="idh_IntersectWith.htm"><P CLASS="body">IntersectWith</A>
+<A HREF="idh_mirror.htm"><P CLASS="body">Mirror</A>
+<A HREF="idh_mirror3d.htm"><P CLASS="body">Mirror3D</A>
+<A HREF="idh_move.htm"><P CLASS="body">Move</A>
+<A HREF="idh_RemoveLeader.htm"><P CLASS="body">RemoveLeader</A>
+<A HREF="idh_RemoveLeaderLine.htm"><P CLASS="body">RemoveLeaderLine</A>
+<A HREF="idh_rotate.htm"><P CLASS="body">Rotate</A>
+<A HREF="idh_rotate3d.htm"><P CLASS="body">Rotate3D</A>
+<A HREF="idh_setblockattributevalue.htm"><P CLASS="body">SetBlockAttributeValue</A>
+<A HREF="idh_setblockattributevalue32.htm"><P CLASS="body">SetBlockAttributeValue32</A>
+<A HREF="idh_SetDoglegDirection.htm"><P CLASS="body">SetDoglegDirection</A>
+<A HREF="idh_SetLeaderLineVertices.htm"><P CLASS="body">SetLeaderLineVertices</A>
+<A HREF="idh_scaleentity.htm"><P CLASS="body">ScaleEntity</A>
+<A HREF="idh_setxdata.htm"><P CLASS="body">SetXData</A>
+<A HREF="idh_transformby.htm"><P CLASS="body">TransformBy</A>
+<A HREF="idh_update.htm"><P CLASS="body">Update</A>
+<TD><P CLASS="Heading-2">Properties
+<A HREF="idh_application.htm"><P CLASS="body">Application</A>
+<A HREF="idh_arrowheadblock.htm"><P CLASS="body">ArrowheadBlock</A>
+<A HREF="idh_arrowheadsize.htm"><P CLASS="body">ArrowheadSize</A>
+<A HREF="idh_arrowheadtype.htm"><P CLASS="body">ArrowheadType</A>
+<A HREF="idh_mleaderstyle_Block.htm"><P CLASS="body">Block</A>
+<A HREF="idh_BlockConnectionType.htm"><P CLASS="body">BlockConnectionType</A>
+<A HREF="idh_ContentBlockName.htm"><P CLASS="body">ContentBlockName</A>
+<A HREF="idh_ContentBlockType.htm"><P CLASS="body">ContentBlockType</A>
+<A HREF="idh_coordinate.htm"><P CLASS="body">Coordinate</A>
+<A HREF="idh_coordinates.htm"><P CLASS="body">Coordinates</A>
+<A HREF="idh_document.htm"><P CLASS="body">Document</A>
+<A HREF="idh_DogLegged.htm"><P CLASS="body">DogLegged</A>
+<A HREF="idh_DoglegLength.htm"><P CLASS="body">DoglegLength</A>
+<A HREF="idh_handle.htm"><P CLASS="body">Handle</A>
+<A HREF="idh_hasextensiondictionary.htm"><P CLASS="body">HasExtensionDictionary</A>
+<A HREF="idh_hyperlinks.htm"><P CLASS="body">Hyperlinks</A>
+<A HREF="idh_LandingGap.htm"><P CLASS="body">LandingGap</A>
+<A HREF="idh_layer.htm"><P CLASS="body">Layer</A>
+<A HREF="idh_LeaderCount.htm"><P CLASS="body">LeaderCount</A>
+<A HREF="idh_LeaderLineColor.htm"><P CLASS="body">LeaderLineColor</A>
+<A HREF="idh_LeaderLineType.htm"><P CLASS="body">LeaderLineType</A>
+<A HREF="idh_LeaderLineWeight.htm"><P CLASS="body">LeaderLineWeight</A>
+<A HREF="idh_LeaderType.htm"><P CLASS="body">LeaderType</A>
+<A HREF="idh_linetype.htm"><P CLASS="body">Linetype</A>
+<A HREF="idh_linetypescale.htm"><P CLASS="body">LinetypeScale</A>
+<A HREF="idh_lineweight.htm"><P CLASS="body">Lineweight</A>
+<A HREF="idh_normal.htm"><P CLASS="body">Normal</A>
+<A HREF="idh_objectid.htm"><P CLASS="body">ObjectID</A>
+<A HREF="idh_ownerid.htm"><P CLASS="body">OwnerID</A>
+<A HREF="idh_plotstylename.htm"><P CLASS="body">PlotStyleName</A>
+<A HREF="idh_scalefactor.htm"><P CLASS="body">ScaleFactor</A>
+<A HREF="idh_stylename.htm"><P CLASS="body">StyleName</A>
+<a href="idh_TextBackgroundFill.htm"><P class="body">TextBackgroundFill </P></a>
+<a href="idh_TextDirection.htm"><P class="body">TextDirection</P></a>
+<a href="idh_TextHeight.htm"><P class="body">TextHeight</P></a>
+<a href="idh_TextJustify.htm"><P class="body">TextJustify</P></a>
+<a href="idh_TextLeftAttachmentType.htm"><P class="body">TextLeftAttachmentType</P></a>
+<a href="idh_TextLineSpacingDistance.htm"><P class="body">TextLineSpacingDistance</P></a>
+<a href="idh_TextLineSpacingFactor.htm"><P class="body">TextLineSpacingFactor</P></a>
+<a href="idh_TextLineSpacingStyle.htm"><P class="body">TextLineSpacingStyle</P></a>
+<a href="idh_TextRightAttachmentType.htm"><P class="body">TextRightAttachmentType</P></a>
+<a href="idh_TextRotation.htm"><P class="body">TextRotation</P></a>
+<a href="idh_TextString.htm"><P class="body">TextString</P></a>
+<a href="idh_TextStyleName.htm"><P class="body">TextStyleName</P></a>
+<a href="idh_TextWidth.htm"><P class="body">TextWidth</P></a>
+<A HREF="idh_TrueColor_property.htm"><P CLASS="body">TrueColor</A>
+<A HREF="idh_type.htm"><P CLASS="body">Type</A>
+<A HREF="idh_visible.htm"><P CLASS="body">Visible</A>
+<TD><P CLASS="Heading-2">Events
+<A HREF="idh_modified.htm"><P CLASS="body">Modified</A>
+&nbsp;</TD></TR>
+
+</TABLE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

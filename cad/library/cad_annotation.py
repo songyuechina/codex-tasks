@@ -4,8 +4,13 @@
 CAD注释与文字函数库
 """
 
+import time
+import re
+
 from system.licad import C
 from system.CAD_com_utils import sys_logger, retry_on_busy, SafeCOM
+from system.CAD_coordination import wait_command_done
+from system.CAD_selection import get_attr, set_entity_grip_state_precise
 import win32com.client
 import pythoncom
 from win32com.client import VARIANT
@@ -69,6 +74,7 @@ def write_mtext(
     width=1000,
     height=250,
     attachment_point=1,
+    style="Standard",
     layer_name=None
 ):
     """
@@ -80,6 +86,7 @@ def write_mtext(
         width: 文字框宽度
         height: 文字高度
         attachment_point: 附着点（1-9）
+        style: 文字样式名称
         layer_name: 图层名称
 
     返回：
@@ -93,6 +100,9 @@ def write_mtext(
         )
         mtext_obj.Height = height
         mtext_obj.AttachmentPoint = attachment_point
+
+        if style:
+            mtext_obj.StyleName = style
 
         if layer_name:
             mtext_obj.Layer = layer_name
@@ -251,6 +261,145 @@ def add_leader(points, annotation=None):
         sys_logger.info(f"[错误] 无法添加引线: {e}")
         return None
 
+def _get_text_fragment_sort_info(ent, tolerance=0.3):
+    """返回文字碎片的行桶与 X 坐标，用于天正多行文字排序。"""
+    ins = get_attr(ent, "InsertionPoint")
+    if not ins:
+        try:
+            min_p, _ = ent.GetBoundingBox()
+            return round(min_p[1] / tolerance), min_p[0]
+        except Exception:
+            return 0, 0
+    return round(ins[1] / tolerance), ins[0]
+
+def _clean_text_content(text):
+    """
+    提取纯文字内容，剥离常见 MText 格式控制码与排版控制信息。
+    """
+    if text is None:
+        return ""
+
+    s = str(text).strip()
+    if not s:
+        return ""
+
+    # 剥离开头连续的格式前缀，如 \W0.8;、\C1;、\pxt9;。
+    while s.startswith("\\") and ";" in s:
+        left, right = s.split(";", 1)
+        if "\\" in left[1:]:
+            break
+        s = right.lstrip()
+
+    # 常见段落/空格控制转为普通空白。
+    s = s.replace("\\P", " ")
+    s = s.replace("\\~", " ").replace("\r", " ").replace("\n", " ")
+
+    # 剥离正文中残留的分号型控制码。
+    s = re.sub(r"\\[A-Za-z][^;\\{}]*;", "", s)
+
+    # 去掉大括号分组等版式痕迹。
+    s = s.replace("{", "").replace("}", "")
+
+    # 归一空白，返回纯文本。
+    s = re.sub(r"\s+", " ", s)
+    return s.strip()
+
+def _get_tdb_mtext_content(text_obj, separator="\n"):
+    """
+    复制并炸开天正多行文字，按行重建内容。
+
+    这里沿用已验证有效的“副本炸开 + Y/X 排序 + 行切换插入换行符”经验，
+    统一兼容 cad_annotation 对 TDbMText 的读取。
+    """
+    try:
+        C.li()
+    except Exception:
+        pass
+
+    fragments = []
+    copy_ent = None
+
+    marker = None
+
+    try:
+        try:
+            copy_ent = text_obj.Copy()
+        except Exception as exc:
+            sys_logger.info(f"[错误] 复制天正对象失败: {exc}")
+            return ""
+
+        try:
+            marker = C.mp.AddLine(
+                VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, [0.0, 0.0, 0.0]),
+                VARIANT(pythoncom.VT_ARRAY | pythoncom.VT_R8, [1.0, 1.0, 0.0]),
+            )
+        except Exception as exc:
+            sys_logger.info(f"[错误] 无法创建炸开辅助线: {exc}")
+            return ""
+
+        marker_handle = marker.Handle
+        if not set_entity_grip_state_precise(copy_ent):
+            sys_logger.info("[错误] 无法精确选中 TDbMText 副本，取消炸开。")
+            return ""
+
+        C.doc.SendCommand("._EXPLODE\n")
+        wait_command_done(timeout=20.0, quiet_time=0.5)
+        time.sleep(0.5)
+
+        for idx in range(C.mp.Count - 1, -1, -1):
+            try:
+                obj = C.mp.Item(idx)
+            except Exception:
+                continue
+            if obj.Handle == marker_handle:
+                break
+            fragments.append(obj)
+
+        if not fragments:
+            return ""
+
+        fragments.sort(
+            key=lambda ent: (
+                -_get_text_fragment_sort_info(ent)[0],
+                _get_text_fragment_sort_info(ent)[1],
+            )
+        )
+
+        final_parts = []
+        last_y_bin = None
+        for frag in fragments:
+            txt = get_attr(frag, "TextString")
+            if not txt:
+                continue
+
+            current_y_bin, _ = _get_text_fragment_sort_info(frag)
+            if last_y_bin is not None and current_y_bin != last_y_bin:
+                final_parts.append(separator)
+
+            final_parts.append(_clean_text_content(txt))
+            last_y_bin = current_y_bin
+
+        return "".join(final_parts)
+    except Exception as exc:
+        sys_logger.info(f"[错误] 提取天正多行文字内容失败: {exc}")
+        return ""
+    finally:
+        for frag in fragments:
+            try:
+                frag.Delete()
+            except Exception:
+                pass
+        if marker is not None:
+            try:
+                marker.Delete()
+            except Exception:
+                pass
+        if copy_ent is not None:
+            try:
+                copy_ent.Delete()
+            except Exception:
+                pass
+
 def get_text_content(text_obj):
     """
     获取文字对象的内容
@@ -262,15 +411,19 @@ def get_text_content(text_obj):
         文字内容字符串；失败时返回 None
     """
     try:
-        obj_type = text_obj.ObjectName
+        obj_type = str(get_attr(text_obj, "ObjectName", getattr(text_obj, "ObjectName", "")))
 
-        if obj_type == "AcDbText":
-            return text_obj.TextString
-        elif obj_type == "AcDbMText":
-            return text_obj.TextString
-        else:
-            sys_logger.info(f"[警告] 不支持的对象类型: {obj_type}")
-            return None
+        if obj_type in {"AcDbText", "Text"}:
+            return _clean_text_content(get_attr(text_obj, "TextString", None))
+        if obj_type in {"AcDbMText", "MText"}:
+            return _clean_text_content(get_attr(text_obj, "TextString", None))
+        if obj_type == "TDbText":
+            return _clean_text_content(get_attr(text_obj, "Text", get_attr(text_obj, "TextString", None)))
+        if obj_type == "TDbMText":
+            return _clean_text_content(_get_tdb_mtext_content(text_obj))
+
+        sys_logger.info(f"[警告] 不支持的对象类型: {obj_type}")
+        return None
     except Exception as e:
         sys_logger.info(f"[错误] 无法获取文字内容: {e}")
         return None
@@ -471,3 +624,4 @@ if __name__ == "__main__":
     sys_logger.info("  - set_text_content: 设置文字内容")
     sys_logger.info("  - get_text_height: 获取文字高度")
     sys_logger.info("  - set_text_height: 设置文字高度")
+

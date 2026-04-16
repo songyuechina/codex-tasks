@@ -3,7 +3,7 @@
   "meta_scope": "folder",
   "folder": "D:/codex-tasks/cad/scripts/drawing_basic_service/print",
   "role": "primary-domain-print-execution-workspace",
-  "summary": "当前第一优先级的领域执行工作区，目标是稳定完成 DWG 打印，并把新案例与新规则沉淀回脚本与文档。",
+  "summary": "当前第一优先级的领域执行工作区，目标是稳定完成 DWG 打印，并以 print_info_analysis 主链统一获取打印信息，把新案例与新规则沉淀回脚本、GitNexus 导航和文档。",
   "entry_docs": [
     "README.md",
     "AGENTS.md",
@@ -30,7 +30,14 @@
   "default_mode_rules": [
     "用户未明确指定时，打印模式默认 basic",
     "print_info_analysis 是辅助能力，不等于打印模式",
+    "用户只说获取打印信息时，默认走 print_info_analysis.py 主链",
+    "图纸名称/编号判定顺序固定为 layer_named -> guide_rectangles -> fallback_regex",
     "新问题先服务当前打印主任务，再决定是否扩展能力边界"
+  ],
+  "local_navigation": [
+    ".gitnexus/: 本目录本地 GitNexus 索引",
+    "print_batch_dispatch.py：统一调度入口",
+    "print_info_analysis.py：打印信息分析主链"
   ],
   "volatile_or_excluded": [
     "cases/assets/**：真实输入资产",

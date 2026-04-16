@@ -1,0 +1,54 @@
+{
+  "symbol": "Coordinates",
+  "kind": "property",
+  "source_terms": [
+    "coordinates"
+  ],
+  "owners": [
+    "Polyline",
+    "Line",
+    "Curve-like entities"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "get_bounding_box_and_object_counts"
+  ],
+  "pywin32_signature": "entity.Coordinates",
+  "risk_tags": [
+    "返回值需要按偶数对解释"
+  ],
+  "project_paths": [
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "path_md": "03_core_symbols/properties/Coordinates.md",
+  "source_matches": [
+    "01_extracted_html/acad_aag/GUID-06B18EED-D4E3-4B81-ACB8-037E884CB93D.htm",
+    "01_extracted_html/acad_aag/GUID-6954AAF3-7107-4D93-A2CE-FE859F3F9902.htm",
+    "01_extracted_html/acadauto/ex_coordinates.htm",
+    "01_extracted_html/acadauto/ex_translatecoordinates.htm",
+    "01_extracted_html/acadauto/idh_coordinates.htm"
+  ],
+  "project_refs": [
+    "cad/scripts/drawing_basic_service/print/print_area_analysis.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/pywin32_type_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "source_topic_ids": [
+    "acad_aag:GUID_06B18EED_D4E3_4B81_ACB8_037E884CB93D",
+    "acad_aag:GUID_6954AAF3_7107_4D93_A2CE_FE859F3F9902",
+    "acadauto:ex_coordinates",
+    "acadauto:idh_coordinates",
+    "acadauto:ex_translatecoordinates"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-06B18EED-D4E3-4B81-ACB8-037E884CB93D.htm",
+    "01_extracted_html/acad_aag/GUID-6954AAF3-7107-4D93-A2CE-FE859F3F9902.htm",
+    "01_extracted_html/acadauto/ex_coordinates.htm",
+    "01_extracted_html/acadauto/idh_coordinates.htm",
+    "01_extracted_html/acadauto/ex_translatecoordinates.htm"
+  ]
+}

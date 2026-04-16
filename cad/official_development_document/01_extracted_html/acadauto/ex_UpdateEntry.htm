@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>UpdateEntry Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">UpdateEntry Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+
+<PRE CLASS="Code">Sub Example_UpdateEntry()
+    'This example adds an entry to the File Dependency List, returns its Index, updates
+    'the entry, and then removes the entry.
+        
+    ThisDrawing.Application.Documents.Open ("c:\program files\autocad\sample\city map.dwg")
+    ThisDrawing.Application.ZoomAll
+    
+    Dim objFDLCol As AutoCAD.AcadFileDependencies
+    Dim objFDL As AutoCAD.AcadFileDependency
+    
+    Set objFDLCol = ThisDrawing.FileDependencies
+    MsgBox ("The number of entries in the File Dependency List is " & objFDLCol.Count & ".")
+    
+    Dim FDLIndex As Long
+    FDLIndex = objFDLCol.CreateEntry("acad:xref", "c:\referenced.dwg", True, True)
+    MsgBox ("The number of entries in the File Dependency List is " & objFDLCol.Count & ".")
+    
+    Dim IndexNumber As Long
+    IndexNumber = objFDLCol.IndexOf("acad:xref", "c:\referenced.dwg")
+    Dim IndexString As String
+    IndexString = CStr(IndexNumber)
+    MsgBox ("The index of the new entry is " & IndexString & ".")
+    
+    objFDLCol.UpdateEntry (FDLIndex)
+    
+    objFDLCol.RemoveEntry FDLIndex, True
+    MsgBox ("The number of entries in the File Dependency List is " & objFDLCol.Count & ".")
+ End Sub</PRE>
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>BeginQuit event  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+	
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">BeginQuit Event</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Triggered just before an AutoCAD session ends or a document closes.</P>
+
+<P CLASS="h1-access"><A HREF="beginquit_see_also.htm">See Also</A> | <A HREF="ex_beginquit.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<PRE CLASS="Code">object.BeginQuit (Cancel)</PRE>
+<P class="element">object</p><p class=element-desc><A HREF='idh_application_object.htm'>Application</A><BR>
+An object expression that evaluates to a valid container object.
+In this case, the only valid container is the application.
+<P class="element">Cancel</p><p class=element-desc>Boolean; output from the handler
+<P CLASS="Constant">TRUE<SPAN CLASS="BodyText">: Aborts the shutdown of AutoCAD.</SPAN>
+<P CLASS="Constant">FALSE<SPAN CLASS="BodyText">: Allows the shutdown of AutoCAD to continue.</SPAN>
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The BeginQuit event marks the end of the AutoCAD session. 
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

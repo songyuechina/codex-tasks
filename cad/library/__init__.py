@@ -1,54 +1,38 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Library 模块统一入口
+CAD library package entry.
 
-本模块为CAD library的智能体服务函数库，提供：
-- cad_annotation: 注释与文字函数
-- cad_blocks: 图块操作
-- cad_control: 综合控制
-- cad_geometry: 几何分析基础
-- cad_geometry_draw: 几何绘图
-- cad_geometry_polyline: 多段线操作
-- cad_geometry_segment: 线段操作
-- cad_objects: 对象操作
-- Databaseoperation: 数据库操作
-- tarch_building: 天正建筑
-
-使用方法:
-    from library import cad_annotation
-    from library import cad_geometry
+Keep the package root lightweight. Submodules are loaded lazily so callers can
+import `library.<module>` without paying the cost of eagerly importing every
+business module up front.
 """
 
-import sys
-from pathlib import Path
+from importlib import import_module
 
-# 确保本目录在sys.path中
-_current = Path(__file__).resolve().parent
-if str(_current) not in sys.path:
-    sys.path.insert(0, str(_current))
+_SUBMODULES = {
+    "cad_annotation",
+    "cad_blocks",
+    "cad_control",
+    "cad_geometry_draw",
+    "cad_geometry_polyline",
+    "cad_geometry_segment",
+    "cad_objects",
+    "Databaseoperation",
+    "tarch_building",
+    "tarch_operation",
+}
 
-# 统一导入各子模块
-from . import cad_annotation
-from . import cad_blocks
-from . import cad_control
-from . import cad_geometry
-from . import cad_geometry_draw
-from . import cad_geometry_polyline
-from . import cad_geometry_segment
-from . import cad_objects
-from . import Databaseoperation
-from . import tarch_building
+__all__ = sorted(_SUBMODULES)
 
-__all__ = [
-    'cad_annotation',
-    'cad_blocks',
-    'cad_control',
-    'cad_geometry',
-    'cad_geometry_draw',
-    'cad_geometry_polyline',
-    'cad_geometry_segment',
-    'cad_objects',
-    'Databaseoperation',
-    'tarch_building',
-]
+
+def __getattr__(name):
+    if name not in _SUBMODULES:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+    module = import_module(f".{name}", __name__)
+    globals()[name] = module
+    return module
+
+
+def __dir__():
+    return sorted(set(globals()) | _SUBMODULES)

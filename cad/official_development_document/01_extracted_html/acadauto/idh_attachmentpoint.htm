@@ -1,0 +1,134 @@
+<HTML>
+<HEAD>
+
+ 
+<TITLE>AttachmentPoint property  [ActiveX and VBA Reference: AAR]</TITLE>
+
+
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">AttachmentPoint Property</P></A>
+</table>
+<p CLASS="TitleSpacing">
+<P CLASS="1-liner">Specifies the attachment point for an MText object. </P>
+
+<P CLASS="h1-access"><A HREF="attachmentpoint_see_also.htm">See Also</A> | <A HREF="ex_attachmentpoint.htm">Example</A></P>
+<P CLASS="Heading-2">Signature
+<P CLASS="syntax">object.AttachmentPoint
+<P class="element">object</p><p class=element-desc><A HREF='idh_mtext_object.htm'>MText</A><BR>
+The object this property applies to.
+<P class="element">AttachmentPoint</p><p class=element-desc>acAttachmentPoint enum; read-write
+<P CLASS="Constant">acAttachmentPointTopLeft
+<P CLASS="Constant">acAttachmentPointTopCenter
+<P CLASS="Constant">acAttachmentPointTopRight
+<P CLASS="Constant">acAttachmentPointMiddleLeft
+<P CLASS="Constant">acAttachmentPointMiddleCenter
+<P CLASS="Constant">acAttachmentPointMiddleRight
+<P CLASS="Constant">acAttachmentPointBottomLeft
+<P CLASS="Constant">acAttachmentPointBottomCenter
+<P CLASS="Constant-Last">acAttachmentPointBottomRight
+<P CLASS="Heading-2">Remarks
+<P CLASS="body">The attachment point specifies where the insertion 
+point aligns with the text boundary. The option you select 
+determines both the text justification and text spill in relation 
+to the text boundary. The options for text justification are Left, 
+Right, and Center. The options for text spill are Top, 
+Mid (middle), and Bottom.</P>
+
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+<TD><IMG SRC='img/TL.gif' BORDER=0>&nbsp;</TD>
+<TD><IMG SRC='img/TC.gif' BORDER=0>&nbsp;</TD>
+<TD><IMG SRC='img/TR.gif' BORDER=0>&nbsp;</TD>
+</TR>
+
+<TR VALIGN=top>
+<TD>
+&nbsp;&nbsp;Top Left<BR>
+&nbsp;&nbsp;left-justified,<BR>
+&nbsp;&nbsp;spills down</TD>
+<TD>
+&nbsp;&nbsp;Top Center<BR>
+&nbsp;&nbsp;center-justified,<BR>
+&nbsp;&nbsp;spills down</TD>
+<TD>
+&nbsp;&nbsp;Top Right<BR>
+&nbsp;&nbsp;right-justified,<BR>
+&nbsp;&nbsp;spills down</TD>
+</TR>
+</TABLE>
+<BR>
+
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+<TD><IMG SRC='img/ML.gif' BORDER=0>&nbsp;</TD>
+<TD><IMG SRC='img/MC.gif' BORDER=0>&nbsp;</TD>
+<TD><IMG SRC='img/MR.gif' BORDER=0>&nbsp;</TD>
+</TR>
+
+<TR VALIGN=top>
+<TD>
+&nbsp;&nbsp;Mid Left<BR>
+&nbsp;&nbsp;left-justified,<BR>
+&nbsp;&nbsp;spills up and down</TD>
+<TD>
+&nbsp;&nbsp;Mid Center<BR>
+&nbsp;&nbsp;center-justified,<BR>
+&nbsp;&nbsp;spills up and down</TD>
+<TD>
+&nbsp;&nbsp;Mid Right<BR>
+&nbsp;&nbsp;right-justified,<BR>
+&nbsp;&nbsp;spills up and down</TD>
+</TR>
+</TABLE>
+<BR>
+
+<TABLE CLASS="Simple">
+<TR VALIGN=top>
+<TD><IMG SRC='img/BL.gif' BORDER=0>&nbsp;</TD>
+<TD><IMG SRC='img/BC.gif' BORDER=0>&nbsp;</TD>
+<TD><IMG SRC='img/BR.gif' BORDER=0>&nbsp;</TD>
+</TR>
+
+<TR VALIGN=top>
+<TD>
+&nbsp;&nbsp;Bottom Left<BR>
+&nbsp;&nbsp;left-justified,<BR>
+&nbsp;&nbsp;spills up</TD>
+<TD>
+&nbsp;&nbsp;Bottom Center<BR>
+&nbsp;&nbsp;center-justified,<BR>
+&nbsp;&nbsp;spills up</TD>
+<TD>
+&nbsp;&nbsp;Bottom Right<BR>
+&nbsp;&nbsp;right-justified,<BR>
+&nbsp;&nbsp;spills up</TD>
+</TR>
+</TABLE>
+
+<P CLASS="body">When the AttachmentPoint property is changed, the 
+position of the existing bounding box does not change; the text is 
+simply rejustified within the bounding box. However, the 
+<A HREF="idh_insertionpoint.htm">InsertionPoint</A> property 
+reflects the coordinates of the attachment point being used, so 
+the value of the InsertionPoint property will change to reflect 
+the change in justification.
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>

@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+ 
+<TITLE>Import Example  [ActiveX and VBA Reference: AAR]</TITLE>
+<LINK REL="Stylesheet" HREF="activex.css">
+
+<link rel='StyleSheet' href='ac.acad_ak.css' type='text/css'>
+<script language=javascript src='ac_common.js'></script>
+<script language=javascript src='ac.strings.js'></script>
+<script language=javascript src='ac.acad_ak.js'></script>
+</head>
+<BODY>
+<table class=TitleTable width=100% border=0 cellpadding=0 cellspacing=0><tr valign=top>
+<td>
+<A HREF="javascript:history.back();" style="text-decoration:none" title="Click to go Back">
+<P CLASS="Heading-1">Import Example </P></A>
+</table>
+<P CLASS="TitleSpacing">
+<P CLASS="h1-access"><a href="ms-its:acad_aag.chm::/WS1a9193826455f5ff1a32d8d10ebc6b7ccc-6c92.htm">Using Programming Languages other than VBA</a></P>
+<PRE CLASS="Code">
+Sub Example_Import()
+    ' This example will create a new drawing. Be sure to save
+    ' your work and start a new drawing before running this example.
+    ' This example creates a circle. It then exports the drawing
+    ' to a file called DXFExprt.DXF. It then opens a new drawing
+    ' and imports the file.
+    
+    ' Create the circle for visual representation
+    Dim circleObj As AcadCircle
+    Dim centerPt(0 To 2) As Double
+    Dim radius As Double
+    centerPt(0) = 2: centerPt(1) = 2: centerPt(2) = 0
+    radius = 1
+    Set circleObj = ThisDrawing.ModelSpace.AddCircle(centerPt, radius)
+    ZoomAll
+    
+    ' Create an empty selection set
+    Dim sset As AcadSelectionSet
+    Set sset = ThisDrawing.SelectionSets.Add("TEST")
+    
+    ' Export the current drawing to the file specified above.
+    Dim exportFile As String
+    exportFile = "C:\my documents\DXFExprt"    ' Adjust path for your system
+    ThisDrawing.Export exportFile, "DXF", sset
+    
+    ' Open a new drawing
+    Dim Acad As AcadApplication
+    Dim newdoc As AcadDocument
+    Set Acad = ThisDrawing.Application
+    Set newdoc = Acad.Documents.Add("acad.dwt")
+    
+    ' Define the import
+    Dim importFile As String
+    Dim InsertPoint(0 To 2) As Double
+    Dim scalefactor As Double
+    importFile = "C:\my documents\DXFExprt.dxf"  ' Adjust path for your system
+    InsertPoint(0) = 0#: InsertPoint(1) = 0#: InsertPoint(2) = 0#
+    scalefactor = 2#
+    
+    ' Import the file
+    ThisDrawing.Import importFile, InsertPoint, scalefactor
+    ZoomAll
+    
+End Sub</PRE>
+
+
+
+<p class='body'>&nbsp;
+<table class=FooterTable width=100% border=0 cellspacing=0 cellpadding=4><tr valign=top>
+<td>&nbsp;</td>
+<td align=right>&nbsp;<a href='javascript:doComments();'><span class='CommentsLink' title='Click here to send a comment about this topic.'>Comments?</span></a>&nbsp;</td>
+</tr></table>
+<p class='footer_padding'>&nbsp;</p>
+</body>
+</HTML>
