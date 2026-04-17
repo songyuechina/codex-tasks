@@ -101,13 +101,24 @@
 7. 单文件任务的最终交付必须落在源 DWG 同目录的 `<公共名>pdf / <公共名>analysis / <公共名>prosess`
 8. 暴露新问题的异常 DWG 应同时复制进 `cases/assets/` 作为典型案例
 9. 批量打印时默认每成功 `6` 张后清理一次 WPS 窗口，并在横竖向批次切换后强制再清理一次
-10. 开始任何真实打印前，必须先遵守 `D:\codex-tasks\thoughtway\CAD_RUNTIME_GUARD_RULES.md`
-11. 必须明确本次使用的天正受控入口，以及发现纯 CAD / 非天正环境后的恢复入口
-12. 若运行中怀疑已经偏到纯 CAD，必须立即停止当前打印链，先恢复环境，再继续打印
-13. 批量打印时，每完成一个 DWG 的完整处理后，必须把 CAD 归一回 `1 个进程 + 1 个空白天正会话`，当前默认入口是 `CAD_core.cad_zt_oneb()`
-14. 不得让多个历史 DWG 长时间堆积在同一 CAD 会话里继续跑后续批次
-15. 若用户要求“打印并获取打印信息”，默认先完成最终打印，再对最终保留的打印区域集合做 `print_info_analysis`
-16. 若用户要求按打印信息命名 PDF，默认基于最终 `print_info_analysis.json` 与最终 PDF 目录生成 `pdf/named/` 副本，不覆盖原 PDF
+10. 打印过程中若出现 WPS 窗口，应优先把它收拢到次屏右下角的 `1/4` 工作区，不要停留在主屏中间遮挡人工操作
+11. 清理 / 关闭 WPS 时，只允许处理目标 WPS 窗口，不得再调用“最小化所有窗口”影响其他桌面应用
+12. 开始任何真实打印前，必须先遵守 `D:\codex-tasks\thoughtway\CAD_RUNTIME_GUARD_RULES.md`
+13. 必须明确本次使用的天正受控入口，以及发现纯 CAD / 非天正环境后的恢复入口
+14. 若运行中怀疑已经偏到纯 CAD，必须立即停止当前打印链，先恢复环境，再继续打印
+15. 批量打印时，每完成一个 DWG 的完整处理后，必须把 CAD 归一回 `1 个进程 + 1 个空白天正会话`，当前默认入口是 `CAD_core.cad_zt_oneb()`
+16. 不得让多个历史 DWG 长时间堆积在同一 CAD 会话里继续跑后续批次
+17. 若用户要求“打印并获取打印信息”，默认先完成最终打印，再对最终保留的打印区域集合做 `print_info_analysis`
+18. 若用户要求按打印信息命名 PDF，默认基于最终 `print_info_analysis.json` 与最终 PDF 目录生成 `pdf/named/` 副本，不覆盖原 PDF
+
+## 6.1 cuabot 容器执行补充规则
+
+- 当工作环境是 `cuabot codex`（Linux 容器）时，本目录脚本若依赖宿主机 CAD / COM / WPS / 打印链，不应直接在容器 Linux Python 中执行。
+- 默认改用 `task-host python ...` 在宿主机执行，例如：
+  - `task-host python /home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py -- --dwg /home/user/mnt/d/.../case.dwg`
+  - `task-host python /home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_batch_dispatch.py -- --input-dir /home/user/mnt/d/...`
+  - `task-host python /home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_info_analysis.py -- --dwg /home/user/mnt/d/.../case.dwg`
+- 若只是在容器内阅读文档、改代码、整理输出目录或检查 JSON / PDF 结果，则仍可直接对挂载目录操作，不必强制走宿主机桥接。
 
 ## 7. 修改策略
 

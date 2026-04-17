@@ -1,0 +1,51 @@
+{
+  "symbol": "TransformBy",
+  "kind": "method",
+  "owners": [
+    "All Drawing Objects",
+    "AttributeReference"
+  ],
+  "source_terms": [
+    "transformby method",
+    "transformation matrix",
+    "getucsmatrix"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "apply_3d_transform_to_objects",
+    "understand_and_convert_coordinate_systems"
+  ],
+  "pywin32_signature": "object.TransformBy(transformation_matrix)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/methods/TransformBy.md",
+  "source_topic_ids": [
+    "acadauto:idh_transformby",
+    "acadauto:idh_getucsmatrix",
+    "acad_aag:GUID_19A5491D_7675_4ECF_A66A_5D309A14429F",
+    "acadauto:ex_getucsmatrix",
+    "acadauto:getucsmatrix_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_getucsmatrix.htm",
+    "01_extracted_html/acadauto/idh_getucsmatrix.htm",
+    "01_extracted_html/acadauto/idh_transformby.htm",
+    "01_extracted_html/acadauto/getucsmatrix_see_also.htm",
+    "01_extracted_html/acad_aag/GUID-19A5491D-7675-4ECF-A66A-5D309A14429F.htm"
+  ]
+}

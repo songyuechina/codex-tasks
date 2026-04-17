@@ -4716,3 +4716,31 @@ Excel 当前包含三张表：
 本轮未能直接覆盖，原因是目标文件当时处于占用状态，因此临时另存为：
 
 - `D:\codex-tasks\cad\tests\打印信息测试analysis\print_info_analysis.classified.xlsx`
+
+## 2026-04-17 打印链 WPS 窗口收拢修复
+
+### 问题
+
+- `drawing_basic_service/print` 在真实打印期间，天正窗口已经能收拢到次屏
+- 但 WPS 窗口仍可能停留在主屏中间，影响人工工作
+- `cleanup_wps_windows()` 里还调用了 `minimize_all_windows()`，会把其他桌面窗口一起最小化
+
+### 本轮修复
+
+- 在 `cad/system/CAD_core.py` 中把窗口收拢能力抽成可选象限：
+  - CAD 继续走次屏右上角 `1/4`
+  - WPS 改走次屏右下角 `1/4`
+- `cad/system/cad_window_keeper.py` 改为持续收拢：
+  - CAD 到次屏右上角
+  - WPS 到次屏右下角
+  - 轮询间隔从 `2.0s` 收紧到 `1.0s`
+- `cad/scripts/drawing_basic_service/print/print_executor.py` 中：
+  - 移除 `minimize_all_windows()` 的全局最小化行为
+  - WPS 清理前只移动目标 WPS 窗口到次屏右下角再关闭
+  - 在 `_wait_for_pdf_ready()` 轮询期间持续执行 WPS 收拢，避免真实打印时后台守护意外退出后窗口重新回到主屏
+
+### 文档同步
+
+- 更新 `cad/scripts/drawing_basic_service/print/AGENTS.md`
+- 更新 `cad/system/README.md`
+- 更新 `cad/system/AGENTS.md`

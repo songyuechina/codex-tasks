@@ -1,0 +1,46 @@
+{
+  "symbol": "TranslateCoordinates",
+  "kind": "method",
+  "owners": [
+    "Utility"
+  ],
+  "source_terms": [
+    "translatecoordinates method",
+    "converting coordinates",
+    "specifying 3d coordinates"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "understand_and_convert_coordinate_systems",
+    "read_3d_object_spatial_identity"
+  ],
+  "pywin32_signature": "utility.TranslateCoordinates(original_point, from_cs, to_cs, disp[, ocs_normal])",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/methods/TranslateCoordinates.md",
+  "source_topic_ids": [
+    "acadauto:idh_translatecoordinates",
+    "acad_aag:GUID_06B18EED_D4E3_4B81_ACB8_037E884CB93D",
+    "acad_aag:GUID_6954AAF3_7107_4D93_A2CE_FE859F3F9902"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-06B18EED-D4E3-4B81-ACB8-037E884CB93D.htm",
+    "01_extracted_html/acad_aag/GUID-6954AAF3-7107-4D93-A2CE-FE859F3F9902.htm",
+    "01_extracted_html/acadauto/idh_translatecoordinates.htm"
+  ]
+}

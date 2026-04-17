@@ -1,0 +1,46 @@
+{
+  "symbol": "section_plane_definition",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "sectionsolid",
+    "plane defined by three points",
+    "section solid"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "section_3d_geometry_for_2d_expression"
+  ],
+  "pywin32_signature": "(point1, point2, point3) in 3D WCS",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/section_region_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/section_plane_definition.md",
+  "source_topic_ids": [
+    "acadauto:idh_sectionsolid",
+    "acadauto:idh_3dsolid_object",
+    "acadauto:ex_sectionsolid",
+    "acadauto:sectionsolid_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_sectionsolid.htm",
+    "01_extracted_html/acadauto/idh_sectionsolid.htm",
+    "01_extracted_html/acadauto/sectionsolid_see_also.htm",
+    "01_extracted_html/acadauto/idh_3dsolid_object.htm"
+  ]
+}

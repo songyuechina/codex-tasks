@@ -44,11 +44,17 @@
   "source_topic_ids": [
     "acadauto:ex_configname",
     "acadauto:idh_configname",
-    "acadauto:configname_see_also"
+    "acadauto:configname_see_also",
+    "acad_aag:GUID_B2F56BD0_8219_4BA5_9CA5_0740B56C7FA2",
+    "acadauto:ex_printerconfigpath",
+    "acadauto:ex_printerdescpath"
   ],
   "source_html_paths": [
     "01_extracted_html/acadauto/ex_configname.htm",
     "01_extracted_html/acadauto/idh_configname.htm",
-    "01_extracted_html/acadauto/configname_see_also.htm"
+    "01_extracted_html/acadauto/configname_see_also.htm",
+    "01_extracted_html/acad_aag/GUID-B2F56BD0-8219-4BA5-9CA5-0740B56C7FA2.htm",
+    "01_extracted_html/acadauto/ex_printerconfigpath.htm",
+    "01_extracted_html/acadauto/ex_printerdescpath.htm"
   ]
 }

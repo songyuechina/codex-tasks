@@ -40,7 +40,8 @@
 8. `content_analysis_dwg_file.py`
 9. `cad_command_monitor.py`
 10. `cad_dialog_killer.py`
-11. `project_setup.py`
+11. `cad_window_keeper.py`
+12. `project_setup.py`
 
 如某个脚本已存在：
 
@@ -162,7 +163,15 @@ from system.common_logger import sys_logger
 ### `cad_dialog_killer.py`
 处理 CAD 标准对话框阻塞，支持延迟关闭与单实例守护。
 
-这两个脚本属于独立守护脚本，不是普通业务模块。
+### `cad_window_keeper.py`
+处理后台运行时的窗口收拢。
+
+关键点：
+- CAD 主窗口应收拢到次屏右上角 `1/4`
+- WPS 窗口应收拢到次屏右下角 `1/4`
+- 不得通过“最小化所有窗口”破坏用户当前桌面布局
+
+这三个脚本属于独立守护脚本，不是普通业务模块。
 
 ---
 
@@ -249,7 +258,7 @@ from system.common_logger import sys_logger
 
 如果用户正在推进 `cad/system` 的函数级 meta 建设，则你的优先目标是：
 
-1. 为 10 个正式脚本建立函数级 meta
+1. 为 11 个正式脚本建立函数级 meta
 2. 对每个脚本尽量覆盖全部函数
 3. 对函数做分级：
    - `core`
@@ -306,6 +315,23 @@ from system.common_logger import sys_logger
 - 允许等待与重试
 - 必要时执行环境重建、自愈、回滚
 - 但不能无限吞掉真正致命错误
+
+## 7.5 cuabot 运行时规则
+当智能体运行在 `cuabot` Linux 容器中时：
+
+- 本目录的真实宿主机 CAD 控制入口不是容器 GUI，而是 `cad-host`。
+- `cad-host` 会把请求桥接到宿主机上的 `cuabot_cad_host_bridge.py`，再调用 `CAD_core.py`。
+- 若要进一步调度 `D:/codex-tasks` 下依赖宿主机的高层脚本，则统一使用 `task-host`，而不是在容器 Linux Python 里直接跑这些脚本。
+- 典型顺序：
+  - `cad-host inspect-runtime`
+  - `cad-host launch` 或 `cad-host recover`
+  - `cad-host open-file /home/user/mnt/d/.../xxx.dwg`
+  - 执行业务流程
+  - `cad-host save` / `cad-host close`
+- 典型高层脚本调度：
+  - `task-host python /home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py -- --dwg /home/user/mnt/d/.../xxx.dwg`
+  - `task-host python /home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_batch_dispatch.py -- --input-dir /home/user/mnt/d/...`
+- 只有当 `CAD_core.py` 无法覆盖某项需求时，才考虑补充 GUI 级兜底。
 
 ---
 

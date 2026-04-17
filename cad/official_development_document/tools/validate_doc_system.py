@@ -17,6 +17,51 @@ USAGE_FEEDBACK_PATH = ROOT / "07_validation" / "usage_feedback.jsonl"
 HOTSPOT_CANDIDATES_PATH = ROOT / "07_validation" / "hotspot_candidates.json"
 PROMOTION_LOG_PATH = ROOT / "07_validation" / "promotion_log.md"
 AGENTS_PATH = ROOT / "AGENTS.md"
+FOURTH_ROUND_TASK_DIR = ROOT / "04_task_cards" / "10_3d_spatial_expression"
+REQUIRED_3D_RULES = [
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/3d_entity_creation_rules.md",
+    "05_pywin32_bridge/section_region_rules.md",
+]
+REQUIRED_3D_TASK_SLUGS = {
+    "understand_and_convert_coordinate_systems",
+    "create_3d_path_or_profile",
+    "create_region_and_extrude_solid",
+    "apply_3d_transform_to_objects",
+    "section_3d_geometry_for_2d_expression",
+    "read_3d_object_spatial_identity",
+}
+REQUIRED_3D_CORE_SYMBOLS = {
+    "UCS",
+    "3dPolyline",
+    "3DFace",
+    "3DSolid",
+    "Region",
+    "TranslateCoordinates",
+    "GetUCSMatrix",
+    "Add3DPoly",
+    "Add3DFace",
+    "AddRegion",
+    "AddExtrudedSolid",
+    "AddExtrudedSolidAlongPath",
+    "AddRevolvedSolid",
+    "SectionSolid",
+    "Rotate3D",
+    "Mirror3D",
+    "ScaleEntity",
+    "TransformBy",
+    "ActiveUCS",
+    "Normal",
+    "Elevation",
+    "ElevationModelSpace",
+    "ElevationPaperSpace",
+    "ucs_matrix",
+    "ocs_point",
+    "normal_vector",
+    "transform_matrix",
+    "section_plane_definition",
+}
 
 
 def load_json(path: Path) -> Any:
@@ -193,6 +238,11 @@ def main() -> None:
     ):
         if not required_file.exists():
             fatal.append(f"required file missing: {required_file.relative_to(ROOT)}")
+    for rel_path in REQUIRED_3D_RULES:
+        if not rel_exists(rel_path):
+            fatal.append(f"required fourth-round 3d rule missing: {rel_path}")
+    if not FOURTH_ROUND_TASK_DIR.exists():
+        fatal.append("required fourth-round task group missing: 04_task_cards/10_3d_spatial_expression")
 
     task_index = load_json(TASK_INDEX_PATH)
     task_map = load_json(TASK_MAP_PATH)
@@ -281,6 +331,12 @@ def main() -> None:
                     if ref not in feedback_refs:
                         warning.append(f"{task['task_id']} usage_feedback_ref not found: {ref}")
 
+    missing_3d_task_slugs = sorted(REQUIRED_3D_TASK_SLUGS - task_slugs)
+    if missing_3d_task_slugs:
+        fatal.append(
+            "missing fourth-round 3d task slugs: " + ", ".join(missing_3d_task_slugs)
+        )
+
     if isinstance(task_map, dict):
         for task_id, payload in task_map.items():
             if task_id not in task_ids:
@@ -308,6 +364,12 @@ def main() -> None:
             if related_task not in task_ids and related_task not in task_slugs:
                 warning.append(f"{symbol} related_task not found: {related_task}")
 
+    missing_3d_core_symbols = sorted(REQUIRED_3D_CORE_SYMBOLS - set(core_index.keys()))
+    if missing_3d_core_symbols:
+        fatal.append(
+            "missing fourth-round 3d core symbols: " + ", ".join(missing_3d_core_symbols)
+        )
+
     system_variable_count = sum(1 for meta in core_index.values() if meta.get("kind") == "system_variable")
     type_topic_count = sum(1 for meta in core_index.values() if meta.get("kind") == "type_topic")
     task_referenced_missing = sorted(
@@ -333,6 +395,9 @@ def main() -> None:
         "on_demand_promoted_to_core": promoted_count,
         "on_demand_hotspot_candidates": candidate_count,
         "task_referenced_symbols_missing_from_core": task_referenced_missing,
+        "fourth_round_3d_task_cards_present": not missing_3d_task_slugs,
+        "fourth_round_3d_core_symbols_present": not missing_3d_core_symbols,
+        "fourth_round_3d_rule_docs_present": all(rel_exists(path) for path in REQUIRED_3D_RULES),
     }
 
     if system_variable_count == 0:

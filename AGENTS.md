@@ -300,6 +300,48 @@ bootstrap / `sys.path` 引导只由入口脚本负责。
 - 至少在关键节点读取 runtime guard 状态或事件
 - 若 guard 给出 `pause_and_verify / pause_and_recover`，不得无视继续推进
 
+## 6.7 cuabot 容器中的宿主机 CAD 控制规则
+当工作环境是 `cuabot codex`（Linux 容器）时：
+
+- 容器内可以直接读取 `/home/user/mnt/c/...`、`/home/user/mnt/d/...` 对应的宿主机文件。
+- 但本地天正/CAD 的真实控制必须通过宿主机桥接命令 `cad-host` 完成。
+- 禁止在 `cuabot` 容器里把本地 Windows 天正 CAD 误判为容器内 GUI 应用。
+- 优先使用：
+  - `cad-host inspect-runtime`
+  - `cad-host launch`
+  - `cad-host recover`
+  - `cad-host open-file <path>`
+  - `cad-host save`
+  - `cad-host close`
+- `cad-host` 接受容器路径，例如：
+  - `/home/user/mnt/d/codex-tasks/...`
+  - 桥接层会自动换算成宿主机 Windows 路径再交给 `CAD_core.py`
+- 若任务目标是“后台控制本地天正 CAD 且尽量不抢鼠标键盘”，默认优先走 `cad-host + CAD_core.py`，不要先设计新的 GUI 鼠标自动化方案。
+
+## 6.8 cuabot 容器中的项目脚本执行规则
+当任务不只是 `CAD_core.py` 级别动作，而是需要调用 `D:/codex-tasks/` 下的项目脚本时：
+
+- 代码阅读、改代码、搜索、整理输出，仍优先在容器内直接对 `/home/user/mnt/d/codex-tasks/...` 操作。
+- 但凡脚本真实依赖宿主机 Windows / 天正 / AutoCAD / COM / WPS / 打印机，就不要直接在容器 Linux Python 里运行。
+- 统一改用宿主机桥接命令 `task-host` 发起执行。
+- `task-host` 的执行根目录固定受控在 `D:/codex-tasks/`。
+- `task-host` 接受容器路径，例如：
+  - `/home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py`
+  - 桥接层会自动换算成宿主机 Windows 路径，再由宿主机 Python / PowerShell 执行。
+- 对项目脚本的默认判断如下：
+  - 纯文件读写、纯文本处理、纯仓库分析：可直接在容器内执行。
+  - 依赖 CAD / COM / 宿主机桌面软件的脚本：必须经 `task-host` 或 `cad-host` 执行。
+- 典型命令：
+  - `task-host project-root`
+  - `task-host python /home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_runner.py -- --dwg /home/user/mnt/d/.../xxx.dwg`
+  - `task-host python /home/user/mnt/d/codex-tasks/cad/scripts/drawing_basic_service/print/print_batch_dispatch.py -- --input-dir /home/user/mnt/d/...`
+  - `task-host pwsh /home/user/mnt/d/codex-tasks/.../some_script.ps1 -- ...`
+- 这样做的目标是：
+  - 智能体仍隔离在容器中工作
+  - 代码和 DWG 仍然落在本地 `D:/codex-tasks`
+  - 真实 Windows 能力继续在宿主机执行
+  - 尽量不抢本地鼠标键盘
+
 ---
 
 # 7. 如何判断“该复用、该修补，还是该重构”

@@ -1,0 +1,47 @@
+{
+  "symbol": "3DFace",
+  "kind": "object",
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "source_terms": [
+    "3dface object",
+    "add3dface"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_3d_path_or_profile",
+    "section_3d_geometry_for_2d_expression"
+  ],
+  "pywin32_signature": "model_space.Add3DFace(point1, point2, point3[, point4])",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_entity_creation_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/objects/3DFace.md",
+  "source_topic_ids": [
+    "acadauto:idh_3dface_object",
+    "acadauto:idh_add3dface",
+    "acadauto:ex_add3dface",
+    "acadauto:add3dface_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_3dface_object.htm",
+    "01_extracted_html/acadauto/ex_add3dface.htm",
+    "01_extracted_html/acadauto/idh_add3dface.htm",
+    "01_extracted_html/acadauto/add3dface_see_also.htm"
+  ]
+}

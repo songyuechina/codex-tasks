@@ -1,0 +1,42 @@
+{
+  "symbol": "Add3DPoly",
+  "kind": "method",
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "source_terms": [
+    "add3dpoly method",
+    "3dpolyline object"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_3d_path_or_profile"
+  ],
+  "pywin32_signature": "model_space.Add3DPoly(points_array)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_entity_creation_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/methods/Add3DPoly.md",
+  "source_topic_ids": [
+    "acadauto:idh_add3dpoly",
+    "acadauto:idh_3dpoly_object"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_3dpoly_object.htm",
+    "01_extracted_html/acadauto/idh_add3dpoly.htm"
+  ]
+}

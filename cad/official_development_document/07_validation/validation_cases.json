@@ -26,5 +26,61 @@
       "03_core_symbols/objects/Plot.md",
       "03_core_symbols/methods/SetWindowToPlot.md"
     ]
+  },
+  {
+    "id": "VAL-004",
+    "query": "坐标系转换 3D 点",
+    "expected_hits": [
+      "04_task_cards/10_3d_spatial_expression/understand_and_convert_coordinate_systems.md",
+      "03_core_symbols/methods/TranslateCoordinates.md",
+      "05_pywin32_bridge/coordinate_system_rules.md"
+    ]
+  },
+  {
+    "id": "VAL-005",
+    "query": "创建 3D 路径或轮廓",
+    "expected_hits": [
+      "04_task_cards/10_3d_spatial_expression/create_3d_path_or_profile.md",
+      "03_core_symbols/methods/Add3DPoly.md",
+      "03_core_symbols/objects/3dPolyline.md"
+    ]
+  },
+  {
+    "id": "VAL-006",
+    "query": "轮廓转 Region 再挤出 Solid",
+    "expected_hits": [
+      "04_task_cards/10_3d_spatial_expression/create_region_and_extrude_solid.md",
+      "03_core_symbols/methods/AddRegion.md",
+      "03_core_symbols/methods/AddExtrudedSolid.md",
+      "05_pywin32_bridge/3d_entity_creation_rules.md"
+    ]
+  },
+  {
+    "id": "VAL-007",
+    "query": "三维变换对象",
+    "expected_hits": [
+      "04_task_cards/10_3d_spatial_expression/apply_3d_transform_to_objects.md",
+      "03_core_symbols/methods/Rotate3D.md",
+      "03_core_symbols/methods/TransformBy.md",
+      "05_pywin32_bridge/3d_transform_rules.md"
+    ]
+  },
+  {
+    "id": "VAL-008",
+    "query": "SectionSolid 剖切二维表达",
+    "expected_hits": [
+      "04_task_cards/10_3d_spatial_expression/section_3d_geometry_for_2d_expression.md",
+      "03_core_symbols/methods/SectionSolid.md",
+      "05_pywin32_bridge/section_region_rules.md"
+    ]
+  },
+  {
+    "id": "VAL-009",
+    "query": "读取三维对象空间身份",
+    "expected_hits": [
+      "04_task_cards/10_3d_spatial_expression/read_3d_object_spatial_identity.md",
+      "03_core_symbols/properties/Normal.md",
+      "03_core_symbols/properties/Elevation.md"
+    ]
   }
 ]

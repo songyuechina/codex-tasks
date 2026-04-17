@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-12",
+  "generated_at": "2026-04-17",
   "items": [
     {
       "symbol": "ConfigName",
@@ -48,6 +48,54 @@
       "suggested_action": "watch_and_enrich",
       "state": "candidate",
       "reason": "与 PlotRotation、窗口打印组合后会影响最终版面，应继续观察。"
+    },
+    {
+      "symbol": "TranslateCoordinates",
+      "owner": "Utility",
+      "current_level": "core",
+      "usage_count": 3,
+      "fallback_count": 2,
+      "last_seen_task": "understand_and_convert_coordinate_systems",
+      "blocker_level": "high",
+      "suggested_action": "promoted_to_core",
+      "state": "promoted",
+      "reason": "空间关系表达必须稳定处理 WCS/UCS/OCS 换算，原先仅停留在 on-demand 已不足以支撑第四轮主链。"
+    },
+    {
+      "symbol": "ActiveUCS",
+      "owner": "Document",
+      "current_level": "core",
+      "usage_count": 2,
+      "fallback_count": 1,
+      "last_seen_task": "understand_and_convert_coordinate_systems",
+      "blocker_level": "high",
+      "suggested_action": "promoted_to_core",
+      "state": "promoted",
+      "reason": "当前活动 UCS 已成为理解空间基准和对象对位的主入口，不再适合继续停留在低频层。"
+    },
+    {
+      "symbol": "SectionSolid",
+      "owner": "3DSolid",
+      "current_level": "core",
+      "usage_count": 2,
+      "fallback_count": 2,
+      "last_seen_task": "section_3d_geometry_for_2d_expression",
+      "blocker_level": "high",
+      "suggested_action": "promoted_to_core",
+      "state": "promoted",
+      "reason": "它直接决定三维构件如何为二维剖切表达提供几何依据，是第四轮必须正式纳入主干的方法。"
+    },
+    {
+      "symbol": "TransformBy",
+      "owner": "All Drawing Objects",
+      "current_level": "core",
+      "usage_count": 1,
+      "fallback_count": 1,
+      "last_seen_task": "apply_3d_transform_to_objects",
+      "blocker_level": "medium",
+      "suggested_action": "promoted_to_core",
+      "state": "promoted",
+      "reason": "矩阵变换已进入第四轮主链，后续继续通过真实案例补充与 UCS 对位链的细节说明。"
     }
   ]
 }

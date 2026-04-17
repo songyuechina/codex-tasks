@@ -1,0 +1,41 @@
+{
+  "symbol": "Rotate3D",
+  "kind": "method",
+  "owners": [
+    "All Drawing Objects"
+  ],
+  "source_terms": [
+    "rotate3d method",
+    "rotating in 3d"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "apply_3d_transform_to_objects"
+  ],
+  "pywin32_signature": "object.Rotate3D(point1, point2, rotation_angle_radians)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/methods/Rotate3D.md",
+  "source_topic_ids": [
+    "acadauto:idh_rotate3d",
+    "acad_aag:GUID_3FEB0A3C_E4B1_40DF_A4DF_CAB22F1E2A92"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-3FEB0A3C-E4B1-40DF-A4DF-CAB22F1E2A92.htm",
+    "01_extracted_html/acadauto/idh_rotate3d.htm"
+  ]
+}

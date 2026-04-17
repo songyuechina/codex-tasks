@@ -1,0 +1,50 @@
+{
+  "symbol": "3dPolyline",
+  "kind": "object",
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "source_terms": [
+    "3dpolyline object",
+    "add3dpoly",
+    "3d polyline"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_3d_path_or_profile",
+    "read_3d_object_spatial_identity"
+  ],
+  "pywin32_signature": "model_space.Add3DPoly(points_array)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/Scheme_drawing/draw_building_outline.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py",
+    "cad/scripts/Scheme_drawing/draw_building_outline.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_entity_creation_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/objects/3dPolyline.md",
+  "source_topic_ids": [
+    "acadauto:idh_3dpoly_object",
+    "acadauto:idh_add3dpoly",
+    "acadauto:ex_add3dpoly",
+    "acadauto:add3dpoly_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_3dpoly_object.htm",
+    "01_extracted_html/acadauto/ex_add3dpoly.htm",
+    "01_extracted_html/acadauto/idh_add3dpoly.htm",
+    "01_extracted_html/acadauto/add3dpoly_see_also.htm"
+  ]
+}

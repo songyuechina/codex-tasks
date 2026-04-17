@@ -1,0 +1,59 @@
+{
+  "symbol": "3DSolid",
+  "kind": "object",
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "source_terms": [
+    "3dsolid object",
+    "addextrudedsolid",
+    "addextrudedsolidalongpath",
+    "addrevolvedsolid",
+    "sectionsolid"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_region_and_extrude_solid",
+    "section_3d_geometry_for_2d_expression",
+    "read_3d_object_spatial_identity"
+  ],
+  "pywin32_signature": "model_space.AddExtrudedSolid(...) / model_space.AddExtrudedSolidAlongPath(...) / model_space.AddRevolvedSolid(...)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_entity_creation_rules.md",
+    "05_pywin32_bridge/section_region_rules.md",
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/objects/3DSolid.md",
+  "source_topic_ids": [
+    "acadauto:idh_3dsolid_object",
+    "acadauto:idh_addextrudedsolid",
+    "acadauto:idh_addextrudedsolidalongpath",
+    "acadauto:idh_addrevolvedsolid",
+    "acadauto:idh_sectionsolid",
+    "acadauto:ex_addextrudedsolidalongpath",
+    "acadauto:ex_addextrudedsolid"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_addextrudedsolidalongpath.htm",
+    "01_extracted_html/acadauto/idh_addextrudedsolidalongpath.htm",
+    "01_extracted_html/acadauto/idh_3dsolid_object.htm",
+    "01_extracted_html/acadauto/ex_addextrudedsolid.htm",
+    "01_extracted_html/acadauto/idh_addextrudedsolid.htm",
+    "01_extracted_html/acadauto/idh_addrevolvedsolid.htm",
+    "01_extracted_html/acadauto/idh_sectionsolid.htm"
+  ]
+}

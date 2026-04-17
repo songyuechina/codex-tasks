@@ -10,7 +10,7 @@ VALIDATION_DIR = ROOT / "07_validation"
 CORE_DIR = ROOT / "03_core_symbols"
 TOPIC_PATH_MAP_PATH = ROOT / "06_on_demand_index" / "topic_path_map.json"
 TASK_MAP_PATH = VALIDATION_DIR / "task_to_existing_code_map.json"
-TASK_INDEX_SCHEMA_VERSION = "2026-04-12-task-entry-v3"
+TASK_INDEX_SCHEMA_VERSION = "2026-04-17-task-entry-v5"
 
 REF_DWG_MIXED = "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
 REF_DWG_PRINT = "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
@@ -23,6 +23,10 @@ RULE_POINT_ARRAY = "05_pywin32_bridge/point_array_rules.md"
 RULE_VARIANT = "05_pywin32_bridge/variant_rules.md"
 RULE_COLLECTION = "05_pywin32_bridge/collection_rules.md"
 RULE_SENDCOMMAND = "05_pywin32_bridge/sendcommand_rules.md"
+RULE_COORDINATE_SYSTEMS = "05_pywin32_bridge/coordinate_system_rules.md"
+RULE_3D_TRANSFORM = "05_pywin32_bridge/3d_transform_rules.md"
+RULE_3D_ENTITY_CREATION = "05_pywin32_bridge/3d_entity_creation_rules.md"
+RULE_SECTION_REGION = "05_pywin32_bridge/section_region_rules.md"
 
 TASK_EXACT_ENTRIES = {
     "connect_active_document": {
@@ -277,6 +281,90 @@ TASK_EXACT_ENTRIES = {
         "pywin32_rules": [RULE_COLLECTION, RULE_VARIANT, RULE_COMMON_FAILURES],
         "reference_dwgs": [REF_DWG_PRINT],
         "reference_objects": ["AcDbText", "AcDbMText", "AcDbBlockReference"],
+    },
+    "understand_and_convert_coordinate_systems": {
+        "owners": ["Document", "UCS", "Utility"],
+        "implementation_entries": [
+            {"project_function": "get_entity_full_info", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "get_entity_geometry_info", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "get_dwg_graphics_summary", "module_path": "cad/system/content_analysis_dwg_file.py"},
+        ],
+        "aliases_en": ["understand and convert coordinate systems", "convert coordinates between wcs ucs ocs", "translate coordinates and ucs"],
+        "aliases_zh": ["理解并转换坐标系", "坐标系转换", "WCS UCS OCS 转换"],
+        "keywords_zh": ["坐标系", "坐标转换", "UCS", "OCS", "WCS"],
+        "pywin32_rules": [RULE_COORDINATE_SYSTEMS, RULE_POINT_ARRAY, RULE_VARIANT, RULE_COMMON_FAILURES],
+        "reference_dwgs": [REF_DWG_MIXED, REF_DWG_PRINT],
+        "reference_objects": ["UCS", "3d_point", "AcDbPolyline"],
+    },
+    "create_3d_path_or_profile": {
+        "owners": ["ModelSpace", "Block", "3dPolyline", "3DFace"],
+        "implementation_entries": [
+            {"project_function": "draw_outline", "module_path": "cad/scripts/Scheme_drawing/draw_building_outline.py"},
+            {"project_function": "draw_polyline", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "draw_lwpolyline", "module_path": "cad/scripts/CAD_basic.py"},
+        ],
+        "aliases_en": ["create 3d path or profile", "build 3d polyline path", "create profile for region or solid"],
+        "aliases_zh": ["创建三维路径或轮廓", "建立三维路径", "建立轮廓 profile"],
+        "keywords_zh": ["三维路径", "轮廓", "3dPolyline", "3DFace"],
+        "pywin32_rules": [RULE_3D_ENTITY_CREATION, RULE_COORDINATE_SYSTEMS, RULE_POINT_ARRAY, RULE_VARIANT],
+        "reference_dwgs": [REF_DWG_MIXED],
+        "reference_objects": ["3dPolyline", "3DFace"],
+    },
+    "create_region_and_extrude_solid": {
+        "owners": ["ModelSpace", "Region", "3DSolid"],
+        "implementation_entries": [
+            {"project_function": "insert_region_v2", "module_path": "cad/system/CAD_core.py"},
+            {"project_function": "create_block_from_region_cad", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "get_entity_geometry_info", "module_path": "cad/scripts/CAD_basic.py"},
+        ],
+        "aliases_en": ["create region and extrude solid", "convert profile to region and solid", "extrude region to solid"],
+        "aliases_zh": ["创建 Region 并挤出 Solid", "轮廓转区域再转实体", "挤出实体"],
+        "keywords_zh": ["Region", "3DSolid", "挤出", "轮廓转实体"],
+        "pywin32_rules": [RULE_3D_ENTITY_CREATION, RULE_SECTION_REGION, RULE_COORDINATE_SYSTEMS, RULE_COMMON_FAILURES],
+        "reference_dwgs": [REF_DWG_MIXED, REF_DWG_PRINT],
+        "reference_objects": ["Region", "3DSolid"],
+    },
+    "apply_3d_transform_to_objects": {
+        "owners": ["3dPolyline", "Region", "3DSolid", "Document"],
+        "implementation_entries": [
+            {"project_function": "move_entities_in_region", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "transform_point_by_block", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "get_obj_loc", "module_path": "cad/system/CAD_core.py"},
+        ],
+        "aliases_en": ["apply 3d transform to objects", "rotate mirror scale transform objects", "3d object alignment"],
+        "aliases_zh": ["对对象应用三维变换", "三维变换对象", "空间对位"],
+        "keywords_zh": ["Rotate3D", "Mirror3D", "ScaleEntity", "TransformBy", "空间对位"],
+        "pywin32_rules": [RULE_3D_TRANSFORM, RULE_COORDINATE_SYSTEMS, RULE_POINT_ARRAY, RULE_VARIANT, RULE_COMMON_FAILURES],
+        "reference_dwgs": [REF_DWG_MIXED, REF_DWG_PRINT],
+        "reference_objects": ["3dPolyline", "Region", "3DSolid"],
+    },
+    "section_3d_geometry_for_2d_expression": {
+        "owners": ["3DSolid", "Region", "Document"],
+        "implementation_entries": [
+            {"project_function": "get_dwg_graphics_summary", "module_path": "cad/system/content_analysis_dwg_file.py"},
+            {"project_function": "collect_space_entity_snapshots", "module_path": "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"},
+            {"project_function": "get_boundingbox_from_objects", "module_path": "cad/scripts/CAD_basic.py"},
+        ],
+        "aliases_en": ["section 3d geometry for 2d expression", "section solid for 2d drawing logic", "derive 2d expression from 3d section"],
+        "aliases_zh": ["对三维几何做剖切并服务二维表达", "三维剖切转二维表达", "SectionSolid"],
+        "keywords_zh": ["剖切", "SectionSolid", "二维表达", "剖面"],
+        "pywin32_rules": [RULE_SECTION_REGION, RULE_COORDINATE_SYSTEMS, RULE_POINT_ARRAY, RULE_VARIANT, RULE_COMMON_FAILURES],
+        "reference_dwgs": [REF_DWG_PRINT, REF_DWG_ANOMALY],
+        "reference_objects": ["3DSolid", "Region"],
+    },
+    "read_3d_object_spatial_identity": {
+        "owners": ["Entity", "3dPolyline", "Region", "3DSolid"],
+        "implementation_entries": [
+            {"project_function": "get_entity_full_info", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "get_entity_geometry_info", "module_path": "cad/scripts/CAD_basic.py"},
+            {"project_function": "get_dwg_graphics_summary", "module_path": "cad/system/content_analysis_dwg_file.py"},
+        ],
+        "aliases_en": ["read 3d object spatial identity", "inspect 3d object coordinates normal elevation", "read spatial identity"],
+        "aliases_zh": ["读取三维对象空间身份", "读取对象空间身份", "坐标法向高程读取"],
+        "keywords_zh": ["空间身份", "Coordinates", "Normal", "Elevation", "包围盒"],
+        "pywin32_rules": [RULE_COORDINATE_SYSTEMS, RULE_SECTION_REGION, RULE_POINT_ARRAY, RULE_VARIANT, RULE_COMMON_FAILURES],
+        "reference_dwgs": [REF_DWG_PRINT, REF_DWG_ANOMALY],
+        "reference_objects": ["3dPolyline", "Region", "3DSolid", "AcDbEntity"],
     },
 }
 
@@ -705,6 +793,144 @@ TASKS = [
         "verify": ["目录页内容与 Excel 数据一致", "目录图签字段回读正确"],
         "project_refs": ["cad/scripts/CAD_basic.py"],
         "keywords": ["catalog", "table of contents", "excel", "title block"],
+    },
+    {
+        "slug": "understand_and_convert_coordinate_systems",
+        "folder": "10_3d_spatial_expression",
+        "title": "任务卡：理解并转换坐标系",
+        "goal": "在 `WCS / UCS / OCS / DCS` 之间稳定转换 3D 点和对象基准，为空间关系表达提供统一入口。",
+        "priority_path": [
+            "优先看 `TranslateCoordinates`、`ActiveUCS`、`GetUCSMatrix`、`Normal`、`Elevation*`",
+            "项目内优先参考 `get_entity_full_info()` 与 `get_entity_geometry_info()` 的坐标读取逻辑",
+            "涉及对象基准整体迁移时，再进入 `TransformBy`",
+        ],
+        "symbols": ["TranslateCoordinates", "ActiveUCS", "GetUCSMatrix", "Normal", "Elevation", "ElevationModelSpace", "ElevationPaperSpace", "UCS", "3d_point", "ocs_point", "normal_vector", "ucs_matrix"],
+        "steps": [
+            "先判断当前点或对象属于 `WCS / UCS / OCS / DCS` 中哪一种基准",
+            "若是对象局部坐标，先读取 `Coordinates/Coordinate`，再补 `Elevation` 和 `Normal`",
+            "用 `TranslateCoordinates` 把点转换到目标基准",
+            "若任务需要整体变换对象，再取 `ActiveUCS/GetUCSMatrix` 进入矩阵链",
+        ],
+        "notes": ["这张卡服务施工图中的空间关系表达，不是泛化的坐标系教程。"],
+        "failures": ["把 OCS 点直接当 WCS 点使用", "漏传 `OCSNormal`", "模型空间和图纸空间高程混淆", "当前 UCS 未保存导致 `ActiveUCS` 读取失败"],
+        "verify": ["同一个点在目标坐标系下得到稳定结果", "对象 `Coordinates + Elevation + Normal` 能还原出可解释的 3D 点"],
+        "project_refs": ["cad/scripts/CAD_basic.py", "cad/system/content_analysis_dwg_file.py", "cad/system/licad.py", "cad/system/CAD_core.py"],
+        "keywords": ["coordinate systems", "translate coordinates", "wcs", "ucs", "ocs", "normal", "elevation"],
+    },
+    {
+        "slug": "create_3d_path_or_profile",
+        "folder": "10_3d_spatial_expression",
+        "title": "任务卡：创建三维路径或轮廓",
+        "goal": "用空间点、3D 路径和面表达轮廓骨架，为 Region、Solid 和剖切主链准备受控输入。",
+        "priority_path": [
+            "优先看 `Add3DPoly`、`3dPolyline`、`Add3DFace`、`3DFace`",
+            "需要统一点数组时先看 `3d_point` 和 `point_array_rules.md`",
+            "轮廓后续若要进区域/实体，先保证点序和共面关系明确",
+        ],
+        "symbols": ["Add3DPoly", "3dPolyline", "Add3DFace", "3DFace", "3d_point"],
+        "steps": [
+            "先确定路径或轮廓要表达的是轴线、轮廓骨架还是面",
+            "统一点数组为三元素 3D 点",
+            "路径类优先用 `Add3DPoly`，面类再用 `Add3DFace`",
+            "把结果作为后续 Region/Solid/剖切任务的输入对象",
+        ],
+        "notes": ["这张卡强调的是服务空间关系表达的路径和轮廓，不是复杂造型。"],
+        "failures": ["点数组元素数不是 3 的倍数", "轮廓顺序错误导致后续区域构造失败", "把二维轮廓直接误当空间路径"],
+        "verify": ["返回对象可被识别为 `3dPolyline` 或 `3DFace`", "读取坐标序列时点序与预期一致"],
+        "project_refs": ["cad/scripts/Scheme_drawing/draw_building_outline.py", "cad/scripts/CAD_basic.py", "cad/system/licad.py"],
+        "keywords": ["3d path", "3d profile", "3dpolyline", "3dface", "points array"],
+    },
+    {
+        "slug": "create_region_and_extrude_solid",
+        "folder": "10_3d_spatial_expression",
+        "title": "任务卡：创建 Region 并挤出 Solid",
+        "goal": "把闭合轮廓转为 Region，并进一步生成基础 Solid，服务构件体量与剖切表达。",
+        "priority_path": [
+            "优先看 `AddRegion`、`Region`、`AddExtrudedSolid`、`AddExtrudedSolidAlongPath`、`AddRevolvedSolid`、`3DSolid`",
+            "轮廓不闭合或不共面时，先在输入层修正，不要直接强推实体生成",
+            "需要沿路径生成实体时，再引入路径对象",
+        ],
+        "symbols": ["AddRegion", "Region", "AddExtrudedSolid", "AddExtrudedSolidAlongPath", "AddRevolvedSolid", "3DSolid"],
+        "steps": [
+            "先确认轮廓对象是闭合且共面的",
+            "调用 `AddRegion` 获取区域对象",
+            "按任务需要选择普通挤出、沿路径挤出或旋转成体",
+            "将生成的 `3DSolid` 交给空间对位或剖切任务继续推进",
+        ],
+        "notes": ["本卡服务施工图中的空间体量与剖切依据，不是为了扩展复杂 3D 造型。"],
+        "failures": ["轮廓不闭合", "轮廓不共面", "挤出高度或锥角导致自相交", "路径与轮廓平面关系不正确"],
+        "verify": ["能拿到 `Region` 或 `3DSolid` 返回对象", "生成结果可被包围盒和对象类型识别"],
+        "project_refs": ["cad/system/CAD_core.py", "cad/scripts/CAD_basic.py", "cad/system/licad.py", "cad/system/content_analysis_dwg_file.py"],
+        "keywords": ["region", "extrude solid", "revolved solid", "profile to solid"],
+    },
+    {
+        "slug": "apply_3d_transform_to_objects",
+        "folder": "10_3d_spatial_expression",
+        "title": "任务卡：对对象应用三维变换",
+        "goal": "通过平移、旋转、镜像、缩放和矩阵变换完成对象空间对位和方向修正。",
+        "priority_path": [
+            "优先看 `Move`、`Rotate3D`、`Mirror3D`、`ScaleEntity`",
+            "需要统一做复杂变换时，再进入 `TransformBy` 和 `transform_matrix`",
+            "若变换与 UCS 基准相关，先回到 `GetUCSMatrix`",
+        ],
+        "symbols": ["Move", "Rotate3D", "Mirror3D", "ScaleEntity", "TransformBy", "transform_matrix", "ucs_matrix"],
+        "steps": [
+            "先判断任务是位移、轴旋转、平面镜像、缩放还是矩阵统一变换",
+            "准备轴线、平面、基点或 4x4 矩阵输入",
+            "执行对应的变换方法",
+            "回读对象位置或边界，确认空间关系没有跑偏",
+        ],
+        "notes": ["这张卡强调空间对位正确性，而不是造型动作本身。"],
+        "failures": ["弧度和角度混淆", "轴线或平面定义退化", "矩阵格式非法", "在集合迭代中直接做写操作变换"],
+        "verify": ["对象包围盒或关键点位按预期变化", "变换后对象仍能进入后续剖切或打印表达链"],
+        "project_refs": ["cad/scripts/CAD_basic.py", "cad/system/CAD_core.py", "cad/system/licad.py"],
+        "keywords": ["rotate3d", "mirror3d", "scaleentity", "transformby", "move", "alignment"],
+    },
+    {
+        "slug": "section_3d_geometry_for_2d_expression",
+        "folder": "10_3d_spatial_expression",
+        "title": "任务卡：对三维几何做剖切并服务二维表达",
+        "goal": "通过 `SectionSolid` 或区域边界提取，把三维空间关系转成二维施工图可用的剖切与边界依据。",
+        "priority_path": [
+            "优先看 `SectionSolid`、`Region`、`section_plane_definition`",
+            "若只需要粗边界，再评估是否先读 `BoundingBox`，不要把包围盒直接等同于剖面轮廓",
+            "二维表达落图前，先确认剖切结果的坐标基准",
+        ],
+        "symbols": ["SectionSolid", "Region", "3DSolid", "section_plane_definition", "BoundingBox"],
+        "steps": [
+            "先确认三维实体和剖切平面的三点定义",
+            "调用 `SectionSolid` 获取剖切 Region",
+            "读取返回区域的边界、面积、质心或爆炸后的环路",
+            "把结果组织成可供二维施工图表达使用的几何参考",
+        ],
+        "notes": ["本卡是第四轮最直接体现“由三维关系支撑二维表达”的入口之一。"],
+        "failures": ["剖切平面三点共线", "只读包围盒导致表达过粗", "剖切结果坐标基准未统一", "把实体编辑结果直接当二维表达输出"],
+        "verify": ["能得到有效 Region 或稳定边界", "剖切结果可解释为二维剖面或轮廓参考"],
+        "project_refs": ["cad/system/content_analysis_dwg_file.py", "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py", "cad/scripts/CAD_basic.py", "cad/system/licad.py"],
+        "keywords": ["section solid", "section plane", "2d expression", "region boundary", "section geometry"],
+    },
+    {
+        "slug": "read_3d_object_spatial_identity",
+        "folder": "10_3d_spatial_expression",
+        "title": "任务卡：读取三维对象空间身份",
+        "goal": "读取对象的坐标、高程、法向量、包围盒和类型身份，为空间关系分析和二维表达提供稳定输入。",
+        "priority_path": [
+            "优先看 `Coordinates`、`Normal`、`Elevation`、`BoundingBox`",
+            "若对象来自局部坐标，先回到坐标系转换卡，不要直接解释原值",
+            "需要做批量对象快照时，优先参考现有内容分析路径",
+        ],
+        "symbols": ["Coordinates", "Normal", "Elevation", "BoundingBox", "3dPolyline", "Region", "3DSolid"],
+        "steps": [
+            "先识别对象类型和所有者空间",
+            "读取坐标序列、高程、法向量和包围盒",
+            "必要时把局部坐标还原到 WCS",
+            "把结果整理成可供后续剖切、打印或施工图表达使用的空间身份结构",
+        ],
+        "notes": ["本卡服务的是对象空间身份识别，而不是单纯的属性列举。"],
+        "failures": ["把 OCS 坐标直接当全局坐标", "只看包围盒不看法向", "对象类型识别正确但空间基准解释错误"],
+        "verify": ["能得到稳定的对象类型、坐标、法向和包围盒结果", "不同对象在同一基准下可比较空间关系"],
+        "project_refs": ["cad/scripts/CAD_basic.py", "cad/system/content_analysis_dwg_file.py", "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py", "cad/system/licad.py"],
+        "keywords": ["spatial identity", "coordinates", "normal", "elevation", "bounding box", "3d object"],
     },
 ]
 

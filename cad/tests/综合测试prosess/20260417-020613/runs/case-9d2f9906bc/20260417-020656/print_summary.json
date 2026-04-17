@@ -1,0 +1,390 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656",
+  "work_dwg": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+  "process_token": "case-9d2f9906bc",
+  "mode": "purified_adaptive",
+  "plan_json": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf",
+    "source_stem": "plot-case-9d2f9906bc",
+    "mode": "purified_adaptive",
+    "total_jobs": 12,
+    "landscape_count": 10,
+    "portrait_count": 2,
+    "jobs_by_space": {
+      "平面分割图": [
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "81DA",
+          "lower_left": [
+            5690.875005086966,
+            1561.5666356382442
+          ],
+          "upper_right": [
+            65090.875005086964,
+            43561.56663563825
+          ],
+          "short_side": 42000.00000000001,
+          "long_side": 59400.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 1,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-01.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "81F9",
+          "lower_left": [
+            186085.28361721316,
+            1561.5666356382426
+          ],
+          "upper_right": [
+            228085.2836172132,
+            105661.56663563824
+          ],
+          "short_side": 42000.00000000003,
+          "long_side": 104100.0,
+          "media": "UserDefinedMetric (1041.00 x 420.00毫米)",
+          "ratio": "1:100",
+          "paper_code": "A2+3/4",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 2,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-02.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "8219",
+          "lower_left": [
+            261089.93979847536,
+            1561.5666356382444
+          ],
+          "upper_right": [
+            290789.93979847536,
+            22561.566635638243
+          ],
+          "short_side": 21000.0,
+          "long_side": 29700.0,
+          "media": "ISO_A2_(594.00_x_420.00_MM)",
+          "ratio": "1:50",
+          "paper_code": "A2",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 3,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-03.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4DEE",
+          "lower_left": [
+            -335.9841886581021,
+            701.1662634268639
+          ],
+          "upper_right": [
+            84.01581134189792,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 4,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-04.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E16",
+          "lower_left": [
+            137.85949222645468,
+            701.1662634268639
+          ],
+          "upper_right": [
+            557.8594922264547,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 5,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-05.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E1C",
+          "lower_left": [
+            620.7992503808168,
+            701.1662634268639
+          ],
+          "upper_right": [
+            1040.7992503808168,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 6,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-06.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E22",
+          "lower_left": [
+            1119.2819015391678,
+            701.1662634268639
+          ],
+          "upper_right": [
+            1539.2819015391678,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 7,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-07.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E4C",
+          "lower_left": [
+            1617.7645526975189,
+            701.1662634268639
+          ],
+          "upper_right": [
+            2037.7645526975189,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 8,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-08.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E52",
+          "lower_left": [
+            2116.24720385587,
+            701.1662634268639
+          ],
+          "upper_right": [
+            2536.24720385587,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 9,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-09.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E58",
+          "lower_left": [
+            2683.981700808951,
+            701.1662634268637
+          ],
+          "upper_right": [
+            2980.9817008089512,
+            1121.1662634268637
+          ],
+          "short_side": 297.00000000000045,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 1,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 10,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-10.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E60",
+          "lower_left": [
+            3113.212506172572,
+            701.1662634268639
+          ],
+          "upper_right": [
+            3533.212506172572,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 11,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-11.pdf"
+        },
+        {
+          "dwg_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\work\\work-case-9d2f9906bc.dwg",
+          "space_kind": "layout",
+          "layout_name": "平面分割图",
+          "owner_btr": "*PAPER_SPACE",
+          "handle": "4E66",
+          "lower_left": [
+            3611.695157330923,
+            701.1662634268639
+          ],
+          "upper_right": [
+            4031.695157330923,
+            998.1662634268639
+          ],
+          "short_side": 297.0,
+          "long_side": 420.0,
+          "media": "ISO_A3_(420.00_x_297.00_MM)",
+          "ratio": "1:100",
+          "paper_code": "A3",
+          "rotation": 0,
+          "plot_scale": 1.0,
+          "standard_flag": 1,
+          "sequence_no": 12,
+          "output_path": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-12.pdf"
+        }
+      ]
+    }
+  },
+  "content_analysis_json": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\content_analysis.json",
+  "scope_analysis_json": "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\scope_analysis.json",
+  "scope_filter": null,
+  "started_at": "2026-04-17 02:06:13",
+  "execution": {
+    "total_jobs": 12,
+    "success_count": 12,
+    "failure_count": 0,
+    "generated_files": [
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-01.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-03.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-04.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-05.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-06.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-07.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-08.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-09.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-11.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-12.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-02.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-10.pdf"
+    ],
+    "failures": []
+  },
+  "verification": {
+    "expected_count": 12,
+    "existing_count": 12,
+    "missing_count": 0,
+    "zero_size_count": 0,
+    "existing": [
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-01.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-03.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-04.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-05.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-06.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-07.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-08.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-09.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-11.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-12.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-02.pdf",
+      "D:\\codex-tasks\\cad\\tests\\综合测试prosess\\20260417-020613\\runs\\case-9d2f9906bc\\20260417-020656\\pdf\\平面分割图\\plot-case-9d2f9906bc-平面分割图-10.pdf"
+    ],
+    "missing": [],
+    "zero_size": [],
+    "page_verification": {
+      "page_size_checked_count": 12,
+      "page_size_match_count": 12,
+      "page_size_mismatch_count": 0,
+      "page_size_unparsed_count": 0,
+      "size_tolerance_mm": 1.0,
+      "standard_flag_counts": {
+        "1": 12
+      },
+      "multi_page_file_count": 0,
+      "multi_page_files": [],
+      "mismatches": [],
+      "unparsed": []
+    }
+  },
+  "finished_at": "2026-04-17 02:10:51",
+  "elapsed_seconds": 278.012,
+  "stage_durations": {
+    "runtime_prepare_seconds": 43.094,
+    "prepare_work_dwg_seconds": 6.801,
+    "scope_analysis_seconds": 42.379,
+    "build_plan_seconds": 36.758,
+    "execute_print_plan_seconds": 155.748,
+    "verify_pdfs_seconds": 0.017
+  }
+}

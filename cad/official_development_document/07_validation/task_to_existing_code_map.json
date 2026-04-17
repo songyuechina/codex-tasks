@@ -2084,5 +2084,799 @@
       "AcDbBlockReference"
     ],
     "stability_level": "medium"
+  },
+  "CAD2021-TASK-020": {
+    "slug": "understand_and_convert_coordinate_systems",
+    "title": "任务卡：理解并转换坐标系",
+    "path": "04_task_cards/10_3d_spatial_expression/understand_and_convert_coordinate_systems.md",
+    "symbols": [
+      "TranslateCoordinates",
+      "ActiveUCS",
+      "GetUCSMatrix",
+      "Normal",
+      "Elevation",
+      "ElevationModelSpace",
+      "ElevationPaperSpace",
+      "UCS",
+      "3d_point",
+      "ocs_point",
+      "normal_vector",
+      "ucs_matrix"
+    ],
+    "owners": [
+      "Document",
+      "UCS",
+      "Utility"
+    ],
+    "project_functions": [
+      "get_entity_full_info",
+      "get_entity_geometry_info",
+      "get_dwg_graphics_summary"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/content_analysis_dwg_file.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "get_entity_full_info",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "get_entity_geometry_info",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "get_dwg_graphics_summary",
+        "module_path": "cad/system/content_analysis_dwg_file.py"
+      }
+    ],
+    "aliases_en": [
+      "understand and convert coordinate systems",
+      "convert coordinates between wcs ucs ocs",
+      "translate coordinates and ucs"
+    ],
+    "aliases_zh": [
+      "理解并转换坐标系",
+      "坐标系转换",
+      "WCS UCS OCS 转换"
+    ],
+    "keywords_zh": [
+      "坐标系",
+      "坐标转换",
+      "UCS",
+      "OCS",
+      "WCS"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/content_analysis_dwg_file.py",
+      "cad/system/licad.py",
+      "cad/system/CAD_core.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/3d_transform_rules.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:idh_translatecoordinates",
+      "acad_aag:GUID_06B18EED_D4E3_4B81_ACB8_037E884CB93D",
+      "acad_aag:GUID_6954AAF3_7107_4D93_A2CE_FE859F3F9902",
+      "acadauto:idh_activeucs",
+      "acadauto:idh_ucs_object",
+      "acadauto:idh_getucsmatrix",
+      "acadauto:idh_transformby",
+      "acadauto:ex_transformby",
+      "acadauto:transformby_see_also",
+      "acadauto:idh_normal",
+      "acadauto:ex_translatecoordinates",
+      "acadauto:translatecoordinates_see_also",
+      "acadauto:idh_elevation",
+      "acadauto:idh_elevationmodelspace",
+      "acadauto:ex_elevationmodelspace",
+      "acadauto:idh_elevationpaperspace",
+      "acadauto:ex_elevationpaperspace",
+      "acadauto:ex_activeucs",
+      "acadauto:ex_getucsmatrix",
+      "acadauto:ex_addline",
+      "acadauto:ex_insertblock",
+      "acadauto:ex_setwindowtoplot",
+      "acadauto:ex_addminsertblock",
+      "acadauto:idh_addline",
+      "acadauto:ex_elevation",
+      "acadauto:getucsmatrix_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-06B18EED-D4E3-4B81-ACB8-037E884CB93D.htm",
+      "01_extracted_html/acad_aag/GUID-6954AAF3-7107-4D93-A2CE-FE859F3F9902.htm",
+      "01_extracted_html/acadauto/idh_translatecoordinates.htm",
+      "01_extracted_html/acadauto/idh_activeucs.htm",
+      "01_extracted_html/acadauto/idh_ucs_object.htm",
+      "01_extracted_html/acadauto/idh_getucsmatrix.htm",
+      "01_extracted_html/acadauto/ex_transformby.htm",
+      "01_extracted_html/acadauto/idh_transformby.htm",
+      "01_extracted_html/acadauto/transformby_see_also.htm",
+      "01_extracted_html/acadauto/ex_translatecoordinates.htm",
+      "01_extracted_html/acadauto/idh_normal.htm",
+      "01_extracted_html/acadauto/translatecoordinates_see_also.htm",
+      "01_extracted_html/acadauto/idh_elevation.htm",
+      "01_extracted_html/acadauto/idh_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/ex_elevationmodelspace.htm",
+      "01_extracted_html/acadauto/idh_elevationpaperspace.htm",
+      "01_extracted_html/acadauto/ex_elevationpaperspace.htm",
+      "01_extracted_html/acadauto/ex_activeucs.htm",
+      "01_extracted_html/acadauto/ex_getucsmatrix.htm",
+      "01_extracted_html/acadauto/ex_insertblock.htm",
+      "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+      "01_extracted_html/acadauto/ex_addminsertblock.htm",
+      "01_extracted_html/acadauto/ex_addline.htm",
+      "01_extracted_html/acadauto/idh_addline.htm",
+      "01_extracted_html/acadauto/ex_elevation.htm",
+      "01_extracted_html/acadauto/getucsmatrix_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "UCS",
+      "3d_point",
+      "AcDbPolyline"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-021": {
+    "slug": "create_3d_path_or_profile",
+    "title": "任务卡：创建三维路径或轮廓",
+    "path": "04_task_cards/10_3d_spatial_expression/create_3d_path_or_profile.md",
+    "symbols": [
+      "Add3DPoly",
+      "3dPolyline",
+      "Add3DFace",
+      "3DFace",
+      "3d_point"
+    ],
+    "owners": [
+      "ModelSpace",
+      "Block",
+      "3dPolyline",
+      "3DFace"
+    ],
+    "project_functions": [
+      "draw_outline",
+      "draw_polyline",
+      "draw_lwpolyline"
+    ],
+    "module_paths": [
+      "cad/scripts/Scheme_drawing/draw_building_outline.py",
+      "cad/scripts/CAD_basic.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "draw_outline",
+        "module_path": "cad/scripts/Scheme_drawing/draw_building_outline.py"
+      },
+      {
+        "project_function": "draw_polyline",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "draw_lwpolyline",
+        "module_path": "cad/scripts/CAD_basic.py"
+      }
+    ],
+    "aliases_en": [
+      "create 3d path or profile",
+      "build 3d polyline path",
+      "create profile for region or solid"
+    ],
+    "aliases_zh": [
+      "创建三维路径或轮廓",
+      "建立三维路径",
+      "建立轮廓 profile"
+    ],
+    "keywords_zh": [
+      "三维路径",
+      "轮廓",
+      "3dPolyline",
+      "3DFace"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/3d_entity_creation_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md"
+    ],
+    "project_refs": [
+      "cad/scripts/Scheme_drawing/draw_building_outline.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/licad.py",
+      "cad/scripts/drawing_basic_service/print/print_executor.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/3d_entity_creation_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:idh_add3dpoly",
+      "acadauto:idh_3dpoly_object",
+      "acadauto:ex_add3dpoly",
+      "acadauto:add3dpoly_see_also",
+      "acadauto:idh_add3dface",
+      "acadauto:idh_3dface_object",
+      "acadauto:ex_add3dface",
+      "acadauto:add3dface_see_also",
+      "acadauto:ex_addline",
+      "acadauto:ex_insertblock",
+      "acadauto:ex_setwindowtoplot",
+      "acadauto:ex_addminsertblock",
+      "acadauto:idh_addline"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/idh_3dpoly_object.htm",
+      "01_extracted_html/acadauto/idh_add3dpoly.htm",
+      "01_extracted_html/acadauto/ex_add3dpoly.htm",
+      "01_extracted_html/acadauto/add3dpoly_see_also.htm",
+      "01_extracted_html/acadauto/idh_3dface_object.htm",
+      "01_extracted_html/acadauto/idh_add3dface.htm",
+      "01_extracted_html/acadauto/ex_add3dface.htm",
+      "01_extracted_html/acadauto/add3dface_see_also.htm",
+      "01_extracted_html/acadauto/ex_insertblock.htm",
+      "01_extracted_html/acadauto/ex_setwindowtoplot.htm",
+      "01_extracted_html/acadauto/ex_addminsertblock.htm",
+      "01_extracted_html/acadauto/ex_addline.htm",
+      "01_extracted_html/acadauto/idh_addline.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg"
+    ],
+    "reference_objects": [
+      "3dPolyline",
+      "3DFace"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-022": {
+    "slug": "create_region_and_extrude_solid",
+    "title": "任务卡：创建 Region 并挤出 Solid",
+    "path": "04_task_cards/10_3d_spatial_expression/create_region_and_extrude_solid.md",
+    "symbols": [
+      "AddRegion",
+      "Region",
+      "AddExtrudedSolid",
+      "AddExtrudedSolidAlongPath",
+      "AddRevolvedSolid",
+      "3DSolid"
+    ],
+    "owners": [
+      "ModelSpace",
+      "Region",
+      "3DSolid"
+    ],
+    "project_functions": [
+      "insert_region_v2",
+      "create_block_from_region_cad",
+      "get_entity_geometry_info"
+    ],
+    "module_paths": [
+      "cad/system/CAD_core.py",
+      "cad/scripts/CAD_basic.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "insert_region_v2",
+        "module_path": "cad/system/CAD_core.py"
+      },
+      {
+        "project_function": "create_block_from_region_cad",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "get_entity_geometry_info",
+        "module_path": "cad/scripts/CAD_basic.py"
+      }
+    ],
+    "aliases_en": [
+      "create region and extrude solid",
+      "convert profile to region and solid",
+      "extrude region to solid"
+    ],
+    "aliases_zh": [
+      "创建 Region 并挤出 Solid",
+      "轮廓转区域再转实体",
+      "挤出实体"
+    ],
+    "keywords_zh": [
+      "Region",
+      "3DSolid",
+      "挤出",
+      "轮廓转实体"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/3d_entity_creation_rules.md",
+      "05_pywin32_bridge/section_region_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/CAD_core.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/licad.py",
+      "cad/system/content_analysis_dwg_file.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/3d_entity_creation_rules.md",
+      "05_pywin32_bridge/section_region_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/3d_transform_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:idh_addregion",
+      "acadauto:idh_region_object",
+      "acad_aag:GUID_4699B54A_2628_49FE_B093_0062FBEC37EA",
+      "acad_aag:GUID_9EB18E5E_9C16_4FB9_B334_D61ED00DCB80",
+      "acadauto:ex_addregion",
+      "acadauto:addregion_see_also",
+      "acadauto:idh_addextrudedsolid",
+      "acadauto:idh_3dsolid_object",
+      "acadauto:idh_addextrudedsolidalongpath",
+      "acadauto:idh_addrevolvedsolid",
+      "acadauto:idh_sectionsolid",
+      "acadauto:ex_addextrudedsolidalongpath",
+      "acadauto:ex_addextrudedsolid"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-4699B54A-2628-49FE-B093-0062FBEC37EA.htm",
+      "01_extracted_html/acadauto/idh_addregion.htm",
+      "01_extracted_html/acadauto/idh_region_object.htm",
+      "01_extracted_html/acad_aag/GUID-9EB18E5E-9C16-4FB9-B334-D61ED00DCB80.htm",
+      "01_extracted_html/acadauto/ex_addregion.htm",
+      "01_extracted_html/acadauto/addregion_see_also.htm",
+      "01_extracted_html/acadauto/idh_3dsolid_object.htm",
+      "01_extracted_html/acadauto/idh_addextrudedsolid.htm",
+      "01_extracted_html/acadauto/idh_addextrudedsolidalongpath.htm",
+      "01_extracted_html/acadauto/idh_addrevolvedsolid.htm",
+      "01_extracted_html/acadauto/ex_addextrudedsolidalongpath.htm",
+      "01_extracted_html/acadauto/ex_addextrudedsolid.htm",
+      "01_extracted_html/acadauto/idh_sectionsolid.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "Region",
+      "3DSolid"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-023": {
+    "slug": "apply_3d_transform_to_objects",
+    "title": "任务卡：对对象应用三维变换",
+    "path": "04_task_cards/10_3d_spatial_expression/apply_3d_transform_to_objects.md",
+    "symbols": [
+      "Move",
+      "Rotate3D",
+      "Mirror3D",
+      "ScaleEntity",
+      "TransformBy",
+      "transform_matrix",
+      "ucs_matrix"
+    ],
+    "owners": [
+      "3dPolyline",
+      "Region",
+      "3DSolid",
+      "Document"
+    ],
+    "project_functions": [
+      "move_entities_in_region",
+      "transform_point_by_block",
+      "get_obj_loc"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_core.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "move_entities_in_region",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "transform_point_by_block",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "get_obj_loc",
+        "module_path": "cad/system/CAD_core.py"
+      }
+    ],
+    "aliases_en": [
+      "apply 3d transform to objects",
+      "rotate mirror scale transform objects",
+      "3d object alignment"
+    ],
+    "aliases_zh": [
+      "对对象应用三维变换",
+      "三维变换对象",
+      "空间对位"
+    ],
+    "keywords_zh": [
+      "Rotate3D",
+      "Mirror3D",
+      "ScaleEntity",
+      "TransformBy",
+      "空间对位"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/3d_transform_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/CAD_core.py",
+      "cad/system/licad.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/3d_transform_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:idh_move",
+      "acad_aag:GUID_19A5491D_7675_4ECF_A66A_5D309A14429F",
+      "acadauto:idh_remove",
+      "acadauto:idh_rotate3d",
+      "acad_aag:GUID_3FEB0A3C_E4B1_40DF_A4DF_CAB22F1E2A92",
+      "acadauto:idh_mirror3d",
+      "acadauto:idh_3dpoly_object",
+      "acadauto:idh_region_object",
+      "acadauto:ex_mirror3d",
+      "acadauto:mirror3d_see_also",
+      "acadauto:idh_scaleentity",
+      "acadauto:idh_transformby",
+      "acadauto:idh_getucsmatrix",
+      "acadauto:ex_getucsmatrix",
+      "acadauto:getucsmatrix_see_also",
+      "acadauto:ex_transformby"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-19A5491D-7675-4ECF-A66A-5D309A14429F.htm",
+      "01_extracted_html/acadauto/idh_move.htm",
+      "01_extracted_html/acadauto/idh_remove.htm",
+      "01_extracted_html/acad_aag/GUID-3FEB0A3C-E4B1-40DF-A4DF-CAB22F1E2A92.htm",
+      "01_extracted_html/acadauto/idh_rotate3d.htm",
+      "01_extracted_html/acadauto/idh_mirror3d.htm",
+      "01_extracted_html/acadauto/ex_mirror3d.htm",
+      "01_extracted_html/acadauto/mirror3d_see_also.htm",
+      "01_extracted_html/acadauto/idh_3dpoly_object.htm",
+      "01_extracted_html/acadauto/idh_region_object.htm",
+      "01_extracted_html/acadauto/idh_scaleentity.htm",
+      "01_extracted_html/acadauto/ex_getucsmatrix.htm",
+      "01_extracted_html/acadauto/idh_getucsmatrix.htm",
+      "01_extracted_html/acadauto/idh_transformby.htm",
+      "01_extracted_html/acadauto/getucsmatrix_see_also.htm",
+      "01_extracted_html/acadauto/ex_transformby.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/混合空间0109.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg"
+    ],
+    "reference_objects": [
+      "3dPolyline",
+      "Region",
+      "3DSolid"
+    ],
+    "stability_level": "high"
+  },
+  "CAD2021-TASK-024": {
+    "slug": "section_3d_geometry_for_2d_expression",
+    "title": "任务卡：对三维几何做剖切并服务二维表达",
+    "path": "04_task_cards/10_3d_spatial_expression/section_3d_geometry_for_2d_expression.md",
+    "symbols": [
+      "SectionSolid",
+      "Region",
+      "3DSolid",
+      "section_plane_definition",
+      "BoundingBox"
+    ],
+    "owners": [
+      "3DSolid",
+      "Region",
+      "Document"
+    ],
+    "project_functions": [
+      "get_dwg_graphics_summary",
+      "collect_space_entity_snapshots",
+      "get_boundingbox_from_objects"
+    ],
+    "module_paths": [
+      "cad/system/content_analysis_dwg_file.py",
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/scripts/CAD_basic.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "get_dwg_graphics_summary",
+        "module_path": "cad/system/content_analysis_dwg_file.py"
+      },
+      {
+        "project_function": "collect_space_entity_snapshots",
+        "module_path": "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py"
+      },
+      {
+        "project_function": "get_boundingbox_from_objects",
+        "module_path": "cad/scripts/CAD_basic.py"
+      }
+    ],
+    "aliases_en": [
+      "section 3d geometry for 2d expression",
+      "section solid for 2d drawing logic",
+      "derive 2d expression from 3d section"
+    ],
+    "aliases_zh": [
+      "对三维几何做剖切并服务二维表达",
+      "三维剖切转二维表达",
+      "SectionSolid"
+    ],
+    "keywords_zh": [
+      "剖切",
+      "SectionSolid",
+      "二维表达",
+      "剖面"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/section_region_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/system/content_analysis_dwg_file.py",
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/scripts/CAD_basic.py",
+      "cad/system/licad.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/section_region_rules.md",
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/3d_entity_creation_rules.md",
+      "05_pywin32_bridge/3d_transform_rules.md",
+      "05_pywin32_bridge/pywin32_type_rules.md"
+    ],
+    "source_topic_ids": [
+      "acadauto:idh_sectionsolid",
+      "acadauto:idh_3dsolid_object",
+      "acadauto:idh_region_object",
+      "acadauto:idh_addregion",
+      "acad_aag:GUID_4699B54A_2628_49FE_B093_0062FBEC37EA",
+      "acad_aag:GUID_9EB18E5E_9C16_4FB9_B334_D61ED00DCB80",
+      "acadauto:ex_addregion",
+      "acadauto:addregion_see_also",
+      "acadauto:idh_addextrudedsolid",
+      "acadauto:idh_addextrudedsolidalongpath",
+      "acadauto:idh_addrevolvedsolid",
+      "acadauto:ex_addextrudedsolidalongpath",
+      "acadauto:ex_addextrudedsolid",
+      "acadauto:ex_sectionsolid",
+      "acadauto:sectionsolid_see_also",
+      "acadauto:ex_getboundingbox",
+      "acadauto:idh_getboundingbox",
+      "acadauto:getboundingbox_see_also"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acadauto/idh_3dsolid_object.htm",
+      "01_extracted_html/acadauto/idh_sectionsolid.htm",
+      "01_extracted_html/acadauto/idh_region_object.htm",
+      "01_extracted_html/acad_aag/GUID-9EB18E5E-9C16-4FB9-B334-D61ED00DCB80.htm",
+      "01_extracted_html/acadauto/ex_addregion.htm",
+      "01_extracted_html/acadauto/idh_addregion.htm",
+      "01_extracted_html/acadauto/addregion_see_also.htm",
+      "01_extracted_html/acad_aag/GUID-4699B54A-2628-49FE-B093-0062FBEC37EA.htm",
+      "01_extracted_html/acadauto/ex_addextrudedsolidalongpath.htm",
+      "01_extracted_html/acadauto/idh_addextrudedsolidalongpath.htm",
+      "01_extracted_html/acadauto/ex_addextrudedsolid.htm",
+      "01_extracted_html/acadauto/idh_addextrudedsolid.htm",
+      "01_extracted_html/acadauto/idh_addrevolvedsolid.htm",
+      "01_extracted_html/acadauto/ex_sectionsolid.htm",
+      "01_extracted_html/acadauto/sectionsolid_see_also.htm",
+      "01_extracted_html/acadauto/ex_getboundingbox.htm",
+      "01_extracted_html/acadauto/idh_getboundingbox.htm",
+      "01_extracted_html/acadauto/getboundingbox_see_also.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "3DSolid",
+      "Region"
+    ],
+    "stability_level": "medium"
+  },
+  "CAD2021-TASK-025": {
+    "slug": "read_3d_object_spatial_identity",
+    "title": "任务卡：读取三维对象空间身份",
+    "path": "04_task_cards/10_3d_spatial_expression/read_3d_object_spatial_identity.md",
+    "symbols": [
+      "Coordinates",
+      "Normal",
+      "Elevation",
+      "BoundingBox",
+      "3dPolyline",
+      "Region",
+      "3DSolid"
+    ],
+    "owners": [
+      "Entity",
+      "3dPolyline",
+      "Region",
+      "3DSolid"
+    ],
+    "project_functions": [
+      "get_entity_full_info",
+      "get_entity_geometry_info",
+      "get_dwg_graphics_summary"
+    ],
+    "module_paths": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/content_analysis_dwg_file.py"
+    ],
+    "implementation_entries": [
+      {
+        "project_function": "get_entity_full_info",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "get_entity_geometry_info",
+        "module_path": "cad/scripts/CAD_basic.py"
+      },
+      {
+        "project_function": "get_dwg_graphics_summary",
+        "module_path": "cad/system/content_analysis_dwg_file.py"
+      }
+    ],
+    "aliases_en": [
+      "read 3d object spatial identity",
+      "inspect 3d object coordinates normal elevation",
+      "read spatial identity"
+    ],
+    "aliases_zh": [
+      "读取三维对象空间身份",
+      "读取对象空间身份",
+      "坐标法向高程读取"
+    ],
+    "keywords_zh": [
+      "空间身份",
+      "Coordinates",
+      "Normal",
+      "Elevation",
+      "包围盒"
+    ],
+    "pywin32_rules": [
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/section_region_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md"
+    ],
+    "project_refs": [
+      "cad/scripts/CAD_basic.py",
+      "cad/system/content_analysis_dwg_file.py",
+      "cad/scripts/drawing_basic_service/print/print_area_content_analysis.py",
+      "cad/system/licad.py",
+      "cad/scripts/drawing_basic_service/print/print_area_analysis.py",
+      "cad/scripts/drawing_basic_service/print/print_info_analysis.py",
+      "cad/scripts/Scheme_drawing/draw_building_outline.py"
+    ],
+    "rule_refs": [
+      "05_pywin32_bridge/coordinate_system_rules.md",
+      "05_pywin32_bridge/section_region_rules.md",
+      "05_pywin32_bridge/point_array_rules.md",
+      "05_pywin32_bridge/variant_rules.md",
+      "05_pywin32_bridge/common_failures.md",
+      "05_pywin32_bridge/pywin32_type_rules.md",
+      "05_pywin32_bridge/3d_entity_creation_rules.md",
+      "05_pywin32_bridge/3d_transform_rules.md"
+    ],
+    "source_topic_ids": [
+      "acad_aag:GUID_06B18EED_D4E3_4B81_ACB8_037E884CB93D",
+      "acad_aag:GUID_6954AAF3_7107_4D93_A2CE_FE859F3F9902",
+      "acadauto:ex_coordinates",
+      "acadauto:idh_coordinates",
+      "acadauto:ex_translatecoordinates",
+      "acadauto:idh_normal",
+      "acadauto:idh_translatecoordinates",
+      "acadauto:translatecoordinates_see_also",
+      "acadauto:idh_elevation",
+      "acadauto:ex_getboundingbox",
+      "acadauto:idh_getboundingbox",
+      "acadauto:getboundingbox_see_also",
+      "acadauto:idh_3dpoly_object",
+      "acadauto:idh_add3dpoly",
+      "acadauto:ex_add3dpoly",
+      "acadauto:add3dpoly_see_also",
+      "acadauto:idh_region_object",
+      "acadauto:idh_addregion",
+      "acad_aag:GUID_4699B54A_2628_49FE_B093_0062FBEC37EA",
+      "acad_aag:GUID_9EB18E5E_9C16_4FB9_B334_D61ED00DCB80",
+      "acadauto:ex_addregion",
+      "acadauto:addregion_see_also",
+      "acadauto:idh_3dsolid_object",
+      "acadauto:idh_addextrudedsolid",
+      "acadauto:idh_addextrudedsolidalongpath",
+      "acadauto:idh_addrevolvedsolid",
+      "acadauto:idh_sectionsolid",
+      "acadauto:ex_addextrudedsolidalongpath",
+      "acadauto:ex_addextrudedsolid"
+    ],
+    "source_html_paths": [
+      "01_extracted_html/acad_aag/GUID-06B18EED-D4E3-4B81-ACB8-037E884CB93D.htm",
+      "01_extracted_html/acad_aag/GUID-6954AAF3-7107-4D93-A2CE-FE859F3F9902.htm",
+      "01_extracted_html/acadauto/ex_coordinates.htm",
+      "01_extracted_html/acadauto/idh_coordinates.htm",
+      "01_extracted_html/acadauto/ex_translatecoordinates.htm",
+      "01_extracted_html/acadauto/idh_normal.htm",
+      "01_extracted_html/acadauto/idh_translatecoordinates.htm",
+      "01_extracted_html/acadauto/translatecoordinates_see_also.htm",
+      "01_extracted_html/acadauto/idh_elevation.htm",
+      "01_extracted_html/acadauto/ex_getboundingbox.htm",
+      "01_extracted_html/acadauto/idh_getboundingbox.htm",
+      "01_extracted_html/acadauto/getboundingbox_see_also.htm",
+      "01_extracted_html/acadauto/idh_3dpoly_object.htm",
+      "01_extracted_html/acadauto/ex_add3dpoly.htm",
+      "01_extracted_html/acadauto/idh_add3dpoly.htm",
+      "01_extracted_html/acadauto/add3dpoly_see_also.htm",
+      "01_extracted_html/acad_aag/GUID-9EB18E5E-9C16-4FB9-B334-D61ED00DCB80.htm",
+      "01_extracted_html/acadauto/ex_addregion.htm",
+      "01_extracted_html/acadauto/idh_addregion.htm",
+      "01_extracted_html/acadauto/idh_region_object.htm",
+      "01_extracted_html/acadauto/addregion_see_also.htm",
+      "01_extracted_html/acad_aag/GUID-4699B54A-2628-49FE-B093-0062FBEC37EA.htm",
+      "01_extracted_html/acadauto/ex_addextrudedsolidalongpath.htm",
+      "01_extracted_html/acadauto/idh_addextrudedsolidalongpath.htm",
+      "01_extracted_html/acadauto/idh_3dsolid_object.htm",
+      "01_extracted_html/acadauto/ex_addextrudedsolid.htm",
+      "01_extracted_html/acadauto/idh_addextrudedsolid.htm",
+      "01_extracted_html/acadauto/idh_addrevolvedsolid.htm",
+      "01_extracted_html/acadauto/idh_sectionsolid.htm"
+    ],
+    "reference_dwgs": [
+      "cad/scripts/drawing_basic_service/print/cases/assets/远程国际建施2021.0903(LT4、LT5楼梯修改)_t7.dwg",
+      "cad/scripts/drawing_basic_service/print/cases/assets/农建房施工图【电气】-0930_t6_t3.dwg"
+    ],
+    "reference_objects": [
+      "3dPolyline",
+      "Region",
+      "3DSolid",
+      "AcDbEntity"
+    ],
+    "stability_level": "medium"
   }
 }

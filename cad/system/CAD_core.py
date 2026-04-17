@@ -29,6 +29,8 @@ import math
 from pathlib import Path
 
 import win32api
+import win32con
+import win32gui
 import win32process
 
 
@@ -120,6 +122,228 @@ def close_all_cad_processes(*, max_retries: int = 3, retry_delay: float = 2.0) -
     return False
 
 
+def _find_main_window_by_pid(pid: int) -> int:
+    """按 PID 查找可见的顶层主窗口句柄。"""
+    matched_hwnds: list[int] = []
+
+    def _enum_windows(hwnd: int, _: object) -> bool:
+        try:
+            if not win32gui.IsWindow(hwnd):
+                return True
+            if not win32gui.IsWindowVisible(hwnd):
+                return True
+            if win32gui.GetParent(hwnd):
+                return True
+            _, window_pid = win32process.GetWindowThreadProcessId(hwnd)
+            if window_pid != pid:
+                return True
+            title = str(win32gui.GetWindowText(hwnd) or "").strip()
+            if not title:
+                return True
+            matched_hwnds.append(hwnd)
+        except Exception:
+            return True
+        return True
+
+    win32gui.EnumWindows(_enum_windows, None)
+    if not matched_hwnds:
+        return 0
+
+    def _score(hwnd: int) -> tuple[int, int]:
+        try:
+            rect = win32gui.GetWindowRect(hwnd)
+            width = max(0, rect[2] - rect[0])
+            height = max(0, rect[3] - rect[1])
+            return (width * height, hwnd)
+        except Exception:
+            return (0, hwnd)
+
+    matched_hwnds.sort(key=_score, reverse=True)
+    return int(matched_hwnds[0])
+
+
+def _enumerate_visible_top_windows(
+    *,
+    process_names: tuple[str, ...] | list[str] | None = None,
+    title_keywords: tuple[str, ...] | list[str] | None = None,
+) -> list[dict[str, int | str]]:
+    """枚举可见顶层窗口，并按进程名/标题关键词过滤。"""
+    names = {str(name or "").strip().lower() for name in (process_names or []) if str(name or "").strip()}
+    keywords = [str(keyword or "").strip().lower() for keyword in (title_keywords or []) if str(keyword or "").strip()]
+    windows: list[dict[str, int | str]] = []
+
+    def _enum_windows(hwnd: int, _: object) -> bool:
+        try:
+            if not win32gui.IsWindow(hwnd):
+                return True
+            if not win32gui.IsWindowVisible(hwnd):
+                return True
+            if win32gui.GetParent(hwnd):
+                return True
+            title = str(win32gui.GetWindowText(hwnd) or "").strip()
+            if not title:
+                return True
+            _thread_id, pid = win32process.GetWindowThreadProcessId(hwnd)
+            process_name = ""
+            if pid:
+                try:
+                    process_name = str(psutil.Process(pid).name() or "")
+                except Exception:
+                    process_name = ""
+            process_name_lower = process_name.lower()
+            title_lower = title.lower()
+            if names and process_name_lower not in names:
+                if not (keywords and any(keyword in title_lower for keyword in keywords)):
+                    return True
+            elif keywords and not any(keyword in title_lower for keyword in keywords) and process_name_lower not in names:
+                return True
+            windows.append(
+                {
+                    "hwnd": int(hwnd),
+                    "pid": int(pid or 0),
+                    "process_name": process_name,
+                    "title": title,
+                }
+            )
+        except Exception:
+            return True
+        return True
+
+    win32gui.EnumWindows(_enum_windows, None)
+    return windows
+
+
+def _get_secondary_work_area() -> tuple[int, int, int, int] | None:
+    """优先返回次屏工作区；若不存在次屏则返回 None。"""
+    try:
+        monitors = []
+        for handle, _hdc, _rect in win32api.EnumDisplayMonitors():
+            monitor_info = win32api.GetMonitorInfo(handle)
+            work_left, work_top, work_right, work_bottom = monitor_info.get("Work")
+            monitors.append(
+                {
+                    "primary": bool(monitor_info.get("Flags", 0) & win32con.MONITORINFOF_PRIMARY),
+                    "work": (
+                        int(work_left),
+                        int(work_top),
+                        int(work_right),
+                        int(work_bottom),
+                    ),
+                }
+            )
+        secondary = [item for item in monitors if not item["primary"]]
+        if not secondary:
+            return None
+        secondary.sort(key=lambda item: (item["work"][0], item["work"][1]), reverse=True)
+        return secondary[0]["work"]
+    except Exception:
+        return None
+
+
+def _get_target_work_area_for_window(hwnd: int) -> tuple[int, int, int, int]:
+    """优先取次屏工作区；若无次屏则退回窗口所在显示器，再退回主屏。"""
+    secondary_work = _get_secondary_work_area()
+    if secondary_work:
+        return secondary_work
+
+    try:
+        monitor = win32api.MonitorFromWindow(hwnd, win32con.MONITOR_DEFAULTTONEAREST)
+        monitor_info = win32api.GetMonitorInfo(monitor)
+        work_left, work_top, work_right, work_bottom = monitor_info.get("Work")
+        return int(work_left), int(work_top), int(work_right), int(work_bottom)
+    except Exception:
+        width = int(win32api.GetSystemMetrics(0))
+        height = int(win32api.GetSystemMetrics(1))
+        return 0, 0, width, height
+
+
+def _place_window_quarter(
+    hwnd: int,
+    *,
+    corner: str = "top-right",
+    restore: bool = True,
+) -> bool:
+    """将窗口缩放到目标工作区 1/4，并放到指定角落。"""
+    if not hwnd or not win32gui.IsWindow(hwnd):
+        return False
+
+    left, top, right, bottom = _get_target_work_area_for_window(hwnd)
+    work_width = max(400, right - left)
+    work_height = max(300, bottom - top)
+    target_width = max(640, work_width // 2)
+    target_height = max(480, work_height // 2)
+
+    if corner == "top-left":
+        target_x = left
+        target_y = top
+    elif corner == "bottom-left":
+        target_x = left
+        target_y = bottom - target_height
+    elif corner == "bottom-right":
+        target_x = right - target_width
+        target_y = bottom - target_height
+    else:
+        target_x = right - target_width
+        target_y = top
+
+    if restore:
+        try:
+            win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+        except Exception:
+            pass
+
+    try:
+        flags = win32con.SWP_NOZORDER | win32con.SWP_NOACTIVATE | win32con.SWP_ASYNCWINDOWPOS
+        win32gui.SetWindowPos(hwnd, 0, target_x, target_y, target_width, target_height, flags)
+        return True
+    except Exception as exc:
+        sys_logger.warning(f"[_place_window_quarter] 调整窗口失败: hwnd={hwnd} corner={corner} exc={exc}")
+        return False
+
+
+def _place_window_top_right_quarter(hwnd: int) -> bool:
+    """将窗口缩放到目标工作区 1/4，并优先放到次屏右上角。"""
+    return _place_window_quarter(hwnd, corner="top-right")
+
+
+def _place_window_bottom_right_quarter(hwnd: int) -> bool:
+    """将窗口缩放到目标工作区 1/4，并优先放到次屏右下角。"""
+    return _place_window_quarter(hwnd, corner="bottom-right")
+
+
+def _resize_cad_window_for_background_use(pid: int, *, timeout: float = 25.0, poll_interval: float = 0.5) -> bool:
+    """等待 CAD 主窗口出现，并缩放到次屏右上角 1/4 工作区。"""
+    deadline = time.time() + max(timeout, 1.0)
+    last_hwnd = 0
+    while time.time() < deadline:
+        hwnd = _find_main_window_by_pid(pid)
+        if hwnd:
+            last_hwnd = hwnd
+            if _place_window_top_right_quarter(hwnd):
+                return True
+        time.sleep(max(poll_interval, 0.2))
+
+    if last_hwnd:
+        return _place_window_top_right_quarter(last_hwnd)
+    return False
+
+
+def _resize_windows_for_background_use(
+    *,
+    process_names: tuple[str, ...] | list[str] | None = None,
+    title_keywords: tuple[str, ...] | list[str] | None = None,
+    corner: str = "top-right",
+) -> dict[str, int]:
+    """将匹配到的窗口统一收拢到目标工作区的指定 1/4 区域。"""
+    windows = _enumerate_visible_top_windows(process_names=process_names, title_keywords=title_keywords)
+    moved = 0
+    for window in windows:
+        hwnd = int(window.get("hwnd") or 0)
+        if hwnd and _place_window_quarter(hwnd, corner=corner):
+            moved += 1
+    return {"observed": len(windows), "moved": moved}
+
+
 def start_applicationV9(
     PTH: str = r"C:\Tangent\TArchT20V9",
     max_retries: int = 3,
@@ -136,6 +360,11 @@ def start_applicationV9(
         try:
             proc = subprocess.Popen([str(exe)], cwd=str(exe.parent))
             time.sleep(3.0)
+            resized = _resize_cad_window_for_background_use(proc.pid)
+            if resized:
+                sys_logger.info(f"[start_applicationV9] 已将天正窗口缩放到次屏右上角 1/4 区域，PID={proc.pid}")
+            else:
+                sys_logger.warning(f"[start_applicationV9] 未能在启动阶段完成窗口缩放，PID={proc.pid}")
             try:
                 launch_cad_guardians()
             except Exception as guard_exc:
@@ -581,6 +810,7 @@ def launch_cad_guardians():
         "cad_dialog_killer.py",
         "cad_command_monitor.py",
         "cad_runtime_guard.py",
+        "cad_window_keeper.py",
     ]
 
     sys_logger.info(f"🛡️ [守护] 正在从 [{system_dir.name}] 启动守护进程...")

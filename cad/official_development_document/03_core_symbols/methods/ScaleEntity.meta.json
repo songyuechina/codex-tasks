@@ -1,0 +1,39 @@
+{
+  "symbol": "ScaleEntity",
+  "kind": "method",
+  "owners": [
+    "All Drawing Objects"
+  ],
+  "source_terms": [
+    "scaleentity method",
+    "scale entity"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "apply_3d_transform_to_objects"
+  ],
+  "pywin32_signature": "object.ScaleEntity(base_point, scale_factor)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/methods/ScaleEntity.md",
+  "source_topic_ids": [
+    "acadauto:idh_scaleentity"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_scaleentity.htm"
+  ]
+}

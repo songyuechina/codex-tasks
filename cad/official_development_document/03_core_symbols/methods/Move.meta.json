@@ -1,0 +1,42 @@
+{
+  "symbol": "Move",
+  "kind": "method",
+  "owners": [
+    "All Drawing Objects"
+  ],
+  "source_terms": [
+    "move method",
+    "transforming objects"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "apply_3d_transform_to_objects"
+  ],
+  "pywin32_signature": "object.Move(point1, point2)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/methods/Move.md",
+  "source_topic_ids": [
+    "acadauto:idh_move",
+    "acad_aag:GUID_19A5491D_7675_4ECF_A66A_5D309A14429F",
+    "acadauto:idh_remove"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acad_aag/GUID-19A5491D-7675-4ECF-A66A-5D309A14429F.htm",
+    "01_extracted_html/acadauto/idh_move.htm",
+    "01_extracted_html/acadauto/idh_remove.htm"
+  ]
+}

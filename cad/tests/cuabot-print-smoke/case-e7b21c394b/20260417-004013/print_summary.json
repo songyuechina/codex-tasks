@@ -1,0 +1,30 @@
+{
+  "run_root": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\case-e7b21c394b\\20260417-004013",
+  "work_dwg": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\case-e7b21c394b\\20260417-004013\\work\\work-case-e7b21c394b.dwg",
+  "process_token": "case-e7b21c394b",
+  "mode": "basic",
+  "plan_json": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\case-e7b21c394b\\20260417-004013\\print_plan.json",
+  "plan": {
+    "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\case-e7b21c394b\\20260417-004013\\work\\work-case-e7b21c394b.dwg",
+    "output_root": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\case-e7b21c394b\\20260417-004013\\pdf",
+    "source_stem": "plot-case-e7b21c394b",
+    "mode": "basic",
+    "total_jobs": 0,
+    "landscape_count": 0,
+    "portrait_count": 0,
+    "jobs_by_space": {}
+  },
+  "content_analysis_json": "",
+  "scope_analysis_json": "",
+  "scope_filter": null,
+  "started_at": "2026-04-17 00:39:54",
+  "execution": null,
+  "verification": null,
+  "finished_at": "2026-04-17 00:40:49",
+  "elapsed_seconds": 54.711,
+  "stage_durations": {
+    "runtime_prepare_seconds": 18.883,
+    "prepare_work_dwg_seconds": 35.508,
+    "build_plan_seconds": 0.304
+  }
+}

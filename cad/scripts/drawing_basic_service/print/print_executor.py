@@ -29,10 +29,10 @@ if str(LIBRARY_DIR) not in sys.path:
 
 from system.common_logger import sys_logger
 from system.licad import C
-from system.CAD_core import set_space_mode, switch_to_layout
+from system.CAD_core import _place_window_bottom_right_quarter, _resize_windows_for_background_use, set_space_mode, switch_to_layout
 from system.CAD_coordination import wait_quiescent
 from system.runtime_guard_bridge import assert_runtime_guard_ok
-from cad_control import activate_window_by_title, minimize_all_windows
+from cad_control import activate_window_by_title
 
 from print_policy import PrintJob, PrintPlan
 
@@ -59,13 +59,26 @@ WPS_WINDOW_KEYWORDS = ("WPS OFFICE", "WPS PDF")
 WPS_PROCESS_IMAGES = ("wps.exe", "wpspdf.exe")
 
 
+def _keep_wps_windows_bottom_right() -> None:
+    try:
+        _resize_windows_for_background_use(
+            process_names=WPS_PROCESS_IMAGES,
+            title_keywords=WPS_WINDOW_KEYWORDS,
+            corner="bottom-right",
+        )
+    except Exception:
+        pass
+
+
 def _wait_for_pdf_ready(pdf_path: str | Path, timeout: float = 90.0) -> bool:
     target = Path(pdf_path)
     deadline = time.time() + timeout
     while time.time() < deadline:
+        _keep_wps_windows_bottom_right()
         if target.exists():
             try:
                 if target.stat().st_size > 0:
+                    _keep_wps_windows_bottom_right()
                     with target.open("rb"):
                         pass
                     return True
@@ -338,19 +351,18 @@ def cleanup_wps_windows() -> None:
         if not current_windows:
             break
         observed_windows = current_windows
-        try:
-            minimize_all_windows()
-            time.sleep(0.4)
-        except Exception:
-            pass
+        _keep_wps_windows_bottom_right()
         for window in current_windows:
             try:
                 hwnd = int(window["hwnd"])
                 if win32gui.IsIconic(hwnd):
                     win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
                     time.sleep(0.2)
-                win32gui.ShowWindow(hwnd, win32con.SW_MAXIMIZE)
-                time.sleep(0.2)
+                try:
+                    _place_window_bottom_right_quarter(hwnd)
+                    time.sleep(0.2)
+                except Exception:
+                    pass
                 win32gui.PostMessage(hwnd, win32con.WM_CLOSE, 0, 0)
             except Exception:
                 pass

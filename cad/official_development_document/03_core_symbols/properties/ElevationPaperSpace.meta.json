@@ -1,0 +1,39 @@
+{
+  "symbol": "ElevationPaperSpace",
+  "kind": "property",
+  "owners": [
+    "Document"
+  ],
+  "source_terms": [
+    "elevationpaperspace property",
+    "paper space elevation"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "understand_and_convert_coordinate_systems",
+    "read_3d_object_spatial_identity"
+  ],
+  "pywin32_signature": "C.doc.ElevationPaperSpace",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/properties/ElevationPaperSpace.md",
+  "source_topic_ids": [
+    "acadauto:idh_elevationpaperspace",
+    "acadauto:ex_elevationpaperspace"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_elevationpaperspace.htm",
+    "01_extracted_html/acadauto/ex_elevationpaperspace.htm"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "symbol": "ActiveUCS",
+  "kind": "property",
+  "owners": [
+    "Document"
+  ],
+  "source_terms": [
+    "activeucs property",
+    "ucs object"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "understand_and_convert_coordinate_systems",
+    "apply_3d_transform_to_objects"
+  ],
+  "pywin32_signature": "C.doc.ActiveUCS",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/properties/ActiveUCS.md",
+  "source_topic_ids": [
+    "acadauto:idh_activeucs",
+    "acadauto:idh_ucs_object"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_activeucs.htm",
+    "01_extracted_html/acadauto/idh_ucs_object.htm"
+  ]
+}

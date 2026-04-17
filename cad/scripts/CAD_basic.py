@@ -1165,6 +1165,15 @@ def start_applicationV9(
             # 这样可以避免 Monitor 一上来就找不到 CAD 窗口
             time.sleep(3.0) 
 
+            try:
+                from system.CAD_core import _resize_cad_window_for_background_use
+                if _resize_cad_window_for_background_use(proc.pid):
+                    sys_logger.info(f"[start_applicationV9] 已将天正窗口缩放到右上角 1/4 区域，PID={proc.pid}")
+                else:
+                    sys_logger.info(f"[start_applicationV9] 未能在启动阶段完成窗口缩放，PID={proc.pid}")
+            except Exception as resize_exc:
+                sys_logger.info(f"[start_applicationV9] 启动后调整窗口失败: {resize_exc}")
+
             # 2. 启动 弹窗治理脚本
             launch_helper_script(killer_script, "cad_dialog_killer")
 

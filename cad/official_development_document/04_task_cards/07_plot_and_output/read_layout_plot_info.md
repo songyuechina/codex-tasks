@@ -7,8 +7,6 @@
 - `Layout`
 - `Plot`
 - `RefreshPlotDeviceInfo`
-- `ConfigName`
-- `CanonicalMediaName`
 - `SetWindowToPlot`
 - `ActiveLayout`
 - owners:
@@ -37,22 +35,20 @@
 读取布局对象的打印设备、纸张、窗口范围和相关图签信息。
 
 ## Priority Path
-1. 优先看 `Layout` / `Plot` / `RefreshPlotDeviceInfo` / `ConfigName` / `CanonicalMediaName` / `SetWindowToPlot`
+1. 优先看 `Layout` / `Plot` / `RefreshPlotDeviceInfo` / `SetWindowToPlot`
 2. 业务层优先参考 `print_info_analysis.py` 和 `print_policy.py`
 
 ## Related Core Symbols
 - `Layout`
 - `Plot`
 - `RefreshPlotDeviceInfo`
-- `ConfigName`
-- `CanonicalMediaName`
 - `SetWindowToPlot`
 - `ActiveLayout`
 
 ## Workflow
 1. 取得目标布局对象
-2. 刷新打印设备信息并固定 `ConfigName`
-3. 再次刷新后读取 `CanonicalMediaName`、旋转、窗口或块快照信息
+2. 刷新打印设备信息
+3. 读取纸张、旋转、窗口或块快照信息
 4. 结合图签信息形成后续打印计划输入
 
 ## Project Notes
@@ -78,13 +74,11 @@
 - `05_pywin32_bridge/collection_rules.md`
 - `05_pywin32_bridge/variant_rules.md`
 - `05_pywin32_bridge/common_failures.md`
-- `05_pywin32_bridge/plot_layout_rules.md`
 
 ## Aggregated Rule Refs
 - `05_pywin32_bridge/collection_rules.md`
 - `05_pywin32_bridge/variant_rules.md`
 - `05_pywin32_bridge/common_failures.md`
-- `05_pywin32_bridge/plot_layout_rules.md`
 
 ## Source Trace
 - source_topic_ids:

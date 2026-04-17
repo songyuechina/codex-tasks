@@ -1,0 +1,47 @@
+{
+  "symbol": "normal_vector",
+  "kind": "type_topic",
+  "owners": [
+    "pywin32",
+    "ActiveX"
+  ],
+  "source_terms": [
+    "normal property",
+    "ocs normal",
+    "translatecoordinates"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "understand_and_convert_coordinate_systems",
+    "read_3d_object_spatial_identity",
+    "section_3d_geometry_for_2d_expression"
+  ],
+  "pywin32_signature": "(nx, ny, nz) as WCS unit vector",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md"
+  ],
+  "path_md": "03_core_symbols/types_and_variants/normal_vector.md",
+  "source_topic_ids": [
+    "acadauto:idh_normal",
+    "acadauto:idh_translatecoordinates",
+    "acadauto:ex_translatecoordinates",
+    "acadauto:translatecoordinates_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_translatecoordinates.htm",
+    "01_extracted_html/acadauto/idh_normal.htm",
+    "01_extracted_html/acadauto/idh_translatecoordinates.htm",
+    "01_extracted_html/acadauto/translatecoordinates_see_also.htm"
+  ]
+}

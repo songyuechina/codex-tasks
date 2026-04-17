@@ -84,6 +84,9 @@
 ### `cad_runtime_guard.py`
 运行环境守护脚本。被动检测当前活动 CAD 是否仍处于可信天正运行环境，并输出结构化状态/告警。
 
+### `cad_window_keeper.py`
+窗口收拢守护脚本。持续把 CAD 主窗口压到次屏右上角 `1/4` 区域，把 WPS 窗口压到次屏右下角 `1/4` 区域，避免打印链占用主屏工作区。
+
 ### `cad_test_supervisor.py`
 测试期被动监督脚本。用于在真实函数测试期间持续观察：
 
@@ -92,9 +95,24 @@
 
 它不负责启动 CAD，也不负责恢复 CAD，只做测试护栏与违规上报。
 
+## J. cuabot 宿主机桥接层
+### `cuabot_cad_host_bridge.py`
+定位：给 `cuabot` Linux 容器内的 Codex 提供“宿主机天正/CAD 后台控制入口”，并补充 `D:/codex-tasks` 项目脚本的宿主机执行入口。
+
+关键点：
+- 容器内的 `cad-host` 命令会通过 HTTP 调用宿主机桥接脚本。
+- 容器内的 `task-host` 命令也会通过同一个桥接脚本调用宿主机。
+- 宿主机桥接脚本只暴露受控动作，底层实际仍复用 `CAD_core.py`。
+- 对于需要宿主机能力的项目脚本，桥接层会受控地调用宿主机 Python / PowerShell，在 `D:/codex-tasks` 范围内执行。
+- 这条链路的目标是：
+  - 容器内智能体可以继续隔离运行
+  - 本地天正 CAD 在宿主机上真实打开并处理 DWG
+  - 默认优先复用 COM / 进程级控制，不抢鼠标键盘
+  - 项目代码与 DWG 继续留在本地 `D:/codex-tasks`
+
 ---
 
-# 3. 当前确认的 11 个正式脚本
+# 3. 当前确认的 12 个正式脚本
 
 1. `CAD_com_utils.py`
 2. `cad_command_monitor.py`
@@ -102,11 +120,12 @@
 4. `CAD_core.py`
 5. `cad_dialog_killer.py`
 6. `cad_runtime_guard.py`
-7. `CAD_selection.py`
-8. `common_logger.py`
-9. `content_analysis_dwg_file.py`
-10. `licad.py`
-11. `project_setup.py`
+7. `cad_window_keeper.py`
+8. `CAD_selection.py`
+9. `common_logger.py`
+10. `content_analysis_dwg_file.py`
+11. `licad.py`
+12. `project_setup.py`
 
 ---
 

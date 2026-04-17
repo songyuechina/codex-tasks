@@ -1,0 +1,41 @@
+{
+  "symbol": "AddRevolvedSolid",
+  "kind": "method",
+  "owners": [
+    "ModelSpace",
+    "PaperSpace",
+    "Block"
+  ],
+  "source_terms": [
+    "addrevolvedsolid method",
+    "3dsolid object"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "create_region_and_extrude_solid"
+  ],
+  "pywin32_signature": "model_space.AddRevolvedSolid(profile_region, axis_point, axis_dir, angle)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/3d_entity_creation_rules.md",
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/methods/AddRevolvedSolid.md",
+  "source_topic_ids": [
+    "acadauto:idh_addrevolvedsolid",
+    "acadauto:idh_3dsolid_object"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/idh_3dsolid_object.htm",
+    "01_extracted_html/acadauto/idh_addrevolvedsolid.htm"
+  ]
+}

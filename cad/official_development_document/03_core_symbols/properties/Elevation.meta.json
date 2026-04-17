@@ -1,0 +1,48 @@
+{
+  "symbol": "Elevation",
+  "kind": "property",
+  "owners": [
+    "Hatch",
+    "Polyline",
+    "Section"
+  ],
+  "source_terms": [
+    "elevation property",
+    "translatecoordinates",
+    "polyline elevation"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "understand_and_convert_coordinate_systems",
+    "read_3d_object_spatial_identity"
+  ],
+  "pywin32_signature": "entity.Elevation",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/content_analysis_dwg_file.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/point_array_rules.md",
+    "05_pywin32_bridge/variant_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/properties/Elevation.md",
+  "source_topic_ids": [
+    "acadauto:idh_elevation",
+    "acadauto:idh_translatecoordinates",
+    "acadauto:ex_translatecoordinates",
+    "acadauto:translatecoordinates_see_also"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_translatecoordinates.htm",
+    "01_extracted_html/acadauto/idh_elevation.htm",
+    "01_extracted_html/acadauto/idh_translatecoordinates.htm",
+    "01_extracted_html/acadauto/translatecoordinates_see_also.htm"
+  ]
+}

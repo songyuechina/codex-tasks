@@ -44,11 +44,17 @@
   "source_topic_ids": [
     "acadauto:ex_canonicalmedianame",
     "acadauto:idh_canonicalmedianame",
-    "acadauto:canonicalmedianame_see_also"
+    "acadauto:canonicalmedianame_see_also",
+    "acad_aag:GUID_16AB5D5E_CC71_4A24_8B9F_D78C6D191D3B",
+    "acadauto:ex_getcanonicalmedianames",
+    "acadauto:idh_getcanonicalmedianames"
   ],
   "source_html_paths": [
     "01_extracted_html/acadauto/ex_canonicalmedianame.htm",
     "01_extracted_html/acadauto/idh_canonicalmedianame.htm",
-    "01_extracted_html/acadauto/canonicalmedianame_see_also.htm"
+    "01_extracted_html/acadauto/canonicalmedianame_see_also.htm",
+    "01_extracted_html/acad_aag/GUID-16AB5D5E-CC71-4A24-8B9F-D78C6D191D3B.htm",
+    "01_extracted_html/acadauto/ex_getcanonicalmedianames.htm",
+    "01_extracted_html/acadauto/idh_getcanonicalmedianames.htm"
   ]
 }

@@ -1,0 +1,663 @@
+{
+  "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+  "output_root": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf",
+  "source_stem": "plot-case-8b4f1fdad7",
+  "mode": "basic",
+  "total_jobs": 26,
+  "landscape_count": 26,
+  "portrait_count": 0,
+  "jobs_by_space": {
+    "model": [
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12887",
+        "lower_left": [
+          380662.0,
+          3073909.0
+        ],
+        "upper_right": [
+          380872.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 1,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-01.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12888",
+        "lower_left": [
+          380892.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381102.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 2,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-02.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12889",
+        "lower_left": [
+          381122.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381332.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 3,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-03.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288A",
+        "lower_left": [
+          381351.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381561.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 4,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-04.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288B",
+        "lower_left": [
+          381587.0,
+          3073909.0
+        ],
+        "upper_right": [
+          381797.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 5,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-05.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288C",
+        "lower_left": [
+          381825.0,
+          3073909.0
+        ],
+        "upper_right": [
+          382035.0,
+          3074057.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 6,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-06.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288D",
+        "lower_left": [
+          382054.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382264.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 7,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-07.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288E",
+        "lower_left": [
+          382287.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382497.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 8,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-08.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1288F",
+        "lower_left": [
+          382515.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382725.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 9,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-09.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12890",
+        "lower_left": [
+          382746.0,
+          3073908.0
+        ],
+        "upper_right": [
+          382956.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 10,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-10.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12891",
+        "lower_left": [
+          382968.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383178.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 11,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-11.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12892",
+        "lower_left": [
+          383205.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383415.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 12,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-12.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12893",
+        "lower_left": [
+          383434.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383644.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 13,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-13.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12894",
+        "lower_left": [
+          383667.0,
+          3073908.0
+        ],
+        "upper_right": [
+          383877.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 14,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-14.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12895",
+        "lower_left": [
+          383895.0,
+          3073908.0
+        ],
+        "upper_right": [
+          384105.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 15,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-15.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12896",
+        "lower_left": [
+          384126.0,
+          3073908.0
+        ],
+        "upper_right": [
+          384336.0,
+          3074056.5
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 16,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-16.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12897",
+        "lower_left": [
+          380662.0,
+          3073712.5
+        ],
+        "upper_right": [
+          380872.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 17,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-17.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12898",
+        "lower_left": [
+          380892.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381102.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 18,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-18.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "12899",
+        "lower_left": [
+          381122.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381332.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 19,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-19.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289A",
+        "lower_left": [
+          381351.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381561.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 20,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-20.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289B",
+        "lower_left": [
+          381587.0,
+          3073712.5
+        ],
+        "upper_right": [
+          381797.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 21,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-21.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289C",
+        "lower_left": [
+          381825.0,
+          3073712.5
+        ],
+        "upper_right": [
+          382035.0,
+          3073861.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 22,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-22.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289D",
+        "lower_left": [
+          382054.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382264.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 23,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-23.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289E",
+        "lower_left": [
+          382287.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382497.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 24,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-24.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "1289F",
+        "lower_left": [
+          382515.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382725.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 25,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-25.pdf"
+      },
+      {
+        "dwg_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\work\\work-case-8b4f1fdad7.dwg",
+        "space_kind": "model",
+        "layout_name": "model",
+        "owner_btr": "*MODEL_SPACE",
+        "handle": "128A0",
+        "lower_left": [
+          382746.0,
+          3073711.5
+        ],
+        "upper_right": [
+          382956.0,
+          3073860.0
+        ],
+        "short_side": 148.5,
+        "long_side": 210.0,
+        "media": "ISO_A3_(420.00_x_297.00_MM)",
+        "ratio": "1:50",
+        "paper_code": "A3",
+        "rotation": 0,
+        "plot_scale": 1.0,
+        "standard_flag": 1,
+        "sequence_no": 26,
+        "output_path": "D:\\codex-tasks\\cad\\tests\\cuabot-print-smoke\\20260417-wps-secondary-check\\case-8b4f1fdad7\\20260417-232544\\pdf\\model\\plot-case-8b4f1fdad7-model-26.pdf"
+      }
+    ]
+  }
+}

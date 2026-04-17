@@ -1,0 +1,16 @@
+ 第四轮已完成，主链已经从“二维施工图 + 打印/图签/目录”扩成“二维主链 + 服务施工图空间关系表达的三维主链”。范围和边界先落
+  到了 00_readme/FOURTH_ROUND_GAP_ASSESSMENT.md 和 00_readme/FOURTH_ROUND_SCOPE.md，同时更新了 README.md、00_readme/
+  README_Codex_Workflow.md、00_readme/README_Task_Priority.md、00_readme/README_Filter_Rules.md，旧的“默认压低 3D”表述已
+  经清掉。
+
+  规则层和入口层也补齐了。新增了 05_pywin32_bridge/coordinate_system_rules.md、05_pywin32_bridge/3d_transform_rules.md、
+  05_pywin32_bridge/3d_entity_creation_rules.md、05_pywin32_bridge/section_region_rules.md，新增了
+  10_3d_spatial_expression 组六张任务卡，例如 04_task_cards/10_3d_spatial_expression/
+  understand_and_convert_coordinate_systems.md 和 04_task_cards/10_3d_spatial_expression/
+  create_region_and_extrude_solid.md。核心卡已补到 UCS / 3dPolyline / 3DFace / Region / 3DSolid / TranslateCoordinates /
+  SectionSolid / TransformBy / ActiveUCS / Normal / Elevation* 等层，生成逻辑也收进了 tools/build_core_symbols.py 和
+  tools/build_task_cards.py。
+
+  验证已通过：运行 py -3 .\tools\validate_doc_system.py 返回 Validation passed.。验证层同步更新在 tools/
+  validate_doc_system.py、07_validation/validation_tasks.md、07_validation/validation_cases.json，本轮总结在
+  07_validation/fourth_round_change_log.md。工作区里有一些与你这次任务无关的现有改动，我没有动它们。

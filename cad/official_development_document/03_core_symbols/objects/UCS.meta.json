@@ -1,0 +1,51 @@
+{
+  "symbol": "UCS",
+  "kind": "object",
+  "owners": [
+    "Document",
+    "UCSs"
+  ],
+  "source_terms": [
+    "ucs object",
+    "user coordinate system object",
+    "activeucs",
+    "getucsmatrix"
+  ],
+  "value_level": "high",
+  "related_tasks": [
+    "understand_and_convert_coordinate_systems",
+    "apply_3d_transform_to_objects"
+  ],
+  "pywin32_signature": "C.doc.ActiveUCS / C.doc.UserCoordinateSystems.Item(name)",
+  "risk_tags": [],
+  "project_paths": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "project_refs": [
+    "cad/system/licad.py",
+    "cad/system/CAD_core.py",
+    "cad/scripts/CAD_basic.py"
+  ],
+  "rule_refs": [
+    "05_pywin32_bridge/coordinate_system_rules.md",
+    "05_pywin32_bridge/3d_transform_rules.md",
+    "05_pywin32_bridge/common_failures.md"
+  ],
+  "path_md": "03_core_symbols/objects/UCS.md",
+  "source_topic_ids": [
+    "acadauto:idh_ucs_object",
+    "acadauto:idh_activeucs",
+    "acadauto:idh_getucsmatrix",
+    "acadauto:ex_activeucs",
+    "acadauto:ex_getucsmatrix"
+  ],
+  "source_html_paths": [
+    "01_extracted_html/acadauto/ex_activeucs.htm",
+    "01_extracted_html/acadauto/idh_activeucs.htm",
+    "01_extracted_html/acadauto/ex_getucsmatrix.htm",
+    "01_extracted_html/acadauto/idh_getucsmatrix.htm",
+    "01_extracted_html/acadauto/idh_ucs_object.htm"
+  ]
+}
